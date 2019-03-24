@@ -1,0 +1,201 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Francisco J. Palacios">
+   <title>Taller de Perl - Perl B&aacute;sico</title>
+</head>
+<body background="fondo.jpg">
+
+<div ALIGN=right>
+<h3>
+<img SRC="camel.gif" height=149 width=144></h3></div>
+
+<h3>
+5. Estructuras de control (p&aacute;gina man: <font color="#FF0000">perlsyn</font>)</h3>
+
+<p><br>Perl dispone de las estructuras de control habituales en otros lenguajes
+de programaci&oacute;n. Se dividen en dos grupos: estructuras condicionales
+y estructuras iterativas.
+<br>&nbsp;
+<p><b><u>Condicionales</u></b>
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>if ( <i>expr. booleana</i> )
+<br>{
+<br>&nbsp;&nbsp;&nbsp; ...
+<br>}</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>if ( <i>expr. booleana</i> )
+<br>{
+<br>&nbsp;&nbsp;&nbsp; ...
+<br>}
+<br>else
+<br>{
+<br>&nbsp;&nbsp;&nbsp; ...
+<br>}</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>if ( <i>expr. booleana </i>)
+<br>{
+<br>&nbsp;&nbsp;&nbsp; ...
+<br>}
+<br>elsif ( <i>expr. booleana</i> )
+<br>{
+<br>&nbsp;&nbsp;&nbsp; ...
+<br>}
+<br>...
+<br>else
+<br>{
+<br>&nbsp;&nbsp;&nbsp; ...
+<br>}</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>unless ( <i>expr. booleana</i> )
+<br>{
+<br>&nbsp;&nbsp;&nbsp; ...
+<br>}</td>
+</tr>
+</table>
+
+<p><i>expr. booleana</i> son expresiones l&oacute;gicas que pueden ser
+compuestas, usando operadores l&oacute;gicos.
+<p>Algunos de los operadores l&oacute;gicos para las <i>expr. booleanas</i>
+son:&nbsp;&nbsp; (p&aacute;gina man: <font color="#FF0000">perlop</font>)
+<br>&nbsp;
+<table BORDER=0 COLS=3 WIDTH="60%" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>AND</td>
+
+<td><b><font color="#FF0000">&amp;&amp;</font></b></td>
+
+<td></td>
+</tr>
+
+<tr NOSAVE>
+<td NOSAVE>OR&nbsp;</td>
+
+<td><b><font color="#FF0000">|&nbsp;&nbsp; |</font></b></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>NOT</td>
+
+<td><b><font color="#FF0000">!</font></b></td>
+
+<td></td>
+</tr>
+
+<tr NOSAVE>
+<td>igual&nbsp;</td>
+
+<td><b><font color="#FF0000">==</font></b>
+<br><b><font color="#FF0000">eq</font></b></td>
+
+<td NOSAVE>(numeros)
+<br>(cadenas de caracteres)</td>
+</tr>
+
+<tr>
+<td>distinto</td>
+
+<td><b><font color="#FF0000">! =</font></b>
+<br><b><font color="#FF0000">ne&nbsp;</font></b></td>
+
+<td>(numeros)
+<br>(cadenas)</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<p><b><u>Iterativas</u></b>
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>while&nbsp; ( <i>expr. booleana</i> )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Se eval&uacute;a la condici&oacute;n al principio. Bucle&nbsp;&nbsp; 0+
+veces
+<br>{
+<br>&nbsp;&nbsp;&nbsp; ...
+<br>}</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>do
+<br>{
+<br>&nbsp;&nbsp;&nbsp; ...
+<br>} while ( <i>expr. booleana</i> )&nbsp;&nbsp;&nbsp;&nbsp; Se eval&uacute;a
+la condici&oacute;n al final. Bucle&nbsp; 1+ veces (Al menos se ejecuta
+siempre 1 vez)</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>for(<font color="#006600">$i</font> = <i><font color="#993399">ini</font></i>;
+<font color="#006600">$i</font>
+&lt; <i><font color="#993399">fin</font></i> ; <font color="#006600">$i</font>++)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Bucle con n&uacute;mero de iteraciones fijo igual a (<i><font color="#993399">fin</font></i>-<i><font color="#993399">ini</font></i>)
+<br>{
+<br>&nbsp;&nbsp;&nbsp; ...
+<br>}</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>foreach <font color="#006600">$value</font>(<font color="#006600">@array</font>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Bucle con n&uacute;mero de iteraciones fijo e igual al n&uacute;mero de
+elementos del array
+<br>{&nbsp;
+<br>&nbsp;&nbsp;&nbsp; ...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color="#006600">$value</font> toma el valor de un elemento del array
+diferente en cada iteracion
+<br>}</td>
+</tr>
+</table>
+
+<p>
+<hr WIDTH="100%">
+<center><table BORDER=0 COLS=3 WIDTH="25%" NOSAVE >
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node2.html"><img SRC="ol.gif" BORDER=0 height=44 width=65></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html"><img SRC="home02.gif" BORDER=0 height=75 width=61></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node4.html"><img SRC="or.gif" BORDER=0 height=44 width=65></a></td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node2.html">Anterior</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html">Home</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node4.html">Siguiente</a></td>
+</tr>
+</table></center>
+
+</body>
+</html>

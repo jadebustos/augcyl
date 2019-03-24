@@ -1,0 +1,59 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Francisco J. Palacios Burgos">
+   <title>Taller de Perl - Sockets</title>
+</head>
+<body background="fondo.jpg">
+
+<div align=right><img SRC="camel.gif" height=149 width=144></div>
+
+<h3>
+6. Un paso m&aacute;s: transferencia de ficheros</h3>
+
+<p><br>Por un socket, no s&oacute;lo podemos mandar la hora, o mensajes
+de un protocolo, sino que podr&iacute;amos por ejemplo transferir un fichero
+almacenado en disco. Vamos a modificar el cliente y el servidor para que
+el cliente cuando se conecte al servidor pueda obtener un fichero situado
+en el mismo directorio en el que se ejecuta el servidor.
+<p>El servidor (<font color="#000000"><a href="server2.pl">servidor2.pl</a></font>)
+se encuentra en el directorio usual y el cliente (<font color="#000000"><a href="file_transfer/client2.pl">cliente2.pl</a></font>)
+en un subdirectorio llamado file_transfer.
+<p>En el cliente, se abre una consola en la que se pueden introducir dos
+comandos:
+<br>&nbsp;
+<table BORDER=0 COLS=2 WIDTH="100%" NOSAVE >
+<tr NOSAVE>
+<td WIDTH="150" NOSAVE>DIR</td>
+
+<td NOSAVE>Lista los ficheros en el directorio del servidor</td>
+</tr>
+
+<tr>
+<td>GET&nbsp;&nbsp;&nbsp; &lt;lista ficheros></td>
+
+<td>Obtiene cada uno de los ficheros que se le indiquen</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<div align=right>
+<hr WIDTH="100%"></div>
+
+<center><table BORDER=0 COLS=2 WIDTH="20%" NOSAVE >
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node4.html"><img SRC="ol.gif" BORDER=0 height=44 width=65></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html"><img SRC="home02.gif" BORDER=0 height=75 width=61></a></td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node4.html">Anterior</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html">Home</a></td>
+</tr>
+</table></center>
+
+</body>
+</html>

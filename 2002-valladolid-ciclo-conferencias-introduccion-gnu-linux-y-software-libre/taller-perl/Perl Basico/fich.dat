@@ -1,0 +1,5 @@
+Fichero de prueba para el ejemplo de las rutas. Una ejemplo de ruta podria
+ser /home/users/foo/ aunque puede haber tambien rutas sin el / final, como
+por ejemplo /var/lib.
+
+Tambien puede haber casos patologicos como ////

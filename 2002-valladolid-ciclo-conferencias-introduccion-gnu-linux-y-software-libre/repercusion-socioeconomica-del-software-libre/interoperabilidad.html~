@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>Compatibilidad de formatos de representación</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.64
+"><LINK
+REL="HOME"
+TITLE="Repercusión socioeconómica del Software Libre"
+HREF="repercusion-socioeconomica-sl.html"><LINK
+REL="PREVIOUS"
+TITLE="Libertad de elección"
+HREF="libertad-eleccion.html"><LINK
+REL="NEXT"
+TITLE="La seguridad"
+HREF="seguridad.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Repercusión socioeconómica del Software Libre</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="libertad-eleccion.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="seguridad.html"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="INTEROPERABILIDAD"
+>Compatibilidad de formatos de representación</A
+></H1
+><P
+></P
+><UL
+COMPACT="COMPACT"
+><LI
+STYLE="list-style-type: disc"
+><P
+>	Con el Software Libre tienes acceso a ver el API que una aplicación 
+	exporta y a como está implementado.
+	</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>	Ante eventuales problemas puedes reimplementar el API de tereceros.
+	</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>	En estos momentos solo el Software Libre
+	garantiza el respeto a los estándares en los formatos, protocolos e
+	interfaces por su propia filosofía ya que si alguno no lo cumpliera 
+	cualquiera podría cambiarlo para que lo hiciera.
+	</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>	Es conveniente resaltar en este punto que la
+	estrategia seguida por el Software Propietario es romper constantemente los
+	estándares,  no porque traten de innovar (si fuera así lo aportarían al
+	estándar), sino porque tratan de monopolizar el mercado (una vez que usas
+	"su" formato, cambiar tiene un coste y es una molestia).
+	</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>	Ante la masiva utilización hoy día de Sistemas Informáticos en todos los 
+	ámbitos de la Administración pública y de la pequeña y mediana empresa es
+	 necesario asegurarse de almacenarlos en formatos estándares públicos no en
+	pretendidos estándares de facto, pues estos pueden ser cambiados en cualquier
+	 momento por su creador(como, de hecho, así ocurre).
+	</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>	Actualmente esta es realmente la mayor dificultad porque ya existe una 
+	gran cantidad de información almacenada en formatos propietarios y cerrados 
+	y será necesario trasformarlos en formatos estándar, no obstante es necesario
+	 hacer notar que esta situación empeorará con el tiempo si no se opta cuanto
+	 antes por adoptar formatos que aseguren su tratamiento independiente de los
+	 fabricantes en el futuro .
+		</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="libertad-eleccion.html"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="repercusion-socioeconomica-sl.html"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="seguridad.html"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Libertad de elección</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>La seguridad</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

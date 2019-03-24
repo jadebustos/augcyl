@@ -1,0 +1,13 @@
+<html>
+<head>
+<title>P&aacute;gina 53</title>
+</head>
+<body text=#000000 bgcolor=#FFFFFF link=#000080 vlink=#800000 alink=#000080>
+<center>
+<a href="text0.htm">Primera p&aacute;gina</a> <a href="text51.htm">Regresar</a> <a href="text53.htm">Siguiente</a> <a href="text61.htm">&Uacute;ltima p&aacute;gina</a> <a href="img52.htm">Imagen</a></center><br>
+<h1>Ejemplos de ataques</h1><p>
+<ul><li><h2>Si no se &#147;escapan&#148; los datos de entrada:&#10;Escribimos un c&oacute;digo como el siguiente&#10;	char to[1000];&#10;	char comando[1000];&#10;	leer(to);&#10;	strcpy(comando,&#148;/bin/mail &#147;);&#10;	strcat(comando, to);&#10;	popen(comando);&#10;&#10; si el usuario escribe       &#147;&gt;/dev/null; touch /tmp/estoy_dentro&#148;&#10; se ejecutar&iacute;a                  /bin/mail &gt;/dev/null; touch /tmp/estoy_dentro&#10; si se &#147;escapa&#148; el &#147;;&#148;        /bin/mail \&gt;/dev/null \; touch /tmp/estoy_dentro&#10;&#10;&iquest;Qu&eacute; hubiera pasado si este programa perteneciera a root con SUID y el usuario hubiese escrito: &#147;&gt;/dev/null; cp /bin/sh .sh; chmod 4755 .sh&#148; ?</h2>
+</ul><br>
+<h3>Notas:</h3>
+</body>
+</html>

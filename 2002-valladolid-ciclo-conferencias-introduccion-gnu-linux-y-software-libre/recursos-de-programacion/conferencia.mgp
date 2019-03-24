@@ -1,0 +1,186 @@
+%include "default.mgp"
+%default 1 bgrad
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+%center, size 7, font "helmeth", fore "white", vgap 20
+%charset "iso8859-1"
+
+Ciclo de Conferencias de Introducción a
+GNU/Linux y al Software Libre
+
+#%image "logo-jornadas.png" 1024x768
+%fore "green"
+
+Recursos de Programación en GNU/Linux
+
+%fore "red", size 5
+Mario Arias Gallego <mck@augcyl.org>
+Chema Peribáñez <chema@augcyl.org>
+
+%image "logo-augcyl.png" 1024x768
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Licencias
+
+copyleft: GPL
+	origen proyecto GNU
+	concepto de trabajo derivado
+	licencia dual
+	forma de financiación
+no-copyleft: BSD modificada, MIT X11
+	evitar las incompatibles 
+LGPL
+MPL
+
+
+%page
+
+Dónde buscar programas
+
+www.freshmeat.net
+www.sourceforge.net
+www.gnu.org
+savannah.gnu.org
+www.debian.org
+www.gnome.org
+www.kde.org
+
+%pause
+%fore "red"
+no reinventar la rueda
+%fore "white"
+colaborar
+%pause
+%fore "green"
+humildad y no desanimarse
+%fore "white"
+
+%page
+
+Sourceforge
+
+Qué ofrece
+	web con PHP
+	base de datos
+	listas de correo
+%pause
+	ftp
+	ssh
+	máquinas donde compilar
+	cvs
+	bugzilla
+%pause
+%fore "yellow"
+Quién lo ofrece
+	http://savannah.gnu.org/
+	http://www.sf.net/
+	pronto, hispalinux
+%fore "white"
+
+%page
+
+SourceForge  (www.sf.net) en cifras
+
+Más de 38.000 proyectos alojados
+Más de 400.000 usuarios registrados
+Los servidores soportan 12 Millones de visitas diarias de páginas php
+1.3 Terabytes de capacidad
+47Gb Ram
+56GHz procesadores
+Todos los discos tienen RAID para progejer los datos
+
+%page
+
+Lenguajes de programación
+	C/C++: gcc
+	Interpretados: Perl, Python
+	emprotables: Scheme
+	Java
+	gcj
+
+Programación web
+	Apache: FastCGI, módulos
+	PHP
+	Perl
+	Tomcat
+
+%page
+
+Bases de Datos
+
+MySQL (www.mysql.com)
+PostGreSQL (www.postgresql.org)
+InterBase
+	FireBird (firebird.sourceforge.net/)
+SapDB (www.sapdb.org)
+
+%page
+
+Programación de empresa
+
+J2EE
+	JBoss (www.jboss.org/)
+GNUe (www.gnuenterprise.org) 
+www.osdl.org
+
+%page
+
+Programación multiplataforma
+
+Linux/Unix es multiplataforma
+	ejecutables transportables
+	automake, configure
+        warnings		
+	X-Window: Motif, Gtk+, Qt
+
+%page
+
+Programación multiplataforma (II)
+
+Compatibilidad hacia Windows
+	cygwin (http://cygwin.com/)
+	X-Window (http://cygwin.com/xfree/)
+Migrar desde Windows
+	Wine
+librerías multiplataforma
+	hilos, red, E/S:
+		ACE www.cs.wustl.edu/~schmidt/ACE.html
+		NSPR www.mozilla.org/projects/nspr/
+	gráfico y más cosas: wxWindows
+	multimedia: SDL www.libsdl.org
+
+%page
+
+Programación multiplataforma (III)
+
+Java
+	Java no es libre
+	gcj (http://gcc.gnu.org/java/)
+	Eclipse http://eclipse.org/
+	SWT (forma parte de Eclipse)
+	jikes (www-124.ibm.com/developerworks/oss/jikes/)
+.NET
+        Dot GNU (www.dotgnu.net)
+		Portable.Net
+	Mono (www.go-mono.org)
+Sash (www.sashxb.org); basado en Mozilla
+
+%page
+
+Otros sitios interesantes
+
+www-124.ibm.com/developerworks/oss/
+www.programacion.net
+www.apache.org (XML, Jakarta)
+
+%page
+
+Algunos detalles
+	getopt
+	setlocale
+	seteuid
+	#ifndef _INCLUDE_CABECERA_H
+	ltrace

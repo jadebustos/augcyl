@@ -1,0 +1,4 @@
+Juan:c/Almeria 9
+Ana:Paseo de la Cruz 8
+Miguel:Avda. de los Robles 14
+Susana:c/Juan de Juni 8

@@ -1,0 +1,196 @@
+%include "default.mgp"
+%default 1 bgrad
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+%center, size 7, font "standard", fore "white", vgap 20
+
+I Jornadas sobre Seguridad en GNU/Linux
+
+%image "GNU.png" 1024x768
+%fore "green"
+
+Extensiones de seguridad en el kernel
+
+%fore "red", size 5
+Chema Peribáñez <chema@augcyl.org>
+
+%image "logo.png" 1024x768
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Seguridad tradicional de Unix
+
+
+permisos
+	grupos
+	Trustees (ACL, lado cliente)
+propietario/superusuario
+	suid
+	soltar los privilegios
+	chroot
+%pause
+%fore "yellow"
+
+La flexibilidad: PAM
+%fore "white"
+	módulos de autentificación
+	módulos de cuentas
+	módulos de cambio de clave
+	módulos de sesión
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+¿dónde está el problema?
+
+Un ataque tradicional:
+	saltarse el cortafuegos
+	obtener una cuenta local
+	obtener la cuenta de root
+
+Un fallo en un programa, compromete todo
+	desbordamiento de buffer
+	seguridad basada en usuarios
+	el root tiene demasiados privilegios
+	herencia de privilegios
+
+%fore "yellow"
+
+%page
+
+¿Se puede mejorar seguridad en Linux?
+
+Modo supervisor, modo usuario
+	los programas se ejecutan en modo usuario
+	usan memoria paginada
+	acceden a los recursos mediante llamadas al sistema
+	las llamadas al sistema comprueban permisos
+
+%pause
+%image "grafico.png" 1024x768
+
+%fore "yellow"
+Por tanto "sólo" hay que cambiar dónde se comprueba EUID 0
+Desde kernel 2.2 existen capabilities
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+MAC frente a DAC
+
+Definición: existe una política de seguridad a la que está sujetos todos los usuarios, incluidos los administradores y que sólo el responsable de seguridad puede cambiar.
+
+Conceptos claves:
+	sujetos, objetos, etiquetas
+	MAC y DAC pueden convivir
+
+%pause
+Varios modelos de políticas:
+	MLS: Bell y La Padula
+	Roles
+	DTE
+
+%page
+
+Implementaciones en Linux
+
+Lomac (muy simple, dos niveles, script kiddies)
+LIDS
+	OpenWall
+RSBAC
+SELinux
+Medusa
+
+
+Un módulo de seguridad: LSM
+	Sólo políticas restrictivas
+
+Orange Book. CC (Common Criteria)
+Trusted IRIX
+%page
+
+LIDS: características (I)
+
+Relativamente sencillo
+	Engarde Linux y Debian
+ACLs a nivel de ejecutables
+	permisos de acceso,lectura,añadir,escritura 
+	tanto ficheros como árboles de directorios
+	permite ocultar ficheros y procesos
+	permiso para matar un proceso
+ACLs por defecto no se heredan
+parámetro de tiempo
+dominios
+
+%page
+
+LIDS: características (II)
+
+capabilities
+	por procesos
+	detalle de puertos
+	globales: sellado
+detección de instrusiones
+logs
+	evita repeticiones
+	puede enviar vía red
+cambiar o no desde red
+
+%page
+
+LIDS: funcionamiento
+
+subjects: ejecutables
+objects: ficheros, directorios, procesos, capab.
+se usan inodos
+configuración en /etc/lids
+lidsadm
+	Herramienta de línea de comandos
+	similar a ipchains
+	su propio password
+	comandos para fijar configuración, clave, inodos
+	comando para actualizar
+	comandos para activar/desactivar
+
+%page
+
+SELinux
+
+Desarrollado por la NSA, SCC, Universidad Utha y NAI
+Predecesor para Matcha (DTMatch, luego DTOS)
+Multipolítica, se puede reiniciar en vivo
+Arquitectura Flask
+
+Muy actualizado. Primero en usar LSM
+Nuevas llamadas al sistema
+DTE, Roles, MLS
+
+%page
+
+Enlaces
+
+Kernel
+	http://www.kernel.org/pub/linux/kernel/ Kernel oficial
+MAC
+	http://opensource.nailabs.com/lomac/
+	http://lsm.immunix.org/ LSM (Linux Security Module)
+	http://www.nsa.gov/selinux/
+	http://www.lids.org/
+	http://www.rsbac.org/
+	http://medusa.terminus.sk/
+%page
+
+Enlaces (II)
+
+Parches
+	http://www.openwall.com/
+	http://www.grsecurity.net/
+	http://trustees.sourceforge.net/
+	http://www.solucorp.qc.ca/miscprj/s_context.hc
+Miscelanea
+	http://www.engardelinux.com/
+	http://linuxtoday.com/news_story.php3?ltsn=2001-04-09-007-20-SC-BZ-KN
+	http://www.linuxsecurity.com/
+	http://lwn.net/ (seguridad y kernel)

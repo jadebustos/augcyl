@@ -1,0 +1,44 @@
+<!-- Ejemplo de JavaScript para validar un formulario-->
+
+
+<HTML>
+<HEAD>
+  <TITLE>Ejemplo de formularios</TITLE>
+
+<!-- Definición del Script-->
+  <SCRIPT LANGUAGE="JavaScript">
+    function validar(direccion) {
+       <!-- Si la cadena direccion contiene @ devuelve la posicion en caso contrario -1 -->
+       if (direccion.indexOf("@") != -1)
+          return true;
+       else {
+     <!-- Muestra un dialogo con la advertencia -->
+          alert('Dirección NO válida');
+          return false;
+       }
+    }
+
+  </SCRIPT>
+
+
+</HEAD>
+
+<BODY>
+ <!-- Definicion del formulario -->
+<FORM NAME="Nombre_Formulario"
+     METHOD="POST"
+     ACTION="mailto:yo@augcyl.org"
+     ENCTYPE="text/plain"
+     onSubmit="return validar(this.email.value)">
+
+ <!-- Definicion del campo -->
+  <BR>Escribe tu e-mail: <INPUT NAME="email" TYPE="text"><BR><BR>
+
+ <!-- Definicion del boton -->
+
+<INPUT TYPE="submit" VALUE="Enviar e-mail">
+
+</FORM>
+</BODY>
+
+</HTML>

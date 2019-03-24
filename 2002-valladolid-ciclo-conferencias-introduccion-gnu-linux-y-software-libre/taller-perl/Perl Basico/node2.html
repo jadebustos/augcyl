@@ -1,0 +1,347 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Francisco J. Palacios Burgos">
+   <meta name="GENERATOR" content="Mozilla/4.76 [es] (X11; U; Linux 2.4.2-2 i686) [Netscape]">
+   <title>Taller de Perl - Perl B&aacute;sico</title>
+</head>
+<body background="fondo.jpg">
+
+<div ALIGN=right>
+<h3>
+<img SRC="camel.gif" height=149 width=144></h3></div>
+
+<h3>
+4. Aspecto de un programa Perl</h3>
+
+<p><br>El siguiente script en el fichero <font color="#000000"><a href="ejemplo1.pl">ejemplo1.pl</a></font>
+es el t&iacute;pico ejemplo del hola mundo con el que se suele empezar
+el aprendizaje de un lenguaje de programaci&oacute;n:
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="60%" NOSAVE >
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE><font color="#CC33CC">#!/usr/bin/perl -w</font>
+<p><font color="#3333FF"># El tipico hola mundo en varios sabores</font>
+<p>print '<font color="#FF0000">Hola mundo\n</font>';
+<br>print "<font color="#FF0000">Hola mundo</font><font color="#993399">\n</font>";
+<br>print("<font color="#FF0000">Hola mundo</font><font color="#CC33CC">\n</font>");</td>
+</tr>
+</table>
+
+<p>Como vemos todos los scripts de Perl comienzan con la sentencia
+<p><font color="#CC33CC">#!/usr/bin/perl -w</font>
+<p><font color="#000000">que invoca al int&eacute;rprete de perl, de forma
+an&aacute;loga a como los scripts para la shell tienen una l&iacute;nea
+que invoca a la shell. El int&eacute;rprete tiene varias opciones por l&iacute;nea
+de comandos,&nbsp; entre las que destacan:</font>
+<br>&nbsp;
+<table BORDER COLS=2 WIDTH="60%" NOSAVE >
+<tr NOSAVE>
+<td WIDTH="20%" BGCOLOR="#FFFFCC" NOSAVE>-w</td>
+
+<td BGCOLOR="#FFFFCC" NOSAVE>habilita varios warnings &uacute;tiles (RECOMENDADO)</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>-W</td>
+
+<td BGCOLOR="#FFFFCC" NOSAVE>habilita todos los warnings</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>-Idirectory</td>
+
+<td BGCOLOR="#FFFFCC" NOSAVE>especifica los directorios donde se buscaran
+m&oacute;dulos para ser incluidos. Se permiten varios -I's</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>--help</td>
+
+<td BGCOLOR="#FFFFCC" NOSAVE>muestra los posibles argumentos</td>
+</tr>
+</table>
+
+<p><font color="#000000">Salvo la l&iacute;nea anterior, cualquier conjunto
+de caracteres que venga despu&eacute;s del s&iacute;mbolo </font><font color="#3333FF">#
+</font><font color="#000000">se
+considera como comentario y termina en el siguiente salto de l&iacute;nea.</font>
+<p><font color="#000000">Todas las l&iacute;neas ejecutables terminan con
+un </font><b><font color="#3333FF">;</font><font color="#000000">&nbsp;</font></b><font color="#000000">
+al igual que en C o en Java</font>
+<p><font color="#000000">De las tres sentencias print (que imprime una
+serie de caracteres en un stream - en este caso por la pantalla) las dos
+&uacute;ltimas son equivalentes. Perl permite la notaci&oacute;n funcional
+(argumentos entre par&eacute;ntesis) pero no es obligatorio seguirla.</font>
+<p><font color="#000000">La diferencia entre la primera sentencia y la
+segunda se ve claramente en el resultado que muestran cada una por pantalla:</font>
+<blockquote>&nbsp;
+<table BORDER=0 COLS=1 WIDTH="250" NOSAVE >
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE><i><font color="#000000">$ perl ejemplo1.pl</font></i>
+<br><i><font color="#FF0000">Hola mundo\n</font><font color="#000000">Holamundo</font></i>
+<br><i><font color="#000000">Holamundo</font></i></td>
+</tr>
+</table>
+</blockquote>
+<font color="#000000">En rojo se ha puesto la salida que da el primer print.
+Al igual que en C, se pueden mandar secuencias de escape en cadenas de
+caracteres. En concreto la secuencia </font><font color="#3333FF">\n</font><font color="#000000">
+es el salto de l&iacute;nea. Pero perl dispone de dos maneras de escribir
+cadenas de caracteres: una con <u>comillas simples</u> </font><font color="#FF0000">'&nbsp;&nbsp;
+'</font><font color="#000000"> en la que <u>no se sustituye lo que hay
+dentro</u> (variables, secuencias de escape, ...) y otra con <u>comillas
+dobles</u> </font><font color="#FF0000">"&nbsp; "</font><font color="#000000">
+en las que <u>si que se realiza esa sustituci&oacute;n</u>. Por tanto en
+el segundo y tercer print se cambia de l&iacute;nea pero en el primero
+no.</font>
+<br>&nbsp;
+<br>&nbsp;
+<h3>
+<font color="#000000">5. Variables y constantes. Tipos y operadores (p&aacute;gina
+man: </font><font color="#FF0000">perldata</font><font color="#000000">)</font></h3>
+
+<p><br><font color="#000000">En Perl no es necesario declarar las variables,
+aunque es un buen h&aacute;bito de programaci&oacute;n hacerlo. Hay tres
+tipos de variables: escalares, arrays y arrays asociativos.</font>
+<p><font color="#000000"><a href="ejemplo2.pl">ejemplo2.pl</a></font>
+<table BORDER COLS=1 WIDTH="100%" NOSAVE >
+<tr>
+<td><b><u><font color="#000000">Escalares</font></u></b>
+<p><font color="#000000">Las variables escalares anteponen al nombre identificador
+el s&iacute;mbolo </font><font color="#3333FF">$</font><font color="#000000">,
+es decir que los siguientes nombres har&iacute;an referencia a variables
+escalares:</font>
+<p><font color="#006600">$i&nbsp;</font><font color="#000000"> ,&nbsp;
+</font><font color="#006600">$velocidad</font><font color="#000000">&nbsp;&nbsp;
+,&nbsp;&nbsp; </font><font color="#006600">$nombre</font>
+<p><font color="#000000">Son escalares los n&uacute;meros (en sus diferentes
+bases: decimal, octal, hexadecimal), las cadenas de caracteres (</font><font color="#FF0000">"Jos&eacute;"</font><font color="#000000">),&nbsp;
+las referencias a variables (que como veremos son como una especie de punteros,
+es decir que contienen la direcci&oacute;n de otras variables), los descriptores
+de fichero (si bien estos &uacute;ltimos son una excepci&oacute;n a la
+regla de la notaci&oacute;n, ya que no llevan el <i>$</i> en el nombre),
+etc...</font>
+<p><font color="#000000">Las constantes escalares no llevan ning&uacute;n
+s&iacute;mbolo especial (salvo los propios de la base). Algunos ejemplos
+de asignaciones que se podr&iacute;an hacer en un script son:</font>
+<p><font color="#006600">$i</font><font color="#000000"> = </font><font color="#CC33CC">2</font><font color="#000000">;</font>
+<br><font color="#006600">$velocidad</font><font color="#000000"> = </font><font color="#CC33CC">3.0e8</font><font color="#000000">;</font>
+<br><font color="#006600">$hexadecimal</font><font color="#000000"> = </font><font color="#993399">0xF3A</font><font color="#000000">;</font>
+<br><font color="#006600">$binario</font><font color="#000000"> = </font><font color="#993399">0b001010101</font><font color="#000000">;</font>
+<br><font color="#006600">$octal</font><font color="#000000"> = </font><font color="#993399">036567</font><font color="#000000">;</font>
+<br><font color="#006600">$nombre</font><font color="#000000"> = </font><font color="#FF0000">"Jos&eacute;"</font><font color="#000000">;</font>
+<br><font color="#006600">$nombre</font><font color="#000000"> = </font><font color="#FF0000">'Jos&eacute;'</font><font color="#000000">;</font>
+<p><font color="#000000">En el caso de cadenas de caracteres, si van entre
+</font><font color="#FF0000">"&nbsp;
+"</font><font color="#000000"> se sustituir&iacute;an las secuencias de
+escape o variables por su valor(es), como ocurre en el siguiente ejemplo:</font>
+<p><font color="#006600">$edad</font><font color="#000000"> = </font><font color="#CC33CC">20</font><font color="#000000">;</font>
+<br><font color="#006600">$apellidos</font><font color="#000000"> = </font><font color="#FF0000">"Garc&iacute;a
+L&oacute;pez"</font><font color="#000000">;</font>
+<br><font color="#006600">$nombre</font><font color="#000000"> = </font><font color="#FF0000">"Ana"</font><font color="#000000">;</font>
+<br><font color="#006600">$frase</font><font color="#000000"> = </font><font color="#FF0000">"</font><font color="#006600">$nombre&nbsp;
+$apellidos&nbsp;</font><font color="#000000"> tiene </font><font color="#006600">$edad&nbsp;</font><font color="#000000">
+a&ntilde;os</font><font color="#993399">\n</font><font color="#000000">"</font>
+<p><font color="#006600">$frase</font><font color="#000000"> tendr&iacute;a
+el siguiente valor:&nbsp;&nbsp; </font><font color="#FF0000">"Ana Garc&iacute;a
+L&oacute;pez tiene 20 a&ntilde;os</font><font color="#993399">\n</font><font color="#FF0000">"</font><font color="#000000">
+y el retorno de carro se producir&iacute;a.</font>
+<p><font color="#000000">Las variables escalares con contenido n&uacute;merico
+se pueden sumar (+), restar (-), multiplicar (*), dividir (/) y hallar
+el m&oacute;dulo (%). Hay operadores de autoincremento (++) y autodecremento
+(--) , etc... Estos operadores y otros est&aacute;n muy bien descritos
+en la p&aacute;gina del manual </font><font color="#FF0000">perlop</font>
+<p><font color="#000000">Las cadenas de caracteres se pueden concatenar
+v&iacute;a el operador concatenaci&oacute;n (.)</font>
+<p><font color="#000000">Hay una serie de variables escalares predefinidas
+por Perl y que podemos usar en todo momento. Normalmente suelen empezar
+por </font><font color="#3333FF">$</font><font color="#000000"> y en la
+mayor&iacute;a de los casos le sigue alg&uacute;n car&aacute;cter no alfan&uacute;merico
+(ej: </font><font color="#006600">$_</font><font color="#000000">, </font><font color="#006600">$
+|</font><font color="#000000"> , </font><font color="#006600">$$</font><font color="#000000">
+, ... ) Se pueden ver todas estas variables y su significado en la p&aacute;gina
+man (</font><font color="#FF0000">perlvar</font><font color="#000000">)</font></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<p><font color="#000000"><a href="ejemplo3.pl">ejemplo3.pl</a></font>
+<table BORDER COLS=1 WIDTH="100%" NOSAVE >
+<tr>
+<td><b><u><font color="#000000">Arrays</font></u></b>
+<p><font color="#000000">Los arrays son colecciones de escalares que se
+acceden seg&uacute;n una secuencia determinada. Los identificadores globales
+de array van precedidos por el s&iacute;mbolo </font><font color="#3333FF">@</font><font color="#000000">,
+mientras que para acceder a los elementos individuales, se usa el </font><font color="#3333FF">$</font><font color="#000000">,
+al ser &eacute;stos escalares normales.</font>
+<p><font color="#000000">ejemplo:</font>
+<p><font color="#006600">@persona1</font><font color="#000000"> = (</font><font color="#006600">$nombre</font><font color="#000000">,
+</font><font color="#006600">$apellidos</font><font color="#000000">,
+</font><font color="#006600">$edad</font><font color="#000000">);</font>
+<br><font color="#006600">@persona2</font><font color="#000000"> = (</font><font color="#FF0000">"Juan"</font><font color="#000000">,
+</font><font color="#FF0000">"Gonz&aacute;lez
+P&eacute;rez"</font><font color="#000000">,
+</font><font color="#993399">24</font><font color="#000000">);</font>
+<p><font color="#000000">print </font><font color="#006600">$persona1[</font><font color="#993399">1</font><font color="#006600">]</font><font color="#000000">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+producir&iacute;a por pantalla&nbsp; </font><font color="#FF0000">"Garc&iacute;a
+L&oacute;pez"</font><font color="#000000">, mientras que</font>
+<br><font color="#000000">print </font><font color="#006600">$persona2[</font><font color="#993399">2</font><font color="#006600">]</font><font color="#000000">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+producir&iacute;a por pantalla el n&uacute;mero </font><font color="#993399">24</font>
+<p><font color="#000000">Los arrays segun vemos son colecciones de escalares
+pero que se acceden siempre en el mismo orden (y los &iacute;ndices van
+de 0 al n&uacute;mero de elementos - 1)</font>
+<p><font color="#FF0000">Ojo!! No es lo mismo </font><font color="#006600">$persona2[</font><font color="#993399">2</font><font color="#006600">]</font><font color="#FF0000">
+que </font><font color="#006600">$persona2</font><font color="#FF0000">,
+en el primer caso nos estamos refiriendo al tercer elemento del array </font><font color="#006600">@persona2</font><font color="#FF0000">,
+mientras que en el segundo caso nos referimos a una variable escalar </font><font color="#006600">$persona2</font><font color="#FF0000">
+que no tiene nada que ver con el array.</font>
+<p><font color="#000000">No hace falta reservar memoria para ellos (perl
+lo hace por nosotros y tambi&eacute;n se encarga de liberarla cuando ya
+no se use).</font>
+<p><font color="#000000">Igualar un array a un escalar hace que el escalar
+contenga el n&uacute;mero de elementos:</font>
+<p><font color="#000000">ej: </font><font color="#006600">$nelementos</font><font color="#000000">
+= </font><font color="#006600">@persona2</font><font color="#000000">;</font>
+<p><font color="#000000">hace que </font><font color="#006600">$nelementos</font><font color="#000000">
+valga </font><font color="#993399">3</font><font color="#000000">. Sin
+embargo Perl ya nos proporciona una variable asociada a cada array que
+contiene su longitud. En el caso de </font><font color="#006600">@persona2</font><font color="#000000">
+esta variable se llama </font><font color="#006600">$#persona2</font>
+<br>&nbsp;
+<p><font color="#000000">Existen multitud de funciones para manipular arrays.
+Las m&aacute;s comunes:&nbsp;</font>
+<br>&nbsp;
+<br>&nbsp;
+<p><font color="#FF0000">pop</font><font color="#000000"> - Extrae y devuelve
+el &uacute;ltimo elemento del array. La longitud del array se decrementa
+en 1</font>
+<p><font color="#000000">ej:&nbsp;&nbsp; </font><font color="#006600">$edad</font><font color="#000000">
+= pop(</font><font color="#006600">@persona2</font><font color="#000000">);</font>
+<p><font color="#006600">$edad</font><font color="#000000"> valdr&aacute;
+</font><font color="#993399">24</font><font color="#000000">
+y el array persona ser&aacute;&nbsp; (</font><font color="#FF0000">"Juan"</font><font color="#000000">,</font><font color="#FF0000">"Gonzalez
+P&eacute;rez"</font><font color="#000000">)</font>
+<br>&nbsp;
+<br>&nbsp;
+<p><font color="#FF0000">push</font><font color="#000000"> - A&ntilde;ade
+un elemento o una lista al final del array, incrementando su longitud.</font>
+<p><font color="#000000">ej:&nbsp;&nbsp; push(</font><font color="#006600">@persona2</font><font color="#000000">,</font><font color="#993399">24</font><font color="#000000">);</font>
+<br>&nbsp;
+<br>&nbsp;
+<p><font color="#FF0000">reverse</font><font color="#000000"> - Devuelve
+un array con los elementos en orden contrario</font>
+<p><font color="#000000">ej:&nbsp; reverse </font><font color="#006600">@persona</font><font color="#000000">;</font>
+<br>&nbsp;
+<br>&nbsp;
+<p><font color="#FF0000">sort</font><font color="#000000"> - Ordena un
+array y devuelve un array ordenado. En condiciones normales la ordenaci&oacute;n
+se hace comparando alfab&eacute;ticamente strings (es decir, que los n&uacute;meros
+se transformar&iacute;an en cadenas de caracteres e ir&iacute;an antes
+que las cadenas de caracteres que no empiezan por un n&uacute;mero)</font>
+<p><font color="#000000">ej:&nbsp; sort (</font><font color="#006600">@persona</font><font color="#000000">);</font>
+<br>&nbsp;
+<br>&nbsp;
+<p><font color="#FF0000">splice, shift, unshift</font><font color="#000000">
+- Se encargan respectivamente de: extraer un subarray (o substituirlo por
+otro) de un array, extraer el primer elemento del array y a&ntilde;adir
+un elemento al principio del array</font>
+<br>&nbsp;
+<p>Todas estas funciones y otras m&aacute;s est&aacute;n documentadas en
+la p&aacute;gina man <font color="#FF0000">perlfunc</font>
+<p>Tambi&eacute;n Perl pone a disposici&oacute;n una serie de arrays predefinidos.
+Entre los m&aacute;s conocidos est&aacute;n <font color="#006600">@ARGV</font>
+(p&aacute;rametros que se pasaron al script pot l&iacute;nea de comandos),
+y <font color="#006600">@_</font> (par&aacute;metros pasados a una subrutina).</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<p><font color="#000000"><a href="ejemplo4.pl">ejemplo4.pl</a></font>
+<table BORDER COLS=1 WIDTH="100%" NOSAVE >
+<tr>
+<td><b><u>Arrays asociativos (HASH)</u></b>
+<p>Los array asociativos son colecciones de escalares que se diferencian
+de los arrays normales en el modo de acceder a sus elementos. Este acceso
+se hace via una clave y no via un &iacute;ndice num&eacute;rico. Son muy
+usados en Perl.
+<p>Los identificadores de los arrays asociativos llevan delante el s&iacute;mbolo
+<font color="#3333FF">%</font>
+y para acceder a un elemento se usa el formato&nbsp; <font color="#006600">$identificador</font>{
+<font color="#FF0000">key</font>
+}
+<p>ej:
+<p><font color="#006600">%personas</font> = ();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Crea un hash vac&iacute;o
+<br><font color="#006600">$personas</font>{<font color="#FF0000">"Juan"</font>}&nbsp;&nbsp;
+= <font color="#993399">23</font>;
+<br><font color="#006600">$personas</font>{<font color="#FF0000">"Mar&iacute;a"</font>}
+= <font color="#993399">21</font>;
+<br>&nbsp;
+<p>Asignar un array asociativo a una variable de tipo array hace que &eacute;sta
+contenga los elementos del hash en la forma key, value, key, value, ....
+<p>ej:
+<p><font color="#006600">@personas</font> = <font color="#006600">%personas</font>;
+<p>hace que <font color="#006600">@personas</font> valga ( <font color="#FF0000">"Juan"</font>
+, <font color="#993399">23</font> , <font color="#FF0000">"Mar&iacute;a"</font>
+, <font color="#CC33CC">21</font> )
+<br>&nbsp;
+<p>Las funciones m&aacute;s comunes para los arrays asociativos son:
+<br>&nbsp;
+<p><font color="#FF0000">delete</font> - borra un elemento (es decir un
+par clave - valor ) de una array hash. Tambi&eacute;n se puede usar para
+arrays normales.
+<p>ej:&nbsp;&nbsp; delete <font color="#006600">$personas</font>{<font color="#FF0000">"Juan"</font>};
+<br>&nbsp;
+<br>&nbsp;
+<p><font color="#FF0000">each</font> - Llamado en un contexto escalar devuelve
+el siguiente valor en el hash. En un contexto de arrays, devuelve una pareja
+(clave , valor)
+<p>ej:
+<p><font color="#006600">$edad</font> = each(<font color="#006600">%personas</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color="#006600">$edad</font> valdr&aacute; <font color="#993399">23</font>
+o <font color="#993399">21</font>
+<br><font color="#006600">@item</font> = each(<font color="#006600">%personas</font>);
+<br>(<font color="#006600">$key</font>,<font color="#006600">$value</font>)
+= each(<font color="#006600">%personas</font>);
+<br>&nbsp;
+<br>&nbsp;
+<p><font color="#FF0000">keys</font> - Devuelve en contexto escalar el
+n&uacute;mero de claves que hay en el hash. En contexto de array devuelve
+un array con todas las claves.
+<p>ej:&nbsp;
+<p><font color="#006600">$nkeys</font> = keys(<font color="#006600">%personas</font>);
+<br><font color="#006600">@keys</font> = keys(<font color="#006600">%personas</font>);
+<br>&nbsp;
+<br>&nbsp;
+<p><font color="#FF0000">values</font> - Lo mismo que lo anterior pero
+para los valores, en vez de para las claves.
+<p>Tambi&eacute;n hay un array asociativo predefinido muy importante:&nbsp;
+<font color="#006600">%ENV</font>{ } que contiene las variables de entorno
+pasadas por el proceso invocador al script de Perl</td>
+</tr>
+</table>
+
+<p>
+<hr WIDTH="100%">
+<center><table BORDER=0 COLS=3 WIDTH="25%" NOSAVE >
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node1.html"><img SRC="ol.gif" BORDER=0 height=44 width=65></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html"><img SRC="home02.gif" BORDER=0 height=75 width=61></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node3.html"><img SRC="or.gif" BORDER=0 height=44 width=65></a></td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node1.html">Anterior</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html">Home</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node3.html">Siguiente</a></td>
+</tr>
+</table></center>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+							[DIRECCION]
+							[FECHA]
+
+Estimado/a [DESTINO]:
+
+	Este es un ejemplo de carta.
+
+   Atentamente
+
+	[FIRMANTE]

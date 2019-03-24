@@ -1,0 +1,155 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Francisco J. Palacios Burgos">
+   <meta name="GENERATOR" content="Mozilla/4.76 [es] (X11; U; Linux 2.4.2-2 i686) [Netscape]">
+   <title>Taller de Perl - Perl B&aacute;sico</title>
+</head>
+<body background="fondo.jpg">
+
+<div ALIGN=right>
+<h3>
+<img SRC="camel.gif" height=149 width=144></h3></div>
+
+<h3>
+6. Lectura / Escritura de ficheros (p&aacute;gina man: <font color="#FF0000">perlfunc</font>
+, <font color="#FF0000">perlopentut</font>)</h3>
+
+<p><br>El acceso a ficheros de Perl es similar al de otros lenguajes de
+programaci&oacute;n.&nbsp; Una sesi&oacute;n t&iacute;pica sobre un determinado
+fichero se compone generalmente de las secuencias siguientes:
+<br>&nbsp;
+<p>1. Abrir fichero (open, sysopen)
+<p>2. Leer o escribir datos en el&nbsp; ( &lt; >&nbsp; , print&nbsp; ,
+write&nbsp; ,&nbsp; read,&nbsp; syswrite ,&nbsp; sysread)
+<p>3. Cerrar el fichero&nbsp; ( close )
+<br>&nbsp;
+<p>El acceso puede hacerse en modo ASCII o en modo binario, depende del
+contenido del fichero.
+<br>&nbsp;
+<p><font color="#000000"><a href="ejemplo7.pl">ejemplo7.pl</a></font>
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE><font color="#993399">#!/usr/bin/perl -w</font>
+<p><font color="#3333FF"># Programa que busca al usuario que ejecuta el
+script&nbsp;</font>
+<br><font color="#3333FF"># en una maquina via el fichero /etc/passwd</font>
+<p><font color="#006600">$logname</font> = <font color="#006600">$ENV{</font><font color="#FF0000">'LOGNAME'</font><font color="#006600">}</font>;
+<p>if(<font color="#006600">$logname</font> ne <font color="#FF0000">'root'</font>)
+<br>{
+<br>&nbsp;&nbsp; print <font color="#000000">"</font><font color="#FF0000">No
+eres el superusuario!</font><font color="#993399">\n</font>";
+<br>}
+<p>open(PASSWD,"<font color="#FF0000">/etc/passwd</font>");
+<br><font color="#006600">@lines</font> = &lt;PASSWD>;
+<br>close(PASSWD);
+<p>foreach <font color="#006600">$line</font>(<font color="#006600">@lines</font>)
+<br>{
+<br>&nbsp;&nbsp; <font color="#006600">@tokens</font> = split( /<b><font color="#FF0000">:</font></b>/
+, <font color="#006600">$line</font>);
+<br>&nbsp;&nbsp; if(<font color="#006600">$tokens[</font><font color="#993399">0</font><font color="#006600">]</font>
+eq <font color="#006600">$logname</font>)
+<br>&nbsp;&nbsp; {
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print "<font color="#FF0000">Usuario
+</font><font color="#006600">$logname&nbsp;
+</font><font color="#FF0000">encontrado!</font><font color="#993399">\n</font>";
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print "<font color="#FF0000">uid = </font><font color="#006600">$tokens[</font><font color="#993399">2</font><font color="#006600">]</font><font color="#993399">\n</font>";
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print "<font color="#FF0000">gid = </font><font color="#006600">$tokens[</font><font color="#993399">3</font><font color="#006600">]</font><font color="#993399">\n</font>";
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print "<font color="#FF0000">Nombre
+completo =</font> <font color="#006600">$tokens[</font><font color="#993399">4</font><font color="#006600">]</font><font color="#993399">\n</font>";
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print "<font color="#FF0000">home =
+</font><font color="#006600">$tokens[</font><font color="#993399">5</font><font color="#006600">]</font><font color="#993399">\n</font>";
+<br>&nbsp;&nbsp; }
+<br>}</td>
+</tr>
+</table>
+
+<p>El programa empieza obteniendo del hash de variables de entorno el login
+del usuario que ejecuta el script.
+<p>Tras avisar si no se es el root, se leen de un golpe todas las l&iacute;neas
+del fichero <i>/etc/passwd</i> y se&nbsp; almacenan en un array. Esta es
+una de las dos maneras t&iacute;picas de leer un fichero. La otra alternativa
+es haber le&iacute;do l&iacute;nea por l&iacute;nea evitandonos el array
+intermedio (<font color="#000000"><a href="ejemplo8.pl">ejemplo8.pl</a></font>).
+Obviamente, la primera forma se suele emplear cuando el fichero que se
+quiere leer no es muy grande y su informaci&oacute;n se va a usar muchas
+veces o de forma no secuencial.
+<p>Con cada una de las l&iacute;neas, se dividide con la funci&oacute;n
+split en tokens seg&uacute;n el separador <b><font color="#FF0000">':'</font></b>
+<p>&iquest;Qu&eacute; pasar&iacute;a si hubiese sido el <i>/etc/shadow</i>?.
+La respuesta es que Perl conserva los permisos, y como es un fichero de
+s&oacute;lo lectura por
+<br>el root, si no estamos ejecutando el script como el root, nada m&aacute;s
+hacer el open sobre el fichero se cierra y da un error.
+<p>Tambi&eacute;n podr&iacute;amos haberlo adaptado para que buscase un
+usuario que nosotros le dijesemos por l&iacute;nea de comandos (<font color="#000000"><a href="ejemplo9.pl">ejemplo9.pl</a></font>)
+<p>El siguiente script hace los mismo que el anterior, pero imprimiendo
+la informaci&oacute;n en un fichero
+<p><font color="#000000"><a href="ejemplo10.pl">ejemplo10.pl</a></font>
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE><font color="#993399">#!/usr/bin/perl -w</font>
+<p><font color="#3333FF"># Programa que busca al usuario que ejecuta el
+script&nbsp;</font>
+<br><font color="#3333FF"># en una maquina via el fichero /etc/passwd</font>
+<p><font color="#006600">$logname </font>= <font color="#006600">$ENV{</font><font color="#FF0000">'LOGNAME'</font><font color="#006600">}</font>;
+<p>if(<font color="#006600">$logname</font> ne <font color="#FF0000">'root'</font>)
+<br>{
+<br>&nbsp;&nbsp; print <font color="#000000">"</font><font color="#FF0000">No
+eres el superusuario!</font><font color="#993399">\n</font>";
+<br>}
+<p>open(PASSWD,"<font color="#FF0000">/etc/passwd</font>");
+<br><font color="#006600">@lines</font> = &lt;PASSWD>;
+<br>close(PASSWD);
+<p>open(INFO,"> <font color="#006600">$logname</font>");
+<br>foreach <font color="#006600">$line </font>( <font color="#006600">@lines</font>
+)
+<br>{
+<br>&nbsp;&nbsp; <font color="#006600">@tokens</font> = split( /<b><font color="#FF0000">:</font></b>/
+, <font color="#006600">$line</font> );
+<br>&nbsp;&nbsp; if(<font color="#006600">$tokens[</font><font color="#993399">0</font><font color="#006600">]</font>
+eq <font color="#006600">$logname</font>)
+<br>&nbsp;&nbsp; {
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print INFO "<font color="#FF0000">Usuario
+</font><font color="#006600">$logname&nbsp;
+</font><font color="#FF0000">encontrado!</font><font color="#993399">\n</font>";
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print INFO "<font color="#FF0000">uid
+= </font><font color="#006600">$tokens[</font><font color="#993399">2</font><font color="#006600">]</font><font color="#993399">\n</font>";
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print INFO "<font color="#FF0000">gid
+= </font><font color="#006600">$tokens[</font><font color="#993399">3</font><font color="#006600">]</font><font color="#993399">\n</font>";
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print INFO "<font color="#FF0000">Nombre
+completo =</font> <font color="#006600">$tokens[</font><font color="#993399">4</font><font color="#006600">]</font><font color="#993399">\n</font>";
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print INFO "<font color="#FF0000">home
+=</font><font color="#006600">$tokens[</font><font color="#993399">5</font><font color="#006600">]</font><font color="#993399">\n</font>";
+<br>&nbsp;&nbsp; }
+<br>}
+<br>close(INFO);</td>
+</tr>
+</table>
+
+<p>Si en vez de usar el s&iacute;mbolo <b><font color="#FF0000">></font></b>
+al abrir el fichero de escritura hubiesemos usado el s&iacute;mbolo <b><font color="#FF0000">>></font></b>
+se concatenar&iacute;a (modo append)
+<p>
+<hr WIDTH="100%">
+<center><table BORDER=0 COLS=3 WIDTH="25%" NOSAVE >
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node3.html"><img SRC="ol.gif" BORDER=0 height=44 width=65></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html"><img SRC="home02.gif" BORDER=0 height=75 width=61></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node5.html"><img SRC="or.gif" BORDER=0 height=44 width=65></a></td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node3.html">Anterior</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html">Home</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node5.html">Siguiente</a></td>
+</tr>
+</table></center>
+
+</body>
+</html>

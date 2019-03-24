@@ -1,0 +1,78 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Francisco J. Palacios Burgos">
+   <title>Taller de Perl - CGI</title>
+</head>
+<body background="fondo.jpg">
+
+<div align=right><img SRC="cgi-perl.jpg" height=160 width=308></div>
+
+<h3>
+1. &iquest;Qu&eacute; es CGI?</h3>
+
+<p><br>CGI (Common Gateway Interface) es una tecnolog&iacute;a usada en
+Internet para crear p&aacute;ginas web al instante basada en informaci&oacute;n
+recogida del usuario (generalmente via formularios).
+<p>Se basa en la capacidad de configurar los servidores web para que en
+vez de seguir la secuencia usual (un cliente web pide un fichero al servidor,
+y &eacute;ste se lo manda usando el protocolo http), el fichero no se manda
+sino que se ejecuta en el propio servidor y la salida del proceso es la
+que se manda al cliente.
+<p>Naturalmente, han aparecido alternativas que en vez de procesar en el
+servidor (por la sobrecarga que puede producirse) se hace en el cliente
+(javascript, java - si bien este &uacute;ltimo ha introducido otra vez
+el antiguo esquema - sevlets).
+<p>Los scripts cgi se pueden hacer en muchos lenguajes, aunque el m&aacute;s
+utilizado es Perl por la capacidad que tiene para analizar transformar
+texto (adem&aacute;s de que hay muchos m&oacute;dulos para conectar Perl
+con bases de datos).
+<p>El directorio d&oacute;nde residen depende del servidor web utilizado.
+En el caso de <font color="#FF0000">apache</font>, suelen estar en el directorio
+<i><font color="#3333FF">/var/www/cgi-bin
+</font></i><font color="#000000">o</font><i><font color="#3333FF">
+/usr/lib/cgi-bin
+</font></i>aunque otros directorios pueden ser utilizados
+si se configura el apache para ello.
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<h3>
+2. Secuencia de una sesi&oacute;n cgi en Perl</h3>
+Cuando el programa cgi es un script de Perl, la secuencia se puede especificar
+un poco m&aacute;s:
+<p>1. El cliente realiza una petici&oacute;n est&aacute;ndar URL a un servidor
+http. No s&oacute;lo se env&iacute;a esto. Tambi&eacute;n un encabezado
+con datos provistos por el cliente
+<p>2. Este encabezado se pasa al programa como variables de entorno $ENV{
+}
+<p>3. Se invoca al int&eacute;rprete de perl y se ejecuta el script
+<p>4. El script devuelve los datos de su procesamiento al servidor (generalmente
+en formato html)
+<p>5. El servidor se los env&iacute;a al cliente
+<br>&nbsp;
+<div align=right>
+<hr WIDTH="100%"></div>
+
+<center><table BORDER=0 COLS=3 WIDTH="25%" NOSAVE >
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html"><img SRC="ol.gif" BORDER=0 height=44 width=65></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node1.html"><img SRC="home02.gif" BORDER=0 height=75 width=61></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node2.html"><img SRC="or.gif" BORDER=0 height=44 width=65></a></td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html">Anterior</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html">Home</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node2.html">Siguiente</a></td>
+</tr>
+</table></center>
+
+<br>&nbsp;
+</body>
+</html>

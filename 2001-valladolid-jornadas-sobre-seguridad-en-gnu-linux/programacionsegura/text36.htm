@@ -1,0 +1,17 @@
+<html>
+<head>
+<title>P&aacute;gina 37</title>
+</head>
+<body text=#000000 bgcolor=#FFFFFF link=#000080 vlink=#800000 alink=#000080>
+<center>
+<a href="text0.htm">Primera p&aacute;gina</a> <a href="text35.htm">Regresar</a> <a href="text37.htm">Siguiente</a> <a href="text61.htm">&Uacute;ltima p&aacute;gina</a> <a href="img36.htm">Imagen</a></center><br>
+<h1>Consideraciones de Dise&ntilde;o Interno del Programa</h1><p>
+<ul><li><h2>Mucho cuidado al usar la funci&oacute;n chroot(2) para limitar los ficheros visibles por el programa</h2>
+<ul><li>Crear una estructura con /etc, /bin, /lib y dentro lo estrictamente necesario
+<li>Cerrar todos los descriptores antes de llamarla
+<li>No crear &#147;hard links&#148; sobre directorios contenidos en el entorno de chroot()
+<li>Si tiene permisos de root, puede crear un fichero de dispositivo con mknod(2) para ver la memoria y despu&eacute;s usarlo para modificarla a su antojo
+</ul></ul><br>
+<h3>Notas:</h3>
+</body>
+</html>

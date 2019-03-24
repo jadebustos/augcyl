@@ -1,0 +1,20 @@
+<html>
+<head>
+<title>P&aacute;gina 55</title>
+</head>
+<body text=#000000 bgcolor=#FFFFFF link=#000080 vlink=#800000 alink=#000080>
+<center>
+<a href="text0.htm">Primera p&aacute;gina</a> <a href="text53.htm">Regresar</a> <a href="text55.htm">Siguiente</a> <a href="text61.htm">&Uacute;ltima p&aacute;gina</a> <a href="img54.htm">Imagen</a></center><br>
+<h1>Ejemplos de ataques</h1><p>
+<ul><li><h2>Confiar en las variables de entorno:</h2>
+<ul><li>El &#147;vi&#148; es un editor y por tanto no tiene ning&uacute;n privilegio. Pero cuando sale de forma an&oacute;mala se ejecuta &#147;expreserve&#148; para salvar lo que se estaba haciendo.
+<li>&#147;expreserve&#148; lo almacena en una zona de datos protegida y despu&eacute;s env&iacute;a un mail para avisar.
+<li>&#147;expreserve&#148; es SUID de root.
+<li>Si alguien consigue que ejecute un &#147;mail&#148; especial: 
+<ul><li>#! /bin/sh
+<li>cp /bin/sh /usr/attack/.sh
+<li>chmod 4755 /usr/attack/.sh
+</ul></ul></ul></ul><br>
+<h3>Notas:</h3>
+</body>
+</html>

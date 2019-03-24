@@ -1,0 +1,1123 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Ricardo Santamaria (AUGCYL)">
+   <meta name="Description" content="Taller de Servlets  Abril 2002">
+   <meta name="GENERATOR" content="Mozilla/4.73 [en] (Windows NT 5.0; I) [Netscape]">
+   <title>Java Servlets</title>
+</head>
+<body>
+<b><font size=+4>JAVA SERVLETS&nbsp;&nbsp;</font></b><img SRC="imagenes/teapot_089.gif" NOSAVE height=75 width=75>
+<br>&nbsp;
+<br>&nbsp;
+<p>La abstraci&oacute;n central en el API Servlet es el interface Servlet.
+<br>Todos los servlets implementan este interface directamente o
+<br>extendiendo una clase que lo implemente como HttpServlet.
+<br>&nbsp;
+<p><img SRC="imagenes/srvltapi1.gif" NOSAVE height=144 width=148>
+<br>&nbsp;
+<h1>
+1. Ejecuci&oacute;n de los&nbsp; Servlets</h1>
+
+<p><br>- Tecleando la URL del servlet en un Navegador Web
+<p>- Llamar a un Servlet desde dentro de una p&aacute;gina HTML
+<p>- Desde otro servlet (peticiones HTTP,accediendo m&eacute;todos
+<br>p&uacute;blicos)
+<br>&nbsp;
+<br>&nbsp;
+<h1>
+2. M&eacute;todos b&aacute;sicos de un Servlet</h1>
+
+<p><br><img SRC="imagenes/srvluml.gif" NOSAVE height=421 width=499>
+<br>&nbsp;
+<p><font color="#FF0000">Init()</font>: es donde comienza el servlet. Aqu&iacute;
+se coloc&aacute; c&oacute;digo que se
+<br>desea sea ejecutado s&oacute;lo cuando carga el servlet.
+<br>&nbsp;&nbsp; - Obtener datos de configuraci&oacute;n y entorno
+<br>&nbsp;&nbsp; - Crear conexiones a BD (&iquest;?),.... generar hilos,...
+<p><font color="#FF0000">Destroy()</font>: cuando el servlet es desmontado
+se invoca este metodo.
+<br>Es usado para hacer limpieza.
+<br>&nbsp;&nbsp;&nbsp; - Destruir conexiones a BD, destruir hilos
+<p><font color="#FF0000">Service()</font>: maneja las peticiones del cliente
+(Get,Post,Put,Delete,...)
+<br>&nbsp;
+<p><img SRC="imagenes/metodos2.gif" NOSAVE height=288 width=288>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p>doGet() y doPost()
+<p>doHead(), doPut(), doDelete(), doOptions(), doTrace()
+<br>&nbsp;
+<p><img SRC="imagenes/metodos1.gif" NOSAVE height=257 width=500>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<h1>
+3. Objetos "predefinidos" b&aacute;sicos</h1>
+
+<p><br><font color="#FF0000">ServletContext</font>: permite a un servlet
+acceder a informaci&oacute;n sobre el entorno en que se est&aacute;n ejecutando.
+<p><font color="#FF0000">ServletConfig:</font> contiene m&eacute;todos
+que permiten pasar al servlet informaci&oacute;n sobre sus par&aacute;metros
+de inicializaci&oacute;n.
+<p>Cuando un servlet es invocado recibe dos objetos
+<p><font color="#FF0000">&nbsp;&nbsp; ServletRequest </font><font color="#000000">(-></font><font color="#FF0000">HttpServletRequest</font>),
+encapsula la comunicaci&oacute;n desde el cliente al servidor.
+<br><font color="#FF0000">&nbsp;&nbsp; ServletResponse </font><font color="#000000">(-></font><font color="#FF0000">HttpServletResponse</font><font color="#000000">)</font>,
+encapsula la comunicaci&oacute;n de vuelta desde el servlet hacia el cliente.
+<br>&nbsp;
+<h1>
+4. Un Servlet Sencillo</h1>
+&nbsp;
+<table BORDER COLS=1 WIDTH="80%" NOSAVE >
+<tr>
+<td>
+<br><tt><font color="#FF0000"><font size=+1>import java.io.*;</font></font></tt>
+<br><tt><font color="#FF0000"><font size=+1>import javax.servlet.*;</font></font></tt>
+<br><tt><font color="#FF0000"><font size=+1>import javax.servlet.http.*;</font></font></tt>
+<br>&nbsp;
+<p><tt><font size=+1>public class HolaMundo <font color="#FF0000">extends
+HttpServlet</font></font></tt>
+<br><tt><font size=+1>{</font></tt>
+<p><tt><font size=+1>// Metodo a ejecutar en respuesta de una petici&oacute;n
+GET</font></tt>
+<p><tt><font color="#FF0000"><font size=+1>public void doGet (HttpServletRequest
+request,</font></font></tt>
+<br><tt><font color="#FF0000"><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+HttpServletResponse response)</font></font></tt>
+<br><tt><font color="#FF0000"><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+throws ServletException, IOException</font></font></tt>
+<br><tt><font size=+1>{</font></tt>
+<br><tt><font size=+1>&nbsp;// Definimos cadenas que usaremos despues</font></tt>
+<br><tt><font size=+1>&nbsp; String title = "HOLA MUNDO!!";</font></tt>
+<p><tt><font size=+1>&nbsp;// Creamos los objetos para imprimir la salida,...</font></tt>
+<br><tt><font size=+1>&nbsp; <font color="#FF0000">PrintWriter out</font>;</font></tt>
+<p><tt><font size=+1>&nbsp;//Seleccionamos el tipo de contenido que va
+a devolver el Servlet</font></tt>
+<br><tt><font size=+1>&nbsp; <font color="#FF0000">response.setContentType("text/html");</font></font></tt>
+<p><tt><font size=+1>&nbsp;//Enlazamos el objeto respuesta a nuestro objeto
+de salida</font></tt>
+<br><tt><font size=+1>&nbsp; <font color="#FF0000">out = response.getWriter();</font></font></tt>
+<p><tt><font size=+1>&nbsp;//Empezamos a generar la pagina!!!!</font></tt>
+<br><tt><font size=+1>&nbsp;// Tenemos que escribir el codigo HTML</font></tt>
+<p><tt><font size=+1>&nbsp;<font color="#33CCFF"> </font><font color="#3333FF">out.println("&lt;HTML>&lt;HEAD>&lt;TITLE>");</font></font></tt>
+<br><tt><font color="#3333FF"><font size=+1>&nbsp; out.println(title);</font></font></tt>
+<br><tt><font color="#3333FF"><font size=+1>&nbsp; out.println("&lt;/TITLE>&lt;/HEAD>&lt;BODY>");</font></font></tt>
+<br><tt><font color="#3333FF"><font size=+1>&nbsp; out.println("&lt;H1>"
++ title + "&lt;/H1>");</font></font></tt>
+<br><tt><font color="#3333FF"><font size=+1>&nbsp; out.println("&lt;P>Que
+tal el taller de Java Servlet...");</font></font></tt>
+<br><tt><font color="#3333FF"><font size=+1>&nbsp; out.println("&lt;BR>&lt;BR>&lt;BR>");</font></font></tt>
+<br><tt><font color="#3333FF"><font size=+1>&nbsp; out.println("...espero
+que os este gustando ;-)");</font></font></tt>
+<br><tt><font color="#3333FF"><font size=+1>&nbsp; out.println("&lt;/BODY>&lt;/HTML>");</font></font></tt>
+<p><tt><font size=+1>&nbsp;// CERRAMOS EL OBJETO DE SALIDA!! (recolector?)</font></tt>
+<br><tt><font size=+1>&nbsp; <font color="#FF0000">out.close();</font></font></tt>
+<br><tt><font size=+1>}</font></tt>
+<br><tt><font size=+1>}</font></tt>
+<br>&nbsp;</td>
+</tr>
+</table>
+
+<p><tt><font size=+1><a href="http://127.0.0.1:8180/taller/HolaMundo/">Ejecutar</a></font></tt>
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="50%" BGCOLOR="#FF99FF" NOSAVE >
+<tr>
+<td>Se compila as&iacute;&nbsp;
+<br>&nbsp;&nbsp;&nbsp; PATH_JAVA/javac nombre_archivo&nbsp;
+<p>Si no est&aacute; definido el class_path se puede usar
+<br>&nbsp;&nbsp;&nbsp; PATH_JAVA/javac -classpath "TOMCAT_PATH/common/lib/servlet.jar:."
+nombre_archivo
+<br>&nbsp;</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<h2>
+4.1 Los m&eacute;todos de salida</h2>
+
+<p><br>Se utiliza el m&eacute;todo getWriter para devolver datos en formato
+texto
+<br>al usuario.
+<br>El m&eacute;todo getWriter devuelve un Writer
+<br>&nbsp;
+<table COLS=1 WIDTH="30%" BGCOLOR="#66FF99" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>response.getWrite</td>
+</tr>
+</table>
+
+<p>Se utiliza el m&eacute;todo getOutputStream para mandar datos
+<br>binarios al usuario.
+<br>El m&eacute;todo&nbsp; devuelve un ServletOutputStream
+<br>&nbsp;
+<table COLS=1 WIDTH="30%" BGCOLOR="#66FF99" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>response.getOutputStream</td>
+</tr>
+</table>
+
+<p><font color="#FF0000">Dependiendo del tipo de salida hay que modificar
+setContentType</font>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<h1>
+5.&nbsp; Manejo b&aacute;sico de formularios</h1>
+
+<p><br>- Si usaramos CGI esta tarea ser&iacute;a bastante complicada.
+<br>Con el m&eacute;todo POST la complicaci&oacute;n no ser&iacute;a tanta
+pero si usaramos el m&eacute;todo
+<br>GET ser&iacute;a elevada puesto que tendr&iacute;amos que recoger los
+valores c&oacute;dificados en la
+<br>URL (QUERY_STRING) e ir separando cada par&aacute;metro con su valor.
+<br>&nbsp;
+<p>- Con los Servlet simplemente llamamos al m&eacute;todo getParameter
+de HttpServletRequest,
+<br>y suministramos el nombre del par&aacute;metro como un argumento.
+<br>&nbsp;
+<br>&nbsp;
+<table COLS=1 WIDTH="60%" BGCOLOR="#66FF99" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>String request.getParametre(String)</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<table COLS=1 WIDTH="60%" BGCOLOR="#66FF99" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>String[ ] request.getParameterValues(String)</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="60%" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>
+<br><font color="#FF0000">Enumeration</font> NombresParametros = request.<font color="#FF0000">getParameterNames()</font>;
+<br>while(NombresParametros.<font color="#FF0000">hasMoreElements()</font>)
+{
+<br>&nbsp;&nbsp;&nbsp;&nbsp; String NombreParametro = <font color="#FF0000">(String)</font>NombresParametros.<font color="#FF0000">nextElement()</font>;
+<br>&nbsp;&nbsp;&nbsp;&nbsp; String[ ] ValoresParametro = request.<font color="#FF0000">getParameterValues(NombreParametro</font>);
+<br>...
+<br>}</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<p><tt><font size=+1><a href="formulario.html">Ejecutar</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="WEB-INF/classes/Formulario.java">Ver codigo JAVA</a></font></tt>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p>- En peticiones POST, PUT, y DELETE de HTTP si esperamos los datos en
+formato "texto duro",
+<br>el m&eacute;todo <font color="#FF0000">getReader </font>devuelve un
+<font color="#FF0000">BufferedReader
+</font>.
+<p>- Si esperamos datos binarios, el m&eacute;todo <font color="#FF0000">getInputStream</font>
+devuelve un <font color="#FF0000">ServletInputStream</font>.
+<br>&nbsp;
+<br>&nbsp;
+<h1>
+6. Variables de entorno</h1>
+
+<p><br>Obtiene la direcci&oacute;n URI
+<br>PATH_URI
+<br><font color="#FF0000">request.getRequestURI()</font>
+<p>Obtiene el protocolo (HTTP 1.0, HTTP 1.1)
+<br>SERVER_PROTOCOL
+<br><font color="#FF0000">request.getProtocol()</font>
+<p>Devuelve un entero con el n&uacute;mero de bytes enviados (m&eacute;todo
+POST)
+<br>CONTENT_LENGTH
+<br><font color="#FF0000">request.getContentLength()</font>
+<p>Obtiene (basic, digest, not specified)
+<br>AUTH_TYPE
+<br><font color="#FF0000">request.getAuthType()</font>
+<p>Obtiene el tipo MIME
+<br>CONTENT_TYPE
+<br><font color="#FF0000">request.getContentType()</font>
+<p>Obtiene la informaci&oacute;n de PATH del servlet (no es necesario)
+<br>PATH_INFO
+<br><font color="#FF0000">request.getPathInfo()</font>
+<br>PATH_TRANSLATED
+<br><font color="#FF0000">request.getPathTranslated()</font>
+<p>Obtenemos la linea con los parametros e formato URL.
+<br>No muy usado (request.getParameter)
+<br>QUERY_STRING
+<br><font color="#FF0000">request.getQueryString()</font>
+<p>Obtiene la direcci&oacute;n del IP cliente (notaci&oacute;n pto)
+<br>REMOTE_ADDR
+<br><font color="#FF0000">request.getRemoteAddr()</font>
+<p>Obtiene el nombre del dominio del cliente
+<br>REMOTE_HOST
+<br><font color="#FF0000">request.getRemoteHost()</font>
+<p>Obtiene el usuario si se ha suministrado Authorization
+<br>REMOTE_USER
+<br><font color="#FF0000">request.getRemoteUser()</font>
+<p>Indica el m&eacute;todo que se ha solicitado (GET,POST,HEAD,DELETE,TRACE,PUT,...)
+<br>REQUEST_METHOD
+<br><font color="#FF0000">request.getMethod()</font>
+<p>Obtiene el path "local" del servlet
+<br>SCRIPT_NAME
+<br><font color="#FF0000">request.getServletPath()</font>
+<p>Obtiene el nombre el servidor
+<br>SERVER_NAME
+<br><font color="#FF0000">request.getServerName()</font>
+<p>Devuelve un entero que representa el puerto del servidor por el que
+ha conectado el cliente
+<br>SERVER_PORT
+<br><font color="#FF0000">request.getServerPort()</font>
+<br>&nbsp;
+<p><tt><font size=+2><a href="http://127.0.0.1:8180/taller/VarEntorno">Ejecutar</a></font></tt>
+<br>&nbsp;
+<br>&nbsp;
+<h1>
+7. Carga de la configuraci&oacute;n y el contexto</h1>
+
+<p><br>- Usamos la clase ServletConfig para cargar valores de inicializaci&oacute;n
+<br>son externos a nuestro Servlet
+<br>&nbsp;
+<br>&nbsp;
+<table COLS=1 WIDTH="50%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>
+<br>getInitParameter(String)&nbsp;</td>
+</tr>
+</table>
+Devuelve un string que contiene el valor de los parametros de inicializaci&oacute;n
+del
+<br>servlet o null si el parametro no existe
+<br>&nbsp;
+<br>&nbsp;
+<table COLS=1 WIDTH="50%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>
+<br>getInitParameterNames()&nbsp;</td>
+</tr>
+</table>
+Devuelve los nombres de los parametros de inicializaci&oacute;n del servlet
+como
+<br>una enumeraci&oacute;n de strings
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="50%" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>
+<br><tt><font size=+1>String timezone;</font></tt>
+<p><tt><font size=+1>public void init(ServletConfig config) {</font></tt>
+<br><tt><font size=+1>&nbsp;timeZone = config.getInitParameter("timezone");</font></tt>
+<br><tt><font size=+1>}</font></tt>
+<br>&nbsp;</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<p>-&nbsp; Usamos la clase ServletContext para obtener datos del contexto
+<br>del Servlet (de los Servlets de nuestro sistemas)
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="60%" BGCOLOR="#66FF99" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>
+<br><tt><font color="#FF0000"><font size=+1>getServletContext()&nbsp;&nbsp;&nbsp;&nbsp;
+Devuelve el contexto de un servlet</font></font></tt></td>
+</tr>
+</table>
+
+<p>DOCUMENT_ROOT
+<br><tt><font color="#FF0000"><font size=+1>getServletContext().getRealPath("/")</font></font></tt>
+<p>SERVER_SOFTWARE
+<br><font color="#FF0000"><font size=+1>getServletContext().getServerInfo()</font></font>
+<br>Devuelve un valor con el servidor que se esta usando
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="40%" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>
+<br><tt><font size=+1>public String getServletInfo() {</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return "Este
+es mi Servlet!!!!";</font></tt>
+<br><tt><font size=+1>}</font></tt></td>
+</tr>
+</table>
+
+<p>Modificar atributos de Contexto
+<br>&nbsp;
+<table BORDER CELLSPACING=3 CELLPADDING=3 NOSAVE >
+<tr>
+<td>setAttribute</td>
+</tr>
+
+<tr NOSAVE>
+<td NOSAVE>getAttribute</td>
+</tr>
+
+<tr>
+<td>getAttributeNames</td>
+</tr>
+
+<tr>
+<td>removeAttribute</td>
+</tr>
+</table>
+
+<p>Obtener un Servlet
+<br>&nbsp;
+<table BORDER CELLSPACING=3 CELLPADDING=3 NOSAVE >
+<tr>
+<td>getServlet()</td>
+</tr>
+
+<tr NOSAVE>
+<td NOSAVE>getServletNames()</td>
+</tr>
+</table>
+
+<p>Generar un fichero log&nbsp; sobre un Servlet
+<br>&nbsp;
+<table BORDER CELLSPACING=3 CELLPADDING=3 NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>log()</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<h1>
+8. Enviar c&oacute;digos de estados</h1>
+
+<p><br>- Devolver un estado
+<br>&nbsp;
+<table COLS=1 WIDTH="40%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td><tt><font size=+1>response.setStatus(int)</font></tt></td>
+</tr>
+</table>
+
+<p>- Devolver un c&oacute;digo de error
+<br>&nbsp;
+<table COLS=1 WIDTH="40%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td><tt><font size=+1>response.sendError(int)</font></tt>
+<br><i>response.sendError(404);</i>
+<p><tt><font size=+1>response.sendError(int,String)</font></tt>
+<br><i>response.sendError (404,"Fallo!!!");</i>
+<br>&nbsp;</td>
+</tr>
+</table>
+
+<p>- Redireccionar automaticamente a una p&aacute;gina
+<br>&nbsp;
+<table COLS=1 WIDTH="40%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>response.sendRedirect&nbsp;&nbsp; //&nbsp;&nbsp; atajo C&oacute;digo&nbsp;
+302</td>
+</tr>
+</table>
+
+<p><tt><font color="#FF0000"><font size=+1>Mandar antes de PrintWriter</font></font></tt>
+<p><font color="#3366FF"><font size=+1>Ver c&oacute;digos de errores HTTP
+1.0 o HTTP 1.1</font></font>
+<br>&nbsp;
+<br>&nbsp;
+<h1>
+9. Cabeceras</h1>
+&nbsp;
+<h2>
+9.1 Cabeceras de respuestas</h2>
+- Denominamos cabeceras de respuesta
+<br>a aquellos valores que devolvemos que no son
+<br>visibles y que sirven para el control,...
+<p>- Algunos ejemplos son:
+<p>Deshabilida la cache
+<br><font color="#FF0000">response.setHeader("pragma", "no-cache");</font>
+<p>Redirecciona (o refresca) la p&aacute;gina en int (5) segundos
+<br><font color="#FF0000">response.setHeader("Refresh", "5");</font>
+<br><font color="#FF0000">response.setHeader("Refresh", "5; URL=http://host/path")</font>
+<p>Activar cookie&nbsp; (No se usa)
+<br><font color="#FF0000">response.setHeader("Set-Cookie", ...)</font>
+<br>&nbsp;
+<p><font color="#FF0000">response.setHeader("WWW-Authenticate", "BASIC
+realm=\"executives\"")</font>
+<br><font color="#FF0000">response.setDateHeader</font>
+<br><font color="#FF0000">response.setIntHeader</font>
+<br>&nbsp;
+<p><font color="#FF0000">response.setContentType("text/html");</font>
+<br><font color="#FF0000">response.setContentLength</font>
+<p><font color="#FF0000">response.addCookie</font>
+<br><font color="#FF0000">response.sendRedirect</font>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<h2>
+9.2&nbsp; Cabeceras de solicitudes</h2>
+
+<p><br>Se generan cuando se mandan datos de formularios(GET,POST) son
+<br>opcionales excepto Content-Length cuando realizamos un POST
+<br>&nbsp;
+<br>&nbsp;
+<table COLS=1 WIDTH="45%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>request.getHeader(String)
+<p>Obtiene el valor de la cabecera de solicitud</td>
+</tr>
+</table>
+
+<table COLS=1 WIDTH="45%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>Enumeration NombresCabecera = request.getHeaderNames();
+<p>Obtiene una relacion con los nombres de las cabeceras</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="60%" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE><tt><font size=+1>while(NombresCabecera.hasMoreElements()) {</font></tt>
+<br><tt><font size=+1>&nbsp; String NombreCabecera = (String)headerNames.nextElement();</font></tt>
+<br><tt><font size=+1>&nbsp; out.println(NombreCabecera + " ");</font></tt>
+<br><tt><font size=+1>&nbsp; out.println(request.getHeader(NombreCabera
++"\n"));</font></tt>
+<br><tt><font size=+1>}</font></tt></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<p><tt><font size=+1><a href="http://127.0.0.1:8180/taller/Header">Ejecutar
+ejemplo</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="WEB-INF/classes/Header.java">Ver c&oacute;digo JAVA</a></font></tt>
+<br>&nbsp;
+<h1>
+10. Cookies&nbsp; <font size=+1>(ticket)</font></h1>
+
+<p><br>Informaci&oacute;n (texto) que el servidor web envia al navegador
+y que este
+<br>se encarga de almacenar localmente para posteriormente poder volver
+a ser leido
+<br>por el servidor web.
+<p>Imaginemos que un "sitio Web" almacena las p&aacute;ginas visitadas
+por
+<br>cada usuario.Si esto se tuviera que hacer desde el punto de vista
+<br>del servidor ser&iacute;a demasiado "pesado" mientras que si la informaci&oacute;n
+<br>se guarda en el cliente podemos hacerlo de manera m&aacute;s eficiente.
+<p>Se utiliza para
+<br>- Identificar usuario
+<br>- Mantener preferencias (aspecto de la web,publicidad,...)
+<br>- Manejar una sesion
+<p>Conlleva problemas no de seguridad sino de privacidad.Es una buena
+<br>pr&aacute;ctica usar otros m&eacute;todos.
+<br>&nbsp;
+<br>&nbsp;
+<table COLS=1 WIDTH="50%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>Crear un objeto Cookie
+<p>new Cookie(name String,value String)
+<br>Cookie coche = new Cookie("matricula", matriculaID);
+<br>&nbsp;</td>
+</tr>
+</table>
+
+<table COLS=1 WIDTH="50%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>Establecer el valor de una Cookie
+<p>coche.setValue()
+<br>&nbsp;</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<table COLS=1 WIDTH="50%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>Enviar una Cookie
+<p>response.addCookie(coche);
+<br>&nbsp;
+<p><font color="#FF0000">Se debe hacer antes del "bind"</font>
+<br><font color="#FF0000">PrintWriter out=response.getWriter();&nbsp;&nbsp;
+????</font>
+<br>&nbsp;</td>
+</tr>
+</table>
+
+<table COLS=1 WIDTH="50%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>Recibir una Cookie
+<p>Cookie coche = null;
+<br>Cookie[]&nbsp; coches = request.getCookies();
+<br>coche = coche[0];
+<br>&nbsp;</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<table COLS=1 WIDTH="50%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>Obtener el valor de la cookie:&nbsp;
+<p>coche.getValue()
+<br>&nbsp;</td>
+</tr>
+</table>
+
+<table COLS=1 WIDTH="50%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>Obtener el nombre de la cookie:&nbsp;
+<p>coche.getName()
+<br>&nbsp;</td>
+</tr>
+</table>
+
+<p>- <font color="#FF0000">public void setComment(String)</font>
+<br>Sirve para a&ntilde;adir un comentario a la cookie
+<br>coche.setComment("Comentario de la cookie");
+<p>- <font color="#FF0000">public void setDomain(String)</font>
+<br>Establece el patr&oacute;n de dominio a quien permitir el acceso a
+la informaci&oacute;n
+<br>contenida en la cookie
+<p>-<font color="#FF0000"> public void setMaxAge(int)</font>
+<br>Establece el tiempo de caducidad de la cookie siendo la unidad de tiempo
+los segundos.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -1 indica al terminal que borre la cookie
+al cerrar
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 borra la cookie de inmediato.
+<p>- <font color="#FF0000">public void setPath(String)</font>
+<br>Establece la ruta de acceso del directorio de los servlets que tienen
+acceso a la cookie.
+<br>Por defecto es aquel que origin&oacute; la cookie.
+<p>- <font color="#FF0000">public void setVersion(int)</font>
+<br>Establece la versi&oacute;n de la cookie.
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="80%" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE><tt><font size=+1>import java.io.*;</font></tt>
+<br><tt><font size=+1>import javax.servlet.*;</font></tt>
+<br><tt><font size=+1>import javax.servlet.http.*;</font></tt>
+<p><tt><font size=+1>public class CookieExample extends HttpServlet {</font></tt>
+<p><tt><font size=+1>&nbsp;&nbsp;&nbsp; public void doGet(HttpServletRequest
+request, HttpServletResponse response)</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp; throws IOException, ServletException</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp; {</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; response.setContentType("text/html");</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PrintWriter
+out = response.getWriter();</font></tt>
+<p><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // print
+out cookies</font></tt>
+<p><tt><font size=+1>C<font color="#FF0000">ookie[] cookies = request.getCookies();</font></font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (int
+i = 0; i &lt; cookies.length; i++) {</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#FF0000">&nbsp;
+Cookie c = cookies[i];</font></font></tt>
+<br><tt><font color="#FF0000"><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+String name = c.getName();</font></font></tt>
+<br><tt><font color="#FF0000"><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+String value = c.getValue();</font></font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+out.println(name + " = " + value);</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</font></tt>
+<p><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // set
+a cookie</font></tt>
+<p><tt><font size=+1>String name = <font color="#3366FF">request.getParameter("cookieName");</font></font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (name
+!= null &amp;&amp; name.length() > 0) {</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<font color="#3366FF">String
+value = request.getParameter("cookieValue");</font></font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<font color="#FF0000">Cookie
+c = new Cookie(name, value);</font></font></tt>
+<br><tt><font color="#FF0000"><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+response.addCookie(c);</font></font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp; }</font></tt>
+<br><tt><font size=+1>}</font></tt>
+<p>&nbsp;</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<h1>
+11. Manejo de sesiones</h1>
+
+<p><br>El protocolo HTTP no maneja un estado de cada conexi&oacute;n realizada
+por un
+<br>agente del usuario, es por ello que se deben establecer mecanismos
+ajenos
+<br>al servidor de HTTP para llevar el control de la sesi&oacute;n.
+<p>- Esto se puede lograr con un almacenamiento persistente de una estructura
+de datos
+<br>por cada cliente:
+<p>Cookies (privacidad)
+<p>Controles HTML ocultos (tedioso)
+<br>&lt;INPUT TYPE="HIDDEN" NAME="session" VALUE="...">.
+<p>Memoria RAM compartida (complejo y costoso)
+<br>Archivo plano o con registros del sistema de archivos (confiabilidad)
+<br>Tabla en la base de datos utilizada
+<br>Registros de DNS din&aacute;mico
+<p>URI, par&aacute;metro por m&eacute;todo GET &oacute; POST
+<p>Se evita autenticar y autorizar cada petici&oacute;n,as&iacute; como
+la retransmisi&oacute;n constante de su
+<br>nombre de usuario y su contrase&ntilde;a,lo cual es potencialmente
+peligroso.
+<p>Los identificadores de la sesi&oacute;n deben de ser &uacute;nicos y
+dif&iacute;ciles de adivinar, ya que puede existir
+<br>la posibilidad de que agentes externos quieran simular accesos v&aacute;lidos
+y entrar de manera
+<br>fraudulenta al sistema. Es por ello que se debe de valer de alg&uacute;n
+mecanismo que provea de
+<br>identificadores aleatorios y con un gran periodo en su repetici&oacute;n,
+tales como generadores de cadenas
+<br>aleatorias (Tickets) MD5, DES, etc o la utilizaci&oacute;n del dispositivo
+de entrop&iacute;a existente en algunos sistemas
+<br>operativos ("/dev/random" en Linux).
+<p><font color="#FF0000">Con los Servlet esto se realiza de forma autom&aacute;tica
+y no nos tenemos que preocupar por ello.</font>
+<p>Todo este manejo de sesiones en Servlets se va a realizar sobre el <font color="#FF0000">API
+HttpSession.</font>
+<br>Este es un interface de alto nivel construido sobre las cookies y la
+reescritura de URL.
+<p>No tiene que manipular expl&iacute;citamente las cookies o la informaci&oacute;n
+a&ntilde;adida a la URL, y se
+<br>les da autom&aacute;ticamente un lugar conveniente para almacenar los
+datos asociados con cada sesi&oacute;n.
+<p><font color="#FFFF00">Los m&eacute;todos han sido cambiados de la versi&oacute;n
+2.1</font>
+<br>&nbsp;
+<br>&nbsp;
+<table COLS=1 WIDTH="40%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>Crear una nueva sesion
+<p>HttpSession session = request.getSession(true);
+<br>&nbsp;</td>
+</tr>
+</table>
+
+<table COLS=1 WIDTH="40%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>Obtiene una relaci&oacute;n con de los atributos
+<br>de la sesi&oacute;n
+<p>Enumeration getAttributeNames
+<br>&nbsp;</td>
+</tr>
+</table>
+
+<table COLS=1 WIDTH="55%" BGCOLOR="#66FF99" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>Fija un atributo
+<p>session.putAttribute"referringPage", request.getHeader("Referer"))
+<p>Antes putValue</td>
+</tr>
+</table>
+
+<table COLS=1 WIDTH="55%" BGCOLOR="#66FF99" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>Obtiene un atributo (objeto)
+<p>(ShoppingCart)session.getAttribute("previousItems");
+<p>Antes getValue</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<p>Otros m&eacute;todos &uacute;tiles del objeto HttpSession
+<br>&nbsp;
+<table BORDER=3 CELLSPACING=3 CELLPADDING=3 >
+<tr>
+<td>getId</td>
+
+<td>identificador &uacute;nico de sesi&oacute;n</td>
+</tr>
+
+<tr>
+<td>isNew</td>
+
+<td>true si ya se han realizado sesiones&nbsp;
+<br>false si es nueva</td>
+</tr>
+
+<tr>
+<td>getCreationTime</td>
+
+<td>fecha de creaci&oacute;n (Convertir)</td>
+</tr>
+
+<tr>
+<td>getLastAccessedTime</td>
+
+<td>fecha del &uacute;ltimo acceso</td>
+</tr>
+
+<tr>
+<td>getMaxInactiveInterval</td>
+
+<td>tiempo para que la sesion sea invalidada
+<br>negativo si nunca se invalida</td>
+</tr>
+
+<tr>
+<td>invalidate</td>
+
+<td>invalida manualmente la sesi&oacute;n</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="75%" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE><tt><font size=+1>import java.io.*;</font></tt>
+<br><tt><font size=+1>import java.util.*;</font></tt>
+<br><tt><font size=+1>import javax.servlet.*;</font></tt>
+<br><tt><font size=+1>import javax.servlet.http.*;</font></tt>
+<p><tt><font size=+1>public class SessionExample extends HttpServlet {</font></tt>
+<p><tt><font size=+1>&nbsp;&nbsp;&nbsp; public void doGet(HttpServletRequest
+request, HttpServletResponse response)</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp; throws IOException, ServletException</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp; {</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; response.setContentType("text/html");</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PrintWriter
+out = response.getWriter();</font></tt>
+<p><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#FF0000">HttpSession
+session = request.getSession(true);</font></font></tt>
+<p><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Mostrar
+informaci&oacute;n de la sesi&oacute;n creada</font></tt>
+<p><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#FFFF00">Date
+created = new Date(</font><font color="#FF0000">session.getCreationTime()</font><font color="#FFFF00">);</font></font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#FFFF00">Date
+accessed = new Date(</font><font color="#FF0000">session.getLastAccessedTime()</font><font color="#FFFF00">);</font></font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; out.println("ID
+" + <font color="#FF0000">session.getId()</font>);</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; out.println("Created:
+" + <font color="#FFFF00">created</font>);</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; out.println("Last
+Accessed: " + <font color="#FFFF00">accessed</font>);</font></tt>
+<p><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Fijar
+valores de la sesi&oacute;n</font></tt>
+<p><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String
+dataName = request.getParameter("dataName");</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dataName
+!= null &amp;&amp; dataName.length() > 0) {</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+String dataValue = request.getParameter("dataValue");</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<font color="#FF0000">session.setAttribute(dataName, dataValue);</font></font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</font></tt>
+<p><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Mostramos
+valor de los atributos de la sesi&oacute;n</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Enumeration
+e = <font color="#FF0000">session.getAttributeNames();</font></font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while
+(e.hasMoreElements()) {</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+String name = (String)e.nextElement();</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#FF0000">
+String value = session.getAttribute(name).toString()</font>;</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+out.println(name + " = " + value);</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp; }</font></tt>
+<br><tt><font size=+1>}</font></tt>
+<p>&nbsp;</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<h1>
+12. Acceso de Bases de Datos</h1>
+
+<p><br>- Ya hemos visto anteriormente la necesidad de las BD.
+<br>Ahora vamos haber como se utilizan de manera muy somera y superficial
+<br>&nbsp;
+<p>Clases que debermos importar
+<br>&nbsp;
+<table COLS=1 WIDTH="40%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>import java.io.*;
+<br>import java.text.*;
+<br>import java.util.*;
+<br>import javax.servlet.*;
+<br>import javax.servlet.http.*;
+<br>import java.sql.*;
+<br>import javax.sql.*;</td>
+</tr>
+</table>
+
+<p>Crear el objeto conexion
+<br>&nbsp;
+<table COLS=1 WIDTH="40%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>Connection con=null;</td>
+</tr>
+</table>
+
+<p>Crear el objeto sentecia
+<br>&nbsp;
+<table COLS=1 WIDTH="40%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>&nbsp;Statement orden=null;</td>
+</tr>
+</table>
+
+<p>Cargar el driver
+<br>&nbsp;
+<table COLS=1 WIDTH="40%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>try{&nbsp;
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Class.forName("org.postgresql.Driver")
+<p>}catch(Exception e) {e.printStackTrace();&nbsp;
+<br>&nbsp;&nbsp; out.println("ERROR cargando clase");}</td>
+</tr>
+</table>
+
+<p>Conectar con BD
+<br>&nbsp;
+<table COLS=1 WIDTH="40%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>try{
+<p>con=DriverManager.getConnection("jdbc:postgresql://localhost:5432/prueba","rsb","");&nbsp;
+<p>}catch(Exception e) {e.printStackTrace(); out.println("ERROR al conectar");}
+<br>&nbsp;</td>
+</tr>
+</table>
+
+<p>Enlazar el objeto conexi&oacute;n con el objeto sentencia
+<br>&nbsp;
+<table COLS=1 WIDTH="40%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>orden=con.createStatement();</td>
+</tr>
+</table>
+
+<p>Crear una tabla
+<br>&nbsp;
+<br>&nbsp;
+<table COLS=1 WIDTH="40%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>String ntabla="alumnos";
+<br>String ncol1="nombre";
+<br>String ncol2="DNI";
+<br>&nbsp;
+<p>orden.executeUpdate("CREATE TABLE "+ntabla +"&nbsp;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ("+ncol1+"
+CHAR(100),"+ncol2+" INT)");</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<p>Borrar una tabla
+<br>&nbsp;
+<table COLS=1 WIDTH="40%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>orden.executeUpdate("DROP TABLE "+ntabla);</td>
+</tr>
+</table>
+
+<p>Insertar valores en la tabla
+<br>&nbsp;
+<table COLS=1 WIDTH="40%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>orden.executeUpdate("
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INSERT INTO asig_doc&nbsp;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (asignatura,prof_id,fech_curs)&nbsp;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; VALUES
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ('hmus1','9735','1/8/1999')
+<br>");
+<br>&nbsp;</td>
+</tr>
+</table>
+
+<p>Crear objeto resultado
+<br>&nbsp;
+<table COLS=1 WIDTH="40%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>&nbsp;ResultSet res=null;</td>
+</tr>
+</table>
+
+<p>Realizar un select simple y navegar por los resultados
+<br>&nbsp;
+<table COLS=1 WIDTH="70%" BGCOLOR="#66FF99" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>res=orden.executeQuery("SELECT password FROM&nbsp;&nbsp;&nbsp;
+profesores WHERE prof_id='"+prof_id+"'");
+<p>while (res.next()){&nbsp;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; out.println (res.getString("password"))}
+<br>&nbsp; }catch(Exception e){;}</td>
+</tr>
+</table>
+
+<p><font color="#FF0000">M&eacute;todos para obtener los tipos getXXX</font>
+<br>&nbsp;
+<p>Destruir el objeto sentencia
+<br>&nbsp;
+<table COLS=1 WIDTH="40%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>orden.close();</td>
+</tr>
+</table>
+
+<p>Destruir el objeto conexi&oacute;n (cerrarla)
+<br>&nbsp;
+<table COLS=1 WIDTH="40%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>try{
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; con.close();
+<p>}catch(Exception e) {e.printStackTrace();&nbsp;
+<br>&nbsp;&nbsp; out.println("ERROR al cerrar la conexi&oacute;n ")</td>
+</tr>
+</table>
+
+<p>- En que m&eacute;todo conectar con la BD?
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ->&nbsp; En doGet(), doPost()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+MAL&nbsp;&nbsp; (muy costoso por tmp)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ->&nbsp; En&nbsp; init() cuando arranca&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+MAL&nbsp;&nbsp; (costoso por mantener conexiones,...)
+<p>-Soluci&oacute;n: Almacenes de conexiones (Pool Connection)
+<br>&nbsp;
+<h1>
+13. Mejoras y ampliaciones</h1>
+
+<p><br>Velocidad
+<br>&nbsp;&nbsp;&nbsp; - Uso de threads
+<br>&nbsp;&nbsp;&nbsp; - Uso de almacenes (de threads, de conexiones a
+BD)
+<br>&nbsp;&nbsp;&nbsp; -&nbsp; Inserci&oacute;n de xpm en las clases (&iquest;?)
+<p>Portabilidad ;-)
+<br>&nbsp;&nbsp;&nbsp; - Uso de XML&nbsp;&nbsp; (ejemplo generar WML)
+<br>&nbsp;
+<h2>
+13.1 Threads</h2>
+
+<p><br>- Para acceso a recursos compartidos
+<br>- Sincronizaci&oacute;n
+<br>- Aumentar las prestaciones de velocidad
+<br>&nbsp;
+<p>Para hacer que el servlet maneje s&oacute;lo un cliente a la vez, tiene
+que implementar el interface
+<br>SingleThreadModel adem&aacute;s de extender la clase HttpServlet.
+<br>&nbsp;
+<br>&nbsp;
+<table COLS=1 WIDTH="40%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td>public class ReceiptServlet extends HttpServlet
+<br>implements SingleThreadModel {
+<br>...
+<p>}</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<h2>
+13.2 Inserci&oacute;n de XPM en clases</h2>
+&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="50%" NOSAVE >
+<tr>
+<td>ServletOutputStream out = res.getOutputStream();
+<br>out.print("/* XPM */\n"+
+<br>"static char * hello_xpm[] = {\n"+
+<br>"\"17 13 2 1\",\n"+
+<br>"\" \tc #000000\",\n"+
+<br>"\"X\tc #"+color+"\",\n"+
+<br>"\"XXXXX XXXXX\",\n"+
+<br>"\" XXXXX XXXXX \",\n"+
+<br>"\" XXXXX XXXXX \",\n"+
+<br>"\" XXXXX XXXXX \",\n"+
+<br>"\" XXXXXXXXX \",\n"+
+<br>"\" XXXXXXX \",\n"+
+<br>"\" XXXXX \",\n"+
+<br>"\" XXXXXXX \",\n"+
+<br>"\" XXXXXXXXX \",\n"+
+<br>"\" XXXXX XXXXX \",\n"+
+<br>"\" XXXXX XXXXX \",\n"+
+<br>"\" XXXXX XXXXX \",\n"+
+<br>"\"XXXXX XXXXX\"};\n");
+<br>out.close();</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<h2>
+13.3 Generar p&aacute;ginas WML</h2>
+&nbsp;
+<table BORDER COLS=1 WIDTH="80%" NOSAVE >
+<tr>
+<td>import java.io.*;
+<br>import javax.servlet.*;
+<br>import javax.servlet.http.*;
+<p>public class ServletEjemplo extends HttpServlet {
+<p>private String Param1=null;
+<br>private String Param2=null;
+<br>private String Param3=null;
+<br>private String Param4=null;
+<p>public void init(ServletConfig config) throws ServletException {
+<br>super.init(config);
+<br>} // fin del m&eacute;todo init()
+<p>public void destroy()
+<br>{ /* No hay nada que hacer, incluimos la funci&oacute;n a modo de ejemplo
+*/;
+<br>} fin del m&eacute;todo destroy()
+<p>public void doPost (HttpServletRequest req, HttpServletResponse resp)
+<p>throws ServletException, IOException {
+<p>Param1=req.getParameter("Param1");
+<br>Param2=req.getParameter("Param2");
+<br>Param3=req.getParameter("Param3");
+<br>Param4=req.getParameter("Param4");
+<br>GenerarPaginaWML(resp);
+<p>} // fin del m&eacute;todo doPost()
+<p>public void doGet (HttpServletRequest req, HttpServletResponse resp)
+<br>throws ServletException, IOException {
+<br>doPost(req,resp);
+<br>} // fin del m&eacute;todo doPost()
+<p>public void GenerarPaginaWML (HttpServletResponse resp) { resp.setContentType("text/vnd.wap.wml");
+<br>PrintWriter out = null;
+<br>try {
+<br>out=resp.getWriter();
+<br>}
+<br>catch (IOException io) {
+<br>;
+<br>}
+<br>// Se genera el contenido de la p&aacute;gina WML
+<br>out.println("&lt;% Response.ContentType = "text/vnd.wap.wml" %>");
+<br>out.println(" &lt;?xml version="1.0"?> ");
+<br>out.println("&lt;!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.1//EN"
+"http://www.wapforum.org/DTD/wml_1.1.xml"> ");
+<br>out.println("&lt;WML>");
+<br>out.println("&lt;card id="Ejemplo" title="Ejemplo">");
+<br>out.println("&lt;p>&lt;strong>Valores devueltos:&lt;/strong>&lt;/p>");
+<br>out.println("&lt;p>Param1: "+Param1+"&lt;/p>");
+<br>out.println("&lt;br>&lt;p>Param2: " + Param2 + "&lt;/p>");
+<br>out.println("&lt;br>&lt;p>Param3: " + Param3 + "&lt;/p>");
+<br>out.println("&lt;br>&lt;p>Param4: " + Param4 + "&lt;/p>");
+<br>out.println("&lt;/card>");
+<br>out.println("&lt;/wml>");
+<br>out.flush();
+<br>out.close();
+<p>} // fin de GenerarPaginaWML ()
+<p>public String getServletInfo() {
+<br>return "Un servlet completo para WML";
+<br>} // fin del m&eacute;todo getServletInfo()
+<br>}
+<p>&nbsp;</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<div align=right>
+<p>Ricardo Santamaria (AUGCYL)
+<br>Abril 2002&nbsp;&nbsp; GFDL 1.1</div>
+
+</body>
+</html>

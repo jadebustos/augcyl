@@ -1,0 +1,117 @@
+%include "default.mgp"
+%default 1 bgrad
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+%center, size 7, font "standard", fore "white",vgap 20
+
+Librerias GTK
+
+%fore "red"
+AUGCyL - http://www.augcyl.org 
+
+%image "augcyl.png" 1024x768
+
+%page
+
+Qué es?
+
+-Gtk es...
+	Una librería para crear interfaces gráficos
+	Alto nivel
+	Utilizada tanto en proyectos pequeños como escritorios completos.
+%pause
+
+-Nace a partir del proyecto GNU Gimp (Gimp ToolKit), y se extiende a otros proyectos:
+	Abiword
+	Dia
+	Glade
+	Gnumeric
+
+%page
+
+Caracteristícas
+
+
+-Personalización: Soporte de Temas
+-Multilenguaje: C, C++, Perl, Python, Eiffel, Pascal, java, php...
+-Multiplataforma: Linux, *BSD, Windows, BeOS, Framebuffer
+%pause
+-Licencia:
+	Librerias Creadas para el proyecto GNU
+	La licencia que tiene es LGPL, permite ser utilizada para software propietario
+-Librerias en las que se basa:
+	Pango (Renderizado de fuentes, soporte para todo tipo de idiomas, Unicode)
+	Glib
+
+%page
+
+Libreria Glib
+
+-Libreria escrita en bajo nivel
+
+-Aporta estructuras de datos
+	Básicas: gint, gfloat, gdouble, gboolean, guint, gchar, guchar...
+	Avanzadas: Listas enlazadas, arrays dinamicos, colas, hash...
+	Gestión de entrada/salida (GIOChannels)
+
+-Gestión de memoria optimizada
+-Comprobación de parámetros correctos en las funciones
+-Pequeña implementación de objetos
+-Hilos (threads)
+
+%page
+
+Estructura
+
+
+-Organizacion:
+	Widgets
+	Señales
+	Eventos
+	Propiedades
+
+
+
+-Bucle principal
+
+%page
+
+WIDGETS
+
+-Son los distintos objetos que podemos emplear:
+	Window
+	Button
+	Entry
+	Label
+	Box (HBox, VBox)
+	...
+
+-Los widgets se introducen en contenedores
+
+%page
+
+PASOS PARA CREAR WIDGETS
+
+-Los pasos generales para crear widgets son:
+   1. $var=new Gtk::Widget()
+   2. Indicar los atributos para el widget
+   3. Conexión entre eventos y las funciones que se ejecutarán
+   4. Colocar el widget en un contenedor o una caja con $contenedor->add() o $caja->pack_start(...)
+   5. Añadir widgets hijos si es necesario
+   6. Mostrarlo con la funcion show()
+
+%page
+
+OTRA INFORMACION
+
+-Programas de ayuda para Diseño de interfaces gtk
+	Glade
+	Anjuta
+
+
+-Mas informacion:
+	http://www.gtk.org
+	http://www.gtk.org/tutorial
+	http://www.gnome.org
+	http://www.glade.org

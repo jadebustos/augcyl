@@ -1,0 +1,602 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Ricardo Santamaría (AUGCYL)">
+   <meta name="Description" content="Taller de Java Servlets Abril 2002">
+   <meta name="GENERATOR" content="Mozilla/4.73 [en] (Windows NT 5.0; I) [Netscape]">
+   <title>Java y JDBC</title>
+</head>
+<body>
+
+<h1>
+1.&nbsp; JAVA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img SRC="imagenes/javalogo52x88.gif" NOSAVE height=88 width=52></h1>
+&nbsp;
+<p>&nbsp;
+<p>- Java es es un lenguajes OO
+<p>- Es muy parecido a C++
+<p>- No tiene punteros ;-)
+<p>- Ejemplo de clase
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="40%" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public class HolaMundo {
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public
+static void main(String[ ] args) {
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("Hola, mundo");
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<p>- Comentarios //, /* */, /** */
+<p>- Asignamos valores a las variables por el simbolo "="
+<p>- Las comparaciones las realizamos mediante los
+<br>simbolos "==" (igual a) y "!=" (distinto de)
+<p>- Operadores de preincrementos,postincremento,... iguales que en C
+<p>- Identificador (null,this,super)
+<br>&nbsp;
+<h2>
+1.1 Tipos</h2>
+&nbsp;
+<table BORDER=3 CELLSPACING=3 CELLPADDING=3 NOSAVE >
+<tr ALIGN=CENTER NOSAVE>
+<td>Tipo&nbsp;</td>
+
+<td>&nbsp;&nbsp;&nbsp; Descripci&oacute;n&nbsp;</td>
+
+<td NOSAVE>&nbsp; Tama&ntilde;o&nbsp;</td>
+
+<td>Clase equivalente</td>
+</tr>
+
+<tr>
+<td>boolean&nbsp;</td>
+
+<td>Valor l&oacute;gico</td>
+
+<td>1 bit&nbsp;</td>
+
+<td>Boolean</td>
+</tr>
+
+<tr>
+<td>char</td>
+
+<td>Car&aacute;cter&nbsp;</td>
+
+<td>16 bit</td>
+
+<td>Character</td>
+</tr>
+
+<tr>
+<td>byte&nbsp;</td>
+
+<td>Entero muy peque&ntilde;o&nbsp;</td>
+
+<td>8 bit</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>short</td>
+
+<td>Entero peque&ntilde;o&nbsp;</td>
+
+<td>16 bit</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>int</td>
+
+<td>Entero normal</td>
+
+<td>32 bit&nbsp;</td>
+
+<td>Integer</td>
+</tr>
+
+<tr>
+<td>long</td>
+
+<td>Entero grande</td>
+
+<td>64 bit&nbsp;</td>
+
+<td>Long</td>
+</tr>
+
+<tr>
+<td>float</td>
+
+<td>N&uacute;mero real de precisi&oacute;n simple</td>
+
+<td>32 bit&nbsp;</td>
+
+<td>Float</td>
+</tr>
+
+<tr>
+<td>double</td>
+
+<td>N&uacute;mero real de doble precisi&oacute;n&nbsp;</td>
+
+<td>64 bit&nbsp;</td>
+
+<td>Double</td>
+</tr>
+
+<tr>
+<td>void&nbsp;</td>
+
+<td>Tipo vac&iacute;o</td>
+
+<td></td>
+
+<td></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<h3>
+1.1.1 Enteros</h3>
+&nbsp;
+<table BORDER=0 CELLSPACING=3 CELLPADDING=5 BGCOLOR="#66FF99" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>int numero = 12;</td>
+</tr>
+</table>
+
+<table BORDER=0 CELLSPACING=3 CELLPADDING=3 BGCOLOR="#66FF99" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>Integer numero = new Integer(12);</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<h3>
+1.1.2 Caracteres</h3>
+
+<p><br><tt><font size=+1>char Character.isLowerCase( char )</font></tt>
+<br><tt><font size=+1>char Character.isUpperCase( char )</font></tt>
+<br><tt><font size=+1>boolean Character.isDigit( char )</font></tt>
+<br><tt><font size=+1>boolean Character.isLetter( char )</font></tt>
+<br><tt><font size=+1>boolean Character.isSpace( char )</font></tt>
+<br><tt><font size=+1>int Character.digit( char , int )</font></tt>
+<br><tt><font size=+1>char Character.forDigit( int ,int )</font></tt>
+<br>&nbsp;
+<h3>
+1.1.3 Cadenas</h3>
+&nbsp;
+<table CELLSPACING=3 CELLPADDING=3 BGCOLOR="#66FF99" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>String cad = new String;</td>
+</tr>
+</table>
+
+<table CELLSPACING=3 CELLPADDING=3 BGCOLOR="#66FF99" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>String cad = new String("Hola&nbsp; mundo");</td>
+</tr>
+</table>
+
+<p><tt><font size=+1>int cad.length()</font></tt>
+<br><tt><font size=+1>char cad.charAt( int)</font></tt>
+<br><tt><font size=+1>int cad.compareTo( String )</font></tt>
+<br><tt><font size=+1>String cad.toLowerCase()</font></tt>
+<br><tt><font size=+1>String cad.toUpperCase()</font></tt>
+<br>&nbsp;
+<p>- M&eacute;todos de String para obtener una cadena a partir
+<br>de un tipo num&eacute;ric<tt>o</tt>
+<p><tt><font size=+1>String String.valueOf( boolean )</font></tt>
+<br><tt><font size=+1>String String.valueOf( int )</font></tt>
+<br><tt><font size=+1>String String.valueOf( long )</font></tt>
+<br><tt><font size=+1>String String.valueOf( float )</font></tt>
+<br><tt><font size=+1>String String.valueOf( double )</font></tt>
+<br><tt><font size=+1>String String.valueOf( Object )</font></tt>
+<br><tt><font size=+1>String String.valueOf( char[] )</font></tt>
+<br>&nbsp;
+<p>- Ejemplo de como obtener un tipo num&eacute;rico
+<br>a partir de una cadena
+<br>&nbsp;
+<table COLS=1 WIDTH="40%" BGCOLOR="#66FF99" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>
+<br><tt><font size=+1>String piStr = "3.14159";</font></tt>
+<br><tt><font size=+1>Float pi = Float.valueOf(piStr);</font></tt></td>
+</tr>
+</table>
+
+<h3>
+1.1.4 Arrays</h3>
+&nbsp;
+<table CELLSPACING=3 CELLPADDING=3 WIDTH="40%" BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td><tt><font size=+1>char c[];</font></tt></td>
+</tr>
+
+<tr NOSAVE>
+<td NOSAVE><tt><font size=+1>char[] c;</font></tt></td>
+</tr>
+
+<tr NOSAVE>
+<td NOSAVE><tt><font size=+1>char[][] c;</font></tt></td>
+</tr>
+
+<tr>
+<td><tt><font size=+1>int numeros[][] = new int[30][10];</font></tt></td>
+</tr>
+</table>
+
+<h2>
+1.2 Control del flujo</h2>
+&nbsp;
+<table BORDER COLS=1 WIDTH="50%" NOSAVE >
+<tr>
+<td>
+<br>if (expresi&oacute;n booleana)
+<br>&nbsp;&nbsp; sentencia</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="50%" NOSAVE >
+<tr>
+<td>
+<br>if (expresi&oacute;n booleana)
+<br>&nbsp;&nbsp;&nbsp; sentencia
+<br>else
+<br>&nbsp;&nbsp;&nbsp; sentencia</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="50%" NOSAVE >
+<tr>
+<td>
+<br>switch (expresi&oacute;n) {
+<br>&nbsp;&nbsp;&nbsp; case valor1: sentencia; break;
+<br>&nbsp;&nbsp;&nbsp; case valor2: sentencia; break;
+<br>&nbsp;&nbsp;&nbsp; case valor3: sentencia; break;
+<br>// ...
+<br>default: sentencia;
+<br>}</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="50%" NOSAVE >
+<tr>
+<td>
+<br>while (expresi&oacute;n booleana)
+<br>&nbsp;&nbsp; sentencia</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="50%" NOSAVE >
+<tr>
+<td>
+<br>do
+<br>&nbsp;&nbsp; sentencia;
+<br>while (expresi&oacute;n booleana)</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="50%" NOSAVE >
+<tr>
+<td>
+<br>for (inicializaci&oacute;n; expresi&oacute;n booleana; paso)
+<br>&nbsp;&nbsp;&nbsp; sentencia</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<h2>
+1.3 Excepciones</h2>
+&nbsp;
+<table BORDER COLS=1 WIDTH="50%" NOSAVE >
+<tr>
+<td><tt><font size=+1><font color="#FF0000">try</font> {</font></tt>
+<p><tt><font size=+1>&nbsp;&nbsp;&nbsp; for (int i=0; i&lt;=3; i++)</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp; System.out.println(mensajes[i]);</font></tt>
+<p><tt><font size=+1>}</font></tt>
+<br><tt><font size=+1><font color="#FF0000">catch</font> ( ArrayIndexOutOfBoundsException
+e ) {</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp; System.out.println("Desbordamiento")</font></tt>
+<br><tt><font size=+1>}</font></tt>
+<br>&nbsp;
+<p><tt><font size=+1><font color="#FF0000">finally</font> {</font></tt>
+<br><tt><font size=+1>&nbsp; System.out.println("Fin de la ejecuci&oacute;n");</font></tt>
+<br><tt><font size=+1>}</font></tt>
+<br>&nbsp;</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<table CELLSPACING=3 CELLPADDING=3 BGCOLOR="#66FF99" NOSAVE >
+<tr>
+<td><tt><font size=+1>Exception e = new Exception()</font></tt></td>
+</tr>
+
+<tr NOSAVE>
+<td NOSAVE><tt><font size=+1>Exception e = new Exception ( String )</font></tt></td>
+</tr>
+
+<tr>
+<td><tt><font size=+1>String e.getMessage()</font></tt></td>
+</tr>
+
+<tr>
+<td><tt><font size=+1>void e.printStackTrace()</font></tt></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<h2>
+1.4 Herencia</h2>
+&nbsp;
+<table BORDER COLS=1 WIDTH="60%" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>
+<br><tt><font size=+1><font color="#CC66CC">class Poligono</font>{</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp; String area, color;</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp; public void <font color="#993399">desplazar</font>(
+) {</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("El
+poligono se desplaza");</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp; }</font></tt>
+<br><tt><font size=+1>}</font></tt>
+<p><tt><font size=+1><font color="#CC66CC">class Triangulo</font> <font color="#FF0000">extends
+Poligono</font> {</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp; int tipo;</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp; public void <font color="#CC33CC">desplazar</font>()
+{</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("El
+triangulo es el que se&nbsp;</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+desplaza");</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp; }</font></tt>
+<br><tt><font size=+1>}</font></tt>
+<br>&nbsp;
+<p><tt><font size=+1><font color="#663366">public class Herencia</font>
+{</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp; public static void main(String[]
+args) {</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#993399">Triangulo
+uno = new Triangulo()</font>;</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#993399">uno.desplazar();</font></font></tt>
+<br><tt><font size=+1>}</font></tt>
+<br>&nbsp;</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<h3>
+1.4.1 Abstracci&oacute;n</h3>
+&nbsp;
+<table BORDER COLS=1 WIDTH="60%" NOSAVE >
+<tr>
+<td>
+<br><tt><font size=+1><font color="#FF0000">abstract</font> class Poligono
+{</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String area, color;</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#CC33CC">public
+</font><font color="#FF0000">abstract</font><font color="#CC33CC">
+void desplazar();</font></font></tt>
+<br><tt><font size=+1>}</font></tt>
+<p><tt><font size=+1>class Triangulo <font color="#FF0000">extends Poligono</font>
+{</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int tipo;</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#CC33CC">public
+void desplazar() </font>{</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("Se desplaza el triangulo");</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</font></tt>
+<br><tt><font size=+1>}</font></tt>
+<br>&nbsp;
+<p><tt><font size=+1>public class Abstracci&oacute;n {</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public static
+void main(String[] args) {</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color="#993399">Triangulo uno = new Triangulo();</font></font></tt>
+<br><tt><font color="#993399"><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+uno.desplazar();</font></font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</font></tt>
+<br><tt><font size=+1>}</font></tt>
+<br>&nbsp;</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<h3>
+1.4.2 Interface</h3>
+
+<p><br>- Similitudes con la herencia m&uacute;ltiple
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="60%" NOSAVE >
+<tr>
+<td>
+<br><tt><font size=+1><font color="#FF0000">interface Poligono</font> {</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp; String area, color;</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp; <font color="#CC33CC">public void desplazar</font>();</font></tt>
+<br><tt><font size=+1>}</font></tt>
+<br>&nbsp;
+<p><tt><font size=+1>class Triangulo <font color="#FF0000">implements Poligono</font>
+{</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp; int tipo;</font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp; <font color="#CC33CC">public void desplazar()
+{</font></font></tt>
+<br><tt><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("El
+triangulo es el que se desplaza");</font></tt>
+<br><tt><font size=+1>}</font></tt>
+<br><tt><font size=+1>}</font></tt>
+<br>&nbsp;</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<h2>
+1.5 Paquetes</h2>
+&nbsp;
+<table CELLSPACING=7 CELLPADDING=3 BGCOLOR="#66FF99" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE><tt><font size=+1><font color="#FF0000">package</font> augcyl.taller.ejemplos;</font></tt></td>
+</tr>
+
+<tr>
+<td><tt><font size=+1>augcyl/taller/ejemplos</font></tt></td>
+</tr>
+
+<tr>
+<td><tt><font size=+1><font color="#FF0000">import</font> augcyl.taller.ejemplos.*;</font></tt></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<h1>
+2. Java DataBase Connection&nbsp; (JDBC)</h1>
+
+<p><br>- Necesidad de las bases de datos (BD)
+<p>- Modelo Relacional&nbsp; -> BD relacionales
+<p>- SGDB en Gnu/Linux como Postgres, MySQL
+<p>- JDBC es el API de JAVA para conectarse a base
+<br>de datos.
+<p>- 4 clases de drivers JDBC
+<p>- Puente JDBC-ODBC
+<p>- JDBC utiliza el Lenguaje de consulta estructurado SQL (Structured
+<br>Query Languaje) para comunicarse con la base de datos.
+<p>- JDBC cumple ANSi SQL 92
+<p>- SQL se divide&nbsp; "sublenguajes"&nbsp; (3)
+<blockquote>-> DDL (Data Definition Languaje)
+<br>Las DDL permiten crear tablas, vistas (create table, create
+<br>view, drop table, drop view).
+<p>-> DML (Data Manipulation Languaje)
+<br>Las DML permite seleccionar, actualizar o eliminar datos
+<br>de las tablas en la base de datos (select, update y delete
+<br>respectivamente).</blockquote>
+- <font color="#3333FF">Correspondencia de tipos&nbsp; SQL/Java</font>
+<br>&nbsp;
+<br>&nbsp;
+<h2>
+2.1 Objetos JDBC m&aacute;s importantes</h2>
+
+<p><br><font color="#FF0000">Connection</font>:&nbsp; representa la conexi&oacute;n
+con la base de datos.
+<br>Es el objeto base para la creaci&oacute;n de los objetos de acceso
+a la base de datos.
+<p><font color="#FF0000">Drivermanager:</font> encargado de mantener los
+drivers que est&aacute;n disponibles
+<br>en una aplicaci&oacute;n concreta.
+<br>Es el objeto que mantiene las funciones de administraci&oacute;n de
+las operaciones
+<br>que se realizan con la base de datos.
+<p><font color="#FF0000">Statement</font>: se utiliza para enviar las sentencias
+SQL simples a la base de datos.
+<p><font color="#FF0000">PreparedStatement</font>: tiene una relaci&oacute;n
+de herencia con el objeto anterior,
+<br>a&ntilde;adi&eacute;ndole la funcionalidad de poder utilizar par&aacute;metros
+de entrada.
+<br>Adem&aacute;s, tiene la particularidad de que la pregunta ya ha sido
+compilada
+<br>antes de ser realizada, por lo que se denomina preparada, otra ventaja
+es la
+<br>rapidez de ejecuci&oacute;n de la pregunta.
+<p><font color="#FF0000">CallableStatement</font>: tiene una relaci&oacute;n
+de herencia en el objeto preparedstatement.
+<br>Permite utilizar funciones implementadas directamente sobre el sistema
+de gesti&oacute;n
+<br>de la base de datos. Teniendo en cuenta que &eacute;ste posee informaci&oacute;n
+adicional sobre
+<br>el uso de las estructuras internas, &iacute;ndices, etc.; las funciones
+se realizar&aacute;n de
+<br>forma m&aacute;s eficiente y este tipo de operaciones es muy utilizada
+en el caso de ser
+<br>funciones muy complicadas o bien, que vayan a ser ejecutadas varias
+veces a lo largo
+<br>del tiempo de vida de la aplicaci&oacute;n.
+<p><font color="#FF0000">ResultSet</font>: contiene la tabla resultado
+de la pregunta SQL que se haya realizado.
+<br>&nbsp;
+<br>&nbsp;
+<h2>
+2.2 API JDBC 2.0</h2>
+- El API JDBC 2.0 ha realizado una serie de mejoras de entre las
+<br>cuales destacamos la posibilidad de:
+<blockquote>- Ir hacia adelante o hacia atr&aacute;s en una hoja de resultados
+o
+<br>movernos a un fila espec&iacute;fica.
+<p>- Hacer actualizaciones de las tablas de la base datos utilizando
+<br>m&eacute;todos Java en lugar de utilizar comandos SQL.
+<p>- Enviar m&uacute;ltiples secuencias SQL a la base de datos como una
+unidad, o batch.
+<p>- Utilizar los nuevos tipos de datos SQL3!!!! como valores de columnas
+<br>Caracteristicas avanzadas</blockquote>
+
+<p><br>- <font color="#FF0000">Rowsets</font>
+<br>&nbsp;Objeto que encapsula un conjunto de filas de una hoja de resultados.
+<p>- <font color="#FF0000">J</font><font color="#CC0000">NDI</font> para
+Nombrar Bases de Datos
+<p>- <font color="#FF0000">Connection Pooling</font>
+<br>Un Connection Pool es un cach&eacute; para conexiones frecuentes que
+pueden ser utilizadas
+<br>y reutilizadas, esto recorta la sobrecarga de crear y destruir conexiones
+a bases de datos.
+<p>- <font color="#FF0000">Soporte de Transaci&oacute;n Distribuida</font>
+<br>&nbsp;
+<h2>
+2.3 Transacciones</h2>
+
+<p><br>- Permite que una sentencia no tenga efecto a menos que otra tambi&eacute;n
+suceda.
+<p>- Adem&aacute;s de agrupar las sentencias para ejecutarlas como una
+unidad, las transaciones
+<br>pueden ayudarnos a preservar la integridad de los datos de una tabla.
+<p>- Problemas de coherencia? (WAR,...)
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="40%" BGCOLOR="#66FF99" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>//Desactiva el auto commmit
+<p>//Las sentecias no se ejecutan automaticamente
+<p><tt><font size=+1>con.setAutoCommit(false);</font></tt></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="40%" BGCOLOR="#66FF99" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>/Confirma todo el conjunto de sentecias
+<p><tt><font size=+1>con.commit();</font></tt></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="40%" BGCOLOR="#66FF99" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>/Cancela las sentencias anteriores y restaura los valores
+<br><tt><font size=+1>con.rollback();</font></tt></td>
+</tr>
+</table>
+
+<div align=right>
+<p>Ricardo Santamaria (AUGCYL)
+<br>Abril 2002&nbsp;&nbsp; GFDL 1.1</div>
+
+</body>
+</html>

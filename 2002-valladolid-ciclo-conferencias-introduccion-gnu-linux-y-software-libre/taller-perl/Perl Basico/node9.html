@@ -1,0 +1,136 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Francisco J. Palacios">
+   <meta name="GENERATOR" content="Mozilla/4.76 [es] (X11; U; Linux 2.4.2-2 i686) [Netscape]">
+   <title>Taller de Perl - Perl B&aacute;sico</title>
+</head>
+<body background="fondo.jpg">
+
+<div ALIGN=right>
+<h3>
+<img SRC="camel.gif" height=149 width=144></h3></div>
+
+<h3>
+10. Procesos y llamadas al sistema operativo. Un ejemplo con <i>fork</i></h3>
+
+<p><br>Para aplicaciones m&aacute;s de "<i>sistema</i>" Perl nos permite
+hacer llamadas al sistema operativo mediante la funci&oacute;n syscall.
+Sin embargo las m&aacute;s usuales est&aacute;n al alcance sin tener que
+pasar por la funci&oacute;n anterior.
+<p>Tambi&eacute;n se pueden ejecutar comandos externos simplemente encerrandolos
+entre las comillas inversas:
+<blockquote>&nbsp;
+<table BORDER=0 COLS=1 WIDTH="200" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE><i><font color="#006600">$files</font> = `<font color="#FF0000">/bin/ls
+-l</font><font color="#000000">`</font></i></td>
+</tr>
+</table>
+</blockquote>
+o mediante la funci&oacute;n system(programa,argumentos)
+<br>&nbsp;
+<p>Una muy utilizada es la funci&oacute;n fork, que crea un proceso hijo
+del proceso actual. En el momento en que se llame, el proceso se divide
+en dos. El proceso original (proceso padre) recibe como resultado de la
+llamada a fork el PID del proceso hijo (o undefined si no se pudo generar).
+El proceso hijo recibe un 0 y se empieza a ejecutar a partir del fork.
+<p>Para un script de Perl que se est&eacute; ejecutando, su PID est&aacute;
+accesible en la variable<font color="#006600"> $$</font>
+<p>Seg&uacute;n esto la manera de crear un par de procesos suele tener
+siempre el mismo esquema.
+<blockquote>&nbsp;
+<table BORDER=0 COLS=1 WIDTH="300" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>...
+<p><font color="#006600">$pid</font> = fork();
+<br>if(<font color="#006600">$pid </font>!= <font color="#993399">0</font>)
+<br>{
+<br>&nbsp;&nbsp; <font color="#3333FF"># Soy el padre</font>
+<br>&nbsp;&nbsp; ...
+<br>&nbsp;&nbsp; <font color="#3333FF"># hago mi tarea</font>
+<br>&nbsp;&nbsp; ...
+<br>}
+<br>else if( <font color="#006600">$pid </font>== <font color="#993399">0</font>
+)
+<br>{
+<br>&nbsp;&nbsp; <font color="#3333FF"># Soy el hijo</font>
+<br>&nbsp;&nbsp; ...
+<br>&nbsp;&nbsp; <font color="#3333FF"># hago mi tarea</font>
+<br>&nbsp;&nbsp; ...
+<br>}
+<p>...</td>
+</tr>
+</table>
+</blockquote>
+En el <font color="#000000"><a href="ejemplo16.pl">ejemplo16.pl</a></font>
+se muestra un caso como el anterior
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE><font color="#993399">#!/usr/bin/perl -w</font>
+<p><font color="#3333FF"># Ejemplo del uso del fork para crear varios procesos</font>
+<br>&nbsp;
+<p><font color="#006600">$pid</font> = 1;
+<br><font color="#006600">@hijos</font> = ();
+<p>for(<font color="#006600">$i=</font><font color="#993399">0</font>;
+<font color="#006600">$i</font>&lt;<font color="#993399">5</font>;
+<font color="#006600">$i</font>++)
+<br>{
+<br>&nbsp;&nbsp; if(<font color="#006600">$pid</font>!=<font color="#993399">0</font>)&nbsp;
+<br>&nbsp;&nbsp; {&nbsp;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#006600">$pid</font> =
+fork();&nbsp;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; push(<font color="#006600">@hijos</font>,<font color="#006600">$pid</font>);
+<br>&nbsp;&nbsp; }
+<br>}
+<p>if(<font color="#006600">$pid</font>!=<font color="#006600">0</font>)
+<br>{
+<br>&nbsp;&nbsp; <font color="#3333FF"># Soy el padre</font>
+<br>&nbsp;&nbsp; print <font color="#FF0000">"Esperando a que acaben los
+hijos...</font><font color="#993399">\n</font><font color="#FF0000">"</font>;
+<br>&nbsp;&nbsp; do
+<br>&nbsp;&nbsp; {
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; waitpid(<font color="#006600">$hijos[</font><font color="#993399">0</font><font color="#006600">]</font>,<font color="#993399">0</font>);
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; shift <font color="#006600">@hijos</font>;
+<p>&nbsp;&nbsp; } until (<font color="#006600">$#hijos</font>==0)
+<br>}
+<br>else
+<br>{
+<br>&nbsp;&nbsp; <font color="#3333FF"># Soy un hijo</font>
+<br>&nbsp;&nbsp; <font color="#006600">$padre</font> = getppid();
+<br>&nbsp;&nbsp; print <font color="#FF0000">"Hola, saludos a mi padre
+</font><font color="#006600">$padre</font><font color="#FF0000">
+desde el hijo </font><font color="#006600">$$</font><font color="#993399">\n</font><font color="#FF0000">"</font>;
+<br>&nbsp;&nbsp; <font color="#3333FF"># Descomentar la siguiente linea
+para que los hijos no acaben</font>
+<br>&nbsp;&nbsp; <font color="#3333FF"># while(1==1) { ; }</font>
+<br>}</td>
+</tr>
+</table>
+
+<p>Ah&iacute; vemos el uso de la variable <font color="#006600">$$</font>
+que nos da el PID del proceso que se est&eacute; ejecutando
+<p>
+<hr WIDTH="100%">
+<center><table BORDER=0 COLS=3 WIDTH="25%" NOSAVE >
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node8.html"><img SRC="ol.gif" BORDER=0 height=44 width=65></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html"><img SRC="home02.gif" BORDER=0 height=75 width=61></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node10.html"><img SRC="or.gif" BORDER=0 height=44 width=65></a></td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node8.html">Anterior</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html">Home</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node10.html">Siguiente</a></td>
+</tr>
+</table></center>
+
+<br>&nbsp;
+</body>
+</html>

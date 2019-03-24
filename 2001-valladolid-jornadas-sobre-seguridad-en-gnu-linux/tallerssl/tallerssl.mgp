@@ -1,0 +1,215 @@
+%include "default.mgp"
+%default 1 bgrad
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+%center, size 7, font "standard", fore "white", vgap 20
+
+III Jornadas de Software libre y Seguridad en
+GNU/Linux
+
+#%image "GNU.png" 1024x768
+%fore "green"
+
+Programación con OpenSSL
+
+%fore "red", size 5
+Chema Peribáñez <chema@augcyl.org>
+
+%image "logo-augcyl.png" 1024x768
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+SSL/TLS (Transport Layer Security)
+
+Protocolo para establecer un canal seguro a nivel de sockets, entre
+origen y destino. 
+
+Proporciona:
+	canal encriptado
+	certificados X.509 para:
+		autentificar el servidor
+		autentificar (opcional) al cliente
+	seguridad frente agresor en medio
+		no ve, no modifica
+		no puede impersonar
+	eficiencia, gracias a sesiones
+	flexibilidad algoritmos
+%pause
+%fore "red"
+No proporciona
+%fore "white"
+	no refutación (se usa clave simétrica)
+
+%page
+
+Proxy
+
+Petición:
+	CONNECT www.patagon.es:443 HTTP/1.0
+Respuesta:
+	HTTP/1.0 ok
+	Proxy-agent: fulanito
+
+%page
+
+Implementaciones
+
+OpenSSL (www.openssl.org)
+	La más utilizada: Apache, LDAP, fetchmail, demonios
+	mal documentada, pero fácil de aprender
+	licencia no-copyleft incompatible con la GPL
+	PKCS#11 (independencia del dispositivo en alm. y uso),PKCS#12...
+	C (con bindings y wrappers a muchos lenguajes). Multiplataforma
+%pause
+NSS  (www.mozilla.org/projects/security/pki/nss/)
+	Mozilla e IPlanet, ahora alguno más
+	Muy completa, S/MIME, PCKS#11, PKCS#12
+	Depende de NSPR (hilos y entrada/salida)
+	C++. Multiplataforma
+	licencia dual NPL/GPL
+
+%page
+
+Implementaciones (II)
+
+PSM 2.0 (www.mozilla.org)
+	Componente de Mozilla, sobre NSS
+		no hace falta saber NSP
+	gecko y necko, XUL
+	OCSP, protocolos PKIX
+	XPCOM: C++, JavaScript, Java, Python
+	licencia dual NPL/GPL
+
+GNU TLS (www.gnu.org/software/gnutls)
+	C. ¿Sólo UNIX?  LesserGPL
+	thread-safe
+	Buena documentación, incluso sobre el propio protocolo
+	Capa de compatibilidad con OpenSSL (fuente)
+	Certificados OpenPGP además de X.509. SRP.
+	no S/MIME, pero http://www.gnupg.org/aegypten/ (GPL)
+
+%page
+
+Implementaciones (III)
+
+cryptlib (www.cs.auckland.ac.nz/~pgut001/cryptlib/)
+	270 páginas de documentación
+	bastantes características
+		CPM (Certification Management Protocol)
+		OCSP (online certificate status protocol)
+		S/MIME
+	no PKCS#12, PKCS#15
+	reentrante
+	multiplataforma, en Win como ActiveX
+	licencia dual: Sleepycat (tipo GPL), de pago para propietario
+		confuso
+
+JSSE (java.sun.com)
+PureTLS (http://www.rtfm.com/sslbook/)
+
+%page
+
+OpenSSL sin necesidad de programar
+
+Stunnel (www.stunnel.org)
+GPL
+Permite incorporar a un servidor normal SSL
+	vía inetd
+	gateway recibe SSL y reenvía normal a puerto
+Permite incorporar a cliente normal SSL
+	proxy lee normal, envía SSL
+	proxy transparente
+¿No recuerda a forwarding SSH?
+
+%page
+
+Librerías que usan OpenSSL
+
+libcurl: http://curl.haxx.se/libcurl/
+	para descargar/subir páginas
+	en C, pero hay para muchos lenguajes
+	licencia tipo MIT X11
+	multiplataforma
+xmlsec: libxml2 (http://curl.haxx.se/libcurl/
+	firmado y encriptación en páginas XML
+	LGPL
+	multiplataforma
+wxstream: http://open.nit.ca/wvstreams/
+	C++, específica Linux
+
+%page
+
+Esqueleto común aplicación OpenSSL
+
+ #include <openssl/ssl.h>
+	en algunos, #include <ssl.h>
+tipos a declarar
+	SSL_Context* una vez por cliente/servidor
+	SSL_Session* (opcional)
+	SSL* la conexión
+	BIO* E/S multiplataforma
+inicializar: SSL_library_init();
+crear contexto: SSL_Context_new(
+	SSLv23_client_method()
+	SSLv23_server_method()
+gcc fichero.c -lssl
+
+%page
+
+Cliente SSL
+
+1 Fijamos tipo caché (opcional)
+SSL_CTX_set_session_cache_mode(contexto,SSL_SESS_CACHE_CLIENT)
+2 Indicamos situación CAs reconocidas (opcional)
+SSL_CTX_load_verify_locations(contexto,ruta,NULL);
+3 Creamos objeto SSL: conexion=SSL_new(contexto);
+4 Abrimos conexión de red bio=BIO_new_connect("localhost:443");
+5 Asociamos BIO a objeto SSL: SSL_set_bio(conexion,bio,bio);
+6 comenzamos handsake: SSL_connect(conexion);
+7 leemos/escribimos
+	SSL_write(conexion,"GET / HTTP/1.0\n\n",5);
+	SSL_read(conexion,buffer,1024);
+8 cerramos conexión: SSL_shutdown(conexion)
+
+%page
+
+Cliente SSL vía proxy
+
+4 Abrimos conexión de red con el proxy:
+	bio=BIO_new_connect("proxy:8080");
+	BIO_do_connect(bio);
+5 Escribimos petición en el socket
+	char *pet="CONNECT www.thawte.com:443 HTTP/1.0\n\n");
+	BIO_write(bio,pet,strlen(pet));
+5bis Leemos respuesta
+6 Si todo va bien, seguimos como en el anterior
+	SSL_new, SSL_setbio
+	ya no SSL_connect, conexión antes, handsake en SSL_setbio
+
+%page
+
+Miscelanea
+
+SSL_ERROR_WANT_READ
+SSL_get_certificate
+SSL_get_session
+SSL_get_verify_result(conexion)
+
+%page
+
+Más documentación
+
+man ssl(3)
+SSLeay: http://www.columbia.edu/~ariel/ssleay/ssl_index.html
+Tutorial SSL: http://www.darkspell.com/gadgets/ssl/
+Crear CA: http://www.post1.com/home/ngps/m2/howto.ca.html
+Crear certificados: http://www.openssl.org/docs/HOWTO/certificates.txt
+Eric Rescorla: http://www.rtfm.com/openssl-examples/
+Libro (sólo un capítulo y ejemplos): http://www.rtfm.com/sslbook/
+web sobre ssl: http://www.kegel.com/ssl/
+Herramientas: ssldump (www.rtfm.com/ssldump/)
+smartcards: http://www.opensc.org/
+Enlaces en página de OpenSSL, en la de NSS y en la de GNU/TLS
+

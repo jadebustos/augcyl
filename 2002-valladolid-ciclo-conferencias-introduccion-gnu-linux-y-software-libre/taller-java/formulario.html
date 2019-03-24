@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Lectura de un formulario</TITLE>
+</HEAD>
+
+<BODY>
+<H1 ALIGN="CENTER">LECTURA DE UN FORMULARIO</H1>
+
+<FORM ACTION="http://127.0.0.1:8180/taller/Formulario"
+      METHOD="GET">
+
+Titulos Academicos:
+  <INPUT TYPE="TEXT" NAME="titulo"><BR>
+Estudios Actuales:
+  <INPUT TYPE="TEXT" NAME="estudios"><BR>
+Curso:
+  <INPUT TYPE="TEXT" NAME="curso"><BR>
+<BR><BR>
+Nombre:
+  <INPUT TYPE="TEXT" NAME="nombre"><BR>
+Apellido primero:
+  <INPUT TYPE="TEXT" NAME="apellido1"><BR>
+Apellido segundo:
+  <INPUT TYPE="TEXT" NAME="apellido2"><BR>
+
+<BR><BR>
+
+Comentario:
+  <TEXTAREA NAME="comentarios" ROWS=3 COLS=40></TEXTAREA><BR>
+<BR><BR>
+Lenguaje de programacion favorito:<BR>
+<INPUT TYPE="RADIO" NAME="lenguaje"
+                     VALUE="C">C<BR>
+<INPUT TYPE="RADIO" NAME="lenguaje"
+                     VALUE="C++">C++<BR>
+<INPUT TYPE="RADIO" NAME="lenguaje"
+                     VALUE="Java">Java<BR>
+<INPUT TYPE="RADIO" NAME="lenguaje"
+                     VALUE="Perl">Perl<BR>
+<INPUT TYPE="RADIO" NAME="lenguaje"
+                     VALUE="Ensamblador SPARC">Ensamblador SPARC<BR>
+<BR><BR>
+Password:
+  <INPUT TYPE="PASSWORD" NAME="password1"><BR>
+Repita la password:
+  <INPUT TYPE="PASSWORD" NAME="password2"><BR><BR>
+<CENTER>
+<INPUT TYPE="SUBMIT" VALUE="Envia">
+</CENTER>
+</FORM>
+
+</BODY>
+</HTML>
+
+

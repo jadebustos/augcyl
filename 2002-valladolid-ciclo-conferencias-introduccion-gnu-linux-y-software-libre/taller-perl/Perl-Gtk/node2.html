@@ -1,0 +1,366 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Francisco J. Palacios Burgos">
+   <title>Taller de Perl - GTK</title>
+</head>
+<body background="fondo.jpg">
+
+<div align=right><img SRC="gtk-logo-rgb.gif" height=140 width=107></div>
+
+<h3>
+4. Jerarqu&iacute;a de objetos en Gtk-Perl</h3>
+
+<p><br>En Gtk-Perl, todos los objetos descienden de la clase Gtk::Object.
+La rama que m&aacute;s nos interesa es la de Gtk::Widget, que contiene
+todos los elementos gr&aacute;ficos. Dentro de &eacute;sta tambi&eacute;n
+destaca la subrama llamada Gtk::Container que es de la que descienden todos
+los widgets que pueden contener otros widgets (botones que pueden contener
+pixmaps, ventanas que pueden contener botones, ...).
+<br>&nbsp;
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr>
+<td>Gtk::Object
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#3333FF">
++-Gtk::Widget</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; +-Gtk::Misc</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Label</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::AccelLabel</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::TipsQuery</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Arrow</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Image</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Pixmap</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; +-Gtk::Container</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Bin</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Alignment</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Frame</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::AspectFrame</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Button</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::ToggleButton</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::CheckButton</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++-Gtk::RadioButton</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::OptionMenu</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Item</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::MenuItem</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::CheckMenuItem</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp;
++-Gtk::RadioMenuItem</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::TearoffMenuItem</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::ListItem</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::TreeItem</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Window</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::ColorSelectionDialog</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Dialog</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::InputDialog</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::DrawWindow</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::FileSelection</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::FontSelectionDialog</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Plug</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::EventBox</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::HandleBox</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::ScrolledWindow</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Viewport</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Box</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::ButtonBox</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::HButtonBox</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::VButtonBox</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::VBox</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::ColorSelection</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::GammaCurve</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::HBox</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Combo</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Statusbar</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::CList</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::CTree</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Fixed</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Notebook</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::FontSelection</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Paned</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::HPaned</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::VPaned</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Layout</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::List</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::MenuShell</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::MenuBar</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Menu</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Packer</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Socket</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Table</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Toolbar</font>
+<br><font color="#FF0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Tree</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; +-Gtk::Calendar</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; +-Gtk::DrawingArea</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Curve</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; +-Gtk::Editable</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Entry</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::SpinButton</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Text</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; +-Gtk::Ruler</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::HRuler</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::VRuler</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; +-Gtk::Range</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Scale</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::HScale</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::VScale</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Scrollbar</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +-Gtk::HScrollbar</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +-Gtk::VScrollbar</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; +-Gtk::Separator</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::HSeparator</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::VSeparator</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; +-Gtk::Preview</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp; +-Gtk::Progress</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +-Gtk::ProgressBa</font>r
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +-Gtk::Data
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Adjustment
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; +-Gtk::Tooltips
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +-Gtk::ItemFactory</td>
+</tr>
+</table>
+
+<p>Afortunadamente no tenemos que sabernos de memoria todas las propiedades
+de cada uno de los objetos anteriores. Hay muy buenos manuales y tutoriales
+en Internet donde est&aacute;n perfectamente documentadas.
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<h3>
+5. El t&iacute;pico hola mundo</h3>
+
+<p><br>Como viene siendo habitual empezaremos con un programa sencillo:
+el hola mundo. Queremos que el script muestre una ventana principal con
+un bot&oacute;n y que al presionar el boton muestre en la consola desde
+donde arrancamos el script un mensaje de texto.
+<p>Lo primero que tendremos que hacer es incluir el m&oacute;dulo Gtk en
+nuestro script con la l&iacute;nea siguiente:
+<p><font color="#FF0000">use Gtk;</font>
+<p>Hay dos l&iacute;neas m&aacute;s que es obligatorio incluir. Una al
+principio que inicializa el m&oacute;dulo Gtk y establece cosas como el
+mapa visual y de colores por defecto, inicializa los manejadores de evento
+por defecto, ...
+<p><font color="#FF0000">init Gtk;</font>
+<p>y otra al final de la parte principal del script que arranca el bucle
+de espera de eventos.
+<p><font color="#FF0000">main Gtk;</font>
+<p>Cuando el script llegue a la l&iacute;nea anterior Gtk se quedar&aacute;
+en espera de eventos. Se puede ver como un bucle infinito que s&oacute;lo
+se romper&iacute;a con una llamada explicita de salir (que efectivamente
+la hay en Gtk, como veremos).
+<br>&nbsp;
+<p>El script tendr&iacute;a el siguiente aspecto:
+<p><a href="gholamundo.pl">gholamundo.pl</a>
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE><font color="#993399">#!/usr/bin/perl -w</font>
+<p>use Gtk;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#3333FF">#
+cargamos el modulo Gtk&nbsp;</font>
+<p>init Gtk;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#3333FF">#
+Inicializa Gtk-Perl</font>
+<p><font color="#3333FF"># Definicion de variables muy utilizadas&nbsp;</font>
+<br>my <font color="#006600">$false</font> = <font color="#993399">0</font>;
+<br>my <font color="#006600">$true</font> = <font color="#993399">1</font>;
+<p><font color="#3333FF"># Creamos un widget ventana y un widget boton</font>
+<br>my <font color="#006600">$window</font> = new Gtk::Window( <font color="#FF0000">"toplevel"</font>
+);
+<br>my <font color="#006600">$button</font> = new Gtk::Button( <font color="#FF0000">"Hola
+Mundo!"</font> );
+<p><font color="#3333FF"># Registramos los manejadores de eventos</font>
+<br><font color="#3333FF"># El evento de borrar la ventana (p.e. apretando
+a la x)</font>
+<br><font color="#006600">$window</font>->signal_connect( <font color="#FF0000">"delete_event"</font>,
+<font color="#006600">\&amp;CloseAppWindow</font>
+);&nbsp;
+<br><font color="#3333FF"># El evento de apretar el boton</font>
+<br><font color="#006600">$button</font>->signal_connect( <font color="#FF0000">"clicked"</font>,
+<font color="#006600">\&amp;SayHelloWorld</font>
+);
+<p><font color="#3333FF"># Mostramos el boton</font>
+<br><font color="#006600">$button</font>->show();
+<p><font color="#3333FF"># Fijamos ciertos atributos de la ventana, anclamos
+el boton a ella y la</font>
+<br><font color="#3333FF"># mostramos</font>
+<br><font color="#006600">$window</font>->border_width( <font color="#993399">15</font>
+);
+<br><font color="#006600">$window</font>->add( <font color="#006600">$button</font>
+);
+<br><font color="#006600">$window</font>->show();
+<p><font color="#3333FF"># Entramos en el bucle Gtk de eventos</font>
+<br>main Gtk;
+<p><font color="#3333FF"># Aqui nunca llegamos</font>
+<br>exit( <font color="#993399">0</font> );
+<p><font color="#3333FF">### Manejador del evento borrar</font>
+<br>sub CloseAppWindow
+<br>{
+<br>&nbsp;&nbsp;&nbsp; Gtk->exit( <font color="#993399">0</font> );
+<br>&nbsp;&nbsp;&nbsp; return $false;
+<br>}
+<p><font color="#3333FF">### Manejador del evento click</font>
+<br>sub SayHelloWorld&nbsp;
+<br>{
+<br>&nbsp;&nbsp;&nbsp; print <font color="#FF0000">"Hola mundo desde GTK!\n"</font>;
+<br>&nbsp;&nbsp;&nbsp; return <font color="#006600">$false</font>;
+<br>}</td>
+</tr>
+</table>
+
+<p>El resultado es una ventana como la siguiente:
+<br>&nbsp;
+<p><br>
+<center>
+<p><img SRC="snapshot1.jpg" height=78 width=103></center>
+
+<p><br>
+<br>
+<br>
+<p>&iquest;Qu&eacute; cosas remarcables vemos en este script?.
+<p>1. La notaci&oacute;n de objetos de Perl es un poco diferente a lo que
+estamos acostumbrados hasta ahora. Una clase suele tener un nombre como
+&lt;cadena1>::&lt;cadena2>. Para crear un objeto se usa la funci&oacute;n
+<font color="#FF0000">new</font><font color="#000000">
+que devuelve un valor escalar. Este valor escalar es una </font><font color="#006600">referencia</font><font color="#000000">
+al objeto y viene a ser como su identificador &uacute;nico en el sistema.</font>
+<blockquote>Crear un objeto:
+<blockquote><font color="#006600">$objeto</font> = <font color="#FF0000">new</font>
+TipoObjeto(par&aacute;metros);
+<p>Todos los objetos de Gtk se llaman Gtk::&lt;nombre>
+<br>&nbsp;</blockquote>
+</blockquote>
+Los objetos tienen atributos y m&eacute;todos. Los m&eacute;todos son subrutinas
+comunes a todos los objetos de una clase dada. Se invocan mediante el operador
+<b><font color="#FF0000">-></font></b>
+que sigue a la referencia del objeto.
+<blockquote>Usar un m&eacute;todo de ese objeto:
+<blockquote><font color="#006600">$objeto</font><b><font color="#FF0000">-></font></b>metodo(par&aacute;metros);</blockquote>
+</blockquote>
+2. Para escribir un manejador de eventos, se procede&nbsp; de la siguiente
+forma
+<blockquote>a) Registrarlo mediante la llamada&nbsp; <font color="#006600">$objeto</font>-><font color="#FF0000">signal_connect(SIGNAL,manejador)</font>;
+<p>b) Escribir el manejador:&nbsp;&nbsp; sub manejador { ... }
+<br>&nbsp;</blockquote>
+Algunas de las se&ntilde;ales m&aacute;s comunes son: delete_event , click
+, button_press_event , button_release_event , motion_notify_event , destroy_event
+, key_press_event , key_release_event , enter_notify_event , leave_notify_event
+, ...
+<p>3. Todos los widgets que se creen y se vayan a mostrar tienen que ejecutar
+su metodo <font color="#FF0000">show()</font>:&nbsp;&nbsp;&nbsp; 
+<font color="#006600">$widget</font>->show();
+<p>4. Algunos widgets son contenedores: Pueden tener dentro otros widgets
+(pensad en ventanas que contienen botones, botones que contienen imagenes,
+...). Para a&ntilde;adir un widget a otro se suele usar el funci&oacute;n
+add() o alg&uacute;n otro parecido.
+<p>5. Para salir de la aplicaci&oacute;n se llama a la funci&oacute;n Gtk->exit().
+Este es la llamada que rompe el bucle de espera de eventos.
+<div align=right>
+<hr WIDTH="100%"></div>
+
+<center><table BORDER=0 COLS=3 WIDTH="25%" NOSAVE >
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node1.html"><img SRC="ol.gif" BORDER=0 height=44 width=65></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html"><img SRC="home02.gif" BORDER=0 height=75 width=61></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node3.html"><img SRC="or.gif" BORDER=0 height=44 width=65></a></td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node1.html">Anterior</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html">Home</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node3.html">Siguiente</a></td>
+</tr>
+</table></center>
+
+<blockquote>&nbsp;</blockquote>
+
+</body>
+</html>

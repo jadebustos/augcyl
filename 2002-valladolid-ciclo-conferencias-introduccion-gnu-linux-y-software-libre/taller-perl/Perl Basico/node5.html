@@ -1,0 +1,295 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Francisco J. Palacios Burgos">
+   <title>Taller de Perl - Perl B&aacute;sico</title>
+</head>
+<body background="fondo.jpg">
+
+<div ALIGN=right>
+<h3>
+<img SRC="camel.gif" height=149 width=144></h3></div>
+
+<h3>
+7. Expresiones regulares (p&aacute;gina man: <font color="#FF0000">perlre</font>)</h3>
+
+<p><br>Una de las cosas que hacen a Perl tan atractivo es la potencia de
+su mecanismo de b&uacute;squeda de patrones y expresiones regulares. Gracias
+a ellos se puede hacer scripts que traten los contenidos de los ficheros
+de una forma sencilla. La sintaxis usada en las expresiones regulares recuerda
+a la de programas sed, awk y lex
+<p>Realmente s&oacute;lo este apartado podr&iacute;a llevarnos un taller
+entero, por lo que aqu&iacute; se ver&aacute; s&oacute;lo lo fundamental.
+<p>Normalmente, en Perl las expresiones regulares van entre dos s&iacute;mbolos
+de slash:&nbsp;&nbsp;&nbsp;<b><font color="#FF0000"> /</font> </b><i>reg-exp</i><b><font color="#FF0000">/</font></b>
+<p><font color="#000000">ej:&nbsp;&nbsp;&nbsp;&nbsp; split ( / </font><b><font color="#FF0000">:</font></b><font color="#000000">
+/ , </font><font color="#006600">$line</font><font color="#000000"> )</font>
+<p><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if( </font><font color="#006600">$line</font><font color="#000000"> </font><b><font color="#FF0000">=~</font></b><font color="#000000">
+/ </font><b><font color="#FF0000">: </font></b><font color="#000000">/
+)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Operador
+</font><b><font color="#FF0000">=~</font></b><font color="#000000">
+('is like') .&nbsp; Si en </font><font color="#006600">$line</font><font color="#000000">
+hay un '</font><b><font color="#FF0000">:</font></b><font color="#000000">'</font>
+<p><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if( </font><font color="#006600">$line</font><font color="#000000"> </font><b><font color="#FF0000">!~</font></b><font color="#000000">
+/ </font><font color="#993399">\n </font><font color="#000000">/&nbsp;
+)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Operador </font><b><font color="#FF0000">!~</font></b><font color="#000000">
+('is not like') .&nbsp;&nbsp; Si en </font><font color="#006600">$line</font><font color="#000000">
+no hay un '</font><font color="#993399">\n</font><font color="#000000">'</font>
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER WIDTH="100%" NOSAVE >
+<tr NOSAVE>
+<td WIDTH="10%" NOSAVE><font color="#3333FF">Metacaracteres</font></td>
+
+<td><font color="#3333FF">Significado</font></td>
+
+<td><font color="#3333FF">Ejemplo</font></td>
+
+<td></td>
+</tr>
+
+<tr NOSAVE>
+<td><font color="#000000">\</font></td>
+
+<td>Se usa para cuando se quieren emplear caracteres especiales dentro
+de una exp-reg. Por ejemplo, el <b><font color="#FF0000">'/'</font></b>
+se escribir&iacute;a como <b><font color="#FF0000">\/</font></b></td>
+
+<td><b><font color="#993399">\/</font></b>home<b><font color="#993399">\/</font></b>users</td>
+
+<td NOSAVE>&nbsp;El directorio /home/users</td>
+</tr>
+
+<tr>
+<td>^&nbsp;</td>
+
+<td>Patr&oacute;n al comienzo de una l&iacute;nea o negaci&oacute;n si
+va entre [&nbsp; ]</td>
+
+<td>&nbsp;if ( <font color="#006600">$line</font> =~ /^<font color="#FF0000">#</font>/
+)</td>
+
+<td>&nbsp;Si <font color="#006600">$linea</font> empieza por <font color="#FF0000">'#'</font></td>
+</tr>
+
+<tr>
+<td>.</td>
+
+<td>Cualquier car&aacute;cter menos el \n</td>
+
+<td>&nbsp;</td>
+
+<td>&nbsp;</td>
+</tr>
+
+<tr>
+<td>$</td>
+
+<td>Patr&oacute;n al final de una l&iacute;nea</td>
+
+<td>&nbsp;if ( <font color="#006600">$line</font> !~ /<b><font color="#993399">\/</font></b>
+$ / )</td>
+
+<td>&nbsp;Si <font color="#006600">$linea</font> no acaba por <font color="#FF0000">'/'</font></td>
+</tr>
+
+<tr>
+<td>&nbsp;|&nbsp;</td>
+
+<td>or</td>
+
+<td>&nbsp;if ( <font color="#006600">$line</font> =~ /^(<font color="#FF0000">#</font>
+| <b><font color="#993399">\/</font></b> ) )</td>
+
+<td>&nbsp;Si <font color="#006600">$linea</font> empieza por <font color="#FF0000">'#'</font>
+o por <font color="#FF0000">'/'</font></td>
+</tr>
+
+<tr>
+<td>&nbsp;( )</td>
+
+<td>agrupamiento</td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>&nbsp;[&nbsp; ]</td>
+
+<td>Clase de car&aacute;cter</td>
+
+<td></td>
+
+<td></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER WIDTH="100%" NOSAVE >
+<tr NOSAVE>
+<td WIDTH="15%" NOSAVE><font color="#3333FF">Cuantificadores</font></td>
+
+<td><font color="#3333FF">Significado</font></td>
+
+<td><font color="#3333FF">Ejemplo</font></td>
+
+<td></td>
+</tr>
+
+<tr NOSAVE>
+<td>*</td>
+
+<td>0 &oacute; m&aacute;s veces</td>
+
+<td WIDTH="20%" NOSAVE>(.)*</td>
+
+<td NOSAVE>&nbsp;Cualquier caracter que no sea \n (0..n) veces</td>
+</tr>
+
+<tr>
+<td>+</td>
+
+<td>1 &oacute; m&aacute;s veces</td>
+
+<td>(\t)+</td>
+
+<td>&nbsp;1 o m&aacute;s tabuladores</td>
+</tr>
+
+<tr>
+<td>?</td>
+
+<td>1 &oacute; 0 veces. Opcional</td>
+
+<td>\/home\/user(\/)?</td>
+
+<td>&nbsp;/home/user/ con el &uacute;ltimo '/' opcional</td>
+</tr>
+
+<tr>
+<td>{n}</td>
+
+<td>n veces</td>
+
+<td></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>{n,}</td>
+
+<td>Al menos n veces</td>
+
+<td>{0,} = *&nbsp;&nbsp;&nbsp; {1,} = +</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>{n,m}</td>
+
+<td>Al menos n veces pero no m&aacute;s de m</td>
+
+<td>{0,1} = ?</td>
+
+<td></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER COLS=3 WIDTH="100%" NOSAVE >
+<tr NOSAVE>
+<td WIDTH="15%" NOSAVE><font color="#3333FF">Built-in's</font></td>
+
+<td><font color="#3333FF">Significado</font></td>
+
+<td><font color="#3333FF">Ejemplo</font></td>
+</tr>
+
+<tr>
+<td>\w</td>
+
+<td>word car&aacute;cter (alfan&uacute;merico y "_")</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>\W</td>
+
+<td>no word car&aacute;cter</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>\s</td>
+
+<td>espacio en blanco</td>
+
+<td>parrafo = ((\w | \s)*\n)*</td>
+</tr>
+
+<tr>
+<td>\S</td>
+
+<td>no espacion en blanco</td>
+
+<td></td>
+</tr>
+
+<tr>
+<td>\d</td>
+
+<td>car&aacute;cter num&eacute;rico</td>
+
+<td>natural = (\d)+</td>
+</tr>
+
+<tr>
+<td>\D</td>
+
+<td>no car&aacute;cter num&eacute;rico</td>
+
+<td></td>
+</tr>
+</table>
+
+<p>La contrucci&oacute;n
+<p>s/ <i>reg-exp1</i> / <i>reg-exp2 </i>/
+<p>sustituye la expresi&oacute;n <i>reg-exp1</i> por <i>reg-exp2.</i>
+<p>Se pueden usar variables temporales para almacenar los resultados de
+la sustituci&oacute;n
+<p>ejemplo:&nbsp;&nbsp;&nbsp; s/^([^ ]*)&nbsp; *([^ ]*)/<font color="#006600">$2$1</font>/;&nbsp;&nbsp;&nbsp;
+Cambia la primera palabra por la segunda
+<br>&nbsp;
+<p>
+<hr WIDTH="100%">
+<center><table BORDER=0 COLS=3 WIDTH="25%" NOSAVE >
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node4.html"><img SRC="ol.gif" BORDER=0 height=44 width=65></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html"><img SRC="home02.gif" BORDER=0 height=75 width=61></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node6.html"><img SRC="or.gif" BORDER=0 height=44 width=65></a></td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node4.html">Anterior</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html">Home</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node6.html">Siguiente</a></td>
+</tr>
+</table></center>
+
+</body>
+</html>

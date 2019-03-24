@@ -1,0 +1,43 @@
+<html>
+<head>
+<title>P&aacute;gina 11</title>
+</head>
+<body text=#000000 bgcolor=#FFFFFF link=#000080 vlink=#800000 alink=#000080>
+<center>
+<a href="text0.htm">Primera p&aacute;gina</a> <a href="text9.htm">Regresar</a> <a href="text11.htm">Siguiente</a> <a href="text61.htm">&Uacute;ltima p&aacute;gina</a> <a href="pruebapresentacion.htm">Resumen</a> <a href="img10.htm">Imagen</a></center><br>
+<h1>Cortafuegos software</h1><p>
+<ul><li><h2>Filtrado de paquetes (Filtering Firewalls)</h2>
+<li><h2>Servidor proxy</h2>
+</ul><br>
+<h3>Notas:</h3>
+A Firewall normally includes mechanisms for protection at the: <br>
+<br>
+    Network Layer: IP packets are sanitised (source routing disabled, only packets<br>
+    with valid external addresses allowed), and routed according to predefined rules.<br>
+    Some firewalls allow translation of internal IP addresses to valid Internet IP<br>
+    addresses (NAT or Network Address Translation) and other replace all internal<br>
+    addresses with the firewall address (meaning internal hosts cannot be addressed). <br>
+    Transport Layer: Access to TCP &amp; UDP ports can be granted/blocked, depending<br>
+    on IP address of both sender and receiver. This allows access control for many<br>
+    TCP services, but doesn't work at all for others (e.g. X11, ftp, portmapper<br>
+    services). <br>
+    Application Layer: <br>
+         Proxy servers (also called application gateways) accept requests for a<br>
+        particular application and either further the request to the final destination, or<br>
+        block the request. Ideally proxies should be transparent to the end user.<br>
+        Proxies are stripped-down, reliable versions of standard applications with<br>
+        access control and forwarding built-in. <br>
+        Typical proxies include HTTP (for WWW), telnet, ftp etc. Certain applications<br>
+        such as Internet Email (smtp) are designed for the use of relays or<br>
+        forwarders. <br>
+        The DNS application provides IP address to hostname (or vice versa) lookup.<br>
+        DNS does not really check where information comes from, so it may be<br>
+        possible for an attacker to spoof the DNS service into giving false information,<br>
+        e.g. that the hostname of an attackers machine is that of a trusted host. <br>
+        Applications such as rlogin and NFS use host-names for access control and<br>
+        are hence vulnerable to DNS spoofing. <br>
+        IP addresses should be used on proxy access control lists instead of DNS<br>
+        names (to minimise the risk of DNS spoofing). But even IP addresses can be<br>
+        spoofed if routers are not configured properly and switches are not used. <br>
+</body>
+</html>

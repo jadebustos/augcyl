@@ -1,0 +1,243 @@
+%%
+%% PGP y GPG
+%%
+%%include "default.mgp"
+%deffont "standard"   tfont "standard.ttf",   tmfont "kochi-mincho.ttf"
+%deffont "thick"      tfont "thick.ttf",      tmfont "goth.ttf"
+%deffont "typewriter" tfont "typewriter.ttf", tmfont "goth.ttf"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Default settings per each line numbers.
+%%
+%%default 1 area 90 90, leftfill, size 2, fore "black", back "white", font "thick"
+%default 2 size 7, vgap 10, prefix " "
+%default 3 size 2, bar "gray70", vgap 10
+%default 4 size 5, fore "black", vgap 30, prefix " ", font "standard"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Default settings that are applied to TAB-indented lines.
+%%
+%tab 1 size 5, vgap 40, prefix "  ", icon box "green" 50
+%tab 2 size 4, vgap 40, prefix "      ", icon arc "blue" 50
+%tab 3 size 3, vgap 40, prefix "            ", icon delta3 "blue" 40
+%page 
+%nodefault
+%size 6.5, font "standard", back "white", ccolor "black"
+
+
+
+
+%center, fore "Blue", font "standard", hgap 60, size 8.5
+OpenSSH
+%bar "blue" 6 15 70
+%font "standard", hgap 0
+
+
+%size 5.5, fore "black"
+I Jornadas Seguridad GNU/Linux
+%size 4.5
+
+Jose Miguel Garrido (AugCyL)
+%page
+
+Problema:
+
+
+Conectarnos de forma segura a una maquina remota
+
+El telnet NO es seguro
+
+%page
+
+SSH
+
+
+Secure shell
+
+	Aplicacion de usuario
+
+	Las contraseñas viajan encriptadas
+
+	El contenido de la sesion se encripta
+
+	No se pueden repetir las tramas
+
+	Se evitan servidores falsos y otros problemas
+
+	Tuneles encriptados
+%page
+
+Historia OpenSSH
+
+
+	SSH se converte en no libre
+
+	Grupo de gente ligada a OpenBSD crea OpenSSH
+
+	Se soporta la version SSH 2 del protocolo
+
+	Demanda legal de SSH
+%page
+
+Protocolos
+
+
+	SSH 1 -> 1.3 y 1.7
+
+	SSH 2 -> Standard
+%page
+
+OpenSSH como telnet
+
+
+ssh usuario@maquina
+
+Hace X forwading
+%page
+
+Uso con llave publica
+
+
+Solo el poseedor del la llave privada (nosotros) es autorizado a entrar
+
+Creacion de la llave
+
+	Para ssh 1
+
+		ssh-keygen
+
+	para ssh 2
+
+		ssh-keygen -t dsa
+
+	Nos crea un fichero pub
+%page
+
+Uso con llave publica (2)
+
+
+Copiado al directorio remoto
+
+	Debemos copiar este .pub fichero a 
+
+		SSH 1 -> ~/.ssh/authorized_keys
+
+		SSH 2 -> ~/.ssh/authorized_keys2  
+
+	Usamos scp, no rcp o similar
+
+		scp ~/.ssh/*.pub usuario@sistema:
+
+	Y con >> al fichero correspondiente
+%page
+
+Uso con llave publica (y 3)
+
+
+	Quitar permiso de escritura a group y others
+
+	Ahora nos pide la frase de paso de la clave privada,\
+	no del servidor
+
+	¡Hemos perdido comodidad! 
+%page
+
+Uso de claves en memoria
+
+
+	Con ssh-agent guardamos claves en memoria
+
+	Primero debemos lanzarlo
+
+		ssh-agent ssh
+
+		ssh-agent startx
+
+	Despues añadir claves con ssh-add
+
+		ssh-add
+
+		ssh-add ~/.ssh/id_dsa
+%page
+
+Otros comandos
+
+
+	scp - sustituto de rcp
+
+	sftp - sustituto de ftp
+
+	slogin - sinonimo de ssh
+
+	ssh-keyscan - busca servidores en la red
+%page
+
+Autentificacion de servidor
+
+
+No solo los ususarios se autentifican, tambien los servidores
+
+Las claves se almacenan por usuario y globalmente
+
+Las claves se comprueban y se avisa en caso de cambio de servidor
+%page
+
+Configuracion
+
+Existe configuracion global y por usuario
+
+	/etc/ssh
+
+		ssh_known_hosts,ssh_known_hosts2
+
+		ssh_config
+
+	~/.ssh
+
+		ssh_known_hosts
+
+		config
+%page
+
+Tuneles seguros
+
+
+Se pueden crear tuneles seguros arbitrarios
+
+%image "antes.pcx"
+
+Nuestras contraseñas viajan de forma no segura al servidor de correo
+
+%page
+
+Tuneles seguros (y 2)
+
+
+ssh -L 1234:servidor:110 servidor
+
+%image "despues.pcx"
+
+Debo cambiar mi cliente de correo para que se conecte a 1234 local
+
+%page
+
+Virtual Private Networks
+
+
+Conexion transparente entre dos redes de forma segura
+
+	IPsec
+
+	ssh y ppp
+%page
+
+Referencias
+
+
+Ficheros manual
+
+Libro "SSH, the secure shell"  de O'Reilly  0-596-00011-1
+
+Oficial www.openssh.org
+
+Comercial www.ssh.com

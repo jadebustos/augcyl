@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+     <display-name>Taller</display-name> 
+
+    <servlet>
+      <servlet-name>HolaMundo</servlet-name>
+      <servlet-class>HolaMundo</servlet-class>
+    </servlet>
+
+    <servlet>
+      <servlet-name>Formulario</servlet-name>
+      <servlet-class>Formulario</servlet-class>
+    </servlet>
+
+    <servlet>
+      <servlet-name>VarEntorno</servlet-name>
+      <servlet-class>VarEntorno</servlet-class>
+    </servlet>
+
+    <servlet>
+      <servlet-name>Header</servlet-name>
+      <servlet-class>Header</servlet-class>
+    </servlet>
+
+    <servlet>
+      <servlet-name>Cookie</servlet-name>
+      <servlet-class>Cookie</servlet-class>
+    </servlet>
+
+   <servlet-mapping>
+	<servlet-name>HolaMundo</servlet-name>
+	<url-pattern>/HolaMundo/*</url-pattern>
+   </servlet-mapping>
+
+   <servlet-mapping>
+	<servlet-name>Formulario</servlet-name>
+	<url-pattern>/Formulario/*</url-pattern>
+   </servlet-mapping>
+
+   <servlet-mapping>
+	<servlet-name>VarEntorno</servlet-name>
+	<url-pattern>/VarEntorno/*</url-pattern>
+   </servlet-mapping>
+
+   <servlet-mapping>
+	<servlet-name>Header</servlet-name>
+	<url-pattern>/Header/*</url-pattern>
+   </servlet-mapping>
+
+
+   <servlet-mapping>
+	<servlet-name>Cookie</servlet-name>
+	<url-pattern>/Cookie/*</url-pattern>
+   </servlet-mapping>
+
+    <session-config>
+      <session-timeout>30</session-timeout>
+    </session-config>
+
+    <mime-mapping>
+       <extension>pdf</extension>
+       <mime-type>application/pdf</mime-type>
+    </mime-mapping>
+
+    <welcome-file-list>
+ 	<welcome-file>index.jsp</welcome-file>
+	<welcome-file>index.html</welcome-file>
+	<welcome-file>index.htm</welcome-file>
+    </welcome-file-list>
+
+    <error-page>
+	<error-code>400</error-code>
+	<location>/index.html</location>
+    </error-page>
+
+    <error-page>
+	<error-code>404</error-code>
+	<location>/index.html</location>
+    </error-page>
+
+</web-app>

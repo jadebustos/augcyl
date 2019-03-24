@@ -1,0 +1,441 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Ricardo Santamaria (AUGCYL)">
+   <meta name="Description" content="Taller de Java Servlets, Abril 2002">
+   <meta name="GENERATOR" content="Mozilla/4.73 [en] (Windows NT 5.0; I) [Netscape]">
+   <title>Introducci&oacute;n</title>
+</head>
+<body>
+
+<h1>
+1. Introducci&oacute;n a la arquitectura de aplicaciones Web</h1>
+
+<h2>
+1.1 Modelos de programaci&oacute;n en Web</h2>
+
+<h3>
+1.1.1&nbsp; Modelos de dos capas (two tier)</h3>
+- Cliente/Servidor
+<p>- El cliente puede ser un applet, una aplicaci&oacute;n Java,...
+<p>- Contiene la l&oacute;gica de representaci&oacute;n (interfaz de usuario),
+<br>l&oacute;gica del negocio,...
+<p>- Se conecta directamente por red con el servidor que atiende las
+<br>peticiones extrayendo la informaci&oacute;n de la BD (a nivel de SQL)
+<p>- Se genera mucho tr&aacute;fico
+<p>- El cliente necesita tener instalado ciertos elementos
+<br>(drivers JDBC)
+<br>&nbsp;
+<h3>
+1.1.2 Modelos de tres capas (three tier)</h3>
+- Consta de 3 capas:
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Capa de cliente -> l&oacute;gica de presentaci&oacute;n
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Capa Intermedia (middle tier) -> l&oacute;gica de negocio, servicios,...
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Servidor (SGBD) -> l&oacute;gica de datos (BD)
+<p>- Secuencia:
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - El cliente manda datos
+a la capa intermedia
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - La capa intermedia procesa
+la informaci&oacute;n seg&uacute;n las reglas de negocio
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Solicita y recoge informaci&oacute;n
+de la BD
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Devuelve un resultado al
+cliente
+<br>&nbsp;
+<p>- La capa intermedia nos permite ignorar la BD
+<p>- La capa intermedia se encarga de todo el control de las
+<br>operaciones
+<p>- Ciertos elementos (drivers JDBC) no necesitan estar en la m&aacute;quina
+<br>cliente
+<p>- El tr&aacute;fico es menor
+<p>- Aumento de la modularidad. Podemos cambiar la l&oacute;gica de negocio
+<br>sin verse afectada la l&oacute;gica de presentaci&oacute;n y viceversa.
+<p><a href="imagenes/ejemplo.gif">Ejemplo de modelo de 3 capas</a>
+<br>&nbsp;
+<br>&nbsp;
+<h2>
+1.2 Enfoques de la programaci&oacute;n Web</h2>
+
+<p><br>- Se distinguen dos enfoques seg&uacute;n la posici&oacute;n que
+ocupe
+<br>el c&oacute;digo en el modelo anterior:
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
+Programaci&oacute;n en el lado del cliente (client side)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+- Programaci&oacute;n en el lado del servidor (server side)
+<br>&nbsp;
+<br>&nbsp;
+<h3>
+1.2.1 Tecnicas de programacion en el lado del cliente</h3>
+
+<p><br>- El c&oacute;digo se ejecuta en cliente
+<p>- Pueden ser scripts, applets,...
+<p>- Los "lenguajes" m&aacute;s representativos son:
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-JavaScript (Java?)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-JScript
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-VBScript
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-TCL
+<p>- El m&aacute;s usado es el JavaScript
+<p><a href="javascript.html">Ejemplo de JavaScript</a>
+<p>- Tienen capacidad para:
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+- Modificar el contenido del documento de manera din&aacute;mica (p&aacute;ginas
+din&aacute;micas)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+- Estar ligados a eventos (facilitar la GUI)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+- Tener acceso a la informaci&oacute;n de los formularios,procesarla,...
+<p>- Poseen numerosos inconvenientes:
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+- Falta de seguridad
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+- Vulnerabilidad (ante escuchas,...)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+- Acceso p&eacute;simo a grandes almacenes de datos (BD)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+- No excesivamente potentes (matizable!)
+<p>- Si tiene tantas carencias &iquest;por qu&eacute; usarlo?
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Mejorar la l&oacute;gica
+de prensentaci&oacute;n (p&aacute;ginas din&aacute;micas)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&middot; Mejor aspecto visual
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&middot; Capacidad de interacci&oacute;n con el usuario (facilitar la GUI)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&middot; Adaptarse al entorno
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Captura y validaci&oacute;n
+de los datos. Una primera validaci&oacute;n a nivel b&aacute;sico
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; evita
+transmisiones ineccesarias, tiempos de retardos mayores,... aumentando
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+la potencia y velocidad del "sistema".
+<br>&nbsp;
+<br>&nbsp;
+<h3>
+1.2.2. T&eacute;cnicas de programaci&oacute;n en el lado del servidor</h3>
+
+<p><br>- Se ejecuta en el servidor (middle tier)
+<p>- Soluci&oacute;n a las limitaciones de los anteriores
+<p>- Deben trabajar de forma complementaria
+<p>- Las "t&eacute;cnicas" m&aacute;s usadas son:
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - CGI
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - ASP
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Perl
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - PHP (version 3)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - ASP
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Server Side Javascript
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Cold Fusion
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Java Servlet
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - JSP
+<br>&nbsp;
+<br>&nbsp;
+<h1>
+2. Visi&oacute;n general de la programaci&oacute;n en el lado del servidor</h1>
+&nbsp;
+<h2>
+2.1 CGI (Common Gateway Interface)</h2>
+
+<p><br>- El CGI es un est&aacute;ndar para tender interfaces entre aplicaciones
+<br>clientes, servidores de informaci&oacute;n (servidores HTTP) y programas.
+<p>- Pasa datos est&aacute;ticos al servidor http y mediante acceso a recursos
+(URI)
+<br>permite un intercambio de datos con los programas.
+<p>- El programa puede estar escrito en cualquier lenguaje que pueda ser
+ejecutado sobre la m&aacute;quina
+<br>por ejemplo en C
+<blockquote>&nbsp;
+<center><table BORDER COLS=1 WIDTH="60%" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>#include &lt;stdio.h>
+<br>#include &lt;stdlib.h>
+<p>int main(int argc, char **argv)
+<br>{
+<br>&nbsp; char *your_add;
+<br>&nbsp; your_add = getenv("REMOTE_ADDR");
+<br>&nbsp; printf("Content-type: text/html%c%c", 10, 10);
+<br>&nbsp; printf("&lt;html>");
+<br>&nbsp; printf("&lt;head>")
+<br>&nbsp; printf("&lt;title>Hola Mundo&lt;/title>");
+<br>&nbsp; printf("&lt;/head>");
+<br>&nbsp; printf("&lt;body bgcolor=\"#FFFFFF\">");
+<br>&nbsp; printf("&lt;h1 align=\"center\">Hola Mundo&lt;/h1>");
+<br>&nbsp; printf("&lt;p align=\"center\">Tu IP es: %s", your_add);
+<br>&nbsp; printf("&lt;/body>");
+<br>&nbsp; printf("&lt;/html>");
+<br>}</td>
+</tr>
+</table></center>
+</blockquote>
+- Adquiere los datos mediante variables de entorno y por medio de la entrada
+estandar (puede estar formateada en algun tipo MIME)
+<p>- Problemas:
+<blockquote>&nbsp;
+<br>-&nbsp; Los programas CGI deben poder ser ejecutables por todo el mundo.
+Esto
+<br>es un problema de seguridad por los siguientes motivos.
+<blockquote>-> De manera intencional o no, pueden mostrar informaci&oacute;n
+sobre el sistema
+<br>que puede ayudar a terceros a comprometerlo.
+<p>-> Pueden realizar tareas dentro del sistema pudiendo ejecutar comandos
+del sistema,...</blockquote>
+- La ejecuci&oacute;n de un CGI implica que el servidor HTTP genere otro
+<br>proceso en el sistema (consumo de recursos del sistema)
+<p>- Un gran n&uacute;mero de solicitudes puede ralentizar mucho el sistema
+e incluso bloquearlo.
+<br>Es muy costoso generar nuevas solicitudes a otros recursos como BD,...</blockquote>
+
+<h2>
+2.2 PERL (y DBI)</h2>
+
+<p><br>- Capacidad de extracion de datos (gran potencia en el an&aacute;lisis
+de
+<br>los datos obtenidos de los formularios,..)
+<p>- Mantenimiento de sistema
+<p>- Buen seguimiento de errores
+<p>- Potente y con numerosos recursos (CPAN)
+<br>&nbsp;
+<p><img SRC="imagenes/perl_dbi.gif" NOSAVE height=103 width=336>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<h2>
+2.3 ASP (Active Server Page)</h2>
+
+<p><br>- Soluci&oacute;n muy utilizada por las empresas
+<p>- Esta tecnolog&iacute;a es usada por Microsoft y esta ligada al servidor
+Internet Information Server (IIS)
+<p>- Basada en Visual Basic aunque el creador de p&aacute;ginas ASP puede
+escoger
+<br>entre VBScript (lo m&aacute;s normal) o JScript ambos de Microsoft
+<p>- Favorece el desarrollo r&aacute;pido
+<p>- Es bastante potente pero...
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER COLS=2 WIDTH="100%" NOSAVE >
+<tr>
+<td>
+<br>&lt;%@ LANGUAGE="VBSCRIPT" %>
+<br>&lt;%
+<br>' Declaraci&oacute;n de la Funci&oacute;n Sumar
+<br>function Sumar(valorA, valorB)
+<br>Sumar = valorA + valorB
+<br>end function
+<br>%>
+<p>&lt;HTML>
+<br>&lt;BODY>
+<br>&lt;% Dim result
+<br>'Llamada a la Funci&oacute;n Sumar
+<br>Response.write "El resultado de: 30 + 40 es " &amp; Sumar (30,40) %>
+<br>&lt;/BODY>
+<br>&lt;/HTML>
+<br>&nbsp;</td>
+
+<td>&lt;HTML>
+<br>&lt;BODY>
+<br>El resultado de: 30 + 40 es 70
+<br>&lt;/BODY>
+<br>&lt;/HTML>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p>El resultado de: 30 + 40 es 70</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<br>&nbsp;
+<h2>
+2.4 PHP</h2>
+
+<p><br>- Lenguaje de programaci&oacute;n dise&ntilde;ado para realizar
+aplicaciones Web
+<p>- Sintaxis similar a Perl
+<p>- Facilmente integrable con HTML
+<p>- Soportado por numerosos servidores http
+<p>- Es muy potente y ofrece buenas capacidades para el acceso a BD
+<br>&nbsp;
+<p>- Es muy usado y es una buena soluci&oacute;n (o la mejor) para ciertos
+problemas
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="50%" NOSAVE >
+<tr>
+<td>&lt;HTML>
+<br>&lt;BODY>
+<br>&lt;?PHP
+<br>echo("&iexcl;Hola Mundo!&lt;BR>");
+<br>?>
+<br>&lt;/BODY>
+<br>&lt;/HTML></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<p><img SRC="imagenes/php.gif" NOSAVE height=247 width=247>
+<br>&nbsp;
+<h2>
+2.5 Java Servlets&nbsp;&nbsp;&nbsp;<img SRC="imagenes/teapot_089.gif" height=75 width=75></h2>
+
+<p><br>- Es un modulo din&aacute;mico que sirve peticiones de un servidor
+Web.
+<p>- Esta programado completamente en Java y corre sobre la m&aacute;quina
+virtual
+<br>en el lado del servidor.
+<p>- Es capaz entre otras cosas generar p&aacute;ginas web a partir de
+la informaci&oacute;n obtenida de una BD
+<br>o de otros elementos (EJB,...)
+<p>- Son un reemplazo seguro y portable a CGI.
+<p>- Es una tecnolog&iacute;a actual y con gran capacidad de expansi&oacute;n
+siendo muy utilizada
+<br>en el mundo empresarial
+<p>- Es soportado por diferentes servidores (Apache,IIS,iPlanet...)
+<p>- Sus ventajas e inconvenientes radican principalmente en el hecho de
+estar escritos en Java.
+<p>- Las ventajas de los Servelts son numerosas:
+<blockquote>&nbsp;
+<br>-> Escritura de aplicaciones sencilla (r&aacute;pido desarrollo,curva
+de aprendizaje)
+<p>-> Aplicaciones muy robustas (lenguaje bien dise&ntilde;ado, POO)
+<p>-> Corre en el lado del servidor
+<p>-> &iexcl;Eficiente!, se puede usar c&oacute;digo que s&oacute;lo es
+ejecutado la primera vez que se
+<br>corre el Servlet.Capacidades multihilo.
+<p>-> A diferencia de CGI, puede mantener estados entre peticiones,manejo
+de sesiones
+<p>-> Totalmente portable por estar hecho en Java.Es multiplataforma real
+a todos los niveles
+<p>-> Muy potente a nivel de programaci&oacute;n al ser capaz de usar todo
+el API JAVA
+<p>-> Extensible por ser OO (Orientado al Objeto)
+<p>-> Seguro usando el modelo de seguridad de Java (Sandbox) posibilidad
+de extensiones
+<br>de seguridad
+<p>-> Potencia en el manejo de datos sobre BD, transacciones (rollback,
+cancel transaction), sincronizaci&oacute;n,...
+<p>-> API estandarizada y bien definida
+<br>&nbsp;</blockquote>
+
+<p><br>- Pero los servlets tambien poseen desventajas
+<blockquote>-> Java pertenece a Sun Microsystems</blockquote>
+
+<blockquote>-> Java es generalmente lento de ejecutar (JVM, JIT)
+<p>-> Se necesita un servidor de aplicaciones (Tomcat,WebSphere)</blockquote>
+
+<h3>
+2.5.1 Sobre la velocidad&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img SRC="imagenes/duke_ce.gif" NOSAVE height=51 width=62></h3>
+- Cuando se dice que los Java Servlets al estar desarrollados en Java son
+lentos
+<br>hay que hacer una serie de matizaciones.
+<p>- La velocidad depender&aacute; de la buena o mala configuraci&oacute;n
+que tengamos as&iacute; como
+<br>de la implementaci&oacute;n de m&aacute;quina virtual que estemos ejecutando.
+<p>- El servlet no corre como un proceso separado, corre dentro del proceso
+<br>motor (hilo vs proceso).Esto elimina el sobreprocesamiento y disminuye
+<br>el consumo de recursos.
+<p>- El servlet permanece en memoria y solamente existe una instancia de
+&eacute;l.
+<br>Esto ahorra memoria y permite el manejo de datos persistentes.
+<br>&nbsp;
+<p><a href="imagenes/call_srvlt.gif">Funcionamiento de los servlets</a>
+<br>&nbsp;
+<p>- Al ser tan potente se nos permiten t&eacute;cnicas para aumentar la
+eficiencia como
+<br>son los almacenes de hilos, de conexiones a bases de datos,...
+<p><a href="imagenes/stdstc.gif">Un poco de estadistica, (mentira estadistica?)</a>
+<br>&nbsp;
+<h3>
+2.5.2 Python Servlets?</h3>
+
+<p><br>Actualmente se esta utilizando una estructura parecida en el servidor
+<br>Zope sustituyendo Java por Python pero mantiendo el mismo ideario.
+<h2>
+2.6 JSP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img SRC="imagenes/images.jpg" NOSAVE height=72 width=43></h2>
+
+<p><br>- El motor de JSP es s&oacute;lo un Servlet cuya extensi&oacute;n
+tiene
+<br>correspondencia al tipo *.jsp
+<p>-Ventaja de mezclar el c&oacute;digo html con la "aplicaci&oacute;n"
+<br>no tenemos que escribir en nuestra "aplicaci&oacute;n" todo el
+<br>c&oacute;digo html.
+<p>- Provee una manera eficiente de separar la presentaci&oacute;n del
+<br>contenido.
+<p>- Tiene definidas de manera impl&iacute;cita las siguientes
+<br>variables:
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; request
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; response
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; in
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; out
+<br>de los tipos HttpServletRequest, HttpServletResponse,
+<br>BufferedReader, y PrintWriter respectivamente.
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<h1>
+3. Herramientas para el uso de los Java Servlets</h1>
+
+<h2>
+3.1 M&aacute;quinas virtuales de Java&nbsp;&nbsp;&nbsp;&nbsp;<img SRC="imagenes/duke_j2.gif" NOSAVE height=45 width=78></h2>
+
+<p><br>- Los Java Servlets son extensiones de Java por lo que para poderse
+<br>utilizar necesitan un m&aacute;quina virtual
+<p>- Podemos usar las JVM de Sun (j2sdk1.3.1, j2sdk1.4.0,...)
+<p>- Tambi&eacute;n podremos usar con unos excelentes resultados (se dice
+que incluso mejores) con la
+<br>m&aacute;quina virtual de IBM
+<p>- O decantarnos por soluciones m&aacute;s libres como Kaffe,...
+<br>&nbsp;
+<br>&nbsp;
+<h2>
+3.2 Servidor de aplicaciones Java</h2>
+
+<p><br>JAKARTA-TOMCAT
+<p>- Jakarta forma parte de la Fundaci&oacute;n Apache
+<p>- En el 2001 ten&iacute;a en marcha 21 proyectos
+<p>- Nace del desarrollo de soporte para las tecnolog&iacute;as Java que
+venia soltando
+<br>Sun orientadas al mundo web (Java Servlets y JSP)
+<p>- Uno de esos proyectos es Tomcat
+<p>- Tomcat es un servidor de aplicaciones Java (Java Servlet,JSP) y tambi&eacute;n
+servidor
+<br>&nbsp; web (mejor complementarlo con Apache para que trabajen de manera
+cooperativa).
+<p><img SRC="imagenes/apachetomcat.gif" NOSAVE height=50 width=565>
+<br>&nbsp;
+<p>- Existen otros muchos servidores de aplicaciones que podemos ver en
+las p&aacute;ginas
+<br>oficiales de Sun como son:
+<blockquote>Apache JServ
+<br>BEA Weblogic Server
+<br>IBM WebSphere Application Server 4.0
+<br>iPlanet Application Server 6.0
+<br>iPlanet Web Server
+<br>Oracle 9i JServer</blockquote>
+
+<h2>
+3.3 Otros elementos</h2>
+
+<p><br>- Si trabajamos con bases de datos necesitaremos los drivers correspondientes.
+<br>Sun mantiene una p&aacute;gina con referencias a todos los sitios oficiales
+en los cuales puedes
+<br>encontrar los drivers JDBC de un determinado Sistema Gestor de Base
+de Datos.
+<br>&nbsp;
+<br>&nbsp;
+<br>
+<div align=right>
+<p>Ricardo Santamaria (AUGCYL)
+<br>Abril 2002&nbsp;&nbsp; GFDL 1.1</div>
+
+</body>
+</html>

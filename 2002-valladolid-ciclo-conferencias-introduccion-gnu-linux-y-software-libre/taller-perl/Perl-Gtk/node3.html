@@ -1,0 +1,339 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Francisco J. Palacios Burgos">
+   <meta name="GENERATOR" content="Mozilla/4.76 [es] (X11; U; Linux 2.4.2-2 i686) [Netscape]">
+   <title>Taller de Perl - GTK</title>
+</head>
+<body background="fondo.jpg">
+
+<div align=right><img SRC="gtk-logo-rgb.gif" height=140 width=107></div>
+
+<h3>
+5. Una calculadora hecha en Perl-Gtk</h3>
+
+<p><br>Vamos a ver una aplicaci&oacute;n un poco m&aacute;s compleja que
+haga uso de m&aacute;s widgets aparte de la ventana y los botones. Dos
+widget muy utilizado son la plantilla y los entries.
+<p>Una plantilla (fixed) es un widget contenedor cuya &uacute;nica finalidad
+es la de permitir colocar los widgets dentro de una ventana en las coordenadas
+que queramos. Algunas de las operaciones m&aacute;s comunes sobre la plantilla
+son:
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER=0 COLS=2 WIDTH="100%" NOSAVE >
+<tr NOSAVE>
+<td WIDTH="200" BGCOLOR="#FFFFCC" NOSAVE>new Gtk::Fixed()</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Crea un nuevo objeto Fixed</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>set_usize(<i>tamX</i>,<i>tamY</i>)</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>La redimensiona con <i>tamX</i> p&iacute;xeles
+de ancho y <i>tamY</i> p&iacute;xeles de alto</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>put(widget,<i>posX</i>,<i>posY</i>)</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Sit&uacute;a al widget en las coordenadas
+<i>posX</i>
+y <i>posY</i> medidas con respecto al borde superior izquierdo del fixed</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>show()</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Muestra el fixed</td>
+</tr>
+</table>
+
+<p>Un entry es el t&iacute;pico widget que nos permite introducir datos.
+Por ejemplo en un formulario.&nbsp;<img SRC="snapshot2.jpg" height=38 width=203 align=RIGHT>
+<p>Algunas de las operaciones m&aacute;s comunes para los entries son:
+<br>&nbsp;
+<table BORDER=0 COLS=2 WIDTH="100%" NOSAVE >
+<tr NOSAVE>
+<td WIDTH="200" BGCOLOR="#FFFFCC" NOSAVE>new Gtk::Entry()</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Crea un nuevo objeto Entry</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>set_usize(<i>tamX</i>,<i>tamY</i>)</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>La redimensiona con <i>tamX</i> p&iacute;xeles
+de ancho y <i>tamY</i> p&iacute;xeles de alto</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>get_text ( )</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Devuelve una cadena de caracteres con el texto
+que est&aacute; mostrando el entry</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>append_text(<i>cadena</i>)</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>A&ntilde;ade al final el texto de <i>cadena</i>
+en la caja del entry</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>set_text(<i>cadena</i>)</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Establece el texto que aparece en el entry
+al contenido de <i>cadena</i></td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>prepend_text(<i>cadena</i>)</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Inserta al principio del texto que aparece
+en el entry el contenido de <i>cadena</i></td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>set_visibility( <i>valor booleano</i> )</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Especifica si el texto que se introduzca ser&aacute;
+visible o no.</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>show()</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Muestra el entry</td>
+</tr>
+</table>
+
+<p>El aspecto de la calculadora ser&iacute;a como el siguiente:
+<center>
+<p><img SRC="snapshot3.jpg" height=278 width=218></center>
+
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<p>El c&oacute;digo que la genera ser&iacute;a algo parecido a lo siguiente:
+<p><a href="gcalc.pl">gcalc.pl</a>
+<table BORDER COLS=1 WIDTH="100%" NOSAVE >
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE><font color="#993399">#!/usr/bin/perl -w</font>
+<p>use Gtk;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#3333FF">#
+cargamos el modulo Gtk</font>
+<p>init Gtk;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#3333FF">#
+Inicializa Gtk-Perl</font>
+<p><font color="#3333FF"># Definicion de variables muy utilizadas</font>
+<br>my <font color="#006600">$false</font> =<font color="#993399"> 0</font>;
+<br>my <font color="#006600">$true</font> = <font color="#993399">1</font>;
+<p>my <font color="#006600">$window</font> = new Gtk::Window( <font color="#FF0000">"toplevel"</font>
+);
+<br><font color="#006600">$window</font>->set_title (<font color="#FF0000">"Calculadora"</font>);
+<br><font color="#006600">$window</font>->set_position(<font color="#FF0000">"center"</font>);
+<br><font color="#006600">$window</font>->set_policy(<font color="#006600">$false</font>,<font color="#006600">$false</font>,<font color="#006600">$true</font>);&nbsp;&nbsp;&nbsp;<font color="#3333FF">
+# No se puede maximizar</font>
+<br><font color="#006600">$window</font>->signal_connect( <font color="#FF0000">"delete_event"</font>,
+<font color="#006600">\&amp;CloseAppWindow</font>
+);&nbsp;
+<p>my <font color="#006600">$fixed</font> = new Gtk::Fixed();
+<br><font color="#006600">$fixed</font>->set_usize(<font color="#993399">210</font>,<font color="#993399">250</font>);
+<p>creaBotones();
+<br><font color="#006600">$Display </font>= new Gtk::Entry();
+<br><font color="#006600">$Display</font>->set_usize(<font color="#993399">190</font>,<font color="#993399">25</font>);
+<br><font color="#006600">$fixed</font>->put(<font color="#006600">$Display</font>,<font color="#993399">10</font>,<font color="#993399">10</font>);
+<br><font color="#006600">$Display</font>->show();
+<p><font color="#3333FF"># Entramos en el bucle Gtk de eventos</font>
+<br><font color="#006600">$window</font>->add(<font color="#006600">$fixed</font>);
+<br><font color="#006600">$fixed</font>->show();
+<br><font color="#006600">$window</font>->show();
+<br>main Gtk;
+<p><font color="#3333FF"># Aqui nunca llegamos</font>
+<br>exit( <font color="#993399">0</font> );
+<p><font color="#3333FF">#-----------------------------------------------------------------------------</font>
+<br><font color="#3333FF">#&nbsp; Varias rutinas para hacer mas legible
+el codigo</font>
+<br><font color="#3333FF">#-----------------------------------------------------------------------------</font>
+<p>sub creaBotones
+<br>{
+<br><font color="#3333FF"># El boton del 1</font>
+<br><font color="#006600">$bt1</font> = new Gtk::Button(<font color="#FF0000">"1"</font>);
+<br><font color="#006600">$bt1</font>->set_usize(<font color="#993399">40</font>,<font color="#993399">40</font>);
+<br><font color="#006600">$bt1</font>->signal_connect(<font color="#FF0000">"clicked"</font>,
+<font color="#006600">\&amp;add</font>,
+(<font color="#FF0000">"1"</font>));
+<br><font color="#006600">$fixed</font>->put(<font color="#006600">$bt1</font>,<font color="#993399">10</font>,<font color="#993399">50</font>);
+<br><font color="#006600">$bt1</font>->show();
+<p><font color="#3333FF"># El boton del 2</font>
+<br><font color="#006600">$bt2</font> = new Gtk::Button(<font color="#FF0000">"2"</font>);
+<br><font color="#006600">$bt2</font>->set_usize(<font color="#993399">40</font>,<font color="#993399">40)</font>;
+<br><font color="#006600">$bt2</font>->signal_connect(<font color="#FF0000">"clicked"</font>,
+<font color="#006600">\&amp;add</font>,
+(<font color="#FF0000">"2"</font>));
+<br><font color="#006600">$fixed</font>->put(<font color="#006600">$bt2</font>,<font color="#993399">60</font>,<font color="#993399">50</font>);
+<br><font color="#006600">$bt2</font>->show();
+<p><font color="#3333FF"># El boton del 3</font>
+<br><font color="#006600">$bt3</font> = new Gtk::Button(<font color="#FF0000">"3"</font>);
+<br><font color="#006600">$bt3</font>->set_usize(<font color="#993399">40</font>,<font color="#993399">40</font>);
+<br><font color="#006600">$bt3</font>->signal_connect(<font color="#FF0000">"clicked"</font>,
+<font color="#006600">\&amp;add</font>,
+(<font color="#FF0000">"3"</font>));
+<br><font color="#006600">$fixed</font>->put(<font color="#006600">$bt3</font>,<font color="#993399">110</font>,<font color="#993399">50</font>);
+<br><font color="#006600">$bt3</font>->show();
+<p><font color="#3333FF"># El boton del 4</font>
+<br><font color="#006600">$bt4</font> = new Gtk::Button(<font color="#FF0000">"4"</font>);
+<br><font color="#006600">$bt4</font>->set_usize(<font color="#993399">40</font>,<font color="#993399">40</font>);
+<br><font color="#006600">$bt4</font>->signal_connect(<font color="#FF0000">"clicked"</font>,<font color="#006600">
+\&amp;add</font>, (<font color="#FF0000">"4"</font>));
+<br><font color="#006600">$fixed</font>->put(<font color="#006600">$bt4</font>,<font color="#993399">10</font>,<font color="#993399">100</font>);
+<br><font color="#006600">$bt4</font>->show();
+<p><font color="#3333FF"># El boton del 5</font>
+<br><font color="#006600">$bt5</font> = new Gtk::Button(<font color="#FF0000">"5"</font>);
+<br><font color="#006600">$bt5</font>->set_usize(<font color="#993399">40</font>,<font color="#993399">40</font>);
+<br><font color="#006600">$bt5</font>->signal_connect(<font color="#FF0000">"clicked"</font>,
+<font color="#006600">\&amp;add</font>,
+(<font color="#FF0000">"5"</font>));
+<br><font color="#006600">$fixed</font>->put(<font color="#006600">$bt5</font>,<font color="#993399">60</font>,<font color="#993399">100</font>);
+<br><font color="#006600">$bt5</font>->show();
+<p><font color="#3333FF"># El boton del 6</font>
+<br><font color="#006600">$bt6</font> = new Gtk::Button(<font color="#FF0000">"6"</font>);
+<br><font color="#006600">$bt6</font>->set_usize(<font color="#993399">40</font>,<font color="#993399">40</font>);
+<br><font color="#006600">$bt6</font>->signal_connect(<font color="#FF0000">"clicked"</font>,
+<font color="#006600">\&amp;add</font>,
+(<font color="#FF0000">"6"</font>));
+<br><font color="#006600">$fixed</font>->put(<font color="#006600">$bt6</font>,<font color="#993399">110</font>,<font color="#993399">100</font>);
+<br><font color="#006600">$bt6</font>->show();
+<p><font color="#3333FF"># El boton del 7</font>
+<br><font color="#006600">$bt7</font> = new Gtk::Button(<font color="#FF0000">"7"</font>);
+<br><font color="#006600">$bt7</font>->set_usize(<font color="#993399">40</font>,<font color="#993399">40</font>);
+<br><font color="#006600">$bt7</font>->signal_connect(<font color="#FF0000">"clicked"</font>,
+<font color="#006600">\&amp;add</font>,
+(<font color="#FF0000">"7"</font>));
+<br><font color="#006600">$fixed</font>->put(<font color="#006600">$bt7</font>,<font color="#993399">10</font>,<font color="#993399">150</font>);
+<br><font color="#006600">$bt7</font>->show();
+<p><font color="#3333FF"># El boton del 8</font>
+<br><font color="#006600">$bt8</font> = new Gtk::Button(<font color="#FF0000">"8"</font>);
+<br><font color="#006600">$bt8</font>->set_usize(<font color="#993399">40</font>,<font color="#993399">40</font>);
+<br><font color="#006600">$bt8</font>->signal_connect(<font color="#FF0000">"clicked"</font>,
+<font color="#006600">\&amp;add</font>,
+(<font color="#FF0000">"8"</font>));
+<br><font color="#006600">$fixed</font>->put(<font color="#006600">$bt8</font>,<font color="#993399">60</font>,<font color="#993399">150</font>);
+<br><font color="#006600">$bt8</font>->show();
+<p><font color="#3333FF"># El boton del 9</font>
+<br><font color="#006600">$bt9 </font>= new Gtk::Button(<font color="#FF0000">"9"</font>);
+<br><font color="#006600">$bt9</font>->set_usize(<font color="#993399">40</font>,<font color="#993399">40</font>);
+<br><font color="#006600">$bt9</font>->signal_connect(<font color="#FF0000">"clicked"</font>,<font color="#006600">
+\&amp;add</font>, (<font color="#FF0000">"9"</font>));
+<br><font color="#006600">$fixed</font>->put(<font color="#006600">$bt9</font>,<font color="#993399">110</font>,<font color="#993399">150</font>);
+<br><font color="#006600">$bt9</font>->show();
+<p><font color="#3333FF"># El boton del 0</font>
+<br><font color="#006600">$bt0</font> = new Gtk::Button(<font color="#FF0000">"0"</font>);
+<br><font color="#006600">$bt0</font>->set_usize(<font color="#993399">40</font>,<font color="#993399">40</font>);
+<br><font color="#006600">$bt0</font>->signal_connect(<font color="#FF0000">"clicked"</font>,<font color="#006600">
+\&amp;add</font>, (<font color="#FF0000">"0"</font>));
+<br><font color="#006600">$fixed</font>->put(<font color="#006600">$bt0</font>,<font color="#993399">10</font>,<font color="#993399">200</font>);
+<br><font color="#006600">$bt0</font>->show();
+<p><font color="#3333FF"># El boton del =</font>
+<br><font color="#006600">$bti</font> = new Gtk::Button(<font color="#FF0000">"="</font>);
+<br><font color="#006600">$bti</font>->set_usize(<font color="#993399">40</font>,<font color="#993399">40</font>);
+<br><font color="#006600">$bti</font>->signal_connect(<font color="#FF0000">"clicked"</font>,
+<font color="#006600">\&amp;calculate</font>,
+(<font color="#FF0000">" = "</font>));
+<br><font color="#006600">$fixed</font>->put(<font color="#006600">$bti</font>,<font color="#993399">60</font>,<font color="#993399">200</font>);
+<br><font color="#006600">$bti</font>->show();
+<p><font color="#3333FF"># El boton del Del</font>
+<br><font color="#006600">$btb</font> = new Gtk::Button(<font color="#FF0000">"Del"</font>);
+<br><font color="#006600">$btb</font>->signal_connect(<font color="#FF0000">"clicked"</font>,
+sub {<font color="#006600">$Display</font>->set_text(<font color="#FF0000">""</font>);});
+<br><font color="#006600">$btb</font>->set_usize(<font color="#993399">40</font>,<font color="#993399">40</font>);
+<br><font color="#006600">$fixed</font>->put(<font color="#006600">$btb</font>,<font color="#993399">110</font>,<font color="#993399">200</font>);
+<br><font color="#006600">$btb</font>->show();
+<p><font color="#3333FF"># Las operaciones</font>
+<br><font color="#3333FF"># El boton de la suma</font>
+<br><font color="#006600">$btSum</font> = new Gtk::Button(<font color="#FF0000">"+"</font>);
+<br><font color="#006600">$btSum</font>->set_usize(<font color="#993399">40</font>,<font color="#993399">40</font>);
+<br><font color="#006600">$btSum</font>->signal_connect(<font color="#FF0000">"clicked"</font>,
+<font color="#006600">\&amp;add</font>,
+(<font color="#FF0000">" + "</font>));
+<br><font color="#006600">$fixed</font>->put(<font color="#006600">$btSum</font>,<font color="#993399">160</font>,<font color="#993399">50</font>);
+<br><font color="#006600">$btSum</font>->show();
+<br><font color="#3333FF"># El boton de la resta</font>
+<br><font color="#006600">$btRes</font> = new Gtk::Button(<font color="#FF0000">"-"</font>);
+<br><font color="#006600">$btRes</font>->set_usize(<font color="#993399">40</font>,<font color="#993399">40</font>);
+<br><font color="#006600">$btRes</font>->signal_connect(<font color="#FF0000">"clicked"</font>,<font color="#006600">
+\&amp;add</font>, (<font color="#FF0000">" - "</font>));
+<br><font color="#006600">$fixed</font>->put(<font color="#006600">$btRes</font>,<font color="#993399">160</font>,<font color="#993399">100</font>);
+<br><font color="#006600">$btRes</font>->show();
+<br><font color="#3333FF"># El boton de la Multiplicacion</font>
+<br><font color="#006600">$btMul</font> = new Gtk::Button(<font color="#FF0000">"*"</font>);
+<br><font color="#006600">$btMul</font>->set_usize(<font color="#993399">40</font>,<font color="#993399">40</font>);
+<br><font color="#006600">$btMul</font>->signal_connect(<font color="#FF0000">"clicked"</font>,
+<font color="#006600">\&amp;add</font>,
+(<font color="#FF0000">" * "</font>));
+<br><font color="#006600">$fixed</font>->put(<font color="#006600">$btMul</font>,<font color="#993399">160</font>,<font color="#993399">150</font>);
+<br><font color="#006600">$btMul</font>->show();
+<br><font color="#3333FF"># El boton de la Division</font>
+<br><font color="#006600">$btDiv</font> = new Gtk::Button(<font color="#FF0000">"/"</font>);
+<br><font color="#006600">$btDiv</font>->set_usize(<font color="#993399">40</font>,<font color="#993399">40</font>);
+<br><font color="#006600">$btDiv</font>->signal_connect(<font color="#FF0000">"clicked"</font>,
+<font color="#006600">\&amp;add</font>,
+(<font color="#FF0000">" / "</font>));
+<br><font color="#006600">$fixed</font>->put(<font color="#006600">$btDiv</font>,<font color="#993399">160</font>,<font color="#993399">200</font>);
+<br><font color="#006600">$btDiv</font>->show();
+<br>}
+<br>&nbsp;
+<p><font color="#3333FF">### Manejador del evento borrar&nbsp;</font>
+<br>sub CloseAppWindow
+<br>{
+<br>&nbsp;&nbsp;&nbsp; Gtk->exit( <font color="#993399">0</font> );
+<br>&nbsp;&nbsp;&nbsp; return <font color="#006600">$false</font>;
+<br>}
+<br>&nbsp;
+<p>sub add
+<br>{
+<br>&nbsp;&nbsp; <font color="#3333FF"># C&oacute;digo para tratar el evento
+de pulsaci&oacute;n de una tecla cualquiera menos el '=' que llama a calculate
+y el DEL</font>
+<br><font color="#000000">}</font>
+<br>&nbsp;
+<p>sub calculate
+<br>{
+<br>&nbsp;&nbsp; <font color="#3333FF"># Aqui vendr&iacute;a el c&oacute;digo
+que realizar&iacute;a los c&aacute;lculos</font>
+<br>}</td>
+</tr>
+</table>
+
+<p>En el fichero <a href="gcalc.pl">gcalc.pl</a> se puede encontrar el
+c&oacute;digo completo
+<br>&nbsp;
+<br>&nbsp;
+<div align=right>
+<hr WIDTH="100%"></div>
+
+<center><table BORDER=0 COLS=3 WIDTH="25%" NOSAVE >
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node2.html"><img SRC="ol.gif" BORDER=0 height=44 width=65></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html"><img SRC="home02.gif" BORDER=0 height=75 width=61></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node4.html"><img SRC="or.gif" BORDER=0 height=44 width=65></a></td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node2.html">Anterior</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html">Home</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node4.html">Siguiente</a></td>
+</tr>
+</table></center>
+
+</body>
+</html>

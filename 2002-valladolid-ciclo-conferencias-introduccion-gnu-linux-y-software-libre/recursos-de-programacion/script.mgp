@@ -1,0 +1,127 @@
+nclude "default.mgp"
+%default 1 bgrad
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+%center, size 7, font "standard", fore "white",vgap 20
+
+Lenguajes de Script
+
+%fore "red"
+AUGCyL - http://www.augcyl.org
+
+%image "augcyl.png" 1024x768
+
+%page
+
+INTRODUCCIÓN
+
+-Los lenguajes de scripting son:
+	Interpretados
+	Suelen ser de alto nivel
+	Orientados a tareas sencillas, interoperar con otros lenguajes, tareas de administración, procesar texto...
+	Generalmente son cortos y se desarrollan rápidamente
+
+%page
+
+TIPOS
+
+Existen basicamente:
+
+-Clásicos: awk, .bat de MSDOS, shells unix (bash, csh...)
+
+-Modernos: Perl, TCL, Python, JavaScript, php...
+
+%page
+
+PERL
+
+-Lenguaje de script de alto nivel.
+
+-Desarrollado inicialmente por una sola persona, Larry Wall.
+
+-Derivado de C, awk, sed
+
+-Bastante eficiente, para ser interpretado
+
+-Adecuado para tareas de administración, frontends, modificar ficheros...
+
+-No es adecuado para programar drivers o modulos del kernel
+
+%page
+
+PERL ES LIBRE
+
+-Perl es Software Libre, con el lenguaje y todas sus herramientas el usuario puede:
+	Usarlo como, cuando y donde quiera
+	Distribuirlo a terceros, sin cargo o al precio que quiera
+	Tiene acceso al fuente, que puede modificar, mejorar, corregir
+
+%page
+
+Objetivos de Perl
+
+-Sus creadores afirman que:
+	Intenta ser práctico: Fácil de usar, eficiente y completo
+	Antes que bonito, pretende ser pequeño o elegante
+
+-Perl: Practical Extraction and Report Language
+
+-Especialmente optimizado  para:
+	Procesar ficheros de texto
+	Extraer información de ellos
+	Generar informes
+
+-Muy indicado para generar páginas web del lado del servidor (cgi)
+
+%page
+
+MUCHO CODIGO FUENTE
+
+-En http://www.perl.org/CPAN podemos encontrar módulos de todo tipo que nos facilitan las tareas habituales
+
+-Tambien hay mucho código fuente de ejemplo
+
+%page
+
+El Lenguaje Python
+
+-Lenguaje de autor creado por Guido van Rossum en 1989
+-Disponible en Unix, Mac, Windows, OS2...
+-Libre
+-Lenguaje de Script P.O.O. (No es O.O. puro)
+-Muy alto nivel
+-Preparado para interoperar con otros lenguajes
+-Verdadero lenguaje de propósito general
+-Sencillo, compacto
+-Sintaxis clara
+-Interpretado => Lento
+
+%page
+
+MAS CARACTERISTICAS
+Más caracteristicas:
+	Menos popular que perl
+	Perfectamenta aplicable para software de uso general
+	Se pueden generar bytecodes java
+	Muy adecuado para applets
+
+%page
+
+FUNCIONALIDADES
+
+-Python dispone de librerías Nativas y Normalizadas para:
+	Cadenas, listas, tablas hash, pilas, colas
+	Números Complejos
+	Serialización, Copia profunda y Persistencia de Objetos
+	Regexp
+	Unicode, Internacionalización del Software
+	Programación Concurrente
+	Acceso a BD, Ficheros Comprimidos, Control de Cambios...
+
+-Librerías relacionadas con Internet:
+	CGIs, URLs, HTTP, FTP,
+	pop3, IMAP, telnet
+	Cookies, Mime, XML, XDR
+	Diversos formatos multimedia
+	Criptografía

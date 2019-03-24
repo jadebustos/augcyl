@@ -1,0 +1,18 @@
+<html>
+<head>
+<title>P&aacute;gina 34</title>
+</head>
+<body text=#000000 bgcolor=#FFFFFF link=#000080 vlink=#800000 alink=#000080>
+<center>
+<a href="text0.htm">Primera p&aacute;gina</a> <a href="text32.htm">Regresar</a> <a href="text34.htm">Siguiente</a> <a href="text61.htm">&Uacute;ltima p&aacute;gina</a> <a href="pruebapresentacion.htm">Resumen</a> <a href="img33.htm">Imagen</a></center><br>
+<h1>Ejemplo de iptables</h1><p>
+<ul><li><h2>modprobe ip_tables</h2>
+<li><h2>iptables -F FORWARD</h2>
+<li><h2>iptables -P FORWARD DROP</h2>
+<li><h2>iptables -A FORWARD -m tcp -p tcp -s 0/0 --sport 80 &#150;d 172.16.1.0/24 --syn -j DROP</h2>
+<li><h2>iptables -A FORWARD -m tcp -p tcp -s 172.16.1.0/24 --sport          80 -d 0/0 -j ACCEPT</h2>
+<li><h2>iptables -A FORWARD -m tcp -p tcp -d 172.16.1.0/24 --dport 80 -s 0/0 &#150;j / ACCEPT</h2>
+</ul><br>
+<h3>Notas:</h3>
+</body>
+</html>

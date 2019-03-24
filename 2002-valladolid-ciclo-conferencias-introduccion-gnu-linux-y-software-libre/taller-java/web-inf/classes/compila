@@ -1,0 +1,2 @@
+clear;
+/usr/j2sdk1.4.0/bin/javac -classpath "/var/tomcat4/common/lib/servlet.jar:." $1

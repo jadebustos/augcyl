@@ -1,0 +1,83 @@
+%include "default.mgp"
+%default 1 bgrad
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+%center, size 7, font "standard", fore "white",vgap 20
+
+Librerias QT
+
+%fore "red"
+AUGCyL - http://www.augcyl.org
+
+%image "augcyl.png" 1024x768
+
+%page
+
+¿QUÉ ES?
+
+	Es una libreria para crear interfaces gráficos.
+	Multiplataforma (Linux, Mac OS X, Solaris, HP-UX, Ms Windows XX, Unix con X11)
+	Orientado a objetos, C++
+	Creacion rápida de GUIs 
+	Hay una versión para sistemas empotrados
+
+-Licencia:
+	Dos versiones: Una libre (GPL o QPL) y otra non-free
+
+-Estructura:
+	Widgets
+	Signal, Slots
+	Eventos (clicks de ratón, teclas pulsadas)
+%page
+
+WIDGETS
+
+
+-Diferencias con gtk:
+	No hay división entre contenedores y controles.
+	Los widgets pueden contener cualquier número de hijos
+	La colocación dentro del espacio del widget padre se controla con los layouts
+	El widget "top-level" puede ser cualquiera, un boton...
+	Los colores se pueden modificar con estilo código html
+
+%page
+
+Ejemplo sencillo
+
+ #include <qapplication.h>
+ #include <qlabel.h>
+
+ int main( int argc, char **argv )
+     {
+         QApplication app( argc, argv );
+         QLabel *hello = new QLabel( "<font color=blue>Hello
+         <i>Qt!</i></font>", 0 );
+         app.setMainWidget( hello );
+         hello->show();
+         return app.exec();
+     }
+%page									     
+
+OTRAS CARACTERISTICAS
+
+-Programas para Diseño del interface
+	Qt Designer
+	Kdevelop
+
+-Otras funcionalidades:
+	Librerias básicas:
+          * Entrada / Salida.
+          * Manejo de red.
+          * XML
+	Interface con bases de datos integrado: Oracle, PostgreSQL, MySQL y ODBC.
+	Plugins, librerias dinámicas (Imágenes, formatos...)
+	Unicode, internacionalización
+%page
+
+PROGRAMAS QUE LO USAN
+
+-Lo usan...:
+	Compañías IBM, NASA, Xerox, Opera
+	Entorno KDE
+	Numerosos programas: konqueror, knode, koffice...
