@@ -1,0 +1,261 @@
+<?xml version='1.0' encoding='utf-8'?>
+<appendix>
+  <title>Paquetes de software cient&iacute;fico en openSUSE 10.3</title>
+
+  <table>
+    <title>Paquetes de software cient&iacute;fico en openSUSE 10.3</title>
+
+    <tgroup cols='3'>
+      <thead>
+        <row>
+          <entry>
+            Programa
+          </entry>
+          <entry>
+            Paquete
+          </entry>
+          <entry>
+            Repositorio
+            <footnote>
+              <itemizedlist>
+                <listitem>
+                  <para>
+                    <ulink url="http://download.opensuse.org/repositories/openSUSE:10.3/standard/">
+                      Repositorio principal (OSS)
+                    </ulink>
+                  </para>
+                </listitem>
+                <listitem>
+                  <para>
+                    <ulink url="http://ftp.skynet.be/pub/packman/suse/10.3/">
+                      Packman Repository
+                    </ulink>
+                  </para>
+                </listitem>
+                <listitem>
+                  <para>
+                    <ulink url="http://download.opensuse.org/repositories/KDE:/Community/openSUSE_10.3/">
+                      openSUSE BuildService - KDE:Community
+                    </ulink>
+                  </para>
+                </listitem>
+                <listitem>
+                  <para>
+                    <ulink url="http://download.opensuse.org/repositories/Education:/desktop/openSUSE_10.3/">
+                      Desktop applications for education users
+                    </ulink>
+                  </para>
+                </listitem>
+                <listitem>
+                  <para>
+                    <ulink url="http://download.opensuse.org/repositories/science/openSUSE_10.3/">
+                      Software for scientists and engineers
+                    </ulink>
+                  </para>
+                </listitem>
+                <listitem>
+                  <para>
+                    <ulink url="http://download.opensuse.org/repositories/Application:/Geo/openSUSE_10.3/">
+                      Applications related to the earth (GIS, mapping, geodesy, GPS)
+                    </ulink>
+                  </para>
+                </listitem>
+                <listitem>
+                  <para>
+                    <ulink url="http://download.opensuse.org/repositories/home:/dmacvicar/openSUSE_10.3/">
+                      dmacvicar
+                    </ulink>
+                  </para>
+                </listitem>
+              </itemizedlist>
+            </footnote>
+          </entry>
+        </row>
+      </thead>
+
+      <tbody>
+        <row>
+          <entry>TeX</entry>
+          <entry>texlive</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>LaTeX</entry>
+          <entry>texlive-latex</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>Texmaker</entry>
+          <entry>texmaker</entry>
+          <entry>openSUSE BuildService - KDE:Community</entry>
+        </row>
+        <row>
+          <entry>Kile</entry>
+          <entry>kile</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>GNU TeXmacs</entry>
+          <entry>TeXmacs</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>LyX</entry>
+          <entry>lyx</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>OpenOffice.org Math</entry>
+          <entry>OpenOffice_org-math</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>gnuplot</entry>
+          <entry>gnuplot</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>Qgfe</entry>
+          <entry></entry>
+          <entry></entry>
+        </row>
+        <row>
+          <entry>Dia</entry>
+          <entry>dia</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>Xfig</entry>
+          <entry>xfig</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>GeoGebra</entry>
+          <entry>geogebra</entry>
+          <entry>Desktop applications for education users</entry>
+        </row>
+        <row>
+          <entry>GEONExT</entry>
+          <entry>geonext</entry>
+          <entry>Desktop applications for education users</entry>
+        </row>
+        <row>
+          <entry>GDIS</entry>
+          <entry></entry>
+          <entry></entry>
+        </row>
+        <row>
+          <entry>Chemtool</entry>
+          <entry>chemtool</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>Garlic</entry>
+          <entry>garlic</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>Maxima</entry>
+          <entry>maxima</entry>
+          <entry>Software for scientists and engineers</entry>
+        </row>
+        <row>
+          <entry>wxMaxima</entry>
+          <entry>wxMaxima</entry>
+          <entry>Software for scientists and engineers</entry>
+        </row>
+        <row>
+          <entry>Xmaxima</entry>
+          <entry>maxima-xmaxima</entry>
+          <entry>Software for scientists and engineers</entry>
+        </row>
+        <row>
+          <entry>Yacas</entry>
+          <entry>yacas</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>Axiom</entry>
+          <entry></entry>
+          <entry></entry>
+        </row>
+        <row>
+          <entry>GNU Octave</entry>
+          <entry>octave</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>QtOctave</entry>
+          <entry></entry>
+          <entry></entry>
+        </row>
+        <row>
+          <entry>FreeMat</entry>
+          <entry>FreeMat</entry>
+          <entry>dmacvicar</entry>
+        </row>
+        <row>
+          <entry>R</entry>
+          <entry>R-base</entry>
+          <entry>Software for scientists and engineers</entry>
+        </row>
+        <row>
+          <entry>QCad</entry>
+          <entry>qcad</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>PythonCAD</entry>
+          <entry>pythoncad</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>GRASS</entry>
+          <entry>grass</entry>
+          <entry>Applications related to the earth (GIS, mapping, geodesy, GPS)</entry>
+        </row>
+        <row>
+          <entry>Logisim</entry>
+          <entry></entry>
+          <entry></entry>
+        </row>
+        <row>
+          <entry>KiCad</entry>
+          <entry>kicad</entry>
+          <entry>Software for scientists and engineers</entry>
+        </row>
+        <row>
+          <entry>Kalzium</entry>
+          <entry>kde4-kalzium</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>Celestia</entry>
+          <entry>celestia</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>KStars</entry>
+          <entry>kde4-kstars</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>Stellarium</entry>
+          <entry>stellarium</entry>
+          <entry>Desktop applications for education users</entry>
+        </row>
+        <row>
+          <entry>GNU XaoS</entry>
+          <entry>xaos</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>Fyre</entry>
+          <entry>fyre</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </table>
+</appendix>
+

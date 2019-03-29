@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>NX. Nueva tecnología de escritorio remoto.</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Escritorio remoto"
+HREF="c543.html"><LINK
+REL="PREVIOUS"
+TITLE="RDP. Escritorio remoto de Windows"
+HREF="x594.html"><LINK
+REL="NEXT"
+TITLE="Proxies, cortafuegos, software de filtrado"
+HREF="c634.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x594.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Cap�tulo 7. Escritorio remoto</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c634.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN605"
+>7.4. NX. Nueva tecnología de escritorio remoto.</A
+></H1
+><P
+>NX ( http://en.wikipedia.org/wiki/NX_technology ) es una tecnología de escritorio remoto desarrollada por una empresa Italiana, NoMachine. NoMachine comercializa su implementación propietaria de esta tecnología. Los clientes son freeware y hay también un servidor freeware, NX Free Edition, para GNU/Linux y Solaris, mientras que el servidor para Windows y MacOSX es de pago. </P
+><P
+>Lo más interesante es que Nomachine además publica el código fuente necesario para implementar esta tecnlogía bajo licencia GPL (lamentablemente sólo bajo la versión 2.0). Hay un proyecto que ha desarrollado un servidor a partir de este código fuente, el proyecto FreeNX (<A
+HREF="http://freenx.berlios.de/"
+TARGET="_top"
+>http://freenx.berlios.de</A
+>). El código de FreeNX es bastante complicado de compilar (en realidad el código GPL de NoMachine, pues FreeNX son scripts): recomiendan usar la implementación que venga con la distribución. Es el caso de Open SuSE 10.2 y Ubuntu Dapper, pero versiones nuevas de Ubuntu se plantean no incluir FreeNX por lo difícil de manejar el código, aunque quizás con las nuevas versiones lo reconsideren si el proyecto mejora. Mientras no haya una buena implementación completa de NX bajo una licencia libre, esta tecnología tendrá una presencia marginal en GNU/Linux.</P
+><P
+>FreeNX incluye el servidor, pero no un cliente. Como cliente mucha gente utiliza el freeware (pero privativo) de Nomachine. Otras opciones son ThinStation (http://thinstation.sourceforge.net/wiki/index.php/ThIndex), knx y sobre todo QtNX (http://blog.gwright.org.uk/articles/search?q=QtNX). QtNX actualmente requiere que para la parte del cliente estén instalados la versión 1.5 del componente (la versión vieja, con menos opciones que la nueva, por ejemplo poder ejecutar aplicaciones cada una en su ventana, modo rootless), pero funciona perfectamente con un servidor de la versión 2.0. Además el proyecto QtNX ha creado su propia librería para hacer clientes NX. Otra implementación completa de NX (incluido el cliente) bajo GPL, obtenida tras comprar una licencia a NX de todo el código fuente de la versión 1.5 y liberarlo bajo GPL: <A
+HREF="http://code.2x.com/linuxterminalserver/downloads"
+TARGET="_top"
+>http://code.2x.com/linuxterminalserver/downloads</A
+>. La última versión de NX es la 3.0, pero 2X sigue con la base de la 1.5 que es la que licenció y FreeNX utiliza también la 1.5, aunque soporte también utilizar como backend la 2.0. FreeNX se está reescribiendo, para entre otras cosas poder soportar en un futuro la versión 3.0 de NX.</P
+><P
+>NX se implementa sobre X-Window para acelerarlo sensiblemente y eliminar round-trips. Así, gracias al uso de caché o el utilizar formatos tipo PNG en lugar de bitmaps se logran ratios de compresión del orden de 10:1 a 100:1. Gracias a estas compresiones es utilizable un escritorio remoto incluso a través de un modem.</P
+><P
+>En una serie de artículos sobre NX publicados en Linux Journal, se muestra como el inicio de sesión en KDE la primera vez supone transferencias de 4,1MB, pero gracias a NX y su caché las siguientes veces se queda en tan solo 35Kb.</P
+><P
+>NX aplica a X-Window mejoras que ofrece RDP, como el poder desconectar la sesión y conectarse desde otra máquina con todo como estaba (lo logra haciendo que el servidor X se ejecute en la máquina remota, mediante el agente nxagent, a la que se conecta el cliente NX) o el permitir transferencias de ficheros o utilizar por las aplicaciones remotas nuestra impresora o tarjeta de sonido local.</P
+><P
+>En realidad NX también se puede utilizar sobre RDP o VNC para acelerar también estos protocolos, pero los resultados que se obtienen son inferiores respecto a X-Window: como hemos comentado la tecnología de X-Window es superior a RDP, sólo que había problemas como los round-trips que en la práctica lo hacían poco utilizable sobre redes no locales.</P
+><P
+>Una limitación de NX utlizado sobre X-Window frente a VNC, es que no es posible iniciar un servidor NX sobre un servidor X ya arrancado, si se quiere usar remotamente hay que arrancarlo vía NX desde el principio.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN617"
+>7.4.1. Cómo funciona NX</A
+></H2
+><P
+>Hay paquetes nxserver, nxnode y nxclient. El servidor necesita los tres, mientras que el cliente necesita nxnode y nxclient; la mayoría de los programas están dentro del paquete nxnode. Uno de los programas más importantes que incluye el paquete nxnode es precisamente el ejecutable nxnode, que un proxy que se ejecuta tanto en el lado local como en el remoto y que crea el túnel entre los dos lados. En el lado de la aplicación remota, nxnode ejecuta un agente que es el intermediario con la aplicación: para aplicaciones X-Window es nxagent, para RDP es nxdesktop y para VNC nxviewer. Nxagent funciona en la máquina remota como un servidor X-Window local.</P
+><P
+>Un tema que desconcierta a un nuevo usuario de NX, es que el servidor nxserver no es un demonio que tenga que lanzar el usuario y permanezca en ejecución a la espera que se conecten clientes. En realidad nxserver es un programa presente en la máquina de las aplicaciones remotas, que ejecuta el cliente (nxclient) vía SSH, bajo la cuenta de usuario nx: la idea es similar al servidor de sftp que viene con OpenSSH. Otro dato desconcertante es que a priori cualquiera puede ejecutar nxserver, pues se ejecuta accediendo con una clave SSH que la clave privada es conocida por todo el mundo, pues viene con el cliente NX. Esto no debería ser un problema de seguridad, pues nxserver autentica al cliente antes de hacer nada (que es invocar nxnode), pero es mejor si cambiamos la clave por otra, aunque entonces habrá que cambiarla también en todos los clientes. Por defecto nxserver para autenticar al cliente usa su usuario y contraseña en el sistema, pero se puede mantener una lista de usuarios y contraseñas propia para no tener que usar la del sistema. Con nxserver --help podemos ver las ordenes disponibles para entre otras cosas administrar usuarios.</P
+><P
+>Si usamos el cliente oficial, es muy recomendable en configure/advanced la opción "enable SSL encryption of all the traffic". Esta opción tiene un nombre confuso, porque realmente no se usa SSL: lo que hace es utilizar la conexión SSH para entular todas las conexiones entre el nxnode local del cliente y el del servidor; estas conexiones irán cifradas, pero no con SSL sino con el protocolo de SSH, que es similar pero no es SSL. El interés de esta opción no está sólo en que se cifre sino en pasar los cortafuegos: sin ella habría que abrir varios puertos, que además van cambiando conforme se abren nuevas conexiones.</P
+><P
+>Algunas ideas para probar por qué no funciona la conexión:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>probar primero con el cliente oficial, con la opción "enable SSL encryption of all the traffic". El problema más frecuente es de cortafuegos.</P
+></LI
+><LI
+><P
+>probar a conectar al servidor con <KBD
+CLASS="userinput"
+>ssh -i /usr/NX/share/keys/server.id_dsa.key nx@ip_servidor</KBD
+> ; ejecutar <KBD
+CLASS="userinput"
+>login</KBD
+> ; si no autentifica probar a añadir el usuario manualmente. Si no ha sido posible conectar, comprobar si es problema de SSH; podemos por ejemplo conectarnos a la máquina y ejecutar <KBD
+CLASS="userinput"
+>su -- nx</KBD
+>; si al entrar en la cuenta del usuario "nx" no se abre una shell en la que podemos ejecutar login, es que no está correctamente instalado.</P
+></LI
+></OL
+><P
+>La información proporcionada es para el caso "NX Free Edition", que es software privativo. En el caso del software GPL, no existe por ejemplo nxnode sino nxproxy. Lamentablemente la alternativa a usar el software privativo de NoMachine actualmente es poco viable salvo para los usuarios que les venga ya integrada en su distribución FreeNX.</P
+><P
+>Más información sobre NX: <A
+HREF="http://en.wikipedia.org/wiki/NX_technology"
+TARGET="_top"
+>http://en.wikipedia.org/wiki/NX_technology</A
+>
+</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x594.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c634.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>RDP. Escritorio remoto de Windows</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c543.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Proxies, cortafuegos, software de filtrado</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

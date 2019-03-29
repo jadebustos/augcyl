@@ -1,0 +1,239 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Capa de aplicación (Layer5; Layer7 en OSI)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Paquetes de red. Modelo en Capas"
+HREF="c34.html"><LINK
+REL="PREVIOUS"
+TITLE="Capa de transporte (Layer4)"
+HREF="x155.html"><LINK
+REL="NEXT"
+TITLE="Autoconfiguración: DHCP, PXE, Zeroconf"
+HREF="c209.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x155.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Cap�tulo 2. Paquetes de red. Modelo en Capas</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c209.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN184"
+>2.4. Capa de aplicación (Layer5; Layer7 en OSI)</A
+></H1
+><P
+>Finalmente la última capa es el protocolo de aplicación, por ejemplo HTTP (web), SMTP (correo) o XMPP (Jabber). En Unix estos protocolos se escriben utilizando sockets, que se utilizan (sobre todo cuando la capa de transporte es TCP) prácticamente igual que los ficheros. Existe una especificación de un framework llamado BEEP (RFC 3080-3081, 3620), con implementaciones libres, que permite crear protocolos de aplicación olvidando temas como la autenticación y negociación de un canal seguro (para lo que usa SASL y TLS respectivamente) así como el modo de multiplexar varios canales sobre una conexión o manejar mensajes asíncronos (en cambio el formato de los mensajes en sí es libre). También estandariza la creación de túneles (proxies).</P
+><P
+>Dado que con los sniffers es posible espiar el tráfico de red, un mecanismo de seguridad muy utilizado en las aplicaciones es añadir una capa intermedia en la capa de aplicación sobre la que realmente va el protocolo: esta subcapa lo que hace es cifrar los paquetes y añadirles información de control para detectar si alguien los intenta manipular. El protocolo más estándar par implementar esta funcionalidad es TLS (anteriormente conocido como SSL). </P
+><P
+>Ojo, puede parecer que un switchs elimina la posibilidad de que un nodo en una red local espíe las comunicaciones entre otros nodos, utilizando un sniffer. Al fin y al cabo con un hub todo el tráfico se reenviaba a todos los nodos y el nodo en escucha realiza una actividad totalmente pasiva e indetectable, pero con un swtich se supone que cada nodo sólo recibe los paquetes que van destinados a él. Lamentablemente no es así, existen sniffers como <A
+HREF="http://ettercap.sourceforge.net/"
+TARGET="_top"
+>http://ettercap.sourceforge.net/</A
+> que funcionan también con switchs<A
+NAME="AEN190"
+HREF="#FTN.AEN190"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>. Así mismo hay sniffers especializados como oreka.sf.net, que sirven para grabar VoIP, generando un fichero de audio.</P
+><P
+>El problema es el ARP Spoofing/Port Stealing y ARP Poisoning. El ARP poisoning consiste en enviar al nodo que queremos engañar una respuesta ARP en el que indicamos que nuestra dirección MAC es la correspondiente a la dirección IP del nodo que queremos suplantar. La mayoría de los sistemas operativos no ven nada extraño en que les llegue este paquete aunque no lo hayan solicitado y lo almacenan en su caché ARP y en los que no se puede trucar con un ping. El ARP posioning actúa falsificando la IP no la dirección ARP, por lo que es difícil de detectar y evitar por parte del switch. Otras técnicas (Port Stealing) explotan engañar al switch haciéndole creer que tenemos la dirección ARP de la máquina a suplantar (los swtich que no soporten Safe Port, es decir, que permitan que cambie el puerto asociado a una dirección MAC). Así mismo hay ataques que buscan saturar con entradas falsas la tabla CAM del switch, pues necesariamente esta tabla tiene capacidad limitada.</P
+><P
+>La buena noticia es que estos ataques ya no son pasivos sino activos y son detectables con herramientas apropiadas como arpwatch (que hace escucha pasiva) o el propio ettercap. Más información: <A
+HREF="http://en.wikipedia.org/wiki/ARP_spoofing"
+TARGET="_top"
+>http://en.wikipedia.org/wiki/ARP_spoofing</A
+>
+</P
+><P
+>Si necesitamos un sniffer para hacer comprobaciones de red o aprender sobre protocolos, el sniffer recomendado es Ethereal, que ha cambiado de nombre recientemente a whireshark.</P
+><P
+>Hay más herramientas útiles para depurar problemas en las redes, además de los sniffers. Por ejemplo iftop (http://www.ex-parrot.com/pdw/iftop/ ): muestra consumo de ancho de banda, al estilo de top, mostrando origen y destino de la conexión. Utiliza libpcap (como sniffer) por lo que al ponerlo en la máquina que hace de router podemos ver quién está consumiendo en ese momento más ancho de banda. </P
+><P
+>Una herramienta extremadamente útil para depurar problemas de red y aprender sobre redes es Netcat. Esta utilidad permite conectarse a cualquier socket TCP/UDP y enviar/recibir datos como si estuviéramos escribiendo en un terminal. De igual modo puede escuchar en un puerto TCP/UDP. Es muy útil por ejemplo para probar antes de montar una VPN si hay visibilidad entre las Ips y puertos: escuchamos con netcat en un lado y desde el otro enviamos. Así, para escuchar tráfico UDP en el puerto 9037 (opcionalmente con -s se podría indicar una IP, en el caso de ser un puesto multihome, con más de una interfaz de red): <KBD
+CLASS="userinput"
+>netcat -u -l -p 9037</KBD
+>. Para enviar tráfico a el puerto 9037 desde otra máquina: <KBD
+CLASS="userinput"
+>netcat -u 83.59.36.220 9037</KBD
+></P
+><P
+>Otra herramienta aún más versátil que netcat, pero mucho menos conocida, es socat (<A
+HREF="http://www.dest-unreach.org/socat/doc/socat.html"
+TARGET="_top"
+>www.dest-unreach.org/socat/doc/socat.html</A
+>). Permite usar todo tipo de conexiones, incluso sockets RAW, sockets Unix, ficheros, crear dispositivos TUN/TAP, usar SSL, abrir un PTY, usar un socket HTTP o SOCKS...</P
+><P
+>Se recomienda usar también un NIDS (sistema detector de intrusiones de red, también suele usarse el acrónimo IDS, pues la mayoría de los IDS son NIDS, pero los hay específicos para una aplicación o para un sistema, que analizan llamadas al sistema). El más conocido es snort (<A
+HREF="http://www.snort.org/"
+TARGET="_top"
+>http://www.snort.org/</A
+>), aunque es programa es polémico debido a que las nuevas reglas para detectar intrusiones ya no son libres, aunque sí gratuitas pero distribuidas con varios días de retraso para los clientes no de pago: un sitio dónde hay reglas que sí son libres es www.bleedingthreats.net/ . Snort es un NIDS reactivo; permite tomar medidas para neutralizar el peligro, frente a los NIDS pasivos que sólo lo detectan. Los sistemas de este tipo se conocen como IPS (Intrusion Prevention System; sistemas de prevención de intrusiones).</P
+><P
+>También es útil disponer de un sistema de detección de vulnerabilidades como Nessus (lamentablemente desde la versión 3 no es software libre, pero hay un fork que sí lo es <A
+HREF="http://www.openvas.org/"
+TARGET="_top"
+>http://www.openvas.org/</A
+>: el problema de todos modos es tener una base de datos de vulnerabilidades que sea de libre uso); ojo con utilizar esta herramienta en una red que no administremos, entre los cometidos de un NIDS como snort es detectar este tipo de monitorizaciones. No confundir un detector de vulnerabilidades o security scanner con un escaneador de puertos (port scanner), como nmap, aunque el escaneo de puertos forme parte del proceso de búsqueda de vulnerabilidades. Nmap no detecta vulnerabilidades, sino localiza qué máquinas hay en la red, qué puertos tienen abiertos, qué sistemas operativos usan y qué versiones de los servidores de red utilizan. Un NIDS también detectará escaneos con Nmap, por lo que sólo deberían usar esta herramienta administradores de redes que tratan de encontrar vulnerabilidades en su propia red, principalmente debidas a máquinas "incontroladas" que no siguen la política de seguridad fijada para la red.</P
+><P
+>Para redes wireless hay programas como kissmet (<A
+HREF="http://kismetwireless.net/"
+TARGET="_top"
+>http://kismetwireless.net/</A
+>) que actúa de forma pasiva y no es detectable, permitiendo detectar de hecho ataques de programas no pasivos como netstumbler, además de poder usarse con snort y con otros sniffers (para lo cual deberemos conocer la clave). Un programa de "wardriving" (localización de redes Wifi desplazándose con un vehículo y un portátil con la tarjeta en modo monitor) es swscanner (<A
+HREF="http://www.swscanner.org/"
+TARGET="_top"
+>http://www.swscanner.org/</A
+>); un uso lícito de este tipo de programas es detectar redes no autorizadas o que no siguen la política de seguridad de la empresa u organización, otro es comprobar temas de cobertura y un tercero depurar problemas de conexión.</P
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notas</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN190"
+HREF="x184.html#AEN190"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>Otro sniffer, o conjunto de sniffer revelador de que los switch no son suficientes para evitar que se espíe el tráfico de red es dsniff (www.monkey.org/~dugsong/dsniff/). Este paquete por un lado incluye sniffers pasivos, algunos especializados para tareas como capturas contraseñas, correos, URLs (hay otro programa al margen de dsniff especializado para grabar VoIP en ficheros de audio, oreka.sf.net) y por otro programas para atacar los switchs. Así mismo incluye programas para hacer ataques "man in middle" para servidores SSL y SSH cuando se usan certificados autofirmados o sin comprobar, presentando uno falso sobre la marcha. </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x155.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c209.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Capa de transporte (Layer4)</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c34.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Autoconfiguración: DHCP, PXE, Zeroconf</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

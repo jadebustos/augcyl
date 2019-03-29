@@ -1,0 +1,262 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Escritorio remoto</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="OpenVPN"
+HREF="x485.html"><LINK
+REL="NEXT"
+TITLE="Escritorio remoto: RFB (VNC)"
+HREF="x572.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x485.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x572.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN543"
+></A
+>Cap�tulo 7. Escritorio remoto</H1
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN545"
+>7.1. Escritorio remoto: X-Window</A
+></H1
+><P
+>El sistema X-Window desde sus orígenes se diseñó con vistas a la transparencia de red: una aplicación se visualiza y maneja desde un terminal, pero puede estar ejecutándose en cualquier máquina de la red con la que haya conexión TCP/IP. En la terminología X-Window, el PC del usuario ejecuta el servidor X, mientras que las aplicaciones son los clientes: la idea es que las aplicaciones hacen peticiones al servidor del tipo dibuja este mapa de bits o notificamé determinados eventos. El servidor notifica a los clientes eventos como pulsaciones de teclas o eventos del ratón.</P
+><P
+>Para ejecutar una aplicación desde una máquina remota a la que nos hemos conectado por ejemplo a través de un telnet o un ssh, lo primero que hace falta es que esté definida la variable DISPLAY, que indica el servidor a utilizar. Así, un valor :0 indica usar el servidor local (si hubiera más de uno, se incrementaría el número); con el valor 192.168.7.10:0, indicaríamos que conecte con el servidor X de la máquina 192.168.7.10.</P
+><P
+>El siguiente requisito, es que si la conexión es vía red, tiene que estar abierto en el cortafuegos el puerto TCP del servidor X. Este puerto por defecto es 6000 para el primer servidor (:0) y se va incrementando conforme se ejecutan más servidores sobre una misma máquina.</P
+><P
+>Finalmente, el servidor X tiene que permitir que el cliente se conecte. Hay dos formas:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>método poco sutil, xhost. Ejecutando xhost desde nuestro servidor X damos permiso para que desde las Ips que indiquemos se puedan conectar a nuestro servidor. Así, con xhost +192.168.7.1 permitiríamos conectar desde esa IP. Con xhost + permitiríamos conectar desde cualquier IP. Ojo, no conceder este permiso con ligereza: un cliente puede espiar eventos de teclado, enviar eventos de teclado (nada divertido si tenemos una terminal abierta y envían un comando destructivo seguido de l evento de la tecla enter) o cuanto menos molestar bastante. A esto hay que añadir que al abrir una IP se abren a todos los posibles usuarios de la máquina si es multiusuario o al posible malware que tuviera instalado; así mismo no hay que olvidar la posibilidad del IP Spoofing.</P
+></LI
+><LI
+><P
+>método más adecuado, xauth. Para que el cliente pueda conectarse, salvo que se haya permitido explícitamente utilizando xhost como se describe en el método anterior, tiene que utilizar una "cookie" que está almacenada en la cuenta de usuario del servidor que ejecuta el servidor X-Window, en el fichero que indique la variable de entorno XAUTHORITY. Este es el motivo por el que en algunas distribuciones al cambiar de usuario, incluso al cambiar a root, no permite ejecutar aplicaciones X: la variable de entorno ya no apunta a este fichero, por lo que no se envía la cookie. Hay distribuciones en las que sí funciona al pasar a root, porque sudo, su o la orden que hayamos ejecutado para cambiar de usuario usa un módulo PAM para que al establecer una nueva sesión de usuario se copie la cookie. Como comentario adicional, con xhost es posible dar permiso para que abra conexiones cualquier cliente local con independencia de su usuario, pero no clientes remotos, mediante xhost +local:. Este mecanismo se apoya en que cuando cliente (aplicación) y servidor (terminal X) están en la misma máquina, no usan el socket TCP sino un socket Unix, que es sólo accesible localmente. De hecho si sólo vamos a permitir conexiones locales, es buena idea ejecutar el servidor X con la opción -nolisten tcp; es lo que hacen por defecto distribuciones como Ubuntu.</P
+></LI
+></OL
+><P
+>Mediante la herramienta xauth, podemos leer la cookie en el servidor X; luego también mediante la herramienta xauth, en la máquina remota, podemos añadir la cookie.</P
+><P
+>En realidad, el método recomendado para ejecutar aplicaciones remotas es conectarnos con ssh con la opción -X o con la opción -Y<A
+NAME="AEN558"
+HREF="#FTN.AEN558"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+> (si recibiéramos algún -Y estamos sujetos a algunas restricciones de seguridad, a decir verdad no totalmente efectivas). Al ejecutar aplicaciones a través de SSH se usa para cada conexión un túnel encapsulado dentro de la conexión SSH, con todas las ventajas que implica: seguridad, al estar cifrado y protegido contra modificación y versatibilidad, pues no hay que abrir ningún puerto en el cortafuegos ni hay problema si nuestra máquina está tras una ADSL con NAT. La idea en que se basa es utilizar un proxy: crea un servidor X en la máquina remota y redirige todo lo que recibe por medio del túnel SSH al servidor X real que tenemos en nuestra máquina local. Gracias a este sistema funciona incluso aunque el servidor X se ejecute con la opción -nolisten tcp, pues la comunicación es local gracias al túnel.</P
+><P
+>Muchas veces la forma de ejecutar las aplicaciones remotas no es ejecutando aplicaciones sueltas, en nuestro escritorio local, sino ejecutando entero el escritorio remoto. Es decir, nos sale la pantalla de GDM o KDM que nos pide nuestro usuario y contraseña y a continuación entramos en un escritorio Gnome o KDE, pero que en realidad no es el de nuestra máquina, sino el de una máquina remota. Esta funcionalidad se apoya en el protocolo XDMCP, que por razones de seguridad suele estar desactivado (lo implementa el propio GDM/KDM). El protocolo usa el puerto UDP 177, pero sólo inicialmente; para mostrar la propia pantalla de Login ya recurre a la habitual conexión TCP con el puerto 6000, si bien automáticamente configura todo, incluyendo el fichero con la cookie, para que el usuario no tenga que hacer nada especial. Se puede establecer una conexión con un servidor XDMCP bien directamente desde el gdm de la máquina local, o pasando opciones como -query (ver man Xserver) a un servidor X ejecutado en otra consola, por ejemplo <KBD
+CLASS="userinput"
+>X :1 -query 192.168.10.7</KBD
+> o bien a un servidor ejecutando en una ventana, como xnest o el más moderno Xephyr . En cualquier caso usar XDMCP es inseguro, habría que tener un túnel que proteja tanto la conexión UDP con el servidor XDMCP, como las conexiones TCP de los clientes X-Window. Una opción más sencilla de lograr una sesión sin perder seguridad, sobre todo teniendo en cuenta que openssh no permite túneles UDP, es olvidarse de XDMCP e invocar en la máquina remota vía SSH por ejemplo /etc/X11/Xsession<A
+NAME="AEN562"
+HREF="#FTN.AEN562"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+> (teóricamente podría valer con ejecutar x-session-manager, pero suelen arrancarse aparte algunos demonios, como D-BUS).</P
+><P
+>Hay servidores X libres disponibles también para Windows: recomendamos <A
+HREF="http://x.cygwin.com/"
+TARGET="_top"
+>http://x.cygwin.com/</A
+>. </P
+><P
+>X-Window es la tecnología pionera de escritorio remoto, pero con el tiempo han surgido otras como RFB (VNC), RDP, Citrix, Adaptive Internet Protocol (Sun), Tarantella, </P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notas</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN558"
+HREF="c543.html#AEN558"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>La opción -X ejecuta usando un modo restringido de seguridad, que impide por ejemplo acceder a determinadas propiedades y que puede impedir que algunas aplicaciones de escritorio se ejecuten. Las restricciones de seguridad que impone -X tampoco son demasiado efectivas por sí solas. Si al usar ssh con -X o con -Y, en la máquina remota no aparece definida la variable de entorno DISPLAY y por lo tanto no funcionan las aplicaciones X, posiblemente se deba a que en la máquina remota no está instalado xauth.</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN562"
+HREF="c543.html#AEN562"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>Por ejemplo, desde una consola se puede lanzar <KBD
+CLASS="userinput"
+>startx /usr/bin/xterm -- :1</KBD
+> y luego desde ese terminal (que no debe cerrarse o de lo contrario se cerrará la sesión) ejecutar <KBD
+CLASS="userinput"
+>ssh -Y user@host /etc/X11/Xsession</KBD
+>. Con Xephyr la idea sería primero crear una cookie de autenticación invocando xauth; en la subshell hay que ejecutar una orden tipo <KBD
+CLASS="userinput"
+>add :1 . ad753146ead4c2e60031c60f22139da9f</KBD
+> (:1 sería el DISPLAY) y para grabar salir con exit. A continuación se puede lanzar el servidor, por ejemplo con <KBD
+CLASS="userinput"
+>Xephyr :1 -auth .Xauthority &#38;</KBD
+>, finalmente se establece <KBD
+CLASS="userinput"
+>export DISPLAY=:1</KBD
+> y se invoca ssh.</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x485.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x572.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>OpenVPN</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Escritorio remoto: RFB (VNC)</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

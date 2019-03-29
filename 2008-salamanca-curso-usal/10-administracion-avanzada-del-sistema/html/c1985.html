@@ -1,0 +1,261 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Núcleo de Linux</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Multipathing utilizando LVM"
+HREF="x1924.html"><LINK
+REL="NEXT"
+TITLE="Configurando un nuevo núcleo"
+HREF="x2025.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x1924.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x2025.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN1985"
+></A
+>Capítulo 7. Núcleo de Linux</H1
+><P
+>El núcleo (kernel) es el "programa principal" de todo sistema
+    operativo, a través de él se controla todo el sistema. El núcleo
+    de Linux de tipo monolítico y esta basado en los núcleos de
+    Unix.</P
+><P
+>Algunas características destacables son:</P
+><P
+></P
+><UL
+><LI
+><P
+>Multitarea y multihilo, es capaz de ejecutar varios proceso al mismo
+tiempo, en incluso varios hilos. Soportando varios procesadores.</P
+></LI
+><LI
+><P
+>El kernel y las aplicaciones corren en distintos espacios de
+trabajo. En el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>kernel mode</I
+></SPAN
+> se tiene acceso al
+hardware de la máquina e interrupciones, y
+en <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>user mode</I
+></SPAN
+>, donde corren las aplicaciones, que tienen
+que acceder al hardware a través del kernel.</P
+></LI
+><LI
+><P
+>Gestión de memoria a través del núcleo y memoria virtual para
+ampliar la memoria física disponible mediante la utilización de parte de sistema de ficheros como memoria.</P
+></LI
+><LI
+><P
+>Soporte de librerías compartidas con las llamadas al sistema.</P
+></LI
+><LI
+><P
+>Portabilidad, Linux esta disponible en muchas plataformas, desde
+grandes ordenadores hasta pdas.</P
+></LI
+></UL
+><P
+>Podemos ver la versión de nuestro núcleo actual con:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[pcm@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>uname -a</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>Linux merc 2.4.24-20040430 #1 SMP Fri Apr 30 21:34:00 CEST 2004 i686 GNU/Linux</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[pcm@sal]# </SAMP
+>
+</PRE
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN2008"
+>7.1. Historia</A
+></H1
+><P
+>En 1991 Linus Torvalds publicó en unas news de minix
+      un nuevo kernel muy básico para procesadores Intel 386 y
+      486. Utilizando el compilador de C de GNU <SPAN
+CLASS="application"
+>gcc</SPAN
+> y portando la shell
+      bash.</P
+><P
+>La gente aportó código a ese núcleo inicial y así se fue
+      ampliando y soportando más hardware. Se adoptó la licencia GNU GPL.</P
+><P
+>En el 1992 se creo ya su propio foro y se porto las X11. En 1994
+      apareció la versión 1.0. La versión 2 se comenzó en el
+      1996.</P
+><P
+></P
+><UL
+><LI
+><P
+>La versión 2.2 comenzó en 1999 con 1.800.847 de lineas de código.</P
+></LI
+><LI
+><P
+>La versión 2.4 comenzó en 2001 con 3.377.902 de lineas de código.</P
+></LI
+><LI
+><P
+>La versión 2.6 comenzó en 2003 con 5.929.913 de lineas de
+código.</P
+></LI
+><LI
+><P
+>La versiones impares (1.1, 2.3 o 2.5) son versiones de desarrollo, no son estables.</P
+></LI
+><LI
+><P
+>Actualmente, a Abril del 2008, se acaba de publicar la versión 2.6.25.</P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x1924.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x2025.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Multipathing utilizando <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>LVM</I
+></SPAN
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Configurando un nuevo núcleo</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

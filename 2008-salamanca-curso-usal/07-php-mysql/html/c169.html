@@ -1,0 +1,1104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Inclusión de relaciones</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Otros ejemplos"
+HREF="c148.html"><LINK
+REL="NEXT"
+TITLE="Conclusiones"
+HREF="x206.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: 
+    Creación de páginas web dinámicas con PHP/MySQL
+  </TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c148.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x206.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN169"
+></A
+>Capítulo 4. Inclusión de relaciones</H1
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="AEN171"
+>4.1. Directorio de Alumnos</A
+></H1
+><P
+></P
+><P
+>index.php de alumnos</P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN175"
+></A
+><PRE
+CLASS="programlisting"
+>&#13;          &#60;?php
+          //incluimos el fichero config.php para coger los datos de la conexión
+          include_once('../config.php');
+          //cogemos las variables de las coneción para que se puedan utilizar en el script
+          global $server, $database, $user, $passwd;
+          //abrimos la conexión
+          $conexion = mysql_connect($server,$user,$passwd);
+          //elegimos la BBDD
+          mysql_select_db ($database, $conexion) OR die ("No se puede conectar");
+
+          ?&#62;
+          &#60;html&#62;
+            &#60;head&#62;
+              &#60;TITLE&#62;Búsqueda de Asignaturas&#60;/TITLE&#62;
+              &#60;LINK REL="stylesheet" TYPE="text/css"
+              HREF="../estilo.css" /&#62;
+            &#60;/head&#62;
+            &#60;body&#62;
+              &#60;p&#62;Búsqueda de Asignaturas.&#60;/p&#62;&#60;?php
+              // coloca el enlace que permite añadir un alumno
+              echo "&#60;p&#62;&#60;A HREF='nuevo.php'&#62;Nuevo&#60;/A&#62;&#60;/p&#62;";
+              // se inicia el formulario de la búsqueda
+              echo "&#60;form method=\"post\" action=\"buscar.php\"&#62;";
+              // se indica que el campo de busqueda tiene 20 caracteres de longitud
+              echo "&#60;input type=\"text\" name=\"busqueda\" size=20 maxlength =100 value=\"".$_POST['busqueda']."\"&#62;";
+              // se coloca el boton que se paretara para realizar la busqueda
+              echo "&#60;input type=\"submit\" name=\"buscar\" value=\"Buscar\"&#62;&#60;/form&#62;&#60;br&#62;";
+              // se rellena la busqueda por todos los campos de la tabla, se debe substituir alumnos por el nombre de la tabla y 
+              // poner tantos nombre_de_campo LIKE '%".$_POST['busqueda']."%' OR como campos haya.
+              $sql="SELECT * FROM asignaturas where nombre LIKE '%".$_POST['busqueda']."%';";
+              // se realiza la busqueda
+              $result=mysql_query($sql,$conexion);
+              //Se comprueba si hay resultados en la busqueda
+              if($row= mysql_fetch_array($result)){
+              // si hay resultados crea la tabla
+              echo "&#60;TABLE BORDER='1'&#62;";
+              //pone los campos de la tabla tiene que haber tantos &#60;TD CLASS=\"titulo\"&#62;Nombre_de_campo&#60;/TD&#62; como campos haya
+              echo "&#60;TR&#62;&#60;TD CLASS=\"titulo\"&#62;Nombre&#60;/TD&#62;&#60;TD colspan=3  CLASS=\"titulo\"&#62;Opciones&#60;/TD&#62;&#60;/TR&#62;";
+              //coloca las líneas de la tabla
+              DO
+              {
+              //aqui se ponen tantas líneas &#60;TD width=300 CLASS=\"linea\"&#62;".$row["nombre_de_campo"]."&#60;/TD&#62; como campos haya en la tabla
+              // se coloca el inicio de la fila
+              echo "&#60;TR&#62;";
+              //se coloca el campos del nombre
+              echo "&#60;TD width=300 CLASS=\"linea\"&#62;".$row["nombre"]."&#60;/TD&#62;";
+              //se colocan los enlaces de ver editar y borrar alumno
+              echo "&#60;TD CLASS=\"linea\"&#62;&#60;A HREF=ver.php?id=".$row['id']."&#62;Ver&#60;/A&#62;&#60;/TD&#62;";
+              echo "&#60;TD width=50 CLASS=\"linea\"&#62;&#60;A HREF=editar.php?id=".$row['id']."&#62;Editar&#60;/A&#62;&#60;/TD&#62;";
+              echo "&#60;TD width=50 CLASS=\"linea\"&#62;&#60;A HREF=borrar.php?id=".$row['id']."&#62;Borrar&#60;/A&#62;&#60;/TD&#62;";
+              //se termina la fila
+              echo "&#60;/TR&#62;";
+              }
+              //Comprueba si se ha terminado de poner líneas
+              WHILE ($row=mysql_fetch_array($result));
+              //como se ha terminado de poner líneas se acaba la tabla
+              echo "&#60;/TABLE&#62;&#60;br&#62;";
+              //coloca el enlace para volver al listado
+              echo "&#60;A HREF=\"index.php\"&#62;Volver&#60;/A&#62;";
+              }else{
+              //si no hay registros que coincidan con la busqueda se le indica al usuario
+              echo "La búsqueda no coincide con ningún registro de la BBDD&#60;BR&#62;";
+              //se coloca el enlace del volver al listado
+              echo "&#60;A HREF=\"index.php\"&#62;Volver&#60;/A&#62;";
+
+              }
+              ?&#62;
+            &#60;/body&#62;
+          &#60;/html&#62;
+        </PRE
+><P
+></P
+></DIV
+><P
+>Nótese como en la tercera parte del fichero
+      hay una nueva consulta en busca de los nombres de los tipos
+      de alumno para poder encontrar el nombre de la que
+      está relacionada con cada alumno. Por lo
+      demás es como cualquier otro index.php de
+      directorio.</P
+><P
+>ver.php de alumnos</P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN179"
+></A
+><PRE
+CLASS="programlisting"
+>&#13;          &#60;?php
+          //incluimos el fichero config.php para coger los datos de la conexión
+          include_once('../config.php');
+          //cogemos las variables de las coneción para que se puedan utilizar en el script
+          global $server, $database, $user, $passwd;
+          //abrimos la conexión
+          $conexion = mysql_connect($server,$user,$passwd);
+          //elegimos la BBDD
+          mysql_select_db ($database, $conexion) OR die ("No se puede conectar");
+          //rellenamos la consulta, cambiar alumnos por el nombre de la tabla a listar
+          $sql="Select * from alumnos WHERE id=".$_GET['id'].";";
+          //re realiza la consulta
+          $result=mysql_query($sql,$conexion);
+          //print $sql;
+          //se coge el registro del alumno
+          $row= mysql_fetch_array($result);
+          ?&#62;
+          &#60;html&#62;
+            &#60;head&#62;
+              &#60;TITLE&#62;Alumno:&#60;?php echo $row['nombre']; ?&#62;&#60;/TITLE&#62;
+              &#60;LINK REL="stylesheet" TYPE="text/css"
+              HREF="../estilo.css" /&#62;
+            &#60;/head&#62;
+            &#60;body&#62;
+              &#60;?php
+              //en esta parte se muestran los campos del alumno
+              //se debe añadir líneas tantas como campos tenga la tabla: echo "&#60;p&#62;Nombre de campo:".$row["nombre_de_campo"]."&#60;/p&#62;";
+              //se muestra el código del alumno
+              echo "&#60;p&#62;Código:".$row["id"]."&#60;/p&#62;";
+              //se muestra el nombre del alumno
+              echo "&#60;p&#62;Nombre:".$row["nombre"]."&#60;/p&#62;";
+              //se muestra el dni del alumno
+              echo "&#60;p&#62;DNI:".$row["dni"]."&#60;/p&#62;";
+              $sql2="Select * from tipos_de_alumno where id_tipo_de_alumno=".$row['id_tipo_de_alumno'].";";
+              //echo $sql2;
+              //re realiza la consulta para meter en $result2 los tipos de alumnos
+              $result2=mysql_query($sql2,$conexion);
+              //coloca en $row2 el primer tipo de alumno
+              $row2= mysql_fetch_array($result2);
+              echo "&#60;p&#62;Tipo de Alumno:".$row2["nombre"]."&#60;/p&#62;";
+              //se coloca el enlace para que pueda editarse el alumno.
+              echo "&#60;p&#62;&#60;A HREF=editar.php?id=".$row['id']."&#62;Editar&#60;/A&#62;&#60;/TD&#62;&#60;/p&#62;";
+              // se coloca el enlace para borrar el alumno
+              echo "&#60;p&#62;&#60;A HREF=borrar.php?id=".$row['id']."&#62;Borrar&#60;/A&#62;&#60;/TD&#62;&#60;/p&#62;";
+              // se coloca el enlace para ver la matriculas de alumno
+              echo "&#60;p&#62;&#60;A HREF=ver_matriculas.php?id=".$row['id']."&#62;Ver Matriculas&#60;/A&#62;&#60;/TD&#62;&#60;/p&#62;";
+              // se coloca el enlace para ir a listado de alumnos
+              echo "&#60;p&#62;&#60;A HREF='index.php'&#62;Atras&#60;/A&#62;&#60;/p&#62;";
+              ?&#62;
+            &#60;/body&#62;
+          &#60;/html&#62;
+        </PRE
+><P
+></P
+></DIV
+><P
+>Aquí al final de la tercera parte se ve como
+      se muestra un enlace a un nuevo fichero que permite la
+      visualización de las matrículas de
+      dicho alumno.</P
+><P
+>editar.php de alumnos</P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN183"
+></A
+><PRE
+CLASS="programlisting"
+>&#13;          &#60;?php 
+          //incluimos el fichero config.php para coger los datos de la conexi?n
+          include_once('../config.php');
+          //cogemos las variables de las coneci?n para que se puedan utilizar en el script
+          global $server, $database, $user, $passwd;
+          //abrimos la conexi?n
+          $conexion = mysql_connect($server,$user,$passwd);
+          //elegimos la BBDD
+          mysql_select_db ($database, $conexion) OR die ("No se puede conectar");
+          //rellenamos la consulta, cambiar alumnos por el nombre de la tabla a listar
+          $sql="Select * from alumnos WHERE id=".$_GET['id'].";";
+          //re realiza la consulta
+          $result=mysql_query($sql,$conexion);
+          //print $sql;
+          //se coge el registro del alumno
+          $row= mysql_fetch_array($result);
+          ?&#62;
+          &#60;html&#62;
+            &#60;head&#62;
+              &#60;TITLE&#62;Nuevo Alumno&#60;/TITLE&#62;
+              &#60;LINK REL="stylesheet" TYPE="text/css"
+              HREF="../estilo.css" /&#62;
+            &#60;/head&#62;
+            &#60;body&#62;
+              &#60;?php
+              //se mira si se est? enviando el formulario de edici?n del alumno
+              if(!isset( $_POST['editar']))
+              {
+              //Si se est? enviando el formulario
+              //echo "&#60;p&#62;Vuelva a intentarlo&#60;/p&#62;";
+              //se abre el formulario que envia los datos de las modificaciones de ese registro
+                              echo "&#60;form method=\"post\" action=\"editar.php?id=".$_GET['id']."\" &#62;";
+              // muestra el c?digo del alumno
+                              echo "Codigo:".$row['id']."&#60;br&#62;";
+              // a partir de aqui se muestran los campos a rellenar en el formulario
+              // si se substituye echo "Nombre : &#60;input type=\"text\" name=\"nombre\" value=\"".$row['nombre']."\" maxlength =200 size=40&#62;&#60;br&#62;";
+              // por echo "Nombre : &#60;input type=\"text\" name=\"nombre_de_campo\" value=\"".$row['nombre']."\" maxlength =longitud_maxima_de_campo 
+              //  size=tama?o_dte_la_caja&#62;&#60;br&#62;";
+              // se muestra la caja del nombre del alumno
+                              echo "Nombre : &#60;input type=\"text\" name=\"nombre\" value=\"".$row['nombre']."\" maxlength =200 size=40&#62;&#60;br&#62;";
+              // se muestra la caja del dni
+                              echo "DNI : &#60;input type=\"text\" name=\"dni\" value=\"".$row['dni']."\" maxlength =10 size=10&#62;&#60;br&#62;";
+              //inicia la combo de los tipos
+              echo "Tipo de Alumno:";
+              echo "&#60;select name=\"tipo_de_alumno\"&#62;";
+              //rellena la sql para buscar las asignaturas
+              $sql2="Select * from tipos_de_alumno;";
+              //re realiza la consulta para meter en $result2 las asignaturas
+              $result2=mysql_query($sql2,$conexion);
+              //coloca en $row2 la primera asignatura
+              $row2= mysql_fetch_array($result2);
+              DO
+              {
+              //coloca la asignatura en el listado
+              echo "&#60;option value=\"".$row2['id_tipo_de_alumno']."\"";
+              if($row2['id_tipo_de_alumno']==$row['id_tipo_de_alumno'])
+                      echo "selected";
+              echo "&#62;".$row2['nombre']."&#60;/option&#62;";
+              }
+              //comprueba si hay más tipos de alumno
+              while ($row2= mysql_fetch_array($result2));
+              //si no hay mas tipos de alumno cierra el listado
+              echo "&#60;/select&#62; &#60;br&#62;&#60;br&#62;";
+              // se pone el bot?n de guardar los datos
+                              echo "&#60;input type=\"submit\" name=\"editar\" value=\"Guardar\"&#62;&#60;/form&#62;&#60;br&#62;";
+              }else{
+              // si se env?a el formulario hay que coger los datos del formulario y meterlos en la BBDD
+              // aqui se deben a?adir tantos isset($_POST['nombre_de_campo']) &#38;&#38; como campos haya en la bbdd
+                      if(isset($_POST['nombre']) &#38;&#38; isset($_POST['dni']) &#38;&#38; isset($_POST['tipo_de_alumno'])){
+              //se desactiva el contenido de la variable $sql
+                              unset($sql);
+              // se rellena la consulta que inserta los datos
+              //se ponen tantos `nombre_de_campo` = '".$_POST['nombre_de_campo']."',
+
+                              $sql="UPDATE `alumnos` SET `nombre` = '".$_POST['nombre']."',`dni` = '".$_POST['dni']."',`id_tipo_de_alumno` = '".
+                              $_POST['tipo_de_alumno']."' WHERE `id` =".$_GET['id']." LIMIT 1 ;";
+                              //echo $sql;
+                              //print_r ($_POST);
+              //se envia la inserci?n de datos en la BBDD
+                              $result=mysql_query($sql,$conexion);
+              //Se informa por la p?gina web que el alumno ha sido modificado
+                              echo "&#60;p&#62;Alumno Modificado&#60;/p&#62;";
+              //se coloca el bot?n que hace volver al listado de alumnos
+                              echo "&#60;p&#62;&#60;A HREF='index.php'&#62;Volver&#60;/A&#62;&#60;/p&#62;";
+                      }else{
+                      // se informa al usuario que no se han rellenado los campos
+              print_r($_POST);
+                      echo "Vuelva a intentarlo.&#60;br&#62;";
+                      //se abre el formulario que envia los datos de las modificaciones de ese registro
+                              echo "&#60;form method=\"post\" action=\"editar.php?id=".$_GET['id']."\" &#62;";
+              // muestra el c?digo del alumno
+                              echo "Codigo:".$row['id']."&#60;br&#62;";
+              // a partir de aqui se muestran los campos a rellenar en el formulario
+              // si se substituye echo "Nombre : &#60;input type=\"text\" name=\"nombre\" value=\"".$row['nombre']."\" maxlength =200 size=40&#62;&#60;br&#62;";
+              // por echo "Nombre : &#60;input type=\"text\" name=\"nombre_de_campo\" value=\"".$row['nombre']."\" maxlength =longitud_maxima_de_campo 
+              // size=tama?o_dte_la_caja&#62;&#60;br&#62;";
+              // se muestra la caja del nombre del alumno
+                              echo "Nombre : &#60;input type=\"text\" name=\"nombre\" value=\"".$row['nombre']."\" maxlength =200 size=40&#62;&#60;br&#62;";
+              // se muestra la caja del dni
+                              echo "DNI : &#60;input type=\"text\" name=\"dni\" value=\"".$row['dni']."\" maxlength =10 size=10&#62;&#60;br&#62;";
+              // se pone el bot?n de guardar los datos
+                              echo "&#60;input type=\"submit\" name=\"editar\" value=\"Guardar\"&#62;&#60;/form&#62;&#60;br&#62;";    
+                      }
+              }
+              ?&#62;
+            &#60;/body&#62;
+          &#60;/html&#62;
+        </PRE
+><P
+></P
+></DIV
+><P
+>Cabe destacar la segúnda búsqueda
+      en la tabla de tipos de alumno para ocnstuir el tag select
+      (combobox)</P
+><P
+>borrar.php de alumnos</P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN187"
+></A
+><PRE
+CLASS="programlisting"
+>&#13;          &#60;?php 
+          //incluimos el fichero config.php para coger los datos de la conexión
+          include_once('../config.php');
+          //cogemos las variables de las coneción para que se puedan utilizar en el script
+          global $server, $database, $user, $passwd;
+          //abrimos la conexión
+          $conexion = mysql_connect($server,$user,$passwd);
+          //elegimos la BBDD
+          mysql_select_db ($database, $conexion) OR die ("No se puede conectar");
+          //rellenamos la consulta, cambiar alumnos por el nombre de la tabla a listar
+          $sql="Select * from alumnos WHERE id=".$_GET['id'].";";
+          //re realiza la consulta
+          $result=mysql_query($sql,$conexion);
+          //print $sql;
+          //se coge el registro del alumno
+          $row= mysql_fetch_array($result);
+          ?&#62;
+          &#60;html&#62;
+            &#60;head&#62;
+              &#60;TITLE&#62;Borrar Alumno&#60;/TITLE&#62;
+              &#60;LINK REL="stylesheet" TYPE="text/css"
+              HREF="../estilo.css" /&#62;
+            &#60;/head&#62;
+            &#60;body&#62;
+              &#60;?php
+              // se rellena la consulta que borra el alumno se substituye alumno por el nombre de la tabla 
+              $sql="DELETE from `alumnos` WHERE `id` =".$_GET['id']." LIMIT 1 ;";
+              //echo $sql;
+              // se ejecuta la consulta se borrado
+              $result=mysql_query($sql,$conexion);
+              // se informa de que se ha eliminado un alumno
+              echo "&#60;p&#62;Alumno eliminado&#60;/p&#62;";
+              // se coloca el enlace que permite volver al listado
+              echo "&#60;p&#62;&#60;A HREF='index.php'&#62;Volver&#60;/A&#62;&#60;/p&#62;";
+
+              ?&#62;
+            &#60;/body&#62;
+          &#60;/html&#62;
+        </PRE
+><P
+></P
+></DIV
+><P
+>buscar.php de alumnos</P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN190"
+></A
+><PRE
+CLASS="programlisting"
+>&#13;          &#60;?php
+          //incluimos el fichero config.php para coger los datos de la conexión
+          include_once('../config.php');
+          //cogemos las variables de las coneción para que se puedan utilizar en el script
+          global $server, $database, $user, $passwd;
+          //abrimos la conexión
+          $conexion = mysql_connect($server,$user,$passwd);
+          //elegimos la BBDD
+          mysql_select_db ($database, $conexion) OR die ("No se puede conectar");
+
+          ?&#62;
+          &#60;html&#62;
+            &#60;head&#62;
+              &#60;TITLE&#62;Búsqueda de Alumnos&#60;/TITLE&#62;
+              &#60;LINK REL="stylesheet" TYPE="text/css"
+              HREF="../estilo.css" /&#62;
+            &#60;/head&#62;
+            &#60;body&#62;
+              &#60;p&#62;Búsqueda de Alumnos.&#60;/p&#62;&#60;?php
+              // coloca el enlace que permite añadir un alumno
+              echo "&#60;p&#62;&#60;A HREF='nuevo.php'&#62;Nuevo&#60;/A&#62;&#60;/p&#62;";
+              // se inicia el formulario de la búsqueda
+              echo "&#60;form method=\"post\" action=\"buscar.php\"&#62;";
+              // se indica que el campo de busqueda tiene 20 caracteres de longitud
+              echo "&#60;input type=\"text\" name=\"busqueda\" size=20 maxlength =20 value=\"".$_POST['busqueda']."\"&#62;";
+              // se coloca el boton que se paretara para realizar la busqueda
+              echo "&#60;input type=\"submit\" name=\"buscar\" value=\"Buscar\"&#62;&#60;/form&#62;&#60;br&#62;";
+              // se rellena la busqueda por todos los campos de la tabla, se debe substituir alumnos por el nombre de la tabla y poner tantos nombre_de_campo LIKE '%".$_POST['busqueda']."%' OR como campos haya.
+              $sql="SELECT * FROM alumnos where nombre LIKE '%".$_POST['busqueda']."%' OR dni LIKE '%".$_POST['busqueda']."%';";
+              // se realiza la busqueda
+              $result=mysql_query($sql,$conexion);
+              //Se comprueba si hay resultados en la busqueda
+              if($row= mysql_fetch_array($result)){
+              // si hay resultados crea la tabla
+              echo "&#60;TABLE BORDER='1'&#62;";
+              //pone los campos de la tabla tiene que haber tantos &#60;TD CLASS=\"titulo\"&#62;Nombre_de_campo&#60;/TD&#62; como campos haya
+              echo "&#60;TR&#62;&#60;TD CLASS=\"titulo\"&#62;Nombre&#60;/TD&#62;&#60;TD CLASS=\"titulo\"&#62;DNI&#60;/TD&#62;&#60;TD colspan=3  CLASS=\"titulo\"&#62;Opciones&#60;/TD&#62;&#60;/TR&#62;";
+              //coloca las líneas de la tabla
+              DO
+              {
+              //aqui se ponen tantas líneas &#60;TD width=300 CLASS=\"linea\"&#62;".$row["nombre_de_campo"]."&#60;/TD&#62; como campos haya en la tabla
+              // se coloca el inicio de la fila
+              echo "&#60;TR&#62;";
+              //se coloca el campos del nombre
+              echo "&#60;TD width=300 CLASS=\"linea\"&#62;".$row["nombre"]."&#60;/TD&#62;";
+              //se coloca el campo del dni
+              echo "&#60;TD width=160 CLASS=\"linea\"&#62;".$row["dni"]."&#60;/TD&#62;";
+              //se colocan los enlaces de ver editar y borrar alumno
+              echo "&#60;TD CLASS=\"linea\"&#62;&#60;A HREF=ver.php?id=".$row['id']."&#62;Ver&#60;/A&#62;&#60;/TD&#62;";
+              echo "&#60;TD width=50 CLASS=\"linea\"&#62;&#60;A HREF=editar.php?id=".$row['id']."&#62;Editar&#60;/A&#62;&#60;/TD&#62;";
+              echo "&#60;TD width=50 CLASS=\"linea\"&#62;&#60;A HREF=borrar.php?id=".$row['id']."&#62;Borrar&#60;/A&#62;&#60;/TD&#62;";
+              //se termina la fila
+              echo "&#60;/TR&#62;";
+              }
+              //Comprueba si se ha terminado de poner líneas
+              WHILE ($row=mysql_fetch_array($result));
+              //como se ha terminado de poner líneas se acaba la tabla
+              echo "&#60;/TABLE&#62;&#60;br&#62;";
+              //coloca el enlace para volver al listado
+              echo "&#60;A HREF=\"index.php\"&#62;Volver&#60;/A&#62;";
+              }else{
+              //si no hay registros que coincidan con la busqueda se le indica al usuario
+              echo "La búsqueda no coincide con ningún registro de la BBDD&#60;BR&#62;";
+              //se coloca el enlace del volver al listado
+              echo "&#60;A HREF=\"index.php\"&#62;Volver&#60;/A&#62;";
+
+              }
+              ?&#62;
+            &#60;/body&#62;
+          &#60;/html&#62;
+        </PRE
+><P
+></P
+></DIV
+><P
+>nuevo.php de alumnos</P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN193"
+></A
+><PRE
+CLASS="programlisting"
+>&#13;          &#60;?php 
+          //incluimos el fichero config.php para coger los datos de la conexión
+          include_once('../config.php');
+          //cogemos las variables de las coneción para que se puedan utilizar en el script
+          global $server, $database, $user, $passwd;
+          //abrimos la conexión
+          $conexion = mysql_connect($server,$user,$passwd);
+          //elegimos la BBDD
+          mysql_select_db ($database, $conexion) OR die ("No se puede conectar");
+
+          ?&#62;
+          &#60;html&#62;
+            &#60;head&#62;
+              &#60;TITLE&#62;Nuevo Alumno&#60;/TITLE&#62;
+              &#60;LINK REL="stylesheet" TYPE="text/css"
+              HREF="../estilo.css" /&#62;
+            &#60;/head&#62;
+            &#60;body&#62;
+              &#60;?php
+              //comprueba si se entas enviando datos para guardar
+              //si no es asi es que tiene que presentar el formulario
+              if(!isset( $_POST['nuevo']))
+              {
+              //coloca el principio del formulario para que vuelva al mismo script cuando se rellene
+                      echo "&#60;form method=\"post\" action=\"nuevo.php\"&#62;";
+              //aqui se deben poner tantas líneas echo como campos haya
+              //cambiando el echo "Nombre : &#60;input type=\"text\" name=\"nombre\" maxlength=200 size=40&#62;&#60;br&#62;";
+              // por echo "Nombre : &#60;input type=\"text\" name=\"nombre_campo\" maxlength=longitud_campo size=tamaño_caja_texto&#62;&#60;br&#62;";
+              // se muestra la caja del nombre del alumno
+                              echo "Nombre : &#60;input type=\"text\" name=\"nombre\" maxlength =100 size=40&#62;&#60;br&#62;";
+              // se muestra la caja del dni del alumno
+                              echo "DNI : &#60;input type=\"text\" name=\"dni\" maxlength =15 size=9&#62;&#60;br&#62;";
+              //inicia la combo de los tipos
+              echo "Tipo de Alumno:";
+              echo "&#60;select name=\"tipo_de_alumno\"&#62;";
+              //rellena la sql para buscar las asignaturas
+              $sql2="Select * from tipos_de_alumno;";
+              //re realiza la consulta para meter en $result2 las asignaturas
+              $result2=mysql_query($sql2,$conexion);
+              //coloca en $row2 la primera asignatura
+              $row2= mysql_fetch_array($result2);
+              DO
+              {
+              //coloca la asignatura en el listado
+              echo "&#60;option value=\"".$row2['id_tipo_de_alumno']."\"&#62;".$row2['nombre']."&#60;/option&#62;";
+              }
+              //comprueba si hay más tipos de alumno
+              while ($row2= mysql_fetch_array($result2));
+              //si no hay mas tipos de alumno cierra el listado
+              echo "&#60;/select&#62; &#60;br&#62;&#60;br&#62;";
+              ////se coloca el botón de guardar
+                      echo "&#60;input type=\"submit\" name=\"nuevo\" value=\"Guardar\"&#62;&#60;/form&#62;&#60;br&#62;";
+              }else{
+              //si se han metido los datos en el formulario
+              //se deben colocar tantos isset($_POST['nombre_campo']) &#38;&#38; como campos haya en la tabla
+                      if(isset($_POST['nombre']) &#38;&#38; isset($_POST['dni']) &#38;&#38;  isset($_POST['tipo_de_alumno'])){
+              //en esta linea se ponen los nombres de los campos separados por comas y en la parte de values lo mismo pero con variables $_POST['nombre_campo']
+              //se reinician las variables de la busqueda
+              unset($result2);
+              unset($row2);
+
+              //rellena la sql para buscar las asignaturas
+              $sql2="Select * from tipos_de_alumno;";
+              //echo $sql2;
+              //re realiza la consulta para meter en $result2 las asignaturas
+              $result2=mysql_query($sql2,$conexion);
+              //echo $result2;
+              //coloca en $row2 la primera asignatura
+              $row2= mysql_fetch_array($result2);
+              //busca que id tiene la asignatura
+              DO
+              {
+              //si el nombre coincide con el elegido en el formulario coge el nombre y el id de la asignatura
+              if($row2['id_tipo_de_alumno']==$_POST['tipo_de_alumno']){
+                      //echo "hemos entrao!!";
+                      $nombre_asig=$row2['nombre'];
+                      //echo $nombre_asig;
+                      $id_tipo_de_alumno=$row2['id_tipo_de_alumno'];
+                      //echo $id_asig;
+                      break;
+              }
+              }
+              //comprueba si hay más asignaturas
+              while ($row2= mysql_fetch_array($result2));             
+              $sql="INSERT INTO `alumnos` ( `id` , `nombre` , `dni`, `id_tipo_de_alumno` )
+                              VALUES (NULL , '".$_POST['nombre']."' , '".$_POST['dni']."', '".$id_tipo_de_alumno."');";
+                              //echo $sql;
+              //se ejecuta la inserción de datos
+                              $result=mysql_query($sql,$conexion);
+              //se informa de que se añadido un nuevo alumno
+                              echo "&#60;p&#62;Alumno Añadido&#60;/p&#62;";
+              //se coloca el enlace que permite volver al listado
+                              echo "&#60;p&#62;&#60;A HREF='index.php'&#62;Volver&#60;/A&#62;&#60;/p&#62;";
+                      }else{
+              // si no nos han metido campos
+                              echo "&#60;p&#62;Vuelva a intentarlo&#60;/p&#62;";
+              // se vuelve a colocar el formulario con los mismos campos que ahora, la diferenia es que se pone tantas veces como campos haya en los VALUE el $_POST['nombre_de_campo'] para que no haya que volver a teclearlo
+                      
+                      echo "&#60;form method=\"post\" action=\"nuevo.php?id=".$_GET['id']."\"&#62;";
+              //aqui se deben poner tantas líneas echo como campos haya
+              //cambiando el echo "Nombre : &#60;input type=\"text\" name=\"nombre\" maxlength=200 size=40&#62;&#60;br&#62;";
+              // por echo "Nombre : &#60;input type=\"text\" name=\"nombre_campo\" maxlength=longitud_campo size=tamaño_caja_texto&#62;&#60;br&#62;";
+              // se muestra la caja del nombre del alumno
+                              echo "Nombre : &#60;input type=\"text\" name=\"nombre\" maxlength =100 size=40&#62;&#60;br&#62;";
+              // se muestra la caja del dni del alumno
+                              echo "DNI : &#60;input type=\"text\" name=\"nombre\" maxlength =15 size=9&#62;&#60;br&#62;";
+              //inicia la combo de los tipos
+              echo "&#60;select name=\"tipo_de_alumno\"&#62;";
+              //rellena la sql para buscar las asignaturas
+              $sql2="Select * from tipos_de_alumno;";
+              //re realiza la consulta para meter en $result2 las asignaturas
+              $result2=mysql_query($sql2,$conexion);
+              //coloca en $row2 la primera asignatura
+              $row2= mysql_fetch_array($result2);
+              DO
+              {
+              //coloca la asignatura en el listado
+              echo "&#60;option value=\"".$row2['id_tipo_de_alumno']."\"&#62;".$row2['nombre']."&#60;/option&#62;";
+              }
+              //comprueba si hay más tipos de alumno
+              while ($row2= mysql_fetch_array($result2));
+              //si no hay mas tipos de alumno cierra el listado
+              echo "&#60;/select&#62; &#60;br&#62;&#60;br&#62;";
+              ////se coloca el botón de guardar
+                      echo "&#60;input type=\"submit\" name=\"nuevo\" value=\"Guardar\"&#62;&#60;/form&#62;&#60;br&#62;";
+                      }
+              }
+              ?&#62;
+            &#60;/body&#62;
+          &#60;/html&#62;
+        </PRE
+><P
+></P
+></DIV
+><P
+>Cabe destacar la segúnda búsqueda
+      en la tabla de tipos de alumno para ocnstuir el tag select
+      (combobox)</P
+><P
+>matricular.php alumnos</P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN197"
+></A
+><PRE
+CLASS="programlisting"
+>&#13;          &#60;?php
+          //incluimos el fichero config.php para coger los datos de la conexión
+          include_once('../config.php');
+          //cogemos las variables de las coneción para que se puedan utilizar en el script
+          global $server, $database, $user, $passwd;
+          //abrimos la conexión
+          $conexion = mysql_connect($server,$user,$passwd);
+          //elegimos la BBDD
+          mysql_select_db ($database, $conexion) OR die ("No se puede conectar");
+          //rellenamos la consulta, cambiar alumnos por el nombre de la tabla a listar
+          $sql="Select * from alumnos WHERE id=".$_GET['id'].";";
+          //print $sql;
+          //re realiza la consulta
+          $result=mysql_query($sql,$conexion);
+          //mete el alumno en la variable $row
+          $row= mysql_fetch_array($result);
+
+          //print $sql2;
+          ?&#62;
+          &#60;html&#62;
+            &#60;head&#62;
+              &#60;TITLE&#62;Matricular
+              Alumno:&#60;?php echo $row['nombre']; ?&#62;&#60;/TITLE&#62;
+              &#60;LINK REL="stylesheet" TYPE="text/css"
+              HREF="../estilo.css" /&#62;
+            &#60;/head&#62;
+            &#60;body&#62;
+              &#60;?php
+              //comprueba si se entas enviando datos para guardar
+              //si no es asi es que tiene que presentar el formulario
+              if(!isset( $_POST['nuevo']))
+              {
+              //coloca el principio del formulario para que vuelva al mismo script cuando se rellene
+                      echo "&#60;form method=\"post\" action=\"matricular.php?id=".$_GET['id']."\"&#62;";
+              //aqui se deben poner tantas líneas echo como campos haya
+              //cambiando el echo "Nombre : &#60;input type=\"text\" name=\"nombre\" maxlength=200 size=40&#62;&#60;br&#62;";
+              // por echo "Nombre : &#60;input type=\"text\" name=\"nombre_campo\" maxlength=longitud_campo size=tamaño_caja_texto&#62;&#60;br&#62;";
+              //se muestra el código del alumno
+              echo "&#60;p&#62;Código:".$row["id"]."&#60;/p&#62;";
+              //se muestra el nombre del alumno
+              echo "&#60;p&#62;Nombre:".$row["nombre"]."&#60;/p&#62;";
+                      
+              //se coloca la caja oculta con el id del alumno
+                      echo "&#60;input type=\"hidden\" name=\"id_alum\" value=\"".$row['id']."\"&#62;";
+              //inicia la combo de las asignaturas
+              echo "&#60;select name=\"asignatura\"&#62;";
+              //rellena la sql para buscar las asignaturas
+              $sql2="Select * from asignaturas;";
+              //re realiza la consulta para meter en $result2 las asignaturas
+              $result2=mysql_query($sql2,$conexion);
+              //coloca en $row2 la primera asignatura
+              $row2= mysql_fetch_array($result2);
+              DO
+              {
+              //coloca la asignatura en el listado
+              echo "&#60;option value=\"".$row2['id']."\"&#62;".$row2['nombre']."&#60;/option&#62;";
+              }
+              //comprueba si hay más asignaturas
+              while ($row2= mysql_fetch_array($result2));
+              //si no hay mas asignatutas cierra el listado de asignaturas
+              echo "&#60;/select&#62; &#60;br&#62;&#60;br&#62;";
+              ////se coloca el botón de guardar
+                      echo "&#60;input type=\"submit\" name=\"nuevo\" value=\"Guardar\"&#62;&#60;/form&#62;&#60;br&#62;";
+              }else{
+              //si se han metido los datos en el formulario
+              //se deben colocar tantos isset($_POST['nombre_campo']) &#38;&#38; como campos haya en la tabla
+                      if(isset($_POST['id_alum']) &#38;&#38; isset($_POST['asignatura'])){
+
+              //se reinician las variables de la busqueda
+              unset($result2);
+              unset($row2);
+
+              //rellena la sql para buscar las asignaturas
+              $sql2="Select * from asignaturas;";
+              //echo $sql2;
+              //re realiza la consulta para meter en $result2 las asignaturas
+              $result2=mysql_query($sql2,$conexion);
+              //echo $result2;
+              //coloca en $row2 la primera asignatura
+              $row2= mysql_fetch_array($result2);
+              //busca que id tiene la asignatura
+              DO
+              {
+              //si el nombre coincide con el elegido en el formulario coge el nombre y el id de la asignatura
+              if($row2['id']==$_POST['asignatura']){
+                      //echo "hemos entrao!!";
+                      $nombre_asig=$row2['nombre'];
+                      //echo $nombre_asig;
+                      $id_asig=$row2['id'];
+                      //echo $id_asig;
+                      break;
+              }
+              }
+              //comprueba si hay más asignaturas
+              while ($row2= mysql_fetch_array($result2));
+
+
+                              $sql="INSERT INTO `matriculas` ( `id_mat` , `id_alum` , `id_asig` )
+                              VALUES (NULL , ".$_POST['id_alum']." , ".$_POST['asignatura'].")";
+                              //echo $sql;
+              //se ejecuta la inserción de datos
+                              $result=mysql_query($sql,$conexion);
+              //se informa de que se añadido un nuevo alumno
+                              echo "&#60;p&#62;Matrícula añadida del alumno ".$row['nombre']." en la asignatura ".$nombre_asig."&#60;/p&#62;";
+              //se coloca el enlace que permite volver al listado
+                              echo "&#60;p&#62;&#60;A HREF='ver_matriculas.php?id=".$_GET['id']."'&#62;Volver&#60;/A&#62;&#60;/p&#62;";
+                      }else{
+              // si no nos han metido campos
+                              echo "&#60;p&#62;Vuelva a intentarlo&#60;/p&#62;";
+              // se vuelve a colocar el formulario con los mismos campos que ahora, la diferenia es que se pone tantas veces como campos haya en los VALUE el $_POST['nombre_de_campo'] para que no haya que volver a teclearlo
+                      echo "&#60;form method=\"post\" action=\"matricular.php\"&#62;";
+              //aqui se deben poner tantas líneas echo como campos haya
+              //cambiando el echo "Nombre : &#60;input type=\"text\" name=\"nombre\" maxlength=200 size=40&#62;&#60;br&#62;";
+              // por echo "Nombre : &#60;input type=\"text\" name=\"nombre_campo\" maxlength=longitud_campo size=tamaño_caja_texto&#62;&#60;br&#62;";
+              //se muestra el código del alumno
+              echo "&#60;p&#62;Código:".$row["id"]."&#60;/p&#62;";
+              //se muestra el nombre del alumno
+              echo "&#60;p&#62;Nombre:".$row["nombre"]."&#60;/p&#62;";
+                      
+              //se coloca la caja oculta con el id del alumno
+                      echo "id : &#60;input type=\"hidden\" name=\"id_alum\" value=\"".$row['id']."\"&#62;&#60;br&#62;";
+              //inicia la combo de las signaturas
+              echo "&#60;select name=\"asignatura\"&#62;";
+              //rellena la sql para buscar las asignaturas
+              $sql2="Select * from asignaturas;";
+              //re realiza la consulta para meter en $result2 las asignaturas
+              $result2=mysql_query($sql2,$conexion);
+              //coloca en $row2 la primera asignatura
+              $row2= mysql_fetch_array($result2);
+              DO
+              {
+              //coloca la asignatura en el listado
+              echo "&#60;option&#62;".$row2['nombre']."&#60;/option&#62;";
+              }
+              //comprueba si hay más asignaturas
+              while ($row2= mysql_fetch_array($result2));
+              //si no hay mas asignatutas cierra el listado de asignaturas
+              echo "&#60;/select&#62; ";
+              ////se coloca el botón de guardar
+                      echo "&#60;input type=\"submit\" name=\"nuevo\" value=\"Guardar\"&#62;&#60;/form&#62;&#60;br&#62;";
+                      }
+              }
+              ?&#62;
+            &#60;/body&#62;
+          &#60;/html&#62;
+        </PRE
+><P
+></P
+></DIV
+><P
+>Este es un caso un poco peculiar, ya que dado un alumno
+      se le intenta matricular en alguna de las asignaturas
+      disponibles. Por lo tanto debe buscar todas las asignaturas y
+      colocarlas en el select. Y luego hacer la
+      insercción en la tabla de relaciones
+      (matriculas).</P
+><P
+>ver_matriculas.php alumnos</P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN201"
+></A
+><PRE
+CLASS="programlisting"
+>&#13;          &#60;?php
+          //incluimos el fichero config.php para coger los datos de la conexión
+          include_once('../config.php');
+          //cogemos las variables de las coneción para que se puedan utilizar en el script
+          global $server, $database, $user, $passwd;
+          //abrimos la conexión
+          $conexion = mysql_connect($server,$user,$passwd);
+          //elegimos la BBDD
+          mysql_select_db ($database, $conexion) OR die ("No se puede conectar");
+          //rellenamos la consulta, cambiar alumnos por el nombre de la tabla a listar
+          $sql="Select * from alumnos WHERE id=".$_GET['id'].";";
+          //print $sql;
+          //re realiza la consulta
+          $result=mysql_query($sql,$conexion);
+          //mete el alumno en la variable $row
+          $row= mysql_fetch_array($result);
+
+          //print $sql2;
+          ?&#62;
+          &#60;html&#62;
+            &#60;head&#62;
+              &#60;TITLE&#62;Matricular
+              Alumno:&#60;?php echo $row['nombre']; ?&#62;&#60;/TITLE&#62;
+              &#60;LINK REL="stylesheet" TYPE="text/css"
+              HREF="../estilo.css" /&#62;
+            &#60;/head&#62;
+            &#60;body&#62;
+              &#60;?php
+              //comprueba si se entas enviando datos para guardar
+              //si no es asi es que tiene que presentar el formulario
+              if(!isset( $_POST['nuevo']))
+              {
+              //coloca el principio del formulario para que vuelva al mismo script cuando se rellene
+                      echo "&#60;form method=\"post\" action=\"matricular.php?id=".$_GET['id']."\"&#62;";
+              //aqui se deben poner tantas líneas echo como campos haya
+              //cambiando el echo "Nombre : &#60;input type=\"text\" name=\"nombre\" maxlength=200 size=40&#62;&#60;br&#62;";
+              // por echo "Nombre : &#60;input type=\"text\" name=\"nombre_campo\" maxlength=longitud_campo size=tamaño_caja_texto&#62;&#60;br&#62;";
+              //se muestra el código del alumno
+              echo "&#60;p&#62;Código:".$row["id"]."&#60;/p&#62;";
+              //se muestra el nombre del alumno
+              echo "&#60;p&#62;Nombre:".$row["nombre"]."&#60;/p&#62;";
+                      
+              //se coloca la caja oculta con el id del alumno
+                      echo "&#60;input type=\"hidden\" name=\"id_alum\" value=\"".$row['id']."\"&#62;";
+              //inicia la combo de las asignaturas
+              echo "&#60;select name=\"asignatura\"&#62;";
+              //rellena la sql para buscar las asignaturas
+              $sql2="Select * from asignaturas;";
+              //re realiza la consulta para meter en $result2 las asignaturas
+              $result2=mysql_query($sql2,$conexion);
+              //coloca en $row2 la primera asignatura
+              $row2= mysql_fetch_array($result2);
+              DO
+              {
+              //coloca la asignatura en el listado
+              echo "&#60;option value=\"".$row2['id']."\"&#62;".$row2['nombre']."&#60;/option&#62;";
+              }
+              //comprueba si hay más asignaturas
+              while ($row2= mysql_fetch_array($result2));
+              //si no hay mas asignatutas cierra el listado de asignaturas
+              echo "&#60;/select&#62; &#60;br&#62;&#60;br&#62;";
+              ////se coloca el botón de guardar
+                      echo "&#60;input type=\"submit\" name=\"nuevo\" value=\"Guardar\"&#62;&#60;/form&#62;&#60;br&#62;";
+              }else{
+              //si se han metido los datos en el formulario
+              //se deben colocar tantos isset($_POST['nombre_campo']) &#38;&#38; como campos haya en la tabla
+                      if(isset($_POST['id_alum']) &#38;&#38; isset($_POST['asignatura'])){
+
+              //se reinician las variables de la busqueda
+              unset($result2);
+              unset($row2);
+
+              //rellena la sql para buscar las asignaturas
+              $sql2="Select * from asignaturas;";
+              //echo $sql2;
+              //re realiza la consulta para meter en $result2 las asignaturas
+              $result2=mysql_query($sql2,$conexion);
+              //echo $result2;
+              //coloca en $row2 la primera asignatura
+              $row2= mysql_fetch_array($result2);
+              //busca que id tiene la asignatura
+              DO
+              {
+              //si el nombre coincide con el elegido en el formulario coge el nombre y el id de la asignatura
+              if($row2['id']==$_POST['asignatura']){
+                      //echo "hemos entrao!!";
+                      $nombre_asig=$row2['nombre'];
+                      //echo $nombre_asig;
+                      $id_asig=$row2['id'];
+                      //echo $id_asig;
+                      break;
+              }
+              }
+              //comprueba si hay más asignaturas
+              while ($row2= mysql_fetch_array($result2));
+
+
+                              $sql="INSERT INTO `matriculas` ( `id_mat` , `id_alum` , `id_asig` )
+                              VALUES (NULL , ".$_POST['id_alum']." , ".$_POST['asignatura'].")";
+                              //echo $sql;
+              //se ejecuta la inserción de datos
+                              $result=mysql_query($sql,$conexion);
+              //se informa de que se añadido un nuevo alumno
+                              echo "&#60;p&#62;Matrícula añadida del alumno ".$row['nombre']." en la asignatura ".$nombre_asig."&#60;/p&#62;";
+              //se coloca el enlace que permite volver al listado
+                              echo "&#60;p&#62;&#60;A HREF='ver_matriculas.php?id=".$_GET['id']."'&#62;Volver&#60;/A&#62;&#60;/p&#62;";
+                      }else{
+              // si no nos han metido campos
+                              echo "&#60;p&#62;Vuelva a intentarlo&#60;/p&#62;";
+              // se vuelve a colocar el formulario con los mismos campos que ahora, la diferenia es que se pone tantas veces como campos haya en los VALUE el $_POST['nombre_de_campo'] para que no haya que volver a teclearlo
+                      echo "&#60;form method=\"post\" action=\"matricular.php\"&#62;";
+              //aqui se deben poner tantas líneas echo como campos haya
+              //cambiando el echo "Nombre : &#60;input type=\"text\" name=\"nombre\" maxlength=200 size=40&#62;&#60;br&#62;";
+              // por echo "Nombre : &#60;input type=\"text\" name=\"nombre_campo\" maxlength=longitud_campo size=tamaño_caja_texto&#62;&#60;br&#62;";
+              //se muestra el código del alumno
+              echo "&#60;p&#62;Código:".$row["id"]."&#60;/p&#62;";
+              //se muestra el nombre del alumno
+              echo "&#60;p&#62;Nombre:".$row["nombre"]."&#60;/p&#62;";
+                      
+              //se coloca la caja oculta con el id del alumno
+                      echo "id : &#60;input type=\"hidden\" name=\"id_alum\" value=\"".$row['id']."\"&#62;&#60;br&#62;";
+              //inicia la combo de las signaturas
+              echo "&#60;select name=\"asignatura\"&#62;";
+              //rellena la sql para buscar las asignaturas
+              $sql2="Select * from asignaturas;";
+              //re realiza la consulta para meter en $result2 las asignaturas
+              $result2=mysql_query($sql2,$conexion);
+              //coloca en $row2 la primera asignatura
+              $row2= mysql_fetch_array($result2);
+              DO
+              {
+              //coloca la asignatura en el listado
+              echo "&#60;option&#62;".$row2['nombre']."&#60;/option&#62;";
+              }
+              //comprueba si hay más asignaturas
+              while ($row2= mysql_fetch_array($result2));
+              //si no hay mas asignatutas cierra el listado de asignaturas
+              echo "&#60;/select&#62; ";
+              ////se coloca el botón de guardar
+                      echo "&#60;input type=\"submit\" name=\"nuevo\" value=\"Guardar\"&#62;&#60;/form&#62;&#60;br&#62;";
+                      }
+              }
+              ?&#62;
+            &#60;/body&#62;
+          &#60;/html&#62;
+        </PRE
+><P
+></P
+></DIV
+><P
+>borrar_matricula.php alumnos</P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN204"
+></A
+><PRE
+CLASS="programlisting"
+>&#13;          &#60;?php 
+          //incluimos el fichero config.php para coger los datos de la conexión
+          include_once('../config.php');
+          //cogemos las variables de las coneción para que se puedan utilizar en el script
+          global $server, $database, $user, $passwd;
+          //abrimos la conexión
+          $conexion = mysql_connect($server,$user,$passwd);
+          //elegimos la BBDD
+          mysql_select_db ($database, $conexion) OR die ("No se puede conectar");
+          //rellenamos la consulta, cambiar alumnos por el nombre de la tabla a listar
+          $sql="Select * from matriculas WHERE id_mat=".$_GET['id'].";";
+          //re realiza la consulta
+          $result=mysql_query($sql,$conexion);
+          //print $sql;
+          //se coge el registro del alumno
+          $row= mysql_fetch_array($result);
+          ?&#62;
+          &#60;html&#62;
+            &#60;head&#62;
+              &#60;TITLE&#62;Borrar Alumno&#60;/TITLE&#62;
+              &#60;LINK REL="stylesheet" TYPE="text/css"
+              HREF="../estilo.css" /&#62;
+            &#60;/head&#62;
+            &#60;body&#62;
+              &#60;?php
+              // se rellena la consulta que borra el alumno se substituye alumno por el nombre de la tabla 
+              $sql="DELETE from `matriculas` WHERE `id_mat` =".$_GET['id']." LIMIT 1 ;";
+              //echo $sql;
+              // se ejecuta la consulta se borrado
+              $result=mysql_query($sql,$conexion);
+              // se informa de que se ha eliminado un alumno
+              echo "&#60;p&#62;Matrícula eliminada&#60;/p&#62;";
+              // se coloca el enlace que permite volver al listado
+              echo "&#60;p&#62;&#60;A HREF='ver_matriculas.php?id=".$_GET['id_alum']."'&#62;Volver&#60;/A&#62;&#60;/p&#62;";
+
+              ?&#62;
+            &#60;/body&#62;
+          &#60;/html&#62;
+        </PRE
+><P
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c148.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x206.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Otros ejemplos</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Conclusiones</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

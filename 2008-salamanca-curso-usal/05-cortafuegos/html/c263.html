@@ -1,0 +1,443 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Haciendo Natting</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Jugando con origenes y destinos"
+HREF="x216.html"><LINK
+REL="NEXT"
+TITLE="Haciendo SNAT (Cluster de Correo)"
+HREF="x337.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración de cortafuegos en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x216.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x337.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN263"
+></A
+>Capítulo 4. Haciendo Natting</H1
+><P
+>Natting es la capacidad de un ordenador de distribuir conexiones que recibe hacía otro.</P
+><P
+>Los routers ADSL poseen tablas de NAT que nos permiten abrir el puerto 22, por ejemplo, y redirigir esas conexiones hacía nuestro equipo de sobremesa, el puerto 80 hacía otro equipo haciendo las funciones de servidor web, ...</P
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN267"
+>4.1. Configurar el acceso a un servidor web con NAT (DNAT)</A
+></H1
+><P
+>Vamos a ver como configurar un firewall con iptables que acepte conexiones a una ip pública y la reenvie a un servidor dentro de una red local sin acceso a internet.</P
+><P
+>Para ello necesitaremos que el firewall:</P
+><P
+></P
+><UL
+><LI
+><P
+>Tenga dos interfaces de red, una conectada a internet y la otra a la red local donde estará el servidor web.</P
+></LI
+><LI
+><P
+>El firewall pueda hacer routing de paquetes.</P
+></LI
+></UL
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN276"
+>4.1.1. Activando el routing en el firewall</A
+></H2
+><P
+>Será necesario que el núcleo tenga soporte para ello:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@dedalo ~]# </SAMP
+><KBD
+CLASS="userinput"
+>sysctl -A | grep ip_forward</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>net.ipv4.ip_forward = 0</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@dedalo ~]# </SAMP
+>
+</PRE
+><P
+>En el caso de no encontrar el parámetro <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ip_forward</I
+></SPAN
+> nuestro núcleo no estará preparado para hacer routing de paquetes y será necesario recompilarlo o instalar uno que si lo este.</P
+><P
+>Un valor de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>0</I
+></SPAN
+> significa que no está habilitado y debermos habilitarlo. Para ello añadiremos la siguiente línea en <TT
+CLASS="filename"
+>/etc/sysctl.conf</TT
+>:</P
+><PRE
+CLASS="programlisting"
+>&#13;net.ipv4.ip_forward = 1
+</PRE
+><P
+>y a continuación para que tenga efecto:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@dedalo ~]# </SAMP
+><KBD
+CLASS="userinput"
+>sysctl -p</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>...</SAMP
+>
+<SAMP
+CLASS="computeroutput"
+>net.ipv4.ip_forward = 1</SAMP
+>
+<SAMP
+CLASS="computeroutput"
+>...</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@dedalo ~]# </SAMP
+>
+</PRE
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>El activar parámetros del núcleo en scripts ejecutando:</P
+><PRE
+CLASS="programlisting"
+>&#13;echo 1 &#62; /proc/sys/net/ipv4/ip_forward
+</PRE
+><P
+>es una muy mala costumbre demasiado extendida entre administradores. Todo esto se debe centralizar en el fichero <TT
+CLASS="filename"
+>/etc/sysctl.conf</TT
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>De esta forma activamos el reenvio de paquetes entre todas las interfaces del firewall. Si el firewall tuviera más de dos interfaces y quisieramos habilitar el reenvio de paquetes sólo entre dos de ellas, por ejemplo <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>eth1</I
+></SPAN
+> y <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>eth2</I
+></SPAN
+>, deberemos incluir en el fichero <TT
+CLASS="filename"
+>/etc/sysctl.conf</TT
+>:</P
+><PRE
+CLASS="programlisting"
+>&#13;net.ipv4.conf.eth1.forwarding = 1
+net.ipv4.conf.eth2.forwarding = 1
+</PRE
+><P
+>y ejecutar <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>sysctl -p</I
+></SPAN
+> para que tenga efecto.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN310"
+>4.1.2. Configuración de iptables</A
+></H2
+><P
+>Supondremos que nuestro firewall está conectado a internet por la interface <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>eth0</I
+></SPAN
+> y a la red local por el interface <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>eth1</I
+></SPAN
+> siendo la ip del servidor web <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>192.168.1.2</I
+></SPAN
+>.</P
+><P
+>Las reglas de iptables:</P
+><PRE
+CLASS="programlisting"
+>&#13;iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j DNAT --to-destination 192.168.1.2:80
+iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 443 -j DNAT --to-destination 192.168.1.2:443
+iptables -A INPUT -s 192.168.1.0/24 -i eth1 -j ACCEPT
+iptables -t nat -A POSTROUTING -s 192.168.1.0/24 -o eth0 -j MASQUERADE
+</PRE
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Todo el tráfico que entra por la interface <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>eth0</I
+></SPAN
+> con destino el puerto <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>80</I
+></SPAN
+> y protocolo <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>TCP</I
+></SPAN
+> se hace <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>DNAT</I
+></SPAN
+>, es decir se cambia la dirección de destino del paquete y se cambia por <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>192.168.1.2</I
+></SPAN
+>.</P
+></LI
+><LI
+><P
+>Igual que el anterior pero con el puerto <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>443</I
+></SPAN
+>.</P
+></LI
+><LI
+><P
+>Nos aseguramos que el firewall acepta todo el tráfico de la red local.</P
+></LI
+><LI
+><P
+>El firewall hace masquerading de todo el tráfico procedente de la red local y lo envia por el interface <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>eth0</I
+></SPAN
+>.</P
+></LI
+></OL
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>La última regla se podrí optimizar siempre y cuando el interface <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>eth0</I
+></SPAN
+> no tenga asignación dinámica en el direccionamiento ip. Lo veremos en el siguiente punto.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x216.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x337.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Jugando con origenes y destinos</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Haciendo SNAT (Cluster de Correo)</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

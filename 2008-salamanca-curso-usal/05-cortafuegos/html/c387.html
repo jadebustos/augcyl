@@ -1,0 +1,289 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Administración de iptables</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Haciendo SNAT (Cluster de Correo)"
+HREF="x337.html"><LINK
+REL="NEXT"
+TITLE="Añadiendo reglas"
+HREF="x423.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración de cortafuegos en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x337.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x423.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN387"
+></A
+>Capítulo 5. Administración de iptables</H1
+><P
+>Las reglas que configuramos en <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>iptables</I
+></SPAN
+> desaparecerán en los reinicios y deberemos configurar <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>iptables</I
+></SPAN
+> para que al reinicar el ordenador carge las reglas.</P
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN392"
+>5.1. Reglas persistentes en <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>iptables</I
+></SPAN
+></A
+></H1
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Iptables</I
+></SPAN
+>incorpora una serie de comandos para volcar a disco las reglas del cortafuegos y poder restaurarlas más adelante como por ejemplo cuando reiniciamos la máquina:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>iptables-save</I
+></SPAN
+> sirve para volcar a la salida estándar las reglas de una tabla.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>iptables-restore</I
+></SPAN
+> se utiliza para restaurar las reglas desde un fichero.</P
+></LI
+></UL
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN404"
+>5.1.1. Red Hat/Fedora</A
+></H2
+><P
+>Una vez configurado <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>iptables</I
+></SPAN
+>:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@dedalo ~]# </SAMP
+><KBD
+CLASS="userinput"
+>service iptables save</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>Guardando las reglas del cortafuegos a /etc/sysconfig/iptables [  OK  ]</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@dedalo ~]# </SAMP
+>
+</PRE
+><P
+>De esta forma se guardan las reglas en el fichero <TT
+CLASS="filename"
+>/etc/sysconfig/iptables</TT
+> y la próxima vez que arranque <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>iptables</I
+></SPAN
+> cargará las reglas.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Si queremos que el servicio <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>iptables</I
+></SPAN
+> se arranque de forma automática en los inicios del sistema deberemos ejecutar:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@dedalo ~]# </SAMP
+><KBD
+CLASS="userinput"
+>chkconfig iptables on</KBD
+>
+<SAMP
+CLASS="prompt"
+>[root@dedalo ~]# </SAMP
+>
+</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x337.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x423.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Haciendo SNAT (Cluster de Correo)</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Añadiendo reglas</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

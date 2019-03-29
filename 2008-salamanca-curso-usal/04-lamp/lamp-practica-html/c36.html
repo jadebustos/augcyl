@@ -1,0 +1,636 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Instalación de LAMP</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Configuración de un dominio DNS"
+HREF="x28.html"><LINK
+REL="NEXT"
+TITLE="Configuración de Mysql"
+HREF="x172.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: 
+    Configuración de plataforma LAMP - Práctica
+  </TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x28.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x172.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN36"
+></A
+>Capítulo 3. Instalación de LAMP</H1
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="AEN38"
+>3.1. Instalación de una LAMP en OpenSuse 10.2</A
+></H1
+><P
+>&#13;En OpenSuse 10.2 esta tarea es muy sencilla, describimos ahora todos los pasos:
+</P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;Entre en el Menú de Acciones (KickOff) en el apartado de PC y pulse en el Configurador de administración YAST.
+</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN44"
+></A
+><P
+><B
+>Figura 3-1. Entrada a YAST desde KickOff</B
+></P
+><P
+><IMG
+SRC="img/Captura002-yast-acceso.png"></P
+></DIV
+></LI
+><LI
+><P
+>&#13;Valídese como Superusuario. En cuanto intente entrar en YAST deberá introducir la contraseña del SuperAdministrador 
+(root) y pulsar en el botón Acaptar.
+</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN49"
+></A
+><P
+><B
+>Figura 3-2. Cuadro de diálogo para introducir la contraseña de administrador.</B
+></P
+><P
+><IMG
+SRC="img/Captura003-yast-validacion.png"></P
+></DIV
+></LI
+><LI
+><P
+>&#13;En la pestaña de Software pulse en el icono de Instalar/desinstalar Software.
+</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN54"
+></A
+><P
+><B
+>Figura 3-3. Acceso a herramienta de instalación y desinstalación de Software</B
+></P
+><P
+><IMG
+SRC="img/Captura004-yast-instalar-desinstalar-software.png"></P
+></DIV
+></LI
+><LI
+><P
+>&#13;En la pestaña de Software pulse en el icono de Instalar/desinstalar Software.
+</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN59"
+></A
+><P
+><B
+>Figura 3-4. Acceso a herramienta de instalación y desinstalación de Software</B
+></P
+><P
+><IMG
+SRC="img/Captura004-yast-instalar-desinstalar-software.png"></P
+></DIV
+></LI
+><LI
+><P
+>&#13;Una vez haya entrado en la herramienta se actualizarán los listado de Software disponibles para su manejo.
+</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN64"
+></A
+><P
+><B
+>Figura 3-5. Acceso a herramienta de instalación y desinstalación de Software</B
+></P
+><P
+><IMG
+SRC="img/Captura005-yast-actualizando-listados.png"></P
+></DIV
+><P
+>&#13;Cuando haya terminado de gestionar los listados, aparecerá una pantalla similar a la siguiente:
+</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN68"
+></A
+><P
+><B
+>Figura 3-6. Pantalla principal de instalación y desintalación de paquetes.</B
+></P
+><P
+><IMG
+SRC="img/Captura006-yast-pantalla-principal.png"></P
+></DIV
+></LI
+><LI
+><P
+>&#13;En la parte superior derecha de la pantalla aparece una etiqueta llamada filtro y una lista desplegable. pulse en ella 
+y seleccione Patrones. Aparecerá un listado en la parte de la izquierda de la pantalla similar al siguiente:
+</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN73"
+></A
+><P
+><B
+>Figura 3-7. Acceso a herramienta de instalación y desinstalación de Software</B
+></P
+><P
+><IMG
+SRC="img/Captura007-paquetes-patrones-seleccionados.png"></P
+></DIV
+><P
+>&#13;En dicho listado aparecen grupos de paquetes con funcionalidades acompañados de una caja de selección al lado izquierdo 
+de cada uno de ellos. Para seleccionar alguno de ellos pulse con el botón izquierdo en cualquiera de las cajas de selección, 
+esta caja aparecerá marcada con un símbolo de visto bueno, también verá que en la parte de la derecha de la pantalla principal,
+los paquetes individuales aparecerán todos seleccionados. Para deseleccionar un patrón repita la misma operación, verá que 
+el símbolo de visto bueno desaparecerá de la caja de selección.
+</P
+></LI
+><LI
+><P
+>&#13;Seleccione el patrón denominado Servidor Web y LAMP. 
+</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN79"
+></A
+><P
+><B
+>Figura 3-8. Paquetes individuales seleccionados.</B
+></P
+><P
+><IMG
+SRC="img/Captura008-paquetes-individuales-seleccionados.png"></P
+></DIV
+></LI
+><LI
+><P
+>&#13;Pulse en el botón Aceptar. Aparecerá la pantalla de descarga de paquetes desde los medios:
+</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN84"
+></A
+><P
+><B
+>Figura 3-9. Paquetes individuales seleccionados.</B
+></P
+><P
+><IMG
+SRC="img/Captura009-descarga-paquetes-medios.png"></P
+></DIV
+><P
+>&#13;Introduzca el CD o DVD de instalación de OpenSuse 10.2. y pulse en el botón Ok. Se iniciará la descarga de paquetes individuales.
+</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN88"
+></A
+><P
+><B
+>Figura 3-10. Descarga de paquetes.</B
+></P
+><P
+><IMG
+SRC="img/Captura010-descarga-paquetes-medios2.png"></P
+></DIV
+><P
+>&#13;A continuación se configurán los paquetes y servicios con YAST.
+</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN92"
+></A
+><P
+><B
+>Figura 3-11. Configuración de paquetes y Servicios.</B
+></P
+><P
+><IMG
+SRC="img/Captura011-reconfigurando-paquetes.png"></P
+></DIV
+></LI
+><LI
+><P
+>&#13;A continuación pulse en el botón No en el cuadro de diálogo.
+</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN97"
+></A
+><P
+><B
+>Figura 3-12. pregunta de seguir instalando o no paquetes.</B
+></P
+><P
+><IMG
+SRC="img/Captura012-seguir-instalando.png"></P
+></DIV
+><P
+>&#13;Se cerrará la venta de instalar y Desinstalar paquetes.
+</P
+></LI
+><LI
+><P
+>&#13;A continuación pulse en el botón No en el cuadro de diálogo.
+</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN103"
+></A
+><P
+><B
+>Figura 3-13. Pregunta de seguir instalando o no paquetes.</B
+></P
+><P
+><IMG
+SRC="img/Captura012-seguir-instalando.png"></P
+></DIV
+><P
+>&#13;Se cerrará la venta de instalar y Desinstalar paquetes.
+</P
+></LI
+><LI
+><P
+>&#13;A continuación necesita activar el servidor Apache y el PHP. Para lo cual debe entrar en YAST en la pestaña Servicios de red en el 
+icono Servidor HTTP.
+</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN109"
+></A
+><P
+><B
+>Figura 3-14. Acceso a la configuración de Apache y PHP</B
+></P
+><P
+><IMG
+SRC="img/Captura013-config-apache.png"></P
+></DIV
+></LI
+><LI
+><P
+>&#13;Después aparecerá la primera pantalla de configuración de Apache. En ella deberán aparecer: el puerto por el que escuchará las 
+peticiones web (por defecto 80) y las direcciones ip por las que se permite que escuche el servidor web(127.0.0.1 por defecto). 
+Pulse en el botón Siguiente.
+</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN114"
+></A
+><P
+><B
+>Figura 3-15. Control de acceso por puerto e IP's.</B
+></P
+><P
+><IMG
+SRC="img/Captura014-config-apache-paso1.png"></P
+></DIV
+></LI
+><LI
+><P
+>&#13;A continuación deberá marcar (si no lo está hecho ya) el cuadro de selección al lado de Habilitar lenguaje de guiones PHP5. Pulse en 
+Siguiente.
+</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN119"
+></A
+><P
+><B
+>Figura 3-16. Control de lenguajes de scripting.</B
+></P
+><P
+><IMG
+SRC="img/Captura015-config-apache-paso2.png"></P
+></DIV
+></LI
+><LI
+><P
+>&#13;A continuación puede ser los parámetros básicos del servidor, tales como directorio principal, dirección de correo del administrador, 
+etc.  Pulse en Siguiente.
+</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN124"
+></A
+><P
+><B
+>Figura 3-17. Configuración de parámetros básicos.</B
+></P
+><P
+><IMG
+SRC="img/Captura016-config-apache-paso3-parametros.png"></P
+></DIV
+></LI
+><LI
+><P
+>&#13;Después podrá ver los Sitios Web Virtuales que maneja el servidor, si no desea manejar ninguno más pulse en Siguiente. Si desea 
+configurar un nuevo Sitio Web Virtual pulse en añadir y siga los siguientes pasos.
+</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN129"
+></A
+><P
+><B
+>Figura 3-18. Configuración de Sitios Web Virtuales.</B
+></P
+><P
+><IMG
+SRC="img/Captura017-config-apache-paso4-virtual-host.png"></P
+></DIV
+></LI
+><LI
+><P
+>&#13;A continuación introduzca los parámetros de configuración del nuevo servidor virtual: nombre del servidor, directorio principal del 
+Sitio Web Virtual y el correo del administrador del sitio web virtual. Pulse en el botón Siguiente.
+</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN134"
+></A
+><P
+><B
+>Figura 3-19. Datos básicos de un Sitio Web Virtual.</B
+></P
+><P
+><IMG
+SRC="img/Captura018-config-apache-paso4-2-nuevo-virtual-host.png"></P
+></DIV
+></LI
+><LI
+><P
+>&#13;A continuación introduzca otros parámetros de configuración del nuevo servidor virtual: acceso a CGI, HTML público, etc.. Pulse 
+el botón Siguiente.
+</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN139"
+></A
+><P
+><B
+>Figura 3-20. Datos de Scripting de un Sitio Web Virtual.</B
+></P
+><P
+><IMG
+SRC="img/Captura019-config-apache-paso4-3-nuevo-virtual-host2.png"></P
+></DIV
+></LI
+><LI
+><P
+>&#13;Después de añadir el nuevo sitio Web Virtual. Pulse en Siguiente.
+</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN144"
+></A
+><P
+><B
+>Figura 3-21. Datos de Scripting de un Sitio Web Virtual.</B
+></P
+><P
+><IMG
+SRC="img/Captura020-config-apache-paso4-4-nuevo-virtual-host3.png"></P
+></DIV
+></LI
+><LI
+><P
+>&#13;Después de configurar los Sitios Web Virtuales, marque la opción Iniciar el servidor web en el arranque. Pulse en Siguiente.
+</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN149"
+></A
+><P
+><B
+>Figura 3-22. Configuración del arranque del servidor.</B
+></P
+><P
+><IMG
+SRC="img/Captura021-config-apache-paso5.png"></P
+></DIV
+></LI
+><LI
+><P
+>&#13;A continuación se configurará el servidor web y se rearrancará si es necesario. Pulse en Finalizar.
+</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN154"
+></A
+><P
+><B
+>Figura 3-23. Aplicación de las configuraciones del servidor web.</B
+></P
+><P
+><IMG
+SRC="img/Captura022-config-apache-paso6-activacion.png"></P
+></DIV
+></LI
+><LI
+><P
+>&#13;A continuación introduzca la url en el navegador web y compruebe que se visualiza correctamente.
+</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN159"
+></A
+><P
+><B
+>Figura 3-24. Visualización de prueba del servidor web.</B
+></P
+><P
+><IMG
+SRC="img/Captura023-validacion-apache.png"></P
+></DIV
+></LI
+><LI
+><P
+>&#13;Ahora es necesario comprobar si el módulo de php funciona correctamente, para lo cual es necesario crear un fichero index.php 
+en el directorio principal del dominio del Sitio Web Virtual. Para ello necesita abrir 
+una terminal con permisos de superadministrador, esto se puede conseguir si va al Menú de Acciones, pestaña Aplicaciones, 
+submenú Sistema, submenú Terminal, icono Programa de terminal - modo de superusuario. Le solicitará la contraseña del 
+superadministrador (root), introduzcala pulse en el botón OK.
+</P
+><P
+>Una vez abierta la terminal ejecute los siguientes comandos:</P
+><P
+>echo "" &#62;/srv/www/htdocs/index.php</P
+><P
+>chmod 777 /srv/www/htdocs/index.php</P
+><P
+>Evidentemente la ruta debe coincidir con la localización del directorio raiz del Sitio Web Virtual</P
+><P
+>Después abra su navegador e introduzca la url seguido de /index.php  En nuestro ejemplo www.midominio.com/index.php Si se abre 
+correctamente podrá ver la información del módulo php instalado en su Apache.</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN169"
+></A
+><P
+><B
+>Figura 3-25. Visualización de prueba del módulo PHP.</B
+></P
+><P
+><IMG
+SRC="img/Captura023-2-validacion-php.png"></P
+></DIV
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x28.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x172.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Configuración de un dominio DNS</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Configuración de Mysql</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,332 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Añadiendo reglas</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Administración de iptables"
+HREF="c387.html"><LINK
+REL="PREVIOUS"
+TITLE="Administración de iptables"
+HREF="c387.html"><LINK
+REL="NEXT"
+TITLE="GNU Free Documentation License"
+HREF="a463.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración de cortafuegos en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c387.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 5. Administración de iptables</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="a463.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN423"
+>5.2. Añadiendo reglas</A
+></H1
+><P
+>El saber añadir, eliminar y mover reglas es muy importante ya que las reglas dentro de una cadena se ejecutan en orden secuencial y el orden es muy importante.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN426"
+>5.2.1. Insertando reglas</A
+></H2
+><P
+>Cuando añadimos una regla esta regla se añade al final de la cadena en la que estemos trabajando.</P
+><P
+>Podemos añdir reglas de dos formas:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>APPEND</I
+></SPAN
+>, este es el modo normal. Se utiliza el flag <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-A</I
+></SPAN
+> y la regla se añade al final de la cadena:</P
+><PRE
+CLASS="programlisting"
+>&#13;iptables -t tabla -A cadena regla
+</PRE
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>INSERT</I
+></SPAN
+>, en este modo insertamos la regla en una posición determinada dentro de la cadena:</P
+><PRE
+CLASS="programlisting"
+>&#13;iptables -t tabla -I cadena posicion regla
+</PRE
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>El orden de las reglas es importante.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>La primera regla de la cadena es la número uno.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>En caso de no especificar una posición para la regla se asume que es la número uno.</P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN446"
+>5.2.2. Borrando reglas</A
+></H2
+><P
+>Podemos borrar reglas de dos formas:</P
+><P
+></P
+><UL
+><LI
+><P
+>A nivel de regla:</P
+><PRE
+CLASS="programlisting"
+>&#13;iptables -t tabla -D cadena regla
+iptables -t tabla -D cadena posicion
+</PRE
+><P
+>Podemos especificar la regla a borrar o directamente su posición.</P
+></LI
+><LI
+><P
+>A nivel de cadena:</P
+><PRE
+CLASS="programlisting"
+>&#13;iptables -t tabla -F cadena
+</PRE
+><P
+>Con el flag <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-F (--flush)</I
+></SPAN
+> borramos todas las reglas de la cadena especificada. En caso de no especificar ninguna cadena se borran las reglas de todas las reglas de todas las cadenas.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN459"
+>5.2.3. Reemplazando reglas</A
+></H2
+><P
+>Es posible reemplazar una regla por otra:</P
+><PRE
+CLASS="programlisting"
+>&#13;iptables -t tabla -R cadena posicion regla
+</PRE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c387.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="a463.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Administración de iptables</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c387.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>GNU Free Documentation License</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

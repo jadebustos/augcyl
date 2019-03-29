@@ -1,0 +1,237 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chapter>
+  <title>Creaci&oacute;n de gr&aacute;ficos</title>
+
+  <sect1>
+    <title>Representaci&oacute;n de funciones y datos</title>
+
+    <sect2>
+      <title>gnuplot</title>
+
+      <para>
+        <ulink url="http://www.gnuplot.info/">gnuplot</ulink> es un programa
+        interactivo para la visualizaci&oacute;n de funciones y datos, aunque
+        tambi&eacute;n soporta usos no interactivos.
+      </para>
+
+      <para>
+        Soporta tanto gr&aacute;ficos bidimensionales como tridimensionales.
+        Puede dibujar l&iacute;neas, puntos, cajas, contornos, campos
+        vectoriales, superficies, varios tipos de textos asociados...
+      </para>
+
+      <para>
+        La principal virtud que hace especial a este programa es la cantidad
+        de formatos de salida con los que cuenta. Entre ellos destacan LaTeX,
+        EPS, PDF, METAFONT, SVG, PNG...
+      </para>
+
+      <para>
+        Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+        Microsoft Windows y Mac OS entre otros.
+      </para>
+
+      <figure>
+        <title>
+          Gr&aacute;fico generado con gnuplot
+        </title>
+        <graphic
+        fileref="img/02-graficos/01-gnuplot.png"
+        format="PNG" width="420" scale="60"/>
+      </figure>
+
+      <sect3>
+        <title>Qgfe</title>
+
+        <para>
+          <ulink url="http://www.xm1math.net/qgfe/">Qgfe</ulink> es una
+          interfaz gr&aacute;fica para gnuplot.
+        </para>
+
+        <figure>
+          <title>
+            Qgfe
+          </title>
+          <graphic
+          fileref="img/02-graficos/02-qgfe.png"
+          format="PNG" width="1000" scale="40"/>
+        </figure>
+      </sect3>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Diagramas</title>
+
+    <sect2>
+      <title>Dia</title>
+
+      <para>
+        <ulink url="http://live.gnome.org/Dia/">Dia</ulink> es un programa
+        para la creaci&oacute;n de diagramas.
+      </para>
+
+      <para>
+        Est&aacute; inspirado en la aplicaci&oacute;n privativa Visio.
+      </para>
+
+      <para>
+        Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux y
+        Microsoft Windows.
+      </para>
+
+      <figure>
+        <title>
+          Dia
+        </title>
+        <graphic
+        fileref="img/02-graficos/03-dia.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+
+    <sect2>
+      <title>Xfig</title>
+
+      <para>
+        <ulink url="http://www.xfig.org/">Xfig</ulink> es una programa para
+        dibujar esquemas.
+      </para>
+
+      <para>
+        Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+        Microsoft Windows y Mac OS.
+      </para>
+
+      <figure>
+        <title>
+          Xfig
+        </title>
+        <graphic
+        fileref="img/02-graficos/04-xfig.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Dibujos geom&eacute;tricos</title>
+
+    <sect2>
+      <title>GeoGebra</title>
+
+      <para>
+        <ulink url="http://www.geogebra.org/">GeoGebra</ulink> es un sistema
+        de geometr&iacute;a din&aacute;mica.
+      </para>
+
+      <para>
+        Puede hacer construcciones con puntos, vectores, segmentos, secciones
+        c&oacute;nicas, funciones...
+      </para>
+
+      <para>
+        Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+        Microsoft Windows y Mac OS entre otros.
+      </para>
+
+      <figure>
+        <title>
+          GeoGebra
+        </title>
+        <graphic
+        fileref="img/02-graficos/05-geogebra.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+
+    <sect2>
+      <title>GEONExT</title>
+
+      <para>
+        <ulink url="http://geonext.uni-bayreuth.de/">GEONExT</ulink> es un
+        programa para hacer dibujos geom&eacute;tricos que pueden ser
+        animados.
+      </para>
+
+      <para>
+        Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+        Microsoft Windows y Mac OS.
+      </para>
+
+      <figure>
+        <title>
+          GEONExT
+        </title>
+        <graphic
+        fileref="img/02-graficos/06-geonext.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Visualizaci&oacute;n de estructuras qu&iacute;micas</title>
+
+    <sect2>
+      <title>GDIS</title>
+
+      <para>
+        <ulink url="http://gdis.sourceforge.net/">GDIS</ulink> es un visor y
+        manipulador de mol&eacute;culas aisladas y sistemas peri&oacute;dicos.
+      </para>
+
+      <para>
+        Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+        Microsoft Windows y Mac OS entre otros.
+      </para>
+
+      <figure>
+        <title>
+          GDIS
+        </title>
+        <graphic
+        fileref="img/02-graficos/07-gdis.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+
+    <sect2>
+      <title>Chemtool</title>
+
+      <para>
+        <ulink url="http://ruby.chemie.uni-freiburg.de/~martin/chemtool/">
+        Chemtool</ulink> es un peque&ntilde;o programa para dibujar
+        estructuras qu&iacute;micas.
+      </para>
+
+      <figure>
+        <title>
+          Chemtool
+        </title>
+        <graphic
+        fileref="img/02-graficos/08-chemtool.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+
+    <sect2>
+      <title>Garlic</title>
+
+      <para>
+        <ulink url="http://www.ccp14.ac.uk/ccp/web-mirrors/garlic/garlic/">
+        Garlic</ulink> es un visor y editor molecular.
+      </para>
+
+      <figure>
+        <title>
+          Garlic
+        </title>
+        <graphic
+        fileref="img/02-graficos/09-garlic.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+  </sect1>
+</chapter>
+

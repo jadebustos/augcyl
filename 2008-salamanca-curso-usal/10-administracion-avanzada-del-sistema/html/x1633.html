@@ -1,0 +1,731 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Particiones lógicas (logical volumes)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Gestión de sistemas de ficheros mediante LVM"
+HREF="c1465.html"><LINK
+REL="PREVIOUS"
+TITLE="Grupos de volumen (volume groups)"
+HREF="x1535.html"><LINK
+REL="NEXT"
+TITLE="Introducción al uso de SAN en GNU/Linux"
+HREF="c1754.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x1535.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 5. Gestión de sistemas de ficheros mediante <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>LVM</I
+></SPAN
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c1754.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN1633"
+>5.3. Particiones lógicas (logical volumes)</A
+></H1
+><P
+>Las particiones lógicas son particiones que se crean dentro de un volume group y podrán crecer siempre y cuando hay espacio libre dentro del grupo de volumen.</P
+><P
+>Una partición lógica se crea:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>lvcreate -L5G -n mysql_lv /dev/data_vg</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>  Logical volume "mysql_lv" created</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><P
+>Habremos creado una partición lógica de 5 gigas en el grupo de volumen <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>data_vg</I
+></SPAN
+>.</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Para formatearla, montarla, ... nos referiremos a ella como <TT
+CLASS="filename"
+>/dev/data_vg/mysql_lv</TT
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1647"
+>5.3.1. Información y detección de particiones lógicas</A
+></H2
+><P
+>Podemos utilizar el comando <B
+CLASS="command"
+>lvscan</B
+> para encontrar particiones lógicas:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>lvscan</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>  ACTIVE            '/dev/data_vg/apache_lv' [20,00 GB] inherit
+  ACTIVE            '/dev/data_vg/mysql_lv' [20,00 GB] inherit</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><P
+>También disponemos del comando <B
+CLASS="command"
+>lvdisplay</B
+> que nos ofrece más información sobre las particiones lógicas encontradas:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>lvdisplay</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>  --- Logical volume ---
+  LV Name                /dev/data_vg/apache_lv
+  VG Name                data_vg
+  LV UUID                KCDc3t-jAHj-dNDK-I9qe-rF3B-oyya-Tg00JL
+  LV Write Access        read/write
+  LV Status              available
+  # open                 1
+  LV Size                20,00 GB
+  Current LE             5120
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     0
+  Block device           253:0
+
+  --- Logical volume ---
+  LV Name                /dev/data_vg/mysql_lv
+  VG Name                data_vg
+  LV UUID                0m24gV-H9BC-MdbV-vSNZ-r57x-gx37-zUy22q
+  LV Write Access        read/write
+  LV Status              available
+  # open                 0
+  LV Size                20,00 GB
+  Current LE             5120
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     0
+  Block device           253:1</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><P
+>El comando <B
+CLASS="command"
+>lvs</B
+> también nos ofrece información:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>lvs</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>  LV        VG      Attr   LSize  Origin Snap%  Move Log Copy%
+  apache_lv data_vg -wi-ao 20,00G
+  mysql_lv  data_vg -wi-a- 20,00G</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1670"
+>5.3.2. Ampliación de una partición lógica</A
+></H2
+><P
+></P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>lvextend -L+2G /dev/data_vg/mysql_lv</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>  Extending logical volume mysql_lv to 7,00 GB
+  Logical volume mysql_lv successfully resized</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><P
+>Una vez ampliada la partición lógica habrá que hacer un resize. Si es sistema de ficheros es <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ReiserFS</I
+></SPAN
+> podemos hacerlo en caliente sin desmontarlo:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>resize_reiserfs /dev/data_vg/mysql_lv</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>  resize_reiserfs 3.6.19 (2003 www.namesys.com)
+  
+
+  resize_reiserfs: On-line resize finished successfully.</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><P
+>Con <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext3</I
+></SPAN
+>:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>ext2online /dev/data_vg/mysql_lv</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>ext2online v1.1.18 - 2001/03/18 for EXT2FS 0.5b</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1692"
+>5.3.3. Reducción de tamaño para particiones lógicas</A
+></H2
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/warning.gif"
+HSPACE="5"
+ALT="Aviso"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Antes de reducir un sistema de ficheros es MUY recomendable asegurarse de que hay un backup de los datos.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/warning.gif"
+HSPACE="5"
+ALT="Aviso"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Si el sistema de ficheros está fragmentado y existen datos en la parte a reducir esos datos se perderán.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/warning.gif"
+HSPACE="5"
+ALT="Aviso"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Cuando reduzcamos un sistema de ficheros tenemos que asegurarnos de que el sistema de ficheros resultante puede contener todos los datos.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Los pasos a seguir son:</P
+><P
+></P
+><UL
+><LI
+><P
+>Desmontar la partición.</P
+></LI
+><LI
+><P
+>Hacer un resize del sistema de ficheros al tamaño deseado.</P
+><P
+>Con un sistema de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ReiserFS</I
+></SPAN
+>:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>resize_reiserfs -s -1G /dev/data_vg/mysql_lv</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>Dando formato a resize_reiserfs(8); aguarde, por favor...
+telemaco:/media# resize_reiserfs -s -1G /dev/data_vg/mysql_lv 
+resize_reiserfs 3.6.19 (2003 www.namesys.com)
+
+You are running BETA version of reiserfs shrinker.
+This version is only for testing or VERY CAREFUL use.
+Backup of you data is recommended.
+
+Do you want to continue? [y/N]:<KBD
+CLASS="userinput"
+>y</KBD
+>
+Processing the tree: 0%....20%....40%....60%....80%....100%                      left 0, 105322 /sec
+
+nodes processed (moved):
+int        3 (0),
+leaves     209 (0),
+unfm       210432 (0),
+total      210644 (0).
+
+check for used blocks in truncated region
+
+ReiserFS report:
+blocksize             4096
+block count           1048576 (1310720)
+free blocks           829690 (1091826)
+bitmap block count    32 (40)
+
+Syncing..done
+
+
+resize_reiserfs: Resizing finished successfully.</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><P
+>Con un sistema de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext3</I
+></SPAN
+>:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>e2fsck -f /dev/data_vg/mysql_lv</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>e2fsck 1.35 (28-Feb-2004)
+Paso 1: revisando nodos i, bloques y tamaños
+Paso 2: revisando la estructura de directorios
+Paso 3: revisando la conectividad del directorio.
+Paso 4: revisando las cuentas de referencia
+Paso 5: revisando el resumen de información del grupo
+/dev/data_vg/mysql_lv: ficheros 11/92160 (9.1% no contiguos), bloques 7156/179200</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>resize2fs /dev/data_vg/mysql_lv 6g</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>resize2fs 1.35 (28-Feb-2004)
+Resizing the filesystem on /dev/data_vg/mysql_lv to 2816000 (4k) blocks.
+El sistema de ficheros en /dev/data_vg/mysql_lv mide ahora 2816000 bloques.</SAMP
+>
+</PRE
+></LI
+><LI
+><P
+>Reducimos la partición lógica:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>lvreduce -L-1G /dev/data_vg/mysql_lv</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>  WARNING: Reducing active logical volume to 6,00 GB
+  THIS MAY DESTROY YOUR DATA (filesystem etc.)
+Do you really want to reduce mysql_lv? [y/n] <KBD
+CLASS="userinput"
+>y</KBD
+>
+  Logical volume mysql_lv successfully resized</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1731"
+>5.3.4. Activación y desactivación de particiones lógicas</A
+></H2
+><P
+>Para determinadas operaciones de los grupos de volumen es necesario desactivar las particiones lógicas que en ellos residen.</P
+><P
+>Utilizaremos para ello el comando <B
+CLASS="command"
+>lvchange</B
+>:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>lvchange -a n /dev/data_vg/mysql_lv</KBD
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><P
+>Desactivaría la partición lógica.</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="command"
+>man lvchange</B
+></P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1744"
+>5.3.5. Eliminación de una partición lógica</A
+></H2
+><P
+>Para eliminar una partición lógica utilizaremos el comando <B
+CLASS="command"
+>lvremove</B
+>:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>lvremove /dev/data_vg/mysql_lv</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>Do you really want to remove active logical volume "mysql_lv"? [y/n]: <KBD
+CLASS="userinput"
+>y</KBD
+>
+  Logical volume "mysql_lv" successfully removed</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x1535.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c1754.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Grupos de volumen (volume groups)</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c1465.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Introducción al uso de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SAN</I
+></SPAN
+> en GNU/Linux</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

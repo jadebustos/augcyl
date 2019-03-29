@@ -1,0 +1,442 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Permisos SUID y SGID</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Auditoria y Logs"
+HREF="c2928.html"><LINK
+REL="PREVIOUS"
+TITLE="Usuarios que estuvieron en el sistema"
+HREF="x3024.html"><LINK
+REL="NEXT"
+TITLE="El demonio syslogd"
+HREF="x3142.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x3024.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 9. Auditoria y Logs</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x3142.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN3081"
+>9.3. Permisos <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SUID</I
+></SPAN
+> y <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SGID</I
+></SPAN
+></A
+></H1
+><P
+>Los ficheros con estos permisos activados es necesario tenerlos controlados ya que se ejecutan con los privilegios de su propietario y no del usuario que los ejecuta. Si el propietario es el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>root</I
+></SPAN
+> un mal uso puede comprometer el sistema.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3087"
+>9.3.1. Peligros con estos permisos</A
+></H2
+><P
+>Tengamos el siguiente programa:</P
+><PRE
+CLASS="programlisting"
+>&#13;#include &#60;stdio.h&#62;
+
+#define SIZE 2000
+
+int main (void) {
+  FILE *ptFichero;
+  char chrBuffer[SIZE];
+  int intLeidos;
+
+  /* ABRIMOS EL FICHERO EN SOLO LECTURA */
+  ptFichero = fopen("/etc/shadow", "r");
+  
+  /* LEEMOS 2000 CARACTERES */
+  intLeidos = fread(chrBuffer, sizeof(char), SIZE, ptFichero);
+
+  /* SACAMOS POR LA SALIDA ESTANDAR LOS CARACTERES LEIDOS */
+  fwrite(chrBuffer, sizeoff(char), intLeidos, stdout);
+
+  /* CERRAMOS EL FICHERO */
+  fclose(ptFichero);
+
+  return 0;
+}
+</PRE
+><P
+>Y a continuación lo compilamos y hacemos lo siguiente:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>cp exploit /media/pendrive</KBD
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>chmod 4755 /media/pendrive</KBD
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>ls -lh /media/pendrive/exploit</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>-rwsr-xr-x 1 root root 1,9K 2007-04-11 12:38 exploit</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><P
+>Si a continuación llevamos ese pendrive a un equipo en el que tengamos privilegios para montarlo y esté permitido la ejecución de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SUID</I
+></SPAN
+>. En ese equipo podremos leer el contenido del fichero <TT
+CLASS="filename"
+>/etc/shadow</TT
+> sin ser el usuario <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>root</I
+></SPAN
+>.</P
+><P
+>Si en lugar de lectura hubieramos programado que sustituyera el password del usuario <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>root</I
+></SPAN
+> por uno conocido por nosotros tendríamos acceso a <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>root</I
+></SPAN
+> en esa máquina.</P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/warning.gif"
+HSPACE="5"
+ALT="Aviso"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Por cosas como esta es por lo que NUNCA el comando <B
+CLASS="command"
+>chown</B
+> debería tener activados los permisos SUID.</P
+><P
+>Aunque las implementaciones de hoy en día de este comando eliminan los permisos <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SUID</I
+></SPAN
+> y <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SGID</I
+></SPAN
+> en implementaciones viejas no lo hacían y era un agujero de seguridad.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3114"
+>9.3.2. Evitando la ejecución de ficheros con esos permisos</A
+></H2
+><P
+>La mejor forma es indicar <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>nosuid</I
+></SPAN
+> en las opciones en el fichero <TT
+CLASS="filename"
+>/etc/fstab</TT
+> de los sistemas de ficheros en los que no sea necesario ejecuciones <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SUID</I
+></SPAN
+>.</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>En los sistemas de ficheros que pueden montar los usuarios es más que recomendable utilizar la opció <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>nosuid</I
+></SPAN
+> y puede que también <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>noexec</I
+></SPAN
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3124"
+>9.3.3. Localizando estos ficheros</A
+></H2
+><P
+>Antés de nada recordemos un par de cosas:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SUID</I
+></SPAN
+> los ficheros con este permiso activado tienen permisos mayores, en octal, que 4000.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SGID</I
+></SPAN
+> los ficheros con este permiso activado tienen permisos mayores, en octal, que 2000.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Sticky Bit</I
+></SPAN
+> los ficheros con este permiso activado tienen permisos mayores, en octal, que 1000.</P
+></LI
+></UL
+><P
+>Para localizar a todos los ficheros con permiso <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SUID</I
+></SPAN
+> activado:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>find / -perm +4000 -exec ls -l {} \;</KBD
+>
+</PRE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x3024.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x3142.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Usuarios que estuvieron en el sistema</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c2928.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>El demonio <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>syslogd</I
+></SPAN
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

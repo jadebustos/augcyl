@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<!DOCTYPE vnuml SYSTEM "/usr/share/xml/vnuml/vnuml.dtd">
+<!-- (c) 2008 Chema Peribáñez 
+  Puedes usar este fichero para lo que quieras, dejando esta nota de 
+  copyright intacta. 
+ -->
+<vnuml>
+<global>
+<version>1.8</version>
+<simulation_name>curso_redes_gnulinux_usal</simulation_name>
+<ssh_version>2</ssh_version>
+<automac/>
+<vm_defaults exec_mode="mconsole">
+  <filesystem type="cow">/usr/share/vnuml/filesystems/root_fs_tutorial</filesystem>
+  <kernel>/usr/share/vnuml/kernels/linux</kernel>
+  <mng_if>no</mng_if>
+  <console id="0">xterm</console>
+  <xterm>gnome-terminal,-t,-x</xterm>
+  <filetree root="/root" seq="ipsec">/media/KINGSTON/conf</filetree>
+  <filetree root="/root" seq="subir">/media/KINGSTON/conf</filetree>
+</vm_defaults>
+</global> 
+<!-- red casa del teletrabajador -->
+<net mode="uml_switch" name="r_casa"/>
+<!-- ADSL casa del teletrabajador -->
+<net mode="uml_switch" type="ppp" name="adsl_c">
+<bw>10000000</bw>
+</net>
+<!-- ADSL empresa -->
+<net mode="uml_switch" type="ppp" name="adsl_o">
+<bw>10000000</bw>
+</net>
+<!-- red en empresa, puestos -->
+<net mode="uml_switch" name="r_oficp"/>
+<!-- red en empresa, servidores -->
+<net mode="uml_switch" name="r_ofics"/>
+
+<!-- ordenador casa, conectado directamente a Internet -->
+<vm name="casa">
+  <if id="2" net="r_casa">
+    <ipv4>192.168.1.1</ipv4>
+  </if>
+  <if id="1" net="adsl_c">
+    <ipv4>88.1.2.3</ipv4>
+  </if>
+  <route type="ipv4" gw="88.1.2.1">default</route>
+  <forwarding type="ip" />
+  <exec seq="snat" mode="mconsole" type="verbatim">
+  iptables -t nat -I POSTROUTING -o eth1 -j SNAT --to-source 88.1.2.3</exec>
+  <exec seq="snatd" mode="mconsole" type="verbatim">
+  iptables -t nat -D POSTROUTING -o eth1 -j SNAT --to-source 88.1.2.3
+  </exec>
+  <exec seq="ipsec" mode="mconsole" type="verbatim">
+   setkey -f /root/politicas_casa
+  </exec>
+  <exec seq="ipsecd" mode="mconsole" type="verbatim">
+   setkey -FP
+   setkey -F
+  </exec>
+  <exec seq="subir" mode="mconsole" type="verbatim"/>
+</vm>
+<!-- otro ordenador casa, conectado a Internet por conexión compartida del
+     anterior -->
+<vm name="casa2">
+  <if id="1" net="r_casa">
+    <ipv4>192.168.1.2</ipv4>
+  </if>
+  <route type="ipv4" gw="192.168.1.1">default</route>
+  <exec seq="subir" mode="mconsole" type="verbatim"/>
+</vm>
+<!-- ordenador en la oficina -->
+<vm name="orden_o">
+  <if id="1" net="r_oficp">
+    <ipv4>10.0.1.92</ipv4>
+  </if>
+  <route type="ipv4" gw="10.0.1.1">default</route>
+  <exec seq="subir" mode="mconsole" type="verbatim"/>
+</vm>
+<!-- un servidor en la oficina -->
+<vm name="serv_o">
+  <if id="1" net="r_ofics">
+    <ipv4>10.0.2.16</ipv4>
+  </if>
+  <route type="ipv4" gw="10.0.2.1">default</route>
+</vm>
+<!-- router de la oficina -->
+<vm name="rout_o">
+  <if id="2" net="r_oficp">
+    <ipv4>10.0.1.1</ipv4>
+  </if>
+  <if id="3" net="r_ofics">
+    <ipv4>10.0.2.1</ipv4>
+  </if>
+  <if id="1" net="adsl_o">
+    <ipv4>88.4.5.6</ipv4>
+  </if>
+  <route type="ipv4" gw="88.4.5.1">default</route>
+  <forwarding type="ip" />
+  <exec seq="snat" mode="mconsole" type="verbatim">
+  iptables -t nat -I POSTROUTING -o eth1 -j SNAT --to-source 88.4.5.6</exec>
+  <exec seq="dnat" mode="mconsole" type="verbatim">
+  iptables -t nat -I PREROUTING -i eth1 -p tcp --destination-port 10000 -j DNAT --to-destination 10.0.1.92:22  &amp;&amp; iptables -t nat -I PREROUTING -i eth1 -p udp --destination-port 10000 -j DNAT --to-destination 10.0.1.92:8080</exec>
+  <exec seq="snatd" mode="mconsole" type="verbatim">
+  iptables -t nat -D POSTROUTING -o eth1 -j SNAT --to-source 88.4.5.6
+  </exec>
+  <exec seq="dnatd" mode="mconsole" type="verbatim">
+  iptables -t nat -D PREROUTING -i eth1 -p tcp --destination-port 10000 -j DNAT --to-destination 10.0.1.92:22  &amp;&amp; iptables -t nat -D PREROUTING -i eth1 -p udp --destination-port 10000 -j DNAT --to-destination 10.0.1.92:8080
+  </exec>
+  <exec seq="ipsec" mode="mconsole" type="verbatim">
+   setkey -f /root/politicas_router_oficina
+  </exec>
+  <exec seq="ipsecd" mode="mconsole" type="verbatim">
+   setkey -FP
+   setkey -F
+  </exec>
+  <exec seq="subir" mode="mconsole" type="verbatim"/>
+</vm>
+<vm name="proved">
+  <if id="1" net="adsl_c">
+    <ipv4>88.1.2.1</ipv4>
+  </if>
+  <if id="2" net="adsl_o">
+    <ipv4>88.4.5.1</ipv4>
+  </if>
+  <forwarding type="ip" />
+</vm>
+</vnuml>

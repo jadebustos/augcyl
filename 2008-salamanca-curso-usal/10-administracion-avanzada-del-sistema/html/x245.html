@@ -1,0 +1,377 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Herramientas</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Gestión de Memoria"
+HREF="c201.html"><LINK
+REL="PREVIOUS"
+TITLE="Cache y Buffers"
+HREF="x240.html"><LINK
+REL="NEXT"
+TITLE="Sistemas de Ficheros"
+HREF="c304.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x240.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 3. Gestión de Memoria</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c304.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN245"
+>3.4. Herramientas</A
+></H1
+><P
+>Para ver el uso y análisis de la memoria el
+administrador dispone de algunas herramientas.</P
+><P
+>El rendimiento de la memoria virtual es muy importante ya que cuando
+      vayamos a hacer uso de ella es porque al sistema se le esta
+      requiriendo un esfuerzo mayor y no queremos que sea el cuello de
+      botella. Por ello las herramientas nos deben dar las
+estadísticas de la utilización de la memoria.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN249"
+>3.4.1. Comando <B
+CLASS="command"
+>free</B
+></A
+></H2
+><P
+>Para ver el estado de la memoria actual tenemos el
+        comando <B
+CLASS="command"
+>free</B
+>.</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>free -m</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>             total       used       free     shared    buffers     cached
+Mem:           504        491         12          0         41        147
+-/+ buffers/cache:        302        201
+Swap:          329         51        277
+</SAMP
+><SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+>
+</PRE
+><P
+>La primera linea nos está dando como realmente se esta utilizando la
+memoria física, y la segunda cuanta memoria hay libre desde
+el punto de vista de las aplicaciones. La última linea contiene la
+utilización de la memoria swap.</P
+><P
+>En detalle, este sistema tiene 504Mb de memoria de los cuales están usados
+491Mb y 12Mb libres. De los usados 302Mb por las aplicaciones, 41Mb de
+memoria compartida y 147Mb para buffers y caches. Como la memoria para
+buffers y cache es adaptable según las necesidades, tendríamos hasta
+201Mb libres.</P
+><P
+>Muchas de las herramientas de administración nos dan también
+estos mismos valores de memoria como por ejemplo
+<B
+CLASS="command"
+>top</B
+> o <B
+CLASS="command"
+>htop</B
+> o desde <SPAN
+CLASS="application"
+>webmin</SPAN
+>. Esta información se recoge del fichero
+<TT
+CLASS="filename"
+>/proc/meminfo</TT
+> del
+sistema de ficheros virtual del núcleo.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN266"
+>3.4.2. Comando <B
+CLASS="command"
+>vmstat</B
+></A
+></H2
+><P
+>Nos da la misma información que <B
+CLASS="command"
+>free</B
+>
+        más algunos datos estadísticos sobre el uso de la memoria swap
+        y entrada/salida con dispositivos de bloques.</P
+><P
+>Nos permite por parámetro lanzar la petición varias veces y cada
+        cierto periodo de tiempo, así tendremos que poner
+        <B
+CLASS="command"
+>vmstat 2 10</B
+> para que se ejecute 10 veces
+        y muestre los datos cada dos segundos.</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>vmstat 2 10</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>procs -----------memory---------- ---swap-- -----io---- --system-- ----cpu----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in    cs us sy id wa
+ 0  0  66016 113748  19112 231988    0    0     2     3   38    23  1  1 98  0
+ 0  0  66016 113740  19112 231988    0    0     0     0  196   460  3  0 97  0
+ 1  0  66016 113844  19112 231988    0    0     0     0  193   427  5  1 94  0
+ 0  0  66016 113608  19112 232216    0    0   114     0  206   425  7  1 92  0
+ 0  0  66016 113524  19112 232248    0    0    16    12  206   422  6  1 93  0
+ 0  0  66016 113472  19112 232248    0    0     0     0  191   433  7  0 93  0
+ 0  0  66016 113472  19112 232252    0    0     2     0  190   384  5  1 94  0
+ 0  0  66016 113468  19112 232252    0    0     0     0  195   799  4  1 95  0
+ 2  0  66016 113468  19112 232252    0    0     0   192  227   727  8  1 91  0
+ 0  0  66016 113468  19112 232252    0    0     0     0  203   260  0  0 99  0
+</SAMP
+><SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+>
+</PRE
+><P
+>En cada linea nos va dando el estado de las variables. Serán
+tantas lineas como hayamos puesto en el segundo parámetro y van
+saliendo cada tantos segundo como hayamos puesto en el primero.</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>procs</I
+></SPAN
+>: Nos da los procesos
+preparados para correr en una cpu y los procesos durmiendo.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>memory</I
+></SPAN
+>: Estado de la memoria. Los
+mismo datos que el comando <B
+CLASS="command"
+>free</B
+>.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>swap</I
+></SPAN
+>: Nos da las páginas
+intercambiadas por segundo entre la memoria física y la memoria virtual.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>io</I
+></SPAN
+>: Bloques recibidos y enviados
+desde un dispositivo por segundo.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>system</I
+></SPAN
+>: Interrupciones
+lanzadas y cambio de contexto por segundo.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>cpu</I
+></SPAN
+>: Porcentajes de tiempos de
+cpu dedicados a sistema, a aplicaciones de usuario, sin hacer nada y
+tiempo dedicado a IO (Entrada/Salida).</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN299"
+>3.4.3. Comando <B
+CLASS="command"
+>sar</B
+></A
+></H2
+><P
+>Este comando permite realizar estadísticas de muchos más
+        elementos, como red, cpu, dispositivos de bloques y
+        memoria. Esta muy pensado para analizar el rendimiento de
+        estos elementos. Para la memoria virtual dispone de muy diversas
+        variables que nos pueden ayudar a ver donde puede haber un
+        problema.</P
+><P
+>No vamos a entrar en detalle con todas las posibilidades de este
+        comando.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x240.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c304.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Cache y Buffers</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c201.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Sistemas de Ficheros</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

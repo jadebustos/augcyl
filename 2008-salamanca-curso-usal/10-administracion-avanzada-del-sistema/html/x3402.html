@@ -1,0 +1,263 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Servicios de Ficheros y Impresión</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Servicios"
+HREF="c3288.html"><LINK
+REL="PREVIOUS"
+TITLE="Servicios de Internet"
+HREF="x3370.html"><LINK
+REL="NEXT"
+TITLE="Servicios de Base de Datos"
+HREF="x3436.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x3370.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 10. Servicios</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x3436.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN3402"
+>10.3. Servicios de Ficheros y Impresión</A
+></H1
+><P
+></P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3405"
+>10.3.1. <SPAN
+CLASS="application"
+>nfs</SPAN
+></A
+></H2
+><P
+>Es el sistema de ficheros de red por defecto. En el
+	servidor nos permite mostrar en red un directorio que como
+	cliente podemos montar en nuestro sistema de ficheros.</P
+><P
+>En el lado servidor sólo tenemos que añadir los directorios a
+	los cuales queremos dar acceso y unos parámetros de
+	configuración en el fichero
+	<TT
+CLASS="filename"
+>/etc/exports</TT
+>.</P
+><P
+>En el cliente, bien con la
+	aplicación de montaje de sistemas de ficheros,
+	<TT
+CLASS="filename"
+>mount</TT
+>, o bien en el
+	fichero de sistemas de ficheros montandos
+	<TT
+CLASS="filename"
+>/etc/fstab</TT
+> podemos incorporar los
+	directorios exportados por el servidor en nuestra máquina.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3414"
+>10.3.2. <SPAN
+CLASS="application"
+>samba</SPAN
+></A
+></H2
+><P
+>El sistema de ficheros de red de Windows se ha impuesto
+	también para su uso como servicio de ficheros. Samba es un proyecto que nos proporciona las
+	herramientas para poder exportar nuestros sistema de ficheros
+	y servicios de red de Windows, y nos permite obtener y montar en nuestro
+	sistema los ficheros compartido. </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3418"
+>10.3.3. <SPAN
+CLASS="application"
+>cups</SPAN
+></A
+></H2
+><P
+>Los servicios de impresión en en las distintas versiones
+	de UNIX fueron los portados en Linux, pero su compleja configuración y
+	realidad con las impresoras que existen actualmente, así como
+	su difícil utilización en red, ha hecho que se esté imponiendo
+	un sistema más reciente y moderno, como es
+	<SPAN
+CLASS="application"
+>cups</SPAN
+> (Common UNIX Printing
+	System).</P
+><P
+><SPAN
+CLASS="application"
+>cups</SPAN
+> es un servicio de impresión que
+	permite configuración remota a través de un servidor web. Utiliza el protocolo Internet
+	Printing Protocol (IPP) para imprimir, aunque soporta la impresión por los
+	comandos tradicionales de UNIX. También dispone de filtros
+	automáticamente y configuración de impresoras a través de
+	Postscript Printer Descriptions (PPD).</P
+><P
+>La configuración de impresoras se realiza desde la web de
+	administración de <SPAN
+CLASS="application"
+>cups</SPAN
+>, pero existe
+	el directorio <TT
+CLASS="filename"
+>/etc/cups</TT
+> donde se
+ encuentra la configuración del servicio en si.</P
+><P
+>La pantalla de impresoras de cups tiene está apariencia:</P
+><DIV
+CLASS="informalfigure"
+><P
+></P
+><A
+NAME="AEN3429"
+></A
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="img/c8cups.png"></P
+></DIV
+><P
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x3370.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x3436.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Servicios de Internet</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c3288.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Servicios de Base de Datos</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

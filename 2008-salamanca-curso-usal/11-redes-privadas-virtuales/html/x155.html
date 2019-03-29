@@ -1,0 +1,206 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Capa de transporte (Layer4)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Paquetes de red. Modelo en Capas"
+HREF="c34.html"><LINK
+REL="PREVIOUS"
+TITLE="Capa de red: capa IP (Layer3)"
+HREF="x95.html"><LINK
+REL="NEXT"
+TITLE="Capa de aplicación (Layer5; Layer7 en OSI)"
+HREF="x184.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x95.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Cap�tulo 2. Paquetes de red. Modelo en Capas</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x184.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN155"
+>2.3. Capa de transporte (Layer4)</A
+></H1
+><P
+>Sobre los datagramas IP va la capa de transporte. Aquí hay distintos tipos de protocolos, los más famosos son los TCP (que usan casi todas las aplicaciones) los UDP (que se usan para el DNS y para aplicaciones como streaming de vídeo o para construir los túneles de las VPNs). </P
+><P
+>Hay más tipos de protocolos de transporte que UDP y TCP: DDCP, SCTP... También están implementados en GNU/Linux pero no lo están en todos los sistemas operativos. Hay que señalar así mismo que protocolos como ICMP e IGMP, así como distintos protocolos de enrutamiento, aunque sean posibles protocolos dentro de un paquete IP como TCP y UDP no son protocolos de transporte sino de red. </P
+><P
+>Nos centraremos pues en la distinción entre UDP y TCP. TCP es un protocolo orientado a la conexión. Esto quiere decir que con TCP todos los paquetes que pertenecen a una conexión se numeran (el número de secuencia inicial se genera aleatoriamente para dificultar ataques de seguridad de falsificar una conexión) y se garantiza que llegan todos a destino y en el orden en que se enviaron. Al comienzo de la conexión, el primer paquete TCP lleva un flaq indicando que se quiere establecer una conexión. El protocolo TCP incluye mecanismos para confirmar la recepción de los paquetes (los paquetes que no se confirmen que se han recibido hay que volverlos a enviar) así como mecanismos de control de congestión (detectar que se están enviando más paquetes de los que permite el ancho de banda de la conexión y en ese caso bajar el ritmo).</P
+><P
+>UDP en cambio es un protocolo sin conexión. Cada paquete es independiente de los demás. No hay ninguna garantía de que el programa llegue a su destino, ya sea porque hay errores o porque la red está saturada: si estamos saturando la red y por eso no llegan los paquetes nos tendremos que dar cuenta nosotros y tomar las medidas oportunas (bajar el ritmo de envío). Así mismo no hay garantía que los paquetes que lleguen lo hagan en el mismo orden en que se enviaron, dado que los paquetes IP pueden ir por rutas distintas.</P
+><P
+>¿Qué aporta entonces la capa de transporte UDP sobre lo que proporciona la capa de red IP? ¿por qué no enviar los datos directamente como datagramas IP en lugar de como paquetes UDP? El gran aporte de UDP, que también forma parte de TCP, es que además de incluir IP de origen y destino, incluye puerto origen y destino. El puerto destino es útil para poder ejecutar varios servicios en la misma máquina: por ejemplo en el puerto 80 puede estar el servidor web y en el 25 el servidor de correo. Podemos ver al puerto destino como una extensión y a la IP como un teléfono. El puerto origen también es muy útil: cuando el cliente envía un paquete elige un puerto origen libre y gracias a este puerto el servidor puede distinguir, a la hora de responder, entre dos conexiones procedentes de la misma IP.</P
+><P
+>Por lo que hemos visto, TCP garantiza fiabilidad en la conexión mientras que con UDP si se quiere enviar una secuencia de paquetes todo se complica todo y además no hay garantía de que no se pierdan los paquetes. ¿Qué sentido tiene usar entonces UDP? Para la mayoría de los protocolos de aplicación, ninguno: la mayoría requieren un canal de transporte orientado a la comunicación (que dicho sea de paso, podría ser TCP o cualquier otro actual como sockets UNIX o que se cree en el futuro, el API de programación de Unix es independiente del protocolo concreto que esté por debajo). Hay casos, sin embargo, en que UDP es útil:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Cuando se trata de un envío simple, de un único paquete y se espera otro paquete de respuesta. Aquí no es problema que el paquete se pierda: si el servidor no responde, se vuelve a enviar la petición. Con UDP sólo se envía dos paquetes (el de petición y el de respuesta), mientras que con TCP se envían varios paquetes para primero establecer la conexión y luego para cerrarla, además de implicar reservar/liberar recursos para el control de la conexión. Un ejemplo son las consultas DNS, o el uso de BOOTP/DHCP (en el caso de DHCP cuenta además que UDP es más fácil de implementar que TCP y puede que la petición BOOTP se haga desde un gestor de arranque o la ROM de arranque de una tarjeta de red, por lo que aún no hay sistema operativo. </P
+></LI
+><LI
+><P
+>Cuando no pasa nada porque se pierdan paquetes, pero lo fundamental es que los paquetes que lleguen lo hagan a tiempo, no perdiendo el tiempo en retransmisiones, confirmaciones y control de congestión. Es el caso de streaming de vídeo o la VoIP (voz sobre IP). Otro caso son protocolos de sincronización. </P
+></LI
+><LI
+><P
+>Cuando se usa el protocolo de transporte para hacer de túnel transportando otros paquetes, por ejemplo para implementar una VPN. Por un lado está que si transporta paquetes de vídeo con UDP porque lo fundamental es que lleguen muchos paquetes a tiempo aunque algunos se pierdan, si usamos TCP por debajo UDP ya no tiene ninguna ventaja: llegarán todos los paquetes, pero algunos demasiado tarde, más tarde de lo que hubieran llegado si no hubiera TCP por debajo. Con los paquetes TCP estaríamos innecesariamente aplicando dos veces el control de errores, de congestión, de que llegan los paquetes ordenados... TCP está diseñado para ir sobre IP, no sobre TCP; sobre UDP también está bien porque sólo añade unas cabeceras, principalmente para los puertos. Es más, los algoritmos de control de congestión de TCP tienen un indeseable efecto multiplicador cuando se aplican sobre una conexión que ya va sobre TCP, que se traduce en que tarda más en coger velocidad. Ocurre sobre todo sobre medios físicos propensos a errores, como Wifi. El motivo es que cuando por culpa de un error se pierde un paquete, los algoritmos de congestión lo atribuyen a que se está transmitiendo a demasiada velocidad, por lo que reducen el ritmo de envío de paquetes, con lo que la aplicación que crea los paquetes TCP percibe que hay congestión, pero además una severa, pues suele disminuirse la velocidad a la mitad.</P
+></LI
+><LI
+><P
+>Cuando la existencia de NAT en los dos extremos es un problema (conexión cliente a cliente). Con UDP, el enrutador que hace NAT sabe que los paquetes que reciba con destino al puerto origen son paquetes de respuesta y debe dejarlos pasar, no hay propiamente un cliente y un servidor: con TCP esto es más complicado al entrar en juego el flag syn y los números de secuencia, por lo que en la práctica es mucho más difícil lograr que dos máquinas tras NAT logren una conexión TCP que UDP.</P
+></LI
+></OL
+><P
+>El protocolo de transporte DCCP ofrece como TCP control de congestión, pero al igual que UDP no garantiza que todos los paquetes se entreguen ni que lleguen en orden. Básicamente es útil para los mismos casos que UDP, pero con la ventaja de no tener que implementar en la capa de la aplicación el control de congestión. Al estar poco extendido no obstante hoy en día no encontraremos ningún programa conocido que use este protocolo.</P
+><P
+>El protocolo de transporte SCTP ofrece las mismas características que TCP, pero además ofrece algunas ventajas (con todo apenas se usa, en Windows no está implementado por Microsoft y hace falta instalar software de terceros, pero es especialmente útil para usar con SIP, por ejemplo <A
+HREF="http://sofia-sip.sourceforge.net/"
+TARGET="_top"
+>http://sofia-sip.sourceforge.net/</A
+>):</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Multistreaming: permite transportar sobre un único canal varios streams, que se tratarán independientemente en temas como garantizar el orden de recepción de los paquetes (incluso a nivel de stream se puede desactivar el tema del orden si no es necesario). Esta característica es muy útil para trasmitir la señalización de la VoIP de varias llamadas, de hecho SCTP se creó para transmitir SS7 (señalización número 7).</P
+></LI
+><LI
+><P
+>Multihoming: en los extremos puede haber más de una interfaz, esto permite por ejemplo usar a la vez dos Ethernet o pasar de una Ethernet a una Wifi sin interrumpir la conexión.</P
+></LI
+><LI
+><P
+>Mantiene límites de los mensajes: con SCTP si se escribe un mensaje de 100 bytes al leer en el otro extremo se leen 100 bytes; con TCP esto no está garantizado.</P
+></LI
+><LI
+><P
+>mecanismos para evitar ataques syn flood; también elimina problemas en cierres de conexiones que presenta TCP.</P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x95.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x184.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Capa de red: capa IP (Layer3)</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c34.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Capa de aplicación (Layer5; Layer7 en OSI)</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

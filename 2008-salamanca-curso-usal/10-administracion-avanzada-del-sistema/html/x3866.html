@@ -1,0 +1,406 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>linuxconf</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Interfaces de Administración"
+HREF="c3700.html"><LINK
+REL="PREVIOUS"
+TITLE="Interfaces de Administración"
+HREF="c3700.html"><LINK
+REL="NEXT"
+TITLE="Gestión de paquetes"
+HREF="c3961.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c3700.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 12. Interfaces de Administración</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c3961.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN3866"
+>12.2. <SPAN
+CLASS="application"
+>linuxconf</SPAN
+></A
+></H1
+><P
+>Se trata de otro interface de administración, también
+      modular y aunque su modo de presentación inicial fue en consola textual tiene
+      implementado un interface web.</P
+><P
+>Resulta más sencillo y es común que este en las distribuciones
+      ya que tiene menos requisitos que
+      <SPAN
+CLASS="application"
+>webmin</SPAN
+>.</P
+><P
+>Para ejecutarlo con el usuario root escribimos en
+      consola:</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>sal:/ # </SAMP
+><KBD
+CLASS="userinput"
+>linuxconf</KBD
+></PRE
+><P
+>Nos aparecerá una pantalla con la siguiente:</P
+><DIV
+CLASS="informalfigure"
+><P
+></P
+><A
+NAME="AEN3877"
+></A
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="img/c9linuxconf.png"></P
+></DIV
+><P
+></P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3884"
+>12.2.1. Administración con <SPAN
+CLASS="application"
+>linuxconf</SPAN
+></A
+></H2
+><P
+>A partir de la pantalla de inicio podemos navegar con los
+      cursores por las distintas opciones de administración de
+      <SPAN
+CLASS="application"
+>linuxconf</SPAN
+>.</P
+><P
+>Para mostrar la utilización de la aplicación vamos a añadir un
+      usuario, para ello desde la pantalla inicial con la flecha hacia
+      bajo nos desplazamos hasta <KBD
+CLASS="userinput"
+>Users</KBD
+>,
+      pulsamos Intro y nuevamente sobre <KBD
+CLASS="userinput"
+>User
+      acounts</KBD
+>, nos aparecerá la lista de usuarios. Con
+      ello lo que ha hecho nuestro interface es mostrarnos en contenido del fichero de
+      administración de usuarios <TT
+CLASS="filename"
+>/etc/passwd</TT
+>.</P
+><P
+>Con el tabulador seleccionamos el botón
+      <KBD
+CLASS="userinput"
+>Add</KBD
+> e Intro. Nos aparece una pantalla
+      para introducir los datos de usuario, rellenando cada campo y
+      moviéndose por ellos con las teclas de cursor. Con el tabulador
+      podemos ir al botón de Accept. La herramienta hará un
+      <SPAN
+CLASS="application"
+>useradd</SPAN
+> con los parámetros que hemos rellenado.</P
+><DIV
+CLASS="informalfigure"
+><P
+></P
+><A
+NAME="AEN3896"
+></A
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="img/c9user.png"></P
+></DIV
+><P
+></P
+></DIV
+><P
+>Si el grupo no existe, nos pregunta si queremos crearlo y nos
+pide las claves de usuario, actualizando el fichero de administración
+de grupos <TT
+CLASS="filename"
+>/etc/groups</TT
+>. Nos aparecerá la lista de usuarios con el
+nuevo. Con el botón de Dismiss podemos ir al menú inicial.</P
+><P
+>Podemos administrar los siguientes aspectos con la configuración
+los módulos básica de <SPAN
+CLASS="application"
+>linuxconf</SPAN
+>:</P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;La hora de sistema, la zona horaria y el reloj del ordenador.
+</P
+></LI
+><LI
+><P
+>&#13;Gestor de arranque LILO.
+</P
+></LI
+><LI
+><P
+>&#13;Configuración de la red básica (número IP, mascara de red, ...).
+</P
+></LI
+><LI
+><P
+>&#13;Red IPX.
+</P
+></LI
+><LI
+><P
+>&#13;Rutas de red estáticas.
+</P
+></LI
+><LI
+><P
+>&#13;Sistemas de ficheros (/etc/fstab).
+</P
+></LI
+><LI
+><P
+>&#13;Servicio de Enrutado.
+</P
+></LI
+><LI
+><P
+>&#13;Cliente NIS (ypbind).
+</P
+></LI
+><LI
+><P
+>&#13;Servidor de ficheros NFS.
+</P
+></LI
+><LI
+><P
+>&#13;Cliente PPP.
+</P
+></LI
+><LI
+><P
+>&#13;Cuentas de usuario y grupos.
+</P
+></LI
+><LI
+><P
+>&#13;Política Shadow.
+</P
+></LI
+><LI
+><P
+>&#13;Servicio DNS.
+</P
+></LI
+><LI
+><P
+>&#13;Servicio de correo Sendmail.
+</P
+></LI
+><LI
+><P
+>&#13;Cortafuegos (Filtrado de paquetes).
+</P
+></LI
+><LI
+><P
+>&#13;Servicio RARP.
+</P
+></LI
+><LI
+><P
+>&#13;Servicio DHCP.
+</P
+></LI
+><LI
+><P
+>&#13;Alias IP.
+</P
+></LI
+><LI
+><P
+>&#13;Conexión con UUCP.
+</P
+></LI
+><LI
+><P
+>&#13;Cuotas de Disco. 
+</P
+></LI
+></UL
+><P
+><SPAN
+CLASS="application"
+>Linuxconf</SPAN
+> es capaz de editar algunos ficheros de
+configuración estándar del sistema, como por ejemplo.</P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;/etc/fstab
+</P
+></LI
+><LI
+><P
+>&#13;/etc/host.conf
+</P
+></LI
+><LI
+><P
+>&#13;/etc/hosts
+</P
+></LI
+><LI
+><P
+>&#13;/etc/networks
+</P
+></LI
+><LI
+><P
+>&#13;/etc/resolv.conf
+</P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c3700.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c3961.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Interfaces de Administración</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c3700.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Gestión de paquetes</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

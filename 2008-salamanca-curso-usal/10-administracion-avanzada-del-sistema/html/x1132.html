@@ -1,0 +1,419 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Obtención de información sobre los sistemas de ficheros</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Sistemas de Ficheros"
+HREF="c304.html"><LINK
+REL="PREVIOUS"
+TITLE="Creación de sistemas de ficheros"
+HREF="x915.html"><LINK
+REL="NEXT"
+TITLE="Cuotas en ext2/ext3"
+HREF="x1174.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x915.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 4. Sistemas de Ficheros</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x1174.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN1132"
+>4.10. Obtención de información sobre los sistemas de ficheros</A
+></H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1134"
+>4.10.1. El comando <B
+CLASS="command"
+>du</B
+></A
+></H2
+><P
+>Este comando trabaja a nivel de directorios. En caso de no pasarle ningún argumento nos muestra el tamaño que utiliza en disco el directorio actual y sus subdirectorios. Por defecto muestra la información en bloques y si utilizamos el flag <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-h</I
+></SPAN
+> nos mostrará la información en un formato más comprensible.</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>du</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>245     ./Adm/html
+486     ./Adm
+16539   ./Doc/cluster
+18256   ./Doc
+4       ./Software-Cientifico
+16      ./Clustering/dia
+125     ./Clustering/html
+44      ./Clustering/images
+269     ./Clustering
+19014   .</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+>
+</PRE
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Si le pasamos como argumento un directorio nos dará la información sobre dicho directorio.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Si unicamente queremos conocer el espacio en disco deberemos utilizar el flag <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-hs</I
+></SPAN
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1149"
+>4.10.2. El comando <B
+CLASS="command"
+>df</B
+></A
+></H2
+><P
+>Ese comando nos da información sobre los sistemas de ficheros montados en el sistema:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>df</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>S.ficheros         Bloques de 1K   Usado    Dispon Uso% Montado en
+/dev/hdg1               459143     82646    352000  20% /
+tmpfs                  1038484         0   1038484   0% /lib/init/rw
+udev                     10240        44     10196   1% /dev
+tmpfs                  1038484         0   1038484   0% /dev/shm
+/dev/mapper/system_vg-home_lv
+                       2097084   1633876    463208  78% /home
+/dev/mapper/system_vg-opt_lv
+                        511980     32840    479140   7% /opt
+/dev/mapper/system_vg-tmp_lv
+                       1023964     32852    991112   4% /tmp
+/dev/mapper/system_vg-usr_lv
+                       5242716   2528076   2714640  49% /usr
+/dev/mapper/system_vg-var_lv
+                       2097084    575252   1521832  28% /var
+/dev/mapper/system_vg-software_lv
+                       1048540     32840   1015700   4% /mnt/software
+/dev/mapper/system_vg-ftp_lv
+                      52427196  18240412  34186784  35% /media/ftp</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+>
+</PRE
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Podemos ver la información relativa a un único sistema de ficheros si se lo pasamos como argumento.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Por defecto muestra información en bloques. Podemos hacer que salga la información en un formato más comprensible utilizando el flag <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-h</I
+></SPAN
+>:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>df -h</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>S.ficheros          Tamaño Usado  Disp Uso% Montado en
+/dev/hdg1             449M   81M  344M  20% /
+tmpfs                1015M     0 1015M   0% /lib/init/rw
+udev                   10M   44K   10M   1% /dev
+tmpfs                1015M     0 1015M   0% /dev/shm
+/dev/mapper/system_vg-home_lv
+                      2,0G  1,6G  451M  78% /home
+/dev/mapper/system_vg-opt_lv
+                      500M   33M  468M   7% /opt
+/dev/mapper/system_vg-tmp_lv
+                     1000M   33M  968M   4% /tmp
+/dev/mapper/system_vg-usr_lv
+                      5,0G  2,5G  2,6G  49% /usr
+/dev/mapper/system_vg-var_lv
+                      2,0G  562M  1,5G  28% /var
+/dev/mapper/system_vg-software_lv
+                      1,0G   33M  992M   4% /mnt/software
+/dev/mapper/system_vg-ftp_lv
+                       50G   18G   33G  35% /media/ftp</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+>
+</PRE
+><P
+>Podemos hacer que salga la información sobre los inodos utilizando el flag <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-i</I
+></SPAN
+>:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>df -i</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>S.ficheros           Nodos-i NUsados NLibres NUso% Montado en
+/dev/hdg1             245280   11612  233668    5% /
+tmpfs                 224347       2  224345    1% /lib/init/rw
+udev                  224347    1430  222917    1% /dev
+tmpfs                 224347       1  224346    1% /dev/shm
+/dev/mapper/system_vg-home_lv
+                           0       0       0    -  /home
+/dev/mapper/system_vg-opt_lv
+                           0       0       0    -  /opt
+/dev/mapper/system_vg-tmp_lv
+                           0       0       0    -  /tmp
+/dev/mapper/system_vg-usr_lv
+                           0       0       0    -  /usr
+/dev/mapper/system_vg-var_lv
+                           0       0       0    -  /var
+/dev/mapper/system_vg-software_lv
+                           0       0       0    -  /mnt/software
+/dev/mapper/system_vg-ftp_lv
+                           0       0       0    -  /media/ftp</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+>
+</PRE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x915.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x1174.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Creación de sistemas de ficheros</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c304.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Cuotas en <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext2/ext3</I
+></SPAN
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

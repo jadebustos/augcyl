@@ -1,0 +1,203 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Utilidad swat (Samba Web Administration Tool)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Introducción"
+HREF="c18.html"><LINK
+REL="PREVIOUS"
+TITLE="Conexión de una máquina cliente Windows"
+HREF="x91.html"><LINK
+REL="NEXT"
+TITLE="Configuración de Samba"
+HREF="c107.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: 
+    Samba, compartiendo archivos e impresoras con MS Windows
+  </TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x91.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 1. Introducción</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c107.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN94"
+>1.6. Utilidad swat (Samba Web Administration Tool)</A
+></H1
+><P
+>Existe la posibilidad de administrar Samba desde un navegador Web utilizando swat. Se consigue tecleando la siguiente URL:</P
+><PRE
+CLASS="programlisting"
+>&#13;http://&#60;IPServidorWeb&#62;:901
+</PRE
+><P
+>Cuando se arranque, esta página Web pedirá la contraseña del root.</P
+><P
+>Para activar <B
+CLASS="command"
+>swat</B
+>, hay que acceder al <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>YaST -&#62; Centro de Control -&#62; Servicios de red (inetd)</I
+></SPAN
+> y activar el servicio correspondiente.Asimismo, se debe modificar el siguiente fichero <TT
+CLASS="filename"
+>/etc/xinet.d/swat</TT
+> en su parámetro <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>only_from</I
+></SPAN
+> de tal forma que apunte a la IP desde la cuál se va a administrar Samba.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Evidentemente, habrá que reiniciar <B
+CLASS="command"
+>xinetd</B
+> tras hacer cambios en este fichero.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x91.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c107.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Conexión de una máquina cliente Windows</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c18.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Configuración de Samba</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

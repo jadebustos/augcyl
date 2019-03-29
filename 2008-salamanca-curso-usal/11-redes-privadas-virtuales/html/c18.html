@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Nota sobre la distribución de GNU/Linux y la parte del curso referente a redes</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="NEXT"
+TITLE="Paquetes de red. Modelo en Capas"
+HREF="c34.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="index.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c34.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN18"
+></A
+>Cap�tulo 1. Nota sobre la distribución de GNU/Linux y la parte del curso referente a redes</H1
+><P
+>Por un tema de unidad, se usará la misma distribución en todo el curso, que es OpenSuSE. Se ha escogido esta distribución por ser la instalada en los laboratorios de la Universidad y por ser, como Ubuntu o Mandriva, una distribución fácil de utilizar.</P
+><P
+>Sin embargo, OpenSuSE no es la distribución recomendada para un servidor de red, un cortafuegos o una VPN en una empresa. En general tampoco es una distribución adecuada para usar en empresas, sino que está más orientada a uso personal: lo mismo puede decirse de distribuciones como Fedora o las versiones normales de Ubuntu o Mandriva.</P
+><P
+>El motivo es que no es una distribución de ciclo largo, que tenga actualizaciones de seguridad durante años. Esto se traduce en que al cabo de unos meses de instalarla tendremos que actualizar a la siguiente versión de OpenSuSE y repetir este proceso con sucesivas versiones. Para quien desee una distribución de ciclo largo, Novell tiene su propia versión de SuSE adecuada para estos menesteres, pero es software privativo por el que hay que pagar por máquina una subscripción anual. Algo parecido (aunque técnicamente no sea software privativo sino libre, gracias a lo cual existen clónicos gratuitos como CentOS) ocurre con Red Hat y su versión Enterprise. La alternativa a estas distribuciones de pago es usar Ubuntu LTS o un derivado de Red Hat Enterprise como CentOS.</P
+><P
+>Para instalar un cortafuegos, servidor DHCP etc también está la opción de usar una distribución de propósito específico como IPCop o Smoothwall. Ambas tienen una intuitiva interfaz web. No sólo incluyen el cortafuegos, también gestión del ancho de banda, servidor DHCP, DNS dinámico, servidor de tiempo (NTP), servidor SSH y VPN (con IPsec) admitiendo la VPN tanto unir dos redes como configuración road-warrior (conexión de un usuario remoto a la red local de la empresa).</P
+><P
+>Smoothwall Express está financiado por una empresa, que comercializa software de seguridad relacionado, incluyendo también cortafuegos y filtros de contenidos; periódicamente smoothwall contribuye código de sus productos privativos a esta versión enteramente libre (por ejemplo el código para mostrar el uso de ancho de banda de forma gráfica). En el caso de IPCop no hay una empresa detrás del producto, pero en su web hay una relación de empresas que venden soporte técnico. Tanto IPCop como Smoothwall soportan características avanzadas como gestión del ancho de banda de las conexiones peer-to-peer (Emule, Bittorrent...) e integran un IDS (detector de intrusiones).</P
+><P
+>IPCop y Smoothwall son soluciones para un cortafuegos. No es buena idea poner un gran número de servicios sobre un cortafuegos, incluso alguno de los que trae sería buena idea desactivarlos y ponerlos en otra máquina. Hay otras distribuciones orientadas a servidores de empresa (sobre todo a PYMES). Destacaremos dos:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>SMEServer (<A
+HREF="http://www.smeserver.org/"
+TARGET="_top"
+>www.smeserver.org/</A
+>). GPL, basado en CentOS 4. Servidor de correo, con filtro de SPAM y virtus, conversión de correos en formato TNEF, webmail. Servidor de ficheros, con sistema de administración de usuarios, cuotas. Servidor web. Compartición de la conexión a Internet. I-Bays: Un sistema para compartir información entre un grupo de usuarios. Servidor de impresión.</P
+></LI
+><LI
+><P
+>ClarkConnect: (<A
+HREF="http://www.clarkconnect.com/"
+TARGET="_top"
+>http://www.clarkconnect.com/</A
+>). Servidor de correo, impresión, ficheros, backup, VPN... Lamentablemente no parece ser software libre al 100% , porque hay distintas ediciones y en la gratuita hay limitaciones en el número de cuentas de correo (es posible no obstante que sí lo sea y se puedan modificar las fuentes para eliminar esa limitación). La versión gratuita no tiene un ciclo de soporte largo.</P
+></LI
+></OL
+><P
+>Para evitar la dependencia de SuSE, no se usará la herramienta de administración Yast, sino o bien herramientas genéricas o configuración manual.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c34.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>GNU/Linux, software libre para la comunidad universitaria</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Paquetes de red. Modelo en Capas</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,258 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Redes Privadas Virtuales (VPN)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Acceso remoto seguro"
+HREF="c347.html"><LINK
+REL="NEXT"
+TITLE="IPsec"
+HREF="x415.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c347.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x415.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN380"
+></A
+>Cap�tulo 6. Redes Privadas Virtuales (VPN)</H1
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN382"
+>6.1. Soluciones VPN para GNU/Linux</A
+></H1
+><P
+>VPN es el acrónimo en inglés de red privada virtual. El objetivo es lograr, mediante la creación de un túnel IP cifrado sobre una red pública como Internet, que los nodos a conectar por la VPN virtualmente estén en una misma red local. Es posible establecer una VPN directamente entre dos nodos, pero lo más habitual es o bien una VPN entre un nodo remoto y la red local de la empresa (esta configuración en inglés se llama con frecuencia road warrior, guerrero de la carretera, hace mención a que un usuario móvil se conecta a la empresa con su portátil y una conexión a Internet desde allí dónde está desplazado) o una VPN que une dos redes, por ejemplo dos filiales de una empresa o una filial con la central.</P
+><P
+>Hay distintas tecnologías y productos para crear una VPN con implementaciones libres para GNU/LInux: </P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>IPsec: el estándar por excelencia, será obligatorio en IPv6 y está implementado en muchas pilas TCP/IP también para la actual generación IPv4, incluyendo el kernel Linux. Se implementa directamente sobre la capa 3 (IP) mientras que el resto de soluciones suelen implementarse a nivel de capa de aplicación (aunque conceptualmente PPTP y L2TP son protocolos de capa de datos, se implementan como túneles, en el caso de L2TP sí es sobre UDP, en el caso de PPTP se usa GRE, que es un protocolo sobre IP). A diferencia de otras soluciones permite tanto túneles (modo túnel, entre dos security gateways, SG) como directamente cifrar la capa de transporte (modo transporte), lo que es útil cuando sólo se quiere seguridad entre dos máquinas o ya se implementa el túnel sobre una capa posterior (típicamente la de aplicación, utilizando paquetes UDP).</P
+></LI
+><LI
+><P
+>PPTP: protocolo impulsado por Microsoft. Su implementación original tenía varios fallos graves y además existe el problema de que no está tan probado como IPsec siendo también relativamente compleja. No es un estándar, aunque se publicó un RFC informativo describiendo el protocolo. El nombre completo es Point to Point Tunneling Protocol. Hay clientes de PPTP en Windows desde Windows 95, aunque Microsoft trata ahora de substituir PPTP por LLTP e IPsec, si bien PPTP ha tenido cierto éxito por su sencillez de configurar: no se usan claves públicas, sino las propias cuentas de Windows para autenticar el acceso. </P
+><P
+>Hay implementaciones para GNU/Linux interoperables con la implementación de Microsoft tanto del cliente (<A
+HREF="http://pptpclient.sourceforge.net/"
+TARGET="_top"
+>http://pptpclient.sourceforge.net/</A
+>) como del servidor (<A
+HREF="http://pptpclient.sourceforge.net/"
+TARGET="_top"
+>http://pptpclient.sourceforge.net/</A
+>) . A destacar que los desarrolladores de estas implementaciones recomiendan no usar PPTP más que si no queda otro remedio: en su lugar recomienda OpenVPN o IPsec.</P
+><P
+>En Ubuntu 7.10, el cliente PPTP forma parte de los paquetes oficiales. Hay además un applet para network-manager, aunque este ya no es oficial.</P
+></LI
+><LI
+><P
+>L2TP: Layer 2 Tunnel Protocol: promovido por Microsoft y CISCO, sigue la vía de estandarización del IETF (es el RFC2661). Es un protocolo que hace túneles a nivel de la capa de aplicación (mediante paquetes UDP, aunque en principio puede encapsularse sobre otro tipos de redes no IP) para transportar trápico layer2. Mediante L2TP se crea un túnel entre el LAC (L2TP Access Concetrator, el cliente) y el LNS (L2TP Network Server): una vez creado el túnel, cualquiera de las dos partes puede abrir sesiones y estas sesiones se multiplexarán sobre el túnel; un uso típico es crear una sesión PPP. L2TP garantiza fiabilidad en los paquetes de control, mientras que en los de datos como es propio de UDP podrán perderse. </P
+><P
+>En realidad L2TP no implementa por sí sólo una VPN, dado que no cifra la información, por lo que o bien usa PPTP o lo recomendado, usa un túnel IPsec (es decir, se usa un túnel IPsec para a su vez encapsular el túnel L2TP: esto también se estandariza por el IETF, en el RFC ).</P
+><P
+>¿Qué sentido tiene usar L2TP sobre IPsec, pudiendo usar directamente IPsec? una razón es usar la autenticación PPP (por ejemplo un servidor Radius) y la parte de autoconfiguración (por ejemplo proporcionar la información DNS); no obstante con IPsec también es posible autenticación y asignar IP y DNS sin necesidad de L2TP. Así mismo L2TP crea túneles a nivel 2, por lo que puede ir todo tipo de tráfico, no necesariamente IP, por ejemplo puede ir tráfico IPX o incluso se puede transportar directamente paquetes de nivel 2 como ATM. Así mismo L2TP en gran medida es más interesante para proveedores de Internet que tengan que encapsular información (por ejemplo puede multiplexar varias sesiones L2TP sobre un túnel L2TP/IPsec), que para VPNs entre oficinas (por ejemplo para revender acceso a Internet), pero en cualquier caso se agradece que haya implementaciones para GNU/Linux pues habrá servidores que no permitan conectarse directamente usando IPsec (quizás por desear usar la autenticación PPP) y requieran L2TP. En concreto usan L2TP además de Microsoft, CISCO y MacOSX . En el artículo de la Wikipedia hay enlaces a las implementaciones existentes así como a un tutorial: <A
+HREF="http://en.wikipedia.org/wiki/L2TP"
+TARGET="_top"
+>http://en.wikipedia.org/wiki/L2TP</A
+>
+</P
+></LI
+><LI
+><P
+>OpenVPN: es la solución recomendada, por su sencillez: hace un túnel TLS sobre el que se encapsulan paquetes layer 3 (IP) o layer 2 (Ethernet), pero usando UDP en lugar de TCP, aunque también se puede usar sobre TCP e incluso pasar a través de proxies HTTP. En realidad TLS no se puede implementar directamente sobre UDP, porque requiere un protocolo fiable como TCP y con UDP se tiene que permitir la pérdida de paquetes. Por ello en realidad TLS se usa para la funcionalidad de control, como negociar la sesión TLS o renegociarla en un momento dado (implementando sobre UDP un sistema para pedir de nuevo los paquetes que se puedan perder y son importantes por ser de control), sustituyendo a los protocolos PKI de IPsec. Pero además se han imitado los mecanismos presentes en las cabeceras <A
+NAME="AEN402"
+HREF="#FTN.AEN402"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+> de IPsec para dar seguridad a nivel de paquete y con independencia de si se pierde el paquete anterior: para ello hay que añadir una secuencia a los paquetes, así como un HMAC y contemplar varios mecanismos. Una idea similar es la que se sigue en la implementación del estándar DTLS (Datagram TLS: <A
+HREF="http://es.wikipedia.org/wiki/Datagram_Transport_Layer_Security"
+TARGET="_top"
+>http://es.wikipedia.org/wiki/Datagram_Transport_Layer_Security</A
+>) que se define en el RFC4347 y cuya única implementación actual conocida es la que hace el proyecto OpenSSL. En <A
+HREF="http://unix.freshmeat.net/projects/dtls_example/"
+TARGET="_top"
+>http://unix.freshmeat.net/projects/dtls_example/</A
+> hay código de ejemplo. Es posible que en un futuro se modifique OpenVPN para usar DTLS en lugar de su propio protocolo.</P
+></LI
+><LI
+><P
+>Montar una VPN sobre la marcha con OpenSSH y pppd o OpenSSH con TUN. Es una solución de compromiso ante una necesidad puntual. Si hemos instalado SSH y dejamos que pase el cortafuegos por si necesitamos conectarnos o lo usamos para cifrar un tunel con la conexión el acceso a escritorio remoto, en un momento dado podemos instalar una VPN. La idea es utilizar el software de PPP (pppd) para crear los dispositivos de red en cada extremo y comunicarlos por un túnel SSH: el software PPP escribe por salida estándar lo que lee del dispositivo de red e igualmente lo que lee por salida estándar lo pone en el dispositivo de red. Con SSH se pueden comunicar las entradas salidas de dos programas, formando un túnel. Si lo preferimos, podemos hacer el túnel utilizando Stunnel en lugar de OpenSSH. Otra opción es utilizar la opción de hacer un túnel con TUN de SSH. Una ventaja es que es algo más sencillo, se puede lanzar sin privilegios y existe TUN incluso para Windows, aunque no por ejemplo para Mac OS X. Otra ventaja es que se puede usar TAP en lugar de TUN y usarlo para hacer un bridge: pppd necesita parchearse para funcionar en un bridge (soporte BCP), pues no transmite tramas Ethernet, sino por defecto tramas IP (aunque en Linux puede transmitir IPX en lugar de IP). Otra utilidad que puede hacer el papel de openssh +TUN pero más ligera es socat (la mencionamos al hablar de netcat). Socat es una utilidad realmente versátil que también puede reemplazar a stunnel.</P
+></LI
+><LI
+><P
+>Usar un cliente sobre la VPN proporcionada por un encaminador CISCO. El cliente, al igual que OpenVPN, no necesita de ningún soporte en el kérnel. salvo TUN/TAP. Web: <A
+HREF="http://www.unix-ag.uni-kl.de/~massar/vpnc/"
+TARGET="_top"
+>www.unix-ag.uni-kl.de/~massar/vpnc/</A
+>
+</P
+></LI
+><LI
+><P
+>En grandes empresas, usar la infraestructura de VPN que ofrezca el operador para unir dos sedes (no es por tanto solución general para teletrabajo, especialmente si no tiene por qué coincidir el operador), de modo que se tiene una red privada virtual como si se tuviera una línea dedicada o una conexión dedicada a través de una red de conmutación de circuitos como las líneas telefónicas analógicas. Típicamente esto es posible si el operador utiliza MPLS, u otras tecnologías más antiguas como ATM o Frame Relay. Obviamente, requiere que el operador comercialice la posibilidad de conectar dos sedes entre sí en lugar de sólo dar servicio a Internet.</P
+></LI
+></OL
+><P
+>El paquete NetworkManager (<A
+HREF="http://www.gnome.org/projects/NetworkManager/"
+TARGET="_top"
+>www.gnome.org/projects/NetworkManager/</A
+>) dispone de plugins para OpenVPN, PPTP y VPNC (para este último programa soporta los ficheros .pcf, que sería lo único que tendría que distribuir el administrador). En el caso de la versión incluida en Ubuntu 7.10, sólo aparece la opción de configurar VPN si la tarjeta está en modo "itinerante", lo que excluye la configuración manual.</P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notas</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN402"
+HREF="c380.html#AEN402"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>IPsec define dos protocolos para dar seguridad a los paquetes, AH y ESP. AH garantiza la integridad y previene replay attacks, mientras que ESP además de eso cifra. AH garantiza la integridad también de las cabeceras (por lo que no puede usarse con NAT), pero en general no es muy útil para una VPN frente a ESP, pues normalmente IPsec se usa en modo túnel, no en modo transporte, y en este caso las Ips origen y destino van dentro del paquete. No obstante sí podría ser útil para que los routers estén seguros que el tráfico proviene de determinado router, suponiendo que se use un certificado que reconozcan y que efectivamente los "secure gateway", es decir, los extremos del túnel, coincidan con los enrutadores. En modo transporte sin AH la IP de origen se puede falsificar. En modo túnel se podría falsificar la dirección del router origen o destino entre los que se establece la VPN, pero no las IP origen y destino de los paquetes, que es lo que importa a los usuarios finales. Si se desea, se puede encapsular ESP en un paquete AH, pero rara vez se hace. Bruce Schneier recomienda simplificar IPsec y eliminar el modo de transporte y AH. dejando sólo ESP y modo túnel.</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c347.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x415.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Acceso remoto seguro</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>IPsec</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

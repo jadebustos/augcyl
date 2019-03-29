@@ -1,0 +1,284 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Filtrado de paquetes</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Usos de Iptables"
+HREF="x106.html"><LINK
+REL="NEXT"
+TITLE="Políticas por defecto"
+HREF="x190.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración de cortafuegos en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x106.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x190.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN151"
+></A
+>Capítulo 3. Filtrado de paquetes</H1
+><P
+>La configuración de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>iptables</I
+></SPAN
+> se realiza desde la línea de comandos mediante ordenes como:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="computeroutput"
+>iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 80 -j DNAT --to-destination 192.168.1.3:8080</SAMP
+>
+</PRE
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN157"
+>3.1. Donde se aplicarán las reglas</A
+></H1
+><P
+>Cada regla tendrá que aplicarse dentro de una cadena y una tabla y será necesario indicarle sobre el tráfico de que interface:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-t</I
+></SPAN
+> indica la tabla.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-A</I
+></SPAN
+> indica la cadena.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-i</I
+></SPAN
+> indica el interface de entrada del paquete.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-o</I
+></SPAN
+> indica el interface de salida del paquete.</P
+></LI
+></UL
+><P
+>Ejemplos:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>iptables -t nat -A PREROUTING -i eth1</I
+></SPAN
+>, se hace <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>NATTING</I
+></SPAN
+> sobre el tráfico de la interface <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>eth1</I
+></SPAN
+> y la regla se aplicará según entre el paquete por la interface.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>iptables -t nat -A POSTROUTING -i eth0</I
+></SPAN
+>,se hace <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>NATTING</I
+></SPAN
+> sobre el tráfico de la interface <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>eth0</I
+></SPAN
+> y la regla se aplicará justo antes de que el paquete salga  por la interface.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>iptables -A FORWARD -i eth0 -o eth1</I
+></SPAN
+>, se hace forwarding de paquetes entre las interfaces <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>eth0</I
+></SPAN
+> (entrada) y <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>eth1</I
+></SPAN
+> (salida).</P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x106.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x190.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Usos de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Iptables</I
+></SPAN
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Políticas por defecto</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>SSH con TUN</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Redes Privadas Virtuales (VPN)"
+HREF="c380.html"><LINK
+REL="PREVIOUS"
+TITLE="SSH + PPPD / SSH + TUN"
+HREF="x443.html"><LINK
+REL="NEXT"
+TITLE="OpenVPN"
+HREF="x485.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x443.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Cap�tulo 6. Redes Privadas Virtuales (VPN)</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x485.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN473"
+>6.4. SSH con TUN</A
+></H1
+><P
+>Las versiones recientes de SSH permiten crear túneles TUN o TAP de forma muy sencilla. Para ello hay que comenzar por modificar sshd_config para autorizar que se creen túneles. Se trata de la directiva PermitTunnel y deberemos dar valor yes para autorizar ambos tipos de túneles, "point-to-point" para autorizar sólo los TUN y ethernet para autorizar sólo los TAP.</P
+><P
+>Sólo el usuario root puede crear túneles: tiene que ser root tanto quien ejecute el cliente ssh, como la cuenta destinataria a la que conectar. El túnel existe mientras dure la conexión.</P
+><P
+>El cliente puede indicar que quiere crear el túnel de tres maneras distintas:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Mediante la opción -w &#60;número_dispositivo_tun_local&#62;[:&#60;número_dispositivo_tun_remoto&#62;, por ejemplo -w 0,0 si queremos que tanto en local como en remoto se use tun0.</P
+></LI
+><LI
+><P
+>Indicando en ssh_config que queremos crear el túnel al conectarnos como root. Hay que rellenar la directiva Tunnel (mismos valores que PermitTunnel en el servidor) y TunnelDevice, con la misma sintáxis que la opción -w</P
+></LI
+><LI
+><P
+>Usar un certificado con la opción tunnel="&#60;núm_dispositivo&#62;", idealmente además fijado el comando a ejecutar a uno que configure el dispositivo TUN, dado que todas estas opciones crean los dispositivos pero no les asignan una IP ni les configuran en absoluto.</P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x443.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x485.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>SSH + PPPD / SSH + TUN</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c380.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>OpenVPN</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

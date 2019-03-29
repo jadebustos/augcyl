@@ -1,0 +1,450 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- CAPITULO 7 -->
+  <chapter>
+    <title>Interprete de Comandos</title>
+<para>Para la relaci&oacute;n con el sistema el administrador debe utilizar
+un interface. Evidentemente en los sistemas modernos los interfaces
+visuales son la principal forma de dar ordenes al ordenador, pero
+en Unix y en Linux el administrador deber&iacute;a conocer tambi&eacute;n un
+interface textual.</para>
+<para>Cuando se utiliza en linea para introducir
+directamente comandos se denomina shell
+interactiva.</para>
+<para>Para el administrador, el interprete de comandos (shell) y
+"guiones" del interprete de comandos (shell scripts) son muy importantes
+por varias razones:</para>
+<itemizedlist>
+<listitem><para>
+La mayor parte de herramientas y aplicaciones est&aacute;n preparadas para
+utilizarse
+mediante la shell y los scripts.
+</para></listitem>
+<listitem><para>
+La configuraci&oacute;n del sistema y de la mayor&iacute;a de los servicios
+proporcionados se hacen mediante herramientas proporcionadas en forma
+de shell scripts.
+</para></listitem>
+<listitem><para>
+La principal forma de automatizar procesos de administraci&oacute;n es  mediante la creaci&oacute;n de shell scripts por parte del administrador.
+</para></listitem>
+</itemizedlist>
+<para>Tambi&eacute;n veremos algunos servicios donde se utilizan habitualmente los
+shell script.</para>
+    <sect1>
+      <title>Shell Scripting</title>
+<para>Los shell scripts son ficheros de texto que contienen comandos
+de sistema, comandos propios del interprete de comandos y estructuras de control necesarias para procesar el flujo del programa (tipo while, for, etc).
+Los ficheros script son directamente ejecutables por el sistema bajo el nombre que se haya dado al fichero. Para ejecutarlos, se invoca el shell junto con el nombre del fichero, o bien se dan permisos de ejecuci&oacute;n.
+</para>
+<para>La programaci&oacute;n en shell es muy &uacute;til y c&oacute;moda para crear
+programas f&aacute;cilmente modificables, peque&ntilde;os, no complejos, que resuelvan tareas
+repetitivas, t&iacute;picas de los administradores. Adem&aacute;s, es un lenguaje
+preparado para manejar ristras y procesar y filtrar texto, por lo que es mucho m&aacute;s f&aacute;cil programar en shell, que, por ejemplo, en C.</para>
+      <sect2>
+      <title>Algunas shells</title>
+<para>Un inconveniente es que no es un lenguaje estandarizado si no
+que hay varias versiones del shell.</para>
+      <para>Algunos de los m&aacute;s comunes son:</para>
+<itemizedlist>
+<listitem><para>
+El shell Bourne (sh). El shell est&aacute;ndar
+   UNIX, y el que todos los UNIX poseen en alguna versi&oacute;n, en linux es
+un bash renombrada. El sh fue creado
+   por Stephen Bourne en AT&amp;T a finales de los setenta. El
+prompt por defecto suele ser un '$'  y en usario root '#'.
+</para></listitem>
+<listitem><para>El shell Bash (bash). El shell Linux por defecto. Deriva de
+      la bourne shell pero se ha impuesto en gran medida por su
+      utilizaci&oacute;n en Linux.
+</para></listitem>
+<listitem><para>
+El shell Korn (ksh). Es una mejora del Bourne, escrito en
+AT&amp;T por David Korn en los a&ntilde;os
+   ochenta, intenta combinar la sencillez del Bourne
+   con la eficacia de la shell C, m&aacute;s alg&uacute;n a&ntilde;adido. El prompt por defecto es el $.
+</para></listitem><listitem><para>
+El shell C (csh). Fue desarrollado en la Universidad de Berkeley
+   por Bill Joy a finales de los setenta y tiene unos cuantos a&ntilde;adidos
+   interesantes al Bourne, como un hist&oacute;rico de comandos, alias,
+   aritm&eacute;tica desde la l&iacute;nea de comandos, completa nombres de ficheros y control de trabajos en segundo plano. El prompt por defecto para los usuarios es `%'. Una
+   ventaja de los scripts en C shell es que, como su nombre indica,
+   su sintaxis est&aacute; basada en el lenguaje C. Como shell
+posteriores recogen las mejoras de esta, hace que no se utilice mucho,
+aunque todav&iacute;a se encuentran muchos scripts desarrollados para esta shell.
+</para></listitem><listitem><para>
+Existen muchas otras que son variantes de estas, normalmente
+   versiones reducidas con
+   aplicaciones espec&iacute;ficas.
+</para></listitem>
+</itemizedlist>
+      </sect2>
+      <sect2>
+      <title>Creando shell scripts</title>
+      <para>Cada shell cambia un poco el lenguaje pero tienen muchas
+      caracter&iacute;sticas comunes. Vamos a ver un resumen de la sintaxis
+      del lenguaje:</para>
+<orderedlist>
+<listitem><para>
+Los comentarios se comienzan con #. En la primera linea se debe
+escribir #! con la shell que (o incluso un interprete, como
+perl o php) con la que queremos ejecutarla, por ejemplo:</para>
+<programlisting>#!/bin/bash</programlisting>
+</listitem><listitem><para>
+Para realizar redirecciones de los programas se utilizan 
+<userinput>&gt;</userinput> para salida, <userinput>&lt;</userinput> para
+entrada, <userinput>2&gt;</userinput> para salida de error y
+<userinput>|</userinput>t&uacute;nel (pipe).</para>
+<programlisting>cat laza.txt |wc -l > lineas_laza.count</programlisting>
+<para>La salida del comando <command>cat</command> que es le fichero
+<filename>laza.txt</filename> se le pasa al comando <command>wc
+-l</command> que cuenta las lineas y lo mete en el fichero <filename>lineas_laza.count</filename>.
+</para></listitem><listitem><para>
+Para definir variables se debe poner el nombre seguido de igual y su
+valor. Para referenciarlas con el s&iacute;mbolo dolar ($). Existen variables
+predefinidas, como $1 para el primer par&aacute;metro del shell script, $HOME
+directorio home de usuario, $? c&oacute;digo de salida de programa reci&eacute;n
+ejecutado. Existen muchas m&aacute;s de estas variables dependiendo de la shell.</para>
+<programlisting>FILE=/tmp/salida
+cat laza.txt | wc -l >> $FILE</programlisting>
+<para>Crea la variable FILE poniendo un nombre de fichero y la utiliza
+para a&ntilde;adir la salida del resultado del contador de lineas.
+</para></listitem><listitem><para>
+Hay tres tipos de comillas, las dobles interpretan las variables que
+hay dentro, las simples no, y la comilla invertida ejecuta su
+contenido como un comando y lo mete en la variable.</para>
+<programlisting>DATE=`date +%d-%m-%Y`;
+MSG1="La fecha es $DATE";
+MSG2='La variable donde guardo la fecha se llama $DATE con el comando
+date +%d-%m-%Y';
+echo $DATE;
+echo $MSG1;
+echo $MSG2;
+</programlisting>
+<para>Para ejecutar este script:</para>
+<screen>
+<prompt>[pcm@sal]# </prompt><userinput>sh comillas.sh</userinput>
+<computeroutput>14-04-2007
+La fecha es 14-04-2007
+La variable donde guardo la fecha se llama $DATE con el comando date
++%d-%m-%Y</computeroutput>
+<prompt>[pcm@sal]# </prompt>
+</screen></listitem><listitem><para>
+Para las shell la condici&oacute;n verdadera es el 0 y el resto lo interpreta
+como 
+falso. Existen bastantes operadores para realizar las
+condiciones. Pueden hacerse condiciones sobre fichero: si es un
+fichero (-f), si es un directorio (-d), si hay permiso de lectura
+(-r). Tambi&eacute;n sobre cadenas, sobre n&uacute;meros y combinar condiciones. 
+</para><para>Por ejemplo <userinput>[ -d .ssh -a \( -n $JDK_HOME -o -n $JAVA_HOME \) ]</userinput> nos
+devolver&iacute;a como verdadero si existe el directorio <filename>.ssh</filename> y alguna de las dos variables
+no deben ser vac&iacute;as.</para>
+</listitem><listitem><para>
+Para el control de flujo tenemos las estructuras
+<userinput>if</userinput>, <userinput>case</userinput>,
+<userinput>while</userinput>, <userinput>for</userinput>
+ y <userinput>until</userinput>.
+</para></listitem><listitem><para>
+Existen un conjunto de herramientas que son muy utilizadas en los
+shell script, como pueden ser <userinput>cut</userinput>,
+<userinput>grep</userinput>, <userinput>sed</userinput>,
+<userinput>awk</userinput>, <userinput>date</userinput>, etc...
+</para></listitem><listitem><para>
+Para hacer debug podemos chequear la sintaxis del shell script
+con:</para>
+<screen>
+<userinput>sh -n mishell.sh</userinput></screen>
+<para>Tambi&eacute;n podemos hacer que nos muestre la ejecuci&oacute;n de los
+comandos que hay en el shell script y los valores que van tomando las
+variables con:</para>
+<screen>
+<userinput>sh -x mishell.sh</userinput>
+</screen>
+</listitem>
+</orderedlist>
+</sect2>
+   <sect2>
+   <title>Ejemplo de un shell script</title>
+      <para>Como ejemplo de programa shell script vamos a hacer una
+      utilidad para buscar ficheros de texto de DOS en el directorio
+      actual y preguntarnos si lo queremos convertir a fichero de texto UNIX. Los
+      ficheros de texto en la plataformas DOS/Windows para finalizar
+      cada linea llevan dos caracteres de control, el ascii 10 (LF) y el
+      ascii 13 (CR). En cambio en UNIX, y por tanto el Linux los fichero de
+      linea s&oacute;lo utilizan el car&aacute;cter de control ascii 10 (LF).</para>
+    <para>La mayor parte de los editores de Linux ya distinguen si es
+      un texto de DOS o Unix. Adem&aacute;s existe un comando para realizar esta
+      conversi&oacute;n, <command>dos2unix</command>. Por lo que no suele
+      hacer falta una shell para esta tarea, a no ser que no
+      dispongamos del conversor en el sistema. El programa ser&iacute;a:</para>
+<programlisting>
+#!/bin/bash
+for fichero in *.txt; do
+  if grep ^M $fichero &amp;>/dev/null; then
+     resp=x
+     while [ $resp != "s" -a $resp != "n" ]; do
+       echo "'$fichero' es un fichero texto DOS. convertir? (s/n) "
+       read resp
+     done
+     case $resp in
+       s)
+         sed 's/^M//' $fichero > /tmp/FILE_TMP
+         mv /tmp/FILE_TMP $fichero
+         echo "El fichero '$fichero' convertido a texto UNIX";;
+       n)
+         echo "El fichero '$fichero' se deja texto DOS";;
+       *)
+         echo "ERROR";;
+     esac
+   fi
+done
+</programlisting>
+<para>Primeramente ponemos el comentario para indicar que es un script
+para bash.</para>
+<para>El <emphasis>for</emphasis> nos va a realizar un bucle por todos
+los fichero que terminen en <filename>.txt</filename>.</para>
+<para>Hacemos una condici&oacute;n que con el comando <command>grep</command>
+nos mire si el fichero tiene lineas con car&aacute;cter ascii 13 (CR). Para
+introducir el car&aacute;cter ^M hemos pulsado Control+V y Control+M, no se
+escribe con ^ y la M. Este
+comando si no encuentra
+ninguna linea devuelve 1, y si encuentra al menos una linea devuelve
+cero, con lo cual cumplimos la condici&oacute;n.</para>
+<para>A continuaci&oacute;n vamos a pedir al usuario que nos confirme la
+conversi&oacute;n. Para ello ponemos por pantalla la pregunta y con el
+comando <command>read</command> cogemos el valor introducido. Con un
+<emphasis>while</emphasis> insistimos con la pregunta mientras la
+contestaci&oacute;n no sea s o n.</para>
+<para>Con <emphasis>case</emphasis> comprobamos que ha metido. Ser&iacute;a
+m&aacute;s l&oacute;gico hacerlo con un <emphasis>if else</emphasis>, pero as&iacute; vemos
+est&aacute; estructura. S&iacute; selecciono <emphasis>n</emphasis> se imprime por
+pantalla que no se hizo nada con el fichero.</para>
+<para>Cuando opto por convertir el fichero utilizamos la herramienta
+<command>sed</command> que mediante expresiones regulares nos permite
+hacer sustituciones dentro de un fichero de texto. En este caso le
+estamos diciendo que sustituya los CR por nada. La salida la
+redirigimos a un fichero temporal que luego sustituye al
+original.</para>
+<para>Para ejecutar el programa tendr&iacute;amos dos posibilidades, o bien
+lo hacemos ejecutable con el comando <command>chmod u+w
+txtunixdir.sh</command> y luego lo arrancamos como
+<command>./txtunixdir.sh</command> o bien le pasamos a una shell como
+par&aacute;metro nuestro programa:</para>
+<screen>
+<prompt>[pcm@sal]# </prompt><userinput>sh txtunixdir.sh</userinput>
+<computeroutput>cursos.txt' es un fichero texto DOS. convertir? (s/n)</computeroutput>
+<userinput>n</userinput>
+<computeroutput>El fichero 'cursos.txt' se deja texto DOS
+'lazae11.txt' es un fichero texto DOS. convertir? (s/n)</computeroutput>
+<userinput>s</userinput>
+<computeroutput>El fichero 'lazae11.txt' convertido a texto UNIX</computeroutput>
+<prompt>[pcm@sal]# </prompt>
+</screen>
+<para>Si al escribir el programa nos hubi&eacute;semos dejado sin poner los
+dos puntos y coma en las opciones del <emphasis>case</emphasis>
+tendr&iacute;amos un error, que antes de ejecutar nos lo advertir&iacute;a.</para>
+<programlisting>
+...
+  n)
+    echo "El fichero '$fichero' se deja texto DOS"
+...
+</programlisting>
+<para> Si solo
+queremos comprobar sin ejecutar lo podr&iacute;amos hacer con la opci&oacute;n
+-n.</para>
+<screen>
+<prompt>[pcm@sal]# </prompt><userinput>sh -n txtunixdir.sh</userinput>
+<computeroutput>txtunixdir.sh: line 16: syntax error near unexpected token `)'
+txtunixdir.sh: line 16: `       *)'</computeroutput>
+<prompt>[pcm@sal]# </prompt>
+</screen>
+<para>Corregimos de nuevo, y ahora ejecutamos pero con la opci&oacute;n
+-x.</para>
+<screen>
+<prompt>[pcm@sal]# </prompt><userinput>sh -x txtunixdir.sh</userinput>
+<computeroutput>+ grep $'\r' cursos.txt
++ resp=x
++ '[' x '!=' s -a x '!=' n ']'
++ echo ''\''cursos.txt'\'' es un fichero texto DOS. convertir? (s/n) '
+'cursos.txt' es un fichero texto DOS. convertir? (s/n)
++ read resp</computeroutput>
+<userinput>s</userinput>
+<computeroutput>+ '[' s '!=' s -a s '!=' n ']'
++ sed $'s/\r//' cursos.txt
++ mv /tmp/FILE_TMP cursos.txt
++ echo 'El fichero '\''cursos.txt'\'' convertido a texto UNIX'
+El fichero 'cursos.txt' convertido a texto UNIX
++ grep $'\r' iptables.txt
++ grep $'\r' lazae11.txt</computeroutput>
+<prompt>[pcm@sal]# </prompt>
+</screen>
+    </sect2>
+    </sect1>
+    <sect1>
+      <title>Planificaci&oacute;n de Tareas</title>
+      <para>Es muy normal que queramos que nuestros shell script se
+      ejecuten peri&oacute;dicamente o en un determinado momento. Tareas como
+     la realizaci&oacute;n de backups, borrado de temporales, seguridad se
+      deben planificar mediante estos comandos. Existen unos
+      servicios para temporizar estos trabajos.</para>
+<!-- Manual de jadebustos capitulo 10 -->
+        <sect2>
+        <title><application>at</application></title>
+        <para>Mediante el comando at podemos lanzar nuestros procesos
+        a un tiempo determinado sin necesidad de estar conectados en
+        ese momento.</para>
+<para>Para realizar una ejecuci&oacute;n de un script de backup a las 10 de
+        la ma&ntilde;ana har&iacute;amos:</para>
+<screen><prompt>[pcm@sal]$ </prompt><userinput>at 10am &lt; backup.sh</userinput>
+<computeroutput>warning: commands will be executed using /bin/sh
+job 11 at 2007-04-01 10:00</computeroutput>
+<prompt>[pcm@sal]$ </prompt><userinput>atq</userinput>
+<computeroutput>10      2007-04-01 01:00 a pcm
+11      2007-04-01 10:00 a pcm
+</computeroutput><prompt>[pcm@sal]$ </prompt>
+</screen>
+<para>Con el comando <userinput>atq</userinput> vemos la lista de
+los procesos pendiente de ejecutarse. Es equivalente utilizar
+<userinput>at -l</userinput>.</para>
+<para>Si queremos evitar que se ejecute el comando programado podemos
+borrar la entrada con <userinput>atrm</userinput> indicando el
+n&uacute;mero de trabajo.</para>
+<screen><prompt>[pcm@sal]$ </prompt><userinput>atrm 10</userinput>
+<computeroutput></computeroutput>
+<prompt>[pcm@sal]$ </prompt><userinput>at -l</userinput>
+<computeroutput>11      2007-04-01 10:00 a pcm
+</computeroutput><prompt>[pcm@sal]$ </prompt>
+</screen>
+<para>El proceso <userinput>atd</userinput> se encargar&aacute; de ejecutar
+        nuestra orden en el momento programado.</para>
+<para>Existe variante, realmente un script, que permite lanzar nuestra
+        orden solo si la carga del sistema es lo suficientemente baja,
+        configurada en la ejecuci&oacute;n de servicio.</para>
+<para>Para configurar los usuarios que tienen permisos para utilizar
+        el comando <userinput>at</userinput> existen dos ficheros
+        <filename>/etc/at.allow</filename> y
+        <filename>/etc/at.deny</filename>. En la ejecuci&oacute;n del comando
+        se comprueba:</para>
+<orderedlist>
+<listitem><para>
+Si existe <filename>/etc/at.allow</filename> y el usuario que ejecuta
+el comando <application>at</application> o
+<application>batch</application> est&aacute; en el fichero se permite
+ejecuci&oacute;n.
+</para></listitem>
+<listitem><para>
+Si no existe <filename>/etc/at.allow</filename> y existe
+<filename>/etc/at.deny</filename>, se comprueba que el usuario que ejecuta
+el comando no este en el fichero, para permitirle.
+</para></listitem>
+<listitem><para>Si no existen ninguno de los dos fichero, solo root
+puede utilizar el comando.
+</para></listitem>
+</orderedlist>
+        </sect2>
+<sect2>
+        <title><application>cron</application></title>
+        <para>Este servicio nos permite dejar las tareas
+        programadas. Con el comando <application>at</application>
+        ten&iacute;amos que estar lanzando el comando por cada ejecuci&oacute;n, con
+        <application>cron</application> dejamos ya programado cuando y cada
+        cuanto queremos esa ejecuci&oacute;n.</para>
+<para>Es uno de los principales recursos de administraci&oacute;n ya que como
+        ya hemos comentado las tareas de administraci&oacute;n suele ser
+        repetitivas y peri&oacute;dicas, por lo que con este servicio vamos a
+        poder programarlas a nuestro antojo.</para>
+<para>El proceso que controla el servicio, es decir, que ejecuta las
+        tareas programadas es <userinput>cron</userinput>, y para
+        realizar nuestras programaciones debemos utilizar el comando
+        <userinput>crontab</userinput>.</para>
+<para>Para listar tareas utilizaremos <userinput>crontab
+        -l</userinput>.</para>
+<screen><prompt>[pcm@sal]$ </prompt><userinput>crontab -l</userinput>
+<computeroutput>*/10 10-19 * * * /root/adsl/vpn.sh >> /root/adsl/vpn.log 2>&amp;1
+</computeroutput>
+<prompt>[pcm@sal]$ </prompt>
+</screen>
+<para>Vemos que por cada tarea hay una serie de par&aacute;metros que debemos
+entender:</para>
+<itemizedlist>
+<listitem><para>
+La primera columna indica el minuto en que se ejecuta, pueden
+indicarse varios separ&aacute;ndolos por comas, por ejemplo 15,30,45, o un
+rango separando dos valores por un gui&oacute;n. Poniendo el * indicamos que
+todos los minutos. Tambi&eacute;n
+se puede indicar cada cuanto, poniendo */2, se ejecutar&iacute;a cada 2
+minutos. Los
+valores ser&aacute;n entre 0 y 59.
+</para></listitem>
+<listitem><para>
+En la segunda columna indicamos la hora. Igualmente se pueden indicar varias
+horas separadas por comas, rangos, asterisco y fracciones. Los valores son entre
+0 y 23.
+</para></listitem>
+<listitem><para>
+La tercera columna nos indica el d&iacute;a del mes. Los valores pueden ser
+entre 1 y 31.
+</para></listitem>
+<listitem><para>
+La cuarta nos indica el mes. Los valores son entre 1 y 12, y tambi&eacute;n
+se admiten nombres de meses.
+</para></listitem>
+<listitem><para>
+La quita nos indica el d&iacute;a de la semana. Los valores pueden ser entre
+0 y 7, siendo el domingo 0 o 7. Tambi&eacute;n admiten los nombres.
+</para></listitem>
+<listitem><para>
+Por &uacute;ltimo siempre tendremos el comando a ejecutar.
+</para></listitem>
+</itemizedlist>
+<para>Para crear una nueva tarea utilizaremos o modificar las que
+tenemos <userinput>crontab
+        -e</userinput>, que abrir&aacute; un editor con las tareas actuales
+        para que modifiquemos o creemos una nueva.</para>
+<screen><prompt>[pcm@sal]$ </prompt><userinput>crontab -e</userinput>
+<computeroutput>*/10 10-19 * * * /root/adsl/vpn.sh >> /root/adsl/vpn.log 2>&amp;1
+~
+~
+~
+~
+</computeroutput>
+</screen>
+<para>Al igual que el comando <userinput>at</userinput> la seguridad
+        de utilizaci&oacute;n del servicio se realiza mediante los ficheros
+        <filename>/etc/cron.allow</filename> y
+        <filename>/etc/cron.deny</filename>. Tenemos que tener en
+        cuenta de nuevo:</para> 
+<orderedlist>
+<listitem><para>
+Si existe <filename>/etc/cron.allow</filename> y el usuario que ejecuta
+el comando <application>cron</application> est&aacute; en el fichero se permite
+la programaci&oacute;n.
+</para></listitem>
+<listitem><para>
+Si no existe <filename>/etc/cron.allow</filename> y existe
+<filename>/etc/cron.deny</filename>, se comprueba que el usuario que ejecuta
+el comando no este en el fichero, para permitirle.
+</para></listitem>
+<listitem><para>Si no existen ninguno de los dos fichero, solo root
+puede utilizar el comando.
+</para></listitem>
+</orderedlist>
+        </sect2>
+        <sect2>
+        <title><application>anacron</application></title>
+        <para>Este comando esta pensado para la automatizaci&oacute;n de
+        tareas cuando el sistema no esta disponible las 24 horas del
+        d&iacute;a.</para>
+<para>Con el servicio <application>cron</application> si en la
+        programaci&oacute;n de una tarea el sistema no esta encendido, la
+        tarea no se realizara. Con <application>anacron</application>
+        podemos indicar cada cuanto se realizan ciertas tareas y se
+        encarga de que se lleve acabo con esa frecuencia.</para>
+<para>Nos permite configurar las tareas por d&iacute;as, lo normal es que
+        tengamos tareas diarias, semanales (7) o mensuales (30), pero
+        no nos asegura el horario de ejecuci&oacute;n, &uacute;nicamente cuando se
+        inicia el sistema y vea que han pasado esa serie de d&iacute;as
+        ejecutar&aacute; la tarea.</para>
+        </sect2>
+    </sect1>
+  </chapter>
+

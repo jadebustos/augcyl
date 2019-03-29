@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Proxies, cortafuegos, software de filtrado</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="NX. Nueva tecnología de escritorio remoto."
+HREF="x605.html"><LINK
+REL="NEXT"
+TITLE="Netfilter/IPtables. Solución para crear cortafuegos, auditar red y hacer NAT"
+HREF="x649.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x605.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x649.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN634"
+></A
+>Cap�tulo 8. Proxies, cortafuegos, software de filtrado</H1
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN636"
+>8.1. Proxies y software de filtrado</A
+></H1
+><P
+>Este tipo de uso es de interés para los padres preocupados por el acceso de sus hijos a contenidos inadecuados en Internet, pero también para gente que le molesta que le salga pornografía y para los puestos de trabajo. Es típico el uso de listas negras (blacklisted) pero en algunos casos se usa lo contrario, listas blancas: el usuario sólo puede navegar por esas webs.</P
+><P
+>Para los puestos de trabajo, es importante que los sistemas permitan relajar las normas a determinadas horas: por ejemplo si un trabajador llega antes de la hora no debería haber ningún problema en que lea el periódico, o que a la hora de descanso o en determinados momentos del día se permitan hacer gestiones personales por Internet. También permiten reglas distintas según la IP de origen. </P
+><P
+>Una funcionalidad importante de este tipo de software no es sólo filtrar sino registrar los accesos. En cierto modo su efectividad está más en el efecto disuasorio de pensar que si se está navegando por dónde no se debe quizás el jefe se entere que por la habilidad del programa para filtrar.</P
+><P
+>Las implementaciones existentes de software de filtrado para GNU/Linux se implementan sobre el proxy Squid. SQUID se puede configurar para usarlo de modo transparente (y por lo tanto obligatorio) utilizando DNAT, por lo que no es posible saltarse el proxy salvo que se pueda usar un túnel y salir por un puerto que no esté redirigido al proxy transparente.</P
+><P
+>Un software basado en filtrado por listas negras es Squidguard (http://www.squidguard.org/). Hay varios sitios dónde es posible conseguir listas negras, pero hay que tener en cuenta que en muchos casos para obtener listas actualizadas hay que subscribirse y cuesta dinero. Una relación de listas gratuitas y de pago está en <A
+HREF="http://www.squidguard.org/blacklists.html"
+TARGET="_top"
+>http://www.squidguard.org/blacklists.html</A
+>; una de las gratuitas se actualiza regularmente, con un millón y medio de entradas. Una lista de pago es <A
+HREF="http://urlblacklist.com/"
+TARGET="_top"
+>http://urlblacklist.com/</A
+>; la primera vez deja descargar gratuitamente y realmente no hace demasiado control para asegurarse que no descargamos más veces sin subscribirnos, confiando en la honradez del usuario. Tiene unas dos millones de entradas.</P
+><P
+>El software de control parental más usado en GNU/Linux es DansGuardian. También va sobre Squid y utiliza listas negras, pero además de URLs soporta palabras claves, de tal modo que bloquea las webs en función de la puntuación que obtiene por las palabras presentes.</P
+><P
+>&#13;<A
+HREF="http://www.censornet.com/"
+TARGET="_top"
+>http://www.censornet.com/</A
+> Distribución de GNU/Linux que integra DansGuardian, administrable vía web. Comercializan subscripción a lista negra (como curiosidad el precio depende del país, más pagan los países desarrollados, los países subdesarrollados es gratis) y a un filtro de imágenes.</P
+><P
+>Puede no ser buena idea utlizar un proxy para todo. Sobre el papel usar SQUID para la web y SOCKS para otros protocolos obligaría a un uso responsable de la red, al estar autenticadas las conexiones. En la práctica la realidad puede ser más compleja y funcionar mejor soluciones más adaptativas, que simplemente tratan de ajustar el ancho de banda para que los usuarios que más consumen tengan menos prioridad. Pero si se usa un proxy SOCKS estas soluciones no funcionan, pues todos los paquetes proceden de la misma IP (si ya se ha pasado el proxy) o van a la misma IP (si es antes del proxy).</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x605.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x649.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>NX. Nueva tecnología de escritorio remoto.</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Netfilter/IPtables. Solución para crear cortafuegos, auditar red y hacer NAT</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

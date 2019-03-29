@@ -1,0 +1,491 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Auditoria y Logs</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="El Sticky Bit"
+HREF="x2887.html"><LINK
+REL="NEXT"
+TITLE="Usuarios que estuvieron en el sistema"
+HREF="x3024.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x2887.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x3024.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN2928"
+></A
+>Capítulo 9. Auditoria y Logs</H1
+><P
+>Es necesario que en los sistemas quede auditado quien está, estuvo y que hizo en el sistema con el mayor detalle posible.</P
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN2931"
+>9.1. Usuarios presentes en el sistema</A
+></H1
+><P
+>Existen varios comandos para comprobar la presencia de usuarios con sesiones abiertas en el sistema.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2934"
+>9.1.1. El comando <B
+CLASS="command"
+>who</B
+></A
+></H2
+><P
+>Nos da información sobre quién está conectado en el sistema:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>who</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>bender :0           2007-04-11 08:06
+bender pts/1        2007-04-11 12:50 (:0.0)</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><P
+>Existen varios flags interesantes:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-H</I
+></SPAN
+> nos muestra las cabeceras de las columnas:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>who -H</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>NOMBRE   LINEA       TIEMPO           COMENTARIO
+bender :0           2007-04-11 08:06
+bender pts/1        2007-04-11 12:50 (:0.0)</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-u</I
+></SPAN
+> nos muestra el tiempo que estuvo inactivo el terminal.</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>who -Hu</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>NOMBRE   LINEA        TIEMPO       INACTIV        PID        PID COMENTARIO
+bender pts/0        Apr 11 08:11   .         15772 (192.168.32.60.64)
+bender pts/1        Apr 11 08:12 03:44       18528 (192.168.60.64)
+zoidberg  pts/3        Apr 11 14:36 01:09       25822 (192.168.60.14)</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-q</I
+></SPAN
+> muestra el número total de usuarios conectados.</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>who -p</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>bender bender zoidberg
+# users=2</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2969"
+>9.1.2. El comando <B
+CLASS="command"
+>w</B
+></A
+></H2
+><P
+>Este comando nos indica lo que está haciendo cada usuario:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>w</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>USER     TTY      FROM              LOGIN@   IDLE   JCPU   PCPU WHAT
+root :0       -                08:06   ?xdm?   5:58m  0.01s /bin/sh /usr/bin/x-session-manager
+root pts/1    :0.0             12:50    1.00s  0.20s  0.00s w</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><P
+>La información que aparece en las columnas es la siguiente:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>USER</I
+></SPAN
+> usuario.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>TTY</I
+></SPAN
+> terminal en el que está conectado el usuario.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>FROM</I
+></SPAN
+> desde donde está conectado el usuario.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>LOGIN@</I
+></SPAN
+> hora en la que empezó la sesión.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>IDLE</I
+></SPAN
+> tiempo que el usuario ha permanecido inactivo.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>JCPU</I
+></SPAN
+> tiempo total de CPU para todos los procesos en el terminal.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>PCPU</I
+></SPAN
+> tiempo total de CPU para todos los procesos activos en el terminal.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>WHAT</I
+></SPAN
+> comando que está siendo ejecutado en el terminal.</P
+></LI
+></UL
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Si le especificamos como parámetro un usuario veremos únicamente la información referente a ese usuario.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3006"
+>9.1.3. El comando <B
+CLASS="command"
+>users</B
+></A
+></H2
+><P
+>Este comando nos indica los usuarios que están conectados en el sistema.</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>users</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>bender bender zoidberg lila fry fry</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3015"
+>9.1.4. El fichero <TT
+CLASS="filename"
+>/var/run/utmp</TT
+></A
+></H2
+><P
+>Este fichero contiene los usuarios que están presentes en el sistema en ese momento. Este fichero es utilizado por comandos como <B
+CLASS="command"
+>who</B
+>, <B
+CLASS="command"
+>w</B
+>, <B
+CLASS="command"
+>users</B
+>, <B
+CLASS="command"
+>finger</B
+> y <B
+CLASS="command"
+>write</B
+>.</P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x2887.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x3024.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>El <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Sticky Bit</I
+></SPAN
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Usuarios que estuvieron en el sistema</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

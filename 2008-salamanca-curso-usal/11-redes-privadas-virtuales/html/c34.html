@@ -1,0 +1,394 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Paquetes de red. Modelo en Capas</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Nota sobre la distribución de GNU/Linux y la parte del curso referente a redes"
+HREF="c18.html"><LINK
+REL="NEXT"
+TITLE="Capa de red: capa IP (Layer3)"
+HREF="x95.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c18.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x95.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN34"
+></A
+>Cap�tulo 2. Paquetes de red. Modelo en Capas</H1
+><P
+>Para entender los conceptos avanzados de redes, es muy útil tener presente el modelo en capas de las redes. Cada capa presta servicio a la capa superior encargándose de implementar una funcionalidad. La capa superior pasa a la que está debajo los datos que quiere enviar y cada capa hace lo propio con la capa inmediatamente inferior, tras añadir a lo que recibió de la capa superior cabeceras específicas de su capa.</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Layer 1: capa física. Nos basta saber que existe: se implementa enteramente en hardware. No nos detendremos más en ella. Es a partir de la capa 2 dónde podemos ver los paquetes con un sniffer.</P
+></LI
+><LI
+><P
+>Layer 2: capa de enlace de datos/acceso de red: Depende del tipo de red local o comunicación punto a punto que utilicemos: por ejemplo si es una Ethernet, una FDDI (red metropolitana de fibra óptica, muy usada para unir los centros de las facultades o los edificios en un parque tecnológico), una conexión PPP sobre una línea telefónica... En la actualidad un administrador de red raramente maneja otro enlace de datos distinto de Ethernet, pues aunque se trate de un router que conecta con otros routers vía FDDI, normalmente se usa un transceptor de fibra al que la conexión es vía Ethernet y la comunicación es realmente a nivel Layer3. Lo mismo ocurre con el enlace punto a punto utilizado para el ADSL, podrá usar PPPoA o PPPoE (un poco más eficiente usar PPPoA), pero lo normal es que eso sea en el router ADSL y la comunicación hasta el router ADSL es vía ethernet y de nuevo a nivel IP (layer3), aunque cuando el router ADSL está en modo monopuesto sí se suele utilizar un cliente PPPoE. La capa 2 es la más baja que ven los bridges, switchs y hubs.</P
+></LI
+><LI
+><P
+>Layer 3: capa de red. La capa IP. Es la capa más baja que ven los routers. Sobre una red Ethernet puede haber más de una red IP, si los rangos de direcciones no se solapan o incluso pueden mezclarse distintos tipos de redes, por ejemplo una red IP con una AppleTalk o IPX (Netware).</P
+></LI
+><LI
+><P
+>Layer 4: capa de trasporte: TCP,UDP... En esta capa y en la 5, sólo suelen intervenir el nodo origen y destino, aunque se puede ver afectado por ejemplo por un router que haga NAT. Es la capa con la que suelen trabajar los aplicaciones, a través de sockets. En Unix los sockets se manejan como ficheros.</P
+></LI
+><LI
+><P
+>Layer 5: capa de aplicación: HTTP, MAIL, JABBER... En ocasiones esta capa se menciona como l7 (layer7) porque en el modelo de referencia OSI hay otras dos capas entre la capa de transporte y la de aplicación: sesión y presentación.</P
+></LI
+></OL
+><P
+>La mayoría de las aplicaciones utilizan protocolos IP y para ellos las capas 1 y 2 son transparentes, como si no existieran. Sin embargo hay protocolos que se implementan directamente sobre la capa2.</P
+><P
+>A veces sobre la capa de red, la de transporte o incluso sobre la capa de aplicación se encapsula otro paquete desde la capa de red o incluso desde la física. El motivo es hacer túneles y se usa mucho en las redes privadas virtuales: se hace que dos nodos que no están en la misma red local se comporten como si lo estuvieran, gracias a que hemos cargado los paquetes sobre otros paquetes que van por Internet y en destino los reconstruimos.</P
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN50"
+>2.1. Capa enlace de datos (Layer2)</A
+></H1
+><P
+>Aunque la mayoría de las aplicaciones son independientes de esta capa al utilizar protocolos IP, hay excepciones, por ejemplo muchos juegos operan sobre layer2. Lo mismo ocurre con mecanismos que utilizan posibilidad de broadcast de las redes ethernet.</P
+><P
+>Tanto en una red Ethernet como en una Wifi, cada tarjeta tiene una dirección que es única, la dirección MAC (es como un número de serie que no se repite, cada fabricante tiene asignado un rango de direcciones MAC para evitar que se repitan). Son 48 bits, o lo que es lo mismo, 12 caracteres hexadecimales. Suelen representarse así: 00:09:6C:EF:E4:69.</P
+><P
+>Las direcciones MAC al ser únicas en principio se pueden usar para filtrar paquetes en un cortafuegos o para restringir el acceso en un Access Point Wifi. Error. Lo más probable es que nuestra tarjeta nos permita cambiar la dirección ARP con un simple ifconfig eth0 hw ether 00:09:6c:EF:e4:69. Este cambio es temporal, dura hasta que lo volvamos a cambiar o reiniciemos la máquina. Además en muchas tarjetas se puede hacer el cambio permanente, pues la dirección MAC se escribe en una memoria flash dentro de la tarjeta. En este caso la herramienta a utilizar se llama ethertool y la opción que cambia la MAC es phyad.</P
+><P
+>El hardware de las tarjetas de red y de los hubs no sabe nada de direcciones IP, lo único que entiende es el formato de los paquetes ethernet, con sus direcciones MAC. </P
+><P
+>Es un error pensar que las tramas Ethernet se generan en el hardware o en el sistema operativo sin posibilidad de manipulación. En GNU/Linux mediante los sockets RAW(var man 7 packet) es posible escribir tramas Ethernet. Así mismo mediante TUN tanto en GNU/Linux como en la mayoría de los sistemas operativos es posible leer/escribir a través de un dispositivo tanto tramas ethernet como paquetes IP. Si en nuestra red existe un túnel (por ejemplo para hacer una VPN) es posible generar paquetes Ethernet en un equipo remoto, enviarlos vía Internet y que un nodo en la red local los emita como si hubieran sido generados localmente.</P
+><P
+>En una red Ethernet para unir los distintos equipos se usa un hub o un switch. Un hub opera a nivel físico y es muy primitivo: no deja de ser el equivalente en conectores de red a un "ladrón" en clavijas para enchufes. También se le compara con un repetidor. El problema de los hubs es que este modelo es poco escalable cuando existen muchos equipos en una red (especialmente si se enlazan varias redes locales físicamente para no usar enrutadores, simplificando la configuración de la red y que funcionen servicios que usan broadcast a nivel Ethernet como DHCPD (en realidad también se puede tener un único servidor para varias subredes no conectadas a nivel de enlace de datos si se usa un bootp/DHCPD agent relay), o esté disponible funcionalidad como wake-on-lan o servicios de autoconfiguración PnP). Un hub es poco escalable porque lo que se hace es transmitir para cada nodo todos los paquetes.</P
+><P
+>La alternativa a los hub son los switchs. La diferencia entre un hub y un swtich es que el segundo analiza las tramas ethernet que pasan por él; si ve que un paquete ha entrado por un puerto (cada conector para un cable de red es un puerto) registra la dirección MAC de origen junto con el puerto en una tabla llamada CAM, de modo que si llega un paquete para esa dirección no lo envía por todos los puertos sino sólo por ese. Hoy en día si vamos a una tienda a comprar un hub, lo normal es que ya no lo tengan y sólo vendan switchs.</P
+><P
+>En una red local Ethernet pueden coexistir paquetes de distintos protocolos, por ejemplo tráfico IP y tráfico AppleTalk. También es posible que sobre una misma red Ethernet haya más de una subred IP: si los rangos no se solapan tampoco habrá problemas. </P
+><P
+>En redes de capa2 existe la posibilidad de crear varias VLAN (virtual LAN: 802.Q), que consiste en añadir a los paquetes Ethernet una cabecera adicional que indica la LAN virtual que se aplica: un switch que soporte VLAN (los baratos no lo hacen, pero sí lo soporta por ejemplo los switchs de los AP que usan OpenWRT; en cualquier caso tiene que ser un switch administrable de alguna forma) sólo transmitirá por un puerto los paquetes que vayan a esa VLAN (esta asociación la hace y deshace el administrador). Se puede configurar un puerto para recibir paquetes destinados a más de una VLAN (trunk port). La VLAN marcada como "nativa" para un puerto implica que los paquetes que van para esa VLAN se les quita el "tag" que indica la VLAN, por lo que serían paquetes Ethernet normales.</P
+><P
+>Mediante una VLAN los paquetes broadcast sólo son a nivel de esa VLAN y sería posible que hubiera dos redes usando el mismo cableado con rangos de Ips solapadas, si usan distintas VLANs. Podemos ver las VLANs como una forma de tener más de una red de capa2 sobre una única infraestructura de cableado (es decir, multiplexar varias redes de nivel 2 sobre una). Las VLANs funcionan no sólo sobre una red local "física", sino sobre toda una infraestructura de redes unidas por swtichs en un campus, por ejemplo. </P
+><P
+>Típicamente se hacen coincidir las VLANs con las subredes IP de capa 3. De este modo se fuerza a usar enrutamiento para comunicarse entre nodos de distinta subred.</P
+><P
+>Hay un identificador reservado para paquetes que no pertenecen a ninguna VLAN, el cero. El uno también está reservado, para gestión</P
+><P
+>En GNU/Linux el comando para crear redes VLAN es vconfig.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN65"
+>2.1.1. WDS</A
+></H2
+><P
+>A la hora de tratar de hacer un bridge entre una tarjeta Ethernet y una tarjeta Wireless nos podemos encontrar con que no funciona. El motivo es que para que funcione un bridge los paquetes Wifi tienen que incluir hasta 4 direcciones: la dirección MAC origen, la dirección MAC de la tarjeta Wifi, la dirección MAC del Access Point, la dirección MAC destino. Si la tarjeta (más que su hardware el driver no tiene en cuenta estas 4 direcciones sino 3 (todas menos la origen, al suponer que la origen es la de la tarjeta) no funcionará. Lo mismo ocurrirá si el AP no reconoce las 4 direcciones. Con un bridge que sólo afecta a tarjetas Ethernet no hay este problema: sólo hay dirección origen y destino, las tarjetas del bridge se ponen en modo promiscuo para recibir todos los paquetes y no sólo los de su MAC, por lo que la dirección de las tarjetas que forman el bridge no van en el paquete al no hacer falta.</P
+><P
+>Para que una conexión Wifi pueda participar en un bridge, la tarjeta por lo tanto tiene que soportarlo y el AP también: los AP que soportan WDS son aptos. WDS (Wireless Distribution System) permite implementar un bridge entre dos AP ampliando la cobertura al alcance de los dos.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN69"
+>2.1.2. IEEE802.1X</A
+></H2
+><P
+>Es un sistema para autenticar un puerto (físico) en un dispositivo de red, por ejemplo lo ofrecen algunos switch avanzados y los Access Point Wifi. La idea es que el cliente (por ejemplo un PC) que se conoce es el supplicant y el dispositivo de red es el authenticator que tiene que autorizarle. Típicamente el authenticator contacta con un servidor Radius<A
+NAME="AEN72"
+HREF="#FTN.AEN72"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>. Para autenticar se utiliza AEP.</P
+><P
+>Windows incluye software supplicant y en el caso de Linux hay dos programas: Xsupplicant, que sirve para todo tipo de hardware y wpa-supplicant, que es específico para Wifi.</P
+><P
+>Autenticarse mediante IEEE802.1X no evita todos los ataques posteriores derivados de insertar un hub entre la máquina y el switch, pues la autenticación sólo es al principio: sería conveniente usar además IPsec (en el caso del Wifi la conexión tras autenticarse va cifrada luego ya sería segura).</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN76"
+>2.1.3. WEP/WPA/WPA2/IEEE802.11i/</A
+></H2
+><P
+>En las redes Wifi sobre la capa 2 se implementó cifrado mediante WEP. Sin embargo este método se ha demostrado muy inseguro<A
+NAME="AEN79"
+HREF="#FTN.AEN79"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>. La solución de compromiso utilizando el mismo hardware (cifrado de flujo con RC4) es WPA, que cambia dinámicamente la clave (TKIP) e introduce varios mecanismos de seguridad. WPA2 (IEEE802.11i) usa AES para cifrar en lugar de RC4 (no es compatible pues con el hardware viejo) e introduce algunas otras mejoras. Tanto WPA como WPA2 admiten dos configuraciones: personal y enterprise. En personal (WPA/PSK) se usa una clave compartida, que será la misma en todos los nodos, por lo que es una solución válida para protegerse de intrusos externos, pero no frente a ataques de personas con un nodo en la red. La versión empresarial en cambio utiliza para autenticarse (y para obtener la clave de sesión) IEEE802.1X. Tanto si se usa la configuración personal como la empresarial, el programa a utilizar es wpa_supplicant (para depurar posibles errores cabe conectarse a ese demonio con wpa_cli así como observar con dmesg los mensajes del kernel,<A
+NAME="AEN81"
+HREF="#FTN.AEN81"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+> por ejemplo podemos deducir que es necesario ejecutar iwpriv eht1 host_roaming 1). En Ubuntu utilizar WPA es tan sencillo como incluir en /etc/network/interfaces unas líneas como estas:
+<PRE
+CLASS="screen"
+>iface eth0 inet dhcp
+wpa-ssid MIWLAN
+wpa-key-mgmt WPA-PSK
+wpa-passphrase mipassphrase_1asfPasfd
+</PRE
+>
+</P
+><P
+>WPA a día de hoy previene los ataques más problemáticos que existen sobre RC4 pero probablemente se descubran nuevas vulnerabilidades en el futuro, que haga que si alguien almacena hoy tráfico WPA pueda descifrarlo dentro de a lo sumo unos años. WPA/PSK no es sólido cuando las claves de los usuarios son débiles o están en un diccionario; no facilita la prevención de este tipo de ataques<A
+NAME="AEN85"
+HREF="#FTN.AEN85"
+><SPAN
+CLASS="footnote"
+>[4]</SPAN
+></A
+>.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN87"
+>2.1.4. Wakeonlan</A
+></H2
+><P
+>Una característica interesante que permiten la mayoría de las tarjetas de red actuales es encender el equipo remotamente: wake on lan. Es útil para tareas de mantenimiento y también para poder conectarse al equipo desde casa en caso de necesidad, por ejemplo mientras se está de soporte. Esta funcionalidad se implementa mediante un paquete a nivel de enlace de datos.</P
+><P
+>Para que funcione esta funcionalidad, normalmente hay que activarla en la BIOS. En algunas tarjetas de red, también hay que unir un pequeño cable que sale de la tarjeta a un conector en la placa base que pone "wake on lan". Dependiendo del caso, también es posible que tengamos que activar la funcionalidad en la tarjeta, para eso utilizamos la herramienta ethtool. Con ethtool &#60;nombre_interfaz&#62; (por ejemplo ethtool eth0) veremos los distintos modos wake-on-lan que soporta la tarjeta, si es que soporta alguno. Con <KBD
+CLASS="userinput"
+>ethtool eth0 -set wol g</KBD
+> activamos el modo wake-on-lan basado en "magic packet", el modo más habitual. Se trata de un paquete que en alguna parte debe contener un patrón consistente en primero 6 bytes con todos sus bits a 1, seguido por la dirección MAC de la tarjeta repetida 16 veces. Opcionalmente continua con una password, que también se fija con ethtool pero que sólo admiten algunas tarjetas.</P
+><P
+>El paquete normalmente se construye usando UDP al puerto 9 (discard) y enviando el paquete por broadcast, aunque puede ir encapsulado en cualquier tipo de paquete, ni siquiera tiene que ser IP.</P
+><P
+>¿Es posible despertar a un equipo mediante un "magic packet", enviándolo desde fuera de la red local? normalmente no, salvo que tengamos una infraestructura de VPN. El problema es cómo hacer llegar el paquete hasta la máquina; si está conectada a un switch sólo recibirá los paquetes que van destinadas a su MAC o paquetes broadcast/multicast. Es bastante frecuente que los enrutadores no dejen pasar los paquetes broadcast. Pero si intentamos la otra opción, enviar el paquete a su IP, al llegar al enrutador posiblemente ya no tenga la entrada ARP, pues caducan en un tiempo; cuando haga la petición ARP no obtendrá respuesta, pues la máquina está apagada. Una forma de evitarlo es insertar estáticamente la entrada en la tabla ARP.</P
+><P
+>Los dos programas más recomendables son wakeonlan y etherwake. Etherwake genera directamente un paquete Ethernet, por lo que requiere privilegios de root y sólo sirve para ejecutarlo en la propia red local.</P
+></DIV
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notas</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN72"
+HREF="c34.html#AEN72"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>Radius es un protocolo definido para hacer AAA (Authentitacion, Authorization and Accounting) usado sobre todo para los ISP. Se utiliza usuario y contraseña, protegida con MD5 y un secreto compartido entre el servidor Radius y el NAS (Network Access Server, en este caso el authenticator, por ejemplo el Access Point, pero en el escenario más clásico es el servidor PPP del ISP), que es el cliente Radius. De todos modos hoy en día los servidores Radius soportan sistemas de autenticación distintos de usuario y contraseña para autenticar, en concreto AEP con métodos como AEP-TLS que implica certificados cliente y que la comunicación entre el supplicant y el servidor Radius se haga sin que el authenticator tenga que soportar cada uno de estos métodos AEP. La secuencia clásica de Radius es que el usuario se autentique con su ISP usando PPP y el servidor PPP contacte con el servidor Radius pasándole las credenciales que ha recibido del usuario vía PPP. El servidor puede asignar datos como una IP o rango de IPs, así como parámetros L2TP o QoS (en realidad cualquier tipo de información, pues como los servidores DHCP permite extensiones de vendedor) . Las funciones de Accounting básicamente consisten en el que el NAS pasa información a registrar como duración de la sesión o tráfico transferido.</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN79"
+HREF="c34.html#AEN79"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>Existen varias aplicaciones para automatizar el conseguir una clave WEP, como el ya antiguo airsnort, si bien hoy en día hay programas más avanzados como aircrack-ng.</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN81"
+HREF="c34.html#AEN81"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>En algunos casos puede resistirse una configuración WPA. Una página que muestra gran cantidad de opciones posibles es http://manual.sidux.com/es/internet-connecting-wpa-es.htm.</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN85"
+HREF="c34.html#AEN85"
+><SPAN
+CLASS="footnote"
+>[4]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>El antes citado aircrack-np no se usa sólo para WEP, pues también se usa con redes en las que se conoce la clave WPA/PSK o se trata de atacar si está en un diccionario. No sólo utiliza el modo monitor de las tarjetas sino que "inyecta" paquetes para facilitar la tarea de romper la seguridad. Aunque en general aircrack es un programa que parece dedicado a la gente que desea colarse en las redes ajenas, su utilidad airtun-ng sí es aprovechable en redes con WPA/PSK para usar un IDS. La web es interesante por la documentación sobre seguridad en redes Wifi.</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c18.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x95.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Nota sobre la distribución de GNU/Linux y la parte del curso referente a redes</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Capa de red: capa IP (Layer3)</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

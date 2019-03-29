@@ -1,0 +1,657 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>GNU/Linux, software libre para la comunidad universitaria</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="NEXT"
+TITLE="Introducción"
+HREF="c23.html"></HEAD
+><BODY
+CLASS="book"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="BOOK"
+><A
+NAME="AEN1"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+><A
+NAME="AEN2"
+>GNU/Linux, software libre para la comunidad universitaria</A
+></H1
+><H2
+CLASS="subtitle"
+>Software científico en GNU/Linux</H2
+><H3
+CLASS="author"
+><A
+NAME="AEN6"
+></A
+>José Ángel de Bustos Pérez</H3
+><H3
+CLASS="author"
+><A
+NAME="AEN9"
+></A
+>Luis Peralta de Arriba</H3
+><DIV
+CLASS="legalnotice"
+><P
+></P
+><A
+NAME="AEN12"
+></A
+><P
+>&#13;      Copyright (C) 2008 José Ángel de Bustos Pérez
+      <CODE
+CLASS="email"
+>&#60;<A
+HREF="mailto:jadebustos@augcyl.org"
+>jadebustos@augcyl.org</A
+>&#62;</CODE
+>, Luis Peralta de Arriba
+      <CODE
+CLASS="email"
+>&#60;<A
+HREF="mailto:luis_peralta@usal.es"
+>luis_peralta@usal.es</A
+>&#62;</CODE
+>.
+    </P
+><P
+>&#13;      Permission is granted to copy, distribute and/or modify this document
+      under the terms of the GNU Free Documentation License, Version 1.2 or
+      any later version published by the Free Software Foundation; with no
+      Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A
+      copy of the license is included in the section entitled "GNU Free
+      Documentation License".
+    </P
+><P
+></P
+></DIV
+><HR></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Tabla de contenidos</B
+></DT
+><DT
+>1. <A
+HREF="c23.html"
+>Introducción</A
+></DT
+><DT
+>2. <A
+HREF="c40.html"
+>Procesadores de texto</A
+></DT
+><DD
+><DL
+><DT
+>2.1. <A
+HREF="c40.html#AEN42"
+>TeX</A
+></DT
+><DD
+><DL
+><DT
+>2.1.1. <A
+HREF="c40.html#AEN77"
+>LaTeX</A
+></DT
+></DL
+></DD
+><DT
+>2.2. <A
+HREF="x109.html"
+>GNU TeXmacs</A
+></DT
+><DT
+>2.3. <A
+HREF="x118.html"
+>LyX</A
+></DT
+><DT
+>2.4. <A
+HREF="x127.html"
+>OpenOffice.org Math</A
+></DT
+></DL
+></DD
+><DT
+>3. <A
+HREF="c136.html"
+>Creación de gráficos</A
+></DT
+><DD
+><DL
+><DT
+>3.1. <A
+HREF="c136.html#AEN138"
+>Representación de funciones y datos</A
+></DT
+><DD
+><DL
+><DT
+>3.1.1. <A
+HREF="c136.html#AEN140"
+>gnuplot</A
+></DT
+></DL
+></DD
+><DT
+>3.2. <A
+HREF="x157.html"
+>Diagramas</A
+></DT
+><DD
+><DL
+><DT
+>3.2.1. <A
+HREF="x157.html#AEN159"
+>Dia</A
+></DT
+><DT
+>3.2.2. <A
+HREF="x157.html#AEN168"
+>Xfig</A
+></DT
+></DL
+></DD
+><DT
+>3.3. <A
+HREF="x176.html"
+>Dibujos geométricos</A
+></DT
+><DD
+><DL
+><DT
+>3.3.1. <A
+HREF="x176.html#AEN178"
+>GeoGebra</A
+></DT
+><DT
+>3.3.2. <A
+HREF="x176.html#AEN187"
+>GEONExT</A
+></DT
+></DL
+></DD
+><DT
+>3.4. <A
+HREF="x195.html"
+>Visualización de estructuras químicas</A
+></DT
+><DD
+><DL
+><DT
+>3.4.1. <A
+HREF="x195.html#AEN197"
+>GDIS</A
+></DT
+><DT
+>3.4.2. <A
+HREF="x195.html#AEN205"
+>Chemtool</A
+></DT
+><DT
+>3.4.3. <A
+HREF="x195.html#AEN212"
+>Garlic</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>4. <A
+HREF="c219.html"
+>Cálculo simbólico</A
+></DT
+><DD
+><DL
+><DT
+>4.1. <A
+HREF="c219.html#AEN221"
+>Maxima</A
+></DT
+><DD
+><DL
+><DT
+>4.1.1. <A
+HREF="c219.html#AEN228"
+>wxMaxima</A
+></DT
+><DT
+>4.1.2. <A
+HREF="c219.html#AEN236"
+>Xmaxima</A
+></DT
+></DL
+></DD
+><DT
+>4.2. <A
+HREF="x244.html"
+>Yacas</A
+></DT
+><DT
+>4.3. <A
+HREF="x249.html"
+>Axiom</A
+></DT
+></DL
+></DD
+><DT
+>5. <A
+HREF="c254.html"
+>Cálculo numérico</A
+></DT
+><DD
+><DL
+><DT
+>5.1. <A
+HREF="c254.html#AEN256"
+>GNU Octave</A
+></DT
+><DD
+><DL
+><DT
+>5.1.1. <A
+HREF="c254.html#AEN263"
+>QtOctave</A
+></DT
+></DL
+></DD
+><DT
+>5.2. <A
+HREF="x272.html"
+>FreeMat</A
+></DT
+></DL
+></DD
+><DT
+>6. <A
+HREF="c281.html"
+>Análisis estadístico</A
+></DT
+><DD
+><DL
+><DT
+>6.1. <A
+HREF="c281.html#AEN283"
+>R</A
+></DT
+></DL
+></DD
+><DT
+>7. <A
+HREF="c292.html"
+>Diseño asistido por computador o CAD</A
+></DT
+><DD
+><DL
+><DT
+>7.1. <A
+HREF="c292.html#AEN294"
+>QCad</A
+></DT
+><DT
+>7.2. <A
+HREF="x303.html"
+>PythonCAD</A
+></DT
+></DL
+></DD
+><DT
+>8. <A
+HREF="c310.html"
+>Sistemas de información geográfica o GIS</A
+></DT
+><DD
+><DL
+><DT
+>8.1. <A
+HREF="c310.html#AEN312"
+>GRASS</A
+></DT
+></DL
+></DD
+><DT
+>9. <A
+HREF="c322.html"
+>Circuitos eléctricos</A
+></DT
+><DD
+><DL
+><DT
+>9.1. <A
+HREF="c322.html#AEN324"
+>Logisim</A
+></DT
+><DT
+>9.2. <A
+HREF="x333.html"
+>KiCad</A
+></DT
+></DL
+></DD
+><DT
+>10. <A
+HREF="c350.html"
+>Tabla periódica de los elementos</A
+></DT
+><DD
+><DL
+><DT
+>10.1. <A
+HREF="c350.html#AEN352"
+>Kalzium</A
+></DT
+></DL
+></DD
+><DT
+>11. <A
+HREF="c360.html"
+>Simulación astronómica</A
+></DT
+><DD
+><DL
+><DT
+>11.1. <A
+HREF="c360.html#AEN362"
+>Celestia</A
+></DT
+><DT
+>11.2. <A
+HREF="x379.html"
+>KStars</A
+></DT
+><DT
+>11.3. <A
+HREF="x387.html"
+>Stellarium</A
+></DT
+></DL
+></DD
+><DT
+>12. <A
+HREF="c397.html"
+>Fractales e imágenes caóticas</A
+></DT
+><DD
+><DL
+><DT
+>12.1. <A
+HREF="c397.html#AEN399"
+>GNU XaoS</A
+></DT
+><DT
+>12.2. <A
+HREF="x408.html"
+>Fyre</A
+></DT
+></DL
+></DD
+><DT
+>A. <A
+HREF="a416.html"
+>Paquetes de software científico en openSUSE 10.3</A
+></DT
+><DT
+>B. <A
+HREF="a594.html"
+>GNU Free Documentation License</A
+></DT
+></DL
+></DIV
+><DIV
+CLASS="LOT"
+><DL
+CLASS="LOT"
+><DT
+><B
+>Lista de tablas</B
+></DT
+><DT
+>A-1. <A
+HREF="a416.html#AEN418"
+>Paquetes de software científico en openSUSE 10.3</A
+></DT
+></DL
+></DIV
+><DIV
+CLASS="LOT"
+><DL
+CLASS="LOT"
+><DT
+><B
+>Lista de figuras</B
+></DT
+><DT
+>2-1. <A
+HREF="c40.html#AEN74"
+>Logotipo de TeX</A
+></DT
+><DT
+>2-2. <A
+HREF="c40.html#AEN91"
+>Logotipo de LaTeX</A
+></DT
+><DT
+>2-3. <A
+HREF="c40.html#AEN99"
+>Texmaker</A
+></DT
+><DT
+>2-4. <A
+HREF="c40.html#AEN106"
+>Kile</A
+></DT
+><DT
+>2-5. <A
+HREF="x109.html#AEN115"
+>GNU TeXmacs</A
+></DT
+><DT
+>2-6. <A
+HREF="x118.html#AEN124"
+>LyX</A
+></DT
+><DT
+>2-7. <A
+HREF="x127.html#AEN133"
+>OpenOffice.org Math</A
+></DT
+><DT
+>3-1. <A
+HREF="c136.html#AEN147"
+>Gráfico generado con gnuplot</A
+></DT
+><DT
+>3-2. <A
+HREF="c136.html#AEN154"
+>Qgfe</A
+></DT
+><DT
+>3-3. <A
+HREF="x157.html#AEN165"
+>Dia</A
+></DT
+><DT
+>3-4. <A
+HREF="x157.html#AEN173"
+>Xfig</A
+></DT
+><DT
+>3-5. <A
+HREF="x176.html#AEN184"
+>GeoGebra</A
+></DT
+><DT
+>3-6. <A
+HREF="x176.html#AEN192"
+>GEONExT</A
+></DT
+><DT
+>3-7. <A
+HREF="x195.html#AEN202"
+>GDIS</A
+></DT
+><DT
+>3-8. <A
+HREF="x195.html#AEN209"
+>Chemtool</A
+></DT
+><DT
+>3-9. <A
+HREF="x195.html#AEN216"
+>Garlic</A
+></DT
+><DT
+>4-1. <A
+HREF="c219.html#AEN233"
+>wxMaxima</A
+></DT
+><DT
+>4-2. <A
+HREF="c219.html#AEN241"
+>Xmaxima</A
+></DT
+><DT
+>5-1. <A
+HREF="c254.html#AEN269"
+>QtOctave</A
+></DT
+><DT
+>5-2. <A
+HREF="x272.html#AEN278"
+>FreeMat</A
+></DT
+><DT
+>6-1. <A
+HREF="c281.html#AEN289"
+>Gráfico generado con R</A
+></DT
+><DT
+>7-1. <A
+HREF="c292.html#AEN300"
+>QCad</A
+></DT
+><DT
+>7-2. <A
+HREF="x303.html#AEN307"
+>PythonCAD</A
+></DT
+><DT
+>8-1. <A
+HREF="c310.html#AEN319"
+>GRASS</A
+></DT
+><DT
+>9-1. <A
+HREF="c322.html#AEN330"
+>Logisim</A
+></DT
+><DT
+>9-2. <A
+HREF="x333.html#AEN347"
+>KiCad</A
+></DT
+><DT
+>10-1. <A
+HREF="c350.html#AEN357"
+>Kalzium</A
+></DT
+><DT
+>11-1. <A
+HREF="c360.html#AEN376"
+>Celestia</A
+></DT
+><DT
+>11-2. <A
+HREF="x379.html#AEN384"
+>KStars</A
+></DT
+><DT
+>11-3. <A
+HREF="x387.html#AEN394"
+>Stellarium</A
+></DT
+><DT
+>12-1. <A
+HREF="c397.html#AEN405"
+>GNU XaoS</A
+></DT
+><DT
+>12-2. <A
+HREF="x408.html#AEN413"
+>Fyre</A
+></DT
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c23.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Introducción</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

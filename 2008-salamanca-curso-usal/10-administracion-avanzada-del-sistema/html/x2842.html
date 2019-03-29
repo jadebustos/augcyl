@@ -1,0 +1,380 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>El permiso SGID</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Usuarios y permisos en GNU/Linux"
+HREF="c2312.html"><LINK
+REL="PREVIOUS"
+TITLE="El permiso SUID"
+HREF="x2797.html"><LINK
+REL="NEXT"
+TITLE="El Sticky Bit"
+HREF="x2887.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x2797.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 8. Usuarios y permisos en GNU/Linux</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x2887.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN2842"
+>8.7. El permiso <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SGID</I
+></SPAN
+></A
+></H1
+><P
+>Este permiso es igual que el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SUID</I
+></SPAN
+> sólo que en lugar de ejecutar un fichero con los privilegios del propietario se hará con los privilegios del grupo al que pertenezca el fichero. <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SGID</I
+></SPAN
+> es el acrónimo de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>S</I
+></SPAN
+>et <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>G</I
+></SPAN
+>roup <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>I</I
+></SPAN
+>D.</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>ls -lh /usr/bin/wall</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>-rwxr-sr-x 1 root tty 11K 2007-02-21 18:48 /usr/bin/wall</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+>
+</PRE
+><P
+>En este caso vemos que el permiso de ejecución para el grupo está marcado con una "<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>s</I
+></SPAN
+>" en lugar de con una "<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>x</I
+></SPAN
+>". Esto nos indica que tiene activado el permiso <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SGID</I
+></SPAN
+>.</P
+><P
+>Podemos ver que el fichero pertenece al usuario <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>root</I
+></SPAN
+> y al grupo <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>tty</I
+></SPAN
+>. Cuando un usuario ejecute el comando <B
+CLASS="command"
+>/user/bin/wall</B
+> lo ejecutará con sus privilegios de usuario y con los del grupo <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>tty</I
+></SPAN
+>.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2865"
+>8.7.1. Activación del permiso <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SGID</I
+></SPAN
+></A
+></H2
+><P
+>Como hemos visto cuando establecemos los permisos en octal utilizamos una terna de números. Para los permisos especiales utilizaremos cuatro números. El primero de ellos hará referencia al permiso especial y los otros tres a los permisos normales.</P
+><P
+>El <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SGID</I
+></SPAN
+> es el segundo bit más significativo de los tres bits utilzados para los permisos especiales, con lo cual si hacemos:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>chmod 2755 miprograma</KBD
+>
+<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+>
+</PRE
+><P
+>Estaremos activando el permiso <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SGID</I
+></SPAN
+> y estableciendo los permisos <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>755</I
+></SPAN
+> al ejecutable <B
+CLASS="command"
+>miprograma</B
+>.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Este permiso funciona sólo con binarios y no con scripts (excepto con los de PERL).</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2881"
+>8.7.2. El permiso <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SGID</I
+></SPAN
+> y los directorios</A
+></H2
+><P
+>Cuando un directorio tiene activado este permiso todos los ficheros que se creen en el pertenecerán al grupo del propietario sin importar cual sea el grupo del usuario que cree el directorio.</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Este permiso es de gran utilidad cuando se trabaja en directorios compartidos.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x2797.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x2887.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>El permiso <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SUID</I
+></SPAN
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c2312.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>El <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Sticky Bit</I
+></SPAN
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Gestión de paquetes</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="linuxconf"
+HREF="x3866.html"><LINK
+REL="NEXT"
+TITLE="deb"
+HREF="x3984.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x3866.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x3984.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN3961"
+></A
+>Capítulo 13. Gestión de paquetes</H1
+><P
+>La distribución de software en Linux se realiza mediante paquetes.</P
+><P
+>Se denomina gestor de paquetes a la colección de herramientas que sirven para automatizar el proceso de instalación, actualización, configuración y eliminación de paquetes de aplicaciones. Como administradores debemos conocer los principales formatos de paquetes y la utilización de las herramientas que los gestionan.</P
+><P
+>Estas herramientas nos permiten mostrarnos todo el software disponible acudiendo a los repositorios de aplicaciones, ver si tenemos la ultima versión del software y garantizarnos que la dependencia que hay entre distintas aplicaciones por sus versiones es correcta.</P
+><P
+>La distribución básicamente será la que nos determine, desde que la instalamos por primera vez cual van ha ser las herramientas de gestión de paquetes y obtendrá el software necesario de un repositorio, vía Internet, cd, dvd, etc.</P
+><P
+>En Linux hay principalmente dos formatos o tipos de paquetes sobre los cuales se desarrollan las herramientas que luego las distribuciones utilizan para instalar el software. Es decir, existen distintas aplicaciones, repositorios, interfaces y variantes para manejar los paquetes pero todos ellos se basan en unos pocos formatos de paquetes.</P
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN3968"
+>13.1. rpm</A
+></H1
+><P
+>Fue creado por Red Hat y es uno de los más usados por las
+      distribuciones. Es es formato recomendado por Linux Standard Base.</P
+><P
+>Existen muchas herramientas que los manejan, que se han adaptado
+      sobre todo a cada una de las distribuciones que las
+      utilizan, incluso los gestores gráficos KDE y Gnome disponen de
+      herramientas para su gestión. Pero su utilización en linea es
+      bastante sencilla.</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>rpm -opciones nombre_paquete-version-sistema.rpm</SAMP
+>
+</PRE
+><P
+>Con las opciones controlamos si lo que queremos es instalar,
+      desinstalar, actualizar o información de un paquete. Cuando
+      queremos desinstalar o información de un paquete instalado solo
+      con poner el nombre es suficiente. La forma de nombre, versión, el sistema y la
+      extensión de rpm es la nomenclatura que se utiliza para nombrar
+      los ficheros.</P
+><P
+>Al contener los paquetes aplicaciones ya compiladas en la
+      etiqueta de sistema se
+      informa para cual están preparados, por lo que nos encontramos .i386 para
+      procesadores 80386 o superiores, i686 para PentiumIII o
+      superior, .ppc para PowerPC, .noarch para indicar que son
+      independientes de la arquitectura (por ejemplo ficheros de
+      texto, script, etc) o .src para rpm que contienen los fuentes de
+      la aplicación. Rpm es capaz a partir de un paquete de fuentes
+      generar el rpm para un sistema en concreto.</P
+><P
+>La aplicación gráfica de administración de SuSE  incluye la gestión de
+      paquetes, soportando el formato rpm.</P
+><DIV
+CLASS="informalfigure"
+><P
+></P
+><A
+NAME="AEN3977"
+></A
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="img/c10yast.png"></P
+></DIV
+><P
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x3866.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x3984.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><SPAN
+CLASS="application"
+>linuxconf</SPAN
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>deb</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

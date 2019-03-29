@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>SSH + PPPD / SSH + TUN</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Redes Privadas Virtuales (VPN)"
+HREF="c380.html"><LINK
+REL="PREVIOUS"
+TITLE="IPsec"
+HREF="x415.html"><LINK
+REL="NEXT"
+TITLE="SSH con TUN"
+HREF="x473.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x415.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Cap�tulo 6. Redes Privadas Virtuales (VPN)</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x473.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN443"
+>6.3. SSH + PPPD / SSH + TUN</A
+></H1
+><P
+>¿Qué inconvenientes tiene usar OpenSSH + PPPD o TUN? el principal inconveniente es que no es buena idea implementar el túnel de una VPN sobre TCP, es mejor utilizar UDP. El motivo es porque TPC tiene mecanismos de control de congestión que no funcionan de la mejor forma cuando una conexión TCP a su vez se encapsula sobre una conexión TCP: se produce un efecto multiplicativo que hace que ante una congestión se reduzca la velocidad enormemente y que tarde mucho en coger de nuevo velocidad. Hay una explicación de este fenómeno en <A
+HREF="http://sites.inka.de/sites/bigred/devel/tcp-tcp.html"
+TARGET="_top"
+>http://sites.inka.de/sites/bigred/devel/tcp-tcp.html</A
+>. Otro argumento para usar UDP es que podemos tener aplicaciones UDP que usan este protocolo por la necesidad de que los paquetes lleguen siempre a tiempo, sin importar si se pierde alguno: como se usa TCP, los paquetes nunca se descartan y se gasta tiempo en retransmisiones.</P
+><P
+>Paradójicamente, hay casos en los que usar un túnel TCP sí puede tener alguna ventaja sobre un túnel UDP. Si un protocolo UDP está mal diseñado frente a un ataque que selectivamente hace que determinados paquetes se pierdan, el que vaya sobre TCP sería una ventaja puesto que entonces TCP nos garantiza que ningún paquete se pierda ni llegue fuera de orden.</P
+><P
+>Otro inconveniente es que PPPD requiere privilegios de superusuario, aunque se pueden hacer cambios en la configuración para que no sea necesario, atendiendo a que el programa se ejecuta con el bit setuid. Crear un dispositivo TUN/TAP también requiere privilegios, pero es distinto, porque una vez creado con un programa, se puede hacer que esté disponible para otros programas lanzados sin privilegios.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN449"
+>6.3.1. Caso práctico: SSH + PPPD</A
+></H2
+><P
+>Supongamos que la IP pública dónde escucha el servidor SSH es 157.88.66.102 y el puerto es 8088 . Vamos a crear una conexión punto a punto, en el que la IP local del enlace punto a punto (esta IP será la que tendrán como origen los paquetes lleguen a la red remota a través del túnel y tengan como origen la máquina local) será 172.16.16.15 y el remoto 172.16.16.16. Realmente podemos escoger el par de Ips que queramos, con tal que la IP remota no esté en uso en la propia red, teniendo en cuenta que en el otro extremo la IP local será la remota y por lo tanto la que no tiene que estar presente; no pasa nada porque la IP local sea la IP asignada a otra interfaz de red de la máquina. Ejecutamos:
+<KBD
+CLASS="userinput"
+>pppd updetach nobsdcomp nodeflate usepeerdns noauth connect-delay 10000 pty "ssh root@157.88.66.102-o ServerAliveInterval=120 -p 8088 -t -t pppd noauth 172.16.16.16:172.16.16.15"</KBD
+></P
+><P
+>La opción updetach es para que el programa pase a segundo plano tras lograr ejecutar la conexión (es decir, se ejecuta como si fuera un demonio, liberando el terminal). Las opciones nobsdcomp y nodeflate son para evitar que se use compresión, que no se llevaría bien con el usar un túnel SSH. Basta ponerlas en el lado cliente, pues se negocian para los dos lados de la comunicación. La opción "usepeerdns" es para que se actualice nuestro /etc/resolv.conf con los datos del servidor DNS del extremo con el que conectamos; a fin de usar su DNS en lugar del nuestro. Sin embargo es posible que esta opción no nos funcione, pues requiere que haga su trabajo el script local /etc/ppp/if-up, que no siempre tiene en cuenta estos datos, por lo que es posible que tengamos que modificarlo manualmente. La opción noauth se usa para que no use la autenticación PPP: no hace falta, dado que ya usamos la de SSH. La opción connect-delay en este caso indica que no intente establecer la conexión PPP hasta transcurridos 10 segundos; el motivo es que el pppd en el otro extremo se ejecuta al lograr autenticarnos con el servidor SSH, para lo que tendremos que introducir la contraseña antes; es decir, nos damos 10 segundos de margen para lograr ejecutar en el otro extremo pppd vía ssh. Finalmente la opción pty es para usar como script de conexión, con el se comunicará usando un pseudo-tty, lo que va entrecomillado, que no es otra cosa que lanzar pppd en la máquina remota. Entre las opciones de SSH, a destacar ServerAliveInterval: le estamos indicando en este ejemplo que envíe un paquete cada 2 minutos si no se transmiten datos, a fin de garantizar que el posible NAT que haga algún enrutador no se pierda por considerar que la conexión ya no está activa.</P
+><P
+>En realidad es posible simplificar la instrucción anterior, así como mejorar la seguridad, usando para autenticarse con el servidor un certificado y configurando en el servidor que al conectarse con ese certificado en lugar de poder ejecutar cualquier programa ejecute una orden determinada, que en nuestro caso sería la invocación a pppd.</P
+><P
+>Tras ejecutar esta operación, tendremos un nuevo dispositivo ppp0, con IP local 172.16.16.15 e IP remota 172.16.16.16. Para llegar a las máquinas remotas caben dos opciones: una es que perdamos la conectividad local (nuestro acceso a Internet), usando como ruta por defecto 172.16.16.16; esto lo podemos hacer con <KBD
+CLASS="userinput"
+>route del default &#38;&#38; route add default gw 172.16.16.16</KBD
+>, aunque también podíamos haber pasado directamente la opción "defaultroute" a pppd para que hubiera aplicado este cambio automáticamente. Sin embargo, al ejecutar esta operación nos encontramos con un problema: no funciona, porque hasta el servidor SSH tenemos que llegar usando nuestra antigua ruta por defecto (la de nuestro router que nos permite salir a Internet). Así pues, suponiendo que nuestro entrutador a Internet es 192.168.1.1, añadimos una ruta:
+<KBD
+CLASS="userinput"
+>route add host 157.88.66.102 gw 192.168.1.1</KBD
+></P
+><P
+>La otra opción es que sólo añadamos una ruta específica para llegar a las Ips de la red remota y que para la ruta por defecto sigamos usando la ruta que tenemos. Así, si la red remota es 192.168.10.0, ejecutaremos:
+<KBD
+CLASS="userinput"
+>route add -net 192.168.10.0 -netmask 255.255.255.0 gw 172.16.16.16</KBD
+></P
+><P
+>Esta segunda alternativa encierra más riesgo de seguridad, pues si hay agujeros en nuestra máquina y estamos conectados a Internet, estaremos arriesgando la red remota, pues los paquetes que vienen de nuestra máquina no pasan por el cortafuegos de la red remota.</P
+><P
+>Con la IP que hemos escogido como dirección local, los paquetes que enviemos llevarán como IP origen 172.16.16.15 (la IP local en el enlace punto a punto); posiblemente en la red destino no sepan cómo llegar a esta IP desde otro nodo que el del servidor SSH, por lo que sería una conexión host a host, salvo que precisamente la máquina del servidor SSH sea el enrutador por defecto. Aún así, si por ejemplo este router a su vez pasa al testigo a otro para llegar a Internet o determinadas redes, con esa IP no llegaremos porque no se esperan que la IP 172.16.16.15 esté en ese router.</P
+><P
+>Hay dos formas de solucionarlo. Una es utilizar como IP local una IP de la red destino que no se esté usando y pasar al servidor la opción proxyarp. En ese caso cuando desde un nodo de la red local se pregunte por la IP, responderá la máquina donde está el servidor SSH con su propia dirección ARP y hará una redirección. La otra solución es hacer NAT; supongamos que la IP en la red remota del nodo que es servidor SSH es 192.168.10.7; entonces habría que ejecutar en la máquina remota (para lo cual podemos usar nuestro ssh) la orden para añadir la regla NAT:
+<KBD
+CLASS="userinput"
+>ssh 81.33.18.197 -p 9436 iptables -t nat -A POSTROUTING --source 172.16.16.15 -j SNAT --to-source 192.168.120.19</KBD
+></P
+><P
+>Esta solución tal como está es sólo para los paquetes procedentes del equipo local: si lo que hemos hecho es usar el túnel VPN para unir a la red remota toda la red local ya es más complicado, pues la IP origen será la de la máquina de procedencia.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN465"
+>6.3.2. Más sencillo: servidor SOCKS de SSHD</A
+></H2
+><P
+>En realidad, si se tiene acceso a una máquina de la red local remota vía SSH, hay un método más sencillo para que nuestras aplicaciones de red accedan a los nodos de la red remota como si nuestra máquina estuviera allí. Se trata del servidor de SOCKS5 que integra OpenSSH. Este servidor se arranca en nuestra máquina local en el puerto que le indiquemos con la opción -D. Cualquier cliente que utilice ese proxy SOCKS accederá a la red remota, pues el proxy hace las peticiones en la máquina remota: todas las peticiones y respuestas van tuneladas y cifradas en la conexión SSH. De este modo, es como si las aplicaciones pudieran crear túneles SSH a petición, pero utilizando un protocolo estándar, SOCKS.</P
+><P
+>Una característica interesante de SOCKS5 es que para establecer una conexión se puede pasar al proxy en lugar de la IP directamente el nombre de la máquina. Esta posibilidad es interesante, porque así usamos el DNS de la red remota, en lugar de el nuestro local, algo muy deseable si es un DNS privado.</P
+><P
+>Hay aplicaciones que se pueden configurar para usar SOCKS, como Firefox. No obstante Firefox por defecto no usa el DNS remoto. Para que sí lo haga, bastará con teclear about:config y cambiar la opción network.proxy.socks_remote_dns.</P
+><P
+>Muchas aplicaciones no soportan SOCKS. La buena noticia es que se pueden "sockificar": la idea es reemplazar en tiempo de ejecución la librería estándar de C para que ante un connect o un bind llame en su lugar al proxy SOCKS. La única pega es que esto no sirve para usar el servidor DNS remoto, aunque la alternativa es abrir un túnel con SSH al servidor remoto y usarlo en lugar del local. En algunos casos parece que también resuelve el caso del DNS, alterando la llamada para hacer la consulta para hacerla a través del servidor SOCKS. Ejemplo (sólo para TCP) <A
+HREF="http://proxychains.sourceforge.net/"
+TARGET="_top"
+>http://proxychains.sourceforge.net/</A
+>. Más programas en http://en.wikipedia.org/wiki/SOCKS.</P
+><P
+>"Sockificar" una aplicación es muy sencillo en cualquier programa que no tenga bit setuid: basta con usar LD_PRELOAD. </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x415.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x473.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>IPsec</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c380.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>SSH con TUN</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

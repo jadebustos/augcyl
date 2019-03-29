@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chapter>
+  <title>An&aacute;lisis estad&iacute;stico</title>
+
+  <sect1>
+    <title>R</title>
+
+    <para>
+      <ulink url="http://www.r-project.org/">R</ulink> es un entorno y
+      lenguaje de programaci&oacute;n para an&aacute;lisis estad&iacute;stico
+      y gr&aacute;fico.
+    </para>
+
+    <para>
+      Se trata de una implementaci&oacute;n libre del premiado lenguaje S.
+    </para>
+
+    <para>
+      Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+      Microsoft Windows y Mac OS entre otros.
+    </para>
+
+    <figure>
+      <title>
+        Gr&aacute;fico generado con R
+      </title>
+      <graphic
+      fileref="img/05-analisis_estadistico/01-r.png"
+      format="PNG" width="600" scale="60"/>
+    </figure>
+  </sect1>
+</chapter>
+

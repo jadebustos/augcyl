@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chapter>
+  <title>Dise&ntilde;o asistido por computador o CAD</title>
+
+  <sect1>
+    <title>QCad</title>
+
+    <para>
+      <ulink url="http://www.ribbonsoft.com/qcad.html">QCad</ulink> es una
+      aplicaci&oacute;n para dibujo asistido por ordenador en dos dimensiones.
+    </para>
+
+    <para>
+      Con QCad se pueden crear dibujos t&eacute;cnicos como planos para
+      edificios, interiores, piezas mec&aacute;nicas o esquemas.
+    </para>
+
+    <para>
+      Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+      Microsoft Windows y Mac OS entre otros.
+    </para>
+
+    <figure>
+      <title>
+        QCad
+      </title>
+      <graphic
+      fileref="img/06-cad/01-qcad.png"
+      format="PNG" width="1000" scale="40"/>
+    </figure>
+  </sect1>
+
+  <sect1>
+    <title>PythonCAD</title>
+
+    <para>
+      <ulink url="http://www.pythoncad.org/">PythonCAD</ulink> es un CAD
+      escrito s&oacute;lo y sorprendentemente con el lenguaje de
+      programaci&oacute;n Python.
+    </para>
+
+    <figure>
+      <title>
+        PythonCAD
+      </title>
+      <graphic
+      fileref="img/06-cad/02-pythoncad.png"
+      format="PNG" width="1000" scale="40"/>
+    </figure>
+  </sect1>
+</chapter>
+

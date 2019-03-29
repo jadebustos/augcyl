@@ -1,0 +1,538 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Planificación de Tareas</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Interprete de Comandos"
+HREF="c3452.html"><LINK
+REL="PREVIOUS"
+TITLE="Interprete de Comandos"
+HREF="c3452.html"><LINK
+REL="NEXT"
+TITLE="Interfaces de Administración"
+HREF="c3700.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c3452.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 11. Interprete de Comandos</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c3700.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN3592"
+>11.2. Planificación de Tareas</A
+></H1
+><P
+>Es muy normal que queramos que nuestros shell script se
+      ejecuten periódicamente o en un determinado momento. Tareas como
+     la realización de backups, borrado de temporales, seguridad se
+      deben planificar mediante estos comandos. Existen unos
+      servicios para temporizar estos trabajos.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3595"
+>11.2.1. <SPAN
+CLASS="application"
+>at</SPAN
+></A
+></H2
+><P
+>Mediante el comando at podemos lanzar nuestros procesos
+        a un tiempo determinado sin necesidad de estar conectados en
+        ese momento.</P
+><P
+>Para realizar una ejecución de un script de backup a las 10 de
+        la mañana haríamos:</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>at 10am &#60; backup.sh</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>warning: commands will be executed using /bin/sh
+job 11 at 2007-04-01 10:00</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>atq</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>10      2007-04-01 01:00 a pcm
+11      2007-04-01 10:00 a pcm
+</SAMP
+><SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+>
+</PRE
+><P
+>Con el comando <KBD
+CLASS="userinput"
+>atq</KBD
+> vemos la lista de
+los procesos pendiente de ejecutarse. Es equivalente utilizar
+<KBD
+CLASS="userinput"
+>at -l</KBD
+>.</P
+><P
+>Si queremos evitar que se ejecute el comando programado podemos
+borrar la entrada con <KBD
+CLASS="userinput"
+>atrm</KBD
+> indicando el
+número de trabajo.</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>atrm 10</KBD
+>
+<SAMP
+CLASS="computeroutput"
+></SAMP
+>
+<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>at -l</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>11      2007-04-01 10:00 a pcm
+</SAMP
+><SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+>
+</PRE
+><P
+>El proceso <KBD
+CLASS="userinput"
+>atd</KBD
+> se encargará de ejecutar
+        nuestra orden en el momento programado.</P
+><P
+>Existe variante, realmente un script, que permite lanzar nuestra
+        orden solo si la carga del sistema es lo suficientemente baja,
+        configurada en la ejecución de servicio.</P
+><P
+>Para configurar los usuarios que tienen permisos para utilizar
+        el comando <KBD
+CLASS="userinput"
+>at</KBD
+> existen dos ficheros
+        <TT
+CLASS="filename"
+>/etc/at.allow</TT
+> y
+        <TT
+CLASS="filename"
+>/etc/at.deny</TT
+>. En la ejecución del comando
+        se comprueba:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>&#13;Si existe <TT
+CLASS="filename"
+>/etc/at.allow</TT
+> y el usuario que ejecuta
+el comando <SPAN
+CLASS="application"
+>at</SPAN
+> o
+<SPAN
+CLASS="application"
+>batch</SPAN
+> está en el fichero se permite
+ejecución.
+</P
+></LI
+><LI
+><P
+>&#13;Si no existe <TT
+CLASS="filename"
+>/etc/at.allow</TT
+> y existe
+<TT
+CLASS="filename"
+>/etc/at.deny</TT
+>, se comprueba que el usuario que ejecuta
+el comando no este en el fichero, para permitirle.
+</P
+></LI
+><LI
+><P
+>Si no existen ninguno de los dos fichero, solo root
+puede utilizar el comando.
+</P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3640"
+>11.2.2. <SPAN
+CLASS="application"
+>cron</SPAN
+></A
+></H2
+><P
+>Este servicio nos permite dejar las tareas
+        programadas. Con el comando <SPAN
+CLASS="application"
+>at</SPAN
+>
+        teníamos que estar lanzando el comando por cada ejecución, con
+        <SPAN
+CLASS="application"
+>cron</SPAN
+> dejamos ya programado cuando y cada
+        cuanto queremos esa ejecución.</P
+><P
+>Es uno de los principales recursos de administración ya que como
+        ya hemos comentado las tareas de administración suele ser
+        repetitivas y periódicas, por lo que con este servicio vamos a
+        poder programarlas a nuestro antojo.</P
+><P
+>El proceso que controla el servicio, es decir, que ejecuta las
+        tareas programadas es <KBD
+CLASS="userinput"
+>cron</KBD
+>, y para
+        realizar nuestras programaciones debemos utilizar el comando
+        <KBD
+CLASS="userinput"
+>crontab</KBD
+>.</P
+><P
+>Para listar tareas utilizaremos <KBD
+CLASS="userinput"
+>crontab
+        -l</KBD
+>.</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>crontab -l</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>*/10 10-19 * * * /root/adsl/vpn.sh &#62;&#62; /root/adsl/vpn.log 2&#62;&#38;1
+</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+>
+</PRE
+><P
+>Vemos que por cada tarea hay una serie de parámetros que debemos
+entender:</P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;La primera columna indica el minuto en que se ejecuta, pueden
+indicarse varios separándolos por comas, por ejemplo 15,30,45, o un
+rango separando dos valores por un guión. Poniendo el * indicamos que
+todos los minutos. También
+se puede indicar cada cuanto, poniendo */2, se ejecutaría cada 2
+minutos. Los
+valores serán entre 0 y 59.
+</P
+></LI
+><LI
+><P
+>&#13;En la segunda columna indicamos la hora. Igualmente se pueden indicar varias
+horas separadas por comas, rangos, asterisco y fracciones. Los valores son entre
+0 y 23.
+</P
+></LI
+><LI
+><P
+>&#13;La tercera columna nos indica el día del mes. Los valores pueden ser
+entre 1 y 31.
+</P
+></LI
+><LI
+><P
+>&#13;La cuarta nos indica el mes. Los valores son entre 1 y 12, y también
+se admiten nombres de meses.
+</P
+></LI
+><LI
+><P
+>&#13;La quita nos indica el día de la semana. Los valores pueden ser entre
+0 y 7, siendo el domingo 0 o 7. También admiten los nombres.
+</P
+></LI
+><LI
+><P
+>&#13;Por último siempre tendremos el comando a ejecutar.
+</P
+></LI
+></UL
+><P
+>Para crear una nueva tarea utilizaremos o modificar las que
+tenemos <KBD
+CLASS="userinput"
+>crontab
+        -e</KBD
+>, que abrirá un editor con las tareas actuales
+        para que modifiquemos o creemos una nueva.</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>crontab -e</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>*/10 10-19 * * * /root/adsl/vpn.sh &#62;&#62; /root/adsl/vpn.log 2&#62;&#38;1
+~
+~
+~
+~
+</SAMP
+>
+</PRE
+><P
+>Al igual que el comando <KBD
+CLASS="userinput"
+>at</KBD
+> la seguridad
+        de utilización del servicio se realiza mediante los ficheros
+        <TT
+CLASS="filename"
+>/etc/cron.allow</TT
+> y
+        <TT
+CLASS="filename"
+>/etc/cron.deny</TT
+>. Tenemos que tener en
+        cuenta de nuevo:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>&#13;Si existe <TT
+CLASS="filename"
+>/etc/cron.allow</TT
+> y el usuario que ejecuta
+el comando <SPAN
+CLASS="application"
+>cron</SPAN
+> está en el fichero se permite
+la programación.
+</P
+></LI
+><LI
+><P
+>&#13;Si no existe <TT
+CLASS="filename"
+>/etc/cron.allow</TT
+> y existe
+<TT
+CLASS="filename"
+>/etc/cron.deny</TT
+>, se comprueba que el usuario que ejecuta
+el comando no este en el fichero, para permitirle.
+</P
+></LI
+><LI
+><P
+>Si no existen ninguno de los dos fichero, solo root
+puede utilizar el comando.
+</P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3692"
+>11.2.3. <SPAN
+CLASS="application"
+>anacron</SPAN
+></A
+></H2
+><P
+>Este comando esta pensado para la automatización de
+        tareas cuando el sistema no esta disponible las 24 horas del
+        día.</P
+><P
+>Con el servicio <SPAN
+CLASS="application"
+>cron</SPAN
+> si en la
+        programación de una tarea el sistema no esta encendido, la
+        tarea no se realizara. Con <SPAN
+CLASS="application"
+>anacron</SPAN
+>
+        podemos indicar cada cuanto se realizan ciertas tareas y se
+        encarga de que se lleve acabo con esa frecuencia.</P
+><P
+>Nos permite configurar las tareas por días, lo normal es que
+        tengamos tareas diarias, semanales (7) o mensuales (30), pero
+        no nos asegura el horario de ejecución, únicamente cuando se
+        inicia el sistema y vea que han pasado esa serie de días
+        ejecutará la tarea.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c3452.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c3700.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Interprete de Comandos</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c3452.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Interfaces de Administración</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

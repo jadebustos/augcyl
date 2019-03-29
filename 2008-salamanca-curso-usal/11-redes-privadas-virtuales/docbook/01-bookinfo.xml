@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<bookinfo>
+  <title>GNU/Linux, software libre para la comunidad universitaria</title>
+  <subtitle>Redes privadas virtuales en GNU/Linux</subtitle>
+  <authorgroup>
+    <author>
+      <firstname>Jos&eacute; Mar&iacute;a</firstname>
+      <surname>Perib&aacute;&ntilde;ez Redondo</surname>
+    </author>
+  </authorgroup>
+
+  <legalnotice>
+    <para>
+      Copyright (C) 2008 Jos&eacute; Mar&iacute;a Perib&aacute;&ntilde;ez
+      Redondo <email>chema@softlibre.net</email>,.
+    </para>
+    <para>
+      Permission is granted to copy, distribute and/or modify this document
+      under the terms of the GNU Free Documentation License, Version 1.2 or
+      any later version published by the Free Software Foundation; with no
+      Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A
+      copy of the license is included in the section entitled "GNU Free
+      Documentation License".
+    </para>
+  </legalnotice>
+
+  <revhistory>
+    <revision>
+      <revnumber>2.0</revnumber>
+      <date>18-04-2008</date>
+      <authorinitials>
+        Jos&eacute; Mar&iacute;a Perib&aacute;&ntilde;ez Redondo
+      </authorinitials>
+    </revision>
+  </revhistory>
+</bookinfo>
+

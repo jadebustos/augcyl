@@ -1,0 +1,846 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Gestión de usuarios</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Usuarios y permisos en GNU/Linux"
+HREF="c2312.html"><LINK
+REL="PREVIOUS"
+TITLE="Grupos de usuarios"
+HREF="x2332.html"><LINK
+REL="NEXT"
+TITLE="Permisos en GNU/Linux"
+HREF="x2557.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x2332.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 8. Usuarios y permisos en GNU/Linux</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x2557.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN2416"
+>8.3. Gestión de usuarios</A
+></H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2418"
+>8.3.1. Zona de disco reservada a cada usuario</A
+></H2
+><P
+>Cada usuario tiene un espacio en disco para tener sus datos. Este espacio es un directorio con su nombre que se encuentra en <TT
+CLASS="filename"
+>/home/</TT
+>.</P
+><P
+>Es posible encontrarlo también de las siguientes formas:</P
+><PRE
+CLASS="programlisting"
+>&#13;/home/b/pcm
+/home/b/be/pcm
+/home/futurama/pcm
+/home/futurama/b/pcm
+/home/futurama/b/be/pcm
+...
+</PRE
+><P
+>Este tipo de estructuraciones se utilizan para una mejor organización de los usuarios y también para evitar exceder el número de entradas por directorio en aquellos sistemas con muchos usuarios.</P
+><P
+>El directorio personal suele estar almacenado en la variable de entorno <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>$HOME</I
+></SPAN
+> y también se le conoce como "<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>~</I
+></SPAN
+>".</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Los administradores suelen establecer cuotas de disco en <TT
+CLASS="filename"
+>/home/</TT
+> para evitar que unos pocos usuarios monopolicen el uso del disco.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2431"
+>8.3.2. El fichero <TT
+CLASS="filename"
+>/etc/passwd</TT
+></A
+></H2
+><P
+>Este fichero guarda la información relativa a los usuarios del sistema. Debido a problemas de seguridad ahora se utiliza también el fichero <TT
+CLASS="filename"
+>/etc/shadow</TT
+>.</P
+><P
+>Una entrada típica:</P
+><PRE
+CLASS="programlisting"
+>&#13;pcm:x:501:501:Bender:/home/pcm:/bin/bash
+</PRE
+><P
+>Este fichero contiene una línea por cada usuario del sistema y cada línea son varios campos separados por ":":</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>El primer campo es el nombre del usuario.</P
+></LI
+><LI
+><P
+>El segundo campo contenía el hashing de la contraseña del usuario. Es practica habitual el utilizar el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>shadowing</I
+></SPAN
+> de contraseñs y esta información se encuentra ahora en el fichero <TT
+CLASS="filename"
+>/etc/shadow</TT
+> razón por la cual este campo suele contener una "<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>x</I
+></SPAN
+>".</P
+></LI
+><LI
+><P
+>El tercer campo contiene el UID del usuario.</P
+></LI
+><LI
+><P
+>El cuarto campo contiene el GID del usuario.</P
+></LI
+><LI
+><P
+>El quinto campo o campo <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>GECOS</I
+></SPAN
+>(General Electric Comprehensive Operating Supervisor) contiene información relativa al usuario como nombre, departamento, ...</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>No conviene poner información sensible en este campo ya que es visible por todo el mundo que tenga acceso al sistema. Además si hay activados servicios como <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>finger</I
+></SPAN
+> es fácil obtener esa información sin necesidad de tener cuenta en el sistema.</P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+><LI
+><P
+>En el sexto campo está el directorio personal del usuario.</P
+></LI
+><LI
+><P
+>En el septimo campo se encuentra el comando que se ejecutará cuando haya un inicio de sesión por parte del usuario. Si se prentende que el usuario trabaje en la máquina se pone una <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>shell</I
+></SPAN
+>.</P
+></LI
+></OL
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Podemos deshabilitar temporalmente los accesos de un usuario al sistema añadiendo el carácter "<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>*</I
+></SPAN
+>" como primer carácter del segundo campo.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2465"
+>8.3.3. Añadiendo usuarios al sistema</A
+></H2
+><P
+>Sólo el usuario <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>root</I
+></SPAN
+> puede añdir usuarios al sistema. Aunque puede conceder privilegios a otros para hacerlo.</P
+><P
+>Se pueden utilizar dos comandos para ello:</P
+><P
+></P
+><UL
+><LI
+><P
+><B
+CLASS="command"
+>useradd</B
+> binario para la creación de usuarios.</P
+></LI
+><LI
+><P
+><B
+CLASS="command"
+>adduser</B
+> es un script en PERL para la creación de usuarios.</P
+></LI
+></UL
+><P
+>La forma típica para crear un usuario es:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>useradd -m -d /home/pcm -g pcm -G pcm,users,futurama -c "Bender" -s /bin/bash pcm</KBD
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]#</SAMP
+>
+</PRE
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-m</I
+></SPAN
+> en caso de no existir el directorio del usuario lo crea.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-d /home/pcm</I
+></SPAN
+> indica cual va a ser el directorio del usuario.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-g pcm</I
+></SPAN
+> indica cual es el grupo principal del usuario.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-G pcm,users,futurama</I
+></SPAN
+> indica los grupos a los que perteneceráa el usuario.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-c "Bender"</I
+></SPAN
+> información del campo <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>GECOS</I
+></SPAN
+>.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-s /bin/bash</I
+></SPAN
+> indica la shell que utilizará el usuario.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>pcm</I
+></SPAN
+> nombre del usuario.</P
+></LI
+></UL
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Cuando creamos un usuario se copian en su directorio todos los ficheros del directorio <TT
+CLASS="filename"
+>/etc/skel/</TT
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Es practica habitual crear un grupo con el mismo nombre que el usuario y utilizar este grupo como grupo primario del usuario. De esta forma se garantiza que sólo este el en ese grupo y pueda controlar mejor quien accede a sus ficheros.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Al igual que con los grupos se suelen reservar rangos para tipos de usuarios.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Podemos utilizar el flag <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-u</I
+></SPAN
+> para indicar el UID del usuario.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Una vez creado el usuario será necesario establecerle un password utilizando el comando <B
+CLASS="command"
+>passwd</B
+>:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>passwd pcm</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>Enter new UNIX password: <KBD
+CLASS="userinput"
+>*******</KBD
+>
+Retype new UNIX password: <KBD
+CLASS="userinput"
+>*******</KBD
+>
+passwd: contraseña actualizada correctamente</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2525"
+>8.3.4. Eliminando usuarios del sistema</A
+></H2
+><P
+>Sólo el usuario <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>root</I
+></SPAN
+> puede eliminar usuarios del sistema. Aunque puede conceder privilegios a otros para hacerlo.</P
+><P
+>Para eliminar usuarios del sistema se utiliza el comando <B
+CLASS="command"
+>userdel</B
+>:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>userdel pcm</KBD
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><P
+>De esta forma eliminamos al usuario <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>pcm</I
+></SPAN
+> del sistema sin borrar su directorio personal.</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Si quisieramos eliminar también su directorio personal tendrímos que haber utilizado el flag <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-r</I
+></SPAN
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>No podremos eliminar un usuario si este tiene abierta una sesión. En caso de necesidad podemos desabilitar sus accesos al sistema mediante el uso del carácter "<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>*</I
+></SPAN
+>" y después matar todos sus procesos.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2543"
+>8.3.5. Modificando una cuenta existente en el sistema</A
+></H2
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>man usermod</I
+></SPAN
+></P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2548"
+>8.3.6. El comando <B
+CLASS="command"
+>id</B
+></A
+></H2
+><P
+>Este comando se utiliza para obtener información sobre el UID y el GID de los usuarios:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>id</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>id jose
+uid=1000(jose) gid=1000(jose) grupos=1000(jose),20(dialout),24(cdrom),25(floppy),29(audio),44(video),46(plugdev),1001(ftp)</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x2332.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x2557.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Grupos de usuarios</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c2312.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Permisos en GNU/Linux</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

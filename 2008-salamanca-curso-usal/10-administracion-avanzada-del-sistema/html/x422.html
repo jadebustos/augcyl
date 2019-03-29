@@ -1,0 +1,711 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Conceptos</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Sistemas de Ficheros"
+HREF="c304.html"><LINK
+REL="PREVIOUS"
+TITLE="Redirecciones"
+HREF="x346.html"><LINK
+REL="NEXT"
+TITLE="Sistemas de ficheros"
+HREF="x547.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x346.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 4. Sistemas de Ficheros</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x547.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN422"
+>4.4. Conceptos</A
+></H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN424"
+>4.4.1. i-nodos</A
+></H2
+><P
+>Los i-nodos son una especie de indice que nos indica donde está localizado un determinado fichero dentro de un sistema de ficheros.</P
+><P
+>Aunque se tiende a asociar ficheros con i-nodos, un i-nodo no es un fichero.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Todo fichero tiene asociado un i-nodo.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Un i-nodo contiene toda la información referente al fichero.</P
+><P
+>Un i-nodo también puede contener información sobre enlaces simbólicos, sockets y dispositivos especiales.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Cuando creamos un sistema de ficheros lo creamos con una cantidad de i-nodos. Si se acaban los i-nodos no podremos escribir en el disco aunque nos quede espacio libre.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN434"
+>4.4.2. El <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Virtual File System</I
+></SPAN
+> o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>VFS</I
+></SPAN
+></A
+></H2
+><P
+>Aunque pueda parecer sencillo el hecho de acceder a diferentes tipos de sistemas de ficheros no lo es tanto ya que cada sistema de ficheros tiene sus peculiaridades.</P
+><P
+>GNU/Linux utiliza el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Virtual File System</I
+></SPAN
+> para acceder a los diferentes sistemas de ficheros. El <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>VFS</I
+></SPAN
+> es un sistema de ficheros genérico.</P
+><P
+>La forma más sencilla de explicarlo es recurrir a la programación orientada a objetos.</P
+><P
+>El <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>VFS</I
+></SPAN
+> lo podemos considerar como una clase y los diferentes sistemas de ficheros como clases derivadas.</P
+><P
+>Todos los sistemas de ficheros comparten una serie de características comunes que son las heredadas del <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>VFS</I
+></SPAN
+> y luego las suyas propias.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN447"
+>4.4.3. El <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Buffer Cache</I
+></SPAN
+></A
+></H2
+><P
+>El <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Buffer Cache</I
+></SPAN
+> es una memoria intermedia en la que se almacenan temporalmente las operaciones de escritura. Estas operaciones no se hacen de forma inmediata al sistema de ficheros. De este modo se mejora el rendimiento ya que no se penalizan otras acciones del sistema, como la interacción del usuario, por las operaciones de escritura.</P
+><P
+>Serán los algoritmos de multitarea los que decidan cuando van escribiendo esa información al disco.</P
+><P
+>Para el usuario todo esto es transparente y de cara a el es como si los datos se hubieran escrito al sistema de ficheros.</P
+><P
+>Más adelante veremos que es necesario montar un sistema de ficheros para hacerlo accesible. Debido a que los datos no se escriben al momento en el sistema de ficheros si quitamos un dispositivo físico del sistema sin que se hayan escrito los datos los perderemos. Se produce entonces una <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>inconsistencia en el sistema de ficheros</I
+></SPAN
+>.</P
+><P
+>Para retirar un dispositivo es necesario desmontarlo, en ese momento se da prioridad a las operaciones de escritura pendientes y se escriben al sistema de ficheros. Una vez realizadas todas el sistema de ficheros es desmontado (ya no es accesible) sin perdida de datos.</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Es posible utilizar <B
+CLASS="command"
+>sync</B
+> para sincronizar un sistema de ficheros con el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Buffer Cache</I
+></SPAN
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN461"
+>4.4.4. Sistemas de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>transaccionales</I
+></SPAN
+> o de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>journaling</I
+></SPAN
+></A
+></H2
+><P
+>Estos sistemas de ficheros fueron desarrollados para ser tolerantes a fallos. El ejemplo típico es cuando se va la luz mientras estamos trabajando. Con sistemas de ficheros no <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>transaccionales</I
+></SPAN
+> al iniciar de nuevo el ordenador el sistema de ficheros se tendrá que chequear. Con los sistemas de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>transaccionales</I
+></SPAN
+> el inicio es mucho más rápido ya que poseen la información necesaria para hacer la recuperación de forma rápida y precisa.</P
+><P
+>Todos los ficheros tienen asociados los siguientes datos:</P
+><P
+></P
+><UL
+><LI
+><P
+>El contenido del fichero, los datos.</P
+></LI
+><LI
+><P
+>Los datos referentes al fichero, tamaño, fecha, nombre, lugar dentro del sistema de ficheros en el que se encuentra, ...</P
+></LI
+></UL
+><P
+>En los sistemas de ficheros tradicionales al realizar una operación de escritura se modifican directamente los metadatos, pero no los datos que se irán modificando poco a poco. Si se va la luz, por ejemplo, cuando el sistema arranque los metadatos no coincidirán con los datos (<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>inconsistencia en el sistema de ficheros</I
+></SPAN
+>), teniendo entonces una perdida de datos.</P
+><P
+>Los sistemas de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>transaccionales</I
+></SPAN
+> disponen de dos zonas para solucionar este problema:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Una zona de datos, donde se almacenarán tanto el contenido de los ficheros como los metadatos.</P
+></LI
+><LI
+><P
+>Una zona de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>log</I
+></SPAN
+> o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>diario</I
+></SPAN
+> donde es núcleo va registrando los cambios realizados y los pendientes.</P
+></LI
+></OL
+><P
+>Cuando el sistema actualiza los datos de un fichero, borra de la zona de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>log</I
+></SPAN
+> la información referente a los cambios realizados. De esta forma cuando se monta un sistema de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>transaccional</I
+></SPAN
+> si hay modificaciones pendientes en la zona de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>log</I
+></SPAN
+> se actualiza el sistema de ficheros sin perdida de datos.</P
+><P
+>Sistemas de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>transaccionales</I
+></SPAN
+>:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext3</I
+></SPAN
+>.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ReiserFS</I
+></SPAN
+>.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>JFS</I
+></SPAN
+> de IBM.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>XFS</I
+></SPAN
+> de SGI.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN504"
+>4.4.5. Sistemas de ficheros de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>acceso concurrente</I
+></SPAN
+></A
+></H2
+><P
+>Los sistemas de ficheros de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>acceso concurrente</I
+></SPAN
+> son aquellos sistemas de ficheros que permiten el acceso simultaneo al sistema de ficheros a más de una máquina al mismo tiempo.</P
+><P
+>Estos sistemas de ficheros no se acceden por red ethernet como pudiera ser exportado por <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>NFS</I
+></SPAN
+> o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>CIFS</I
+></SPAN
+>.</P
+><P
+>Estos sistemas de ficheros se suelen utilizar en redes <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SAN</I
+></SPAN
+> y son típicos de clusters en configuraciones activo/activo.</P
+><P
+>Cuando tenemos un cluster en configuración activo/activo con varios nodos todos los nodos estarán accediendo simultaneamente al sistema de ficheros. Es necesario coordinar mediante bloqueos los accesos de escritura para evitar corrupciones de datos.</P
+><P
+>Los sistemas de ficheros de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>acceso concurrente</I
+></SPAN
+> que soporta <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>GNU/Linux</I
+></SPAN
+> son los siguientes:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>GFS</I
+></SPAN
+> o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>G</I
+></SPAN
+>lobal <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>F</I
+></SPAN
+>ile <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>S</I
+></SPAN
+>ystem es el sistema de ficheros de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>acceso concurrente</I
+></SPAN
+> que <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Red Hat</I
+></SPAN
+> compró a <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Sixtina</I
+></SPAN
+> para su inclusión en <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Red Hat Cluster Suite</I
+></SPAN
+>.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>GPFS</I
+></SPAN
+> o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>G</I
+></SPAN
+>eneral <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>P</I
+></SPAN
+>aralell <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>F</I
+></SPAN
+>ile <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>S</I
+></SPAN
+>ystem es el sistema de ficheros de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>acceso concurrente</I
+></SPAN
+> de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>IBM</I
+></SPAN
+>.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>OCFS</I
+></SPAN
+> o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>O</I
+></SPAN
+>racle <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>C</I
+></SPAN
+>luster <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>F</I
+></SPAN
+>ile <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>S</I
+></SPAN
+>ystem. Es el sistema de ficheros de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>acceso concurrente</I
+></SPAN
+> de Oracle que utiliza en <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Oracle RAC</I
+></SPAN
+>.</P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x346.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x547.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Redirecciones</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c304.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Sistemas de ficheros</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

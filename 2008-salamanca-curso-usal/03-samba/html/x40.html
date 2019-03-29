@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Lanzar Samba</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Introducción"
+HREF="c18.html"><LINK
+REL="PREVIOUS"
+TITLE="Introducción"
+HREF="c18.html"><LINK
+REL="NEXT"
+TITLE="Seguridad"
+HREF="x68.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: 
+    Samba, compartiendo archivos e impresoras con MS Windows
+  </TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c18.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 1. Introducción</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x68.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN40"
+>1.2. Lanzar Samba</A
+></H1
+><P
+><B
+CLASS="command"
+>smbd</B
+> es el daemon Samba propiamente dicho. Escucha las peticiones de los clientes por el puerto 139/tcp. El segundo daemon, <B
+CLASS="command"
+>nmbd</B
+> es un servidor de nombres de NetBIOS para soporte de clientes, es decir, permite la resolución de nombres en NetBIOS.</P
+><P
+>La configuración de Samba se realiza a partir del fichero <TT
+CLASS="filename"
+>/etc/samba/smb.conf</TT
+>, que lee el demonio correspondiente cuando se inicia GNU/Linux. Este fichero está dividido en una serie de secciones, como se verá más adelante. Una vez realizados los cambios pertinentes en este fichero, se debe administrar <B
+CLASS="command"
+>smbd</B
+> con:</P
+><PRE
+CLASS="screen"
+>&#13;/etc/init.d/smb start | stop | status | restart.
+</PRE
+><P
+>Para administrar <B
+CLASS="command"
+>nmbd</B
+>, ejecutar <B
+CLASS="command"
+>/etc/init.d/nmb start | stop | status | restart</B
+>.</P
+><P
+>Otra forma de administrar y lanzar Samba consiste en acceder a <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>YaST -&#62; Servicios de red -&#62; Servidor Samba</I
+></SPAN
+>. Esta forma permite, de forma visual, realizar cambios en la configuración de Samba sin manipular directamente el archivo <TT
+CLASS="filename"
+>/etc/samba/smb.conf</TT
+>, aunque todos los cambios que se realicen se guardarán posteriormente en dicho archivo.</P
+><P
+><B
+CLASS="command"
+>smbd</B
+> únicamente permite que GNU/Linux sea servidor (no cliente). Para que actúe como cliente se utilizarán otras utilidades.</P
+><P
+>Hay cuatro cosas que pueden hacerse con Samba:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Compartir una unidad de GNU/Linux con máquinas Windows.</P
+></LI
+><LI
+><P
+>Compartir una unidad de Windows con máquinas GNU/Linux.</P
+></LI
+><LI
+><P
+>Compartir una impresora GNU/Linux con máquinas Windows.</P
+></LI
+><LI
+><P
+>Compartir una impresora Windows con máquinas GNU/Linux.</P
+></LI
+></OL
+><P
+>El rendimiento del servidor, en cuanto a tiempo se refiere, es inferior al de otras aplicaciones de este tipo.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c18.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x68.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Introducción</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c18.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Seguridad</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

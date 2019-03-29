@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chapter>
+	<title>Introducci&oacute;n a la Instalaci&oacute;n de LAMP</title>
+<section>
+<title>Introducci&oacute;n</title>
+<para>
+En el presente manual se van a definir a fondo aquellas tareas necesarias para poner en funcionamiento una plataforma LAMP. 
+Por simplicidad el manual est&aacute; dedicado a su instalaci&oacute;n y configuraci&oacute;n en una OpenSuse 10.2.
+</para>
+</section>
+</chapter>
+

@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chapter>
+  <title>Tabla peri&oacute;dica de los elementos</title>
+
+  <sect1>
+    <title>Kalzium</title>
+
+    <para>
+      <ulink url="http://edu.kde.org/kalzium/">Kalzium</ulink> es una
+      aplicaci&oacute;n que muestra la tabla peri&oacute;dica de los
+      elementos.
+    </para>
+
+    <para>
+      Adem&aacute;s de los datos comunes que aparecen en las tablas impresas,
+      dispone de otros tales como el punto de fusi&oacute;n, la afinidad
+      electr&oacute;nica, el radio covalente, el origen del nombre...
+    </para>
+
+    <figure>
+      <title>
+        Kalzium
+      </title>
+      <graphic
+      fileref="img/09-tabla_periodica/01-kalzium.png"
+      format="PNG" width="1000" scale="40"/>
+    </figure>
+  </sect1>
+</chapter>
+

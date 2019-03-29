@@ -1,0 +1,576 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>El demonio syslogd</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Auditoria y Logs"
+HREF="c2928.html"><LINK
+REL="PREVIOUS"
+TITLE="Permisos SUID y SGID"
+HREF="x3081.html"><LINK
+REL="NEXT"
+TITLE="Rotado de logs"
+HREF="x3260.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x3081.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 9. Auditoria y Logs</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x3260.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN3142"
+>9.4. El demonio <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>syslogd</I
+></SPAN
+></A
+></H1
+><P
+>Este demonio es utilizado por el resto de demonios para logear sus actividades en los ficheros genéricos de log del sistema.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3146"
+>9.4.1. Las facilidades de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>syslogd</I
+></SPAN
+></A
+></H2
+><P
+>Las facilidades describen quien origina el mensaje y son:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>auth</I
+></SPAN
+> mensajes de seguridad y autenticación. En desuso.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>authpriv</I
+></SPAN
+> igual que el anterior.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>cron</I
+></SPAN
+> mensajes originados por el demonio <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>crond</I
+></SPAN
+>.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>daemon</I
+></SPAN
+> mensajes originados por otros demonios del sistema.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>kern</I
+></SPAN
+> mensajes originados por el núcleo del sistema.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>lpr</I
+></SPAN
+> mensajes originados por el demonio de impresión.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>mail</I
+></SPAN
+> mensajes originados por el demonio del correo.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>news</I
+></SPAN
+> mensajes originaods por el demonio de noticias.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>security</I
+></SPAN
+> igual que privauth. En desuso.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>syslog</I
+></SPAN
+> mensaje generados por el demonio <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>syslogd</I
+></SPAN
+>.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>user</I
+></SPAN
+> mensajes genéricos de usuario.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>uucp</I
+></SPAN
+> mensajes generados por el demonio <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>uucpd</I
+></SPAN
+>.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>local0,...,local7</I
+></SPAN
+> reservados para uso del administrador.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3193"
+>9.4.2. Los tipos de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>syslogd</I
+></SPAN
+></A
+></H2
+><P
+>Nos indican los tipos de cada mensaje:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>none</I
+></SPAN
+> no envía ningún mensaje.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>debug</I
+></SPAN
+> mensajes de depuración.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>info</I
+></SPAN
+> mensajes de información.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>notice</I
+></SPAN
+> mensajes que necesitan una atención especial.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>warning</I
+></SPAN
+> mensajes de aviso.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>warn</I
+></SPAN
+> mensajes de aviso. En desuso.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>err</I
+></SPAN
+> mensajes de error.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>error</I
+></SPAN
+> mensajes de error. En desuso.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>crit</I
+></SPAN
+> mensajes críticos, fallo de hardware.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>alert</I
+></SPAN
+> mensajes de emergencia. El sistema no está disponible debido a un fallo grave.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>panic</I
+></SPAN
+> mensajes de emergencia. En desuso.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3231"
+>9.4.3. El fichero <TT
+CLASS="filename"
+>/etc/syslog.conf</TT
+></A
+></H2
+><P
+>Este fichero contiene la configuración del demonio <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>syslogd</I
+></SPAN
+> y le dice que mensajes tiene que almacenar y donde hacerlo.</P
+><P
+>En cada línea del fichero se especificará como tratar a los mensajes. Lo más normal seráa indicar una facilidad seguida de un punto y un tipo. Es posible utilziar el asterisco para hacer referencia a todas las facilidades o a todos los tipos.</P
+><P
+>Veamos algunos ejemplos:</P
+><PRE
+CLASS="programlisting"
+>&#13;*.info;mail.none;authpriv.none;cron.none             /var/log/messages
+</PRE
+><P
+>Esto hace que se logee en el fichero <TT
+CLASS="filename"
+>/var/log/messages</TT
+>:</P
+><P
+></P
+><UL
+><LI
+><P
+>Todos los mensajes del tipo info.</P
+></LI
+><LI
+><P
+>Ningún mensaje del demonio de correo.</P
+></LI
+><LI
+><P
+>Ningún mensaje de seguridad o autenticación.</P
+></LI
+><LI
+><P
+>Ningún mensaja del demonio <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>cron</I
+></SPAN
+>.</P
+></LI
+></UL
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>La separación entre las dos columnas se tiene que hacer con tabuladores.</P
+></TD
+></TR
+></TABLE
+></DIV
+><PRE
+CLASS="programlisting"
+>&#13;*.emerg                      *
+</PRE
+><P
+>hace que cualquier mensaje del tipo <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>emerg</I
+></SPAN
+> sea notificado con un mensaje de broadcast a todos los usuarios en la red.</P
+><PRE
+CLASS="programlisting"
+>&#13;mail.*;mail.!=info           /var/log/mail
+</PRE
+><P
+>Hace que todos los mensajes del demonio de correo, exceptuando los del tipo <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>info</I
+></SPAN
+>, se almancenen en el fichero <TT
+CLASS="filename"
+>/var/log/mail</TT
+>.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x3081.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x3260.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Permisos <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SUID</I
+></SPAN
+> y <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SGID</I
+></SPAN
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c2928.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Rotado de logs</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Gestión de Memoria</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Comandos de gestión de procesos"
+HREF="x81.html"><LINK
+REL="NEXT"
+TITLE="Memoria virtual"
+HREF="x210.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x81.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x210.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN201"
+></A
+>Capítulo 3. Gestión de Memoria</H1
+><P
+>Linux es un sistema operativo con una gestión de memoria
+    que esta preparada para memoria virtual y sistemas
+    multiprocesador.</P
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN204"
+>3.1. Memoria física</A
+></H1
+><P
+>La memoria física es la memoria RAM que dispone el
+      ordenador.</P
+><P
+>Esta memoria es el espacio que están utilizando los procesos
+      que se están ejecutando. En Linux también se utiliza la memoria física para tener cache de los datos
+    de los dispositivos de i/o, memoria compartida y buffers de intercambio.</P
+><P
+>Al ser un recurso caro, pero rápido, Linux va a intentar
+      utilizar el máximo de ella, por ello cuando la memoria no es
+      utilizada por las aplicaciones, es decir los procesos lanzados
+      no ocupan toda la memoria, utiliza toda la que puede como cache
+      de datos contra otros dispositivos más lentos como los discos
+      duros. Cuando las aplicaciones vayan requiriendo más memoria
+      estas caches serán más pequeñas.</P
+><P
+>La memoria está paginada y así poder llevar partes a la memoria
+      virtual. También puede llevar procesos enteros.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x81.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x210.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Comandos de gestión de procesos</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Memoria virtual</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

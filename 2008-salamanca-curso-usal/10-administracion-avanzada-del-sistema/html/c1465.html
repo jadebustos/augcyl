@@ -1,0 +1,491 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Gestión de sistemas de ficheros mediante LVM</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Atributos en sistemas de ficheros ext2/ext3"
+HREF="x1418.html"><LINK
+REL="NEXT"
+TITLE="Grupos de volumen (volume groups)"
+HREF="x1535.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x1418.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x1535.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN1465"
+></A
+>Capítulo 5. Gestión de sistemas de ficheros mediante <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>LVM</I
+></SPAN
+></H1
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>LVM</I
+></SPAN
+> permite una mejor y más flexible administración de los sistemas de ficheros.</P
+><P
+>Mediante el uso de almacenamiento externo, <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>LVM</I
+></SPAN
+> y sistemas de ficheros como <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext3</I
+></SPAN
+>, <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ReiserFS</I
+></SPAN
+> y <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>XFS</I
+></SPAN
+> que permiten redimensionar <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>en caliente</I
+></SPAN
+> tenemos una posibilidades de crecimiento y gestión de recursos de almacenamiento practicamente ilimitadas.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>En este capítulo se pretende introducir <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>LVM</I
+></SPAN
+> para familiarizar al alumno con los conceptos básicos del manejo de volumenes de discos. No se entrará a valorar las posibilidades de snapshots o clustering de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>LVM</I
+></SPAN
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN1480"
+>5.1. Volumenes físicos (physical volumes)</A
+></H1
+><P
+>Los <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>volumenes físicos</I
+></SPAN
+> son los dispositivos físicos de almacenamiento. En base a estos se establece todo el sistema de gestión de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+></I
+></SPAN
+>.</P
+><P
+>Para poder utilizar un disco físico o una partición con <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>LVM</I
+></SPAN
+> es necesario iniciarlizarla:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>pvcreate /dev/sda</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>  Physical volume "/dev/sda" successfully created</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1492"
+>5.1.1. Información y detección de volumenes físicos</A
+></H2
+><P
+>Podemos utilizar el comando <B
+CLASS="command"
+>pvscan</B
+> para buscar volumenes físicos:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>pvscan</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>  PV /dev/sda7   VG system_vg   lvm2 [107,59 GB / 26,13 GB free]
+  Total: 1 [107,59 GB] / in use: 1 [107,59 GB] / in no VG: 0 [0   ]</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><P
+>También disponemos del comando <B
+CLASS="command"
+>pvdisplay</B
+> que nos ofrece más información sobre los volumenes encontrados:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>pvdisplay</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>  --- Physical volume ---
+  PV Name               /dev/sda7
+  VG Name               system_vg
+  PV Size               107,59 GB / not usable 0   
+  Allocatable           yes 
+  PE Size (KByte)       4096
+  Total PE              27544
+  Free PE               6689
+  Allocated PE          20855
+  PV UUID               EcJiMO-20Ve-QVAz-yZvE-jN5e-tGrH-RtwyHB</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>El <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>UUID</I
+></SPAN
+> es un identificador utilizado para señalar de forma única a cada volumen físico.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>El comando <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>pvs</I
+></SPAN
+> también nos ofrece información:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>pvs</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>  PV         VG        Fmt  Attr PSize   PFree 
+  /dev/sda7  system_vg lvm2 a-   107,59G 26,13G</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>LVM</I
+></SPAN
+> proporciona el comando <B
+CLASS="command"
+>lvmdiskscan</B
+> que nos inidicará todos los discos visibles del sistema:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>lvmdiskscan</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>  /dev/ramdisk [       16,00 MB]
+  /dev/dm-0    [       20,00 GB]
+  /dev/ram     [       16,00 MB]
+  /dev/sda1    [      101,94 MB]
+  /dev/dm-1    [       20,00 GB]
+  /dev/ram2    [       16,00 MB]
+  /dev/sda2    [        4,00 GB]
+  /dev/ram3    [       16,00 MB]
+  /dev/root    [        1,50 GB]
+  /dev/ram4    [       16,00 MB]
+  /dev/ram5    [       16,00 MB]
+  /dev/sda5    [        6,00 GB]
+  /dev/ram6    [       16,00 MB]
+  /dev/sda6    [        4,00 GB]
+  /dev/ram7    [       16,00 MB]
+  /dev/sda7    [        2,00 GB]
+  /dev/ram8    [       16,00 MB]
+  /dev/sda8    [        2,00 GB]
+  /dev/ram9    [       16,00 MB]
+  /dev/sda9    [        2,00 GB]
+  /dev/ram10   [       16,00 MB]
+  /dev/sda10   [       14,31 GB]
+  /dev/ram11   [       16,00 MB]
+  /dev/ram12   [       16,00 MB]
+  /dev/ram13   [       16,00 MB]
+  /dev/ram14   [       16,00 MB]
+  /dev/ram15   [       16,00 MB]
+  /dev/sdb     [       50,00 GB] LVM physical volume
+  2 disks
+  24 partitions
+  1 LVM physical volume whole disks
+  0 LVM physical volumes</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1526"
+>5.1.2. Eliminación de volumenes físicos</A
+></H2
+><P
+>Podemos eliminar volumenes físicos con el comando <B
+CLASS="command"
+>pvremove</B
+>.</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>pvremove /dev/sda</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>  Labels on physical volume "/dev/sda" successfully wiped</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x1418.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x1535.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Atributos en sistemas de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext2/ext3</I
+></SPAN
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Grupos de volumen (volume groups)</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

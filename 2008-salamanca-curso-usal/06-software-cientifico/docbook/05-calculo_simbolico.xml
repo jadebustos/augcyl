@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chapter>
+  <title>C&aacute;lculo simb&oacute;lico</title>
+
+  <sect1>
+    <title>Maxima</title>
+
+    <para>
+      <ulink url="http://maxima.sourceforge.net/">Maxima</ulink> es un sistema
+      para la manipulaci&oacute;n de expresiones simb&oacute;licas y
+      num&eacute;ricas, incluyendo diferenciaci&oacute;n, integraci&oacute;n,
+      expansi&oacute;n en series de Taylor, transformadas de Laplace,
+      ecuaciones diferenciales ordinarias, sistemas de ecuaciones lineales,
+      vectores, matrices y tensores.
+    </para>
+
+    <para>
+      Produce resultados con alta precisi&oacute;n usando fracciones exactas y
+      representaciones con aritm&eacute;tica de coma flotante arbitraria.
+    </para>
+
+    <para>
+      Tambi&eacute;n puede realizar gr&aacute;ficas interaccionando con otros
+      programas como gnuplot.
+    </para>
+
+    <para>
+      Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+      Microsoft Windows y Mac OS.
+    </para>
+
+    <sect2>
+      <title>wxMaxima</title>
+
+      <para>
+        <ulink url="http://wxmaxima.sourceforge.net/">wxMaxima</ulink> es una
+        interfaz de Maxima basada en las bibliotecas wxWidgets.
+      </para>
+
+      <para>
+        Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux y
+        Microsoft Windows.
+      </para>
+
+      <figure>
+        <title>
+          wxMaxima
+        </title>
+        <graphic
+        fileref="img/03-calculo_simbolico/01-wxmaxima.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+
+    <sect2>
+      <title>Xmaxima</title>
+
+      <para>
+        <ulink url="http://maxima.sourceforge.net/">Xmaxima</ulink> es una
+        interfaz de Maxima creada utilizando Tcl/Tk.
+      </para>
+
+      <para>
+        Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+        Microsoft Windows y Mac OS.
+      </para>
+
+      <figure>
+        <title>
+          Xmaxima
+        </title>
+        <graphic
+        fileref="img/03-calculo_simbolico/02-xmaxima.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Yacas</title>
+
+    <para>
+      <ulink url="http://yacas.sourceforge.net/">Yacas</ulink> es un sistema
+      de &Aacute;lgebra Computacional de prop&oacute;sito general para la
+      manipulaci&oacute;n simb&oacute;lica de expresiones matem&aacute;ticas.
+    </para>
+
+    <para>
+      Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux y
+      Microsoft Windows.
+    </para>
+  </sect1>
+
+  <sect1>
+    <title>Axiom</title>
+
+    <para>
+      <ulink url="http://www.axiom-developer.org/">Axiom</ulink> es un sistema
+      de &Aacute;lgebra Computacional de prop&oacute;sito general.
+    </para>
+
+    <para>
+      Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux y Mac
+      OS.
+    </para>
+  </sect1>
+</chapter>
+

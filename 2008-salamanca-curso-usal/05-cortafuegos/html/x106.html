@@ -1,0 +1,328 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Usos de Iptables</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Introducción a Iptables"
+HREF="c29.html"><LINK
+REL="PREVIOUS"
+TITLE="Las acciones o targets en iptables"
+HREF="x85.html"><LINK
+REL="NEXT"
+TITLE="Filtrado de paquetes"
+HREF="c151.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración de cortafuegos en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x85.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 2. Introducción a <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Iptables</I
+></SPAN
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c151.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN106"
+>2.4. Usos de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Iptables</I
+></SPAN
+></A
+></H1
+><P
+>Ya hemos visto algunos de los usos de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>iptables</I
+></SPAN
+>:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Filtrado de paquetes</I
+></SPAN
+>, es el uso básico. Se inspeccionan los paquetes y se toman decisiones sobre que hacer con el paquete.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Accounting</I
+></SPAN
+>, empleado para el control del volumen de tráfico existente.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Connection Tracking</I
+></SPAN
+>, diferentes servicios utilizan varias conexiones. Por ejemplo FTP utiliza una conexión para control y otra para datos.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Mangling</I
+></SPAN
+>, modificación de las cabeceras de los paquetes.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>NAT</I
+></SPAN
+>, <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>N</I
+></SPAN
+>etwork <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>A</I
+></SPAN
+>ddress <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>T</I
+></SPAN
+>ranslation es un caso especial de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>mangling</I
+></SPAN
+> en el que se reescriben las direcciones de origen o destino de los paquetes.</P
+><P
+>Existen dos tipos de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>NAT</I
+></SPAN
+>:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SNAT</I
+></SPAN
+>, NATTING sobre la dirección de origen del paquete.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>DNAT</I
+></SPAN
+>, NATTING sobre la dirección de destino del paquete.</P
+></LI
+></UL
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Masquerading</I
+></SPAN
+>, es un caso especial de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SNAT</I
+></SPAN
+> en el que un ordenador reescribe todos los paquetes como si fueran suyos. Se usa en funciones de PROXY o pasarela de acceso a internet.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Port Forwarding</I
+></SPAN
+>, es un caso especial de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>DNAT</I
+></SPAN
+> en el que un ordenador actua como proxy para varios ordenadores. Es comunmente utilizado para ofrecer varios servicios en una ip. Los paquetes de tráfico http se reenvian al servidor web, los de correo al servidor de correo, ...</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Balanceo de Carga</I
+></SPAN
+>, se puede distribuir carga entre varios servidores.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x85.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c151.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Las <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>acciones</I
+></SPAN
+> o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>targets</I
+></SPAN
+> en iptables</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c29.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Filtrado de paquetes</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

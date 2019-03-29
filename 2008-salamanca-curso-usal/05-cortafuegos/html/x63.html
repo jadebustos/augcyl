@@ -1,0 +1,234 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Las cadenas en iptables</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Introducción a Iptables"
+HREF="c29.html"><LINK
+REL="PREVIOUS"
+TITLE="Introducción a Iptables"
+HREF="c29.html"><LINK
+REL="NEXT"
+TITLE="Las acciones o targets en iptables"
+HREF="x85.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración de cortafuegos en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c29.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 2. Introducción a <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Iptables</I
+></SPAN
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x85.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN63"
+>2.2. Las <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>cadenas</I
+></SPAN
+> en iptables</A
+></H1
+><P
+>Existen cinco cadenas que nos indican en que punto se realiza el procesado de los paquetes:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>PREROUTING</I
+></SPAN
+> el procesado del paquete se realiza justo después de entrar el paquete por el interface de red y después de ser verificado como válido.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>POSTROUTING</I
+></SPAN
+> el procesado del paquete se realiza justo antes de dejar el interface de red.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>OUTPUT</I
+></SPAN
+> el procesado se realiza después de que el paquete sea generado por un proceso local.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>INPUT</I
+></SPAN
+> el procesado se realiza antes de que el paquete sea entregado a un proceso local.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>FORDWARD</I
+></SPAN
+> el procesado se realiza en la transición del paquete entre dos interfaces de red.</P
+></LI
+></UL
+><P
+>Las cadenas contienen reglas que son las encargadas de especificar las acciones a realizar sobre los paquetes. Estas reglas se ejecutan en orden secuencial y cuando existe una coincidencia se aplica la regla y se termina el proceso para ese paquete.</P
+><P
+>En caso de no existir ninguna coincidencia del paquete con las reglas existe una política por defecto que es la que se aplica.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c29.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x85.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Introducción a <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Iptables</I
+></SPAN
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c29.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Las <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>acciones</I
+></SPAN
+> o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>targets</I
+></SPAN
+> en iptables</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

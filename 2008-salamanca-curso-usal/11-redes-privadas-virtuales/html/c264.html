@@ -1,0 +1,244 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Servidores de red para empresas</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="PXE"
+HREF="x256.html"><LINK
+REL="NEXT"
+TITLE="Servidor de correo"
+HREF="x280.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x256.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x280.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN264"
+></A
+>Cap�tulo 4. Servidores de red para empresas</H1
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN266"
+>4.1. DNS</A
+></H1
+><P
+>Tener un servidor DNS público exige unos requisitos. Por lo pronto no basta con un servidor, como mínimo hay que tener dos, que deberían estar en localizaciones diferentes. La mayoría de las empresas optan por recurrir a una empresa que preste servicios de DNS, al menos para que les mantenga el servidor secundario, que periódicamente se actualiza del servidor maestro haciendo una transferencia de zona. Hay servicios DNS gratuitos como <A
+HREF="http://www.startssl.net/"
+TARGET="_top"
+>http://www.startssl.net/</A
+></P
+><P
+>En nuestra red necesitamos un servidor DNS pero no para dar servicio a nuestro dominio, sino para que puedan resolver las direcciones DNS los usuarios de nuestra red, tanto las peticiones que van dirigidas a los servidores internos de la empresa con la que estamos conectados (dominio interno .acme), como los de la salida a Internet. Aclaremos que los servidores DNS de la empresa con la que estamos conectados no sólo sirven el dominio .acme sino también los de Internet, pues son los servidores DNS que usan todos los equipos de su red, por lo que podríamos configurar también nuestros equipos para que usen su DNS.</P
+><P
+>Es más práctico tener un servidor propio, que envíe las peticiones para resolver las direcciones de Internet al DNS de nuestro ISP y las de máquinas del dominio .acme a sus servidores DNS. La primera razón es porque no es lógico que cada vez que un usuario acceda a Internet usemos los servidores de la otra empresa: por privacidad, por buen uso de nuestras propias instalaciones y porque no deberíamos depender de si funciona bien la conexión con la otra empresa para poder usar Internet. Además si un día se añade conectividad con otra empresa más es evidente que habrá que consultar a cada empresa por su DNS.</P
+><P
+>Ejemplo de fichero de configuración:
+<PRE
+CLASS="screen"
+>// Ips que tienen acceso al servidor: sólo la red local
+acl redinterna {
+192.168.120.0/24;
+};
+
+options {
+directory "/var/named";
+forward first;
+// Para resolver direcciones, usamos los servidores de nombres de
+// nuestro ISP
+forwarders {
+80.58.0.33;
+80.58.32.97;
+};
+// Esta línea es para usar la IP de la red local, en lugar de la IP de la
+// interfaz de salida (la de la conexión con la red con la otra empresa o 
+// la de Internet
+query-source address 192.168.120.19 port *;
+};
+
+// Servidores raíz
+zone "." IN {
+type hint;
+file "named.ca";
+};
+
+zone "localhost" IN {
+type master;
+file "localhost.zone";
+allow-update { none; };
+};
+
+zone "127.in-addr.arpa" IN {
+type master;
+file "named.local";
+allow-update { none; };
+};
+
+include "/etc/rndc.key";
+// aquí ponemos los servidores DNS de la red de la otra empresa
+zone "acme" {
+type forward;
+forwarders {
+10.15.8.16;
+};
+forward only;
+};
+
+// Resolución inversa, también para la red de la otra empresa
+
+zone "10.in-addr.arpa" {
+type forward;
+forwarders {
+10.15.8.16
+};
+forward only;
+};
+
+// resolución inversa de nuestra zona
+zone "15.168.192.in-addr.arpa" {
+type master;
+file "/var/named/192.168.120.rev";
+};
+</PRE
+>
+</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN274"
+>4.1.1. DNS dinámico</A
+></H2
+><P
+>Hay muchas web y sistemas para que un equipo con IP dinámica pueda dar de alta su IP en un DNS cada vez que se conecta o cambia. Básicamente lo que se hace es conectarse a un servidor, que analiza la IP de origen: esa será la IP que registrará, tras comprobar que el usuario aporta unas credenciales que le autorizan para cambiar su entrada DNS.</P
+><P
+>No hay un único sistema, por lo que hay unos programas que sirven para unos sitios y otros para otros, habiendo programas que soportan varios protocolos, como ez-ipupdate.</P
+><P
+>El paquete <A
+HREF="http://gnudip2.sourceforge.net/"
+TARGET="_top"
+>http://gnudip2.sourceforge.net/</A
+> sirve para implementar nuestro propio servidor de DNS dinámico, junto con el cliente y la descripción del protocolo.</P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x256.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x280.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>PXE</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Servidor de correo</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

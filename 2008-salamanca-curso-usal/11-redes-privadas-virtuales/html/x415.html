@@ -1,0 +1,364 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>IPsec</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Redes Privadas Virtuales (VPN)"
+HREF="c380.html"><LINK
+REL="PREVIOUS"
+TITLE="Redes Privadas Virtuales (VPN)"
+HREF="c380.html"><LINK
+REL="NEXT"
+TITLE="SSH + PPPD / SSH + TUN"
+HREF="x443.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c380.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Cap�tulo 6. Redes Privadas Virtuales (VPN)</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x443.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN415"
+>6.2. IPsec</A
+></H1
+><P
+>Hay implementaciones de IPsec para cualquier sistema Unix, MacOS X, Windows XP/2000... Una implementación de IPsec consta de dos partes: la implementación sobre la pila de protocolos TCP/IP, en el kérnel y el demonio y herramientas que se ejecutan en el espacio de usuario para establecer las claves<A
+NAME="AEN418"
+HREF="#FTN.AEN418"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+> (esto es la parte IKE: Internet Key Exchange<A
+NAME="AEN420"
+HREF="#FTN.AEN420"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>). En principio es posible utilizar la parte IKE de una implementación sobre la pila de protocolos de otra. Así, la implementación integrada en el kernel Linux (llamada NETKEY) no incluye herramientas IKE, por lo que hay que usar las de otra implementación: habitualmente se usa la implementación del proyecto Kame (surgido de un consorcio de empresas japonesas como Fujitsu y Toshiba para hacer una implementacion de Ipv6 e IPsec), que es la implementación usada en Free/NetBSD y en MacOS X; el demonio IKE de Kame se llama Racoon y el conjunto de utilidades portadas para Linux que además de Racoon incluye otras como setkey es IPsec-tools (http://IPsec-tools.sf.net); en Ubuntu Dapper existen por separado los paquetes IPsec-tools y Racoon (sólo necesitamos el demonio si la asociación de seguridad se negocia vía IKE (puerto UDP 500), no lo necesitamos si se hace manualmente con setkey; setkey puede ser necesario para establecer la política (al estilo de como se crea una regla de filtrado con iptables, setkey sirve tanto crear políticas indicando que se use redcoon para negociar la SA, como para crear directamente la SA), pero también se puede hacer a nivel de conexión con setsockopt y libipsec, incluida en el paquete racoon. </P
+><P
+>También se puede usar por ejemplo como demonio IKE isakmpd (de la implementación de OpenBSD) o Pluto. Pluto es el demonio IKE de la antigua implementación de IPsec para Linux, FreeSWAN, que nunca llegó a formar parte del kernel; FreeSWAN dejó de desarrollarse pero tomaron el relevo dos proyectos: OpenSWAN (<A
+HREF="http://www.openswan.org"
+TARGET="_top"
+>www.openswan.org</A
+>) y StrongSWAN (<A
+HREF="http://www.strongswan.org"
+TARGET="_top"
+>www.strongswan.org</A
+>). Mientras que OpenSWAN sigue desarrollando la pila de protocolos KLIPS como alternativa a la integrada en el kernel, NETKEY(pero su parte IKE funciona tanto con KLIPS como con NETKEY), en StrongSWAN ya sólo soportan NETKEY. StrongSWAN es compatible no sólo con IKE1 sino con IKE2<A
+NAME="AEN425"
+HREF="#FTN.AEN425"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+>: de la compatibilidad con IKE1 se encarga el viejo demonio Pluto, mientras que para IKE2 hay un nuevo demonio llamado Charon. La flexibilidad de programas como StrongSWAN o OpenSWAN son inmensas: incluyendo toda una infraestructura de clave pública basada en certificados X.509, con la posibilidad de utilizar dispositivos como smartcards y teniendo en cuenta aspectos como que los certificados pueden revocarse y ya no ser válidos, que pueden obtenerse de servidores LDAP... Otra característica interesante es "oportunistic encryption", que se basa en situar los certificados en servidores DNS. Ahora bien, para que esto sea seguro, hay que usar DNSSEC, pero esta especificación está poco implementada y hay problemas de seguridad y privacidad por permitir obtener todas las entradas DNS de un servidor<A
+NAME="AEN427"
+HREF="#FTN.AEN427"
+><SPAN
+CLASS="footnote"
+>[4]</SPAN
+></A
+>.</P
+><P
+>Para usar IPsec hay que abrir en los cortafuegos el puerto 200 UDP, pues lo usa IKE. También hay que tener en cuenta que los paquetes tienen un número de protocolo distinto al IP, por lo que también podría haber problemas en el cortafuegos.</P
+><P
+>El lado negativo de IPsec es que es una solución muy compleja<A
+NAME="AEN431"
+HREF="#FTN.AEN431"
+><SPAN
+CLASS="footnote"
+>[5]</SPAN
+></A
+>, sobre todo lo que tiene que ver con la parte IKE. Al margen que esa complejidad podrá afectar más o menos al usuario según los asistentes para configurar una VPN (el problema está en que todo se complica más si los sistemas operativos de los nodos a conectar son distintos<A
+NAME="AEN433"
+HREF="#FTN.AEN433"
+><SPAN
+CLASS="footnote"
+>[6]</SPAN
+></A
+>, frente a la sencillez de usar una implementación de VPN más simple que tenga versión para distintos sistemas operativos) desde el punto de vista de la seguridad son preferibles las soluciones sencillas. Hay gente que no le gusta tampoco de IPsec frente a otras soluciones que se ejecute mucho código en el espacio del kernel (por ejemplo la parte de cifrado, que en el caso de OpenVPN se ejecuta en el espacio de usuario) dado que un error de seguridad ahí es fatal al comprometer todo el sistema, si bien tiene un impacto positivo en el rendimiento. Esta objeción es opinable: es cierto, pero también la información sensible está más protegida a nivel del kernel.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN435"
+>6.2.1. Caso práctico: IPsec en modo transporte, usando preshared keys</A
+></H2
+><P
+>La IP de nuestra máquina es 10.0.0.1 y queremos que haya conexiones seguras con otra máquina de la red local, la 10.0.0.2. Vamos a crear la SA (Security Association) directamente con setkey, por lo que no necesitamos el demonio racoon, dado que no usamos IKE. Usaremos PSK (pre-shared keys). Para ello, creamos el siguiente fichero y lo grabamos como "politica.txt":
+<PRE
+CLASS="screen"
+>add 10.0.0.1 10.0.0.2 esp 7320 -E 3des-cbc "i92dfafgehogexxxx1112222"; 
+add 10.0.0.2 10.0.0.1 esp 6698 -E 3des-cbc "xxxXXXXXXrjZZZ(xx111z&#60;&#60;3";
+spdadd 10.0.0.2 10.0.0.1 any -P out ipsec esp/transport//require;
+</PRE
+>
+</P
+><P
+>Los números 7320 y 6698 son los de la SA; nos basta con elegir un entero de hasta 32 bits al azar, sabiendo que del 0 al 255 están reservados y que estos números tienen que ser únicos por cada nodo.</P
+><P
+>La clave en cada sentido la hemos especificado para 3DES, que son 192bits, o lo que es lo mismo, 24 bytes; si especificamos la cadena como texto (otra opción es como número hexadecimal, comenzando por 0x y sin entrecomillar) deberá tener exactamente esa longitud.</P
+><P
+>Hay que ejecutar en la máquina <KBD
+CLASS="userinput"
+>keyutil -f politica.txt</KBD
+>. Tras transferir el fichero a la máquina 10.0.0.2 haremos lo mismo, pero tras invertir las direcciones en la última línea del fichero.</P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notas</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN418"
+HREF="x415.html#AEN418"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>En realidad en IPsec de lo que se habla es de Security Associations (SA) que incluyen los parámetros de seguridad como claves, certificados, algoritmos, duración de claves, datos para evitar replay attacs, etc.. En una comunicación hay una SA por sentido. En los paquetes se incluye un número, el SPI (Secure parameter index) que junto con la IP destino y el protocolo (AH o ESP) sirve para que la otra parte encuentre la SA en una tabla, la SADB. En cada nodo hay una SPD (Security Policy Database) que básicamente es una tabla que dados unos selectores (Ips/puertos origen/destino, por ejemplo) aplica una acción, que puede ser dejar pasar el paquete tal cual o usar AH/ESP, modo transporte o modo túnel y la SA a aplicar. La implementación de Linux almacena en el kernel estas dos tablas.</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN420"
+HREF="x415.html#AEN420"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>En la versión anterior de los RFC de IPsec, en realidad se hablaba de ISAKMP, para la gestión de las SA, que para la parte del intercambio de claves podía usar distintos protocolos, aunque en la práctica se establecía IKE. En la versión actual, IKE2, engloba todo.</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN425"
+HREF="x415.html#AEN425"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>StrongSWAN no es la única implementación libre de IKE2. Existe también racoon2, ikv2 y el proyecto español openikev2 (http://openikev2.sourceforge.net/)</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN427"
+HREF="x415.html#AEN427"
+><SPAN
+CLASS="footnote"
+>[4]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>Hay más detalles de esto en la wikipedia. La idea básica es que los errores de no encontrado también hay que firmarlos, pero como la clave privada no tiene por qué estar online, estos mensajes pueden estar prefirmados; para que estos mensajes sean finitos, se indica que entre tal nombre y tal otro no existe esa entrada.</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN431"
+HREF="x415.html#AEN431"
+><SPAN
+CLASS="footnote"
+>[5]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>Hay 9 documentos para describir IPsec (RFC 4301-4309, de Diciembre de 2005, todavía es frecuente encontrar referencias a la versión anterior de estos documentos, RFC 2401-2409 y aún hay otra más antigua, totalmente incompatible) más otros complementarios para explicar cómo traspasar los cortafuegos, así como por ejemplo para especificar IPKMOBIL (para clientes con IP móvil y para máquinas multihome) . De todos modos IKE2 simplifica IKE, a la par que evita algunos de sus problemas, en concreto denegaciones de servicio. Si oímos hablar de cosas como main vs agressive mode, se refieren a la versión vieja, IKE.</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN433"
+HREF="x415.html#AEN433"
+><SPAN
+CLASS="footnote"
+>[6]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>Los problemas de interoperabilidad se dan practicamente siempre en la parte IKE. Son muchos los parámetros negociables y no hay unos valores por defecto que todas las implementaciones tengan que proporcionar. En la mayoría de los casos si algo sale mal no se muestra claramente la causa y si se muestra no es comprensible para alguien que no conozca a fondo IPsec. Para complicar más las cosas, IKE2 no es compatible con IKE1, aunque se pueden implementar los dos usando el mismo demonio y puerto UDP. Así mismo hay extensiones, por ejemplo en IKE con X-AUTHse pueden utilizar mecanismos adicionales de autenticación; en IKE2 se usa EAP (como en WPA/WPA2-Enterprise en las redes Wifi y en general en dispositivos que usen la autenticación de IEEE802.1X).</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c380.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x443.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Redes Privadas Virtuales (VPN)</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c380.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>SSH + PPPD / SSH + TUN</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

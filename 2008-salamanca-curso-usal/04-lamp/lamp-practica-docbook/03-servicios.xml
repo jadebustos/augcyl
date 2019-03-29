@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chapter>
+	<title>Configuraci&oacute;n de Servicios LAMP</title>
+<section>
+<title>Configuraci&oacute;n de un Servidor DNS</title>
+<para>
+Debido que las distintas posibilidades a la hora de gestionar un dominio son tan variadas, en el presente manual se va a suponer que se dispone de un dominio contratado y que se sabe la direcci&oacute;n ip de cada una de las m&aacute;quinas que van a ir dentro del dominio.
+</para>
+</section>
+<section>
+<title>Configuraci&oacute;n de un dominio DNS</title>
+<para>
+Una vez que hayamos accedido a la herramienta de configuraci&oacute;n dispondremos de in interfaz a trav&eacute;s del cual podremos modificar las 
+entradas del dominio. Disponemos b&aacute;sicamente de tres tipo de entradas: A o entradas de maquinas (relacionan una ip con un nombre dentro 
+del dominio), CNAME relacionan mediante un alias un nombre de m&aacute;quina con otro nombre y MX que relaciona el servidor por correo por 
+defecto con un nombre de m&aacute;quina.
+</para>
+<para>A continuaci&oacute;n de puede ver una figura en el que se ve c&oacute;mo configurar dichas entradas:</para>
+<figure>
+	<title>Ejemplo de interfaz y configuraci&oacute;n de un Servidor DNS</title>
+              <graphic fileref="img/Captura001-config-dns.png" format="PNG" scale="40" />
+</figure>
+<para>Una vez guardados los cambios espere entre 24 y 48h a que dichos cambios surtan efecto. Despu&eacute;s de que haya pasado dicho plazo,
+pruebe a entrar mediante el navegador web para ver si funciona correctamente.</para>
+</section>
+</chapter>
+ 

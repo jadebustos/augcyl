@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<bibliography>
+  <biblioentry>
+    <title>
+      <ulink url="http://es.tldp.org/Presentaciones/200102linuxcol/filosofia/filosofia/">
+	GNU/LINUX: Filosof&iacute;a de Desarrollo
+      </ulink>
+    </title>
+  </biblioentry>
+  <biblioentry>
+    <title>
+      <ulink url="http://www.gnu.org/philosophy/free-sw.es.html">
+        La definici&oacute;n de Software Libre
+      </ulink>
+    </title>
+  </biblioentry>
+  <biblioentry>
+    <title>
+      <ulink url="http://www.es.gnu.org/Licencias/ip.html">
+        La Licencia de IP Filter
+      </ulink>
+    </title>
+  </biblioentry>
+  <biblioentry>
+    <title>
+      <ulink url="http://grupos-locales.hispalinux.es/material/linuxbcn/linux.html">
+        GNU/Linux y las NTIC
+      </ulink>
+    </title>
+  </biblioentry>
+</bibliography>
+ 

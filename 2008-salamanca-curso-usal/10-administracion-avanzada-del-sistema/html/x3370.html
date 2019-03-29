@@ -1,0 +1,276 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Servicios de Internet</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Servicios"
+HREF="c3288.html"><LINK
+REL="PREVIOUS"
+TITLE="Servicios"
+HREF="c3288.html"><LINK
+REL="NEXT"
+TITLE="Servicios de Ficheros y Impresión"
+HREF="x3402.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c3288.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 10. Servicios</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x3402.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN3370"
+>10.2. Servicios de Internet</A
+></H1
+><P
+>Internet se basa en protocolos que eran estándares en UNIX,
+      para los cuales UNIX  ya contaba con servicios que los
+      implementaban. Esto ha sido una de las
+      principales ventajas del mundo UNIX, de la que Linux ha aprovechado.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3373"
+>10.2.1. <SPAN
+CLASS="application"
+>apache</SPAN
+></A
+></H2
+><P
+>Es el servidor para http con más presencia en
+	Internet. Para Linux es el servidor de http por
+	defecto.</P
+><P
+>Su configuración se realiza normalmente en el directorio
+	<TT
+CLASS="filename"
+>/etc/apache</TT
+> que contiene el fichero <TT
+CLASS="filename"
+>httpd.conf</TT
+>.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3380"
+>10.2.2. Correo</A
+></H2
+><P
+>En cuanto a los servicios de correo, no se ha llegado a
+	imponer ninguno. Tenemos por ejemplo: exim, postfix, sendmail, etc.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3383"
+>10.2.3. <SPAN
+CLASS="application"
+>ssh</SPAN
+></A
+></H2
+><P
+>Para el acceso remoto a Linux en modo consola se ha
+	impuesto el protocolo ssh, que es un telnet encriptado y
+	mejorado. Permite también el envío de ficheros.</P
+><P
+>La configuración del servicio ssh se realiza en
+	<TT
+CLASS="filename"
+>/etc/ssh</TT
+> tanto en su modo como servidor,
+	como su configuración por defecto en modo cliente.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3389"
+>10.2.4. <SPAN
+CLASS="application"
+>xinetd</SPAN
+></A
+></H2
+><P
+>Es un servicio que nos permite tener disponibles una
+	serie de servicios tcp/udp. Como puede ser finger,
+	telnet, ftp, talk, etc.</P
+><P
+>Sustituye <SPAN
+CLASS="application"
+>inetd</SPAN
+> añadiendo mayor
+	seguridad y control de acceso.</P
+><P
+>Su configuración se realiza en el fichero
+	<TT
+CLASS="filename"
+>/etc/xinetd.conf</TT
+>, aunque soporta tener un
+	directorio con cada configuración de los servicios en un
+	fichero.</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Existe una herramienta para pasar la configuración
+	del viejo <SPAN
+CLASS="application"
+>inetd</SPAN
+> a
+	<SPAN
+CLASS="application"
+>xinetd</SPAN
+>, llamada <B
+CLASS="command"
+>itox</B
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c3288.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x3402.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Servicios</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c3288.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Servicios de Ficheros y Impresión</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

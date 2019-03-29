@@ -1,0 +1,853 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Permisos en GNU/Linux</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Usuarios y permisos en GNU/Linux"
+HREF="c2312.html"><LINK
+REL="PREVIOUS"
+TITLE="Gestión de usuarios"
+HREF="x2416.html"><LINK
+REL="NEXT"
+TITLE="El comando su"
+HREF="x2757.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x2416.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 8. Usuarios y permisos en GNU/Linux</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x2757.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN2557"
+>8.4. Permisos en GNU/Linux</A
+></H1
+><P
+>Para evitar que otros usuarios accedan a nuestros ficheros GNU/Linux al igual que otros sistemas UNIX utiliza permisos y cada usuario puede acceder unica y exclusivamente a aquellos ficheros para los cuales tiene concedido acceso.</P
+><P
+>Dado que en los sistemas UNIX todo son ficheros es importante el conocer bien el mecanismo que otorga privilegios para el acceso a los ficheros.</P
+><P
+>Los permisos de los ficheros se almacenan utilizando un entero de doce bits y se dividen en ternas:</P
+><P
+></P
+><UL
+><LI
+><P
+>La terna más significativa se utiliza para especificar unos permisos especiales que son los <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SUID</I
+></SPAN
+>, <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SGID</I
+></SPAN
+> y el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Sticky Bit</I
+></SPAN
+>.</P
+></LI
+><LI
+><P
+>La siguiente terna se utiliza para especificar los permisos del propietario del fichero.</P
+></LI
+><LI
+><P
+>La siguiente terna se utiliza para especificar los permisos del grupo del propietario del fichero.</P
+></LI
+><LI
+><P
+>La terna menos significativa se utiliza para especificar los permisos del resto de usuarios, es decir de aquellos usuarios que no estan en el grupo del usuario que posee el fichero.</P
+></LI
+></UL
+><P
+>Podemos utilizar <B
+CLASS="command"
+>ls -l</B
+> para ver los permisos de un fichero:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>ls -l admlinux.xml</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>-rw-r--r-- 1 jose users 1,8K 2007-04-08 18:38 admlinux.xml</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+>
+</PRE
+><P
+>La primera columna nos da los permisos. El primer carácter nos indica el tipo de fichero que es:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-</I
+></SPAN
+> indica un fichero normal.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>d</I
+></SPAN
+> indica un directorio.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>c</I
+></SPAN
+> indica un dispositivo carácter (monitor, impresora).</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>s</I
+></SPAN
+> indica un socket.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>b</I
+></SPAN
+> indica un dispositivo de bloques (discos).</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>l</I
+></SPAN
+> indica un enlace.</P
+></LI
+></UL
+><P
+>Los siguientes tres carácteres indican los permisos que tiene el propietario del fichero.</P
+><P
+>Los siguientes tres carácteres indican los permisos que tiene el grupo del propietario del fichero.</P
+><P
+>Los siguientes tres carácteres indican los permisos que tienen el resto de usuarios.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2604"
+>8.4.1. Tipos de permisos</A
+></H2
+><P
+>Los permisos típicos que nos podemos encontrar son:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Lectura</I
+></SPAN
+> denotado como "<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>r</I
+></SPAN
+>".</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Fichero:</I
+></SPAN
+> Podemos leer el contenido del fichero.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Directorio:</I
+></SPAN
+> Podemos leer el contenido del directorio (mediante <B
+CLASS="command"
+>ls</B
+> por ejemplo).</P
+></LI
+></UL
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Escritura</I
+></SPAN
+> denotado como "<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>w</I
+></SPAN
+>".</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Fichero:</I
+></SPAN
+> Podemos modificar el contenido del fichero.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Directorio:</I
+></SPAN
+> Podemos modificar el contenido del directorio. Podemos crear y borrar ficheros dentro del directorio.</P
+></LI
+></UL
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Ejecución</I
+></SPAN
+> denotado como "<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>x</I
+></SPAN
+>".</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Fichero:</I
+></SPAN
+> Podemos ejecutar el fichero.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Directorio:</I
+></SPAN
+> Podemos entrar al directorio (mediante <B
+CLASS="command"
+>cd</B
+> por ejemplo).</P
+></LI
+></UL
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2643"
+>8.4.2. Cambio de permisos</A
+></H2
+><P
+>Sólo el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>root</I
+></SPAN
+> y el propietario del fichero podrán cambiar los permisos de los ficheros.</P
+><P
+>Para hacerlo se utiliza el comando <B
+CLASS="command"
+>chmod</B
+>.</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="command"
+>chmod</B
+> sólo actua sobre ficheros. Si queremos que actue de forma recursiva sobre todos los directorios tendremos que utilizar el flag <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-R</I
+></SPAN
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="AEN2653"
+>8.4.2.1. Cambiar permisos de forma intuitiva</A
+></H3
+><P
+>Para cambiar permisos de forma intuitiva utilizaremos "<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>u</I
+></SPAN
+>" para hacer referencia a los permisos del usuario, "<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>g</I
+></SPAN
+>" para hacer referencia a los permisos del grupo y "<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>o</I
+></SPAN
+>" para hacer referencia a los permisos del resto de usuarios.</P
+><P
+>Además utilizaremos "<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>=</I
+></SPAN
+>" para establecer unos permisos en concreto, "<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>+</I
+></SPAN
+>" para añadir permisos a los ya existentes y "<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-</I
+></SPAN
+>" para quitar permisos:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[jose@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>ls -l evms.xml</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>-rw-r--r-x 1 jose jose 70992 2007-04-09 00:21 evms.xml</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[jose@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>chmod u=rwx,g+w,o-x evms.xml</KBD
+>
+<SAMP
+CLASS="prompt"
+>[jose@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>ls -l evms.xml</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>-rwxrw-r-- 1 jose jose 70992 2007-04-09 00:21 evms.xml</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[jose@sal]$ </SAMP
+>
+</PRE
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Si utilizamos el flag <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-v</I
+></SPAN
+> nos informa del resultado.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="AEN2676"
+>8.4.2.2. Cambiar permisos en octal</A
+></H3
+><P
+>El método anterior es muy intuitivo, pero engorroso. Es posible utilizar notación octal para establecer los permisos. Al principio cuesta acostumbrarse, pero al poco tiempo es más intuitivo que el método anterior.</P
+><P
+>Se utiliza notación octal porque con tres digitos en binario se pueden representar ocho números diferentes.</P
+><P
+>Para poner los permisos en octal se pone a uno el permiso a establecer y a cero el que no se quiere conceder:</P
+><DIV
+CLASS="table"
+><A
+NAME="AEN2681"
+></A
+><P
+><B
+>Tabla 8-1. Permisos en octal</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>&nbsp;</TH
+><TH
+ALIGN="center"
+>Propietario</TH
+><TH
+ALIGN="center"
+>Grupo</TH
+><TH
+ALIGN="center"
+>Resto</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+ALIGN="center"
+>Permisos</TD
+><TD
+ALIGN="center"
+>rwx</TD
+><TD
+ALIGN="center"
+>rwx</TD
+><TD
+ALIGN="center"
+>rwx</TD
+></TR
+><TR
+><TD
+ALIGN="center"
+>Binario</TD
+><TD
+ALIGN="center"
+>111</TD
+><TD
+ALIGN="center"
+>101</TD
+><TD
+ALIGN="center"
+>100</TD
+></TR
+><TR
+><TD
+ALIGN="center"
+>Octal</TD
+><TD
+ALIGN="center"
+>7</TD
+><TD
+ALIGN="center"
+>5</TD
+><TD
+ALIGN="center"
+>4</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>Para establecer estos permisos en octal:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>chmod 754 admlinux.xml</KBD
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2711"
+>8.4.3. Permisos por defecto</A
+></H2
+><P
+>Cuando creamos un fichero se crea con unos permisos por defecto. Estos permisos están especificados por el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>umask</I
+></SPAN
+>:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>umask</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>0022</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>umask -S</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>u=rwx,g=rx,o=rx</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><P
+>Para determinar la máscara a utilizar se hace al contrario que con los permisos, es decir se pone a uno los permisos que se quieren quitar:</P
+><DIV
+CLASS="table"
+><A
+NAME="AEN2724"
+></A
+><P
+><B
+>Tabla 8-2. Máscara en octal</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>&nbsp;</TH
+><TH
+ALIGN="center"
+>Propietario</TH
+><TH
+ALIGN="center"
+>Grupo</TH
+><TH
+ALIGN="center"
+>Resto</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+ALIGN="center"
+>Permisos</TD
+><TD
+ALIGN="center"
+>rwx</TD
+><TD
+ALIGN="center"
+>rwx</TD
+><TD
+ALIGN="center"
+>rwx</TD
+></TR
+><TR
+><TD
+ALIGN="center"
+>Binario</TD
+><TD
+ALIGN="center"
+>000</TD
+><TD
+ALIGN="center"
+>010</TD
+><TD
+ALIGN="center"
+>110</TD
+></TR
+><TR
+><TD
+ALIGN="center"
+>Octal</TD
+><TD
+ALIGN="center"
+>0</TD
+><TD
+ALIGN="center"
+>2</TD
+><TD
+ALIGN="center"
+>6</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>Para establecer la máscara:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>umask 026</KBD
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>umask -S</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>0026</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x2416.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x2757.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Gestión de usuarios</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c2312.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>El comando <B
+CLASS="command"
+>su</B
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

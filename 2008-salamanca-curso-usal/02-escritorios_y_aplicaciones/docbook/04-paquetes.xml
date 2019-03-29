@@ -1,0 +1,201 @@
+<?xml version='1.0' encoding='utf-8'?>
+<appendix>
+  <title>Paquetes de las aplicaciones de usuario en openSUSE 10.3</title>
+
+  <table>
+    <title>Paquetes de las aplicaciones de usuario en openSUSE 10.3</title>
+
+    <tgroup cols='3'>
+      <thead>
+        <row>
+          <entry>
+            Programa
+          </entry>
+          <entry>
+            Paquete
+          </entry>
+          <entry>
+            Repositorio
+            <footnote>
+              <itemizedlist>
+                <listitem>
+                  <para>
+                    <ulink url="http://download.opensuse.org/repositories/openSUSE:10.3/standard/">
+                      Repositorio principal (OSS)
+                    </ulink>
+                  </para>
+                </listitem>
+                <listitem>
+                  <para>
+                    <ulink url="http://ftp.skynet.be/pub/packman/suse/10.3/">
+                      Packman Repository
+                    </ulink>
+                  </para>
+                </listitem>
+              </itemizedlist>
+            </footnote>
+          </entry>
+        </row>
+      </thead>
+
+      <tbody>
+        <row>
+          <entry>OpenOffice.org Writer</entry>
+          <entry>OpenOffice_org-writer</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>OpenOffice.org Math</entry>
+          <entry>OpenOffice_org-math</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>OpenOffice.org Calc</entry>
+          <entry>OpenOffice_org-calc</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>OpenOffice.org Impress</entry>
+          <entry>OpenOffice_org-impress</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>OpenOffice.org Draw</entry>
+          <entry>OpenOffice_org-draw</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>OpenOffice.org Base</entry>
+          <entry>OpenOffice_org-base</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>KWord</entry>
+          <entry>koffice-wordprocessing</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>KSpread</entry>
+          <entry>koffice-spreadsheet</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>KPresenter</entry>
+          <entry>koffice-presentation</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>Kexi</entry>
+          <entry>koffice-database</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>Mozilla Firefox</entry>
+          <entry>MozillaFirefox</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>Mozilla Thunderbird</entry>
+          <entry>MozillaThunderbird</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>KMail</entry>
+          <entry>kdepim3</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>Evolution</entry>
+          <entry>evolution</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>K3b</entry>
+          <entry>k3b</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>Brasero</entry>
+          <entry>brasero</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>VLC</entry>
+          <entry>vlc</entry>
+          <entry>Packman Repository</entry>
+        </row>
+        <row>
+          <entry>MPlayer</entry>
+          <entry>MPlayer</entry>
+          <entry>Packman Repository</entry>
+        </row>
+        <row>
+          <entry>Kaffeine</entry>
+          <entry>kaffeine</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>Totem</entry>
+          <entry>totem</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>Amarok</entry>
+          <entry>amarok</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>Rhythmbox</entry>
+          <entry>rhythmbox</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>Audacious</entry>
+          <entry>audacious</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>Banshee</entry>
+          <entry>banshee</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>GIMP</entry>
+          <entry>gimp</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>Inkscape</entry>
+          <entry>inkscape</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>Pidgin</entry>
+          <entry>pidgin</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>Ekiga</entry>
+          <entry>ekiga</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+        <row>
+          <entry>aMule</entry>
+          <entry>aMule</entry>
+          <entry>Packman Repository</entry>
+        </row>
+        <row>
+          <entry>Azureus</entry>
+          <entry>Azureus</entry>
+          <entry>Packman Repository</entry>
+        </row>
+        <row>
+          <entry>YaST</entry>
+          <entry>yast2</entry>
+          <entry>Repositorio principal (OSS)</entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </table>
+</appendix>
+

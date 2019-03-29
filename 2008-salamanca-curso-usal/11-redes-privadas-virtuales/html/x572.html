@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Escritorio remoto: RFB (VNC)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Escritorio remoto"
+HREF="c543.html"><LINK
+REL="PREVIOUS"
+TITLE="Escritorio remoto"
+HREF="c543.html"><LINK
+REL="NEXT"
+TITLE="RDP. Escritorio remoto de Windows"
+HREF="x594.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c543.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Cap�tulo 7. Escritorio remoto</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x594.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN572"
+>7.2. Escritorio remoto: RFB (VNC)</A
+></H1
+><P
+>VNC es un sistema que permite conectarse a un escritorio remoto. El servidor se ejecuta en el ordenador remoto a cuyo escritorio nos queremos conectar y el cliente en nuestra máquina. Toda la pantalla del escritorio se maneja dentro de una ventana, no es posible como con X-Window ejecutar cada aplicación en su ventana, como si fueran aplicaciones locales. Así mismo es un sistema mucho menos avanzado que X-Window, basado simplemente en un framebuffer, retransmitiendo los cuadros que cambian (en cambio en X-Window se almacena información en el servidor, de modo que no hay que retransmitirla cada vez que se muestra por pantalla: como muestra un botón: el protocolo baso X-Window, sin extensiones, tiene 160 tipos de peticiones, respuestas y eventos).</P
+><P
+>Si VNC es menos avanzado que X-Window, ¿por qué hay gente que usa VNC en lugar de X-Window?</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>conectividad: VNC funciona sobre cualquier escritorio, incluyendo Windows: las aplicaciones Windows no son clientes X-Window, por lo que no podemos esperar usarlas remotamente utilizando este sistema.</P
+></LI
+><LI
+><P
+>conexión sin estado: cuando iniciamos una sesión remota con X-Window, no podemos en un momento dado decir, vale, me voy a casa, apago el monitor y me conecto luego desde casa y tengo todo como lo dejé, con el OpenOffice abierto editando un fichero y el visor de PDF por la página 85. El motivo es que los clientes están ligados a esa conexión con el servidor y en el servidor hay información de estado: si cerramos el servidor mueren las aplicaciones. En cambio con VNC realmente funciona la analogía monitor, teclado y ratón remoto.</P
+></LI
+><LI
+><P
+>rendimiento aceptable en una conexión vía Internet. Este punto es desconcertante, porque por diseño X-Window es mucho más eficiente que VNC y debería ofrecer mejores resultados con menos ancho de banda. De hecho usando una red local con X-Window realmente las aplicaciones parecen locales. ¿Entonces que es lo que ocurre? El motivo es el round-trip. Conforme pasaban los años, los desarrolladores se despreocuparon más de la posibilidad de ejecutar las aplicaciones remotamente vía Internet, sobre todo en un punto: las aplicaciones e incluso los propios toolkits hacen muchas consultas al servidor X y esperan una respuesta, pese a que en general X-Window funciona asíncronamente. Estas peticiones-respuestas tardan en procesarse cuanto menos el tiempo de latencia de la red multiplicado por dos (uno para enviar, otro para recibir). En una aplicación que se ejecuta en local, la latencia es de 0,1 ms, por lo que aunque haya miles de round-trips el efecto es inapreciable. En una red local la latencia es de 1ms, todavía asumible. Pero si usamos por ejemplo una ADSL, ya encontraremos latencias de 50ms, en una línea serie 200ms y estos valores subirán aún más en conexiones GSM o por satélite. Afortunadamente hay una tecnología que trata de soluciones estos problemas, NX, de la que también hablaremos.</P
+></LI
+><LI
+><P
+>algunos programas como TightVNC (<A
+HREF="http://www.tightvnc.com/"
+TARGET="_top"
+>www.tightvnc.com/</A
+>) soportan también transferencia de ficheros.</P
+></LI
+><LI
+><P
+>puede usarse para mostrar escritorio a otros usuarios o para solicitar asistencia; además de protegerse por contraseña se puede hacer que salga una ventana pidiendo autorización si de lo que se trata es de compartir escritorio.</P
+></LI
+></OL
+><P
+>VNC se ejecuta sobre una única conexión TCP, por lo que es muy fácil de securizar utilizando un túnel SSH, que es así mismo una solución interesante para permitir que los traajadores de una empresa puedan manejar en caso de necesidad su equipo de la oficina desde casa.</P
+><P
+>Tanto KDE como Gnome incluyen una opción de permitir administrar remotamente el equipo (en Gnome el paquete Vino, en KDE es krfb). Esta opción se implementa con VNC. También se implementa con VNC el "Apple Remote Desktop". Probablemente también se use en VMWare Server, que permite desde una consola VMWare acceder a máquinas virtuales ejecutándose en otra máquina.</P
+><P
+>A veces en lugar de VNC leeremos RFB. Es el nombre del protocolo: Remote Frame Buffer.</P
+><P
+>Relación de software que implementa VNC: <A
+HREF="http://en.wikipedia.org/wiki/Vnc"
+TARGET="_top"
+>http://en.wikipedia.org/wiki/Vnc</A
+>. Como visores los más habituales son tighvnc y realvnc (este último de una empresa creada por los programadores originales, que ahora desarrollan una versión privativa además de la libre; las distribuciones suelen incluir este paquete como vnc a secas, sin el "real" en el nombre). Como servidores también estos, pero ya es más habitual usar el integrado en el escritorio, al permitir hacerlo funcionar en cualquier momento sobre un servidor X ya arrancado; en cambio en los otros el servidor VNC es también un servidor X-Window, de tal modo que primero hay que arrancar ese servidor VNC y desde otro servidor X ejecutar un cliente VNC para poder usar las aplicaciones. Este enfoque sigue siendo interesante cuando se quieren lanzar aplicaciones X-Window sobre una máquina remota que se sigan ejecutando cuando apagemos el ordenador desde el que nos estamos conectando. Así mismo hay programas interesantes como x2vnc, que permite (al estilo de x2x) manejar dos ordenadores de modo que al llegar el ratón al borde de la ventana "continúa" en la del otro PC.</P
+><P
+>La funcionalidad de ejecutar una aplicación interactiva y poder seguir manejándola desde otra máquina también existe para texto. Lo más habitual es lanzar la aplicación con screen. Si no lo hemos hecho, queda el recurso de linuxvnc, que se une a una sesión de terminal ya existente y permite manejarla vía VNC. Otra opción es conspy.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c543.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x594.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Escritorio remoto</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c543.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>RDP. Escritorio remoto de Windows</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

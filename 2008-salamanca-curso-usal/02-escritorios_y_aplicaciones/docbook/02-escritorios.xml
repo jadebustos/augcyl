@@ -1,0 +1,671 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chapter>
+  <title>Escritorios en GNU/Linux</title>
+
+  <sect1>
+    <title>KDE</title>
+
+    <sect2>
+      <title>Historia y descripci&oacute;n del proyecto KDE</title>
+
+      <para>
+        KDE es un acr&oacute;nimo recursivo, significa K Desktop Environment.
+      </para>
+
+      <para>
+        El proyecto KDE es un entorno de escritorio contempor&aacute;neo para
+        estaciones de trabajo Unix, aunque tambi&eacute;n forman parte del
+        mismo un conjunto de aplicaciones que surgieron influenciadas por
+        &eacute;l. Todas ellas obedecen una serie de est&aacute;ndares que
+        tienen como objetivo dotarlas de interfaces de usuario similares y
+        otro tipo de consistencias entre s&iacute;, aunque esto no quiere
+        decir que estos programas no puedan ser utilizados desde otros
+        escritorios.
+      </para>
+
+      <para>
+        Su historia comienza en 1996 cuando fue fundado por el alem&aacute;n
+        Matthias Ettrich, que era un estudiante de la Universidad de Tubinga.
+        Para su desarrollo, Ettrich decidi&oacute; utilizar las bibliotecas
+        Qt, que estaban liberadas a trav&eacute;s de una licencia no
+        compatible con la GPL por la compa&ntilde;ia Trolltech. Este hecho
+        resultaba controvertido para una gran parte de la comunidad del
+        software libre. Sin embargo, en la actualidad estas bibliotecas ya
+        est&aacute;n disponibles por medio de la GNU General Public License,
+        por lo que la pol&eacute;mica que le acompa&ntilde;&oacute; en sus
+        or&iacute;genes carece de sentido.
+      </para>
+
+      <para>
+        Las l&iacute;neas de dise&ntilde;o de KDE obedecen una
+        filosof&iacute;a: el principio de la personalizaci&oacute;n. Esto
+        quiere decir que si un componente de KDE da lugar a que pueda ser
+        personalizable de alguna manera, esta capacidad se implementar&aacute;
+        para que los usuarios puedan acceder a esta opci&oacute;n.
+      </para>
+
+      <figure>
+        <title>
+          Logotipo de KDE y su mascota, Konqi
+        </title>
+        <graphic
+        fileref="img/01-escritorios/01-kde/01-kde-logotipo_y_mascota.png"
+        format="PNG" width="150" scale="60"/>
+      </figure>
+    </sect2>
+
+    <sect2>
+      <title>El escritorio KDE</title>
+
+      <figure>
+        <title>
+          Vista general del escritorio KDE
+        </title>
+        <graphic
+        fileref="img/01-escritorios/01-kde/02-kde-vista_general.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+
+      <para>
+        Las partes principales de las que se compone el escritorio KDE que nos
+        encontramos en openSUSE 10.3 son:
+      </para>
+
+      <itemizedlist>
+        <listitem>
+          <para>
+            El fondo de escritorio, que es un elemento decorativo.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Los iconos de escritorio, que sirven para lanzar aplicaciones y
+            acceder a carpetas o archivos.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            El panel de KDE, que est&aacute; compuesto, de izquierda a
+            derecha en la imagen anterior, por el men&uacute; K, los iconos de
+            acceso r&aacute;pido, las &aacute;reas de trabajo, la barra de
+            tareas, la bandeja de sistema y los iconos de sesi&oacute;n.
+          </para>
+        </listitem>
+      </itemizedlist>
+
+      <figure>
+        <title>
+          Men&uacute; K
+        </title>
+        <graphic
+        fileref="img/01-escritorios/01-kde/03-menu_k.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+
+      <para>
+        El elemento m&aacute;s importante del escritorio es el men&uacute; K,
+        ya que es la herramienta desde la que podemos tanto abrir los
+        programas que queramos ejecutar como acceder a carpetas y ficheros.
+      </para>
+
+      <para>
+        El men&uacute; K est&aacute; dividido en seis secciones: favoritos,
+        aplicaciones, PC, historial, salir y buscar.
+      </para>
+
+      <para>
+        Una vez hecha la presentaci&oacute;n de las diferentes partes de este
+        escritorio, s&oacute;lo queda animar al lector a que haga click con el
+        bot&oacute;n derecho por sus diferentes elementos y comience a
+        personalizarlo a su medida.
+      </para>
+    </sect2>
+
+    <sect2>
+      <title>Konqueror</title>
+
+      <para>
+        Konqueror es el administrador de archivos de KDE, aunque &eacute;sta
+        no es su &uacute;nica funci&oacute;n, tambi&eacute;n es capaz de
+        comportarse como navegador web y visor de documentos.
+      </para>
+
+      <figure>
+        <title>
+          Konqueror
+        </title>
+        <graphic
+        fileref="img/01-escritorios/01-kde/04-konqueror.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+
+      <figure>
+        <title>
+          Konqueror como navegador web
+        </title>
+        <graphic
+        fileref="img/01-escritorios/01-kde/05-konqueror-navegador_web.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+
+      <figure>
+        <title>
+          Konqueror como visor de im&aacute;genes
+        </title>
+        <graphic
+        fileref="img/01-escritorios/01-kde/06-konqueror-visor_de_imagenes.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+
+      <para>
+        Como gestor de ficheros, Konqueror es una herramienta eficiente,
+        flexible y personalizable. Nos permite copiar y mover archivos, crear
+        y renombrar carpetas, crear nuevos archivos de distintos tipos y el
+        resto de operaciones que se pueden hacer con otras herramientas de
+        administraci&oacute;n de archivos. Adem&aacute;s ofrece algunas
+        novedades con respecto a otros gestores de ficheros, entre las que
+        caben destacar la vista dividida, las pesta&ntilde;as y la capacidad
+        de emular un terminal.
+      </para>
+
+      <figure>
+        <title>
+          Konqueror con la vista dividida
+        </title>
+        <graphic
+        fileref="img/01-escritorios/01-kde/07-konqueror-vista_dividida.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+
+      <figure>
+        <title>
+          Konqueror con pesta&ntilde;as
+        </title>
+        <graphic
+        fileref="img/01-escritorios/01-kde/08-konqueror-pestanas.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+
+      <figure>
+        <title>
+          Konqueror con emulador de terminal
+        </title>
+        <graphic
+        fileref="img/01-escritorios/01-kde/09-konqueror-emulador_de_terminal.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+
+    <sect2>
+      <title>Centro de control de KDE</title>
+
+      <para>
+        El centro de control de KDE es el programa de configuraci&oacute;n del
+        escritorio KDE.
+      </para>
+
+      <figure>
+        <title>
+          Centro de control de KDE
+        </title>
+        <graphic
+        fileref="img/01-escritorios/01-kde/10-centro_de_control_de_kde.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+
+      <para>
+        Desde &eacute;l se pueden configurar una multitud de opciones; por
+        ello el programa las clasifica en una serie de categor&iacute;as que a
+        su vez tambi&eacute;n est&aacute;n modularizadas. Dichas
+        categor&iacute;as son:
+      </para>
+
+      <itemizedlist>
+        <listitem>
+          <para>
+            Administraci&oacute;n del sistema
+          </para>
+          <para>
+            Contiene a los apartados administrador de acceso, fecha y hora,
+            instalador de fuentes y rutas.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Aspecto y temas
+          </para>
+          <para>
+            Contiene a los apartados administrador de temas, colores,
+            decoraci&oacute;n de ventanas, estilo, fondo, fuentes, GTK styles
+            and fonts, iconos, notificaci&oacute;n de lanzamiento, pantalla
+            anunciadora y salvapantallas.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Componentes de KDE
+          </para>
+          <para>
+            Contiene a los apartados administrador de archivos, administrador
+            de servicios, administrador de sesiones, asociaciones de archivo,
+            b&uacute;squeda de escritorio, corrector ortogr&aacute;fico,
+            recursos de KDE, rendimiento de KDE y selector de componentes.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Escritorio
+          </para>
+          <para>
+            Contiene a los apartados barra de tareas, comportamiento,
+            comportamiento de la ventana, escritorios m&uacute;ltiples,
+            paneles, preferencias de la ventana y recursos de KDE.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Internet y red
+          </para>
+          <para>
+            Contiene a los apartados buscador de servicios, navegador web,
+            compartir ficheros, dispositivos Bluetooth emparejados,
+            navegaci&oacute;n por la red local, preferencias de
+            conexi&oacute;n, proxy y Samba.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Perif&eacute;ricos
+          </para>
+          <para>
+            Contiene a los apartados c&aacute;mara digital, controles remotos,
+            dispositivos de almacenamiento, impresoras, joystick, pantalla,
+            rat&oacute;n y teclado.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Regional y accesibilidad
+          </para>
+          <para>
+            Contiene a los apartados accesibilidad, accesos r&aacute;pidos de
+            teclado, disposici&oacute;n del teclado, introducir acciones y
+            pa&iacute;s/regi&oacute;n e idioma.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Seguridad y privacidad
+          </para>
+          <para>
+            Contiene a los apartados cartera de KDE, contrase&ntilde;a y
+            cuenta de usuario, criptograf&iacute;a y privacidad.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Sonidos y multimedia
+          </para>
+          <para>
+            Contiene a los apartados CDs audio, notificaciones del sistema,
+            sistema de sonido y timbre del sistema.
+          </para>
+        </listitem>
+      </itemizedlist>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>GNOME</title>
+
+    <sect2>
+      <title>Historia y descripci&oacute;n del proyecto GNOME</title>
+
+      <para>
+        GNOME, escrito con may&uacute;sculas, es el acr&oacute;nimo de GNU
+        Network Object Model Environment, cuyo significado literal, gnomo en
+        ingl&eacute;s, no es fruto de la casualidad.
+      </para>
+
+      <para>
+        Cuando se habla de GNOME, solemos referirnos a un escritorio muy
+        popular en GNU/Linux. En realidad, es un proyecto mucho m&aacute;s
+        amplio cuyos objetivos son ofrecer tanto un escritorio como un surtido
+        completo de aplicaciones y una plataforma de desarrollo con la que
+        generar aplicaciones integradas entre s&iacute;.
+        <ulink url="http://www.gnome.org/projects/">Visitando la
+        secci&oacute;n proyectos de la p&aacute;gina web de GNOME</ulink>,
+        podemos comprobrar la variedad que existe; desde LibXML, un analizador
+        sint&aacute;ctico, hasta Hipo, una aplicaci&oacute;n para gestionar
+        los contenidos de un iPod.
+      </para>
+
+      <para>
+        Su desarrollo comienza en agosto de 1997 con el objetivo de crear un
+        escritorio completamente libre. Surge como n&eacute;mesis de KDE,
+        cuyas herramientas gr&aacute;ficas, Qt, no ten&iacute;an una licencia
+        compatible con el proyecto GNU en aquel momento. A la cabeza de
+        GNOME aparecen dos j&oacute;venes mexicanos, Miguel de Icaza y
+        Federico Mena, quienes escogen como lenguaje principal de desarrollo C
+        y como herramientas gr&aacute;ficas las bibliotecas GTK+,
+        desarrolladas en torno a GIMP, un popular editor gr&aacute;fico. La
+        propuesta tuvo &eacute;xito, lo que se traduce, en el &aacute;mbito
+        del software libre, en la formaci&oacute;n de una activa comunidad que
+        lo mantiene en constante evoluci&oacute;n.
+      </para>
+
+      <para>
+        La comunidad que participa en el desarrollo de GNOME se compone de
+        programadores, desarrolladores, usuarios, dise&ntilde;adores,
+        traductores... distribu&iacute;dos por todo el mundo que colaboran a
+        trav&eacute;s de Internet. Algunos trabajan de forma independiente y
+        otros contratados o patrocinados por empresas, pero todas sus
+        aportaciones se presentan de la misma forma y con el mismo derecho al
+        desarrollo de la rama principal, la que se publica a trav&eacute;s de
+        la <ulink url="http://www.gnome.org/">p&aacute;gina principal del
+        proyecto</ulink> y es gestionada por la Fundaci&oacute;n GNOME. Esta
+        versi&oacute;n oficial de GNOME, a la que nos referimos como la
+        versi&oacute;n upstream, recoge las modificaciones aceptadas por la
+        comunidad de desarrolladores acordes con los planteamientos que sirven
+        de gu&iacute;a al proyecto. Los m&aacute;s caracter&iacute;sticos
+        ser&iacute;an:
+      </para>
+
+      <itemizedlist>
+        <listitem>
+          <para>
+            Libertad: Tanto el usuario como el desarrollador deben tener la
+            &uacute;ltima palabra sobre su escritorio, su software y su
+            informaci&oacute;n.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Usabilidad y accesibilidad: La prioridad en el desarrollo de
+            aplicaciones es que sean f&aacute;ciles de usar por todo tipo de
+            personas. Ello se traduce en la existencia de una <ulink
+            url="http://developer.gnome.org/projects/gup/hig/">gu&iacute;a de
+            dise&ntilde;o de interfaces</ulink> que todas las aplicaciones que
+            quieran formar parte del proyecto deben respetar.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Comunidad: Colaborar con GNOME implica participar en la comunidad
+            GNOME.
+          </para>
+        </listitem>
+      </itemizedlist>
+
+      <para>
+        Los usuarios que se acercan a GNOME se encuentran con un escritorio al
+        que se le acusa de ser demasiado simple. Es famoso un comentario de
+        Linus Torvalds (el creador del n&uacute;cleo Linux) llamando a los
+        desarrolladores de GNOME nazis del interfaz por su empe&ntilde;o en
+        priorizar la usabilidad frente la funcionalidad. Lo cierto, es que la
+        cr&iacute;tica de Linus estaba justificada porque se dirig&iacute;a a
+        uno de los dos puntos m&aacute;s escabrosos del interfaz de GNOME, el
+        di&aacute;logo de impresi&oacute;n; el otro es el di&aacute;logo para
+        guardar un archivo. Pero tambi&eacute;n hay que ser comprensivos con
+        la situaci&oacute;n, pues buscar un interfaz simple y usable implica
+        encontrar qu&eacute; es lo que realmente se usa y c&oacute;mo poner a
+        disposici&oacute;n del usuario lo que usa de una forma evidente. Hay
+        que pensar que si los miembros de GNOME han recogido como lema "GNOME
+        es gente", lo importante es que el proyecto sea receptivo y se vaya
+        adaptando a las exigencias del usuario conforme se van revelando. Y
+        as&iacute; es, puesto que el di&aacute;logo de impresi&oacute;n, ya
+        ofrece las funciones que en su d&iacute;a Linus reclam&oacute;.
+      </para>
+
+      <para>
+        En general, es un escritorio muy recomendable para cualquier usuario.
+        Aunque tambi&eacute;n es cierto que los usuarios sin grandes
+        pretensiones se sentir&aacute;n felices con el planteamiento de GNOME
+        por la sencillez con la que se pueden desarrollar las tareas
+        b&aacute;sicas, que los usarios de nivel medio/alto pueden echar en
+        falta opciones de configuraci&oacute;n y que los usuarios realmente
+        avanzados podr&aacute;n aprovechar que sus aplicaciones incluyen la
+        posibilidad de programar f&aacute;cilmente complementos para responder
+        a sus necesidades. Como siempre, que sea el escritorio adecuado para
+        nosotros o no, depender&aacute; de lo que busquemos, necesitemos o
+        sepamos aprovechar.
+      </para>
+
+      <figure>
+        <title>
+          Logotipo de GNOME
+        </title>
+        <graphic
+        fileref="img/01-escritorios/02-gnome/01-gnome-logotipo.png"
+        format="PNG" width="150" scale="40"/>
+      </figure>
+    </sect2>
+
+    <sect2>
+      <title>El escritorio GNOME</title>
+      <figure>
+        <title>
+          Vista general del escritorio GNOME
+        </title>
+        <graphic
+        fileref="img/01-escritorios/02-gnome/02-gnome-vista_general.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+
+      <para>
+        La configuraci&oacute;n inicial de GNOME en openSUSE ha sido adaptada
+        para no resultar extra&ntilde;a al usuario proveniente de MS Windows.
+        Normalmente, ofrece un aspecto inicial bastante diferente, pero Novell
+        ha realizado pruebas de usabilidad en las que se ha comprobado que el
+        orden del escritorio ofrecido por Microsoft en su sistema operativo se
+        ha implantado en el subconsciente de una mayor&iacute;a de usuarios;
+        motivo por el que openSUSE, se ha decidido a ofrecer esta
+        configuraci&oacute;n para simplificar el primer acercamiento a estos
+        usuarios.
+      </para>
+
+      <para>
+        No obstante, es probable que muchos usuarios prefieran otra
+        configuraci&oacute;n, pues en un principio se pueden echar en falta a
+        elementos como las &aacute;reas de trabajo. Para modificar o
+        a&ntilde;adir elementos a la configuraci&oacute;n por defecto, en la
+        mayor&iacute;a de la ocasiones, s&oacute;lo se tendr&aacute; que
+        interactuar con bot&oacute;n derecho del rat&oacute;n sobre las
+        distintas partes del escritorio.
+      </para>
+
+      <para>
+        En la configuraci&oacute;n inicial nos encontramos, adem&aacute;s de
+        con el fondo de escritorio y sus iconos, con un panel inferior, en el
+        que localizamos de izquierda a derecha, el men&uacute; sistema, un
+        lanzador de Tomboy (que es una aplicaci&oacute;n para tomar notas), un
+        espacio donde se ir&aacute;n mostrando las diferentes tareas que
+        mantenemos en primer plano, la bandeja del sistema donde se anclan las
+        aplicaciones lanzadas en segundo plano dentro de la sesi&oacute;n de
+        usuario, un reloj y un bot&oacute;n para minimizar todas las
+        aplicaciones abiertas en nuestro escritorio.
+      </para>
+
+      <figure>
+        <title>
+          Men&uacute; sistema de GNOME
+        </title>
+        <graphic
+        fileref="img/01-escritorios/02-gnome/03-menu_sistema.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+
+      <para>
+        Como en todos los escritorios, la parte m&aacute;s importante es su
+        men&uacute;. GNOME en openSUSE 10.3 presenta muestra un men&uacute;
+        que no es el habitual en el resto de distribuciones, sino que
+        est&aacute; dividido en seis apartados: aplicaciones, documentos,
+        lugares, buscar, sistema y estado.
+      </para>
+    </sect2>
+
+    <sect2>
+      <title>Nautilus</title>
+
+      <para>
+        Nautilus es el administrador de archivos de GNOME. Como en el resto de
+        las aplicaciones del proyecto GNOME, la usabilidad est&aacute;
+        presente en su dise&ntilde;o, por lo que cualquier persona
+        familiarizada con el mundo de los ordenadores sabr&aacute; manejarlo
+        sin ninguna explicaci&oacute;n.
+      </para>
+
+      <figure>
+        <title>
+          Nautilus
+        </title>
+        <graphic
+        fileref="img/01-escritorios/02-gnome/04-nautilus.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+
+    <sect2>
+      <title>Centro de control de GNOME</title>
+
+      <para>
+        El centro de control de GNOME es el programa de configuraci&oacute;n
+        del escritorio GNOME.
+      </para>
+
+      <figure>
+        <title>
+          Centro de control de GNOME
+        </title>
+        <graphic
+        fileref="img/01-escritorios/02-gnome/05-centro_de_control_de_gnome.png"
+        format="PNG" width="826" scale="40"/>
+      </figure>
+
+      <para>
+        Las configuraciones a las que se puede acceder desde el centro de
+        control de GNOME est&aacute;n organizadas por grupos:
+      </para>
+
+      <itemizedlist>
+        <listitem>
+          <para>
+            Hardware
+          </para>
+          <para>
+            Este grupo contiene a Bluetooth, DSL, esc&aacute;nes, impresoras,
+            m&oacute;dem, rat&oacute;n, resoluci&oacute;n de pantalla, tarjeta
+            de red, tarjeta gr&aacute;fica y monitor, teclado y unidades y
+            soportes extra&iacute;bles.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Personal
+          </para>
+          <para>
+            Este grupo contiene a accesibilidad, accesos directos, cambiar
+            contrase&ntilde;a, gestor del dep&oacute;sito de claves,
+            preferencias de tecnolog&iacute; de asistencia.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Sistema
+          </para>
+          <para>
+            Este grupo contiene a ajustes de b&uacute;squeda, alternos de red,
+            aplicaciones preferidas, escritorio remoto, fecha y hora,
+            gestionar usuarios, gesti&oacute;n de energ&iacute;a, idioma,
+            propiedades de GStreamer, sesiones, sonido y YaST.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Virtualizaci&oacute;n y comportamiento
+          </para>
+          <para>
+            Este grupo contiene a apariencia, dise&ntilde;o de men&uacute;s,
+            editor de restricciones, efectos de escritorio, gesti&oacute;n de
+            archivos, lector de pantalla y magnificador, salvapantallas y
+            ventanas.
+          </para>
+        </listitem>
+      </itemizedlist>
+
+      <para>
+        Adem&aacute;s, fuera del centro de control de GNOME, cada
+        aplicaci&oacute;n nos ofrece su propio di&aacute;logo de
+        configuraci&oacute;n para funciones espec&iacute;ficas. &Eacute;ste se
+        encuentra, siempre que estemos usando una aplicaci&oacute;n
+        relacionada con el proyecto GNOME, en el elemento preferencias del
+        men&uacute; editar.
+      </para>
+
+      <para>
+        No obstante, con el objetivo de crear un interfaz sencillo de usar
+        para el usuario, las aplicaciones del proyecto GNOME han ocultado los
+        di&aacute;logos de configuraci&oacute;n que se consideran de poca
+        utilidad. Estas opciones de configuraci&oacute;n que no se muestran
+        siguen estando accesibles a trav&eacute;s de la aplicaci&oacute;n
+        gconf-editor.
+      </para>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Otros escritorios</title>
+
+    <para>
+       A parte de los escritorios KDE y GNOME, existen otras alternativas.
+    </para>
+
+    <para>
+       La mayor&iacute;a de ellas tiene como objetivo la ligereza, es decir,
+       desarrollar un escritorio funcional que consuma los m&iacute;nimos
+       recursos posibles. Gracias a esta filosof&iacute;a, en GNU/Linux
+       podemos ejecutar sin problemas entornos de escritorio en
+       m&aacute;quinas que ya tengan una cierta antig&uuml;edad.
+    </para>
+
+    <para>
+       El m&aacute;s popular entre esta clase de escritorios es Xfce, aunque
+       tambi&eacute;n se puede destacar a Fluxbox, Window Maker o IceWM.
+    </para>
+
+    <figure>
+      <title>
+        Vista general del escritorio Xfce
+      </title>
+      <graphic
+      fileref="img/01-escritorios/03-otros_escritorios/01-xfce-vista_general.png"
+      format="PNG" width="1000" scale="40"/>
+    </figure>
+  </sect1>
+
+  <sect1>
+    <title>Instalaci&oacute;n de escritorios</title>
+
+    <para>
+      Despu&eacute;s de haber conocido el amplio abanico de escritorios
+      disponibles para GNU/Linux, el primer interrogante que puede surgir es
+      c&oacute;mo se pueden instalar.
+    </para>
+
+    <para>
+      La respuesta a dicha pregunta es sencilla: como cualquier otro programa.
+      En el caso de openSUSE 10.3, esto podemos hacerlo a trav&eacute;s de la
+      herramienta para la administraci&oacute;n del sistema YaST.
+    </para>
+
+    <figure>
+      <title>
+        Instalaci&oacute;n de escritorios a trav&eacute;s de YaST
+      </title>
+      <graphic
+      fileref="img/01-escritorios/04-instalacion_de_escritorios/01-yast-instalacion_de_escritorios.png"
+      format="PNG" width="1000" scale="40"/>
+    </figure>
+  </sect1>
+</chapter>
+

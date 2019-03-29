@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+                      "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd"
+[
+  <!ENTITY bookinfo SYSTEM "01-bookinfo.xml">
+  <!ENTITY introduccion SYSTEM "02-introduccion.xml">
+  <!ENTITY texto SYSTEM "03-texto.xml">
+  <!ENTITY graficos SYSTEM "04-graficos.xml">
+  <!ENTITY calculo_simbolico SYSTEM "05-calculo_simbolico.xml">
+  <!ENTITY calculo_numerico SYSTEM "06-calculo_numerico.xml">
+  <!ENTITY analisis_estadistico SYSTEM "07-analisis_estadistico.xml">
+  <!ENTITY cad SYSTEM "08-cad.xml">
+  <!ENTITY gis SYSTEM "09-gis.xml">
+  <!ENTITY circuitos SYSTEM "10-circuitos.xml">
+  <!ENTITY tabla_periodica SYSTEM "11-tabla_periodica.xml">
+  <!ENTITY astronomia SYSTEM "12-astronomia.xml">
+  <!ENTITY fractales SYSTEM "13-fractales.xml">
+  <!ENTITY paquetes SYSTEM "14-paquetes.xml">
+  <!ENTITY licencia SYSTEM "15-licencia.xml">
+]>
+
+<book lang="es">
+  &bookinfo;
+  &introduccion;
+  &texto;
+  &graficos;
+  &calculo_simbolico;
+  &calculo_numerico;
+  &analisis_estadistico;
+  &cad;
+  &gis;
+  &circuitos;
+  &tabla_periodica;
+  &astronomia;
+  &fractales;
+  &paquetes;
+  &licencia;
+</book>
+

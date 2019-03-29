@@ -1,0 +1,10 @@
+El proposito de esta practica es monitorizar con vmstat
+la maquina mientras se ejecutan:
+
+- metodo-multihilo, multiplica matrices de forma no optima 
+                    para generar cambios de contexto.
+- metodo-secuencial, multiplica matrices de forma secuencial.
+
+para comprobar el tiempo desperdiciado en cambios de contexto
+simulando un servidor con problemas de carga por un numero
+excesivo de procesos corriendo. 

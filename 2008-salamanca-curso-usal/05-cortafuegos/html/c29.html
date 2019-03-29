@@ -1,0 +1,261 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Introducción a Iptables</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Introducción"
+HREF="c18.html"><LINK
+REL="NEXT"
+TITLE="Las cadenas en iptables"
+HREF="x63.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración de cortafuegos en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c18.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x63.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN29"
+></A
+>Capítulo 2. Introducción a <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Iptables</I
+></SPAN
+></H1
+><P
+>GNU/Linux permite la gestión y filtrado del tráfico de red mediante <A
+HREF="http://www.netfilter.org/"
+TARGET="_top"
+>netfilter</A
+>.</P
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Iptables</I
+></SPAN
+> es la interface de configuración para utilizar <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>netfilter</I
+></SPAN
+> en el filtrado de tráfico de red.</P
+><P
+>Esta herramienta se ha venido mejorando desde hace mucho tiempo y su nombre ha variado dependiendo de la versión del núcleo:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>iptables</I
+></SPAN
+> introducido en las versiones del núcleo 2.4 y posteriores.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ipchains</I
+></SPAN
+> utilizado en las versiones del núcleo 2.2.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ipforward</I
+></SPAN
+> utilizado en las versiones del núcleo 2.0</P
+></LI
+></UL
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN48"
+>2.1. Las <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>tablas</I
+></SPAN
+> en iptables</A
+></H1
+><P
+>Por defecto en <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>iptables</I
+></SPAN
+> vienen definidas tres:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>filter</I
+></SPAN
+> en esta tabla se realiza el filtrado del tráfico permitido de entrada y salida al ordenador. Por defecto se trabaja en esta tabla.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>NAT</I
+></SPAN
+> se utiliza para la redirección de conexiones.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Mangle</I
+></SPAN
+> se utiliza para la alteración de los paquetes. Cambio de direcciones de origen y destino, puertos de origen y destino, ...</P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c18.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x63.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Introducción</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Las <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>cadenas</I
+></SPAN
+> en iptables</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

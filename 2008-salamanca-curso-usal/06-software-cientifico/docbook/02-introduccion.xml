@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chapter>
+  <title>Introducci&oacute;n</title>
+
+  <para>
+    El software libre siempre ha estado muy ligado a las universidades y el
+    mundo acad&eacute;mico. Por este motivo, es f&aacute;cil encontrar muchos
+    programas libres dentro del &aacute;mbito cient&iacute;fico.
+  </para>
+
+  <para>
+    El prop&oacute;sito de este documento es mostrar las principales
+    aplicaciones libres que puedan resultar &uacute;tiles a un
+    cient&iacute;fico o ingeniero.
+  </para>
+
+  <para>
+    Adjunto a este documento, se aportan manuales que ense&ntilde;an a
+    utilizar algunos de los programas descritos. Es digno de recalcar que
+    parte de dicha documentaci&oacute;n se gener&oacute; con motivo del curso
+    extraordinario <emphasis>Herramientas en GNU/Linux para estudiantes
+    universitarios</emphasis> que se celebr&oacute; en la Universidad de
+    Salamanca y que fue organizado por el Departamento de Inform&aacute;tica y
+    Autom&aacute;tica, AUGCyL, GLiSa, la Asociaci&oacute;n de Estudiantes
+    Miguel de Unamuno y la Delegaci&oacute;n de Alumnos de la Facultad de
+    Ciencias.
+  </para>
+
+  <para>
+    La mayor&iacute;a del software cient&iacute;fico que podemos encontrar en
+    GNU/Linux sigue la filosof&iacute;a de desarrollo del mundo Unix,
+    seg&uacute;n la cual se favorece la creaci&oacute;n de peque&ntilde;as
+    herramientas muy espec&iacute;ficas y potentes que funcionan a
+    trav&eacute;s de la l&iacute;nea de comandos. Gracias a este modelo de
+    desarrollo, es posible una f&aacute;cil interacci&oacute;n entre ellas y
+    la posibilidad de creaci&oacute;n de diferentes interfaces gr&aacute;ficas
+    a partir de un esfuerzo com&uacute;n.
+  </para>
+
+  <para>
+    Como ya se ha dicho, aqu&iacute; se mostrar&aacute;n las aplicaciones que
+    los autores han considerado m&aacute;s importantes; no obstante, para
+    encontrar programas que respondan a necesidades m&aacute;s
+    espec&iacute;ficas, puede:
+  </para>
+
+  <itemizedlist>
+    <listitem>
+      <para>
+        Visitar recopilaciones de software como el <ulink
+        url="http://directory.fsf.org/">directorio de software libre de la FSF
+        y la UNESCO</ulink> o <ulink url="http://sal.jyu.fi/">Scientific
+        Applications on Linux</ulink>.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Examinar los repositorios de una distribuci&oacute;n GNU/Linux (suelen
+        estar organizados por categor&iacute;as).
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Utilizar buscadores de Internet.
+      </para>
+    </listitem>
+  </itemizedlist>
+</chapter>
+

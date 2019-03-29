@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+                      "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd"
+[
+  <!ENTITY bookinfo SYSTEM "01-bookinfo.xml">
+  <!ENTITY introduccion SYSTEM "02-introduccion.xml">
+  <!ENTITY preliminares SYSTEM "03-preliminares.xml">
+  <!ENTITY filtrado SYSTEM "04-filtrado.xml">
+  <!ENTITY nat SYSTEM "05-nat.xml">
+  <!ENTITY administracion SYSTEM "06-administracion.xml">
+  <!ENTITY licencia SYSTEM "07-licencia.xml">
+]>
+
+<book lang="es">
+  &bookinfo;
+  &introduccion;
+  &preliminares;
+  &filtrado;
+  &nat;
+  &administracion;
+  &licencia;
+</book>
+

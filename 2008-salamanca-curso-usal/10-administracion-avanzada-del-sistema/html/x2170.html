@@ -1,0 +1,896 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Configuración de parámetros del núcleo</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Núcleo de Linux"
+HREF="c1985.html"><LINK
+REL="PREVIOUS"
+TITLE="Configurando un nuevo núcleo"
+HREF="x2025.html"><LINK
+REL="NEXT"
+TITLE="Usuarios y permisos en GNU/Linux"
+HREF="c2312.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x2025.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 7. Núcleo de Linux</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c2312.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN2170"
+>7.3. Configuración de parámetros del núcleo</A
+></H1
+><P
+>El comando <B
+CLASS="command"
+>sysctl</B
+> nos permite parametrizar parámetros del núcleo. No hace falta decir que son aquellos con los que fue compilado el núcleo.</P
+><P
+>Toda la configuración se hace a través del fichero <TT
+CLASS="filename"
+>/etc/sysctl.conf</TT
+>:</P
+><PRE
+CLASS="programlisting"
+>&#13;# Kernel sysctl configuration file
+#
+# For binary values, 0 is disabled, 1 is enabled.  See sysctl(8) and
+# sysctl.conf(5) for more details.
+
+# Controls IP packet forwarding
+net.ipv4.ip_forward = 0
+
+# Controls source route verification
+net.ipv4.conf.default.rp_filter = 1
+
+# Do not accept source routing
+net.ipv4.conf.default.accept_source_route = 0
+
+# Controls the System Request debugging functionality of the kernel
+kernel.sysrq = 0
+
+# Controls whether core dumps will append the PID to the core filename.
+# Useful for debugging multi-threaded applications.
+kernel.core_uses_pid = 1
+
+net.ipv4.tcp_syncookies = 1
+net.ipv4.tcp_fin_timeout = 60
+net.ipv4.tcp_keepalive_time = 1800
+net.ipv4.conf.all.accept_redirects = 0
+net.ipv4.conf.all.send_redirects = 0
+net.ipv4.conf.all.accept_source_route = 0
+net.ipv4.conf.all.forwarding = 0
+net.ipv4.conf.all.rp_filter = 1
+net.ipv4.icmp_ignore_bogus_error_responses = 1
+</PRE
+><P
+>Esta configuración se activará en el arranque de la máquina o bien podemos modificar el fichero y:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>sysctl -p</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>net.ipv4.ip_forward = 0
+net.ipv4.conf.default.rp_filter = 1
+net.ipv4.conf.default.accept_source_route = 0
+kernel.sysrq = 0
+kernel.core_uses_pid = 1
+net.ipv4.tcp_syncookies = 1
+net.ipv4.tcp_fin_timeout = 60
+net.ipv4.tcp_keepalive_time = 1800
+net.ipv4.conf.all.accept_redirects = 0
+net.ipv4.conf.all.send_redirects = 0
+net.ipv4.conf.all.accept_source_route = 0
+net.ipv4.conf.all.forwarding = 0
+net.ipv4.conf.all.rp_filter = 1
+net.ipv4.icmp_ignore_bogus_error_responses = 1</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2183"
+>7.3.1. Modificación de los parámetros</A
+></H2
+><P
+>Como ya hemos visto lo podemos hacer modificando el fichero de configuración <TT
+CLASS="filename"
+>/etc/sysctl.conf</TT
+> y ejecutando después <B
+CLASS="command"
+>sysctl -p</B
+>.</P
+><P
+>También es posible modificar estos parámetros directamente en el sistema de ficheros <TT
+CLASS="filename"
+>/proc/</TT
+>.</P
+><P
+>Todos los parámetros que podemos configurar los encontraremos en <TT
+CLASS="filename"
+>/proc/sys/</TT
+>.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Para algunas familias de dispositivos podemos establecer configuraciones por defecto, para todos, o por dispositivo individual. Por ejemplo para los dispositivos de red lo podemos hacer en <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>/proc/sys/net/ipv4/conf/default/</I
+></SPAN
+>, <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>/proc/sys/net/ipv4/conf/all/eth?/</I
+></SPAN
+>, <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>/proc/sys/net/ipv4/conf/lo/</I
+></SPAN
+>, ...</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Por ejemplo el parámetro <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>net.ipv4.ip_forward</I
+></SPAN
+> lo encontraremos en <TT
+CLASS="filename"
+>/proc/sys/net/ipv4/ip_forward</TT
+>. Para modificar este parámetro:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>echo 0 &#62; /proc/sys/net/ipv4/ip_forward</KBD
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><P
+>El inconveniente de este método es que al reiniciar la máquina esta configuración se pierde.</P
+><P
+>Por lo tanto será necesario ejecutar los <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>echoes</I
+></SPAN
+> y habrá que incluirlos en los ficheros de arranque.</P
+><P
+>El uso de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>echoes</I
+></SPAN
+> es una mala practica de administración y debe evitarse y usarse en su lugar el fichero <TT
+CLASS="filename"
+>/etc/sysctl.conf</TT
+>.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2210"
+>7.3.2. Parámetros configurables</A
+></H2
+><P
+>Los parámetros que podremos configurar son aquellos que se hayan seleccionado en la configuración del núcleo que se está usando.</P
+><P
+>Podemos comprobar los parámetros que podemos configurar:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>sysctl -A</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>&#13;sunrpc.tcp_slot_table_entries = 16
+sunrpc.udp_slot_table_entries = 16
+sunrpc.max_resvport = 1023
+sunrpc.min_resvport = 650
+sunrpc.nlm_debug = 0
+sunrpc.nfsd_debug = 0
+sunrpc.nfs_debug = 0
+sunrpc.rpc_debug = 0
+abi.vsyscall32 = 1
+dev.scsi.logging_level = 0
+dev.raid.speed_limit_max = 200000
+dev.raid.speed_limit_min = 1000
+dev.cdrom.check_media = 0
+dev.cdrom.lock = 1
+dev.cdrom.debug = 0
+dev.cdrom.autoeject = 0
+dev.cdrom.autoclose = 1
+dev.cdrom.info = CD-ROM information, Id: cdrom.c 3.20 2003/12/17
+dev.cdrom.info =
+dev.cdrom.info = drive name:            sr0
+dev.cdrom.info = drive speed:           24
+dev.cdrom.info = drive # of slots:      1
+dev.cdrom.info = Can close tray:                1
+dev.cdrom.info = Can open tray:         1
+dev.cdrom.info = Can lock tray:         1
+dev.cdrom.info = Can change speed:      1
+dev.cdrom.info = Can select disk:       0
+dev.cdrom.info = Can read multisession: 0
+dev.cdrom.info = Can read MCN:          1
+dev.cdrom.info = Reports media changed: 1
+dev.cdrom.info = Can play audio:                1
+dev.cdrom.info = Can write CD-R:                0
+dev.cdrom.info = Can write CD-RW:       0
+dev.cdrom.info = Can read DVD:          1
+dev.cdrom.info = Can write DVD-R:       0
+dev.cdrom.info = Can write DVD-RAM:     0
+dev.cdrom.info = Can read MRW:          1
+dev.cdrom.info = Can write MRW:         1
+dev.cdrom.info = Can write RAM:         1
+dev.cdrom.info =
+dev.cdrom.info =
+dev.rtc.max-user-freq = 64
+debug.exception-trace = 1
+net.ipv6.conf.default.max_addresses = 16
+net.ipv6.conf.default.max_desync_factor = 600
+net.ipv6.conf.default.regen_max_retry = 5
+...</SAMP
+>
+</PRE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2218"
+>7.3.3. Algunos parámetros útiles</A
+></H2
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>net.ipv4.tcp_syncookies = 1</I
+></SPAN
+> proteje contra los ataques <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Sync packet flooding</I
+></SPAN
+> pero no es conforme a los estándares marcados por los RFCs.</P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/warning.gif"
+HSPACE="5"
+ALT="Aviso"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Puede tener impacto en el rendimiento de servidores sobrecargados.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Sync packet flooding</I
+></SPAN
+> es una ataque de denegación de servicio. Cuando se va a establecer una conexión TCP un host manda un paquete <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SYNC</I
+></SPAN
+> a lo que el otro host responde con un paquete <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ACK</I
+></SPAN
+>. Si el host atacante empieza a mandar de forma indiscriminada paquetes <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SYNC</I
+></SPAN
+> con la cabecera falseada con una IP de origen falsa el host atacado mandará sus <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ACK</I
+></SPAN
+> o bien a ningún host o a un host que no es el que está intentando establecer la comunicación. Dependiendo de la implementación de la pila TCP de ese host tratará el paquete <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ACK</I
+></SPAN
+> de una forma u otra.</P
+><P
+>El host atacado llegará un momento en el que no pueda atender más conexiones.</P
+><P
+>Otra forma de prevenir estos ataques es ampliando el tamaño de las colas en las que se almacena la informació referente a las peticiones de conexión: <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>net.ipv4.tcp_max_syn_backlog</I
+></SPAN
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>net.ipv4.tcp_max_sync_backlog = XXX</I
+></SPAN
+> por defecto suele estar a 1024 y estable el tamaño de la cola donde se guarda la información referente a las peticiones de conexión.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>net.ipv4.tcp_fin_timeout = 60</I
+></SPAN
+> cierra los sockets ináctivos, no se recivió paquete <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>FIN</I
+></SPAN
+>, después de 60 segundos.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>net.ipv4.tcp_keepalive_time = 1800</I
+></SPAN
+> segundos después de un proceso de inactividad tras los cuales se intenta verificar si el cliente sigue vivo.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>net.ipv4.conf.all.accept_redirects = 0</I
+></SPAN
+> no se aceptan redirecciones ICMP para evitar ataques <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Man in the middle</I
+></SPAN
+>.</P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/warning.gif"
+HSPACE="5"
+ALT="Aviso"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Mediante el uso del protocolo <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ICMP</I
+></SPAN
+> es posible modificar los gateways definidos estáticamente en la máquina.</P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>net.ipv4.conf.all.send_redirects = 0</I
+></SPAN
+> evita que la máquina mande paquetes <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ICMP</I
+></SPAN
+> con redirecciones.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>net.ipv4.conf.all.accept_source_route = 0</I
+></SPAN
+> se evita que TCP tenga control para decidir sobre la determinación de la ruta de los paquetes.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>net.ipv4.conf.all.rp_filter = x</I
+></SPAN
+> protección contra ataques de spoofing.</P
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>x</I
+></SPAN
+> puede tomar los valores:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>0</I
+></SPAN
+> no realiza comprobaciones.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>1</I
+></SPAN
+> rechazar suplantaciones evidentes.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>2</I
+></SPAN
+> comprobación exahustiva.</P
+></LI
+></UL
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>net.ipv4.ip_forward = 0</I
+></SPAN
+> deshabilitar el reenvio de paquetes.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Esta opción suele estar con un valor distinto de cero en máquinas que hacen enrutado entre diferentes redes.</P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>net.ipv4.icmp_ignore_bogus_error_responses = 1</I
+></SPAN
+> activa la protección ante mensajes de error malformados.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>net.ipv4.icmp_echo_ignore_broadcast = 1</I
+></SPAN
+> desactivar la respuestas a las peticiones de broadcast de echo ICMP.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>net.ipv4.icmp_echo_ignore_all = 1</I
+></SPAN
+> desactivació de la respuesta a ping.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>kernel.panic = n</I
+></SPAN
+> después de un <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>kernel panic</I
+></SPAN
+> espera <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>n</I
+></SPAN
+> segundos para reinciar el sistema.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>kernel.sysrq = 1</I
+></SPAN
+> activa <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SYSRQ</I
+></SPAN
+>.</P
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SYSRQ</I
+></SPAN
+> es una característica del núcleo que permite pasarle instrucciones con fines de depuración.</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Con el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SYSRQ</I
+></SPAN
+> activado si se presionan las teclas <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>AltGr+PetSis+t</I
+></SPAN
+>, <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>AltGr+PetSis+m</I
+></SPAN
+> y <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>AltGr+PetSis+p</I
+></SPAN
+> se escribirán en los logs el estado de los procesos, memoria y CPU.</P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+></UL
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>En la documentación del núcleo podemos encontrar toda la información sobre <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>sysctl</I
+></SPAN
+> en <TT
+CLASS="filename"
+>Documentacion/networking/ip-sysctl.txt</TT
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x2025.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c2312.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Configurando un nuevo núcleo</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c1985.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Usuarios y permisos en GNU/Linux</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

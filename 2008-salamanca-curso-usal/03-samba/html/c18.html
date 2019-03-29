@@ -1,0 +1,234 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Introducción</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="NEXT"
+TITLE="Lanzar Samba"
+HREF="x40.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: 
+    Samba, compartiendo archivos e impresoras con MS Windows
+  </TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="index.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x40.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN18"
+></A
+>Capítulo 1. Introducción</H1
+><P
+>Samba es un conjunto de aplicaciones que permiten establecer una arquitectura <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Cliente/Servidor</I
+></SPAN
+> para la compartición de recursos en sistemas heterogéneos.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>SMB (Server Message Block) es un protocolo definido por Microsoft e Intel en 1.987 y permite el intercambio de servicios (acceso a discos duros, impresoras y puertos serie) y se encuentra implementado en todos los entornos Windows. Los equipos que utilizan SMB pueden trabajar como clientes ó como servidores, aunque generalmente los clientes serán máquinas con sistema operativo de Microsoft.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>SMB es totalmente independiente del medio de transporte, y esto hace que pueda trabajar sobre TCP/IP, NetBEUI ó IPX/SPX. La base de este protocolo (RFC 1001, RFC 1002) son bloques de mensajes, a los cuáles se les denomina SMBs, y que tanto el servidor como el cliente utilizan para comunicarse. Inicialmente fue escrito para UNIX pero ha sido portado a OS/2, VMS y NetWare. Dentro de UNIX funciona sobre Solaris, SCO, HP-UX, GNU/Linux y otros.</P
+><P
+>Samba es un servidor SMB gratuito (Licencia GNU) desarrollado por Andrew Tridgell. Samba permite que Linux actúe como servidor SMB permitiendo a máquinas Windows acceder a recursos compartidos tales como impresoras ó discos duros. La mayoría de las distribuciones actuales incluyen Samba en su conjunto de paquetes suministrados.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>En el cliente Windows, es necesario instalar TCP/IP y el Cliente para redes Microsoft.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN28"
+>1.1. Compilación del Kernel</A
+></H1
+><P
+>Habilitar (ó compilar como módulos) las siguientes opciones:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>File Systems -&#62; DOS/FAT/NT Filesystems -&#62; MSDOS fs support</P
+></LI
+><LI
+><P
+>File Systems -&#62; DOS/FAT/NT Filesystems -&#62; VFAT (Windows 95) fs support</P
+></LI
+><LI
+><P
+>File Systems -&#62; Network File Systems -&#62; SMB file system support (to mount ...)</P
+></LI
+><LI
+><P
+>File Systems -&#62; Network File Systems -&#62; CIFS support (advanced network ...)</P
+></LI
+></OL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x40.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>GNU/Linux, software libre para la comunidad universitaria</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Lanzar Samba</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

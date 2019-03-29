@@ -1,0 +1,732 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Configurando un nuevo núcleo</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Núcleo de Linux"
+HREF="c1985.html"><LINK
+REL="PREVIOUS"
+TITLE="Núcleo de Linux"
+HREF="c1985.html"><LINK
+REL="NEXT"
+TITLE="Configuración de parámetros del núcleo"
+HREF="x2170.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c1985.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 7. Núcleo de Linux</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x2170.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN2025"
+>7.2. Configurando un nuevo núcleo</A
+></H1
+><P
+>Cuando arrancamos Linux ya tenemos configurado un núcleo
+      de sistema, pero este puede que no contenga soporte para algún
+      dispositivo o funcionalidad que queramos tener. También podemos
+      querer optimizar o actualizar nuestro sistema.</P
+><P
+>Normalmente la distribución que estemos utilizando nos tendrá
+      preparado y actualizado nuevas actualizaciones ya compiladas del
+      núcleo, pero puede que no sea suficiente para lo que
+      necesitamos.</P
+><P
+>Entonces tendremos que coger el código fuente del kernel,
+      configurarlo, compilarlo nosotros e instalarlo.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2030"
+>7.2.1. Obtener los fuentes del núcleo</A
+></H2
+><P
+>Normalmente las distribuciones de Linux también nos proporcionan
+      las fuentes de núcleo como paquete. Suelen ser las versiones
+estables. Si queremos una versión más moderna o de desarrollo
+      podemos directamente descargarnos los fuentes de
+      www.kernel.org.</P
+><P
+>Una vez instalado el paquete o descargado descomprimimos, deberá
+colocarse en <TT
+CLASS="filename"
+>/usr/src</TT
+>.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2035"
+>7.2.2. Configuración</A
+></H2
+><P
+>Para configurar los fuentes del núcleo debemos ir a
+        directorio donde se encuentran y ejecutar <B
+CLASS="command"
+>make</B
+> con una de las
+        siguientes opciones.</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>config</I
+></SPAN
+>: nos irá preguntando por
+      consola una por una las opciones del núcleo. Debiendo responder
+      si la queremos o no.</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>make config</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>&#13;scripts/kconfig/conf arch/i386/Kconfig
+#
+# using defaults found in .config
+#
+*
+* Linux Kernel Configuration
+*
+*
+* Code maturity level options
+*
+Prompt for development and/or incomplete code/drivers (EXPERIMENTAL) [Y/n/?]
+</SAMP
+><KBD
+CLASS="userinput"
+>y</KBD
+>
+</PRE
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>menuconfig</I
+></SPAN
+>: podremos configurar las
+      opciones con una pantalla
+      con menús textuales, moviendo con los cursores entrando en las
+      opciones y seleccionado las opciones.</P
+><DIV
+CLASS="informalfigure"
+><P
+></P
+><A
+NAME="AEN2051"
+></A
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="img/c4mconfig.png"></P
+></DIV
+><P
+></P
+></DIV
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>xconfig</I
+></SPAN
+>: Nos permite utilizar en
+      entorno X Windows.</P
+><DIV
+CLASS="informalfigure"
+><P
+></P
+><A
+NAME="AEN2061"
+></A
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="img/c4xconfig.png"></P
+></DIV
+><P
+></P
+></DIV
+></LI
+></UL
+><P
+>Con estas presentaciones de opciones se pretende que vayamos
+seleccionado que dispositivos, protocolos, sistemas de ficheros y
+otras opciones del núcleo queremos que estén disponibles en nuestro
+nuevo núcleo. Se nos presentan las opciones ordenadas por
+grupos:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Code maturity level options</I
+></SPAN
+>:
+Contiene opciones para que nos muestre o no opciones del núcleo que
+todavía no están suficientemente probadas. Sobre todo son drivers para
+nuevos dispositivos.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>General setup</I
+></SPAN
+>: Opciones
+generales, sobre si el núcleo va a tener llamadas de sistema de
+estándares de UNIX.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Loadable module support</I
+></SPAN
+>: Soporte
+de módulos en el núcleo. Se abordará en una sección posterior.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Processor type and features</I
+></SPAN
+>: Nos permite
+compilar el núcleo más específicamente para procesador.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Power management options (ACPI,
+APM)</I
+></SPAN
+>: Soporte para los sistemas de ahorro de energía.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Bus options (PCI, PCMCIA, EISA, MCA,
+ISA)</I
+></SPAN
+>: Soporte para los distintos buses de datos.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Executable file formats</I
+></SPAN
+>: Los
+distintos formatos de binarios en que pueden encontrarse en las
+aplicaciones, que el núcleo reconocerá y será capaz de
+ejecutar.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Device Drivers</I
+></SPAN
+>: Opciones para
+todos los dispositivos hardware que Linux soporta. Este grupo es muy
+extenso y esta divido por los tipos de hardware. Suele ser el motivo
+por el cual recompilamos el núcleo.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>File systems</I
+></SPAN
+>: Tipos de sistemas
+de ficheros que nos soporta el núcleo</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Profiling support</I
+></SPAN
+>: Opciones que
+nos van a permitir analizar el comportamiento del núcleo. Esto se hace normalmente
+para desarrollo y optimización.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Kernel hacking</I
+></SPAN
+>: Soporte para
+depurar el núcleo.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Security options</I
+></SPAN
+>: Opciones para
+ sistemas de seguridad que permiten que
+incluso el superusuario no tenga totalmente el
+control de la máquina.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Cryptographic options</I
+></SPAN
+>: API para
+que el núcleo tenga opciones de criptografía. Algunos drivers lo
+utilizan, por ejemplo los driver para tarjetas y redes
+wifi.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Library routines</I
+></SPAN
+>: Librerias
+disponibles para el resto de driver y opciones.</P
+></LI
+></UL
+><P
+>Siempre para cada opción o grupo tenemos una pequeña ayuda que
+nos indica para que sirve y aconseja que opción es la mejor.</P
+><P
+>Una vez seleccionadas podemos guardar la configuración en un
+fichero a parte o bien al salir nos preguntará si queremos guardarlo
+en el fichero <TT
+CLASS="filename"
+>.config</TT
+> que será el utilizado en la
+compilación.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2115"
+>7.2.3. Compilando el núcleo</A
+></H2
+><P
+>Una vez configurada las opciones y guardadas las
+        opciones en el fichero <TT
+CLASS="filename"
+>.config</TT
+> debemos
+        compilar para ello ejecutaremos el comando
+        <B
+CLASS="command"
+>make</B
+> con las siguientes opciones:</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>make dep</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>...
+</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>make bzImage</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>...
+</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><P
+>Nos creará el bloque principal del núcleo. Antes de instalarlo debermos crear los modulos</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Debian dispone unas herramientas en paquete
+        <TT
+CLASS="filename"
+>kernel-package</TT
+>, que nos permiten
+        compilar y crear un
+        paquete <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>deb</I
+></SPAN
+> con el núcleo compilado ya preparado
+        para su instalación. Haciendo mucho más sencillo el proceso y
+facilitando la instalación en otros sistemas con esta distribución.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2133"
+>7.2.4. Módulos de núcleo</A
+></H2
+><P
+>Aunque se supone que el núcleo es monolítico, es decir,
+        todas los servicios del núcleo están en un solo bloque,
+        realmente en Linux se pueden cargar dinámicamente
+        módulos.</P
+><P
+>Esto nos permite durante la ejecución cargar solo los drivers
+        para los dispositivos que estemos utilizando. También hace que
+        el programa principal sea más pequeño y ocupe menos en memoria
+        y sólo se ocupe la memoria cuando estemos utilizando el
+        módulo.</P
+><P
+>Las distribuciones lo que suelen hacer para tener un núcleo que
+        tenga soporte para cualquier sistema es compilar la mayor
+        parte de las opciones como núcleo, así es poco probable que
+        todo nuestro hardware no este soportado. Aunque se supone que
+        es más óptimo que un driver este en el núcleo principal en vez
+        de como módulo.</P
+><P
+>Para crear los módulos debemos en el momento de la
+        configuración del núcleo establecer que queremos soporte para
+        módulos, y poner en la configuración las opciones que queremos
+        como módulos. Para ello al establecer una opción como módulo
+        con los distintos sistemas de configuración (config,
+        menuconfig y xconfig) debemos poner una M.</P
+><P
+>Para compilarlos debemos hacer <B
+CLASS="command"
+>make
+        modules</B
+>.</P
+><P
+>Una vez compilados cada módulo es un archivo binario con
+        extensión <TT
+CLASS="filename"
+>.o</TT
+> en las versiones 2.4 y
+        anteriores o <TT
+CLASS="filename"
+>.ko</TT
+> en las versiones
+        2.6. Los módulos instalados se encuentra en la ruta
+        <TT
+CLASS="filename"
+>/lib/modules/</TT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>versión del núcleo</I
+></SPAN
+>.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2146"
+>7.2.5. Instalando el núcleo</A
+></H2
+><P
+>Una vez que tenemos el binario del núcleo y los módulos
+        tenemos que instalarlo. Para ello tenemos que hacer <B
+CLASS="command"
+>make
+        modules_install</B
+> y <B
+CLASS="command"
+>make install</B
+>.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2151"
+>7.2.6. Gestor de Arranque para el núcleo</A
+></H2
+><P
+>Para que el nuevo kernel funcione debemos arrancar el
+        sistema, para ello el gestor de arranque debe estar
+        configurado y reinstalado con el nuevo núcleo.</P
+><P
+>El gestor de arranque es un pequeño programa instalado en los
+        sectores de arranque que se encarga de arrancar
+        Linux.</P
+><P
+>Existe dos gestores de arranque más conocidos (para plataformas intel), dependiendo de la distribución:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>lilo</I
+></SPAN
+>: Es el gestor más antiguo pero
+      más probado.</P
+><P
+>Para el nuevo
+      núcleo debemos configurar su fichero
+      de configuración <TT
+CLASS="filename"
+>/etc/lilo.conf</TT
+> con el
+      nuevo núcleo en la etiqueta <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>image</I
+></SPAN
+> y ejecutar <B
+CLASS="command"
+>lilo</B
+>.
+</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>grub</I
+></SPAN
+>: El gestor nuevo, gráficamente
+      más atractivo y otras mejoras.</P
+><P
+>El fichero de
+      configuración es grub.conf, donde metemos el nuevo la
+      localización del fichero binario del núcleo en la etiqueta
+      <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>kernel</I
+></SPAN
+>. Después ejecutamos el comando <B
+CLASS="command"
+>grub</B
+>.
+</P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c1985.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x2170.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Núcleo de Linux</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c1985.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Configuración de parámetros del núcleo</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

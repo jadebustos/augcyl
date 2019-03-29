@@ -1,0 +1,84 @@
+Cómo instalar vnuml
+===================
+
+Los primeros pasos son específicos de OpenSuSE 10.3; a continuación ya son generales, pues consisten básicamente en modificar la imagen raíz para instalar openvpn. Para los pasos iniciales de instalación en otras distribuciones, consultar la web http://www.dit.upm.es/vnumlwiki/index.php/Main_Page. En concreto hay un documento de instalación, pero además en la sección "Howtos" hay documentos específicos de instalación para distribuciones concretas. Es especialmente fácil de instalar en Debian y Ubuntu.
+
+1) Activar "repositorio principal OSS" (en el panel de control, administrador, Community repositories).
+
+
+2) instalar yum y ejecutar
+yum install gcc uml-utilities perl-Module-Build perl-NetAddr-IP libpcap-devel
+
+3) instalar estos módulos CPAN no disponibles como paquetes; cuando nos pregunte "are you ready for manual configuration?" le decimos que no, para que lo configure automáticamente.
+
+perl -MCPAN -e "install Net::Pcap; install Net::IPv6Addr"
+
+4) descargar, compilar e instalar vnuml. Si nos pregunta algo, que sí a todo.
+
+wget http://downloads.sourceforge.net/vnuml/vnuml_1.8.3.orig.tar.gz?modtime=1199504503&big_mirror=0
+
+tar xzvf vnuml_1.8.3.orig.tar.gz
+cd vnuml_1.8.3
+./configure --with-build_modules
+sudo make install
+
+
+5) descargar e instalar kernel UML que usará vnuml
+
+cd /usr/local/share/vnuml/kernels
+wget http://downloads.sourceforge.net/vnuml/linux-um_2.6.18.1-bb2-xt-4m.orig.tar.gz?modtime=1198861371&big_mirror=0
+tar xzvf linux-um_2.6.18.1-bb2-xt-4m.orig.tar.gz 
+mv linux-um-2.6.18.1-bb2-xt-4m/linux-2.6.18.1-bb2-xt-4m .
+mv linux-um-2.6.18.1-bb2-xt-4m/modules-2.6.18.1-bb2-xt-4m.tar .
+ln -sf linux-2.6.18.1-bb2-xt-4m linux
+
+6) descargar e instalar sistema de ficheros raíz que usará el kernel UML (son 207MB)
+
+cd /usr/local/share/vnuml/filesystems
+wget http://www.dit.upm.es/vnuml/download/scripts/root-fs-installer
+perl root-fs-installer
+ssh-keygen -t rsa1
+
+7) vamos a instalar openvpn en el sistema de ficheros raíz.
+ primero preparamos nuestro PC para dar acceso a Internet al kernel UML cuando lo arranquemos:
+
+ sysctl net.ipv4.ip_forward=1
+ iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+8)  En SuSE no parece funcionar uml_net (arrancar linux UML con por ejemplo eth0=tuntap,,192.168.2.1), luego tenemos que configurar nosotros la interfaz del host:
+ tunctl
+ ifconfig tap0 192.168.2.1
+ iptables -I FORWARD -i tap0 -j ACCEPT
+ iptables -I FORWARD -o tap0 -j ACCEPT
+
+9) arrancamos UML
+  ../kernels/linux ubd0=root_fs_tutorial eth0=tuntap,,,192.168.2.1 
+
+10) entramos con root/xxxx y ejecutamos lo siguiente (con el apt-get install instalará y borrará un montón de cosas y nos preguntará varias cosas; contestamos afirmativamente a todo.
+ ifconfig eth0 192.168.2.2
+ route add default gw 192.168.2.1
+ apt-get update
+ apt-get install openvpn rcconf 
+
+11) comprobamos que /lib/modules no está vacío. Si lo está, entonces scp 192.168.2.1:/usr/local/share/vnuml/kernels/modules-2.6.18.1-bb2-xt-4m.tar / &&  cd /lib/modules && tar xvf /modules-2.6.18.1-bb2-xt-4m.tar && rm /modules-2.6.18.1-bb2-xt-4m.tar
+
+12) editamos /etc/resolv.conf y comentamos los nombres de los servidores, dado que no vamos a tener acceso a ellos y nos ralentizan las conexiones de por ejemplo ssh.
+
+13) con rcconf podemos desactivar servicios que realmente no vamos a necesitar para experimentar con la red, como crond, atd, nfs, portmap... Con eso ocupará un poco menos de memoria (podemos pasar por ejemplo con mem=20M que se use menos memoria de los 32MB asignados por defecto) y arrancará antes.
+14) apagamos el UML y dejamos nuestra máquina como estaba
+ poweroff
+ sudo sysctl net.ipv4.ip_forward=0
+ iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+
+15) Probamos que todo funciona (ojo, como usuario normal, no como root!!!). No pasa nada si da un error de timeout, damos "r", retry, para darle más tiempo.
+
+ vnumlparser.pl -t /usr/local/share/vnuml/examples/simple.xml
+
+ para parar
+ vnumlparser.pl -d /usr/local/share/vnuml/examples/simple.xml
+
+16) La simulación del curso se arranca con:
+ vnumlparser.pl -t red_curso.xml
+
+Un detalle importante es que el red_curso.xml hay varias rutas que comienzan por /usr/; si nuestra instalación es en /usr/local habrá que cambiar esas líneas para igualmente las rutas se refieran a /usr/local.
+
+NOTA: Una vez arrancado con vnumlparser.pl, no modificar directamente la imagen root_fs_tutorial, pues se han creado imagenes COW (copy on write) que quedarán corruptas si se cambia la imagen original. Si no quedara otro remedio, ejecutar vnumlparser.pl -P /usr/local/share/vnuml/examples/simple.xml (y lo mismo para red_curso.xml) para borrar las imágenes COW.

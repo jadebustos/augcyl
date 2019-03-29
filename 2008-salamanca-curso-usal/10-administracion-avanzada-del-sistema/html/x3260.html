@@ -1,0 +1,297 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Rotado de logs</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Auditoria y Logs"
+HREF="c2928.html"><LINK
+REL="PREVIOUS"
+TITLE="El demonio syslogd"
+HREF="x3142.html"><LINK
+REL="NEXT"
+TITLE="Servicios"
+HREF="c3288.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x3142.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 9. Auditoria y Logs</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c3288.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN3260"
+>9.5. Rotado de logs</A
+></H1
+><P
+>Para el rotado de logs se utiliza el demonio <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>logrotate</I
+></SPAN
+>.</P
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Logrotate</I
+></SPAN
+> ha sido diseñado para facilitar la administración mediante el rotado de logs.</P
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Logrotate</I
+></SPAN
+> permite el rotado, compresión, borrado y envío de logs. Se definen políticas para cada archivo con su periocidad y caracteríticas.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3268"
+>9.5.1. El fichero <TT
+CLASS="filename"
+>/etc/logrotate.conf</TT
+></A
+></H2
+><P
+>Este fichero es el fichero de configuración de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>logrotate</I
+></SPAN
+>.</P
+><P
+>Un archivo típico:</P
+><PRE
+CLASS="programlisting"
+>&#13;# see "man logrotate" for details
+# rotate log files weekly
+weekly
+
+# keep 4 weeks worth of backlogs
+rotate 4
+
+# create new (empty) log files after rotating old ones
+create
+
+# uncomment this if you want your log files compressed
+#compress
+
+# packages drop log rotation information into this directory
+include /etc/logrotate.d
+
+# no packages own wtmp, or btmp -- we'll rotate them here
+/var/log/wtmp {
+    missingok
+    monthly
+    create 0664 root utmp
+    rotate 1
+}
+
+/var/log/btmp {
+    missingok
+    monthly
+    create 0664 root utmp
+    rotate 1
+}
+</PRE
+><P
+>Este archivo consta de opciones globales y luego las opciones por cada archivo a rotar.</P
+><P
+>Es practica habitual el crear ficheros para los ficheros de log a rotar y almacenarlos en un directorio que tipicamente es <TT
+CLASS="filename"
+>/etc/logrotate.d/</TT
+>.</P
+><P
+>Un ejemplo típico para rotar los log de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>apache</I
+></SPAN
+> es:</P
+><PRE
+CLASS="programlisting"
+>&#13;/var/log/apache2/*.log {
+        weekly                 # rotado semanal
+        missingok              # continuar sin error si el fichero no existe
+        rotate 52              # numero maximo de ficheros rotado
+        compress               # comprimir cuando se rote
+        notifempty             # no rotar el log si esta vacio
+        create 640 root adm    # permisos, propietario y grupo del fichero rotado
+        sharedscripts          # los scripts de rotado se ejecutan una sola vez
+        postrotate             # tarea a realizar despues del rotado
+                if [ -f /var/run/apache2.pid ]; then
+                        /etc/init.d/apache2 restart &#62; /dev/null
+                fi
+        endscript
+}
+</PRE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3281"
+>9.5.2. Ejecución de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>logrotate</I
+></SPAN
+></A
+></H2
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Logrotate</I
+></SPAN
+> se ejecuta como tarea bajo <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>cron</I
+></SPAN
+>:</P
+><PRE
+CLASS="programlisting"
+>&#13;#!/bin/sh
+
+test -x /usr/sbin/logrotate || exit 0
+/usr/sbin/logrotate /etc/logrotate.conf
+</PRE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x3142.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c3288.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>El demonio <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>syslogd</I
+></SPAN
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c2928.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Servicios</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

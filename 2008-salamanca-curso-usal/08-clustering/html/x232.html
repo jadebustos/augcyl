@@ -1,0 +1,277 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Funcionamiento de un cluster</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Arquitectura de Clustering"
+HREF="c118.html"><LINK
+REL="PREVIOUS"
+TITLE="Escalabilidad"
+HREF="x215.html"><LINK
+REL="NEXT"
+TITLE="Balanceo de Carga"
+HREF="c281.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Clustering y alta disponibilidad en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x215.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 2. Arquitectura de Clustering</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c281.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN232"
+>2.3. Funcionamiento de un cluster</A
+></H1
+><P
+>Un servicio de cluster consta de:</P
+><P
+></P
+><UL
+><LI
+><P
+>Balanceador de carga.</P
+></LI
+><LI
+><P
+>Sistema para la detección de fallos en los nodos del cluster.</P
+></LI
+><LI
+><P
+>Servicio a clusterizar.</P
+></LI
+><LI
+><P
+>Recursos del cluster.</P
+></LI
+><LI
+><P
+>Fencing.</P
+></LI
+></UL
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="img/03-arquitectura/cluster-clasico.png"
+ALIGN="center"><DIV
+CLASS="caption"
+>&#13;          <P
+>Arquitectura básica de un cluster.</P
+>
+	</DIV
+></P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN251"
+>2.3.1. Balanceador de carga</A
+></H2
+><P
+>Sólo son necesarios en aquellas configuraciones que sean Activo / Activo y/o balanceo de carga.</P
+><P
+>La función de los balanceadores, también conocidos como <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>network dispatcher</I
+></SPAN
+> es redireccionar las peticiones a los servidores que las están atendiendo.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN256"
+>2.3.2. Sistema para la detección de fallos en los nodos del cluster</A
+></H2
+><P
+>Es necesario un sistema que detecte cuando existen nodos en el cluster que no están disponibles para ofrecer el servicio. En este caso no se enviarán peticiones para ser atendidas si el cluster es Activo / Activo o no se balanceará el servicio sobre ellos si es Activo / Pasivo.</P
+><P
+>Para detectar esta situación se utilizan dos técnicas:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Heartbeat.</P
+></LI
+><LI
+><P
+>Disco de quorum.</P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN265"
+>2.3.3. Servicio a clusterizar</A
+></H2
+><P
+>Es el servicio que se quiere clusterizar.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN268"
+>2.3.4. Recursos del cluster</A
+></H2
+><P
+>Son todos aquellos recursos necesarios para el servicio:</P
+><P
+></P
+><UL
+><LI
+><P
+>IP de servicio.</P
+></LI
+><LI
+><P
+>Filesystems.</P
+></LI
+><LI
+><P
+>Scripts para arrancar el servicio, ...</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN278"
+>2.3.5. Fencing</A
+></H2
+><P
+>Cuando un nodo falla y no es capaz de ofrecer el servicio es necesario disponer un medio para reiniciarlo y que libere los recursos que pudiera tener ocupados.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x215.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c281.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Escalabilidad</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c118.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Balanceo de Carga</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

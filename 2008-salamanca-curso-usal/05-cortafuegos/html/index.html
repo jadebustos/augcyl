@@ -1,0 +1,340 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>GNU/Linux, software libre para la comunidad universitaria</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="NEXT"
+TITLE="Introducción"
+HREF="c18.html"></HEAD
+><BODY
+CLASS="book"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="BOOK"
+><A
+NAME="AEN1"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+><A
+NAME="AEN2"
+>GNU/Linux, software libre para la comunidad universitaria</A
+></H1
+><H2
+CLASS="subtitle"
+>Administración de cortafuegos en GNU/Linux</H2
+><H3
+CLASS="author"
+><A
+NAME="AEN6"
+></A
+>José Ángel de Bustos Pérez</H3
+><DIV
+CLASS="legalnotice"
+><P
+></P
+><A
+NAME="AEN9"
+></A
+><P
+>&#13;      Copyright (C) 2008 José Ángel de Bustos Pérez
+      <CODE
+CLASS="email"
+>&#60;<A
+HREF="mailto:jadebustos@augcyl.org"
+>jadebustos@augcyl.org</A
+>&#62;</CODE
+>.
+    </P
+><P
+>&#13;      Permission is granted to copy, distribute and/or modify this document
+      under the terms of the GNU Free Documentation License, Version 1.2 or
+      any later version published by the Free Software Foundation; with no
+      Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A
+      copy of the license is included in the section entitled "GNU Free
+      Documentation License".
+    </P
+><P
+></P
+></DIV
+><HR></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Tabla de contenidos</B
+></DT
+><DT
+>1. <A
+HREF="c18.html"
+>Introducción</A
+></DT
+><DD
+><DL
+><DT
+>1.1. <A
+HREF="c18.html#AEN23"
+>Objetivo</A
+></DT
+></DL
+></DD
+><DT
+>2. <A
+HREF="c29.html"
+>Introducción a <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Iptables</I
+></SPAN
+></A
+></DT
+><DD
+><DL
+><DT
+>2.1. <A
+HREF="c29.html#AEN48"
+>Las <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>tablas</I
+></SPAN
+> en iptables</A
+></DT
+><DT
+>2.2. <A
+HREF="x63.html"
+>Las <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>cadenas</I
+></SPAN
+> en iptables</A
+></DT
+><DT
+>2.3. <A
+HREF="x85.html"
+>Las <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>acciones</I
+></SPAN
+> o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>targets</I
+></SPAN
+> en iptables</A
+></DT
+><DT
+>2.4. <A
+HREF="x106.html"
+>Usos de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Iptables</I
+></SPAN
+></A
+></DT
+></DL
+></DD
+><DT
+>3. <A
+HREF="c151.html"
+>Filtrado de paquetes</A
+></DT
+><DD
+><DL
+><DT
+>3.1. <A
+HREF="c151.html#AEN157"
+>Donde se aplicarán las reglas</A
+></DT
+><DT
+>3.2. <A
+HREF="x190.html"
+>Políticas por defecto</A
+></DT
+><DT
+>3.3. <A
+HREF="x216.html"
+>Jugando con origenes y destinos</A
+></DT
+></DL
+></DD
+><DT
+>4. <A
+HREF="c263.html"
+>Haciendo Natting</A
+></DT
+><DD
+><DL
+><DT
+>4.1. <A
+HREF="c263.html#AEN267"
+>Configurar el acceso a un servidor web con NAT (DNAT)</A
+></DT
+><DD
+><DL
+><DT
+>4.1.1. <A
+HREF="c263.html#AEN276"
+>Activando el routing en el firewall</A
+></DT
+><DT
+>4.1.2. <A
+HREF="c263.html#AEN310"
+>Configuración de iptables</A
+></DT
+></DL
+></DD
+><DT
+>4.2. <A
+HREF="x337.html"
+>Haciendo SNAT (Cluster de Correo)</A
+></DT
+><DD
+><DL
+><DT
+>4.2.1. <A
+HREF="x337.html#AEN350"
+>Descripción del escenario</A
+></DT
+><DT
+>4.2.2. <A
+HREF="x337.html#AEN372"
+>Configuración de iptables</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>5. <A
+HREF="c387.html"
+>Administración de iptables</A
+></DT
+><DD
+><DL
+><DT
+>5.1. <A
+HREF="c387.html#AEN392"
+>Reglas persistentes en <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>iptables</I
+></SPAN
+></A
+></DT
+><DD
+><DL
+><DT
+>5.1.1. <A
+HREF="c387.html#AEN404"
+>Red Hat/Fedora</A
+></DT
+></DL
+></DD
+><DT
+>5.2. <A
+HREF="x423.html"
+>Añadiendo reglas</A
+></DT
+><DD
+><DL
+><DT
+>5.2.1. <A
+HREF="x423.html#AEN426"
+>Insertando reglas</A
+></DT
+><DT
+>5.2.2. <A
+HREF="x423.html#AEN446"
+>Borrando reglas</A
+></DT
+><DT
+>5.2.3. <A
+HREF="x423.html#AEN459"
+>Reemplazando reglas</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>A. <A
+HREF="a463.html"
+>GNU Free Documentation License</A
+></DT
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c18.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Introducción</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

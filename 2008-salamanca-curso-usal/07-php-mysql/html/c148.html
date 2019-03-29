@@ -1,0 +1,609 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Otros ejemplos</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Conclusiones"
+HREF="x145.html"><LINK
+REL="NEXT"
+TITLE="Inclusión de relaciones"
+HREF="c169.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: 
+    Creación de páginas web dinámicas con PHP/MySQL
+  </TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x145.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c169.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN148"
+></A
+>Capítulo 3. Otros ejemplos</H1
+><P
+>A continuación se listarán los
+    ficheros de los otros directorios:</P
+><P
+>index.php tipos de alumno</P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN152"
+></A
+><PRE
+CLASS="programlisting"
+>&#13;        &#60;?php
+        //incluimos el fichero config.php para coger los datos de la conexión
+        include_once('../config.php');
+        //cogemos las variables de las coneción para que se puedan utilizar en el script
+        global $server, $database, $user, $passwd;
+        //abrimos la conexión
+        $conexion = mysql_connect($server,$user,$passwd);
+        //elegimos la BBDD
+        mysql_select_db ($database, $conexion) OR die ("No se puede conectar");
+        //rellenamos la consulta, cambiar alumnos por el nombre de la tabla a listar
+        $sql="SELECT * FROM tipos_de_alumno";
+        //echo $sql;
+        //re realiza la consulta
+        $result=mysql_query($sql,$conexion);
+
+        ?&#62;
+        &#60;html&#62;
+          &#60;head&#62;
+            &#60;TITLE&#62;Listado&#60;/TITLE&#62;
+            &#60;LINK REL="stylesheet" TYPE="text/css"
+            HREF="../estilo.css" /&#62;
+          &#60;/head&#62;
+          &#60;body&#62;
+            &#60;A href="../index.php" name="alumnos"&#62;Inicio&#60;/A&#62;
+            &#60;br /&#62;
+            &#60;A href="../alumnos/index.php" name="alumnos"&#62;
+            Alumnos&#60;/A&#62;
+            &#60;br /&#62;
+            &#60;A href="../asignaturas/index.php" name="asignaturas"&#62;
+            Asignaturas&#60;/A&#62;
+            &#60;br /&#62;
+            &#60;A href="index.php" name="tipos_de_alumno"&#62;Tipos de
+            Alumno&#60;/A&#62;
+            &#60;BR /&#62;
+            &#60;p&#62;Listado de Tipos de Alumno.&#60;/p&#62;&#60;?php
+            //aqui se coloca el enlace que permite añadir una asignatura
+            echo "&#60;p&#62;&#60;A HREF='nuevo.php'&#62;Nuevo&#60;/A&#62;&#60;/p&#62;";
+            //comienza el formulario que permite la busqueda
+            echo "&#60;form method=\"post\" action=\"buscar.php\"&#62;";
+            //aqui coloca una caja de texto donde se escribe la busqueda
+            echo "&#60;input type=\"text\" name=\"busqueda\" size=20 maxlength =20&#62;";
+            //aqui se coloca el boton a pulsar cuando se rellene la busqueda
+            echo "&#60;input type=\"submit\" name=\"buscar\" value=\"Buscar\"&#62;&#60;/form&#62;&#60;br /&#62;";
+            //se cogen los primeros resultados del listado
+            if($row= mysql_fetch_array($result)){
+            //si hay algun registro inicia la tabla que muestra los resultados del listado
+            echo "&#60;TABLE BORDER='1'&#62;";
+            //coloca la cabecera de la tabla, aqui se substituiria con los campos de la tabla
+            //colocando mas &#60;TD  CLASS=\"titulo\"&#62;campo&#60;/TD&#62; dependiendo de los campos que haya
+            echo "&#60;TR&#62;&#60;TD CLASS=\"titulo\"&#62;Nombre&#60;/TD&#62;&#60;TD colspan=3  CLASS=\"titulo\"&#62;Opciones&#60;/TD&#62;&#60;/TR&#62;";
+            //empieza el bucle que coloca las líneas del listado
+            DO
+            {
+            //Coloca una línea en el listado
+            //si hay mas campos se ponen más &#60;TD width=300 CLASS=\"linea\"&#62;".$row["nombre_campo"]."&#60;/TD&#62;
+            //inicia la Äºinea
+            echo "&#60;TR&#62;";
+            //pone el nombre del alumno
+            echo "&#60;TD width=300 CLASS=\"linea\"&#62;".$row["nombre"]."&#60;/TD&#62;";
+            //pone los enlaces de ver, editar y borrar asignaturas
+            echo "&#60;TD CLASS=\"linea\"&#62;&#60;A HREF=ver.php?id=".$row['id_tipo_de_alumno']."&#62;Ver&#60;/A&#62;&#60;/TD&#62;";
+            echo "&#60;TD width=50 CLASS=\"linea\"&#62;&#60;A HREF=editar.php?id=".$row['id_tipo_de_alumno']."&#62;Editar&#60;/A&#62;&#60;/TD&#62;";
+            echo "&#60;TD width=50 CLASS=\"linea\"&#62;&#60;A HREF=borrar.php?id=".$row['id_tipo_de_alumno']."&#62;Borrar&#60;/A&#62;&#60;/TD&#62;";
+            //termina la fila
+            echo "&#60;/TR&#62;";
+            }
+            //comprueba si hay mas registros que colocar
+            WHILE ($row=mysql_fetch_array($result));
+            //si no hay mas registros termina la tabla
+            echo "&#60;/TABLE&#62;&#60;br&#62;";
+            //coloca el enlace que permite volver a listar
+            echo "&#60;A HREF=\"index.php\"&#62;Volver&#60;/A&#62;";
+            }else{
+            //si no hay registros en la tabla informa de ello
+            echo "No hay ningún tipo de alumno en la BBDD&#60;BR&#62;";
+            //coloca el enlace que permite volver a listar
+            echo "&#60;A HREF=\"index.php\"&#62;Volver&#60;/A&#62;";
+
+            }
+            //termina el script
+            ?&#62;
+          &#60;/body&#62;
+        &#60;/html&#62;
+      </PRE
+><P
+></P
+></DIV
+><P
+>ver.php de tipos de alumno</P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN155"
+></A
+><PRE
+CLASS="programlisting"
+>&#13;        &#60;?php
+        //incluimos el fichero config.php para coger los datos de la conexión
+        include_once('../config.php');
+        //cogemos las variables de las coneción para que se puedan utilizar en el script
+        global $server, $database, $user, $passwd;
+        //abrimos la conexión
+        $conexion = mysql_connect($server,$user,$passwd);
+        //elegimos la BBDD
+        mysql_select_db ($database, $conexion) OR die ("No se puede conectar");
+        //rellenamos la consulta, cambiar alumnos por el nombre de la tabla a listar
+        $sql="Select * from tipos_de_alumno WHERE id_tipo_de_alumno=".$_GET['id'].";";
+        //re realiza la consulta
+        $result=mysql_query($sql,$conexion);
+        print $sql;
+        //se coge el registro del alumno
+        $row= mysql_fetch_array($result);
+        ?&#62;
+        &#60;html&#62;
+          &#60;head&#62;
+            &#60;TITLE&#62;Alumno:&#60;?php echo $row['nombre']; ?&#62;&#60;/TITLE&#62;
+            &#60;LINK REL="stylesheet" TYPE="text/css"
+            HREF="../estilo.css" /&#62;
+          &#60;/head&#62;
+          &#60;body&#62;
+            &#60;?php
+            //en esta parte se muestran los campos del alumno
+            //se debe añadir líneas tantas como campos tenga la tabla: echo "&#60;p&#62;Nombre de campo:".$row["nombre_de_campo"]."&#60;/p&#62;";
+            //se muestra el código del alumno
+            echo "&#60;p&#62;Código:".$row["id_tipo_de_alumno"]."&#60;/p&#62;";
+            //se muestra el nombre del alumno
+            echo "&#60;p&#62;Nombre:".$row["nombre"]."&#60;/p&#62;";
+            //se coloca el enlace para que pueda editarse el alumno.
+            echo "&#60;p&#62;&#60;A HREF=editar.php?id=".$row['id_tipo_de_alumno']."&#62;Editar&#60;/A&#62;&#60;/TD&#62;&#60;/p&#62;";
+            // se coloca el enlace para borrar el alumno
+            echo "&#60;p&#62;&#60;A HREF=borrar.php?id=".$row['id_tipo_de_alumno']."&#62;Borrar&#60;/A&#62;&#60;/TD&#62;&#60;/p&#62;";
+            // se coloca el enlace para ir a listado de alumnos
+            echo "&#60;p&#62;&#60;A HREF='index.php'&#62;Atras&#60;/A&#62;&#60;/p&#62;";
+            ?&#62;
+          &#60;/body&#62;
+        &#60;/html&#62;
+      </PRE
+><P
+></P
+></DIV
+><P
+>editar.php de tipos de alumno</P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN158"
+></A
+><PRE
+CLASS="programlisting"
+>&#13;        &#60;?php 
+        //incluimos el fichero config.php para coger los datos de la conexi?n
+        include_once('../config.php');
+        //cogemos las variables de las coneci?n para que se puedan utilizar en el script
+        global $server, $database, $user, $passwd;
+        //abrimos la conexi?n
+        $conexion = mysql_connect($server,$user,$passwd);
+        //elegimos la BBDD
+        mysql_select_db ($database, $conexion) OR die ("No se puede conectar");
+        //rellenamos la consulta, cambiar alumnos por el nombre de la tabla a listar
+        $sql="Select * from tipos_de_alumno WHERE id_tipo_de_alumno=".$_GET['id'].";";
+        //re realiza la consulta
+        $result=mysql_query($sql,$conexion);
+        //print $sql;
+        //se coge el registro del alumno
+        $row= mysql_fetch_array($result);
+        ?&#62;
+        &#60;html&#62;
+          &#60;head&#62;
+            &#60;TITLE&#62;Editar Tipo de Alumno&#60;/TITLE&#62;
+            &#60;LINK REL="stylesheet" TYPE="text/css"
+            HREF="../estilo.css" /&#62;
+          &#60;/head&#62;
+          &#60;body&#62;
+            &#60;?php
+            //se mira si se est? enviando el formulario de edici?n del alumno
+            if(!isset( $_POST['editar']))
+            {
+            //Si se est? enviando el formulario
+            //echo "&#60;p&#62;Vuelva a intentarlo&#60;/p&#62;";
+            //se abre el formulario que envia los datos de las modificaciones de ese registro
+                            echo "&#60;form method=\"post\" action=\"editar.php?id=".$_GET['id']."\" &#62;";
+            // muestra el c?digo del alumno
+                            echo "Codigo:".$row['id_tipo_de_alumno']."&#60;br&#62;";
+            // a partir de aqui se muestran los campos a rellenar en el formulario
+            // si se substituye echo "Nombre : &#60;input type=\"text\" name=\"nombre\" value=\"".$row['nombre']."\" maxlength =200 size=40&#62;&#60;br /&#62;";
+            // por echo "Nombre : &#60;input type=\"text\" name=\"nombre_de_campo\" value=\"".$row['nombre']."\" maxlength =longitud_maxima_de_campo 
+            // size=tama?o_dte_la_caja&#62;&#60;br/ &#62;";
+            // se muestra la caja del nombre del alumno
+                            echo "Nombre : &#60;input type=\"text\" name=\"nombre\" value=\"".$row['nombre']."\" maxlength =100 size=40&#62;&#60;br /&#62;";
+            // se pone el bot?n de guardar los datos
+                            echo "&#60;input type=\"submit\" name=\"editar\" value=\"Guardar\"&#62;&#60;/form&#62;&#60;br /&#62;";
+            }else{
+            // si se env?a el formulario hay que coger los datos del formulario y meterlos en la BBDD
+            // aqui se deben a?adir tantos isset($_POST['nombre_de_campo']) &#38;&#38; como campos haya en la bbdd
+                    if(isset($_POST['nombre'])){
+            //se desactiva el contenido de la variable $sql
+                            unset($sql);
+            // se rellena la consulta que inserta los datos
+            //se ponen tantos `nombre_de_campo` = '".$_POST['nombre_de_campo']."',
+                            $sql="UPDATE `tipos_de_alumno` SET `nombre` = '".$_POST['nombre']."' WHERE `id_tipo_de_alumno` =".$_GET['id']." LIMIT 1 ;";
+                            //echo $sql;
+            //se envia la inserci?n de datos en la BBDD
+                            $result=mysql_query($sql,$conexion);
+            //Se informa por la p?gina web que el alumno ha sido modificado
+                            echo "&#60;p&#62;Tipo de alumno Modificado&#60;/p&#62;";
+            //se coloca el bot?n que hace volver al listado de alumnos
+                            echo "&#60;p&#62;&#60;A HREF='index.php'&#62;Volver&#60;/A&#62;&#60;/p&#62;";
+                    }else{
+                    // se informa al usuario que no se han rellenado los campos
+                    echo "Vuelva a intentarlo.&#60;br&#62;";
+                    //se abre el formulario que envia los datos de las modificaciones de ese registro
+                            echo "&#60;form method=\"post\" action=\"editar.php?id=".$_GET['id']."\" &#62;";
+            // muestra el c?digo del alumno
+                            echo "Codigo:".$row['id_tipo_de_alumno']."&#60;br&#62;";
+            // a partir de aqui se muestran los campos a rellenar en el formulario
+            // si se substituye echo "Nombre : &#60;input type=\"text\" name=\"nombre\" value=\"".$row['nombre']."\" maxlength =200 size=40&#62;&#60;br /&#62;";
+            // por echo "Nombre : &#60;input type=\"text\" name=\"nombre_de_campo\" value=\"".$row['nombre']."\" maxlength =longitud_maxima_de_campo 
+            // size=tama?o_dte_la_caja&#62;&#60;br /&#62;";
+            // se muestra la caja del nombre del alumno
+                            echo "Nombre : &#60;input type=\"text\" name=\"nombre\" value=\"".$row['nombre']."\" maxlength =200 size=40&#62;&#60;br /&#62;";
+
+            // se pone el bot?n de guardar los datos
+                            echo "&#60;input type=\"submit\" name=\"editar\" value=\"Guardar\"&#62;&#60;/form&#62;&#60;br /&#62;";  
+                    }
+            }
+            ?&#62;
+          &#60;/body&#62;
+        &#60;/html&#62;
+      </PRE
+><P
+></P
+></DIV
+><P
+>borrar.php de tipos de alumno</P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN161"
+></A
+><PRE
+CLASS="programlisting"
+>&#13;        &#60;?php 
+        //incluimos el fichero config.php para coger los datos de la conexión
+        include_once('../config.php');
+        //cogemos las variables de las coneción para que se puedan utilizar en el script
+        global $server, $database, $user, $passwd;
+        //abrimos la conexión
+        $conexion = mysql_connect($server,$user,$passwd);
+        //elegimos la BBDD
+        mysql_select_db ($database, $conexion) OR die ("No se puede conectar");
+        //rellenamos la consulta, cambiar alumnos por el nombre de la tabla a listar
+        $sql="Select * from alumnos WHERE id=".$_GET['id'].";";
+        //re realiza la consulta
+        $result=mysql_query($sql,$conexion);
+        //print $sql;
+        //se coge el registro del alumno
+        $row= mysql_fetch_array($result);
+        ?&#62;
+        &#60;html&#62;
+          &#60;head&#62;
+            &#60;TITLE&#62;Borrar Asignatura&#60;/TITLE&#62;
+            &#60;LINK REL="stylesheet" TYPE="text/css"
+            HREF="../estilo.css" /&#62;
+          &#60;/head&#62;
+          &#60;body&#62;
+            &#60;?php
+            // se rellena la consulta que borra el alumno se substituye alumno por el nombre de la tabla 
+            $sql="DELETE from `tipos_de_alumno` WHERE `id_tipo_de_alumno` =".$_GET['id']." LIMIT 1 ;";
+            //echo $sql;
+            // se ejecuta la consulta se borrado
+            $result=mysql_query($sql,$conexion);
+            // se informa de que se ha eliminado un alumno
+            echo "&#60;p&#62;Asignatura eliminada&#60;/p&#62;";
+            // se coloca el enlace que permite volver al listado
+            echo "&#60;p&#62;&#60;A HREF='index.php'&#62;Volver&#60;/A&#62;&#60;/p&#62;";
+
+            ?&#62;
+          &#60;/body&#62;
+        &#60;/html&#62;
+      </PRE
+><P
+></P
+></DIV
+><P
+>buscar.php de tipos de alumno</P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN164"
+></A
+><PRE
+CLASS="programlisting"
+>&#13;        &#60;?php
+        //incluimos el fichero config.php para coger los datos de la conexión
+        include_once('../config.php');
+        //cogemos las variables de las coneción para que se puedan utilizar en el script
+        global $server, $database, $user, $passwd;
+        //abrimos la conexión
+        $conexion = mysql_connect($server,$user,$passwd);
+        //elegimos la BBDD
+        mysql_select_db ($database, $conexion) OR die ("No se puede conectar");
+
+        ?&#62;
+        &#60;html&#62;
+          &#60;head&#62;
+            &#60;TITLE&#62;Búsqueda de Asignaturas&#60;/TITLE&#62;
+            &#60;LINK REL="stylesheet" TYPE="text/css"
+            HREF="../estilo.css" /&#62;
+          &#60;/head&#62;
+          &#60;body&#62;
+            &#60;p&#62;Búsqueda de Asignaturas.&#60;/p&#62;&#60;?php
+            // coloca el enlace que permite añadir un alumno
+            echo "&#60;p&#62;&#60;A HREF='nuevo.php'&#62;Nuevo&#60;/A&#62;&#60;/p&#62;";
+            // se inicia el formulario de la búsqueda
+            echo "&#60;form method=\"post\" action=\"buscar.php\"&#62;";
+            // se indica que el campo de busqueda tiene 20 caracteres de longitud
+            echo "&#60;input type=\"text\" name=\"busqueda\" size=20 maxlength =100 value=\"".$_POST['busqueda']."\"&#62;";
+            // se coloca el boton que se paretara para realizar la busqueda
+            echo "&#60;input type=\"submit\" name=\"buscar\" value=\"Buscar\"&#62;&#60;/form&#62;&#60;br&#62;";
+            // se rellena la busqueda por todos los campos de la tabla, se debe substituir alumnos por el nombre de la tabla y poner 
+            // tantos nombre_de_campo LIKE '%".$_POST['busqueda']."%' OR como campos haya.
+            $sql="SELECT * FROM asignaturas where nombre LIKE '%".$_POST['busqueda']."%';";
+            // se realiza la busqueda
+            $result=mysql_query($sql,$conexion);
+            //Se comprueba si hay resultados en la busqueda
+            if($row= mysql_fetch_array($result)){
+            // si hay resultados crea la tabla
+            echo "&#60;TABLE BORDER='1'&#62;";
+            //pone los campos de la tabla tiene que haber tantos &#60;TD CLASS=\"titulo\"&#62;Nombre_de_campo&#60;/TD&#62; como campos haya
+            echo "&#60;TR&#62;&#60;TD CLASS=\"titulo\"&#62;Nombre&#60;/TD&#62;&#60;TD colspan=3  CLASS=\"titulo\"&#62;Opciones&#60;/TD&#62;&#60;/TR&#62;";
+            //coloca las líneas de la tabla
+            DO
+            {
+            //aqui se ponen tantas líneas &#60;TD width=300 CLASS=\"linea\"&#62;".$row["nombre_de_campo"]."&#60;/TD&#62; como campos haya en la tabla
+            // se coloca el inicio de la fila
+            echo "&#60;TR&#62;";
+            //se coloca el campos del nombre
+            echo "&#60;TD width=300 CLASS=\"linea\"&#62;".$row["nombre"]."&#60;/TD&#62;";
+            //se colocan los enlaces de ver editar y borrar alumno
+            echo "&#60;TD CLASS=\"linea\"&#62;&#60;A HREF=ver.php?id=".$row['id']."&#62;Ver&#60;/A&#62;&#60;/TD&#62;";
+            echo "&#60;TD width=50 CLASS=\"linea\"&#62;&#60;A HREF=editar.php?id=".$row['id']."&#62;Editar&#60;/A&#62;&#60;/TD&#62;";
+            echo "&#60;TD width=50 CLASS=\"linea\"&#62;&#60;A HREF=borrar.php?id=".$row['id']."&#62;Borrar&#60;/A&#62;&#60;/TD&#62;";
+            //se termina la fila
+            echo "&#60;/TR&#62;";
+            }
+            //Comprueba si se ha terminado de poner líneas
+            WHILE ($row=mysql_fetch_array($result));
+            //como se ha terminado de poner líneas se acaba la tabla
+            echo "&#60;/TABLE&#62;&#60;br&#62;";
+            //coloca el enlace para volver al listado
+            echo "&#60;A HREF=\"index.php\"&#62;Volver&#60;/A&#62;";
+            }else{
+            //si no hay registros que coincidan con la busqueda se le indica al usuario
+            echo "La búsqueda no coincide con ningún registro de la BBDD&#60;BR&#62;";
+            //se coloca el enlace del volver al listado
+            echo "&#60;A HREF=\"index.php\"&#62;Volver&#60;/A&#62;";
+
+            }
+            ?&#62;
+          &#60;/body&#62;
+        &#60;/html&#62;
+      </PRE
+><P
+></P
+></DIV
+><P
+>nuevo.php de tipos de alumno</P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN167"
+></A
+><PRE
+CLASS="programlisting"
+>&#13;        &#60;?php
+        //incluimos el fichero config.php para coger los datos de la conexión
+        include_once('../config.php');
+        //cogemos las variables de las coneción para que se puedan utilizar en el script
+        global $server, $database, $user, $passwd;
+        //abrimos la conexión
+        $conexion = mysql_connect($server,$user,$passwd);
+        //elegimos la BBDD
+        mysql_select_db ($database, $conexion) OR die ("No se puede conectar");
+
+        ?&#62;
+        &#60;html&#62;
+          &#60;head&#62;
+            &#60;TITLE&#62;Búsqueda de Asignaturas&#60;/TITLE&#62;
+            &#60;LINK REL="stylesheet" TYPE="text/css"
+            HREF="../estilo.css" /&#62;
+          &#60;/head&#62;
+          &#60;body&#62;
+            &#60;p&#62;Búsqueda de Asignaturas.&#60;/p&#62;&#60;?php
+            // coloca el enlace que permite añadir un alumno
+            echo "&#60;p&#62;&#60;A HREF='nuevo.php'&#62;Nuevo&#60;/A&#62;&#60;/p&#62;";
+            // se inicia el formulario de la búsqueda
+            echo "&#60;form method=\"post\" action=\"buscar.php\"&#62;";
+            // se indica que el campo de busqueda tiene 20 caracteres de longitud
+            echo "&#60;input type=\"text\" name=\"busqueda\" size=20 maxlength =100 value=\"".$_POST['busqueda']."\"&#62;";
+            // se coloca el boton que se paretara para realizar la busqueda
+            echo "&#60;input type=\"submit\" name=\"buscar\" value=\"Buscar\"&#62;&#60;/form&#62;&#60;br&#62;";
+            // se rellena la busqueda por todos los campos de la tabla, se debe substituir alumnos por el nombre de la tabla y poner 
+            // tantos nombre_de_campo LIKE '%".$_POST['busqueda']."%' OR como campos haya.
+            $sql="SELECT * FROM asignaturas where nombre LIKE '%".$_POST['busqueda']."%';";
+            // se realiza la busqueda
+            $result=mysql_query($sql,$conexion);
+            //Se comprueba si hay resultados en la busqueda
+            if($row= mysql_fetch_array($result)){
+            // si hay resultados crea la tabla
+            echo "&#60;TABLE BORDER='1'&#62;";
+            //pone los campos de la tabla tiene que haber tantos &#60;TD CLASS=\"titulo\"&#62;Nombre_de_campo&#60;/TD&#62; como campos haya
+            echo "&#60;TR&#62;&#60;TD CLASS=\"titulo\"&#62;Nombre&#60;/TD&#62;&#60;TD colspan=3  CLASS=\"titulo\"&#62;Opciones&#60;/TD&#62;&#60;/TR&#62;";
+            //coloca las líneas de la tabla
+            DO
+            {
+            //aqui se ponen tantas líneas &#60;TD width=300 CLASS=\"linea\"&#62;".$row["nombre_de_campo"]."&#60;/TD&#62; como campos haya en la tabla
+            // se coloca el inicio de la fila
+            echo "&#60;TR&#62;";
+            //se coloca el campos del nombre
+            echo "&#60;TD width=300 CLASS=\"linea\"&#62;".$row["nombre"]."&#60;/TD&#62;";
+            //se colocan los enlaces de ver editar y borrar alumno
+            echo "&#60;TD CLASS=\"linea\"&#62;&#60;A HREF=ver.php?id=".$row['id']."&#62;Ver&#60;/A&#62;&#60;/TD&#62;";
+            echo "&#60;TD width=50 CLASS=\"linea\"&#62;&#60;A HREF=editar.php?id=".$row['id']."&#62;Editar&#60;/A&#62;&#60;/TD&#62;";
+            echo "&#60;TD width=50 CLASS=\"linea\"&#62;&#60;A HREF=borrar.php?id=".$row['id']."&#62;Borrar&#60;/A&#62;&#60;/TD&#62;";
+            //se termina la fila
+            echo "&#60;/TR&#62;";
+            }
+            //Comprueba si se ha terminado de poner líneas
+            WHILE ($row=mysql_fetch_array($result));
+            //como se ha terminado de poner líneas se acaba la tabla
+            echo "&#60;/TABLE&#62;&#60;br&#62;";
+            //coloca el enlace para volver al listado
+            echo "&#60;A HREF=\"index.php\"&#62;Volver&#60;/A&#62;";
+            }else{
+            //si no hay registros que coincidan con la busqueda se le indica al usuario
+            echo "La búsqueda no coincide con ningún registro de la BBDD&#60;BR&#62;";
+            //se coloca el enlace del volver al listado
+            echo "&#60;A HREF=\"index.php\"&#62;Volver&#60;/A&#62;";
+
+            }
+            ?&#62;
+          &#60;/body&#62;
+        &#60;/html&#62;
+      </PRE
+><P
+></P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x145.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c169.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Conclusiones</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Inclusión de relaciones</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

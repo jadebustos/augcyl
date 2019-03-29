@@ -1,0 +1,231 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>DHCP vs ZeroConf y UPnP</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Autoconfiguración: DHCP, PXE, Zeroconf"
+HREF="c209.html"><LINK
+REL="PREVIOUS"
+TITLE="Autoconfiguración: DHCP, PXE, Zeroconf"
+HREF="c209.html"><LINK
+REL="NEXT"
+TITLE="PXE"
+HREF="x256.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c209.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Cap�tulo 3. Autoconfiguración: DHCP, PXE, Zeroconf</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x256.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN232"
+>3.2. DHCP vs ZeroConf y UPnP</A
+></H1
+><P
+>Zeroconf (<A
+HREF="http://www.zeroconf.org/"
+TARGET="_top"
+>www.zeroconf.org</A
+>) es un sistema de autoconfiguración de dispositivos, que pretende que los dispositivos funcionen con sólo conectarlos a la red, sin necesidad de que para ello existan servidores en la red local (servidores DHCP, DNS o directorio). Hay otras alternativas a Zeroconf como UPnP de Microsoft.</P
+><P
+>El componente más extendido de zeroconf es Ipv4 Link local Addresses (IPV4LL), que se define en el RFC1397. El propósito de IPV4LL es que un equipo obtenga automáticamente una IP sin necesidad de que exista un servidor DHCP, RARP ni de ningún otro tipo. El modo de lograrlo es elegir al azar una IP dentro del rango reservado para este sistema: 169.254.0.0/16; se comprueba que la IP no está en uso, si lo estuviera se escoge otra hasta encontrar una libre.</P
+><P
+>La utilidad de este sistema frente a DHCP está en redes "ad-hoc" (sobre la marcha), por ejemplo para comunicar dos equipos a través de un cable cruzado o conectándolos a una red local pero sin afectar al resto de equipos. También puede ser útil en una red pequeña aislada en una oficina o en una casa, dónde no se quiera tener encendido un servidor para hacer de DHCPD. Sin embargo lo normal en una red de empresa o de casa es que haya un acceso a Internet utilizando un router ADSL, que ya integra un servidor DHCP. Otro tipo de redes "ad-hoc" interesantes son las MANET (Mobile Ad-hoc NETwork) como las wireless mech network que usan OLSR, pero quedan fuera del alcance de este manual.</P
+><P
+>En GNU/Linux existe el proyecto zeroconf.sf.net, que ha creado el programa zcip que implementa Ipv4LL.</P
+><P
+>UPNP también usa IPV4LL, tras intentar usar un servidor DHCP. En Windows podemos comprobar que cuando configuramos la red para obtener la IP automáticamente, primero intenta usar un servidor DHCP y si no lo logra obtiene una IP aleatoria: eso es porque implementa Ipv4LL.</P
+><P
+>Otro componente interesante que aporta Zeroconf es mDNS (multicast DNS). Este sistema sirve para reemplazar al DNS. Así mismo zeroconf aporta DNS Service Discovery (DNS-SD) que permite utilizar el DNS para localizar servicios, por ejemplo el servidor Jabber. DNS-SD se puede implementar sobre mDNS o sobre un servidor DNS convencional. </P
+><P
+>La idea de mDNS es que cada nodo incluye su propio servidor que responde con su IP cuando alguien pregunta por su nombre o hace una búsqueda inversa (el nombre a partir de la IP). En el caso de usar mDNS para implementar DNS-SD, el servidor proporciona información sobre los servicios que ofrece la propia máquina. La consulta se hace utilizando broadcast: la idea es la misma que para obtener el nombre NetBIOS de un equipo de Windows cuando no hay DNS ni servidor Wins.</P
+><P
+>El utilizar el servidor DNS para localizar servicios no es una idea nueva: el servidor de correo correspondiente a un dominio siempre se ha localizado así (aunque no el servidor de correo saliente). Así mismo el RFC 2782 (Service Types) describe el registro SRV para los servidores DNS que extiende lo que se hacía con el correo a todo tipo de servicios: por ejemplo Jabber usa este tipo de registros. Zeroconf usa también otro tipo de registros DNS: los TXT. </P
+><P
+>La utilidad de estos registros sobre los SRV, es que los SRV están pensados para que se ofrezca una máquina por tipo de servicio o en todo caso varias, pero a efectos de balanceo de carga o redundancia. Los registros TXT son útiles para servicios como impresoras: en una red puede haber varias impresoras pero normalmente no interesa usar una cualquiera sino que se puede preferir una u otra en función de por ejemplo si imprime o no en color o determinado tamaño o si está en la misma planta que el usuario. En los registros TXT además del nombre del servicio aparece una etiqueta, la instancia (instance) que admite caracteres UTF-8. Cualquier etiqueta DNS está limitada a 63 bytes; ojo, que en UTF-8 caracteres como la eñe o los acentos ocupan dos bytes. Los registros TXT permiten más flexibilidad: por ejemplo se puede poner un servicio para ver una página personal y entre la información no sólo estará el nombre del servidor y el puerto sino la ruta.</P
+><P
+>La funcionalidad de DNS-SD es utilizable en más casos que Ipv4LL. Por ejemplo en las empresas para descubrir impresoras, servidores de ficheros.. Incluso hay aplicaciones como sistemas para compartir archivos. En el escritorio se integra en el panel de control y permite navegar por los servicios disponibles en la red.</P
+><P
+>DNS-SD añade además unos nombres de host específicos al DNS para indicar que es navegable para descubrir servicios: 
+<PRE
+CLASS="screen"
+>&#13;b._dns-sd._udp IN PTR @ ; b = browse domain
+lb._dns-sd._udp IN PTR @ ; lb = legacy browse domain
+</PRE
+>
+</P
+><P
+>En GNU/Linux la implementación de mDNS y DNS_SD recomendada es Avahi (<A
+HREF="http://avahi.org/"
+TARGET="_top"
+>http://avahi.org/</A
+>). Proporciona un demonio y una librería para las aplicaciones.</P
+><P
+>En Apple la implementación de Zeroconf primero se llamó Rendezvous y luego Bonjour. Lo implementan como software libre y está portado también a Windows. Mucha gente conoce más estas marcas de Apple que Zeroconf, debido a que esta iniciativa ha sido impulsada por Apple, al migrar de AppleTalk a TCP/IP y querer conservar el carácter autoconfigurable propio de AppleTalk.</P
+><P
+>UPnP trata de ofrecer funcionalidades similares a mDNS y DNS_SD, pero no son compatibles y la implementación es más compleja. Va más allá e incluye posibilidad de hacer llamadas SOAP, o abrir puertos en un firewall para traspasar el NAT. Esto último lo hace IGD (Internet Gateway Device) y hay una implementación para GNU/Linux: <A
+HREF="http://linux-igd.sourceforge.net/"
+TARGET="_top"
+>http://linux-igd.sourceforge.net/</A
+>; sin embargo conviene saber que IGD es una característica insegura y que potencialmente un nodo podría hacer que se abran agujeros que suponga acceder desde el exterior a otras Ips si se hace IP Spoofing. Apple también tiene su alternativa a IGD, que es NAT-PMP (NAT Port Mapping Protocol), que implementan también proyectos libres como Stallone.</P
+><P
+>La parte que más éxito ha tenido ha sido UPnP AV, que trata sobre dispositivos de audio y vídeo con conexión a red. Hay varios proyectos multimedia que pueden hacer streaming para dispositivos UPnP o ser los reproductores: por ejemplo Myth, VideoLan, Geexbox, MediaTomb... UPnP AV distingue entre servidores de contenido (MediaServers, que opcionalmente pueden encargarse también de convertir entre formatos, MediaAdaptor), reproductores (MediaRenders), controladores y mando a distancia. Un servidor libre multiplataforma escrito en C++ es FUPPES; también libre en ese lenguaje es Mediatomb, mientras uShare está escrito en C. Todos ellos funcionan también sobre dispositivos empotrados ARM como el NSLU2. Por supuesto estos protocolos no son los únicos para implementar servidores de streaming: por ejemplo está también icecast o el estándar del IEFT RTSP (recibe comandos como PLAY, luego el vídeo se envía con RTP<A
+NAME="AEN253"
+HREF="#FTN.AEN253"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>, usándose RTCP como protocolo compañero de RTP para controlar estadísticas sobre la calidad del servicio). Así mismo hay tecnologías "peercasting" basado en uso de peer-to-peer como alternativa al alto coste de usar unicast o la poca flexibilidad de multicast.</P
+><P
+>SLP: sistema de descubrimiento, a diferencia del de UPnP y el de Zeroconf sí es estándar IETF. No muy extendido, excepto para localizar las impresoras de red. Hay una implementación libre que es OpenSLP. Funciona con un servidor, pero también puede estar más descentralizado, utilizando broadcast/multicast.</P
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notas</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN253"
+HREF="x232.html#AEN253"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>RealTime Transport Protocol: se suele encapsular sobre UDP (aunque no tiene un rango de puertos fijos asignados, el hecho de usar un rango dinámico complica su uso con NAT) y puede usarse en multicast además de unicat. Además de para streaming es habitual para videoconferencia, en ese caso para la señalización se usa SIP, H.323 o Jingle en lugar de RTSP. Aunque RTP es el protocolo más usado para transmitir voz y vídeo, otra opción es IAX (Inter-Asterisk Exchange) que tiene la peculiaridad de encapsular en la misma conexión la señalización y los datos y poder multiplexar varios flujos en uno. Esto sobre todo lo hace mucho más adecuado frente a NAT y cortafuegos que RTP, además de más eficiente en consumo de ancho de banda.</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c209.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x256.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Autoconfiguración: DHCP, PXE, Zeroconf</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c209.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>PXE</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

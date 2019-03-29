@@ -1,0 +1,315 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>El manejo de una tabla sencilla.</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Principios de la Web"
+HREF="c21.html"><LINK
+REL="PREVIOUS"
+TITLE="La página principal"
+HREF="x36.html"><LINK
+REL="NEXT"
+TITLE="Añadir un nuevo registro."
+HREF="x110.html"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: 
+    Creación de páginas web dinámicas con PHP/MySQL
+  </TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x36.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 2. Principios de la Web</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x110.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="AEN98"
+>2.3. El manejo de una tabla sencilla.</A
+></H1
+><P
+>Vamos a empezar con una tabla sencilla para facilitar
+      su comprensión, la de asignaturas. Empezaremos por
+      crear el fichero index.php. Que sería
+      así:</P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN101"
+></A
+><PRE
+CLASS="programlisting"
+>&#13;          &#60;?php
+          //incluimos el fichero config.php para coger los datos de la conexión
+          include_once('../config.php');
+          //cogemos las variables de las coneción para que se puedan utilizar en el script
+          global $server, $database, $user, $passwd;
+          //abrimos la conexión
+          $conexion = mysql_connect($server,$user,$passwd);
+          //elegimos la BBDD
+          mysql_select_db ($database, $conexion) OR die ("No se puede conectar");
+          //rellenamos la consulta, cambiar alumnos por el nombre de la tabla a listar
+          $sql="SELECT * FROM asignaturas";
+          //echo $sql;
+          //re realiza la consulta
+          $result=mysql_query($sql,$conexion);
+
+          ?&#62;
+          &#60;html&#62;
+            &#60;head&#62;
+              &#60;TITLE&#62;Listado de Asignaturas&#60;/TITLE&#62;
+              &#60;LINK REL="stylesheet" TYPE="text/css"
+              HREF="../estilo.css" /&#62;
+            &#60;/head&#62;
+            &#60;body&#62;
+              &#60;A href="../index.php" name="alumnos"&#62;Inicio&#60;/A&#62;
+              &#60;br /&#62;
+              &#60;A href="../alumnos/index.php" name="alumnos"&#62;
+              Alumnos&#60;/A&#62;
+              &#60;br /&#62;
+              &#60;A href="index.php" name="asignaturas"&#62;
+              Asignaturas&#60;/A&#62;
+              &#60;BR /&#62;
+              &#60;A href="../tipos_de_alumno/index.php"
+              name="tipos_de_alumno"&#62;Tipo de alumno&#60;/A&#62;
+              &#60;br /&#62;
+              &#60;p&#62;Listado de Asignaturas.&#60;/p&#62;&#60;?php
+              //aqui se coloca el enlace que permite añadir una asignatura
+              echo "&#60;p&#62;&#60;A HREF='nuevo.php'&#62;Nuevo&#60;/A&#62;&#60;/p&#62;";
+              //comienza el formulario que permite la busqueda
+              echo "&#60;form method=\"post\" action=\"buscar.php\"&#62;";
+              //aqui coloca una caja de texto donde se escribe la busqueda
+              echo "&#60;input type=\"text\" name=\"busqueda\" size=20 maxlength =20&#62;";
+              //aqui se coloca el boton a pulsar cuando se rellene la busqueda
+              echo "&#60;input type=\"submit\" name=\"buscar\" value=\"Buscar\"&#62;&#60;/form&#62;&#60;br&#62;";
+              //se cogen los primeros resultados del listado
+              if($row= mysql_fetch_array($result)){
+              //si hay algun registro inicia la tabla que muestra los resultados del listado
+              echo "&#60;TABLE BORDER='1'&#62;";
+              //coloca la cabecera de la tabla, aqui se substituiria con los campos de la tabla
+              //colocando mas &#60;TD  CLASS=\"titulo\"&#62;campo&#60;/TD&#62; dependiendo de los campos que haya
+              echo "&#60;TR&#62;&#60;TD CLASS=\"titulo\"&#62;Nombre&#60;/TD&#62;&#60;TD colspan=3  CLASS=\"titulo\"&#62;Opciones&#60;/TD&#62;&#60;/TR&#62;";
+              //empieza el bucle que coloca las líneas del listado
+              DO
+              {
+              //Coloca una línea en el listado
+              //si hay mas campos se ponen más &#60;TD width=300 CLASS=\"linea\"&#62;".$row["nombre_campo"]."&#60;/TD&#62;
+              //inicia la Äºinea
+              echo "&#60;TR&#62;";
+              //pone el nombre del alumno
+              echo "&#60;TD width=300 CLASS=\"linea\"&#62;".$row["nombre"]."&#60;/TD&#62;";
+              //pone los enlaces de ver, editar y borrar asignaturas
+              echo "&#60;TD CLASS=\"linea\"&#62;&#60;A HREF=ver.php?id=".$row['id']."&#62;Ver&#60;/A&#62;&#60;/TD&#62;";
+              echo "&#60;TD width=50 CLASS=\"linea\"&#62;&#60;A HREF=editar.php?id=".$row['id']."&#62;Editar&#60;/A&#62;&#60;/TD&#62;";
+              echo "&#60;TD width=50 CLASS=\"linea\"&#62;&#60;A HREF=borrar.php?id=".$row['id']."&#62;Borrar&#60;/A&#62;&#60;/TD&#62;";
+              //termina la fila
+              echo "&#60;/TR&#62;";
+              }
+              //comprueba si hay mas registros que colocar
+              WHILE ($row=mysql_fetch_array($result));
+              //si no hay mas registros termina la tabla
+              echo "&#60;/TABLE&#62;&#60;br&#62;";
+              //coloca el enlace que permite volver a listar
+              echo "&#60;A HREF=\"index.php\"&#62;Volver&#60;/A&#62;";
+              }else{
+              //si no hay registros en la tabla informa de ello
+              echo "No hay ninguna asignatura en la BBDD&#60;BR&#62;";
+              //coloca el enlace que permite volver a listar
+              echo "&#60;A HREF=\"index.php\"&#62;Volver&#60;/A&#62;";
+
+              }
+              //termina el script
+              ?&#62;
+            &#60;/body&#62;
+          &#60;/html&#62;
+        </PRE
+><P
+></P
+></DIV
+><P
+>Como puede verse en el fichero hay 4 partes bien
+      diferenciadas, que se repetirán en todos los
+      ficheros de index.php (de listado): una definidas como parte
+      de un script PHP que consulta los datos a la tabla, otra
+      donde hay código HTML de la cabecera del fichero
+      HTML resultante, otra parte en PHP que permite generar la
+      tabla con los datos y la última donde se cierran
+      los tags HTML de la página web.</P
+><P
+>En la primera parte se incluye el fichero ../config.php
+      que es donde centralizamos los datos de
+      configuración para poder acceder a la base de
+      datos. Después de realizar la conexión
+      y seleccionar la BBDD se almacena en la variable $sql la
+      consulta a realizar. Para a continuación ejecutar
+      la consulta en la base de datos y almacenar en la variable
+      $result los resultados de la consulta.</P
+><P
+>En la segunda parte se definen los tags HTML generales
+      y el del menú de la Aplicación. El
+      enlace a la página principal y al resto de
+      directorios generados.</P
+><P
+>En la tercera parte, se pude ver cómo
+      generar el código HTML mediante los echos. en al
+      primera sección se pude ver cómo se
+      genera el cuadro de búsqueda, en la segunda parte
+      se puede ver cómo utilizar la sentencia
+      condicional con sus dos casos: el primero en el que hay datos
+      en el resultado y el segundo cuando no hay resultados a la
+      consulta. En el primer caso se genera la cabecera de una
+      tabla y luego se entra en un bucle para cada uno de los
+      resultados(filas), se ponen celdas cada fila con cada uno de
+      los valores (en este caso un sólo campo
+      registrable el nombre) y luego colcoa las operaciones
+      típicas Ver, Editar y Borrar; cierra la fila y
+      luego cierra la tabla. En el segundo caso simplemente saca un
+      mensaje de que no hay asignaturas disponibles.</P
+><P
+>Merece una especial mención la manera de
+      resulver las llamadas a cada una de las operaciones. Por el
+      funcionamiento de una aplicación Web debe
+      recordarse que una vez calculada la página se
+      termina su ejecución e inicialmente no hay datos
+      disponibles; por lo tanto en cada recarga de
+      página el script debe ser ejecutado completamente
+      hasta su finalización. Para facilitarle al lector
+      su aprendizaje se van a generar ficheros .php para cada
+      operación. La manera de abstraer los pasos de
+      valores entre recargas de página es con los
+      métodos GET y POST, en el caso de las operaciones
+      del listado se pasan los datos mediante el método
+      GET, es decir mediante la llamada al script, por ejemplo
+      ver.php, seguido del símbolo ? seguido de una
+      terna: nombre de parámetro, símbolo = y
+      el valor; por ejemplo ?id=1 sería pasar el
+      parámetro id con el valor 1. Después
+      estos parámetros se podrán recuperar de
+      una manera sencilla.</P
+><P
+>En la cuarta parte, simplemente se cierran los tag que
+      se había abierto prteviamente para dar un
+      código HTML Válido.</P
+><P
+>Acon tinuación veremos los distintos tipos
+      de enlaces que disponemos en la página de listado
+      index.php del directorio.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x36.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x110.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>La página principal</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c21.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Añadir un nuevo registro.</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

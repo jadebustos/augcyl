@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chapter>
+  <title>Simulaci&oacute;n astron&oacute;mica</title>
+
+  <sect1>
+    <title>Celestia</title>
+
+    <para>
+      <ulink url="http://shatters.net/celestia/">Celestia</ulink> es un
+      simulador espacial tridimensional, que al contrario que la
+      mayor&iacute;a de software astron&oacute;mico no nos confina a la
+      superficie de la Tierra.
+    </para>
+
+    <para>
+      Es un programa que ha sido utilizado por la NASA y la Agencia Espacial
+      Europea.
+      <footnote>
+        <itemizedlist>
+          <listitem>
+            <para>
+              <ulink url="http://learn.arc.nasa.gov/planets/">Proyecto de
+              ense&ntilde;anza de Celestia de la NASA</ulink>
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              <ulink url="http://www.esa.int/esaCP/SEMOUD374OD_index_0.html">
+              Noticia de la Agencia Espacial Europea ilustrada con Celestia
+              </ulink>
+            </para>
+          </listitem>
+        </itemizedlist>
+      </footnote>
+    </para>
+
+    <para>
+      Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+      Microsoft Windows y Mac OS.
+    </para>
+
+    <figure>
+      <title>
+        Celestia
+      </title>
+      <graphic
+      fileref="img/10-astronomia/01-celestia.png"
+      format="PNG" width="1000" scale="40"/>
+    </figure>
+  </sect1>
+
+  <sect1>
+    <title>KStars</title>
+
+    <para>
+      <ulink url="http://edu.kde.org/kstars/">KStars</ulink> es el planetario
+      del proyecto KDE.
+    </para>
+
+    <para>
+      Ofrece una simulaci&oacute;n precisa del cielo nocturno para cualquier
+      localizaci&oacute;n terrestre a la fecha y hora deseadas. La
+      representaci&oacute;n incluye 130.000 estrellas, 13.000 objetos del
+      cielo profundo, el Sol, la Luna y miles de cometas y asteroides.
+    </para>
+
+    <figure>
+      <title>
+        KStars
+      </title>
+      <graphic
+      fileref="img/10-astronomia/02-kstars.png"
+      format="PNG" width="1000" scale="40"/>
+    </figure>
+  </sect1>
+
+  <sect1>
+    <title>Stellarium</title>
+
+    <para>
+      <ulink url="http://www.stellarium.org/">Stellarium</ulink> es un
+      planetario que muestra un cielo tridimensional, tal y como se
+      ver&iacute;a a simple vista, con prism&aacute;ticos o con un telescopio.
+    </para>
+
+    <para>
+      Posee un cat&aacute;logo por defecto de m&aacute;s de 600.000 estrellas
+      y otros extra con m&aacute;s de 210 millones. Proporciona
+      im&aacute;genes de las constelaciones de diez culturas diferentes y una
+      V&iacute;a L&aacute;ctea, atm&oacute;sfera, amanecer y ocaso realistas.
+    </para>
+
+    <para>
+      Otras de sus capacidades que le hacen destacar son su capacidad para
+      controlar telescopios y la simulaci&oacute;n de eclipses.
+    </para>
+
+    <para>
+      Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+      Microsoft Windows y Mac OS.
+    </para>
+
+    <figure>
+      <title>
+        Stellarium
+      </title>
+      <graphic
+      fileref="img/10-astronomia/03-stellarium.png"
+      format="PNG" width="1000" scale="40"/>
+    </figure>
+  </sect1>
+</chapter>
+
