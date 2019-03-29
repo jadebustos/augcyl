@@ -1,0 +1,196 @@
+<HTML
+><HEAD
+><TITLE
+>Multiples gráficas en una sólo dibujo.</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Herramientas en GNU/Linux para estudiantes universitarios"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Usos avanzados. Truquillos de gurú"
+HREF="c496.html"><LINK
+REL="PREVIOUS"
+TITLE="Cambiando el aspecto de las gráficas"
+HREF="x559.html"><LINK
+REL="NEXT"
+TITLE="Cambiando el estilo de las líneas"
+HREF="x608.html"><LINK
+REL="stylesheet"
+HREF="./base.css"
+TYPE="text/css"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Herramientas en GNU/Linux para estudiantes universitarios: </TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x559.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 9. Usos avanzados. Truquillos de gurú</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x608.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN590"
+></A
+>9.5. Multiples gráficas en una sólo dibujo.</H1
+><P
+>Para
+      obtener un dibujo con varias graficas en el basta con poner las
+      distintas funciones que se quieren representar separadas por
+      comas, en el mismo comando "plot".</P
+><P
+></P
+><UL
+><LI
+><P
+>plot [0:10] sin(x), 1-2*exp(-x/3)</P
+></LI
+></UL
+><P
+><IMG
+SRC="img/mplot.png"
+ALIGN="CENTER"></P
+><P
+>También se puede usar el comando "replot" para añadir
+	funciones o datos a la representación. "replot" añade las
+	nuevas funciones a las que ya se habían representado antes, y
+	las muestra todas juntas. La sintaxis es semejante a la de
+	"plot".</P
+><P
+></P
+><UL
+><LI
+><P
+>set samples 30</P
+></LI
+><LI
+><P
+>plot [0:10] sin(x) with boxes</P
+></LI
+><LI
+><P
+>replot 1-2*exp(-x/3) with impulses</P
+></LI
+></UL
+><P
+><IMG
+SRC="img/mreplot.png"
+ALIGN="CENTER"></P
+><P
+>En este caso además hemos añadido dos nuevos atributos del
+	comando "plot", con lo que conseguimos un reslutado más
+	vistoso.</P
+><P
+>Se pueden superponer tantas gráficas como se deseen. También es posible con gráficos 3D,
+	y en coordenadas polares, cilíndricas y esféricas, aunque no es posible mezclarlas.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x559.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x608.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Cambiando el aspecto de las gráficas</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c496.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Cambiando el estilo de las líneas</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

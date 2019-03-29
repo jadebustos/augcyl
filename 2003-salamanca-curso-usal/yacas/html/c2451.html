@@ -1,0 +1,942 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Cálculos matemáticos</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Herramientas en GNU/Linux para estudiantes universitarios"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Ejercicios"
+HREF="x2378.html"><LINK
+REL="NEXT"
+TITLE="Algebra"
+HREF="x2671.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Herramientas en GNU/Linux para estudiantes universitarios: La herramienta de cálculo científico <SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x2378.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x2671.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="CALCULOS-MATEMATICOS"
+></A
+>Capítulo 6. Cálculos matemáticos</H1
+><P
+>Ya hemos visto algunas funciones matemáticas que funcionan
+      sobre los tipos de datos que admite
+      <SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+>.</P
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="ANALISIS"
+></A
+>6.1. Análisis matemático</H1
+><P
+>Con <SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+> podemos resolver problemas de
+      análisis matemático.</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="TRIGONOMETRIA"
+></A
+>6.1.1. Funciones trigonométricas</H2
+><P
+>Disponemos de las siguientes funciones
+	trigonométicas:</P
+><A
+NAME="AEN2462"
+></A
+><BLOCKQUOTE
+CLASS="BLOCKQUOTE"
+><P
+><B
+CLASS="KEYCAP"
+>Sin</B
+>, <B
+CLASS="KEYCAP"
+>ArcSin</B
+>,
+	  <B
+CLASS="KEYCAP"
+>Cos</B
+>, <B
+CLASS="KEYCAP"
+>ArcCos</B
+>,
+	  <B
+CLASS="KEYCAP"
+>Tan</B
+>, <B
+CLASS="KEYCAP"
+>ArcTan</B
+>.</P
+></BLOCKQUOTE
+><P
+>Estas funciones toman los argumentos en radianes y
+	pueden ser aplicadas a listas.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="LOGARITMOS"
+></A
+>6.1.2. Logaritmos y la función exponencial</H2
+><P
+>Disponemos de:</P
+><A
+NAME="AEN2474"
+></A
+><BLOCKQUOTE
+CLASS="BLOCKQUOTE"
+><P
+><B
+CLASS="KEYCAP"
+>Exp</B
+> y <B
+CLASS="KEYCAP"
+>Ln</B
+>.</P
+></BLOCKQUOTE
+><P
+>Estas funciones se pueden aplicar a listas.</P
+><P
+>Cuando el argumento es un complejo la función
+	<B
+CLASS="KEYCAP"
+>Ln</B
+> trabaja con la determinación del logaritmo
+	en el intervalo <B
+CLASS="KEYCAP"
+>(-Pi,Pi]</B
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SUMA-LISTA"
+></A
+>6.1.3. Suma de una lista de valores</H2
+><P
+>Podemos sumar una lista de valores con
+	<B
+CLASS="KEYCAP"
+>Sum</B
+>. Esta función podemos utilizarla de dos
+	formas:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Para calcular la suma de una serie de
+	    valores sin relación alguna:</P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Sum({1,3,5,Pi,9});</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; Pi+18;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	    </PRE
+></LI
+><LI
+><P
+>Para calcular la suma de una serie de valores
+	    relacionados. Por ejemplo para calcular la suma, finita, de los
+	    cuadrados de los diez primeros enteros:</P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Sum(n,1,10,n^2);</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 385;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	    </PRE
+><P
+>Los argumentos indican lo siguiente:</P
+><P
+></P
+><UL
+><LI
+><P
+>El primero indica la variable.</P
+></LI
+><LI
+><P
+>El segundo indica desde donde se empezará a sumar.</P
+></LI
+><LI
+><P
+>El tercero indica hasta que termino se sumará.</P
+></LI
+><LI
+><P
+>El cuarto indica el término general de la serie.</P
+></LI
+></UL
+></LI
+></OL
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="PRODUCTO-LISTA"
+></A
+>6.1.4. Producto de una lista de valores</H2
+><P
+>La función <B
+CLASS="KEYCAP"
+>Factorize</B
+> funciona igual que
+	<B
+CLASS="KEYCAP"
+>Sum</B
+> pero en lugar de sumar multiplica.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="MIN-MAX"
+></A
+>6.1.5. Calculando el máximo y el mínimo de una lista</H2
+><P
+>Podemos utilizar <B
+CLASS="KEYCAP"
+>Min</B
+> o
+	<B
+CLASS="KEYCAP"
+>Max</B
+> para encontrar el mínimo o el máximo de
+	dos o más elementos. Si lo hacemos de más de dos elementos
+	tendremos que utilizar una lista.</P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Min(2,-5);</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; -5;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Max({4,7,2,56,8,9,-8,3});</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 56;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	</PRE
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="LIMITES"
+></A
+>6.1.6. Cálculo de límites</H2
+><P
+>Podemos calcular límites con <B
+CLASS="KEYCAP"
+>Limit</B
+> para
+	funciones de una variable. Los podemos calcular también tanto
+	por la izquierda como por la derecha:</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN2533"
+></A
+><P
+><B
+>Ejemplo 6-1. Cálculo de límites</B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Limit (x,0) Sin(x)/Ln(x-1);</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 0;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Limit (x,0,Left) 1/x;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; -Infinity;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Limit (x,0,Right) 1/x;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; Infinity;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	  </PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="DERIVADAS"
+></A
+>6.1.7. Derivación</H2
+><P
+>Podemos calcular derivadas con <B
+CLASS="KEYCAP"
+>D</B
+>
+	respecto de una variable (con diferentes ordenes) y sobre
+	varias variables:</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN2550"
+></A
+><P
+><B
+>Ejemplo 6-2. Derivando funciones</B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>D(x) 1/x^2;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; (-2*x)/x^4;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>D(x,2) 1/x^2;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; (-2*x^4+2*x*4*x^3)/x^8;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>D({x,y,z}) (x/y)+z;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; {y/y^2,(-x)/y^2,1};</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>D({x,y,z},2) (x/y)+z;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; {0,(x*2*y)/y^4,0};</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	  </PRE
+><P
+>Hemos hecho lo siguiente:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Hemos calculado la derivada respecto de
+	      <B
+CLASS="KEYCAP"
+>x</B
+>.</P
+></LI
+><LI
+><P
+>Hemos calculado la derivada respecto de
+	      <B
+CLASS="KEYCAP"
+>x</B
+> dos veces.</P
+></LI
+><LI
+><P
+>Hemos calculado las derivadas respecto de
+	      <B
+CLASS="KEYCAP"
+>x</B
+>, <B
+CLASS="KEYCAP"
+>y</B
+> y
+	      <B
+CLASS="KEYCAP"
+>z</B
+>.</P
+></LI
+><LI
+><P
+>Hemos calculado las derivadas respecto de
+	      <B
+CLASS="KEYCAP"
+>x</B
+>, <B
+CLASS="KEYCAP"
+>y</B
+> y
+	      <B
+CLASS="KEYCAP"
+>z</B
+> dos veces.</P
+></LI
+></OL
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="TAYLOR"
+></A
+>6.1.8. Desarrollos de Taylor</H2
+><P
+>Podemos hacer desarrollos de Taylor utilizando
+	<B
+CLASS="KEYCAP"
+>Taylor</B
+>. Para ello tendremos que indicar la
+	variable, el punto en el que queremos hacerlo y hasta que
+	orden.</P
+><P
+>Para hacer el desarrollo de Taylor de la funcion seno en
+	el punto cero y hasta orden 11:</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN2589"
+></A
+><P
+><B
+>Ejemplo 6-3. Desarrollos de Taylor</B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62;</TT
+><TT
+CLASS="USERINPUT"
+><B
+>Taylor(x,0,11) Sin(x);</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; x-x^3/6+x^5/120-x^7/5040+x^9/362880-x^11/39916800;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+></PRE
+></DIV
+><P
+>También podemos utilizar la función
+	<B
+CLASS="KEYCAP"
+>InverseTaylor</B
+>. Esta función se utiliza de
+	igual forma pero calcula el desarrollo de Taylor de la inversa
+	de la función indicada.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="INTEGRACION"
+></A
+>6.1.9. Integración</H2
+><P
+>Podemos utilizar<B
+CLASS="KEYCAP"
+>Integrate</B
+> para calcular
+	integrales tando indefinidas (aunque todavía no resuelve todo
+	tipo de integrales indefinidas) como definidas:</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN2602"
+></A
+><P
+><B
+>Ejemplo 6-4. Integración de funciones</B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Integrate(x) Sin(Ln(x));</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>(x*Sin(Ln(x)))/2-(x*Cos(Ln(x)))/2;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Integrate(x,-2,0); Sin(x);</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; Cos(2)-1;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	  </PRE
+></DIV
+><P
+>Hemos hecho lo siguiente:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Hemos calculado la integral indefinida sobre la
+	      variable <B
+CLASS="KEYCAP"
+>x</B
+>.</P
+></LI
+><LI
+><P
+>Hemos calculado la integral definida entre -2 y 0.</P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="DIVERGENCIA"
+></A
+>6.1.10. Divergencia de un campo vectorial</H2
+><P
+>Podemos calcular la divergencia de un campo vectorial
+	  con <B
+CLASS="KEYCAP"
+>Diverge</B
+>. Necesitaremos indicarle las variables:</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN2623"
+></A
+><P
+><B
+>Ejemplo 6-5. Divergencia de un campo vectorial</B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Diverge({i*j,j*k,k*i},{i,j,k});</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; j+k+i;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	  </PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="ANALISIS-UTILES"
+></A
+>6.1.11. Algunas funciones útiles</H2
+><P
+></P
+><UL
+><LI
+><P
+><B
+CLASS="KEYCAP"
+>!</B
+>, calcula el factorial del número
+	    que le precede. Para que funcione bien el analizador
+	      sintático de <SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+> no se puede poner
+	      ningún operador inmediatamente después de
+	    <B
+CLASS="KEYCAP"
+>!</B
+>, habrá que dejar un espacio en
+	    blanco:</P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>3!+1;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>CommandLine(1) : Error parsing expression</TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+></TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>3! +1;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 7;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	    </PRE
+></LI
+><LI
+><P
+><B
+CLASS="KEYCAP"
+>Average</B
+>, calcula la media
+	    aritmética de una lista de valores.</P
+></LI
+><LI
+><P
+><B
+CLASS="KEYCAP"
+>Abs</B
+>, calcula el valor absoluto de
+	    los números reales y el módulo de los complejos. Puede ser
+	    evaluada sobre listas.</P
+></LI
+><LI
+><P
+><B
+CLASS="KEYCAP"
+>Bin</B
+>, calcula el número combinatorio
+	      <B
+CLASS="KEYCAP"
+>n sobre m</B
+>:</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN2657"
+></A
+><P
+><B
+>Ejemplo 6-6. Uso de <B
+CLASS="KEYCAP"
+>Bin</B
+></B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Bin(8,5);</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 56;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+></PRE
+></DIV
+></LI
+><LI
+><P
+><B
+CLASS="KEYCAP"
+>Sign</B
+>, devuelve 1 para números
+	    positivos y -1 para los negativos. Se considera el cero
+	    como positivo.</P
+></LI
+><LI
+><P
+><B
+CLASS="KEYCAP"
+>Sqrt</B
+>, para el cálculo de raíces
+	    cuadradas y se puede utilizar sobre listas, números
+	    enteros positivos y negativos, números reales y complejos.</P
+></LI
+></UL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x2378.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x2671.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Ejercicios</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Algebra</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

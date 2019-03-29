@@ -1,0 +1,232 @@
+<HTML
+><HEAD
+><TITLE
+>Gráficas 3D</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Herramientas en GNU/Linux para estudiantes universitarios"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Gráficas 2D"
+HREF="c129.html"><LINK
+REL="NEXT"
+TITLE="Elementos ocultos en 3D"
+HREF="x193.html"><LINK
+REL="stylesheet"
+HREF="./base.css"
+TYPE="text/css"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Herramientas en GNU/Linux para estudiantes universitarios: </TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c129.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x193.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="AEN168"
+></A
+>Capítulo 4. Gráficas 3D</H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Tabla de contenidos</B
+></DT
+><DT
+>4.1. <A
+HREF="x193.html"
+>Elementos ocultos en 3D</A
+></DT
+><DT
+>4.2. <A
+HREF="x207.html"
+>Aumentar la precisión de los gráficos 3D</A
+></DT
+><DT
+>4.3. <A
+HREF="x229.html"
+>Líneas de contorno.</A
+></DT
+><DT
+>4.4. <A
+HREF="x263.html"
+>Cambiar el punto de vista de una gráfica</A
+></DT
+></DL
+></DIV
+><P
+>El comando para realizar gráficas tridimensionales es
+      splot. Su forma más sencilla es la siguiente:</P
+><P
+></P
+><UL
+><LI
+><P
+>splot funcion</P
+></LI
+></UL
+><P
+>Por ejemplo, para representar -x+y+3*cos(y), deberíamos escribir</P
+><P
+></P
+><UL
+><LI
+><P
+>splot -x+y+3*cos(y)</P
+></LI
+></UL
+><P
+>Y obtendríamos lo siguiente:</P
+><P
+><IMG
+SRC="img/x_y_cosy.png"
+ALIGN="CENTER"></P
+><P
+>Se puede cambiar la escala de forma similar a lo visto para
+      plot</P
+><P
+></P
+><UL
+><LI
+><P
+>splot [x1:x2][y1:y2][z1:z2] funcion</P
+></LI
+><LI
+><P
+>splot [x1:x2] funcion</P
+></LI
+><LI
+><P
+>splot [][y1:y2] funcion</P
+></LI
+><LI
+><P
+>splot [][][z1:z2] funcion</P
+></LI
+></UL
+><P
+>Para modificar los rangos de las variables se pueden usar
+      las opciones "set xrange [x1:x2]", "set yrange [y1:y2]", "set
+      zrange [z1:z1]". Es importante recordar que si se modifica un
+      rango para una gráfica, ese mismo rango se utilizará para todas
+      las gráficas posteriores.</P
+><P
+>Si se desea volver a activar el autoescalado de
+      <TT
+CLASS="USERINPUT"
+><B
+>gnuplot</B
+></TT
+> se puede hacer tecleando "set
+      autoescale z".</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c129.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x193.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Gráficas 2D</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Elementos ocultos en 3D</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

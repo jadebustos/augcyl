@@ -1,0 +1,80 @@
+
+<chapter id="introduccion">
+<title>Primer capítulo</title>
+<sect1 id="seccion-como">
+<title>Sección</title>
+
+      <para>Todo lo que escribamos tiene que ir entre los tags <keycap>para</keycap>.</para>
+      <para>Ejemplo de una lista normal:</para>
+
+      <itemizedlist>
+	<listitem>
+	  <para>Primer elemento de la lista</para>
+	</listitem>
+	<listitem>
+	  <para>Segundo elemento de la lista</para>
+	</listitem>
+      </itemizedlist>
+
+      <sect2 id="subseccion-como">
+	<title>Subsección</title>
+	<para>Veamos el ejemplo de una lista ordenada:</para>
+
+	<orderedlist>
+	  <listitem>
+	    <para>Primer elemento de la lista</para>
+	  </listitem>
+	  <listitem>
+	    <para>Segundo elemento de la lista</para>
+	  </listitem>
+	</orderedlist>
+
+	<para>Para resaltar algo en <keycap>negrita</keycap>
+	  utilizamos el tag <keycap>keycap</keycap>.</para>
+      </sect2>
+
+</sect1>
+
+    <sect1 id="links-como">
+      <title>Referencias a internet</title>
+
+      <para>Podemos poner enlaces a internet de esta forma <ulink
+ url="http://www.debian.org"></ulink> o de esta otra  <ulink
+ url="http://www.debian.org">Debian</ulink>.</para>
+    </sect1>
+
+    <sect1 id="links-internos">
+      <title>Referencias dentro del propio documento</title>
+
+      <para>Podemos especificar enlaces a partes del documento con los
+	tags <keycap>xref</keycap> y <keycap>link</keycap>, y podemos hacerlo de dos
+	formas:</para>
+
+      <orderedlist>
+	<listitem>
+	  <para>Podemos ver como insertar gráficos en <xref
+	      linkend="imagenes-como">. Utilizamos el tag
+	    <keycap>xref</keycap> para este tipo de enlace.</para>
+	</listitem>
+	<listitem>
+	  <para>Podemos ver como insertar <link
+	      linkend="imagenes-como">gráficos</link>. Utilizamos el
+	    tag <keycap>link</keycap> para este tipo de enlace.</para>
+	</listitem>
+      </orderedlist>
+    </sect1>
+
+    <sect1 id="imagenes-como">
+      <title>Insercción de imagenes</title>
+
+      <para>También se pueden incluir imagenes:</para>
+
+      <graphic fileref="../images/afterstep1.jpg" format="jpg" scale="50">
+
+    </sect1>
+
+</chapter>
+
+<!-- Local Variables: -->
+<!-- sgml-parent-document: "Ejemplo.sgml" -->
+<!-- End: -->

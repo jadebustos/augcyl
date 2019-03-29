@@ -1,0 +1,577 @@
+<chapter id="calculos-matematicos">
+    <title>Cálculos matemáticos</title>
+
+    <para>Ya hemos visto algunas funciones matemáticas que funcionan
+      sobre los tipos de datos que admite
+      <acronym>YACAS</acronym>.</para>
+
+    <sect1 id="analisis">
+      <title>Análisis matemático</title>
+
+      <para>Con <acronym>YACAS</acronym> podemos resolver problemas de
+      análisis matemático.</para>
+
+      <sect2 id="trigonometria">
+	<title>Funciones trigonométricas</title>
+
+	<para>Disponemos de las siguientes funciones
+	trigonométicas:</para>
+	<blockquote>
+	  <para><keycap>Sin</keycap>, <keycap>ArcSin</keycap>,
+	  <keycap>Cos</keycap>, <keycap>ArcCos</keycap>,
+	  <keycap>Tan</keycap>, <keycap>ArcTan</keycap>.</para>
+	</blockquote>
+
+	<para>Estas funciones toman los argumentos en radianes y
+	pueden ser aplicadas a listas.</para>
+      </sect2>
+
+      <sect2 id="logaritmos">
+	<title>Logaritmos y la función exponencial</title>
+
+	<para>Disponemos de:</para>
+
+	<blockquote>
+	  <para><keycap>Exp</keycap> y <keycap>Ln</keycap>.</para>
+	</blockquote>
+	<para>Estas funciones se pueden aplicar a listas.</para>
+	<para>Cuando el argumento es un complejo la función
+	<keycap>Ln</keycap> trabaja con la determinación del logaritmo
+	en el intervalo <keycap>(-Pi,Pi]</keycap>.</para>
+      </sect2>
+
+      <sect2 id="suma-lista">
+	<title>Suma de una lista de valores</title>
+
+	<para>Podemos sumar una lista de valores con
+	<keycap>Sum</keycap>. Esta función podemos utilizarla de dos
+	formas:</para>
+	<orderedlist>
+	  <listitem>
+	    <para>Para calcular la suma de una serie de
+	    valores sin relación alguna:</para>
+	    <screen>
+<prompt>In> </prompt><userinput>Sum({1,3,5,Pi,9});</userinput>
+<computeroutput>Out> Pi+18;</computeroutput>
+<prompt>In></prompt>
+	    </screen>
+	  </listitem>
+	  <listitem>
+	    <para>Para calcular la suma de una serie de valores
+	    relacionados. Por ejemplo para calcular la suma, finita, de los
+	    cuadrados de los diez primeros enteros:</para>
+	    <screen>
+<prompt>In> </prompt><userinput>Sum(n,1,10,n^2);</userinput>
+<computeroutput>Out> 385;</computeroutput>
+<prompt>In></prompt>
+	    </screen>
+	    <para>Los argumentos indican lo siguiente:</para>
+	    <itemizedlist>
+	      <listitem>
+		<para>El primero indica la variable.</para>
+	      </listitem>
+	      <listitem>
+		<para>El segundo indica desde donde se empezará a sumar.</para>
+	      </listitem>
+	      <listitem>
+		<para>El tercero indica hasta que termino se sumará.</para>
+	      </listitem>
+	      <listitem>
+		<para>El cuarto indica el término general de la serie.</para>
+	      </listitem>
+	    </itemizedlist>
+	  </listitem>
+	</orderedlist>
+      </sect2>
+
+      <sect2 id="producto-lista">
+	<title>Producto de una lista de valores</title>
+
+	<para>La función <keycap>Factorize</keycap> funciona igual que
+	<keycap>Sum</keycap> pero en lugar de sumar multiplica.</para>
+      </sect2>
+
+      <sect2 id="min-max">
+	<title>Calculando el máximo y el mínimo de una lista</title>
+
+	<para>Podemos utilizar <keycap>Min</keycap> o
+	<keycap>Max</keycap> para encontrar el mínimo o el máximo de
+	dos o más elementos. Si lo hacemos de más de dos elementos
+	tendremos que utilizar una lista.</para>
+	<screen>
+<prompt>In> </prompt><userinput>Min(2,-5);</userinput>
+<computeroutput>Out> -5;</computeroutput>
+<prompt>In> </prompt><userinput>Max({4,7,2,56,8,9,-8,3});</userinput>
+<computeroutput>Out> 56;</computeroutput>
+<prompt>In></prompt>
+	</screen>
+      </sect2>
+
+      <sect2 id="limites">
+	<title>Cálculo de límites</title>
+
+	<para>Podemos calcular límites con <keycap>Limit</keycap> para
+	funciones de una variable. Los podemos calcular también tanto
+	por la izquierda como por la derecha:</para>
+	<example>
+	  <title>Cálculo de límites</title>
+	  <screen>
+<prompt>In> </prompt><userinput>Limit (x,0) Sin(x)/Ln(x-1);</userinput>
+<computeroutput>Out> 0;</computeroutput>
+<prompt>In> </prompt><userinput>Limit (x,0,Left) 1/x;</userinput>
+<computeroutput>Out> -Infinity;</computeroutput>
+<prompt>In> </prompt><userinput>Limit (x,0,Right) 1/x;</userinput>
+<computeroutput>Out> Infinity;</computeroutput>
+<prompt>In></prompt>
+	  </screen>
+	</example>
+
+      </sect2>
+
+      <sect2 id="derivadas">
+	<title>Derivación</title>
+
+	<para>Podemos calcular derivadas con <keycap>D</keycap>
+	respecto de una variable (con diferentes ordenes) y sobre
+	varias variables:</para>
+	<example>
+	  <title>Derivando funciones</title>
+	  <screen>
+<prompt>In> </prompt><userinput>D(x) 1/x^2;</userinput>
+<computeroutput>Out> (-2*x)/x^4;</computeroutput>
+<prompt>In> </prompt><userinput>D(x,2) 1/x^2;</userinput>
+<computeroutput>Out> (-2*x^4+2*x*4*x^3)/x^8;</computeroutput>
+<prompt>In> </prompt><userinput>D({x,y,z}) (x/y)+z;</userinput>
+<computeroutput>Out> {y/y^2,(-x)/y^2,1};</computeroutput>
+<prompt>In> </prompt><userinput>D({x,y,z},2) (x/y)+z;</userinput>
+<computeroutput>Out> {0,(x*2*y)/y^4,0};</computeroutput>
+<prompt>In></prompt>
+	  </screen>
+	  <para>Hemos hecho lo siguiente:</para>
+	  <orderedlist>
+	    <listitem>
+	      <para>Hemos calculado la derivada respecto de
+	      <keycap>x</keycap>.</para>
+	    </listitem>
+	    <listitem>
+	      <para>Hemos calculado la derivada respecto de
+	      <keycap>x</keycap> dos veces.</para>
+	    </listitem>
+	    <listitem>
+	      <para>Hemos calculado las derivadas respecto de
+	      <keycap>x</keycap>, <keycap>y</keycap> y
+	      <keycap>z</keycap>.</para>
+	    </listitem>
+	    <listitem>
+	      <para>Hemos calculado las derivadas respecto de
+	      <keycap>x</keycap>, <keycap>y</keycap> y
+	      <keycap>z</keycap> dos veces.</para>
+	    </listitem>
+	  </orderedlist>
+	</example>
+
+      </sect2>
+
+      <sect2 id="taylor">
+	<title>Desarrollos de Taylor</title>
+
+	<para>Podemos hacer desarrollos de Taylor utilizando
+	<keycap>Taylor</keycap>. Para ello tendremos que indicar la
+	variable, el punto en el que queremos hacerlo y hasta que
+	orden.</para>
+
+	<para>Para hacer el desarrollo de Taylor de la funcion seno en
+	el punto cero y hasta orden 11:</para>
+	<example>
+	  <title>Desarrollos de Taylor</title>
+<screen>
+<prompt>In></prompt><userinput>Taylor(x,0,11) Sin(x);</userinput>
+<computeroutput>Out> x-x^3/6+x^5/120-x^7/5040+x^9/362880-x^11/39916800;</computeroutput>
+<prompt>In></prompt>
+</screen>
+	</example>
+	<para>También podemos utilizar la función
+	<keycap>InverseTaylor</keycap>. Esta función se utiliza de
+	igual forma pero calcula el desarrollo de Taylor de la inversa
+	de la función indicada.</para>
+      </sect2>
+
+      <sect2 id="integracion">
+	<title>Integración</title>
+
+	<para>Podemos utilizar<keycap>Integrate</keycap> para calcular
+	integrales tando indefinidas (aunque todavía no resuelve todo
+	tipo de integrales indefinidas) como definidas:</para>
+	<example>
+	  <title>Integración de funciones</title>
+	  <screen>
+<prompt>In> </prompt><userinput>Integrate(x) Sin(Ln(x));</userinput>
+<computeroutput>(x*Sin(Ln(x)))/2-(x*Cos(Ln(x)))/2;</computeroutput>
+<prompt>In> </prompt><userinput>Integrate(x,-2,0); Sin(x);</userinput>
+<computeroutput>Out> Cos(2)-1;</computeroutput>
+<prompt>In></prompt>
+	  </screen>
+	</example>
+	<para>Hemos hecho lo siguiente:</para>
+	<orderedlist>
+	  <listitem>
+	    <para>Hemos calculado la integral indefinida sobre la
+	      variable <keycap>x</keycap>.</para>
+	  </listitem>
+	  <listitem>
+	    <para>Hemos calculado la integral definida entre -2 y 0.</para>
+	  </listitem>
+	</orderedlist>
+      </sect2>
+
+      <sect2 id="divergencia">
+	<title>Divergencia de un campo vectorial</title>
+
+	<para>Podemos calcular la divergencia de un campo vectorial
+	  con <keycap>Diverge</keycap>. Necesitaremos indicarle las variables:</para>
+	<example>
+	  <title>Divergencia de un campo vectorial</title>
+	  <screen>
+<prompt>In> </prompt><userinput>Diverge({i*j,j*k,k*i},{i,j,k});</userinput>
+<computeroutput>Out> j+k+i;</computeroutput>
+<prompt>In></prompt>
+	  </screen>
+	</example>
+
+      </sect2>
+
+      <sect2 id="analisis-utiles">
+	<title>Algunas funciones útiles</title>
+
+	<itemizedlist>
+	  <listitem>
+	    <para><keycap>!</keycap>, calcula el factorial del número
+	    que le precede. Para que funcione bien el analizador
+	      sintático de <acronym>YACAS</acronym> no se puede poner
+	      ningún operador inmediatamente después de
+	    <keycap>!</keycap>, habrá que dejar un espacio en
+	    blanco:</para>
+	    <screen>
+<prompt>In> </prompt><userinput>3!+1;</userinput>
+<computeroutput>CommandLine(1) : Error parsing expression</computeroutput>
+<computeroutput></computeroutput>
+<prompt>In> </prompt><userinput>3! +1;</userinput>
+<computeroutput>Out> 7;</computeroutput>
+<prompt>In></prompt>
+	    </screen>
+	  </listitem>
+	  <listitem>
+	    <para><keycap>Average</keycap>, calcula la media
+	    aritmética de una lista de valores.</para>
+	  </listitem>
+	  <listitem>
+	    <para><keycap>Abs</keycap>, calcula el valor absoluto de
+	    los números reales y el módulo de los complejos. Puede ser
+	    evaluada sobre listas.</para>
+	  </listitem>
+	  <listitem>
+	    <para><keycap>Bin</keycap>, calcula el número combinatorio
+	      <keycap>n sobre m</keycap>:</para>
+	    <example>
+	      <title>Uso de <keycap>Bin</keycap></title>
+<screen>
+<prompt>In> </prompt><userinput>Bin(8,5);</userinput>
+<computeroutput>Out> 56;</computeroutput>
+<prompt>In></prompt>
+</screen>
+	    </example>
+	  </listitem>
+	  <listitem>
+	    <para><keycap>Sign</keycap>, devuelve 1 para números
+	    positivos y -1 para los negativos. Se considera el cero
+	    como positivo.</para>
+	  </listitem>
+	  <listitem>
+	    <para><keycap>Sqrt</keycap>, para el cálculo de raíces
+	    cuadradas y se puede utilizar sobre listas, números
+	    enteros positivos y negativos, números reales y complejos.</para>
+	  </listitem>
+	</itemizedlist>
+      </sect2>
+
+    </sect1>
+
+    <sect1 id="algebra">
+      <title>Algebra</title>
+
+      <para>Con <acronym>YACAS</acronym> podemos resolver problemas de
+      algebra.</para>
+
+      <sect2 id="variables-expresion">
+	<title>Obtención de las variables de una ecuación</title>
+
+	<para>Podemos obtener las variables que aparecen en una
+	  ecuación con <keycap>VarList</keycap>:</para>
+	<example>
+	  <title>Uso de <keycap>VarList</keycap></title>
+	  <screen>
+<prompt>In> </prompt><userinput>VarList(x+a*y-b*c);</userinput>
+<computeroutput>Out> {x,a,y,b,c};</computeroutput>
+<prompt>In></prompt>
+	  </screen>
+	</example>
+
+      </sect2>
+
+      <sect2 id="ecuaciones-algebraicas">
+	<title>Resolución de ecuaciones algebraicas</title>
+
+	<para>Podemos resolver ecuaciones algebraicas con
+	<keycap>Solve</keycap>:</para>
+	<example>
+	  <title>Resolviendo ecuaciones algebraicas</title>
+	  <screen>
+<prompt>In> </prompt><userinput>Solve(a+b*x==z,x);</userinput>
+<computeroutput>(z-a)/b;</computeroutput>
+<prompt>In> </prompt><userinput>Solve({a*x+y==c,x+z==d},{x,y});</userinput>
+<computeroutput>{{d-z,a*z-a*d+c}};</computeroutput>
+<prompt>In></prompt>
+	  </screen>
+	</example>
+	<warning>
+	  <para>Para formar las ecuaciones utilizaremos el operador
+	    <keycap>==</keycap> y no <keycap>=</keycap>.</para>
+	</warning>
+      </sect2>
+
+      <sect2 id="suchthat">
+	<title>Resolución de expresiones</title>
+
+	<para>La función <keycap>SuchThat</keycap> intenta encontrar
+	un valor que anule una expresión para la variable dada:</para>
+	<example>
+	  <title>Uso de <keycap>SuchThat</keycap></title>
+	  <screen>
+<prompt>In> </prompt><userinput>SuchThat(2*x+y-z,x);</userinput>
+<computeroutput>Out> (z-y)/2;</computeroutput>
+<prompt>In></prompt>
+	  </screen>
+	</example>
+	<para>También es posible indicarle que intente calcular el
+	valor que anula a una expresión para una subexpresión:</para>
+	<screen>
+<prompt>In> </prompt><userinput>SuchThat(Ln(x)*Cos(x)+x-y*Sin(x),Ln(x)*Cos(x));</userinput>
+<computeroutput>Out> y*Sin(x)-x;</computeroutput>
+<prompt>In></prompt>
+	</screen>
+	<para>Es necesario que la subexpresión dependa unicamente de
+	una sola variable.</para>
+      </sect2>
+
+    </sect1>
+
+    <sect1 id="calculo-numerico">
+      <title>Cálculo numérico</title>
+
+      <para>Con <acronym>YACAS</acronym> podemos resolver problemas de
+      cálculo numérico.</para>
+
+      <sect2 id="newton">
+	<title>Resolución de ecuaciones en una variable
+	(Newton)</title>
+
+	<para>Podemos utilizar la función <keycap>Newton</keycap> para
+	resolver ecuaciones en una variable. Se utilizará el método de
+	Newton:</para>
+	<example>
+	  <title>Resolviendo ecuaciones por el método de
+	  Newton</title>
+<screen>
+<prompt>In> </prompt><userinput>Newton(x^3-x^2+x-3,x,1,0.001);</userinput>
+<computeroutput>Out> 1.5747430742;</computeroutput>
+<prompt>In></prompt>
+</screen>
+	</example>
+	<para>Los argumentos indican lo siguiente:</para>
+	<itemizedlist>
+	  <listitem>
+	    <para>La ecuación de la que se quiere encontrar una solución.</para>
+	  </listitem>
+	  <listitem>
+	    <para>La variable, sólo puede haber una.</para>
+	  </listitem>
+	  <listitem>
+	    <para>Punto inicial.</para>
+	  </listitem>
+	  <listitem>
+	    <para>Precisión.</para>
+	  </listitem>
+	</itemizedlist>
+      </sect2>
+
+      <sect2 id="sistemas-ecuaciones">
+	<title>Resolución sistemas de ecuaciones</title>
+
+	<para>Podemos utilizar <keycap>Solve</keycap> (<xref
+	linkend="ecuaciones-algebraicas">) para resolver sistemas de
+	ecuaciones:</para>
+	<example>
+	  <title>Resolviendo ecuaciones algebraicas</title>
+	  <screen>
+<prompt>In> </prompt><userinput>Solve({x+y+z==1,x-y-z==2,x-y+z==3},{x,y,z});</userinput>
+<computeroutput>Out> {{3/2,-1,1/2}};</computeroutput>
+<prompt>In></prompt>
+	  </screen>
+	</example>
+	<warning>
+	  <para>Para formar las ecuaciones utilizaremos el operador
+	    <keycap>==</keycap> y no <keycap>=</keycap>.</para>
+	</warning>
+
+      </sect2>
+
+      <sect2 id="interpolacion">
+	<title>Cálculo de polinomios interpoladores</title>
+
+	<para>Podemos calcular el polinomio interpolador utilizando
+	  <keycap>LagrangeInterpolant</keycap>. Esta función utiliza
+	  el método de Lagrange para calcular el polinomio
+	  interpolador:</para>
+	<example>
+	  <title>Cálculo del polinomio interpolador</title>
+	  <screen>
+<prompt>In> </prompt><userinput>f(x):=LagrangeInterpolant({1,2,3},{5,8,-5},x);</userinput>
+<computeroutput>Out> True;</computeroutput>
+<prompt>In> </prompt><userinput>f(1);</userinput>
+<computeroutput>Out> 5;</computeroutput>
+<prompt>In> </prompt><userinput>Simplify(f(x));</userinput>
+<computeroutput>Out> -8*x^2+27*x-14;</computeroutput>
+<prompt>In></prompt>
+	  </screen>
+	</example>
+      </sect2>
+
+    </sect1>
+
+    <sect1 id="exportacion">
+      <title>Exportación de datos</title>
+
+      <para>Podemos utilizar <acronym>YACAS</acronym> para realizar
+      cálculos y también es posible exportar los resultados para
+	incorporarlos a documentos <keycap>LaTeX</keycap> o programas
+      escritos en lenguaje<keycap>C</keycap>.</para>
+
+      <sect2 id="exportando-latex">
+	<title>Exportando a LaTeX</title>
+
+	<para>Podemos exportar nuestros cálculos a
+	  <keycap>LaTeX</keycap> con <keycap>TeXForm</keycap>. Esta
+	  función devuelve una cadena con la expresión
+	  <keycap>LaTeX</keycap>:</para>
+	<example>
+	  <title>Exportando a LaTeX</title>
+	  <screen>
+<prompt>In> </prompt><userinput>TeXForm(D(x) Tan(x));</userinput>
+<computeroutput>Out> "$\frac{1}{\left( \cos x\right)  ^{2}} $";</computeroutput>
+<prompt>In></prompt>
+	  </screen>
+	</example>
+	<warning>
+	  <para>No todas las expresiones se pueden exportar a <keycap>LaTeX</keycap>.</para>
+	</warning>
+      </sect2>
+
+      <sect2 id="exportando-c">
+	<title>Exportando a C</title>
+
+	<para>Podemos exportar nuestros cálculos a <keycap>C</keycap>
+	  con <keycap>CForm</keycap>. Esta función devuelve una cadena
+	con la expresión:</para>
+	<example>
+	  <title>Exportando a C</title>
+	  <screen>
+<prompt>In> </prompt><userinput>CForm(D(x) Tan(x));</userinput>
+<computeroutput>Out> "1. / pow(cos(x), 2.)";</computeroutput>
+<prompt>In></prompt>
+	  </screen>
+	</example>
+
+      </sect2>
+
+    </sect1>
+
+    <sect1 id="ejercicios-matematicas">
+      <title>Ejercicios</title>
+
+      <orderedlist>
+	<listitem>
+	  <para>Calcular el límite en cero de <keycap>Sin(x)/x</keycap>.</para>
+	</listitem>
+	<listitem>
+	  <para>Calcular la derivadas de
+	  <keycap>ArcTan(Exp(Sin(Cos(Ln(x*y)))))</keycap>:</para>
+	  <itemizedlist>
+	    <listitem>
+	      <para>Derivada respecto de <keycap>x</keycap>.</para>
+	    </listitem>
+	    <listitem>
+	      <para>Derivada respecto de <keycap>x</keycap> y de
+		<keycap>y</keycap>.</para>
+	    </listitem>
+	  </itemizedlist>
+	</listitem>
+	<listitem>
+	  <para>Calcular la media aritmética de <keycap>1,-2,3,-4,5</keycap>.</para>
+	</listitem>
+	<listitem>
+	  <para>Resolver el sistema de ecuaciones:</para>
+	  <para><keycap>3x-y=-1</keycap></para>
+	  <para><keycap>x-y=0</keycap></para>
+	</listitem>
+	<listitem>
+	  <para>Despejar la variable <keycap>x</keycap> en
+	  <keycap>a*x-b*c=d</keycap>.</para>
+	</listitem>
+	<listitem>
+	  <para>Encuentra una raíz del polinomio
+	  <keycap>2*x^3+3*x^2-x+5</keycap> con una precisión de
+	  <keycap>0.001</keycap>.</para>
+	</listitem>
+	<listitem>
+	  <para>Se ha realizado un experimento y se han recogido los
+	  siguientes datos:</para>
+	  <table>
+	    <title></title>
+	    <tgroup cols="2">
+	      <thead>
+		<row>
+		  <entry>x</entry>
+		  <entry>f(x)</entry>
+		</row>
+	      </thead>
+	      <tbody>
+		<row>
+		  <entry>1</entry>
+		  <entry>2.3</entry>
+		</row>
+		<row>
+		  <entry>2</entry>
+		  <entry>-3.6</entry>
+		</row>
+		<row>
+		  <entry>3</entry>
+		  <entry>0</entry>
+		</row>
+		<row>
+		  <entry>4</entry>
+		  <entry>5.8</entry>
+		</row>
+	      </tbody>
+	    </tgroup>
+	  </table>
+	  <para>Calcular el polinomio interpolador que aproxima el
+	  experimento.</para>
+	</listitem>
+      </orderedlist>
+    </sect1>
+
+</chapter>
+
+<!-- Local Variables: -->
+<!-- sgml-parent-document: "Yacas.sgml" -->
+<!-- End: -->

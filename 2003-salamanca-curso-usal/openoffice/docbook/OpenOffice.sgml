@@ -1,0 +1,36 @@
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V4.2//EN"[
+<!ENTITY Introduccion.sgml SYSTEM "Introduccion.sgml">
+<!ENTITY capitulo1.sgml SYSTEM "capitulo1.sgml">
+<!ENTITY capitulo2.sgml SYSTEM "capitulo2.sgml">
+<!ENTITY capitulo3.sgml SYSTEM "capitulo3.sgml">
+<!ENTITY capitulo4.sgml SYSTEM "capitulo4.sgml">
+<!ENTITY licencia.sgml SYSTEM "licencia.sgml">
+]>
+<book lang="es">
+  <bookinfo>
+   <title>Herramientas en GNU/LINUX para estudiantes universitarios</title>
+   <subtitle>La suitte ofimática OpenOffice.org 1.0.1</subtitle>
+   <authorgroup>
+     <author>
+       <firstname>Jorge</firstname>
+       <surname>Jiménez Casanova</surname>
+     </author>
+   </authorgroup>
+   <date>2.003</date>
+   <legalnotice>
+     <para>Copyright (c) 2.003 Jorge Jiménez Casanova</para>
+     <para>Permission is granted to copy, distribute and/or modify this document
+      under the terms of the GNU Free Documentation License, Version 1.2
+      or any later version published by the Free Software Foundation;
+      with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+      A copy of the license is included in the section entitled "GNU Free Documentation License".</para>
+    </legalnotice>
+  </bookinfo>
+&Introduccion.sgml;
+&capitulo1.sgml;
+&capitulo2.sgml;
+&capitulo3.sgml;
+&capitulo4.sgml;
+&licencia.sgml;
+</book>
+

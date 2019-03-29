@@ -1,0 +1,58 @@
+<chapter id="interfaz">
+    <title>El interfaz de TeXmacs</title>
+    <para>En este capítulo nos familiarizaremos con la interfaz de
+    TeXmacs, para ello mostraré unas capturas de pantalla.</para>
+    <sect1 id="primervistazo">
+	<title>Un primer vistazo a TeXmacs</title>
+    <para>Para cargar TeXmacs desde GNOME hacemos clic en Aplicaciones
+    -> Otro -> Gnu TeXmacs. O bien pulsamos ALT+F2 y escribimos en el
+    cuadro de diálogo <userinput>texmacs</userinput>. En la siguiente
+    captura de pantalla se puede ver.</para>
+      <graphic fileref="../images/carga1.png" format="png" scale="35">
+        <para>Una vez cargado tendremos algo similar a esto:</para>
+      <graphic fileref="../images/start.png" format="png" scale="100">
+	  <para>La primera vez que TeXmacs sea cargado, el programa
+	  analizará el sistema para comprobar que todos los paquetes
+	  de TeXmacs están correctamente instalados.</para>
+	  </sect1>
+      <sect1 id="entendiendo">
+	      <title>Entendiendo la interfaz de TeXmacs</title>
+       <para>La siguiente captura muestra lo más básico de la ventana
+       de TeXmacs, como el menu, las barras de desplazamiento
+       etc. Haremos referencia a ellas en este manual. La decoración
+       de las ventanas puede ser diferente en el vuestro ordenador, ya
+       que de renderizar esto no se encarga TeXmacs, sino que lo hace
+       el gestor de ventanas oportuno.</para>
+      <graphic fileref="../images/vistazo.png" format="png"
+       scale="70">
+      <para>El título de la ventana muestra el nombre del archivo que
+      estamos editando, en este ejemplo, no hemos guardado todavía
+      nada entonces sale como "sin nombre".</para>
+      <para>En la parte de arriba, según el gestor de ventanas que
+      tengamos instalado, podremos maximizar, minimizar, cerrar la
+      ventana etc.</para>
+      <para>El texto que escribamos será visualizado en el
+      <userinput>canvas</userinput>. Si el texto no se ajusta a la
+      ventana, entonces tendremos que usar las barras de
+      desplazamiento horizontal y vertical, para poder ver todo el
+      texto.</para>
+      <para>El <userinput>cursor</userinput> indica la posición en la
+      que estamos escribiendo. Lo podemos mover pulsando el botón
+      izquierdo del ratón.</para>
+      <para>Los <userinput>menus</userinput> en la <userinput>barra de
+      menus</userinput> los usaremos para acceder a opciones de
+      edición. El menu <userinput>fichero</userinput> nos permite
+      guardar, abrir etc. tal y como si se tratara de un editor de
+      cualquier suite ofimática.</para>
+      <para>Los <userinput>iconos </userinput>tienen una función
+      similar que los menús de la barra de menús. Sólo que para
+      determinados casos es más rápido acceder por ellos, que no estar
+      buscando lo que nos interesa por los menús.</para>
+      <para>Por último la <userinput>barra de estado</userinput> nos
+      muestra información importante sobre lo que estamos
+      haciendo. Así como si queremos salir sin guardar etc. En el
+      ejemplo de la captura anterior se nos muestra que estamos en el
+      modo de edición "carta", y a la derecha nos dice que estamos al
+      principio de un párrafo.</para>
+      </sect1>
+</chapter>

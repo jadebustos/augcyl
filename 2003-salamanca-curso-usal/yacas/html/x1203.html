@@ -1,0 +1,406 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Operaciones sobre números complejos</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Herramientas en GNU/Linux para estudiantes universitarios"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Operaciones sobre los tipos de datos"
+HREF="c773.html"><LINK
+REL="PREVIOUS"
+TITLE="Operaciones sobre escalares"
+HREF="x936.html"><LINK
+REL="NEXT"
+TITLE="Operaciones sobre listas"
+HREF="x1269.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Herramientas en GNU/Linux para estudiantes universitarios: La herramienta de cálculo científico <SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x936.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 5. Operaciones sobre los tipos de datos</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x1269.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="OPERACIONES-COMPLEJOS"
+></A
+>5.5. Operaciones sobre números complejos</H1
+><P
+><SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+> supone que todos los números son
+      reales, pero también puede trabajar con complejos:</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="REPRESENTACION-COMPLEJOS"
+></A
+>5.5.1. Representacion de números complejos</H2
+><P
+>Lo primero que tenemos que tener en cuenta es que la
+	  unidad imaginaria es <B
+CLASS="KEYCAP"
+>I</B
+>, siempre en
+	  mayúsculas.</P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>2+3*I;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; Complex(2,3);</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	</PRE
+><P
+>La función <B
+CLASS="KEYCAP"
+>Complex</B
+> se utiliza para la
+	representación de números complejos, pero también es posible
+	trabajar con ellos en la forma usual:</P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>(2+3*I)+(1-5*I);</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; Complex(3,-2);</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+>
+	</PRE
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="REAL-IMAGINARIA"
+></A
+>5.5.2. Determinación de las partes real e imaginaria de un
+	complejo</H2
+><P
+>Para determinar las partes real e imaginaria de un
+	  número complejo podemos utilizar <B
+CLASS="KEYCAP"
+>Re</B
+> e
+	  <B
+CLASS="KEYCAP"
+>Im</B
+>:</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN1228"
+></A
+><P
+><B
+>Ejemplo 5-20. Partes real y compleja de un número complejo</B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Re(Complex(2,3));</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 2;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Im(Complex(2,3));</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 3;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+          </PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="MODULO-ARGUMENTO"
+></A
+>5.5.3. Determinación del módulo y el argumento de un número
+	complejo</H2
+><P
+>Para la determinación del módulo de un número complejo
+	  podemos utilizar <B
+CLASS="KEYCAP"
+>Abs</B
+>:</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN1242"
+></A
+><P
+><B
+>Ejemplo 5-21. Módulo de un número complejo</B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Abs(2+3*I);</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; Sqrt(13);</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+>
+	  </PRE
+></DIV
+><P
+>Para la determinación del argumento de un número
+	  complejo podemos utilizar <B
+CLASS="KEYCAP"
+>Arg</B
+>:</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN1251"
+></A
+><P
+><B
+>Ejemplo 5-22. Argumento de un número complejo</B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Arg(2+3*I);</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; ArcTan(3/2);</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+>
+	  </PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="CONJUGADO"
+></A
+>5.5.4. Conjugado de un número complejo</H2
+><P
+>Podemos calcular el conjugado de un número complejo con
+	  <B
+CLASS="KEYCAP"
+>Conjugate</B
+>:</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN1262"
+></A
+><P
+><B
+>Ejemplo 5-23. Conjugado de un número complejo</B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Conjugate(2+3*I);</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; Complex(2,-3);</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	  </PRE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x936.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x1269.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Operaciones sobre escalares</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c773.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Operaciones sobre listas</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

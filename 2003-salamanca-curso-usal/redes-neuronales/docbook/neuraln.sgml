@@ -1,0 +1,928 @@
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V4.2//EN"[
+<!ENTITY licencia.sgml SYSTEM "licencia.sgml">
+]>
+<book lang="es">
+  <bookinfo>
+    <title>Herramientas en GNU/Linux para estudiantes universitarios</title>
+    <subtitle>Redes Neuronales con GNU/Linux</subtitle>
+    <authorgroup> 
+       <author>
+         <firstname>Francisco José</firstname>
+	 <surname>Palacios Burgos</surname>
+       </author>
+    </authorgroup>
+    <date>2003</date>
+    <legalnotice>
+      <para>Copyright (c)  2.003  Francisco J. Palacios Burgos.</para>
+      <para>Permission is granted to copy, distribute and/or modify this document
+      under the terms of the GNU Free Documentation License, Version 1.2
+      or any later version published by the Free Software Foundation;
+      with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+      A copy of the license is included in the section entitled "GNU
+      Free Documentation License".</para>
+    </legalnotice>
+    <address>wrider@linuxmail.org</address>
+  </bookinfo>
+<!-- Capitulo 1 ------------------------------>
+  <chapter> 
+    <title>Historia de las Redes Neuronales</title>
+    <para> </para>
+    <sect1>
+       <title>Inteligencia Artificial</title>
+       <para> 
+La historia de la informática tal y como la conocemos hoy en día es reciente. Hacia
+finales de los años 30 y durante la década de los 40, los trabajos de gente como Alan
+Turing o von Neumann asientan las bases de la informática moderna. En un principio se
+orienta hacia la computación algorítmica, es decir, la resolución de un determinado
+problema obteniendo un algoritmo que manipula los datos relativos al problema. El binomio
+hardware + software se muestra como una potente herramienta para la resolución de
+problemas que el ser humano no podría resolver o que tardaría mucho tiempo en hacerlo.
+       </para>  
+       <para>  
+	La evolución del hardware ha hecho que la potencia de cálculo haya crecido de tal
+forma que los ordenadores hoy en día son indispensables en muchas areas de actividad del
+ser humano.  La computación algorítmica sin embargo no es suficiente cuando nos 
+enfrentamos a ciertas tareas. Por ejemplo, algo tan sencillo para el ser humano como
+reconocer una cara de otra persona es el tipo de problema que no es tan fácil ser
+resuelto por la vía algoritmica.
+       </para> 
+       <para>  
+Debido a este tipo de problemas desde finales de los 50 se ha venido investigando en un
+conjunto de técnicas que utilizan un enfoque diferente para resolver los problemas. Este
+conjunto de técnicas y herramientas se bautizó con el nombre de Inteligencia Artificial
+(IA), porque lo que se pretendía era que los ordenadores presentaran un comportamiento
+inteligente, entendiendo por esto que supieran hacer frente a ciertos problemas de una
+manera similar a como lo hacen los seres humanos.
+       </para> 
+       <para>  
+Dentro de la IA, se trabajó en dos enfoques distintos. Por un lado, se desarrolló lo que
+se conoce como el enfoque simbólico. Este enfoque asienta sus bases en la manipulación de
+símbolos en vez del mero cálculo númerico, tradicional de la computación algoritmica. La
+realidad se plasma por medio de una serie de reglas. Herramientas como la lógica de
+predicados, nos permiten manipular los símbolos y las reglas para obtener nuevas reglas.
+Este enfoque se presta a ser muy útil en ciertos tipos de problemas aunque en general
+tiene la desventaja de que a la hora de buscar la solución a un determinado problema los
+métodos de deducción presentan una explosión combinatoria que hace que requiera bastante
+tiempo de cálculo.
+       </para> 
+       <para>  
+El otro enfoque tradicional es el enfoque conexionista y es donde se encuadran las redes
+neuronales. La idea aquí es desarrollar un sistema formado por pequeñas unidades de
+cálculo en cierta medida muy simples y hacer mediante conexiones entre ellas, que todo
+el conjunto sea capaz de resolver cierta clase de problemas.        
+       </para> 
+    </sect1>
+    <sect1>
+       <title>Redes Neuronales</title>
+       <para>
+	La idea que animó el modelo conexionista fue la de imitar el sistema de	
+computación más complejo de los que se conocen hasta ahora, que es el cerebro. El
+cerebro esta formado por millones de células llamadas neuronas. Estas neuronas
+son unos  procesadores de información muy sencillos con un canal de entrada de
+información (dendritas), un órgano de cómputo (soma) y un canal de salida de
+información (axón). 
+       </para>
+       <para>
+       <figure>
+          <title>Representación de una neurona biológica</title>
+	  <graphic fileref="neuronab.jpg" align="center" scale="90">
+       </figure>
+       </para>
+       <para>
+De esta forma, las RNA imitan en cierto modo la estructura y física y el modo de
+operación de un cerebro. Teniendo en cuenta que el cerebro presenta las cualidades
+de procesamiento paralelo, procesamiento distribuido y adaptabilidad, un sistema
+RNA tiene también estas características.
+       </para>
+       <para>
+El sistema resulta ser intrinsecamente paralelo porque esta formado por unidades
+elementales de procesamiento llamadas neuronas. Cada neurona realiza un tipo de
+procesamiento muy simple.
+       </para>
+       <para>
+El sistema es distribuido. Esto quiere decir que la información no se almacena
+localmente en ciertas zonas concretas de la RNA sino que se halla presente por toda
+ella, en concreto, se almacena en la sinapsis entre las neuronas. De igual forma, la
+computación es también distribuida. Al calcular la respuesta de la red neuronal,
+intervienen todos y cada uno de los procesadores elementales, los cuales se hallan
+distribuidos por toda la arquitectura de la red. Además. Este carácter distribuido hace
+que la red presente tolerancia a fallos (si se pierde una parte de las neuronas no se
+pierde toda la información)
+       </para>
+       <para>
+Una red neuronal presenta además un grado de adaptabilidad que se concreta en las
+capacidades de aprendizaje y generalización. Por aprendizaje entendemos la capacidad
+para recoger informacion de las experiencias y utilizarlas para actuar ante situaciones
+futuras. Íntimamente relacionada con el aprendizaje esta la generalización, que podría
+definirse como la capacidad para abstraer la infomacion útil, más alla de los casos
+particulares. De esta manera, la RNA es capaz de responder ante casos desconocidos.
+       </para>
+    </sect1>
+  </chapter>
+<!-- Capitulo 2 ------------------------------>
+  <chapter> 
+    <title>Conceptos Básicos sobre RNA </title>
+    <para> </para>
+    <sect1>
+       <title>La neurona artificial</title>
+       <para>
+La unidad básica de una RNA es la neurona. Aunque hay varios tipos de neuronas
+diferentes, la mas comun es la de tipo McCulloch-Pitts. En la siguiente figura puede
+verse una representación de la misma       
+       </para>
+       <para>
+       <figure>
+          <title>Representación de una neurona artificial tipo McCulloch-Pitts</title>
+	  <graphic fileref="neuronaa.jpg" align="center" scale="90">
+       </figure>
+       </para>
+       <para>
+Una neurona artificial es un procesador elemental, en el sentido de que procesa un
+vector <keycap>x</keycap>
+(x<subscript>1</subscript>,x<subscript>2</subscript>,...x<subscript>N</subscript>) 
+de entradas y produce un respuesta o salida única. Los elementos
+clave de una neurona artificial los podemos ver en la figura anterior y son los
+siguientes:
+       </para>
+       <para>
+       <itemizedlist>
+  <listitem>       
+     <para>
+Las entradas que reciben los datos de otras neuronas. En una neurona biológica
+corresponderían a las dendritas
+     </para>
+  </listitem>       
+  <listitem>       
+     <para>
+Los pesos sinapticos w<subscript>ij</subscript>. Al igual que en una neurona biológica
+se establecen sinápsis entre las dendritas de una neurona y el axón de otra, en una
+neurona artificial a las entradas que vienen de otras neuronas se les asigna un peso,
+un factor de importancia. Este peso, que es un número, se modifica durante el
+entrenamiento de la red neuronal, y es aquí por tanto donde se almacena la infomación
+que hara que la red sirva para un propósito u otro.
+     </para>
+  </listitem>       
+  <listitem>       
+     <para>
+Una regla de propagación. Con esas entradas y los pesos sinapticos, se suele hacer
+algun tipo de operación para obtener el valor del potencial postsinaptico (valor que
+es funcion de las entradas y los pesos y que es el que se utiliza en último término
+para realizar el procesamiento). Una de las operaciones mas comunes es sumar las
+entradas, pero teniendo en cuenta la importancia de cada una (el peso sináptico
+asociado a cada entrada). Es lo que se llama suma ponderada, aunque otras operaciones
+también son posibles.
+ <equation>
+  <title>Suma ponderada</title>
+  <alt> h_i(t) = Sum_j w_ij x_j</alt>
+  <graphic fileref="sumaponderada.jpg" format="jpg" align="center">
+ </equation>
+La otra regla de propagacion mas habitual es la distancia euclidea. Este es el tipo de
+regla que tienen redes como el SOM o las RBF.
+     </para>
+  </listitem>       
+  <listitem>       
+     <para>
+Una función de activación. El valor obtenido con la regla de propagación, se filtra a
+través de una función conocida como función de activación y es la que nos da la salida
+de la neurona. Según para lo que se desee entrenar la red neuronal, se suele escoger una
+función de activación u otra en ciertas neuronas de la red. En la siguiente tabla se
+muestran las funciones de activación mas usuales
+       <figure>
+          <title>Funciones de activación más usuales</title>
+	  <graphic fileref="funca.jpg" align="center" scale="90">
+       </figure>
+     </para>
+  </listitem>       
+       </itemizedlist>
+       </para>
+       <para>
+En muchas ocasiones la razón para la aplicación de una función de activación distinta de
+la identidad surge de la necesidad de que las neuronas produzcan una salida acotada.
+Esto desde un punto de vista de similitud con el sistema biológico, no es tan descabellado,
+ya que las respuestas de las neuronas biológicas estan acotadas en amplitud.
+Además cada neurona tiene asociado un número denominado bías o umbral, que puede verse
+como un número que indica a partir de que valor del potencial postsináptico la neurona
+produce una salida significativa.       
+       </para>
+    </sect1>
+    <sect1>
+       <title>Arquitectura de una RNA</title>
+       <para>
+Desde un punto de vista matemático, se puede ver una red neuronal como un grafo dirigido
+y ponderado donde cada uno de los nodos son neuronas artificiales y los arcos que unen
+los nodos son las conexiones sinápticas. Al ser dirigido, los arcos son unidireccionales.
+¿Que quiere decir esto? En el lenguaje de neuronas y conexiones significa que la
+información se propaga en un unico sentido, desde una neurona presinaptica (neurona
+origen) a una neurona postsináptica (neurona destino)       
+       </para>
+       <para>
+Por otra parte es ponderado, lo que significa que las conexiones tienen asociado un
+número real, un peso, que indica la importancia de esa conexión con respecto al resto de
+las conexiones. Si dicho peso es positivo la conexión se dice que es excitadora,
+mientras que si es negativa se dice que es inhibidora.
+       </para>
+       <para>
+Lo usual es que las neuronas se agrupen en capas de manera que una RNA esta formada por
+varias capas de neuronas. Aunque todas las capas son conjuntos de neuronas, según la
+funcion que desempeñan, suelen recibir un nombre especifico. Las mas comunes son las
+siguientes:
+       <itemizedlist>
+  <listitem>       
+     <para>
+Capa de entrada: las neuronas de la capa de entrada, reciben los datos que se proporcionan
+a la RNA para que los procese. 
+     </para>
+  </listitem>       
+  <listitem>       
+     <para>
+Capas ocultas: estas capas introducen grados de libertad adicionales en la RNA. El
+número de ellas puede depender del tipo de red que estemos considerando. Este tipo de
+capas realiza gran parte del procesamiento.       
+     </para>
+  </listitem>       
+  <listitem>       
+     <para>
+Capa de salida: Esta capa proporciona la respuesta de la red neuronal. Normalmente
+también realiza parte del procesamiento.
+     </para>
+  </listitem>       
+       </itemizedlist>
+       </para>
+    </sect1>
+  </chapter>
+<!-- Capitulo 3 ------------------------------>
+  <chapter> 
+    <title>Tipos de Redes Neuronales</title>
+    <para> </para>
+    <sect1>
+       <title>Clasificación de las RNA</title>
+       <para>
+Según el criterio que escojamos para clasificar las RNA tendremos una clasificacion u
+otra. Lo más común es usar la arquitectura y el tipo de aprendizaje como criterios de
+clasificación. 
+       </para>
+       <para>
+Si nos fijamos en la arquitectura podemos tener dos posibilidades distintas. Si la
+arquitectura de la red no presenta ciclos, es decir, no se puede trazar un camino de una
+neurona a sí misma, la red se llama unidireccional (feedforward).        
+       </para>
+       <para>
+Por el contrario, si podemos trazar un camino de una neurona a sí misma la arquitectura
+presenta ciclos. Este tipo de redes se denominan recurrentes o realimentados (recurrent).
+       <figure>
+          <title>Representación de redes unidireccionales y realimentadas</title>
+	  <graphic fileref="tiposRNA.jpg" align="center" scale="90">
+       </figure>
+       </para>
+       <para>
+El otro criterio mas habitual para clasificar las redes neuronales es el tipo de
+aprendizaje que se utilice. Hay cuatro clases de aprendizaje distintos:
+       </para>
+       <para>
+       <orderedlist numeration="loweralpha">
+  <listitem>       
+     <para>
+Aprendizaje supervisado: En este tipo de aprendizaje se le proporciona a la RNA una
+serie de ejemplos consistentes en unos patrones de entrada, junto con la salida que debería
+dar la red. El proceso de entrenamiento consiste en el ajuste de los pesos para que la salida
+de la red sea lo más parecida posible a la salida desada. Es por ello que en cada iteración
+se use alguna función que nos de cuenta del error o el grado de acierto que esta cometiendo
+la red.
+     </para>
+  </listitem>       
+  <listitem>       
+     <para>
+Aprendizaje no supervisado o autoorganizado: En este tipo de aprendizaje se presenta
+a la red una serie de ejemplos pero no se presenta la respuesta deseada. 
+Lo que hace la RNA es reconocer regularidades en el conjunto de entradas, es decir,
+estimar una funcion densidad de probabilidad p(<keycap>x</keycap>)
+que describe la distribucion de patrones x en el espacio de entrada R<superscript>n</superscript> . 
+     </para>
+  </listitem>       
+  <listitem>       
+     <para>
+Aprendizaje Híbrido: Es una mezcla de los anteriores. Unas capas de la red tienen un
+aprendizaje supervisado y otras capas de la red tienen un aprendizaje de tipo no
+supervisado. Este tipo de entrenamiento es el que tienen redes como las RBF.
+     </para>
+  </listitem>       
+  <listitem>       
+     <para>
+Aprendizaje reforzado (reinforcement learning): Es un aprendizaje con caracteristicas
+del supervisado y con caracteristicas del autoorganizado. No se proporciona una salida
+deseada, pero si que se le indica a la red en cierta medida el error que comete, aunque
+es un error global.
+     </para>
+  </listitem>       
+       </orderedlist>
+       </para>
+    </sect1>
+    <sect1>
+       <title>El perceptron multicapa (MLP)</title>
+       <para>
+Este es uno de los tipos de redes más comunes. Se basa en otra red mas simple llamada
+perceptrón simple solo que el número de capas ocultas puede ser mayor o igual que una.
+Es una red unidireccional (feedforward). La arquitectura típica de esta red es la
+siguiente:
+       <figure>
+          <title>Representación de un Perceptrón Multicapa (MLP)</title>
+	  <graphic fileref="mlp2.jpg" align="center">
+       </figure>
+       </para>
+       <para>
+Las neuronas de la capa oculta usan como regla de propagación la suma ponderada de las
+entradas con los pesos sinápticos w<subscript>ij</subscript> y sobre esa suma ponderada
+se aplica una función de transferencia de tipo sigmoide, que es acotada en respuesta.
+       <figure>
+          <title>Forma funcional de una sigmoide</title>
+	  <graphic fileref="sigmoide.jpg" align="center">
+       </figure>
+       </para>
+       <para>
+El aprendizaje que se suele usar en este tipo de redes recibe el nombre de
+retropropagacion del error (backpropagation). Como funcion de coste global, se usa el
+error cuadratico medio. Es decir, que dado un par 
+(<keycap>x</keycap><subscript>k</subscript>,
+<keycap>d</keycap><subscript>k</subscript>) 
+correspondiente a la entrada k de los datos de entrenamiento y salida deseada asociada
+se calcula la cantidad:
+ <equation>
+  <title>Error cuadrático medio</title>
+  <alt> E(w_ij,O_j,w'_kj,O'_k) = 1/2 sum_p sum_k ( d^_k - f(sum_j) w'_kjy^p_j-O_k )^2</alt>
+  <graphic fileref="Errorcuadraticomedio.jpg" format="jpg" align="center">
+ </equation>
+que vemos que es la suma de los errores parciales debido a cada patrón (índice p), resultantes
+de la diferencia entre la salida deseada d<subscript>p</subscript> y la salida que da la red
+f(.) ante el vector de entrada x<subscript>k</subscript>.
+Si estas salidas son muy diferentes de las salidas deseadas, el error cuadratico medio sera grande.
+f es la función de activación de las neuronas de la capa de salida e y la salida que proporcionan
+las neuronas de la ultima capa oculta. 
+       </para>
+       <para>
+Sobre esta función de coste global se aplica algun procedimiento de minimización. En el
+caso del MLP se hace mediante un descenso por gradiente. Las expresiones que resultan
+aplicando la regla de la cadena son las siguientes:
+ <equation>
+  <title>Términos delta</title>
+  <alt> Términos delta</alt>
+  <graphic fileref="terminosdelta.jpg" format="jpg" align="center">
+ </equation>
+Siendo y<subscript>k</subscript> las salidas de la capa oculta.
+       </para>
+       <para>
+El aprendizaje por backpropagation queda como sigue:
+       <orderedlist>
+  <listitem>       
+     <para>
+Inicializar los pesos y los umbrales iniciales de cada neurona. Hay varias posibilidades
+de inicialización siendo las mas comunes las que introducen valores aleatorios pequeños.
+     </para>
+  </listitem>       
+  <listitem>       
+     <para>
+Para cada patrón del conjunto de  los datos de entrenamiento
+       <orderedlist>
+          <listitem>       
+             <para>
+Obtener la respuesta de la red ante ese patrón. Esta parte se consigue propagando la
+entrada hacia adelante, ya que este tipo de red es feedforward. Las salidas de una capa
+sirven como entrada a las neuronas de la capa siguiente, procesandolas de acuerdo a la
+regla de propagación y la función de activación correspondientes.
+             </para>
+          </listitem>       
+          <listitem>       
+             <para>
+Calcular los errores asociados según la ecuación 3-2
+             </para>
+          </listitem>       
+          <listitem>       
+             <para>
+Calcular los incrementos parciales (sumandos de los sumatorios). Estos incrementos
+dependen de los errores calculados en 2.b
+             </para>
+          </listitem>       
+       </orderedlist>
+     </para>
+  </listitem>       
+  <listitem>       
+     <para>
+Calcular el incremento total ,para todos los patrones, de los pesos y los umbrales
+según las expresiones en la ecuación 3-2
+     </para>
+  </listitem>       
+  <listitem>       
+     <para>
+Actualizar pesos y umbrales
+     </para>
+  </listitem>       
+  <listitem>       
+     <para>
+Calcular el error actual y volver al paso 2 si no es satisfactorio.
+     </para>
+  </listitem>       
+       </orderedlist>
+       </para>
+    </sect1>
+    <sect1>
+       <title>Redes Autoorganizadas. Redes SOFM</title>
+       <para>
+En este tipo de redes el entrenamiento o aprendizaje es diferente al de las redes con
+entrenamiento supervisado. A la red no se le suministra junto a los patrones de
+entrenamiento, una salida deseada. Lo que hará la red es encontrar regularidades o
+clases en los datos de entrada, y modificar sus pesos para ser capaz de reconocer
+estas regularidades o clases. 
+       </para>
+       <para>
+Uno de los tipos de redes que pertenece a esta familia y que se ha usado bastante son
+los mapas autoorganizados, SOM (Self-Organizing Maps). La arquitectura típica de este
+tipo de mapas es la siguiente:
+       <figure>
+          <title>Arquitectura típica de un mapa SOM</title>
+	  <graphic fileref="som.jpg" align="center" scale="80">
+       </figure>
+       </para>
+       <para>
+Como se puede apreciar es una red de tipo unidireccional. La red se organiza en dos
+capas, siendo la primera capa la formada por las neuronas de entrada. La segunda capa
+consiste en un array de neuronas de dos dimensiones. Como se necesitan dos índices para
+etiquetar cada neurona, los pesos sinapticos asociados a cada neurona tendran tres
+índices (i,j,k) donde (i,j) indican la posición de la neurona en la capa y k, la
+componente o conexión con cierta neurona de entrada.
+       </para>
+       <para>
+En cuanto al entrenamiento, este es un ejemplo de red que utiliza un aprendizaje de tipo
+no supervisado. Además, cada neurona utiliza como regla de propagacion una distancia de
+su vector de pesos sinápticos al patrón de entrada. Otros conceptos importantes que
+intervienen en el proceso de aprendizaje son los conceptos de neurona ganadora y
+vecindad de la misma. Un algoritmo de aprendizaje muy usado con este tipo de redes es
+el algoritmo de Kohonen que se describe como sigue:       
+       </para>
+       <para>
+<orderedlist>
+  <listitem>
+    <para>
+Inicializacion de los pesos w<subscript>ijk</subscript>. Hay varias opciones posibles
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+Eleccion de un patrón de entre el conjunto de patrones de entrenamiento
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+Para cada neurona del mapa, calcular la distancia euclídea entre el patrón de entrada
+<keycap>x</keycap> y el vector de pesos sinápticos 
+ <equation>
+          <title>Distancia Euclídea entre el vector sináptico y la entrada</title>
+  	  <alt> Términos delta</alt>
+	  <graphic fileref="distancia.jpg" align="center">
+ </equation>
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+Evaluar la neurona ganadora, es decir aquella cuya distancia es la menor de todas
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+Actualizar los pesos sinápticos de la neurona ganadora y de sus vecinas según la regla:
+ <equation>
+          <title>Actualización de los pesos en una red SOM</title>
+  	  <alt>delta w_ijk = alfa(t) * h(|i-g|,t) (x_k(t)-w_ijk(t))</alt>
+	  <graphic fileref="pesossom.jpg" align="center">
+ </equation>
+alfa(t) es un factor llamado ritmo de aprendizaje que da cuenta de la importancia que la
+diferencia entre el patrán y los pesos tiene en el ajuste de los mismos a lo largo del
+proceso de aprendizaje. Hay varias posibilidades para esta función, desde un constante
+hasta algún tipo de funcion monótona decreciente con el tiempo. h es una función de
+vecindad que nos indica en que medida se modifican los pesos de las neuronas vecinas.
+Con esto quiere decir que cuando la neurona ganadora modifica sus pesos, la vecindad de
+esta neurona lo hace también, en mayor o menor medida según sea la forma funcional de h.
+En general, las funciones empleadas para h tienen un máximo en |i-j|=0 y decrecen más o
+menos rapido a medida que esta distancia aumenta.
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+Lo usual es fijar un numero de iteraciones antes de comenzar el aprendizaje. Si no se
+llegó al numero de iteraciones establecido previamente, se vuelve al paso 2. Sobre este
+número de iteraciones necesario, se suelen tomar criterios como el número de neuronas en
+el mapa.
+    </para>
+  </listitem>
+</orderedlist>
+       </para>
+    </sect1>
+    <sect1>
+       <title>Redes de funcion de base radial (RBF)</title>
+       <para>
+Este tipo de redes se caracteriza por tener un aprendizaje o entrenamiento híbrido. La
+arquitectura de estas redes se caracteriza por la presencia de tres capas: una de
+entrada, una única capa oculta y una capa de salida.
+       <figure>
+          <title>Arquitectura típica de una red de tipo RBF</title>
+	  <graphic fileref="rbf.jpg" align="center" scale="80">
+       </figure>
+Aunque la arquitectura pueda recordar a la de un MLP, la diferencia fundamental está en
+que las neuronas de la capa oculta en vez de de calcular una suma ponderada de las
+entradas y aplicar una sigmoide, estas neuronas calculan la distancia euclídea entre el
+vector de pesos sinápticos (que recibe el nombre en este tipo de redes de centro o
+centroide) y la entrada (de manera casi analoga a como se hacia con los mapas SOM) y
+sobre esa distancia se aplica una función de tipo radial con forma gaussiana.
+       <figure>
+          <title>Forma funcional de una función tipo Gaussiana</title>
+	  <graphic fileref="gaussiana.jpg" align="center">
+       </figure>
+       </para>
+       <para>
+Para el aprendizaje de la capa oculta, hay varios métodos, siendo uno de los más
+conocidos el algoritmo denominado k-medias (k-means) que es un algoritmo no supervisado
+de clustering. k es el número de grupos que se desea encontrar, y se corresponde con el
+número de neuronas de la capa oculta, que es un parámetro que hay que decidir de
+antemano. El algoritmo se plantea como sigue:
+       </para>
+       <para>
+<orderedlist>
+   <listitem>
+      <para>
+Inicializar los pesos (los centros) en el instante inicial. Una incializacion típica es la
+denominada k-primeras mediante la cual los k centros se hacen iguales a las k primeras
+muestras del conjunto de datos de entrenamiento
+{<keycap>x</keycap><subscript>p</subscript>}<subscript>p=1..N</subscript>
+      </para>
+      <para>
+<keycap>c</keycap><subscript>1</subscript> = <keycap>x</keycap><subscript>1</subscript> , 
+<keycap>c</keycap><subscript>2</subscript> = <keycap>x</keycap><subscript>2</subscript> , 
+...
+<keycap>c</keycap><subscript>N</subscript> = <keycap>x</keycap><subscript>N</subscript> , 
+      </para>
+   </listitem>
+   <listitem>
+      <para>
+En cada iteracion, se calculan los dominios, es decir, se reparten las muestras entre los k
+centros. Esto se hace de la siguiente manera: Dada una muestra
+<keycap>x</keycap><subscript>j</subscript> se calcula las distancias a cada uno de los centros
+<keycap>c</keycap><subscript>k</subscript>. La muestra pertenecera al dominio del centro cuya
+distancia calculada sea la menor
+      </para>
+   </listitem>
+   <listitem>
+      <para>
+Se calculan los nuevos centros como los promedios de los patrones de aprendizaje pertenecientes a
+sus dominios. Viene a ser como calcular el centro de masas de la distribución de patrones, tomando
+que todos pesan igual.
+      </para>
+   </listitem>
+   <listitem>
+      <para>
+Si los valores de los centros varían respecto a la iteración anterior se vuelve al paso 2, si no, es
+que se alcanzó la convergencia y se finaliza el aprendizaje
+      </para>
+   </listitem>
+</orderedlist>
+Una vez fijados los valores de los centros, sólo resta ajustar las anchuras de cada neurona. Las
+anchuras son los parametros sigma que aparecen en cada una de las funciones gaussianas y reciben
+ese nombre por su interpretación geométrica, dan una medida de cuando un muestra activa una neurona
+oculta para que de una salida significativa
+       <figure>
+          <title>Centros en el espacio de las entradas</title>
+	  <graphic fileref="nodos.jpg" align="center" scale="80">
+       </figure>
+normalmente se toma el criterio de que para cada neurona se toma como valor sigma la distancia
+al centro mas cercano.
+       </para>
+       <para>
+Finalmente, se entrena la capa de salida. El entrenamiento de esta capa se suele usar un algoritmo
+parecido al que se usa para la capa de salida del MLP. La actualizacion de los pesos viene dada por
+la expresión:
+ <equation>
+          <title>Actualización de los pesos de la capa de salida en una red RBF</title>
+  	  <alt>zk = sum_j wkj f(rj) + 0k , wkj(t+1) = wkj(t) + e(dk-zk) f(rj)</alt>
+	  <graphic fileref="pesosrbf.jpg" align="center">
+ </equation>
+Con este fin se suele presentar todos los patrones de la muestra de entrenamiento varias veces.
+Cada una de estas veces recibe el nombre de epoca.
+       </para>
+    </sect1>
+  </chapter>
+<!-- Capitulo 4 ------------------------------>
+  <chapter> 
+    <title>Ejemplo de entrenamiento de una red neuronal. Caso RBF</title>
+    <para> </para>
+    <sect1>
+      <title>Ejemplo de aprendizaje para un problema de clasificacion por medio de una red RBF</title>
+      <para>
+Como ejemplo de entrenamiento vamos a escoger un problema de clasificacion sencillo y
+utilizaremos una red de tipo RBF. El problema en cuestion se plantea como sigue:
+Imaginemos que tenemos puntos en el plano. Los puntos se distribuyen en ciertas regiones,
+donde la densidad de puntos es mayor. Queremos que la red neuronal sirva como un
+clasificador de esas regiones de manera que si preguntamos por nuevos puntos nos diga si
+esta en alguna de esas tres regiones.
+      </para>
+      <para>
+Como tendremos tres regiones, escogeremos tres neuronas para la capa oculta. En realidad
+podiamos haber escogido más, pero con tres sirve para ilustrar el ejemplo. La capa de
+salida tendra tambien 3 neuronas y estara acotada entre 0 y 1. Si la salida i-esima toma
+un valor cercano a 1 y el resto de las salidas toman valores cercanos a 0 eso nos dira
+que la muestra de entrenamiento pertenece a la zona i-esima. Además la funcion de
+activacion de las neuronas de la capa de salida sera una sigmoide, que nos acota la
+salida entre 0 y 1.
+      </para>
+      <para>
+Nuestro conjunto de muestras de entrenamiento sera el siguiente:
+<table frame="none">
+  <title>Datos de entrenamiento</title>
+<tgroup cols='3' align='left' colsep='0' rowsep='0'>
+<tbody>
+<row> <entry>0.8</entry> <entry>0.8</entry> </row>
+<row> <entry>0.9</entry> <entry>0.1</entry> <entry>0.1</entry> </row>
+<row> <entry>0.9</entry> <entry>1.3</entry> </row>
+<row> <entry>0.9</entry> <entry>0.1</entry> <entry>0.1</entry> </row>
+<row> <entry>1.1</entry> <entry>0.7</entry> </row>
+<row> <entry>0.9</entry> <entry>0.1</entry> <entry>0.1</entry> </row>
+<row> <entry>1.2</entry> <entry>1.1</entry> </row>
+<row> <entry>0.9</entry> <entry>0.1</entry> <entry>0.1</entry> </row>
+<row> <entry>6.7</entry> <entry>8.2</entry> </row>
+<row> <entry>0.1</entry> <entry>0.9</entry> <entry>0.1</entry> </row>
+<row> <entry>6.9</entry> <entry>7.8</entry> </row>
+<row> <entry>0.1</entry> <entry>0.9</entry> <entry>0.1</entry> </row>
+<row> <entry>7.2</entry> <entry>8.1</entry> </row>
+<row> <entry>0.1</entry> <entry>0.9</entry> <entry>0.1</entry> </row>
+<row> <entry>7.5</entry> <entry>7.5</entry> </row>
+<row> <entry>0.1</entry> <entry>0.9</entry> <entry>0.1</entry> </row>
+<row> <entry>14.0</entry> <entry>3.0</entry> </row>
+<row> <entry>0.1</entry> <entry>0.1</entry> <entry>0.9</entry> </row>
+<row> <entry>14.8</entry> <entry>4.1</entry> </row>
+<row> <entry>0.1</entry> <entry>0.1</entry> <entry>0.9</entry> </row>
+<row> <entry>15.3</entry> <entry>4.2</entry> </row>
+<row> <entry>0.1</entry> <entry>0.1</entry> <entry>0.9</entry> </row>
+<row> <entry>16.0</entry> <entry>3.0</entry> </row>
+<row> <entry>0.1</entry>  <entry>0.1</entry> <entry>0.9</entry> </row>
+</tbody>
+</tgroup>
+</table>
+Las filas corresponden a la entrada (un punto en el plano se representa con dos coordenadas
+reales) y su correspondiente salida deseada (tres numeros entre 0 y 1. No usaremos exactamente
+el valor 1 ni el valor 0 pero con esos valores nos bastara).
+      </para>
+      <para>
+Para entrenar la capa oculta elegiremos el algoritmo de las k-medias. El desarrollo de dicho algoritmo es el siguiente:
+<screen>
+-------------------------------------------------------
+Iteracion: 1
+-------------------------------------------------------
+Muestra 0
+dc0 = 0, dc1 = 0.509902, dc2 = 0.316228,
+Muestra 1
+dc0 = 0.509902, dc1 = 0, dc2 = 0.632456,
+Muestra 2
+dc0 = 0.316228, dc1 = 0.632456, dc2 = 0,
+Muestra 3
+dc0 = 0.5, dc1 = 0.360555, dc2 = 0.412311,
+Muestra 4
+dc0 = 9.46414, dc1 = 9.01388, dc2 = 9.36002,
+Muestra 5
+dc0 = 9.28493, dc1 = 8.8459, dc2 = 9.16788,
+Muestra 6
+dc0 = 9.70824, dc1 = 9.26984, dc2 = 9.5901,
+Muestra 7
+dc0 = 9.47523, dc1 = 9.05539, dc2 = 9.33809,
+Muestra 8
+dc0 = 13.3821, dc1 = 13.2098, dc2 = 13.1034,
+Muestra 9
+dc0 = 14.3837, dc1 = 14.1792, dc2 = 14.1156,
+Muestra 10
+dc0 = 14.8933, dc1 = 14.6891, dc2 = 14.625,
+Muestra 11
+dc0 = 15.3584, dc1 = 15.1954, dc2 = 15.0765,
+Dominios: 0  1  2  1  1  1  1  1  2  2  2  2
+
+
+Centro 1:	0.8  0.8
+Centro 2:	5.06667  5.66667
+Centro 3:	12.24  3
+
+-------------------------------------------------------
+Iteracion: 2
+-------------------------------------------------------
+Muestra 0
+dc0 = 0, dc1 = 6.47216, dc2 = 11.6496,
+Muestra 1
+dc0 = 0.509902, dc1 = 6.03563, dc2 = 11.4667,
+Muestra 2
+dc0 = 0.316228, dc1 = 6.35627, dc2 = 11.375,
+Muestra 3
+dc0 = 0.5, dc1 = 5.98377, dc2 = 11.2023,
+Muestra 4
+dc0 = 9.46414, dc1 = 3.01423, dc2 = 7.59813,
+Muestra 5
+dc0 = 9.28493, dc1 = 2.81287, dc2 = 7.18022,
+Muestra 6
+dc0 = 9.70824, dc1 = 3.23608, dc2 = 7.17019,
+Muestra 7
+dc0 = 9.47523, dc1 = 3.04667, dc2 = 6.53587,
+Muestra 8
+dc0 = 13.3821, dc1 = 9.32285, dc2 = 1.76,
+Muestra 9
+dc0 = 14.3837, dc1 = 9.85861, dc2 = 2.78632,
+Muestra 10
+dc0 = 14.8933, dc1 = 10.3379, dc2 = 3.28688,
+Muestra 11
+dc0 = 15.3584, dc1 = 11.2538, dc2 = 3.76,
+Dominios: 0  0  0  0  1  1  1  1  2  2  2  2 
+
+
+Centro 1:	1  0.975
+Centro 2:	7.075  7.9
+Centro 3:	15.025  3.575
+
+-------------------------------------------------------
+Iteracion: 3
+-------------------------------------------------------
+Muestra 0
+dc0 = 0.265754, dc1 = 9.47553, dc2 = 14.4931,
+Muestra 1
+dc0 = 0.340037, dc1 = 9.03829, dc2 = 14.307,
+Muestra 2
+dc0 = 0.292618, dc1 = 9.35631, dc2 = 14.2187,
+Muestra 3
+dc0 = 0.23585, dc1 = 8.98641, dc2 = 14.0448,
+Muestra 4
+dc0 = 9.20275, dc1 = 0.480234, dc2 = 9.52346,
+Muestra 5
+dc0 = 9.02168, dc1 = 0.201556, dc2 = 9.15785,
+Muestra 6
+dc0 = 9.44487, dc1 = 0.23585, dc2 = 9.03915,
+Muestra 7
+dc0 = 9.21008, dc1 = 0.583631, dc2 = 8.48712,
+Muestra 8
+dc0 = 13.1568, dc1 = 8.48326, dc2 = 1.17527,
+Muestra 9
+dc0 = 14.1494, dc1 = 8.60904, dc2 = 0.571183,
+Muestra 10
+dc0 = 14.6591, dc1 = 9.0189, dc2 = 0.682825,
+Muestra 11
+dc0 = 15.1361, dc1 = 10.1816, dc2 = 1.13192,
+Dominios: 0  0  0  0  1  1  1  1  2  2  2  2  
+
+
+Centro 1:	1  0.975
+Centro 2:	7.075  7.9
+Centro 3:	15.025  3.575
+</screen>
+      </para>
+      <para>
+Como vemos, en apenas 3 iteraciones el algoritmo ha convergido totalmente. Se aprecia
+como los dominos ya reflejan los tres grupos claramente (de hecho estos grupos ya
+aparecen en la 2 iteracion). Cabe resaltar que en este entrenamiento no se empleo la
+salida deseada para nada, y esto es debido a que se trata de un algoritmo de aprendizaje
+no supervisado.
+      </para>
+      <para>
+Una vez entrenada la capa oculta, le tocaría el turno a la capa de salida. En ésta lo
+que se hace es pasar los patrones de entrenamiento durante un cierto numero de épocas
+(en este entrenamiento se escogio 60 épocas) y en cada época con todos los patrones
+de entrenamiento se calcula la variación de los pesos de la capa de salida según lo
+explicado en el apartado 3.4 Al final, los pesos que resultan para toda la red son
+los siguientes:
+<screen>
+---------------------------------------------------------------
+  Topología de la red : 0
+---------------------------------------------------------------
+  Número de neuronas de entrada: 2
+  Número de neuronas ocultas   : 3
+  Número de neuronas de salida : 3
+  Función de la capa oculta    : Gaussiana
+  Función de la capa de salida : Sigmoide
+  Red Híbrida MLP              : false
+---------------------------------------------------------------
+  Datos del entrenamiento
+---------------------------------------------------------------
+  Algoritmo de la capa oculta : K-medias
+     Tipo de inicialización: K primeras
+     Epsilon : 0.0010
+  Algoritmo de la capa de salida : Regla delta
+     Ritmo de aprendizaje : 0.1000
+     Número de épocas : 60
+---------------------------------------------------------------
+  Pesos de la red RBF
+---------------------------------------------------------------
+---------------------------------------------------------------
+  Pesos de la capa oculta
+---------------------------------------------------------------
+Neurona     0            1            2
+---------------------------------------------------------------
+  0           1.0000  7.0750  15.0250
+  1           0.9750  7.9000  3.5750
+---------------------------------------------------------------
+  Anchuras de la capa oculta
+---------------------------------------------------------------
+              9.2120  9.0503  9.0503
+---------------------------------------------------------------
+  Pesos de la capa de salida
+---------------------------------------------------------------
+Neurona     0            1            2
+---------------------------------------------------------------
+  0           1.6047  -0.9334  -1.1720
+  1           -1.5427  2.6404  -1.2721
+  2           -1.3295  -1.1118  1.9833
+---------------------------------------------------------------
+  Bias de la capa de salida
+---------------------------------------------------------------
+              0.5470  -0.9427  0.0257
+</screen>	      
+      </para>
+      <para>
+Con esto quedaría realizada la etapa de aprendizaje de la red neuronal. Si ahora
+presentamos otros datos para obtener su clasificación, estariamos en la etapa de
+recuperación. Los datos que presentaremos seran los siguientes:
+<screen>
+ 0.0   0.0    -->  Region A
+ 2.0   0.0    -->  Region A
+ 9.0   9.0    -->  Region B
+13.0  13.0    -->  Entre Region B y Region C
+</screen>	      
+como podemos apreciar, esta vez ya no se le presentan a la red las salidas deseadas.
+El resultado que da la red ante estas entradas es el siguiente:
+<screen>
+0.8903   0.1692   0.0678	-->	Region A
+0.8309   0.2013   0.0795	-->	Region A
+0.1021   0.7057   0.2969	-->	Region B
+0.1243   0.5372   0.5301	-->	???
+</screen>	      
+La tasa de aciertos fue del 75 %
+      </para>
+    </sect1>
+  </chapter>
+
+<appendix>
+   <title>Referencias interesantes</title>
+      <para>
+         <itemizedlist>
+	    <listitem>
+	       <para>
+B. Martin del Brio y A. Sanz Molina, Redes Neuronales y Sistemas Borrosos, de. Ra-Ma, 1997
+	       </para>
+	       <para>
+Excelente libro en Español, con un lenguaje muy claro y sin demasiados formalismos matematicos mas que los estrictamente necesarios
+	       </para>
+	    </listitem>
+         </itemizedlist>
+         <itemizedlist>
+	    <listitem>
+	       <para>
+Haykin S., Neural Networks , 2nd Edition, Prentice Hall, 1999, ISBN 0 13 273350 1
+	       </para>
+	       <para>
+Segundo excelente libro de referencia. Esta en ingles y tiene mas formalismo matematico que el anterior.
+	       </para>
+	    </listitem>
+         </itemizedlist>
+         <itemizedlist>
+	    <listitem>
+	       <para>
+IEEE Transactions on Neural Networks (http://ieee-nns.org/)
+	       </para>
+	       <para>
+Esta revista contiene articulos de investigacion avanzada sobre redes neuronales. Suele exigir un alto gardo de matematicas.
+	       </para>
+	    </listitem>
+         </itemizedlist>
+         <itemizedlist>
+	    <listitem>
+	       <para>
+http://www.gc.ssr.upm.es/inves/neural/ann2/anntutorial.html
+	       </para>
+	       <para>
+Buen tutorial sobre redes neuronales en español
+	       </para>
+	    </listitem>
+         </itemizedlist>
+         <itemizedlist>
+	    <listitem>
+	       <para>
+http://rfhs8012.-regensburg.de/~saj39122/jfroehl/diplom/e-sample.html
+	       </para>
+	       <para>
+Una pagina donde se puede ver en un applet de Java como funciona un SOM con el algortimo de Kohonen
+	       </para>
+	    </listitem>
+         </itemizedlist>
+         <itemizedlist>
+	    <listitem>
+	       <para>
+http://www.infor.uva.es/biometria/Documentos/informes_uva/EstadoArte/EstadoArte/EstadoArte.html
+	       </para>
+	       <para>
+Muy buen documento realizado por dos profesores de la Universidad de Valladolid
+	       </para>
+	    </listitem>
+         </itemizedlist>
+      </para>
+</appendix>
+&licencia.sgml;
+</book>
+
+

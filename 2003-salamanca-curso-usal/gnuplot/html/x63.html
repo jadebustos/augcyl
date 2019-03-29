@@ -1,0 +1,254 @@
+<HTML
+><HEAD
+><TITLE
+>Introducción de ecuaciones y funciones</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Herramientas en GNU/Linux para estudiantes universitarios"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Sintaxis de gnuplot"
+HREF="c61.html"><LINK
+REL="PREVIOUS"
+TITLE="Sintaxis de gnuplot"
+HREF="c61.html"><LINK
+REL="NEXT"
+TITLE="Opciones de representación."
+HREF="x99.html"><LINK
+REL="stylesheet"
+HREF="./base.css"
+TYPE="text/css"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Herramientas en GNU/Linux para estudiantes universitarios: </TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c61.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 2. Sintaxis de gnuplot</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x99.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN63"
+></A
+>2.1. Introducción de ecuaciones y funciones</H1
+><P
+>Para <TT
+CLASS="USERINPUT"
+><B
+>gnuplot</B
+></TT
+> la variable
+      independiente se llama X en gráficos bidimensionales, y X e Y en
+      los tridimensionales</P
+><P
+>En general la sintaxis (y precedencia) a la hora definir
+	fórmulas es la misma que se usa en Java o en C. La diferencia más
+	destacada es que los exponentes se expresan precedidos por
+	"**". Se pueden usar paréntesis para cambiar el orden de
+	evaluación. La lista de todos los operadores se puede obtener con
+	"help expressions" y luego "operators" desde el prompt de
+	<TT
+CLASS="USERINPUT"
+><B
+>gnuplot</B
+></TT
+>.</P
+><P
+><TT
+CLASS="USERINPUT"
+><B
+>gnuplot</B
+></TT
+> también ofrece un funciones
+	predefinidas. La sintaxis nuevamente es como la de Java o C. A
+	modo de ejemplo:</P
+><P
+></P
+><UL
+><LI
+><P
+>Funciones trigonométricas: sin, cos, tan. Su argumento
+	    es un número en radianes o grados (ver "help angles"). El número
+	    pi es una constante predefinida: sin(pi/2)=1.</P
+></LI
+><LI
+><P
+>Inversas de las funciones trigonométricas: asin, acos,
+	    atan. Devuelven un ángulo en radianes o grados (ver "help
+	    angles").</P
+></LI
+><LI
+><P
+>Funciones hiperbólicas y sus inversas.</P
+></LI
+><LI
+><P
+>Logaritmo en base e y su inversa y logaritmo en base 10:
+	    log, exp, log10.</P
+></LI
+><LI
+><P
+>Para ver una lista completa de las funciones
+	    disponibles, teclear "help function" en el prompt de
+	    <TT
+CLASS="USERINPUT"
+><B
+>gnuplot</B
+></TT
+>.</P
+></LI
+></UL
+><P
+>El usuario puede definir sus propias constantes y
+	funciones. La definición de una constante es:</P
+><P
+></P
+><UL
+><LI
+><P
+>Nombre de la constante '=' ecuación. Ejemplos:</P
+><P
+></P
+><UL
+><LI
+><P
+>pi = 3.1416</P
+></LI
+><LI
+><P
+>i  = sqrt(-1)</P
+></LI
+></UL
+></LI
+><LI
+><P
+>Para las funciones es semejante: nombre de función '('
+	    lista de variables separadas por comas en caso que la función
+	    tenga más de un parámetro ')' '=' ecuación.</P
+><P
+></P
+><UL
+><LI
+><P
+>f(x) = rand(x)</P
+></LI
+><LI
+><P
+>min(a,b) = (a &#60; b) ? a : b</P
+></LI
+></UL
+></LI
+></UL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c61.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x99.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Sintaxis de gnuplot</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c61.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Opciones de representación.</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

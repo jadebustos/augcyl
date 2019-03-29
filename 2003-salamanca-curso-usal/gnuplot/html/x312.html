@@ -1,0 +1,207 @@
+<HTML
+><HEAD
+><TITLE
+>Representaciones paramétricas 2D</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Herramientas en GNU/Linux para estudiantes universitarios"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Representaciones paramétricas"
+HREF="c301.html"><LINK
+REL="PREVIOUS"
+TITLE="Representaciones paramétricas"
+HREF="c301.html"><LINK
+REL="NEXT"
+TITLE="Representaciones paramétricas 3D"
+HREF="x339.html"><LINK
+REL="stylesheet"
+HREF="./base.css"
+TYPE="text/css"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Herramientas en GNU/Linux para estudiantes universitarios: </TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c301.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 5. Representaciones paramétricas</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x339.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN312"
+></A
+>5.1. Representaciones paramétricas 2D</H1
+><P
+>Por ejemplo, para representar las ecuaciones x=5*cos(t), y=2*sin(t):</P
+><P
+></P
+><UL
+><LI
+><P
+>set parametric</P
+></LI
+><LI
+><P
+>set xrange [-6:6]</P
+></LI
+><LI
+><P
+>set yrange [-6:6]</P
+></LI
+><LI
+><P
+>set trange [0:2*pi]</P
+></LI
+><LI
+><P
+>set isosamples 60</P
+></LI
+><LI
+><P
+>plot 5*cos(t),2*sin(t)</P
+></LI
+></UL
+><P
+><IMG
+SRC="img/parametric.png"
+ALIGN="CENTER"></P
+><P
+>Los valores de xrange e yrange indican los rangos que se van a dibujar en la gráfica,
+	mientras que trange es el rango de valores que va a tomar la variable paramétrica t. Si se
+	indica un rango para el comando plot, este se referirá al trange. La primera parte de la
+	ecuación paramétrica nos da el valor de X, y la parte tras de la coma el valor de Y.</P
+><P
+>Veamos otro ejemplo:</P
+><P
+></P
+><UL
+><LI
+><P
+>set xrange [0:8*pi]</P
+></LI
+><LI
+><P
+>set yrange [-.5:2.5]</P
+></LI
+><LI
+><P
+>plot [0:8*pi] t-sin(t),1-cos(t)</P
+></LI
+></UL
+><P
+><IMG
+SRC="img/cicloide.png"
+ALIGN="CENTER"></P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c301.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x339.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Representaciones paramétricas</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c301.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Representaciones paramétricas 3D</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

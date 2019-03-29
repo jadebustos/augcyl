@@ -1,0 +1,1467 @@
+
+  <chapter>
+    <title>Introducción a gnuplot</title>
+    <sect1>
+      <title>¿Qué es <userinput>gnuplot?</userinput></title>
+      <para><Userinput>gnuplot</Userinput> es un programa que permite
+	generar gráficas 2D y 3D. Sus principales virtudes son la
+	facilidad de uso y un acabado de muy alta calidad. En este
+	tutorial nos referiremos a la versión
+	<userinput>gnuplot</userinput> 3.7.</para>
+
+      <para>Los autores iniciales de <Userinput>gnuplot</Userinput> son
+	Thomas Williams y Colin Kelly, quienes decidieron crear un
+	programa que les permitiera visualizar las ecuaciones matemáticas
+	de las clases de electromagnetismo y ecuaciones diferenciales. Su
+	primera intención fue llamarlo "newplot", pero descubrieron que ya
+	existía otro programa con ese mismo nombre, así que utilizaron el
+	homófono (al menos en inglés)
+	"<userinput>gnuplot</userinput>".</para>
+
+      <para><Userinput>gnuplot</Userinput> no tiene ninguna relación con
+	el proyecto GNU ni con la FSF. Actualmente ni es mantenido por la
+	FSF ni está bajo la GPL. <Userinput>gnuplot</Userinput> es
+	software libre en el sentido de que las fuentes están disponibles
+	(y además son gratuitas), pero no se permite distribuir versiones
+	modificadas.</para>
+
+      <para><Userinput>gnuplot</Userinput> ofrece las siguientes
+	facilidades:</para>
+      <itemizedlist>
+	<listitem>
+	  <para>Representaciones bidimensionales con distintos estilos
+	    (puntos, líneas, barras ...).</para>
+	</listitem>
+	<listitem>
+	  <para>Representaciones tridimensionales (contorno y
+	    superficie).</para>
+	</listitem>
+	<listitem>
+	  <para>Facilidades para etiquetar las gráficas, ejes y puntos
+	    representados (títulos y etiquetas).</para>
+	</listitem>
+	<listitem>
+	  <para>Permite realizar cálculos con enteros, decimales y
+	    complejos.</para>
+	</listitem>
+	<listitem>
+	  <para>Posee un conjunto de funciones predefinidas y permite al
+	    usuario definir las suyas propias.</para>
+	</listitem>
+	<listitem>
+	  <para>Ayuda en línea.</para>
+	</listitem>
+	<listitem>
+	  <para>Funciona en distintos SO y permite obtener gráficos en
+	    casi cualquier formato.</para>
+	</listitem>
+	<listitem>
+	  <para>Permite trabajo interactivo o en modo comando
+	    (batch).</para>
+	</listitem>
+      </itemizedlist>
+    </sect1>
+
+    <sect1>
+      <title>Iniciar y finalizar <userinput>gnuplot</userinput></title>
+
+      <para>La forma más común de utilizar
+	<userinput>gnuplot</userinput> es de forma interactiva en un
+	entorno gráfico. Para el caso de Linux, desde las X, en un
+	terminal teclear "<userinput>gnuplot</userinput>". Aparece un
+	mensaje de saludo y el prompt de
+	<userinput>gnuplot</userinput>.</para> <para>Para salir basta con
+	teclear "quit" o Ctrl-D.</para>
+
+      <para>El sistema de ayuda en línea de
+	<userinput>gnuplot</userinput> se invoca desde el prompt de la
+	aplicación con el comando "help" seguido opcionalmente por el
+	comando u opción de la que se quiere información.</para>
+
+      <para><userinput>gnuplot</userinput> posee multitud de opciones
+	cuyos valores se pueden consultar con el comando "show" y se
+	pueden cambiar con el comando "set". Para más información sobre
+	todos las opciones disponibles, teclear "help set".</para>
+    </sect1>
+  </chapter>
+
+  <chapter>
+    <title>Sintaxis de gnuplot</title>
+    <sect1>
+      <title>Introducción de ecuaciones y funciones</title>
+      <para>Para <userinput>gnuplot</userinput> la variable
+      independiente se llama X en gráficos bidimensionales, y X e Y en
+      los tridimensionales</para>
+
+      <para>En general la sintaxis (y precedencia) a la hora definir
+	fórmulas es la misma que se usa en Java o en C. La diferencia más
+	destacada es que los exponentes se expresan precedidos por
+	"**". Se pueden usar paréntesis para cambiar el orden de
+	evaluación. La lista de todos los operadores se puede obtener con
+	"help expressions" y luego "operators" desde el prompt de
+	<userinput>gnuplot</userinput>.</para>
+
+      <para><Userinput>gnuplot</Userinput> también ofrece un funciones
+	predefinidas. La sintaxis nuevamente es como la de Java o C. A
+	modo de ejemplo:</para>
+
+      <itemizedlist>
+	<listitem>
+	  <para>Funciones trigonométricas: sin, cos, tan. Su argumento
+	    es un número en radianes o grados (ver "help angles"). El número
+	    pi es una constante predefinida: sin(pi/2)=1.</para>
+	</listitem>
+	<listitem>
+	  <para>Inversas de las funciones trigonométricas: asin, acos,
+	    atan. Devuelven un ángulo en radianes o grados (ver "help
+	    angles").</para>
+	</listitem>
+	<listitem>
+	  <para>Funciones hiperbólicas y sus inversas.</para>
+	</listitem>
+	<listitem>
+	  <para>Logaritmo en base e y su inversa y logaritmo en base 10:
+	    log, exp, log10.</para>
+	</listitem>
+	<listitem>
+	  <para>Para ver una lista completa de las funciones
+	    disponibles, teclear "help function" en el prompt de
+	    <userinput>gnuplot</userinput>.</para>
+	</listitem>
+      </itemizedlist>
+
+      <para>El usuario puede definir sus propias constantes y
+	funciones. La definición de una constante es:</para>
+      <itemizedlist>
+	<listitem>
+	  <para>Nombre de la constante '=' ecuación. Ejemplos:</para>
+	  <itemizedlist>
+	    <listitem>
+	      <para>pi = 3.1416</para>
+	    </listitem>
+	    <listitem>
+	      <para>i  = sqrt(-1)</para>
+	    </listitem>
+	  </itemizedlist>
+	</listitem>
+	<listitem>
+	  <para>Para las funciones es semejante: nombre de función '('
+	    lista de variables separadas por comas en caso que la función
+	    tenga más de un parámetro ')' '=' ecuación.</para>
+	  <itemizedlist>
+	    <listitem>
+	      <para>f(x) = rand(x)</para>
+	    </listitem>
+	    <listitem>
+	      <para>min(a,b) = (a < b) ? a : b</para>
+	    </listitem>
+	  </itemizedlist>
+	</listitem>
+      </itemizedlist>
+    </sect1>
+
+    <sect1>
+      <title>Opciones de representación.</title>
+      <para>Una de las características de
+      <userinput>gnuplot</userinput> es la gran cantidad de opciones
+      para conseguir el acabado deseado: tipos de línea y colores
+      utilizados, títulos de ejes y gráfica, clave, etiquetas y
+      flechas... La lista es casi interminable. Existen dos formas de
+      especificar las opciones:</para>
+      <itemizedlist>
+	<listitem>
+	  <para>Utilizando los comandos <keycap>set</keycap> y
+	  <keycap>show</keycap> para establecer y mostrar su
+	  valor. Estas opciones se mantienen vigentes hasta que se
+	    modifiquen nuevamente con el comando <keycap>set</keycap></para>
+	</listitem>
+	<listitem>
+	  <para>Como parámetros específicos de una orden de
+	    representación gráfica (<keycap>plot</keycap> y
+	    <keycap>splot</keycap>). A diferencia del caso anterior,
+	    son opciones que sólo afecta a la representación gráfica
+	    actual.</para>
+	</listitem>
+      </itemizedlist>
+    </sect1>
+
+    <sect1>
+      <title>Un ejemplo sencillo</title> <para>Supongamos que queremos
+      obtener una gráfica de sin(x). Entonces deberíamos escribir lo
+      siguiente:</para>
+
+      <screen>
+	<prompt>gnuplot></prompt> <userinput>set title "Grafica de sin(x)"</userinput>
+	<prompt>gnuplot></prompt> <userinput>plot [-pi:pi] sin(x)</userinput>
+      </screen>
+      <graphic fileref="img/sinx.png" format="png" align="center" scale="60">
+
+      <para>Esto hará aparecer otra ventana con la gráfica. Si nos
+	equivocamos o queremos realizar alguna modificación podemos
+	utilizar los cursores para movernos por el historial (arriba o
+	abajo) y desplazar el cursor al lugar donde queremos hacer el
+	cambio (izquierda o derecha). De esta manera es muy cómodo obtener
+	la gráfica de sin(2*x).</para>
+
+      <screen> 
+	<prompt>gnuplot></prompt> <userinput>set title "Grafica de sin(2*x)"</userinput>   
+	<prompt>gnuplot></prompt> <userinput>plot [-pi:pi] sin(2*x)</userinput>    
+      </screen>
+      <graphic fileref="img/sin2x.png" format="png" align="center" scale="60">
+    </sect1>
+  </chapter>
+
+  <chapter>
+    <title>Gráficas 2D</title>
+    <para>La orden para realizar representaciones bidimensionales es
+      plot. Su uso más simple es el siguiente:</para>
+    <itemizedlist>
+      <listitem>
+	<para>plot funcion</para>
+      </listitem>
+    </itemizedlist>
+    <para>Por ejemplo, para representar sin(x)*(1-exp(x)):</para>
+    <itemizedlist>
+      <listitem>
+	<para>plot sin(x)*(1-exp(x))</para>
+      </listitem>
+    </itemizedlist>
+    <para>Debería aparecer algo parecido a:</para>
+    <graphic fileref="img/sinxexpx.png" format="png" align="center" scale="60">
+    <para>Como segundo ejemplo, veamos qué aspecto tiene un coseno hiperbólico</para>
+    <itemizedlist>
+      <listitem>
+	<para>plot cosh(x)</para>
+      </listitem>
+    </itemizedlist>
+    <graphic fileref="img/coshx.png" format="png" align="center" scale="60">
+
+    <para>La escala elegida para esta gráfica no demasiado buena. Nos
+      dice que para valores grandes de X la función toma valores muy
+      grandes, pero si queremos ver lo que pasa en un entorno de 0,
+      tendremos que cambiar la escala. <Userinput>gnuplot</Userinput>
+      utiliza un mecanismo de autoescalado que ajusta la gráfica de
+      forma que quepa en la superficie de dibujo. La sintaxis para
+      cambiar la escala es la siguiente:</para>
+    <itemizedlist>
+      <listitem>
+	<para>plot [x1:x2][y1:y2] funcion.</para>
+      </listitem>
+      <listitem>
+	<para>plot [x1:x2] funcion (para ajustar el eje X).</para>
+      </listitem>
+      <listitem>
+	<para>plot [][y1:y2] funcion (para ajustar el eje y).</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Nótese que si se cambia la escala para un gráfico,
+      permanecerá cambiada para las siguientes representaciones. Para
+      volver a la escala original existen los comandos:</para>
+    <itemizedlist>
+      <listitem>
+	<para>set xrange [-10:10] para la coordenada X.</para>
+      </listitem>
+      <listitem>
+	<para>set yrange [-10:10] para la coordenada Y. Al igual que
+	  el anterior fija el valor del rango para la coordenada
+	  especificada.</para>
+      </listitem>
+      <listitem>
+	<para>set autoscale para permitir que los ejes se autoajusten
+	  para que la gráfica quede lo mejor posible dentro del área de
+	  dibujo. Es posible especificar los ejes a los que se permite
+	  el autoescalado.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Para más información se deberá consultar la ayuda en línea.</para>
+
+    <para>Si se quiere ver el aspecto de la función cosh(x) para y=[0,10]:</para>
+    <itemizedlist>
+      <listitem>
+	<para>plot [][0,10] cosh(x).</para>
+      </listitem>
+    </itemizedlist>
+  </chapter>
+
+  <chapter>
+    <title>Gráficas 3D</title> 
+    <para>El comando para realizar gráficas tridimensionales es
+      splot. Su forma más sencilla es la siguiente:</para>
+    <itemizedlist>
+      <listitem>
+	<para>splot funcion</para>
+      </listitem>
+    </itemizedlist>
+    <para>Por ejemplo, para representar -x+y+3*cos(y), deberíamos escribir</para>
+    <itemizedlist>
+      <listitem>
+	<para>splot -x+y+3*cos(y)</para>
+      </listitem>
+    </itemizedlist>
+    <para>Y obtendríamos lo siguiente:</para>
+    <graphic fileref="img/x_y_cosy.png" format="png" align="center" scale="60">
+
+    <para>Se puede cambiar la escala de forma similar a lo visto para
+      plot</para>
+    <itemizedlist>
+      <listitem>
+	<para>splot [x1:x2][y1:y2][z1:z2] funcion</para>
+      </listitem>
+      <listitem>
+	<para>splot [x1:x2] funcion</para>
+      </listitem>
+      <listitem>
+	<para>splot [][y1:y2] funcion</para>
+      </listitem>
+      <listitem>
+	<para>splot [][][z1:z2] funcion</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Para modificar los rangos de las variables se pueden usar
+      las opciones "set xrange [x1:x2]", "set yrange [y1:y2]", "set
+      zrange [z1:z1]". Es importante recordar que si se modifica un
+      rango para una gráfica, ese mismo rango se utilizará para todas
+      las gráficas posteriores.</para>
+
+    <para>Si se desea volver a activar el autoescalado de
+      <userinput>gnuplot</userinput> se puede hacer tecleando "set
+      autoescale z".</para>
+
+    <sect1>
+      <title>Elementos ocultos en 3D</title>
+      <para>Algunas veces los gráficos 3D pueden ser complicados de
+	interpretar porque se mezclan líneas que están en primer plano
+	con líneas que, si la figura fuera opaca, estarían
+	ocultas. Veamos por ejemplo la siguiente figura.</para>
+      <itemizedlist>
+	<listitem>
+	  <para>splot [-2:2] [-2:2] 2*(x**2 + y**2)*exp(-x**2 - y**2)</para>
+	</listitem>
+      </itemizedlist>
+      <graphic fileref="img/hidden3d.png" format="png" align="center" scale="60">
+
+      <para>En esta gráfica se ha usado el comando "set grid" para ver la
+	rejilla inferior. Para intentar hacer más visible la gráfica usaremos
+	el comando "hidden3d":</para>
+      <itemizedlist>
+	<listitem>
+	  <para>set hidden3d</para>
+	</listitem>
+	<listitem>
+	  <para>replot</para>
+	</listitem>
+      </itemizedlist>
+      <graphic fileref="img/hidden3db.png" format="png" align="center" scale="60">
+    </sect1>
+
+    <sect1>
+      <title>Aumentar la precisión de los gráficos 3D</title> <para>La
+	gráfica anterior da la impresión de ser muy tosca. Para mejorar
+	la apariencia y reducir el aspecto punzante de la gráfica es
+	necesario aumentar la resolución. En las gráficas 2D esto se
+	consigue con el comando "set samples", y para 3D con "set
+	isosamples". Normalmente sólo será necesario aumentar la
+	resolución en gráficos 3D. La sintaxis del comando es:</para>
+      <itemizedlist>
+	<listitem>
+	  <para>set isosamples tasa_x, tasa_y</para>
+	</listitem>
+      </itemizedlist>
+
+      <para>Por defecto ambas tasas tienen valor 10, e indican el
+	tamaño de la rejilla de puntos en la que se evalúa la
+	gráfica. Probemos a aumentar la resolución del gráfico:</para>
+      <itemizedlist>
+	<listitem>
+	  <para>set isosamples 30,30</para>
+	</listitem>
+	<listitem>
+	  <para>set hidden3d</para>
+	</listitem>
+	<listitem>
+	  <para>splot [-2:2] [-2:2] 2*(x**2 + y**2)*exp(-x**2 - y**2)</para>
+	</listitem>
+	<listitem>
+	  <para>set isosamples 30,30</para>
+	</listitem>
+	<listitem>
+	  <para>replot</para>
+	</listitem>
+      </itemizedlist>
+      <graphic fileref="img/isosamples30.png" format="png" align="center" scale="60">
+      <graphic fileref="img/isosamples100.png" format="png" align="center" scale="60">
+
+      <para>Es importante advertir que cuanto mayor sea la resolución
+	del gráfico, más tiempo tardará <userinput>gnuplot</userinput>
+	en procesar la gráfica. En general es raro utilizar tasas
+	superiores a 100.</para>
+    </sect1>
+
+    <sect1>
+      <title>Líneas de contorno.</title> <para>Las líneas de contorno
+	también facilitan la visualización de gráficos
+	tridimensionales. Pueden elegirse que aparezcan en un plano, al
+	estilo de líneas de nivel, o directamente sobre la propia
+	gráfica. Los comandos relacionados con las líneas de contorno
+	son los siguientes:</para>
+      <itemizedlist>
+	<listitem>
+	  <para>set contour base. Dibuja líneas de contorno en un
+	    plano en la base de la gráfica.</para>
+	</listitem>
+	<listitem>
+	  <para>set contour surface. Dibuja líneas de contorno sobre la propia figura.</para>
+	</listitem>
+	<listitem>
+	  <para>set contour both. Dibuja las líneas de contorno tanto
+	    en la base como en la figura.</para>
+	</listitem>
+	<listitem>
+	  <para>set nocontour. Se deja de dibujar las líneas de contorno.</para>
+	</listitem>
+      </itemizedlist>
+
+      <para>La opción "set contour surface" no está disponible si también se quiere usar
+	hidden3d. A continuación se muestran un par de ejemplos:</para>
+      <itemizedlist>
+	<listitem>
+	  <para>set hidden3d</para>
+	</listitem>
+	<listitem>
+	  <para>set contour base</para>
+	</listitem>
+	<listitem>
+	  <para>splot [-2:2] [-2:2] 2*(x**2 + y**2)*exp(-x**2 - y**2)</para>
+	</listitem>
+      </itemizedlist>
+      <graphic fileref="img/contourbase.png" format="png" align="center" scale="60">
+
+      <itemizedlist>
+	<listitem>
+	  <para>set nohidden3d</para>
+	</listitem>
+	<listitem>
+	  <para>set contour surface</para>
+	</listitem>
+	<listitem>
+	  <para>splot [-2:2] [-2:2] 2*(x**2 + y**2)*exp(-x**2 - y**2)</para>
+	</listitem>
+      </itemizedlist>
+      <graphic fileref="img/contoursurface.png" format="png" align="center" scale="60">
+
+      <para>Si únicamente se desean las líneas de contorno, la opción
+	"set nosurface" hará realidad nuestros deseos. Para más
+	información, consúltese "help set surface". La forma en que se
+	dibujan las líneas de contorno puede variarse con la opción
+	"cntrparam". Por ejemplo si sólo interesan las líneas de
+	contorno para z=.2,.4,.6, se puede conseguir escribiendo el
+	siguiente comando antes de dibujar la gráfica:</para>
+      <itemizedlist>
+	<listitem>
+	  <para>set cntrparam levels discrete .2,.4,.6</para>
+	</listitem>
+      </itemizedlist>
+
+      <para> Para más información consúltese la ayuda en línea.</para>
+    </sect1>
+
+    <sect1>
+      <title>Cambiar el punto de vista de una gráfica</title>
+      <para>Muchas veces es deseable cambiar el punto de vista de una
+	gráfica. El comando "set view" permite realizar el cambio de
+	perspectiva. La sintaxis es la siguiente:</para>
+      <itemizedlist>
+	<listitem>
+	  <para>set view rot_x,rot_z</para>
+	</listitem>
+	<listitem>
+	  <para>set view rot_x,rot_z,escala,escala_z</para>
+	</listitem>
+	<listitem>
+	  <para>set view ,,escala</para>
+	</listitem>
+      </itemizedlist>
+
+      <para>Donde rot_x y rot_z indican los ángulos (en grados) que se
+	debe rotar la gráfica entorno a los ejes X y Z de un sistema
+	de referencia alineado con la pantalla, en que el eje
+	horizontal es el eje X, el vertical es el eje Y, y el eje Z
+	sería perpendicular al monitor. El tercer número controla la
+	escala de todo el gráfico (actúa como un zoom) y el cuarto
+	sólo la escala del eje Z. Los valores por defecto son "set
+	view 60,30,1,1". Ejemplos:</para>
+      <itemizedlist>
+	<listitem>
+	  <para>set hidden3d</para>
+	</listitem>
+	<listitem>
+	  <para>set isosamples 30</para>
+	</listitem>
+	<listitem>
+	  <para>splot [-2.5:2.5][-2.5,2.5] (x**2+3*y**2)*exp(1-(x**2+y**2))</para>
+	</listitem>
+      </itemizedlist>
+      <graphic fileref="img/viewdefault.png" format="png" align="center" scale="60">
+
+      <itemizedlist>
+	<listitem>
+	  <para>set view 40,30</para>
+	</listitem>
+	<listitem>
+	  <para>replot</para>
+	</listitem>
+      </itemizedlist>
+      <graphic fileref="img/view40_30.png" format="png" align="center" scale="60">
+
+      <itemizedlist>
+	<listitem>
+	  <para>set view 60,60</para>
+	</listitem>
+	<listitem>
+	  <para>replot</para>
+	</listitem>
+      </itemizedlist>
+      <graphic fileref="img/view60_60.png" format="png" align="center" scale="60">
+
+      <para>Para ver un ejemplo de escalado:</para>
+      <itemizedlist>
+	<listitem>
+	  <para>set view 60,30,2</para>
+	</listitem>
+	<listitem>
+	  <para>replot</para>
+	</listitem>
+      </itemizedlist>
+      <graphic fileref="img/view_escala.png" format="png" align="center" scale="60">
+    </sect1>
+  </chapter>
+
+  <chapter>
+    <title>Representaciones paramétricas</title>
+    <para><Userinput>gnuplot</Userinput> permite representar ecuaciones paramétricas. Para
+      cambiar al modo paramétrico se debe teclear lo siguiente:</para> <itemizedlist>
+      <listitem> <para>set parametric</para> </listitem> </itemizedlist>
+
+    <para>Y para volver al modo normal:</para>
+    <itemizedlist>
+      <listitem>
+	<para>set noparametric</para>
+      </listitem>
+    </itemizedlist>
+
+    <sect1>
+      <title>Representaciones paramétricas 2D</title>
+      <para>Por ejemplo, para representar las ecuaciones x=5*cos(t), y=2*sin(t):</para>
+      <itemizedlist>
+	<listitem>
+	  <para>set parametric</para>
+	</listitem>
+	<listitem>
+	  <para>set xrange [-6:6]</para>
+	</listitem>
+	<listitem>
+	  <para>set yrange [-6:6]</para>
+	</listitem>
+	<listitem>
+	  <para>set trange [0:2*pi]</para>
+	</listitem>
+	<listitem>
+	  <para>set isosamples 60</para>
+	</listitem>
+	<listitem>
+	  <para>plot 5*cos(t),2*sin(t)</para>
+	</listitem>
+      </itemizedlist>
+      <graphic fileref="img/parametric.png" format="png" align="center" scale="60">
+
+      <para>Los valores de xrange e yrange indican los rangos que se van a dibujar en la gráfica,
+	mientras que trange es el rango de valores que va a tomar la variable paramétrica t. Si se
+	indica un rango para el comando plot, este se referirá al trange. La primera parte de la
+	ecuación paramétrica nos da el valor de X, y la parte tras de la coma el valor de Y.</para>
+
+      <para>Veamos otro ejemplo:</para>
+      <itemizedlist>
+	<listitem>
+	  <para>set xrange [0:8*pi]</para>
+	</listitem>
+	<listitem>
+	  <para>set yrange [-.5:2.5]</para>
+	</listitem>
+	<listitem>
+	  <para>plot [0:8*pi] t-sin(t),1-cos(t)</para>
+	</listitem>
+      </itemizedlist>
+      <graphic fileref="img/cicloide.png" format="png" align="center" scale="60">
+    </sect1>
+
+    <sect1>
+      <title>Representaciones paramétricas 3D</title>
+      <para><Userinput>gnuplot</Userinput> también permite realizar gráficos paramétricos
+	tridimensionales. Las variables paramétricas son "u" y "v", y se utilizan xrange,
+	yrange y zrange para determinar el tamaño del gráfico. Los rangos uragne y vrange
+	determinan los rangos de las variables paramétricas.  Por ejemplo:</para>
+      <itemizedlist>
+	<listitem>
+	  <para>set xrange [-1:1]</para>
+	</listitem>
+	<listitem>
+	  <para>set yrange [-1:1]</para>
+	</listitem>
+	<listitem>
+	  <para>set zrange [-2:2]</para>
+	</listitem>
+	<listitem>
+	  <para>set isosamples 20</para>
+	</listitem>
+	<listitem>
+	  <para>set grid</para>
+	</listitem>
+	<listitem>
+	  <para>splot [-pi:pi][-pi:0] sin(v),cos(u),cos(v)+sin(u)</para>
+	</listitem>
+      </itemizedlist>
+      <graphic fileref="img/parametric3d.png" format="png" align="center" scale="60">
+
+      <para>La mayor parte de las opciones para gráficos 3D también se pueden usar en los gráficos
+	paramétricos.</para>
+    </sect1>
+  </chapter>
+
+  <chapter>
+    <title>Gráficas en coordenadas polares</title>
+    <para>Para representar funciones en coordenadas polares tenemos que activar la opción:</para>
+    <itemizedlist>
+      <listitem>
+	<para>set polar</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Y para volver a un sistema de coordenadas cartesianas:</para>
+    <itemizedlist>
+      <listitem>
+	<para>set nopolar</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>En coordenadas polares la variable t se refiere al ángulo. Se dispone de la opción "set
+      trange [t1:t2]" para indicar el intervalo en el que queremos que se represente nuestra
+      figura. Por defecto se hará entre 0 y 2*pi. El gráfico se representa en un área rectangular; las
+      opciones "set xrange" y "set yrange" modificarán tanto la altura como la anchura. Por
+      ejemplo:</para>
+    <itemizedlist>
+      <listitem>
+	<para>set polar</para>
+      </listitem>
+      <listitem>
+	<para>plot 3*cos(2*x)</para>
+      </listitem>
+    </itemizedlist>
+    <graphic fileref="img/polar1.png" format="png" align="center" scale="60">
+
+    <para>Para modificar el área de representación, para que haya más espacio entorno a la figura:</para>
+    <itemizedlist>
+      <listitem>
+	<para>set xrange [-4:4]</para>
+      </listitem>
+    </itemizedlist>
+    <itemizedlist>
+      <listitem>
+	<para>set yrange [-3.5:3.5]</para>
+      </listitem>
+      <listitem>
+	<para>replot</para>
+      </listitem>
+    </itemizedlist>
+    <graphic fileref="img/polar2.png" format="png" align="center" scale="60">
+
+    <para>Por defecto <userinput>gnuplot</userinput> interpretará todos
+      los ángulos en radianes. Para cambiar este comportamiento se pueden
+      usar las siguientes expresiones:</para>
+    <itemizedlist>
+      <listitem>
+	<para>set angles degrees</para>
+      </listitem>
+      <listitem>
+	<para>set angles radians</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>El equivalente a coordenadas polares para 3D son coordenadas esféricas y
+      cilíndricas, pero <userinput>gnuplot</userinput> sólo permite utilizarlas cuando se
+      representan ficheros de datos. Para más información véase "help set mapping" o 
+      <xref linkend="datos3d"> en el presente manual.</para>
+  </chapter>
+
+  <chapter>
+    <title>Representaciones de datos</title>
+    <sect1 id="datos3d">
+      <title>Representación 2D de datos</title>
+      <para>Una de las principales características de <userinput>gnuplot</userinput> es la
+	posibilidad de representar listados de datos numéricos. El siguiente listado son los
+	resultados de calcular el área bajo una curva por métodos numéricos. La primera columna es el
+	número de subintervalos utilizados, la segunda la anchura, y la tercera y cuarta columnas son
+	el valor calculado y el error cometido frente al valor real.</para>
+      <para></para>
+
+      <informalexample>
+	<programlisting>
+	  # área.dat
+	  # number of subint.   - width of subinterval, computed value, abs. error
+	  0	 1			5		 0.00673794699908559
+	  1	 0.5			5.0009765625	 0.00576138449908559
+	  2	 0.25			5.00317121193893 0.00356673506015159
+	  3	 0.125			5.00478985229103 0.00194809470805701
+	  4	 0.0625			5.00572403277733 0.0010139142217529
+	  5	 0.03125		5.00622120456923 0.000516742429855555
+	  6	 0.015625		5.00647715291715 0.000260794081935245
+	  7	 0.0078125		5.00660694721608 0.000130999783004349
+	  8	 0.00390625		5.00667229679632 6.56502027673866e-05
+	  9	 0.001953125		5.0067050843668  3.28626322820824e-05
+	  10	 0.0009765625		5.0067215063061  1.64406929883398e-05
+	  11	 0.00048828125		5.00672972430911 8.22268997247022e-06
+	  12	 0.000244140625		5.00673383506831 4.11193077187733e-06
+	  13	 0.0001220703125	5.00673589088727 2.05611181058885e-06
+	  14	 6.103515625e-05	5.00673691890656 1.02809252577885e-06
+	  15	 3.0517578125e-05	5.00673743294363 5.14055459532869e-07
+	  16	 1.52587890625e-05	5.00673768996904 2.57030048800289e-07
+	  17	 7.62939453125e-06    	5.00673781848355 1.28515534214557e-07
+	  18	 3.814697265625e-06   	5.00673788274127 6.42578132925564e-08
+	  19	 1.9073486328125e-06 	5.00673791487013 3.21289537197345e-08
+	  20	 9.5367431640625e-07 	5.00673793093482 1.60642699142954e-08
+	  21	 4.76837158203125e-07	5.00673793896686 8.03222910406021e-09
+	</programlisting>
+      </informalexample>
+
+      <para>Las líneas que empiezan por <emphasis>#</emphasis> son comentarios y se ignoran. Es
+	conveniente que los datos estén en un fichero, por ejemplo <filename>area.dat</filename>,
+	aunque también se podrían introducir en el prompt de <userinput>gnuplot</userinput>. Se
+	obtendría la representación gráfica con el siguiente comando:</para>
+      <itemizedlist>
+	<listitem>
+	  <para>plot "area.dat"</para>
+	</listitem>
+      </itemizedlist>
+      <graphic fileref="img/area.png" format="png" align="center" scale="60">
+
+      <para>Esta gráfica representa puntos (X,Y) donde X se obtiene de la primera columna e Y de la
+	segunda. Para conseguir que la gráfica sea más fácil de leer se podría teclear lo siguiente
+	(ver "help logscale" y "help style").</para>
+      <itemizedlist>
+	<listitem>
+	  <para>set logscale</para>
+	</listitem>
+	<listitem>
+	  <para>set data style linespoints</para>
+	</listitem>
+	<listitem>
+	  <para>plot "area.dat"</para>
+	</listitem>
+      </itemizedlist>
+      <graphic fileref="img/arealog.png" format="png" align="center" scale="60">
+
+      <para><userinput>gnuplot</userinput>también permite seleccionar las columnas que se van a
+	representar una frente a otra. Para ello es necesario añadir la opción "using" al comando
+	"plot". Por ejemplo, para representar la tercera columna frente a la primera escribiremos:</para>
+      <itemizedlist>
+	<listitem>
+	  <para>set nologscale</para>
+	</listitem>
+	<listitem>
+	  <para>set key bottom</para>
+	</listitem>
+	<listitem>
+	  <para>plot "area.dat" using 1:3</para>
+	</listitem>
+      </itemizedlist>
+      <graphic fileref="img/area13.png" format="png" align="center" scale="60">
+
+      <para>O para representar la tercera columna frente la cuarta:</para>
+      <itemizedlist>
+	<listitem>
+	  <para>plot "area.dat" using 4:3</para>
+	</listitem>
+      </itemizedlist>
+
+      <para>Hay muchas opciones avanzadas para representar datos. Para mayor información se
+	recomienda consultar la ayuda en línea "help plot datafile using".</para>
+    </sect1>
+
+    <sect1>
+      <title>Representación 3D de datos</title>
+      <para><userinput>gnuplot</userinput> permite realizar gráficos tridimensionales de datos. El
+	fichero de entrada ha de tener tres columnas, una por cada coordenada X, Y, Z. Por ejemplo,
+	supongamos que tenemos el siguiente fichero de datos:</para>
+
+      <informalexample>
+	<programlisting>
+	  # Created by Octave 2.0.16, Mon Jul 15 16:01:06 2002
+	  # name: aa
+	  # type: matrix
+	  # rows: 81
+	  # columns: 3
+	  -4 -4 256
+	  -3 -4 144
+	  -2 -4  64
+	  -1 -4  16
+	  0 -4   0
+	  1 -4  16
+	  2 -4  64
+	  3 -4 144
+	  4 -4 256
+
+	  -4 -3 144
+	  -3 -3 81 
+	  -2 -3 36
+	  -1 -3 9
+	  0 -3 0
+	  1 -3 9
+	  2 -3 36
+	  3 -3 81
+	  4 -3 144
+
+	  -4 -2 64
+	  -3 -2 36
+	  -2 -2 16
+	  -1 -2 4
+	  0 -2 0
+	  1 -2 4
+	  2 -2 16
+	  3 -2 36
+	  4 -2 64
+
+	  -4 -1 16
+	  -3 -1  9
+	  -2 -1  4
+	  -1 -1  1
+	  0 -1  0
+	  1 -1  1
+	  2 -1  4
+	  3 -1  9
+	  4 -1 16
+
+	  -4  0  0
+	  -3  0  0
+	  -2  0  0
+	  -1  0  0
+	  0  0  0
+	  1  0  0
+	  2  0  0
+	  3  0  0
+	  4  0  0
+
+	  -4 1  16
+	  -3 1   9
+	  -2 1   4
+	  -1 1   1
+	  0 1   0
+	  1 1   1
+	  2 1   4
+	  3 1   9
+	  4 1  16
+
+	  -4 2  64
+	  -3 2  36
+	  -2 2  16
+	  -1 2   4
+	  0 2   0
+	  1 2   4
+	  2 2  16
+	  3 2  36
+	  4 2  64
+
+	  -4 3 144
+	  -3 3  81
+	  -2 3  36
+	  -1 3   9
+	  0 3   0
+	  1 3   9
+	  2 3  36
+	  3 3  81
+	  4 3 144
+
+	  -4 4 256
+	  -3 4 144
+	  -2 4  64
+	  -1 4  16
+	  0 4   0
+	  1 4  16
+	  2 4  64
+	  3 4 144
+	  4 4 256
+	</programlisting>
+      </informalexample>
+
+      <para>Las dos primeras columnas del fichero son los valores de X e Y donde se ha evaluado la
+	tercera columna, que corresponde a la función <emphasis>f(x,y)=(x**2)*(y**2)</emphasis>. Puede
+	observarse que cada vez que la variable Y cambia de valor se deja una línea en blanco en el
+	fichero de datos. Esto indica a <userinput>gnuplot</userinput> que no una los puntos que están
+	arriba y debajo de la línea en blanco. De esta forma se evita que aparezcan líneas que
+	emborronarían la gráfica. Veamos la gráfica resultante:</para>
+      <itemizedlist>
+	<listitem>
+	  <para>set data style lines</para>
+	</listitem>
+	<listitem>
+	  <para>splot "sdata.mat"</para>
+	</listitem>
+      </itemizedlist>
+      <graphic fileref="img/sdata.png" format="png" align="center" scale="60">
+
+      <para>También se podría realizar una representación paramétrica, e incluso en coordenadas
+	cilíndricas o esféricas (otra cuestión es que el dibujo tenga sentido).</para>
+      <itemizedlist>
+	<listitem>
+	  <para>set data style lines</para>
+	</listitem>
+	<listitem>
+	  <para>set mapping spherical</para>
+	</listitem>
+	<listitem>
+	  <para>splot "sdata.mat"</para>
+	</listitem>
+      </itemizedlist>
+      <graphic fileref="img/sspherical.png" format="png" align="center" scale="60">
+
+      <para>Para más información ver "help plot datafile".</para>
+    </sect1>
+  </chapter>
+
+  <chapter>
+    <title>Formatos de salida.</title>
+    <para>Este capítulo describe las distintas formas de obtener los
+    gráficos que se han creado:</para>
+    <itemizedlist>
+      <listitem>
+	<para>Mostrar la salida por pantalla.</para>
+	<para>El dispositivo más habitual de gnuplot son las X, al
+	menos al principio para ir viendo los resultados
+	obtenidos. Por defecto <userinput>gnuplot</userinput> mostrará
+	las gráficas en una ventana en las X si están disponibles. En
+	cualquier caso se pueden seleccionar con el comando "set term
+	x11". Otros posibles dispositivos pueden ser "vga" o
+	"dumb". Para más información ver "help term".</para>
+      </listitem>
+      <listitem>
+	<para>Guardar la salida en un fichero postscript.</para>
+	<para>Este dispositivo de salida tiene múltiples opciones. Se
+	puede elegir si se quiere postscript encapsulado, tipo y
+	tamaño de las fuentes, etc. Posiblemente sea el terminal más
+	usado para incluir gráficas en trabajos usando
+	<userinput>LaTeX</userinput>. Para más información, "help set
+	term postscript".</para>
+      </listitem>
+      <listitem>
+	<para>Guardar la salida en un fichero de imagen.</para>
+	<para>Esta opción es semejante a la anterior. Los formatos de
+	imagen más habituales serán png, jpg, fig.</para>
+      </listitem>
+      <listitem>
+	<para>Finalmente, también es posible mandar la salida a una
+	impresora.</para> <para>Para ello será necesario elegir como
+	dispositivo de salida el driver de nuestra impresora.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>El nombre del fichero de salida se indica mediante el comando "set output". Veamos un
+      ejemplo en el que guardamos el resultado en un fichero png:</para>
+    <itemizedlist>
+      <listitem>
+	<para>set output "fichero.ext"</para>
+      </listitem>
+      <listitem>
+	<para>plot sin(x)</para>
+      </listitem>
+      <listitem>
+	<para>set output</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>La primera aparición de "set output" indica que la salida se
+      guardará en el fichero indicado a continuación. Las comillas
+      dobles son imprescindibles. A continuación se realiza la gráfica
+      y finalmente, el segundo "set output" cierra el fichero. Es muy
+      importante no olvidarse de cerrar el fichero, porque si se
+      realizara otra gráfica, el resultado también se guardaría en el
+      mismo fichero, inutilizandose de esta manera.</para>
+
+    <para>Para el caso de enviar la salida a una impresora, o en
+      general postprocesarla con otra aplicación, se deberá indicar
+      como parámetro de "set output" el nombre del comando, precedido
+      por una tubería símbolo (<keycap>|</keycap>).</para>
+    <itemizedlist>
+      <listitem>
+	<para>set output "| lpr -P mi_impresora"</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Todas las gráficas que se generen a partir de ese momento se dirigirán al comando "lpr"
+      (imprimir en UN*X). Conviene de todas formas cerrar la salida con "set output" y volverla a
+      abrir entre gráfica y gráfica.</para>
+
+    <para>En general, para ver las posibilidades que ofrece un
+      dispositivo de salida, se debe ejecutar "help term disp", donde
+      disp es el nombre del dispositivo en cuestión. Si se necesita
+      algún dispositivo que no esté disponible, hay dos alternativas:
+      recompilar <userinput>gnuplot</userinput> y añadir el soporte o
+      utilizar otro dispositivo. Como última nota decir que los
+      distintos tipos de dispositivos únicamente adaptan la
+      salida. Esta tendrá que guardarse luego en un fichero, mostrarse
+      por pantalla o enviarse a un comando de shell para ser
+      postprocesada.</para>
+  </chapter>
+
+  <chapter>
+    <title>Usos avanzados. Truquillos de gurú</title>
+
+    <sect1>
+      <title>Guardando y cargando sesiones de un fichero</title>
+      <para><userinput>gnuplot</userinput> permite indicar el nombre
+      de un fichero del que leer una serie de comandos. Esto puede ser
+      muy útil para trabajar en modo batch (por ejemplo, generando
+      gráficas desde un script), o para cargar una configuración a la
+      hora de representar gráficas. El comando para cargar comandos de
+      un fichero es:</para>
+      <itemizedlist>
+	<listitem>
+	  <para>load "fichero.gp"</para>
+	</listitem>
+      </itemizedlist>
+      <para>Y si lo que queremos es trabajar en modo batch, escribiremos desde el prompt del
+	<emphasis>sistema operativo</emphasis>:</para>
+      <itemizedlist>
+	<listitem>
+	  <para><userinput>gnuplot</userinput> fichero.gp</para>
+	</listitem>
+      </itemizedlist>
+      <para>Los comandos en el fichero se deben escribir con la misma
+	sintaxis que si se escribieran desde el prompt de
+	<userinput>gnuplot</userinput>.</para>
+
+      <para>De forma similar, para guardar el estado actual de trabajo teclearemos:</para>
+      <itemizedlist>
+	<listitem>
+	  <para>save "fichero.gp"</para>
+	</listitem>
+      </itemizedlist>
+      <para>En este fichero se guardarán comandos que nos permitirán
+	configurar el estado de <userinput>gnuplot</userinput> tal y
+	como lo tenemos en este momento. También nos guarda las
+	expresiones que hayamos definido (funciones y constantes) y la
+	última gráfica representada.</para>
+    </sect1>
+
+    <sect1>
+      <title>Scripts de <userinput>gnuplot</userinput></title>
+      <para>Como hemos podido comprobar, la interfaz de
+      <userinput>gnuplot</userinput> está completamente orientada a
+      comandos: absolutamente todos los aspectos del programa se
+      controlan desde la línea de comandos. La dificultad de aprender
+      los comandos, el tedio de teclearlos y el largo proceso de
+      prueba y error hasta que conseguimos la gráfica con el aspecto
+      deseado tienen ahora su recompensa: si guardamos en un fichero
+      todas las ordenes necesarias para obtener nuestra gráfica,
+      habremos creado un <emphasis>script</emphasis> de
+      <userinput>gnuplot</userinput>. Con apenas unos pocos cambios en
+      el script, simplemente la función a representar o los datos,
+      podremos obtener nuevas gráficas y todas ellas con un aspecto
+      uniforme, ideales para insertar en informe o tesis. Es más,
+      podemos llegar a automatizar el proceso de creación de
+      gráficas.</para>
+
+      <para>Es posible la invocación de un script de tres maneras</para>
+      <itemizedlist>
+	<listitem>
+	  <para>Desde el propio prompt de
+	    <userinput>gnuplot</userinput>, con el comando</para>
+	  <screen> 
+	    <prompt>gnuplot></prompt> <userinput>load "fichero.gp"</userinput>   
+	  </screen>
+	</listitem>
+	<listitem>
+	  <para>Desde el prompt del <keycap>shell</keycap>, tecleando
+	    como parámetros una lista de
+	    ficheros. <userinput>gnuplot</userinput> leerá y ejecutará
+	    secuencialmente estos ficheros.</para>
+	  <screen> 
+	    <prompt>$</prompt> <userinput>gnuplot f1.gp f2.gp ...</userinput>   
+	  </screen>
+	</listitem>
+	<listitem>
+	  <para>Como un script ejecutable. Esta opción sólo está
+	  disponible en sistemas Unix. Para ello hay que dar permiso
+	  de ejecución al fichero y asegurarse que la primera línea
+	  del fichero es la siguiente:</para>
+	  <screen> 
+	    <userinput>#!/bin/usr/gnuplot</userinput>   
+	  </screen>
+
+	  <para>De esta forma cuando se invoque el script desde el
+	    shell, este leerá la primera línea y lanzará el programa
+	    <userinput>gnuplot</userinput> para que interprete el
+	    resto del fichero.</para>
+	  <screen> 
+	    <prompt>$</prompt> <userinput>./gnuplot.gp</userinput>
+	  </screen>
+	</listitem>
+      </itemizedlist>
+    </sect1>
+
+    <sect1>
+      <title>Pausas, bucles y animaciones</title> <para>En una mismo
+      fichero se puede pedir a <userinput>gnuplot</userinput> que
+      dibuje varios gráficos, poniendo el comando "pause" entre las
+      gráficas nos permitirá ver cada gráfica con tranquilidad.</para>
+
+      <para>Además, si al final del fichero (o en cualquier momento
+	utilizando "if") se coloca el comando "reread"
+	<userinput>gnuplot</userinput> empezará a interpretar otra vez
+	los comandos desde el principio del fichero.</para>
+
+      <para>Utilizando "pause" y "reread" se pueden crear
+	animaciones. A modo de ejemplo en el siguiente fichero, sacado
+	de la distribución de <userinput>gnuplot</userinput> podemos
+	ver una bonita animación: <ulink
+	url="../animate.tar">animate.tar</ulink>. Una vez descargado,
+	deberemos extraer los ficheros a un directorio, y desde ese
+	directorio ejecutar "gnuplot animate.dem".</para>
+    </sect1>
+
+    <sect1>
+      <title>Cambiando el aspecto de las gráficas</title>
+      <para><userinput>gnuplot</userinput> tiene multitud de comandos
+      para personalizar el acabado final de las representaciones
+      gráficas. A continuación se muestra un pequeño listado. Para ver
+      todas las posibles opciones, véase "help set".</para>
+      <itemizedlist>
+	<listitem>
+	  <para>Añadir título a una gráfica: set title "titulo de la gráfica"</para>
+	</listitem>
+	<listitem>
+	  <para>Añadir la fecha y hora a una gráfica: set time</para>
+	</listitem>
+	<listitem>
+	  <para>Añadir títulos a los ejes: set xlabel "nombre X" y set ylabel "nombre Y"</para>
+	</listitem>
+	<listitem>
+	  <para>Personalizar la leyenda o eliminarla: set key</para>
+	</listitem>
+	<listitem>
+	  <para>Dibujar flechas en el gráfico: set arrows</para>
+	</listitem>
+	<listitem>
+	  <para>Colocar etiquetas en cualquier punto del gráfico: set labels</para>
+	</listitem>
+	<listitem>
+	  <para>Redimensionar el área de dibujo: set size</para>
+	</listitem>
+	<listitem>
+	  <para>Variar los márgenes del dibujo: set size y set origin</para>
+	</listitem>
+	<listitem>
+	  <para>Mostrar una rejilla de líneas tras la gráfica; set grid</para>
+	</listitem>
+	<listitem>
+	  <para>Ocultar y mostrar los ejes: set border, set (x/y)zeroaxis.</para>
+	</listitem>
+	<listitem>
+	  <para>Mostrar y modificar las marcas en los ejes: set (x/y)tics.</para>
+	</listitem>
+	<listitem>
+	  <para>Para que las marcas de los ejes correspondan a días de la semana o meses: set
+	    (x/y)dtics, set (x/y)mtics.</para>
+	</listitem>
+	<listitem>
+	  <para>Para que las marcas de los ejes estén por dentro o fuera del dibujo: set ticslevel</para>
+	</listitem>
+      </itemizedlist>
+    </sect1>
+
+    <sect1>
+      <title>Multiples gráficas en una sólo dibujo.</title> <para>Para
+      obtener un dibujo con varias graficas en el basta con poner las
+      distintas funciones que se quieren representar separadas por
+      comas, en el mismo comando "plot".</para>
+      <itemizedlist>
+	<listitem>
+	  <para>plot [0:10] sin(x), 1-2*exp(-x/3)</para>
+	</listitem>
+      </itemizedlist>
+      <graphic fileref="img/mplot.png" format="png" align="center" scale="60">
+
+      <para>También se puede usar el comando "replot" para añadir
+	funciones o datos a la representación. "replot" añade las
+	nuevas funciones a las que ya se habían representado antes, y
+	las muestra todas juntas. La sintaxis es semejante a la de
+	"plot".</para>
+      <itemizedlist>
+	<listitem>
+	  <para>set samples 30</para>
+	</listitem>
+	<listitem>
+	  <para>plot [0:10] sin(x) with boxes</para>
+	</listitem>
+	<listitem>
+	  <para>replot 1-2*exp(-x/3) with impulses</para>
+	</listitem>
+      </itemizedlist>
+      <graphic fileref="img/mreplot.png" format="png" align="center" scale="60">
+
+      <para>En este caso además hemos añadido dos nuevos atributos del
+	comando "plot", con lo que conseguimos un reslutado más
+	vistoso.</para>
+
+      <para>Se pueden superponer tantas gráficas como se deseen. También es posible con gráficos 3D,
+	y en coordenadas polares, cilíndricas y esféricas, aunque no es posible mezclarlas.</para>
+    </sect1>
+
+    <sect1>
+      <title>Cambiando el estilo de las líneas</title> <para>En el
+      capítulo anterior vimos que al invocar el comando "plot" se
+      añadían las opciones "with boxes" y "with impulses". Estas
+      opciones permiten seleccionar el tipo de línea con la que se va
+      representar, y facilita diferenciar varias gráficas que se
+      muestran juntas, especialmente en dispositivos de salida
+      monocromos. La opción "with" está también disponible desde el
+      comando "splot".</para>
+
+      <para>En el caso anterior simplemente seleccionamos un tipo de
+	línea para una gráfica en concreto. También es posible cambiar
+	el estilo para todas las representaciones usando los
+	comandos:</para>
+      <itemizedlist>
+	<listitem>
+	  <para>set function style tipo_de_linea</para>
+	</listitem>
+	<listitem>
+	  <para>set data style tipo_de_linea</para>
+	</listitem>
+      </itemizedlist>
+      <para>El primero cambia el estilo para todas las
+	representaciones de funciones, mientras que la segunda lo hace
+	para las representaciones de ficheros de datos. Tipo_de_linea
+	puede ser uno de los siguientes:</para>
+      <itemizedlist>
+	<listitem>
+	  <para>Para gráficas 2D se puede elegir entre "lines", "points", "linespoints", "impulses",
+	    "dots", "steps", "errorbars", "boxes", y "boxerrorbars".</para>
+	</listitem>
+	<listitem>
+	  <para>Para gráficas 3D sólo están disponibles "lines",
+	  "linespoints", "impulses" y "dots".</para>
+	</listitem>
+      </itemizedlist>
+    </sect1>
+
+    <sect1>
+      <title>Múlitples gráficas en una sola pantalla</title> <para>En
+      este caso lo que se pretende es representar en la misma pantalla
+      varios gráficas independientes, cada una con su propio sistema
+      de referencia. Esto se puede hacer con la opción "set
+      multiplot", y dividiendo el espacio disponible en porciones con
+      "set size" y "set origin".  Por ejemplo para dibujar cuatro
+      gráficas en una cuadrícula 2x2 haríamos lo siguiente:</para>
+      <itemizedlist>
+	<listitem>
+	  <para>set multiplot</para>
+	</listitem>
+	<listitem>
+	  <para>set size .5,.5</para>
+	</listitem>
+	<listitem>
+	  <para>set origin 0,.5</para>
+	</listitem>
+	<listitem>
+	  <para>plot x</para>
+	</listitem>
+	<listitem>
+	  <para>set origin .5,.5</para>
+	</listitem>
+	<listitem>
+	  <para>plot [0:1] sin(2*pi*x) with boxes</para>
+	</listitem>
+	<listitem>
+	  <para>set origin 0,0</para>
+	</listitem>
+	<listitem>
+	  <para>plot [-5:5] exp(-x**2/5) with steps </para>
+	</listitem>
+	<listitem>
+	  <para>set origin .5,0</para>
+	</listitem>
+	<listitem>
+	  <para>splot [-1:1][-1:1] x**2+y**2</para>
+	</listitem>
+	<listitem>
+	  <para>set nomultiplot</para>
+	</listitem>
+      </itemizedlist>
+      <graphic fileref="img/multiplot.png" format="png" align="center" scale="40">
+
+      <para>Dependiendo del dispositivo de salida, las gráficas no se
+	dibujarán hasta que se pase a modo normal con "set
+	nomultiplot". En otras las gráficas irán apareciendo pero no
+	se podrá borrar la pantalla (con el comando "clear") o se
+	borrarán todas las gráficas.</para>
+
+      <para>Si el dispositivo de salida es el sistema X ("set term
+	x11"), es posible obtener varias gráficas a la vez, cada una
+	en su propia ventana. Para ello simplemente hay que pasar un
+	parámetro más al comando "set":</para>
+      <itemizedlist>
+	<listitem>
+	  <para>set term x11 n</para>
+	</listitem>
+      </itemizedlist>
+      <para>Donde "n" es un entero, identificador de la ventana X en
+	la que se va a dibujar la gráfica. Si la ventana ya existe, se
+	reutilizará. Si no existe se creará de nuevo. Es posible
+	definir tantas ventanas como sea necesario.</para>
+    </sect1>
+  </chapter>
+
+
+  <chapter <title>Dónde seguir.</title>
+    <sect1>
+      <title>Interfaces gráficos</title>
+      <itemizedlist>
+	<listitem>
+	  <para><userinput>Xgfe:</userinput> X gnuplot front end.</para>
+	  <graphic fileref="img/xgfe.png" format="png" align="center" scale="60">
+	</listitem>
+
+	<listitem>
+	  <para> <userinput>UniGNUPlot:</userinput> interfáz en Tcl/Tk
+	    para gnuplot 3.6 o superior.</para>
+	  <graphic fileref="img/UniGNUPlot.jpg" format="jpg" align="center" scale="40" width="400">
+	</listitem>
+
+	<listitem>
+	  <para><userinput>tkgnuplot:</userinput> interfaz en Tcl/Tk</para>
+	  <graphic fileref="img/tkgnuplot.png" format="png" align="center">
+	</listitem>
+
+	<listitem>
+	  <para><userinput>Chart::Graph::Gnuplot</userinput> interfaz en
+	    Perl para realizar gráficos usando gnuplot.</para>
+	</listitem>
+
+	<listitem>
+	  <para><userinput>Gnuplot.py</userinput> interfaz en
+	    python para realizar gráficos usando gnuplot.</para>
+	</listitem>
+
+	<listitem>
+	  <para><userinput>gnuplot-mode.el</userinput> modo de emacs para
+	    facilitar la edición de scripts de gnuplot.</para>
+	</listitem>
+      </itemizedlist>
+    </sect1>
+
+    <sect1>
+      <title>Alternativas libres a <userinput>gnuplot</userinput></title>
+      <itemizedlist>
+	<listitem>
+	  <para><userinput>PGPlot:</userinput> conjunto de librerías en C y
+	    Perl para dibujar gráficas sin esfuerzo.</para>
+	</listitem>
+
+	<listitem>
+	  <para><userinput>XGobi:</userinput>programa de representación de
+	    funciones y datos.</para>
+	</listitem>
+
+	<listitem>
+	  <para><userinput>Graphtool:</userinput> programa basado en GNOME
+	    que tiene como objetivo realizar representaciones gráficas. Está
+	    en fase temprana de desarrollo.</para>
+	</listitem>
+
+	<listitem>
+	  <para><userinput>GNU Plotutils:</userinput> conjunto de rutinas y
+	    utilidades para dibujar gráficas.</para>
+	</listitem>
+
+	<listitem>
+	  <para><userinput>R:</userinput> programa clónico de <userinput>S
+	      programming language</userinput>. Permite dibujar gráficos. Basado en
+	    línea de comandos.</para>
+	</listitem>
+
+	<listitem>
+	  <para><userinput>Mathplot:</userinput> únicamente representa
+	    funciones, no datos.</para>
+	</listitem>
+
+	<listitem>
+	  <para><userinput>KChart:</userinput> parte de KOffice, similar a la
+	    herramienta de gráficos de Excell.</para>
+	</listitem>
+
+	<listitem>
+	  <para>...</para>
+	</listitem>
+      </itemizedlist>
+    </sect1>
+
+    <sect1>
+      <title>Referencias</title>
+      <para>Como hemos visto <userinput>gnuplot</userinput> es altamente
+	personalizable y tiene multitud de parámetros que controlan hasta
+	el más mínimo detalle de la gráfica representada. Quienes estén
+	interesados en profundizar más en el uso de
+	<userinput>gnuplot</userinput>, a continuación se muestra una
+	serie de referencias.</para>
+
+      <itemizedlist>
+	<listitem>
+	  <para>La ayuda en línea: desde el prompt de <userinput>gnuplot</userinput> tecleando "help".</para>
+	</listitem>
+	<listitem>
+	  <para>La página oficial de <userinput>gnuplot</userinput>:
+	    <ulink url="http://www.gnuplot.info">http://www.gnuplot.info</ulink></para>
+	</listitem>
+	<listitem>
+	  <para>Una página que probablemente merezca la pena visitar es:<ulink
+	      url="http://www.usf.uni-osnabrueck.de/~breiter/tools/gnuplot/index.en.html">Bernhard Reiter:
+	      gnuplot - Scientific Plotting</ulink></para>
+	</listitem>
+      </itemizedlist>
+      <para>Estas dos páginas a su vez contienen listas de enlaces muy interesantes sobre
+	<userinput>gnuplot</userinput>. Y por supuesto las <emphasis>faq</emphasis></para>
+      <itemizedlist>
+	<listitem>
+	  <para><ulink url="http://www.ucc.ie/gnuplot/gnuplot-faq.html">
+	      http://www.ucc.ie/gnuplot/gnuplot-faq.html</ulink></para>
+	</listitem>
+      </itemizedlist>
+
+      <para>Programas para facilitar el uso de gnuplot.</para>
+      <itemizedlist>
+	<listitem>
+	  <para>Octave: un lenguaje de alto nivel para realizar cálculo
+	    numérico. Semejante a Matlab y prácticamente
+	    compatible.</para>
+	</listitem>
+	<listitem>
+	  <para>El modo gnuplot.el para emacs (viene incluido en las distribuciones de
+	    <userinput>gnuplot</userinput>).</para>
+	</listitem>
+      </itemizedlist>
+
+      <para>Finalmente, anunciar que la versión 3.8 de
+	<userinput>gnuplot</userinput> será liberada de CVS en los
+	próximos meses. Esta versión trae nuevas características que harán
+	de <userinput>gnuplot</userinput> un programa aún más interesante
+	:).</para>
+    </sect1>
+  </chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-default-dtd-file:"~/.emacs.d/docbook.ced"
+End:
+-->

@@ -1,0 +1,43 @@
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V4.2//EN"[
+<!ENTITY gnuplot.sgml SYSTEM "gnuplot.sgml">
+<!ENTITY licencia.sgml SYSTEM "licencia.sgml">
+]>
+
+<book lang="es">
+  <bookinfo>
+    <title>Herramientas en GNU/Linux para estudiantes universitarios</title>
+    <subtitle>GNUPLOT: herramienta para gráficos de funciones y datos.</subtitle>
+    <authorgroup>
+      <author>
+	<firstname>Juan José</firstname>
+	<surname>García Rojo</surname>
+      </author>
+    </authorgroup>
+    <date>2.003</date>
+    <legalnotice>
+      <para>Copyright (c)  2.003  Juan José García Rojo..</para>
+      <para><email>jugaro@users.sf.net</email></para>
+      <para>Se permite la copia, distribución y/o modificación de este
+      documento bajo los términos de la GNU Free documentation
+      Licensse, Versión 1.2 o cualquier otra versión positerior
+      publicada por la Free Software Foundation, sin partes no
+      modificables y sin añadidos en la portada o contraportada.
+
+      Una copia de esta licencia se incluye en la sección titulada
+      "GNU Free Documentation  License".</para>
+
+      <para>Permission is granted to copy, distribute and/or modify
+      this document under the terms of the GNU Free Documentation
+      License, Version 1.2 or any later version published by the Free
+      Software Foundation; with no Invariant Sections, no Front-Cover
+      Texts, and no Back-Cover Texts.
+
+      A copy of the license is included in the section entitled "GNU
+      Free Documentation License".</para>
+    </legalnotice>
+  </bookinfo>
+  &gnuplot.sgml;
+&licencia.sgml;
+</book>
+
+

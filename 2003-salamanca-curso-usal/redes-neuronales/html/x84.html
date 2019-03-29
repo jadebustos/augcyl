@@ -1,0 +1,226 @@
+<HTML
+><HEAD
+><TITLE
+>Clasificación de las RNA</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Herramientas en GNU/Linux para estudiantes universitarios"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Tipos de Redes Neuronales"
+HREF="c81.html"><LINK
+REL="PREVIOUS"
+TITLE="Tipos de Redes Neuronales"
+HREF="c81.html"><LINK
+REL="NEXT"
+TITLE="El perceptron multicapa (MLP)"
+HREF="x105.html"><LINK
+REL="stylesheet"
+HREF="./base.css"
+TYPE="text/css"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Herramientas en GNU/Linux para estudiantes universitarios: </TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c81.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 3. Tipos de Redes Neuronales</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x105.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN84"
+></A
+>3.1. Clasificación de las RNA</H1
+><P
+>Según el criterio que escojamos para clasificar las RNA tendremos una clasificacion u
+otra. Lo más común es usar la arquitectura y el tipo de aprendizaje como criterios de
+clasificación. 
+       </P
+><P
+>Si nos fijamos en la arquitectura podemos tener dos posibilidades distintas. Si la
+arquitectura de la red no presenta ciclos, es decir, no se puede trazar un camino de una
+neurona a sí misma, la red se llama unidireccional (feedforward).        
+       </P
+><P
+>Por el contrario, si podemos trazar un camino de una neurona a sí misma la arquitectura
+presenta ciclos. Este tipo de redes se denominan recurrentes o realimentados (recurrent).
+       <DIV
+CLASS="FIGURE"
+><A
+NAME="AEN89"
+></A
+><P
+><B
+>Figura 3-1. Representación de redes unidireccionales y realimentadas</B
+></P
+><P
+><IMG
+SRC="tiposRNA.jpg"
+ALIGN="CENTER"></P
+></DIV
+>
+       </P
+><P
+>El otro criterio mas habitual para clasificar las redes neuronales es el tipo de
+aprendizaje que se utilice. Hay cuatro clases de aprendizaje distintos:
+       </P
+><P
+>       <P
+></P
+><OL
+TYPE="a"
+><LI
+><P
+>Aprendizaje supervisado: En este tipo de aprendizaje se le proporciona a la RNA una
+serie de ejemplos consistentes en unos patrones de entrada, junto con la salida que debería
+dar la red. El proceso de entrenamiento consiste en el ajuste de los pesos para que la salida
+de la red sea lo más parecida posible a la salida desada. Es por ello que en cada iteración
+se use alguna función que nos de cuenta del error o el grado de acierto que esta cometiendo
+la red.
+     </P
+></LI
+><LI
+><P
+>Aprendizaje no supervisado o autoorganizado: En este tipo de aprendizaje se presenta
+a la red una serie de ejemplos pero no se presenta la respuesta deseada. 
+Lo que hace la RNA es reconocer regularidades en el conjunto de entradas, es decir,
+estimar una funcion densidad de probabilidad p(<B
+CLASS="KEYCAP"
+>x</B
+>)
+que describe la distribucion de patrones x en el espacio de entrada R<SUP
+>n</SUP
+> . 
+     </P
+></LI
+><LI
+><P
+>Aprendizaje Híbrido: Es una mezcla de los anteriores. Unas capas de la red tienen un
+aprendizaje supervisado y otras capas de la red tienen un aprendizaje de tipo no
+supervisado. Este tipo de entrenamiento es el que tienen redes como las RBF.
+     </P
+></LI
+><LI
+><P
+>Aprendizaje reforzado (reinforcement learning): Es un aprendizaje con caracteristicas
+del supervisado y con caracteristicas del autoorganizado. No se proporciona una salida
+deseada, pero si que se le indica a la red en cierta medida el error que comete, aunque
+es un error global.
+     </P
+></LI
+></OL
+>
+       </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c81.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x105.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Tipos de Redes Neuronales</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c81.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>El perceptron multicapa (MLP)</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

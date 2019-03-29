@@ -1,0 +1,143 @@
+<chapter id="calc">
+   <title>OpenOffice.org Calc</title>
+   <para>Otra de las herramientas estrellas de OpenOffice.org, y que nos sirve para la edición de Hojas de Cálculo es Calc. Se puede definir una hoja de cálculo como un grupo de datos normalmente numéricos, agrupados en tablas con filas y columnas, y con elementos comunes, que nos van a servir para representar una realidad. Con dichos datos puedo realizar gráficos, estudiar tendencias, realizar estadísticas, funciones matemáticas, cáculos numéricos... y un sinfín de cosas.</para>
+   <para>Se usan mucho para la visualización de datos de ventas de productos, estudios de mercado, o para las estadísticas.</para>
+   <para>Para entender mejor el funcionamiento de OpenOffice.org Calc, vamos a realizar una serie de ejercicios, que se irán explicando a medida que se vayan haciendo.</para>
+   <sect1 id="ejercicio1">
+    <title>Ejercicio 1 de Introducción a OpenOffice.org Calc</title>
+    <para>El primer ejercicio es una mera introducción a Calc. Usaremos los elementos más básicos para realizar una hoja de cálculo, que son una tabla, sus elementos, y un sencillo gráfico. A medida que vayamos avanzando nos iremos metiendo en la realización de ejercicios cada vez más completos.</para>
+    <para>Imaginemos que trabajamos para un negocio de bebidas, y que mostrar los resultados de los beneficios por meses obtenidos de la venta de diversas marcas de bebidas. Tenemos la CocaCola, la Fanta de Naranja, la de Limón, el Trinaranjus, el 7UP, Schweppes, Casera y Red Bull. Y queremos representar los datos mediante un gráfico.</para>
+    <graphic scale="30" fileref="images/CalcPrimerEjercicio.jpg" align="center">
+    <para>En primer lugar, debemos realizar la tabla de datos. Colocamos en primera columna los nombres de las bebidas, y en las siguientes, en la primera fila, los nombres de los meses. Colocamos en la misma tabla, por columnas los beneficios por cada mes obtenidos de la venta de cada bebida.</para>
+    <para>Para realizar el gráfico, nos vamos dentro de la barra de herramientas, a Insetar Objeto-->Insetar Diagrama. Una vez hecho esto, nos sale un cuadro de diálogo como el siguiente, llamado Autoformato Diagrama. Seleccionamos el área que ha de representarse en el gráfico, y ponemos como etiquetas la Primera Fila y la Primera Columna.</para>
+    <graphic scale="50" fileref="images/WriterAutoformatoDiagrama.jpg"
+    align="center">
+    <para>Al pulsar en el botón Siguiente, nos sale otro cuadro de diálogo, para la selección del tipo de gráfico. Seleccionamos el que queramos, podemos poner los datos en filas o en columnas, y pedir en la casilla de verificación de la izquierda que se representen los textos en la ventana de previsualización.</para>
+    <graphic scale="50" fileref="images/WriterAutDiagramaGraficos.jpg"
+    align="center">
+    <para>Más adelante, en el siguiente cuadro de diálogo, nos pedirá que introduzcamos una variante del gráfico, y qué lineas de cuadrícula queremos que dibuje, las X o las Y.</para>
+    <para>En el último cuadro de diálogo, antes de darle definitivamente a Crear, nos solicita el título del diagrama y los de los ejes. En nuestro caso sería Beneficios por Bebidas, y como título de los ejes, el de las X, Meses, y el de las Y, Beneficios.</para>
+    <graphic scale="50" fileref="images/CalcAutDiagrama.jpg" align="center">
+    <para>Una vez hecho esto ya tenemos el gráfico creado. Pero todavía no ha terminado el ejercicio.</para>
+    <para>Vamos a dar formato a la tabla:</para>
+    <para>Imaginemos que queremos ponerle unos bordes. Para ello
+    podríamos seleccionar el área de datos de la tabla, pulsar en el
+    botón Borde de la barra de objetos, y seleccionar el borde que
+    deseamos poner.</para>
+<graphic fileref="images/CalcBotonBorde.jpg" align="center">
+    <para>Pero, mejor aún. Imaginemos que queremos que el borde exterior sea más grueso que los interiores. Si nos damos cuenta, en la tabla antes expuesta el borde exterior es más grueso que los interiores. ¿Cómo hacer esto?.</para>
+    <para>Fácil: seleccionar el área de datos de la tabla, sin los encabezados, y pulsar con el botón derecho del mouse sobre el área seleccionada. Inmediatamente se presenta un cuadro de diálogo flotante, y en él seleccionamos Formato de Celdas. Entonces, se nos presenta un cuadro de diálogo con varias pestañas. Entre ellas, escogemos la pestaña Borde. Dentro de la misma, se nos presenta una ficha como la que sigue:</para>
+   <graphic scale="30" fileref="images/CalcFormatoCeldas.jpg" align="center">
+   <para>Si nos fijamos en la ventanita Disposición de Línea, aparecen seis líneas, dos interiores que se cortan en la mitad, y cuatro exteriores que representan a los exteriores de la tabla. Para seleccionar el tipo de línea para cada borde, seleccionamos la línea pulsando sobre ella, y después el borde o bordes que queremos que contengan dicho grosor de línea. Una vez hecho esto para todos las líneas, pulsamos en Aceptar e inmediatamente se aplican los cambios.</para>
+   </sect1>
+   <sect1 id="ejercicio-2.Ordenacion-datos-graficos3D">
+    <title>Ejercicio 2. Ordenación de datos y obtención de gráficos en 3D </title>
+    <graphic scale="30" fileref="images/CalcSegundoEjercicio.jpg" align="center">
+    <para>Vamos a complicar un poco más el ejercicio anterior. Imaginemos ahora que deseamos ordenar los datos de beneficios. Pero queremos ordenarlos por media de Beneficios por cada bebida.</para>
+    <para>Para obtener la media, sumamos en cada bebida los beneficios por mes y lo dividimos entre los cinco meses de rango. Eso lo hacemos directamente escribiendo en el campo de celda correspondiente lo siguiente =(SUMA(B5:F5)/5).</para>    
+    <para>Una vez hecho esto, situamos el cursor justo debajo de la celda en que estemos sitados, debajo a la derecha, hasta que aparece un cursor en forma de cruz. Esto lo hacemos para copiar el formato y la fórmula de la celda en las que están inmediatamente debajo. Dicha fórmula se aplicará a las celdas relacionadas.</para>
+    <para>Una vez obtenida la tabla de medias, vamos a ordenar todos los datos según la media de los mismos. Primero hemos de definir un área de base de datos.</para>
+    <para>Para seleccionar dicho área, nos vamos a la Barra de menús, y dentro de ella, a Datos. Seleccionamos Definir Area. Es cuando nos aparece un cuadro de diálogo, y entonces seleccionamos el área de la tabla anterior con sus encabezados, más la tabla de media. Seleccionamos todo dicho área (con el botón izquierdo del ratón, arrastrando), y la llamamos en el cuadro de lista Nombre Área2, y aceptamos. Ya hemos definido un área.</para>
+    <graphic scale="50" fileref="images/CalcDefinirArea.jpg" align="center">
+    <para>Para ordenar los datos, hay que seleccionar el área primero. Se selecciona en Seleccionar Area, y en el cuadro de diálogo se pone el nombre del área, y aceptamos. El área aparece en la pantalla como seleccionada. Entonces es cuando podemos empezar a ordenar los datos.</para>
+    <graphic scale="50" fileref="images/CalcSeleccionarArea.jpg" align="center">
+    <para>Nos vamos a la barra de menús, y dentro de Datos, nos movemos hacia Ordenar. Enseguida aparece un cuadro de diálogo, con dos fichas y un conjunto de campos. En la ficha criterios introduciremos el nombre del primer, segundo y tercer encabezados según los cuales van a ordenarse los datos, y el orden en que deseamos que aparezcan, descendente o ascendente. Podemos seleccionar el que queramos. En la ficha Opciones nos encontraremos con una serie de casillas de verificación y campos. Aquí es dode se activa la casilla de verificación Area Contiene Encabezamientos de Columnas. Esto es importante porque si no activo dicha casilla, tomará los datos, pero tomando los encabezamientos como unos datos más cualquiera.</para>
+    <graphic scale="30" fileref="images/CalcOrdenarDatos.jpg" align="center">
+    <para>Dentro de la ficha opciones, podemos indicar si deseo que los resultados de la ordenación se muestren en otra zona de la hoja de datos, o que se ordenen los datos en una clasificación definida por el usuario. También, le indicaré si los datos que quiero ordenar están distribuidos en filas o columnas. En el caso de este ejercicio, se distribuyen en filas.</para>
+    <para>Una vez definida la ordenación de los datos, y aceptada, vemos el resultado. Ahora queremos realizar el gráfico de la media.</para>
+    <para>Para hacer el gráfico, usamos el mismo procedimiento que se explicó en el ejercicio anterior, con la salvedad de que en la categoría del diagrama seleccionamos 3D y el tipo columnas. Por si no lo recordases, debes pulsar en el botón de diagrama en la barra de herramientas y  seleccionar como área, los datos de la media. </para>
+     <para>En la derecha de la hoja, hay una columna con encabezado
+    Total, que es el total de los beneficios obtenidos por
+    bebida. Para calcular dicho total, situamos el cursor en la fila
+    de cada bebida, y pulsamos en el botón Suma Total, que está en la
+    barra de definición de la función. Una vez hecho esto.</para>
+<graphic fileref="images/CalcBotonSumaTotal.jpg" align="center">
+     <para>Así lo hacemos con el resto de las celdas, hasta obtener la sumas totales de todas las bebidas.</para>
+     <para>De la misma forma, podemos hallar el total de beneficios por mes, seleccionando las celdas por meses, la media total y el total absoluto de beneficios.</para>
+     <para>Para calcular los datos de la tabla Impuesto de Sociedades a Pagar en cada bebida, aplicamos el 20% sobre el total de beneficios por bebida, o también podemos aplicar la siguiente fórmula =((SUMA(B5:F5))*20)/100. Es decir, volver a hallar la suma de cada bebida y sobre dicha suma, el 20%. Lo mismo para cada celda.</para>
+   </sect1>
+   <sect1 id="Filtrado-de-datos-manejo-de-funciones">
+    <title>Filtrado de datos y manejo de funciones</title>
+    <para>En esta sección vamos a realizar el tercer ejercicio, en el que tendremos que filtar los datos de las ventas de bebidas, y realizar una serie de operaciones estadísticas sobre ellos.</para>
+    <graphic scale="30"
+    fileref="images/CalcTercerEjercicioPrimeraParte.jpg" align="center">
+    <graphic scale="30"
+      fileref="images/CalcTercerEjercicioSegundaParte.jpg" align="center">
+    <para>¿Cómo puedo filtrar los datos?. Puedo hacerlo de tres formas:</para>
+    <itemizedlist>
+    <listitem>
+     <para>- Mediante un autofiltro. Es lo que también se denomina filtro automático. El resultado del filtro se va a presentar en la misma tabla de datos sobre la que estoy trabajando, y por medio de un control combinado situado en un campo, puedo seleccionar el filtro que se aplicará de forma automática. Se muestran sólo aquellos registros de datos que coincidan con el campo de datos.</para>
+    <graphic scale="50"
+      fileref="images/CalcTercerEjercicioAutofiltro.jpg" align="center">
+    </listitem>
+    <listitem>
+     <para>- Mediante un filtro predeterminado o estándar, en el que
+     se aplica un filtro que está definido por el usuario, y cuyo
+     resultado puede presentarse en otra zona de la hoja de
+     cálculo. Podemos introducir hasta tres condiciones con las que
+     filtrar, con dos operadores lógicos (Y) y (O). El primer operador
+     implica que necesariamente se han de cumplir las dos condiciones
+     y el segundo, que bastará con que se cumpla una de ellas. </para>
+<graphic scale="50"
+     fileref="images/CalcTercerEjercicioFiltroPredeterminado.jpg" align="center">
+    </listitem>
+    <listitem>
+     <para>- Usando un filtro especial. La diferencia con el filtro
+     estándar es que trasciende el límite de las tres condiciones y
+     permite hasta ocho. Al trabajar con filtros especiales, las
+     condiciones se escriben directamente en la hoja de
+     cálculo. </para>
+<graphic scale="50"
+     fileref="images/CalcTercerEjercicioFiltroEspecial.jpg" align="center">
+    </listitem>
+    </itemizedlist>
+    <para>Para comenzar, vamos a hacer un autofiltro sobre la tabla de datos de Beneficios por Bebida. Primero seleccionamos el área de trabajo en Seleccionar Area, y después en la barra de menús, nos vamos a Datos, y seleccionamos Filtro-->Autofiltro. Inmediatamente aparece, por cada columna, un cuadro combinado de selección. En cada uno de dichos cuadros podemos seleccionar distrintos criterios para el filtro, y los aplicará de forma automática.</para>
+    <para>Para seleccionar como filtrado el estándar, quitamos primero el autofiltro, seleccionando el área y después yendo a Filtro-->Autofiltro. De esta forma hemos desactivado el autofiltro. Seleccionamos Filtro-->Filtro Predeterminado (o Estándar), y le ponemos el criterio de filtro que deseemos en el cuadro de diálogo, sabiendo cómo funcionan los operadores lógicos (O) y (Y). Para ver las opciones, pulsamos sobre el botón Opciones. La más importante de ellas es la que nos dice que podemos presentar el resultado del filtrado en otra zona de la hoja de cálculo. Para ello, hemos de seleccionar con el botón izquierdo presionado, la zona sobre la cual queremos que se presenten dicho resultado, y pulsamos en Aceptar. </para>
+    <para>No hablaremos nada del filtro especial, ya que es prácticamente lo mismo que el estándar, solo que tenemos más opciones.</para>
+    <para>Ahora vamos a pasar a manejar algunas funciones estadísticas.</para>
+    <para>En el ejemplo se pide hallar las ventas máximas, mínimas, la moda y la mediana. Para ello, lo primero es crear los encabezados de columna, separados entre ellos por una columna, los siguientes encabezados: Beneficios Máximos, Beneficios Mínimos, Beneficios Medios y Mediana, tal y como se muestra en la segunda ilustración del presente capítulo.</para>
+    <para>Nos vamos a la columna Beneficios Máximos. En la misma
+    situaremos los beneficios máximos obtenidos en cada mes. Pulsamos,
+    dentro de la barra de función, en el botón Autopiloto de
+    funciones.</para>
+<graphic fileref="images/CalcAutopilotoDeFunciones.jpg" align="center"> 
+<para>En el cuadro de diálogo, nos aparece en el campo combinado de Categorías, un listado de las categoría de funciones que se pueden ejecutar en Calc. Dichas funciones se clasifican en estadísticas, matemáticas, Matemáticas, Bases de Datos,Finanzas, Información, Fecha y Hora, Lógicas, etc.. </para>
+    <graphic scale="30"
+    fileref="images/CalcTercerEjercicioAutopilotoFunciones.jpg" align="center">
+    <para>Para implementar la función estadística Valor Máximo, seleccionamos Estadística dentro de Categoría, y en la lista de funciones, elegimos MAX, acrónimo de Valor Máximo, y que devuelve el valor máximo de una lista de argumentos. Al presionar sobre Siguiente, nos aparece un cuadro de diálogo, en que se nos pide que introduzcamos los argumentos. En vez de introducirlos directamente a mano, podemos seleccionarlos en la hoja de cálculo, manteniendo presionado el botón izquierdo del ratón. Para el caso del mes de Enero, seleccionamos como lista de argumentos todos los datos de la columna Enero. Pulsamos en Aceptar e inmediatamente nos halla el valor máximo dentro de la lista de argumentos. Así procederemos hasta llegar al mes de Mayo.</para>
+    <para>Lo mismo para la columna Beneficios Mínimos, ponemos el encabezamiento, nos vamos al Autopiloto de Funciones, elegimos estadísticas, y como función MIN. Seleccionamos los argumentos, aceptamos y aplicamos para todos los meses. </para>
+    <para>La función que calcula los Beneficios Medios se llama MEDIA.ACOTADA. Hacemos lo mismo que en los dos casos anteriores.</para>
+    <para>Para hallar la mediana, la función se llama MEDIANA, como su nombre indica</para>
+    <para>También, y como su nombre indica, la función para calcular la moda se llama MOD. Podemos, para probar, implementar otras funciones de las que permite OpenOffice.org Calc.</para>
+   </sect1>
+   <sect1 id="trabajar-con-varias-hojas">
+    <title>Cómo trabajar con varias hojas de cálculo</title>
+    <para>Muchas veces es necesario mostrar los datos en varias hojas de cálculo, bien porque es necesario clasificarlos en categorías, y cada categoría debe estar representada en una hoja entera, o bien porque la densidad, o gran número de datos hace que tengamos que presentarlos en varias hojas, con el fin de mejorar su comprensión y lectura.</para>
+    <para>Pero, ¿puedo pasar datos de una hoja a otra?. Sí. Incluso, hacer gráficos en una hoja con datos que están en otra. ¿Esto a qué contribuye?, a una mejor ordenación y clasificación de los datos. Incluso, puede ser necesario que yo tenga los datos en varias hojas de cálculo, pero sin embargo los gráficos están en una sóla. Si tengo muchos gráficos, puede ser interesante juntar todos, previamente ordenados, en una hoja de cálculo donde estén contenidos todos, porque luego se hace más fácil localizarlos para copiarlos y pegarlos en un texto con un procesador.</para>
+    <para>Para comprender mejor esta sección vamos a realizar el siguiente ejercicio.</para>
+    <para>Supongamos que estamos realizando la gestión de un curso cualquiera, y que tenemos una estadística de grado de satisfacción con respecto al curso. Copiamos los encabezamientos de las siguientes tablas en tres hojas de cálculo (copiar todo en la primera hoja, y después hacer copiar y pegar en las demás) : </para> 
+    <para>En la primera hoja se contendrán los datos del primer trimestre, en la segunda los del segundo, y los del tercer trimestre en la tercera.</para>
+    <para>La cuarta hoja servirá para introducir los gráficos.</para>
+    <para>Una vez copiados los encabezamientos, introducimos los datos, en un baremo que va desde 0 (grado de satisfacción mínimo) hasta 5 (grado máximo).</para>
+    <para>Como OpenOffice.org Calc inserta por defecto 3 hojas, y
+    hemos dicho que los gráficos irán en la cuarta, tenemos que
+    insertar una nueva. Para ello, llevamos a las pestañas situadas en
+    la zona inferior izquierda del entorno de trabajo, pulsamos sobre
+    la pestaña de la Hoja 3,</para>
+ <graphic fileref="images/CalcTercerEjercicioPestañaHoja3.jpg"
+    align="center">
+<para>y aparece el entorno de trabajo de dicha hoja. Ahora pulsamos con el botón derecho del mouse sobre la misma pestaña, y aparecerá un cuadro de diálogo, con una serie de acciones. Nos movemos hasta Insertar, mostrándose un cuadro de diálogo en el que se nos pide que indiquemos la posición de la nueva hoja (si va delante o detrás de la hoja actual con la que estemos trabajando), el número de hojas nuevas a crear y el nombre. Para este caso, nos va a interesar que la nueva hoja esté en la última posición, detrás de todas. El nombre, podría ser Gráficos, por ejemplo.</para>
+    <graphic scale="50"
+      fileref="images/CalcDialogoFlotantePestaña3.jpg" align="center">
+    <graphic scale="30"
+      fileref="images/CalcDialogoInsertarPestaña3.jpg" align="center">
+    <para>Con los datos ya introducidos en las hojas 1, 2 y 3, podemos realizar gráficos en la hoja de Gráficos.</para>
+    <para>El procedimiento para la inserción de gráficos, ya se ha comentado. La única diferencia es que a la hora de definir el área de datos, hemos de decirle al OpenOffice.org, de alguna forma, que los datos proceden de otra hoja. Lo que se hace, es, cuando aparece el cuadro de diálogo Autoformato Diagrama, en el momento en que se nos pide que indiquemos dicho área, moverse hacia la hoja donde están los datos (pulsando en la pestaña inferior correspondiente), e inmediatamente y de forma automática, el computador escribe la referencia a dicha hoja en el campo Área, que se representa con el signo de dólar seguido por el nombre de la hoja ($Hoja1, $Hoja2).</para>
+     <para>Para este ejercicio es suficiente con realizar tres gráficos, que muestren los resultados del grado de satisfacción medio de los alumnos en cada trimestre. </para>
+     <para>Además, en la cuarta hoja podemos insertar funciones o fórmulas que tengan como operadores valores introducidos en las hojas 1, 2 y 3. Para ello insertamos la función que deseamos calcular, e indicamos en el AutoPiloto de Funciones que los datos proceden de otras hojas distintas de la actual.</para>
+   </sect1>
+</chapter>
+
+<!-- Local Variables: -->
+<!-- sgml-parent-document: "OpenOffice.sgml" -->
+<!-- End: -->   

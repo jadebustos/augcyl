@@ -1,0 +1,64 @@
+<chapter id="introduccion">
+<title>Introducción a TeXmacs</title>
+<sect1>
+<title>¿Qué es TeXmacs?</title>
+     <para> TeXmacs es un editor científico tipo WYSIWYG (What you see
+      it's what you Get), el primero de su clase. Dispone de un editor
+      de fórmulas especialmente potente, que harán las delicias de
+      aquellos que trabajen habitualmente con este tipo de
+      recursos. La calidad de impresión de los documentos resultantes
+      es comparable a la que se obtiene con los sistemas
+      TeX/LaTeX. Además existe la posibilidad de portar los documentos
+      generados con TeXmacs a LaTeX.</para>
+	
+ <para> TeXMacs resulta muy configurable y ampliable. En primer lugar
+      dispone de un lenguaje de Macros, con el que podremos definir
+      nuestras propias rutinas y ficheros de estilos. Similar al
+      Emacs, puesto que TeXmacs está basado en Emacs. Con TeXmacs
+      tenemos opción de configurar el interface visual a nuestra
+      medida, usando el lenguaje
+      Guile/Scheme. TeXmacs puede usarse como un Shell, lo que abre
+      muchas puertas a la interacción con otros programas y la
+      automatización de tareas en línea de comando. Así, podremos
+      combinar su potencia con los sistemas algebraicos Maxima, Pari,
+      Gnuplot, octave... por ejemplo. </para>
+ 
+<para> TeXmacs ya ha sido programado por Joris van der Hoeven pensando
+	  en el futuro, y es por eso que se trata de un editor XML con
+	  soporte de XSL dinámico. Para futuras versiones se piensa
+	  incluir en TeXmacs una hoja de cálculo, un editor de dibujo
+	  científico, y una herramienta de publicación en web. </para>
+	<para>TeXmacs por tanto, es, como indica su nombre un editor
+	  científico basado en Emacs, con la potencia suficiente como
+	  para generar fórmulas complejas, llamadas a otros programas
+	  científicos complementarios etc.</para>
+
+      <para>¿Qué NO es TeXmacs?
+      TeXmacs no es LaTeX, si fuera LaTeX perdería su gran
+      ventaja el WYSIWYG.</para>
+</sect1>
+       
+<sect1>
+	<title> Una introducción genérica a TeXMacs </title>
+      <para>Hace algún tiempo escribir documentos complejos
+      estructurados con una herramienta tipo TeXmacs (WYSIWYG) se ha
+      creído que era imposible. Mucha gente adoptó editores basados en
+      ASCII como <userinput>EMACS</userinput> o
+      <userinput>VI</userinput>.</para>
+	<para>Por otra parte si sistemas como TEX y LaTeX son mucho
+      mejores que los editores WYSIWYG, ¿Por qué la gente no quiere
+      aprender TEX o LaTeX? y ¿Por qué los editores WYSIWYG dominan el
+      mercado?</para>
+	<para>Cuando se diseñó TeXmacs lo que se quiso hacer fue que
+      el usuario tuviera una interfaz sencilla, sin complicaciones,
+      pero lo suficientemente potente como para escribir cualquier
+      tipo de artículo, documento científico etc.</para>
+	<para>Es por estas razones por las que aprender LaTeX, en su
+      estado más puro no compensa.¿Para qué vamos a aprender algo que
+      ya tenemos hecho?</para>
+	<para>TeXmacs no está basado en TEX/LaTeX, aunque soporta la
+      conversión desde LaTeX o a LaTeX. Es una forma de garantizar que
+      TeXmacs va a ser, completamente, un editor WYSIWYG.</para>
+</sect1>
+</chapter>
+

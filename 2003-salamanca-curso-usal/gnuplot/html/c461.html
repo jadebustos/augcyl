@@ -1,0 +1,256 @@
+<HTML
+><HEAD
+><TITLE
+>Formatos de salida.</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Herramientas en GNU/Linux para estudiantes universitarios"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Representación 3D de datos"
+HREF="x436.html"><LINK
+REL="NEXT"
+TITLE="Usos avanzados. Truquillos de gurú"
+HREF="c496.html"><LINK
+REL="stylesheet"
+HREF="./base.css"
+TYPE="text/css"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Herramientas en GNU/Linux para estudiantes universitarios: </TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x436.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c496.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="AEN461"
+></A
+>Capítulo 8. Formatos de salida.</H1
+><P
+>Este capítulo describe las distintas formas de obtener los
+    gráficos que se han creado:</P
+><P
+></P
+><UL
+><LI
+><P
+>Mostrar la salida por pantalla.</P
+><P
+>El dispositivo más habitual de gnuplot son las X, al
+	menos al principio para ir viendo los resultados
+	obtenidos. Por defecto <TT
+CLASS="USERINPUT"
+><B
+>gnuplot</B
+></TT
+> mostrará
+	las gráficas en una ventana en las X si están disponibles. En
+	cualquier caso se pueden seleccionar con el comando "set term
+	x11". Otros posibles dispositivos pueden ser "vga" o
+	"dumb". Para más información ver "help term".</P
+></LI
+><LI
+><P
+>Guardar la salida en un fichero postscript.</P
+><P
+>Este dispositivo de salida tiene múltiples opciones. Se
+	puede elegir si se quiere postscript encapsulado, tipo y
+	tamaño de las fuentes, etc. Posiblemente sea el terminal más
+	usado para incluir gráficas en trabajos usando
+	<TT
+CLASS="USERINPUT"
+><B
+>LaTeX</B
+></TT
+>. Para más información, "help set
+	term postscript".</P
+></LI
+><LI
+><P
+>Guardar la salida en un fichero de imagen.</P
+><P
+>Esta opción es semejante a la anterior. Los formatos de
+	imagen más habituales serán png, jpg, fig.</P
+></LI
+><LI
+><P
+>Finalmente, también es posible mandar la salida a una
+	impresora.</P
+><P
+>Para ello será necesario elegir como
+	dispositivo de salida el driver de nuestra impresora.</P
+></LI
+></UL
+><P
+>El nombre del fichero de salida se indica mediante el comando "set output". Veamos un
+      ejemplo en el que guardamos el resultado en un fichero png:</P
+><P
+></P
+><UL
+><LI
+><P
+>set output "fichero.ext"</P
+></LI
+><LI
+><P
+>plot sin(x)</P
+></LI
+><LI
+><P
+>set output</P
+></LI
+></UL
+><P
+>La primera aparición de "set output" indica que la salida se
+      guardará en el fichero indicado a continuación. Las comillas
+      dobles son imprescindibles. A continuación se realiza la gráfica
+      y finalmente, el segundo "set output" cierra el fichero. Es muy
+      importante no olvidarse de cerrar el fichero, porque si se
+      realizara otra gráfica, el resultado también se guardaría en el
+      mismo fichero, inutilizandose de esta manera.</P
+><P
+>Para el caso de enviar la salida a una impresora, o en
+      general postprocesarla con otra aplicación, se deberá indicar
+      como parámetro de "set output" el nombre del comando, precedido
+      por una tubería símbolo (<B
+CLASS="KEYCAP"
+>|</B
+>).</P
+><P
+></P
+><UL
+><LI
+><P
+>set output "| lpr -P mi_impresora"</P
+></LI
+></UL
+><P
+>Todas las gráficas que se generen a partir de ese momento se dirigirán al comando "lpr"
+      (imprimir en UN*X). Conviene de todas formas cerrar la salida con "set output" y volverla a
+      abrir entre gráfica y gráfica.</P
+><P
+>En general, para ver las posibilidades que ofrece un
+      dispositivo de salida, se debe ejecutar "help term disp", donde
+      disp es el nombre del dispositivo en cuestión. Si se necesita
+      algún dispositivo que no esté disponible, hay dos alternativas:
+      recompilar <TT
+CLASS="USERINPUT"
+><B
+>gnuplot</B
+></TT
+> y añadir el soporte o
+      utilizar otro dispositivo. Como última nota decir que los
+      distintos tipos de dispositivos únicamente adaptan la
+      salida. Esta tendrá que guardarse luego en un fichero, mostrarse
+      por pantalla o enviarse a un comando de shell para ser
+      postprocesada.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x436.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c496.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Representación 3D de datos</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Usos avanzados. Truquillos de gurú</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
