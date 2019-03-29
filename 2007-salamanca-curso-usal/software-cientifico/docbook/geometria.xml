@@ -1,0 +1,42 @@
+  <chapter>
+    <title>Geometr&iacute;a</title>
+    <sect1>
+      <title>Geogebra</title>
+      <para><emphasis>Geogebra</emphasis> es un programa para trabajar con geometr&iacute;a plana.</para>
+    <mediaobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/geogebra.pdf" format="EPS" scale="80"/>
+      </imageobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/geogebra.gif" format="GIF" scale="80"/>
+      </imageobject>
+	<caption>
+          <para><emphasis>Geogebra</emphasis></para>
+	</caption>
+    </mediaobject>      
+      <sect2>
+          <title></title>
+          <itemizedlist>
+            <listitem>
+              <para><ulink url="http://www.geogebra.org/cms/">Geogebra</ulink>.</para>
+            </listitem>
+          </itemizedlist>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Geonext</title>
+      <para><emphasis>Geonext</emphasis> es un programa para trabajar con geometr&iacute;a plana.</para>
+      <sect2>
+          <title></title>
+          <itemizedlist>
+            <listitem>
+              <para><ulink url="http://geonext.uni-bayreuth.de/">Geonext</ulink>.</para>
+            </listitem>
+          </itemizedlist>
+      </sect2>
+    </sect1>
+  </chapter>
+
+<!-- Local Variables: -->
+<!-- xml-parent-document: "Software-Cientifico.xml" -->
+<!-- End: -->

@@ -1,0 +1,75 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>El fichero buscar.php</title><meta name="generator" content="DocBook XSL Stylesheets V1.71.0"><link rel="start" href="index.html" title="Utilización y Administración avanzada de sistemas GNU/Linux y aplicaciones Software Libre para estudiantes universitarios"><link rel="up" href="ch02.html" title="Capítulo 2. Principios de la Web"><link rel="prev" href="ch02s07.html" title="El fichero borrar.php"><link rel="next" href="ch02s09.html" title="Conclusiones"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">El fichero buscar.php</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch02s07.html">Anterior</a> </td><th width="60%" align="center">Capítulo 2. Principios de la Web</th><td width="20%" align="right"> <a accesskey="n" href="ch02s09.html">Siguiente</a></td></tr></table><hr></div><div class="section" lang="es"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2545103"></a>El fichero buscar.php</h2></div></div></div><p>A continuación se muestra la estructura del
+      fichero buscar.php:</p><div class="informalexample"><pre class="programlisting">
+          &lt;?php
+          //incluimos el fichero config.php para coger los datos de la conexión
+          include_once('../config.php');
+          //cogemos las variables de las coneción para que se puedan utilizar en el script
+          global $server, $database, $user, $passwd;
+          //abrimos la conexión
+          $conexion = mysql_connect($server,$user,$passwd);
+          //elegimos la BBDD
+          mysql_select_db ($database, $conexion) OR die ("No se puede conectar");
+
+          ?&gt;
+          &lt;html&gt;
+            &lt;head&gt;
+              &lt;TITLE&gt;Búsqueda de Asignaturas&lt;/TITLE&gt;
+              &lt;LINK REL="stylesheet" TYPE="text/css"
+              HREF="../estilo.css" /&gt;
+            &lt;/head&gt;
+            &lt;body&gt;
+              &lt;p&gt;Búsqueda de Asignaturas.&lt;/p&gt;&lt;?php
+              // coloca el enlace que permite añadir un alumno
+              echo "&lt;p&gt;&lt;A HREF='nuevo.php'&gt;Nuevo&lt;/A&gt;&lt;/p&gt;";
+              // se inicia el formulario de la búsqueda
+              echo "&lt;form method=\"post\" action=\"buscar.php\"&gt;";
+              // se indica que el campo de busqueda tiene 20 caracteres de longitud
+              echo "&lt;input type=\"text\" name=\"busqueda\" size=20 maxlength =100 value=\"".$_POST['busqueda']."\"&gt;";
+              // se coloca el boton que se paretara para realizar la busqueda
+              echo "&lt;input type=\"submit\" name=\"buscar\" value=\"Buscar\"&gt;&lt;/form&gt;&lt;br&gt;";
+              // se rellena la busqueda por todos los campos de la tabla, se debe substituir alumnos por el nombre de la tabla y poner tantos 
+              // nombre_de_campo LIKE '%".$_POST['busqueda']."%' OR como campos haya.
+              $sql="SELECT * FROM asignaturas where nombre LIKE '%".$_POST['busqueda']."%';";
+              // se realiza la busqueda
+              $result=mysql_query($sql,$conexion);
+              //Se comprueba si hay resultados en la busqueda
+              if($row= mysql_fetch_array($result)){
+              // si hay resultados crea la tabla
+              echo "&lt;TABLE BORDER='1'&gt;";
+              //pone los campos de la tabla tiene que haber tantos &lt;TD CLASS=\"titulo\"&gt;Nombre_de_campo&lt;/TD&gt; como campos haya
+              echo "&lt;TR&gt;&lt;TD CLASS=\"titulo\"&gt;Nombre&lt;/TD&gt;&lt;TD colspan=3  CLASS=\"titulo\"&gt;Opciones&lt;/TD&gt;&lt;/TR&gt;";
+              //coloca las líneas de la tabla
+              DO
+              {
+              //aqui se ponen tantas líneas &lt;TD width=300 CLASS=\"linea\"&gt;".$row["nombre_de_campo"]."&lt;/TD&gt; como campos haya en la tabla
+              // se coloca el inicio de la fila
+              echo "&lt;TR&gt;";
+              //se coloca el campos del nombre
+              echo "&lt;TD width=300 CLASS=\"linea\"&gt;".$row["nombre"]."&lt;/TD&gt;";
+              //se colocan los enlaces de ver editar y borrar alumno
+              echo "&lt;TD CLASS=\"linea\"&gt;&lt;A HREF=ver.php?id=".$row['id']."&gt;Ver&lt;/A&gt;&lt;/TD&gt;";
+              echo "&lt;TD width=50 CLASS=\"linea\"&gt;&lt;A HREF=editar.php?id=".$row['id']."&gt;Editar&lt;/A&gt;&lt;/TD&gt;";
+              echo "&lt;TD width=50 CLASS=\"linea\"&gt;&lt;A HREF=borrar.php?id=".$row['id']."&gt;Borrar&lt;/A&gt;&lt;/TD&gt;";
+              //se termina la fila
+              echo "&lt;/TR&gt;";
+              }
+              //Comprueba si se ha terminado de poner líneas
+              WHILE ($row=mysql_fetch_array($result));
+              //como se ha terminado de poner líneas se acaba la tabla
+              echo "&lt;/TABLE&gt;&lt;br&gt;";
+              //coloca el enlace para volver al listado
+              echo "&lt;A HREF=\"index.php\"&gt;Volver&lt;/A&gt;";
+              }else{
+              //si no hay registros que coincidan con la busqueda se le indica al usuario
+              echo "La búsqueda no coincide con ningún registro de la BBDD&lt;BR&gt;";
+              //se coloca el enlace del volver al listado
+              echo "&lt;A HREF=\"index.php\"&gt;Volver&lt;/A&gt;";
+
+              }
+              ?&gt;
+            &lt;/body&gt;
+          &lt;/html&gt;
+        </pre></div><p>Por lo que puede ver el fichero es muy parecido al
+      fichero index.php, se ha separado para entender mejor el
+      cuadro de búsqueda.</p><p>En la consulta a realizar se tiene en cuenta el cuadro
+      de búsqueda enviado por POST.</p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch02s07.html">Anterior</a> </td><td width="20%" align="center"><a accesskey="u" href="ch02.html">Subir</a></td><td width="40%" align="right"> <a accesskey="n" href="ch02s09.html">Siguiente</a></td></tr><tr><td width="40%" align="left" valign="top">El fichero borrar.php </td><td width="20%" align="center"><a accesskey="h" href="index.html">Inicio</a></td><td width="40%" align="right" valign="top"> Conclusiones</td></tr></table></div></body></html>

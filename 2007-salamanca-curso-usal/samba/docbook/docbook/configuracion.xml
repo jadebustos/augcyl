@@ -1,0 +1,286 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+  <chapter>
+    <title>Configuraci&oacute;n de Samba</title>
+    
+    <sect1>
+      <title>El archivo <filename>/etc/samba/smb.conf</filename></title>
+      <para>El archivo <filename>/etc/samba/smb.conf</filename> es la columna vertebral del Servidor Samba. Este fichero determina qu&eacute; recursos del sistema se quieren compartir y qu&eacute; restricciones se desea aplicar sobre ellos. Este fichero se divide en secciones, las cu&aacute;les quedan delimitadas por el nombre de la secci&oacute;n, que debe estar entre corchetes. Su estructura es muy parecida a la de los ficheros .INI de MS Windows. Cada una de las secciones de este archivo describe un servicio determinado, a excepci&oacute;n de tres secciones que no describen ning&uacute;n servicio y que son opcionales:</para>
+
+<orderedlist>
+<listitem>
+<para>Secci&oacute;n [global], en esta secci&oacute;n se definen los par&aacute;metros globales del servidor, es decir, que afectar&aacute;n a todos los servicios del servidor.</para>
+</listitem>
+<listitem>
+<para>Secci&oacute;n [homes], define el acceso a las cuentas de usuario, y el espacio en disco que tienen reservado en el servidor, generalmente en <filename>/home/&lt;usuario&gt;</filename>. Proporciona un m&eacute;todo sencillo para que los usuarios que tienen una cuenta en el servidor Samba (Linux) accedan sin configurar apenas nada.</para>
+</listitem>
+<listitem>
+<para>Secci&oacute;n [printers], que engloba a todas las impresoras, de forma que el servidor utiliza estos par&aacute;metros para las impresoras instaladas en el servidor (en <filename>/etc/printcap</filename>).</para>
+</listitem>
+</orderedlist>
+
+<para>Todos los recursos compartidos se definen en secciones separadas que comienzan con el nombre con el que el recurso compartido va a ser visible desde la red, encerrado entre corchetes (y que no puede tener m&aacute;s de 12 caracteres).</para>
+
+<para>Dentro de la configuraci&oacute;n es posible utilizar variables para expandirla y a&ntilde;adirle complejidad, con lo que se pueden definir comportamientos dependientes de la m&aacute;quina del cliente, del usuario que accede al servicio, etc.</para>
+
+<para>Despu&eacute;s de hacer cualquier modificaci&oacute;n, es importante ejecutar el programa <command>testparm</command>, para probar que la configuraci&oacute;n no tiene errores. Si este programa no da aviso de que hay problemas, devuelve la lista de servicios disponibles en el servidor.</para>
+
+<para><command>smbstatus</command> es un programa que devuelve la lista de todas las conexiones activas a Samba en el servidor local.</para>
+
+    <sect2>
+      <title>Variables utilizables en <filename>smb.conf</filename></title>
+<orderedlist>
+<listitem>
+<para>%S, nombre del servicio actual, si lo hay.</para>
+</listitem>
+<listitem>
+<para>%P, directorio ra&iacute;z del servicio actual, si lo hay.</para>
+</listitem>
+<listitem>
+<para>%u, nombre de usuario del servicio actual.</para>
+</listitem>
+<listitem>
+<para>%g, grupo principal de %u.</para>
+</listitem>
+<listitem>
+<para>%U, nombre de sesi&oacute;n del usuario (el que desea el cliente).</para>
+</listitem>
+<listitem>
+<para>%G, grupo principal de %U.</para>
+</listitem>
+<listitem>
+<para>%H, directorio ra&iacute;z (home) del usuario %u.</para>
+</listitem>
+<listitem>
+<para>%v, versi&oacute;n de Samba.</para>
+</listitem>
+<listitem>
+<para>%h, nombre del servidor donde Samba est&aacute; ejecut&aacute;ndose.</para>
+</listitem>
+<listitem>
+<para>%m, nombre NetBios de la m&aacute;quina cliente.</para>
+</listitem>
+<listitem>
+<para>%L, nombre NetBios del servidor.</para>
+</listitem>
+<listitem>
+<para>%M, nombre de Internet de la m&aacute;quina cliente.</para>
+</listitem>
+<listitem>
+<para>%d, n&uacute;mero de proceso del servidor actual.</para>
+</listitem>
+<listitem>
+<para>%a, arquitectura de la m&aacute;quina cliente. S&oacute;lo reconoce algunas: Samba, WfWg, WinNT y Win95. Cualquier otra cosa la reconoce como <emphasis>UNKNOWN</emphasis>.</para>
+</listitem>
+<listitem>
+<para>%I, direcci&oacute;n IP de la m&aacute;quina cliente.</para>
+</listitem>
+<listitem>
+<para>%T, fecha y hora actuales.</para>
+</listitem>
+</orderedlist>
+    </sect2>
+
+    <sect2>
+      <title>Secci&oacute;n [global]</title>
+<para>A continuaci&oacute;n, se detallan los par&aacute;metros m&aacute;s importantes de la secci&oacute;n.</para>
+
+<orderedlist>
+<listitem>
+<para><emphasis>workgroup</emphasis>, indica el nombre del grupo de trabajo (o dominio) en el que se quiere que funcione Samba. Ejemplo:</para>
+<programlisting>
+workgroup = NetSystems2000
+</programlisting>
+</listitem>
+<listitem>
+<para><emphasis>encrypt passwords = no</emphasis>, evita que los passwords no se pasen como texto plano. Ponerlo a <emphasis>yes</emphasis> si se tienen clientes W98 &oacute; NT4/2000.</para>
+</listitem>
+<listitem>
+<para><emphasis>server string</emphasis>, es una cadena de caracteres que describe a la m&aacute;quina, y que aparecer&aacute; como comentario en los clientes Windows. Ejemplo:</para>
+<programlisting>
+server string = NetSystems 2000 Internet Server ...
+</programlisting>
+</listitem>
+<listitem>
+<para><emphasis>log file</emphasis>, permite que se cree un fichero de log por cada m&aacute;quina que se conecta. Ejemplo:</para>
+<programlisting>
+log file = /var/log/samba.log.%m
+</programlisting>
+</listitem>
+<listitem>
+<para><emphasis>security</emphasis>, indica el tipo de seguridad que emplear&aacute; el servidor y puede tomar tres valores:</para>
+  <orderedlist>
+   <listitem>
+    <para><emphasis>user</emphasis>, que requiere que la m&aacute;quina cliente se identifique con un nombre de usuario y una contrase&ntilde;a v&aacute;lida antes de conectarse al recurso compartido. Es el valor m&aacute;s adecuado.</para>
+   </listitem>
+   <listitem>
+     <para><emphasis>Share</emphasis>, que s&oacute;lo espera una contrase&ntilde;a v&aacute;lida para conectarse a un recurso.</para>
+   </listitem>
+   <listitem>
+     <para><emphasis>Server</emphasis>, que es igual que el <emphasis>user</emphasis> pero la autenticaci&oacute;n del usuario se relega a otra m&aacute;quina Windows NT.</para>
+     <important><para>En el caso de que se opte por este valor, habr&aacute; que a&ntilde;adir otra l&iacute;nea al <filename>/etc/smb.conf</filename>, que es:</para>
+<programlisting>
+password server = &lt;m&aacute;quina&gt;
+</programlisting>
+     <para>Ejemplo:</para>
+<programlisting>
+security = user
+</programlisting></important>
+   </listitem>
+  </orderedlist>
+</listitem>
+<listitem>
+<para><emphasis>domain controller</emphasis>, que permite especificar un controlador principal de dominio, en el caso de que lo haya. Ejemplo:</para>
+<programlisting>
+domain controller = mintserver
+</programlisting>
+</listitem>
+<listitem>
+<para><emphasis>netbios name</emphasis>, es el nombre bajo el que el servidor Samba aparecer&aacute; en los clientes Windows. Ejemplo:</para>
+<programlisting>
+netbios name = SuSE10Linux
+</programlisting>
+</listitem>
+<listitem>
+<para><emphasis>wins support</emphasis>, indica si se desea que el servidor Samba act&uacute;e como un servidor WINS.</para>
+</listitem>
+<listitem>
+<para><emphasis>wins server = &lt;host&gt;</emphasis>, indica qu&eacute; m&aacute;quina act&uacute;a como servidor WINS. Es decir, se supone que la m&aacute;quina que ejecute Samba actuar&aacute; como cliente WINS.</para>
+</listitem>
+</orderedlist>
+    </sect2>
+    <sect2>
+      <title>Secci&oacute;n [homes]</title>
+<orderedlist>
+<listitem>
+<para><emphasis>guest ok</emphasis>, si un servicio tiene este par&aacute;metro habilitado, Samba no pedir&aacute; password para &eacute;l. Ejemplo:</para>
+<programlisting>
+guest ok = yes
+</programlisting>
+</listitem>
+<listitem>
+<para><emphasis>valid users</emphasis>, limita el acceso a un servicio a los usuarios que pertenezcan a la lista. Ejemplo:</para>
+<programlisting>
+valid users = juan,pepe,antonio
+</programlisting>
+</listitem>
+<listitem>
+<para><emphasis>hosts allow</emphasis>, permite restringir las m&aacute;quinas que podr&aacute;n acceder a un determinado servicio. Ejemplo:</para>
+<programlisting>
+hosts allow = 192.168.30
+</programlisting>
+<para>permite que todas las m&aacute;quinas de esa subred accedan mientras que <emphasis>hosts allow = 192.168.30.100</emphasis> permite que s&oacute;lo esa m&aacute;quina acceda.</para>
+<important><para>Puede aparecer tambi&eacute;n en un servicio.</para></important>
+</listitem>
+<listitem>
+<para><emphasis>comment</emphasis>, permite a&ntilde;adir un comentario al recurso que luego puede verse desde el Explorador de Windows.</para>
+</listitem>
+<listitem>
+<para><emphasis>browseable</emphasis>, define si un recurso es visto cuando se listen los recursos compartidos por el equipo.</para>
+</listitem>
+<listitem>
+<para><emphasis>writable</emphasis>, permite que los equipos que se conecten al recurso puedan escribir en &eacute;l, crear carpetas, borrar, etc.</para>
+</listitem>
+<listitem>
+<para><emphasis>path = &lt;ruta&gt;</emphasis>, permite indicar el directorio f&iacute;sico real al cu&aacute;l se acceder&aacute; cuando se acceda al recurso compartido. Hay que tener cuidado con la m&aacute;scara de permisos que tenga este directorio porque dependiendo de ella, dicho directorio pudiera no verse adecuadamente desde las m&aacute;quinas Windows.</para>
+</listitem>
+<listitem>
+<para><emphasis>printable</emphasis>, permite imprimir en un recurso que sea una impresora.</para>
+</listitem>
+<listitem>
+<para><emphasis>public</emphasis>, define si un recurso es visible s&oacute;lo para los usuarios autentificados (public = no) o para cualquiera que se conecte al equipo con Samba (public = yes).</para>
+</listitem>
+<listitem>
+<para><emphasis>create mode</emphasis>, permite especificar la m&aacute;scara de permisos que tendr&aacute;n los archivos que se vayan a crear en un determinado recurso.</para> 
+<important><para><emphasis>directory mode</emphasis> hace exactamente lo mismo, pero para directorios.</para></important>
+</listitem>
+</orderedlist>
+    </sect2>
+  </sect1>
+    <sect1>
+      <title>Optimizaci&oacute;n de Samba</title>
+      <para>Es posible afinar el rendimiento del servidor Samba leyendo los ficheros existentes en el directorio <filename>/usr/share/doc/packages/samba</filename>.</para>
+    </sect1>
+    <sect1>
+      <title>Compartiendo una unidad Windows con m&aacute;quinas Linux</title>
+<para>El programa smbclient es un cliente para servidores SMB implementado en UNIX. Este programa tiene un interface que recuerda bastante al del FTP. Este programa permite realizar todas las pruebas que se deseen sobre todos los servicios existentes en la m&aacute;quina Windows. </para>
+
+<para>Para que smbclient funcione bien, hay que asegurarse de que el archivo /etc/samba/smb.conf, en su secci&oacute;n [global] tenga correctamente inicializado el par&aacute;metro workgroup. Tambi&eacute;n hay que tener en cuenta que para utilizar smbclient no es preciso que est&eacute; arrancado el demonio de Samba. Aunque funciona de las dos formas, es mejor especificar el nombre del host que su direcci&oacute;n IP como primer par&aacute;metro de smbclient.</para>
+<para>Ejemplo:</para>
+<programlisting>
+smbclient //&lt;host&gt;/&lt;carpeta&gt; -U&lt;usuario&gt;
+</programlisting>
+
+<para>La validaci&oacute;n de la contrase&ntilde;a de &lt;usuario&gt;, la realiza Windows, lo cu&aacute;l implica que no es necesario crear este usuario en la m&aacute;quina GNU/Linux.</para>
+
+<para>Tambi&eacute;n es posible montar directorios compartidos de Windows en el sistema de ficheros de GNU/Linux, aunque para esto es necesario tener el kernel recompilado para que soporte esta caracter&iacute;stica (sistema de archivos smbfs).</para>
+<para>Ejemplo:</para>
+<programlisting>
+mount -t smbfs -o username=Administrador //nsportatil/volcadocd /mnt/discovfat
+</programlisting>
+
+<para>...permite montar el directorio <filename>\VolcadoCD</filename> de la m&aacute;quina nsportatil, cuyo propietario es el usuario (de MS Windows) Administrador. La validaci&oacute;n de la contrase&ntilde;a de este usuario la realiza Windows, lo cu&aacute;l implica que no es necesario crear este usuario en la m&aacute;quina GNU/Linux. Para que este comando funcione, en el archivo <filename>/etc/samba/smb.conf</filename> se debe tener correctamente inicializado el par&aacute;metro workgroup en la secci&oacute;n [global].</para>
+
+<para>Para desmontar este tipo de sistema de ficheros, se puede utilizar el comando <command>smbumount &lt;punto_montaje&gt;</command> &oacute; bien, el comando <command>umount</command> habitual.</para>
+   </sect1>
+
+   <sect1>
+<title>Compartiendo una impresora de Windows con m&aacute;quinas GNU/Linux</title>
+
+<para>A partir de este punto se comentar&aacute; c&oacute;mo imprimir desde CUPS hacia impresoras compartidas sobre m&aacute;quinas Windows. Para poder completar este apartado, no es preciso tener arrancado el demonio de Samba.</para>
+
+<para>Desde <emphasis>YaST -&gt; Hardware -&gt; Impresora -&gt; Cambiar... -&gt; A&ntilde;adir -&gt; Mostrar m&aacute;s tipos de conexi&oacute;n -&gt; Siguiente -&gt; Impresi&oacute;n SMB -&gt; Siguiente</emphasis>, teclear el nombre de la m&aacute;quina Windows donde est&aacute; la impresora compartida, el nombre de la impresora compartida, el nombre del usuario y su contrase&ntilde;a. Si se desea, probar el acceso remoto a la impresora SMB.</para>
+
+<para>Luego, pulsar <emphasis>Siguiente</emphasis> y seleccionar el modelo de la impresora compartida. Pulsar <emphasis>Siguiente</emphasis>. Seleccionar una de las colas de impresi&oacute;n ofrecidas y pulsar sobre <emphasis>Probar impresi&oacute;n</emphasis> para lanzar una p&aacute;gina de prueba. Una vez realizada correctamente la impresi&oacute;n, pulsar <emphasis>Aceptar</emphasis> para que se a&ntilde;adan las colas de impresi&oacute;n. Pulsar <emphasis>Finalizar</emphasis> para detener el asistente. Pulsar <emphasis>Continuar</emphasis>. Pulsar <emphasis>Aceptar</emphasis>.</para>   
+    </sect1>
+
+    <sect1>
+      <title>Compartiendo una impresora de GNU/Linux con m&aacute;quinas Windows</title>
+<para>Para utilizar los servicios de impresi&oacute;n de Samba, hay que comprobar primeramente que la impresora est&aacute; instalada y funcionando. Esto se puede verificar desde <emphasis>YaST -&gt; Hardware -&gt; Impresora</emphasis>.</para>
+<important><para>Todo lo explicado en este apartado es v&aacute;lido a partir de la versi&oacute;n 2.2 de Samba (que utiliza el sistema de impresi&oacute;n CUPS, Common UNIX Printing System), puesto que en anteriores versiones, se empleaba otro mecanismo de impresi&oacute;n.</para></important>
+
+<para>La configuraci&oacute;n del servicio de impresi&oacute;n se realiza en el fichero <filename>/etc/samba/smb.conf</filename> en la secci&oacute;n [printers]. El nombre de secci&oacute;n debe ser <emphasis>printers</emphasis> y no otro cualquiera. El contenido de esta secci&oacute;n ser&aacute; el siguiente:</para>
+<programlisting>
+[printers]
+comment = Impresora GNU/Linux
+path = /tmp
+printable = Yes
+public = yes
+guest ok = yes
+writable = no
+create mode = 0755
+browseable = no
+client driver = yes
+printer admin = root, @ntadmins
+</programlisting>
+
+<para>Asimismo, en la secci&oacute;n [global] de este mismo fichero, se deben a&ntilde;adir las siguientes l&iacute;neas:</para>
+
+<programlisting>
+load printers = yes
+printing = CUPS
+printcap = CUPS
+printcap name = CUPS
+</programlisting>
+
+<important><para>Por defecto, los drivers de impresi&oacute;n que se instalan sobre Windows suponen modo RAW, lo cu&aacute;l implica que deben renderizar los trabajos de impresi&oacute;n y dejarlos listos para ser enviados al dispositivo de impresi&oacute;n.</para></important>
+
+<para>Es posible configurar CUPS para que acepte trabajos de impresi&oacute;n en modo RAW, siendo responsabilidad del cliente Samba (es decir, la m&aacute;quina Windows) la renderizaci&oacute;n del trabajo de impresi&oacute;n. Dicha configuraci&oacute;n se realiza del siguiente modo:</para>
+<orderedlist>
+<listitem>
+<para>Editar el archivo <filename>/etc/cups/mime.types</filename> y descomentar la l&iacute;nea <emphasis>#application-octet...</emphasis></para>
+</listitem>
+<listitem>
+<para>Editar el archivo <filename>/etc/cups/mime.convs</filename> y descomentar la l&iacute;nea <emphasis>#application-octet...</emphasis></para>
+</listitem>
+<listitem>
+<para>A&ntilde;adir una impresora RAW utilizando un interface Web. Abrir mozilla y teclear la URL, <ulink url="http://localhost:631/">http://localhost:631</ulink>. Pinchar sobre el bot&oacute;n <emphasis>Administration</emphasis> y luego sobre el bot&oacute;n <emphasis>Add Printer</emphasis>. Sobre la pantalla <emphasis>Add new printer</emphasis>, teclear <emphasis>raw</emphasis> por ejemplo (en realidad, este ser&aacute; el nombre de la cola) sobre el campo Name y localhost sobre el campo Location. Teclear, si se desea, una descripci&oacute;n para la cola.</para>
+<para>En la pantalla Device for raw seleccionar del combo la impresora detectada por YaST. En la pantalla Model/driver for raw seleccionar Raw y en la siguiente pantalla, seleccionar Raw queue. Siguiendo estos pasos se habr&aacute; creado una cola de impresi&oacute;n llamada raw en el fichero <filename>/etc/printcap</filename>.</para>
+</listitem>
+<listitem>
+<para>Lo siguiente ser&aacute; instalar el driver de impresi&oacute;n sobre la m&aacute;quina Windows. Seleccionar <emphasis>Inicio -&gt; Configuraci&oacute;n -&gt; Impresoras -&gt; Agregar Impresora...</emphasis> Posteriormente, seleccionar Impresora Local. En la selecci&oacute;n del puerto de impresora, seleccionar <emphasis>Crear nuevo puerto -&gt; Local Port</emphasis> y despu&eacute;s teclear el nombre de la cola de impresi&oacute;n creada en la m&aacute;quina GNU/Linux en el punto anterior en la forma <emphasis>\\&lt;host&gt;\&lt;cola&gt;</emphasis>. Posteriormente se pedir&aacute; la selecci&oacute;n del modelo de impresora concreto conectado a la m&aacute;quina GNU/Linux para proceder a la instalaci&oacute;n de su correspondiente driver en la m&aacute;quina Windows.</para>
+</listitem>
+</orderedlist>
+<para>Ejemplo:</para>
+<para>El nombre de la cola de impresi&oacute;n en el caso actual ser&iacute;a <emphasis>\\SuSELinux\raw</emphasis>, suponiendo que la m&aacute;quina GNU/Linux corriendo sobre Samba (y con la impresora conectada) se llama SuSELinux y tambi&eacute;n suponiendo que la cola se haya denominado raw.</para>
+    </sect1>
+  </chapter>

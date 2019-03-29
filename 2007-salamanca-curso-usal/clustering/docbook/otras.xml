@@ -1,0 +1,79 @@
+<chapter>
+        <title>Otras soluciones libres para Clustering</title>
+        <sect1>
+           <title>Heartbeat</title>
+           <para><ulink url="http://linux-ha.org">Heartbeat</ulink> dise&ntilde;ado para detectar cuando se ha ca&iacute;do un servicio en una m&aacute;quina y administraci&oacute;n de cluster.</para>
+
+           <para><emphasis>Heartbeat</emphasis> puede utilizar dispositivos <emphasis>ethernet</emphasis> y <emphasis>de serie</emphasis> para comunicarse con los otros nodos del cluster. Tambi&eacute;n permite el uso de <emphasis>discos de quorum</emphasis> mediante el plugin <ulink url='http://www.ultramonkey.org/3/ipfail.html'>ipfail</ulink>.</para>
+        </sect1>
+        <sect1>
+          <title>Mon</title>
+          <para><ulink url="http://mon.sourceforge.net">Mon</ulink> est&aacute; dise&ntilde;ado para monitorizar la disponibilidad de servicios y lanzar alertas cuando detecte un servicio ca&iacute;do.</para>
+        </sect1>
+        <sect1>
+          <title>Fake</title>
+            <para><ulink url="http://www.vergenet.net/linux/fake">Fake</ulink> ha sido dise&ntilde;ado para cambiar un servicio de servidor.</para>
+            <para>Cuando se detecta que un servicio ha caido en una m&aacute;quina se utiliza <emphasis>Fake</emphasis> para levantar el servicio en otra m&aacute;quina.</para>
+        </sect1>        
+        <sect1>
+          <title>ldirectord</title>
+            <para><ulink url="http://www.ultramonkey.org/3/ldirectord.html">ldirectord</ulink> es un demonio que se utilizar para monitorizar servicios y detectar la ca&iacute;da de los mismos..</para>
+        </sect1>
+        <sect1>
+          <title>Kimberlite</title>
+            <para><ulink url="http://www.linux.org/apps/AppId_7953.html">Kimberlite</ulink> es una soluci&oacute;n de cluster para clusters de dos nodos y permite la conexi&oacute;n a un disco compartido de <emphasis>quorum</emphasis> v&iacute;a <emphasis>SCSI</emphasis> o por fibra (<emphasis>SAN</emphasis>).</para>
+        </sect1>
+
+        <sect1>
+            <title>Ultramonkey</title>
+            <para><ulink url="http://www.ultramonkey.org">Ultramonkey</ulink> es una soluci&oacute;n para balanceo de carga y alta disponibilidad basada en <emphasis>LVS</emphasis>.</para>
+            <para><emphasis>Ultramonkey</emphasis> utiliza:</para>
+            <itemizedlist>
+              <listitem>
+                <para><emphasis>Heartbeat</emphasis> en los balanceadores para detectar cuando ha ca&iacute;do un servicio, monitorizar los servidores a balancear mediante <emphasis>ldirectord</emphasis> y controlar la IP del servicio balanceado.</para>
+              </listitem>
+              <listitem>
+                <para><emphasis>ldirectord</emphasis> en los balanceadores para realizar el <emphasis>health-checking</emphasis> de los servidores balanceados.</para>
+              </listitem>
+            </itemizedlist>
+        </sect1>
+        <sect1>
+            <title>Red Hat Cluster Suite</title>
+            <para><ulink url="http://www.redhat.com/software/rha/cluster/">Red Hat Cluster Suite</ulink> es la soluci&oacute;n de <emphasis>Red Hat</emphasis> para clustering y alta disponibilidad.</para>
+            <para>Esta soluci&oacute;n consta de:</para>
+            <itemizedlist>
+              <listitem>
+                <para><emphasis>GFS</emphasis> sistema de ficheros de acceso concurrente.</para>
+              </listitem>
+              <listitem>
+                <para><emphasis>CLVM</emphasis> o <emphasis>C</emphasis>lustered <emphasis>LVM</emphasis>.</para>
+              </listitem>
+              <listitem>
+                <para><emphasis>Piranha</emphasis> interface gr&aacute;fico para <emphasis>LVS</emphasis>.</para>
+              </listitem>
+              <listitem>
+                <para><emphasis>system-config-cluster</emphasis> herramienta gr&aacute;fica para la configuraci&oacute;n del cluster.</para>
+              </listitem>
+              <listitem>
+                <para><emphasis>ccsd</emphasis> demonio que hace accesible la configuraci&oacute;n del cluster por otros nodos.</para>
+              </listitem>
+              <listitem>
+                <para><emphasis>cman</emphasis> demonio para la administraci&oacute;n del cluster.</para>
+              </listitem>
+              <listitem>
+                <para><emphasis>qdiskd</emphasis> demonio para el manejo de discos de quorum..</para>
+              </listitem>
+              <listitem>
+                <para><emphasis>fenced</emphasis> demonio para el fencing de dispositivos.</para>
+              </listitem>
+              <listitem>
+                <para><emphasis>rgmanager</emphasis>.</para>
+              </listitem>
+            </itemizedlist>
+            <important><para><emphasis>Red Hat Cluster</emphasis> est&aacute; disponible en <emphasis>Debian Etch</emphasis>.</para></important>
+        </sect1>
+</chapter>
+
+<!-- Local Variables: -->
+<!-- xml-parent-document: "clustering.xml" -->
+<!-- End: -->

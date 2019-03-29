@@ -1,0 +1,415 @@
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+"docbook/dtd/xml/4.2/docbookx.dtd" >
+<book lang="es">
+<title>Configuración de plataforma LAMP Práctica</title>
+<bookinfo>
+  <revhistory>
+    <revision>
+      <revnumber>1</revnumber>
+      <date>Abril 11, 2007</date>
+    </revision>
+  </revhistory>
+  <corpauthor>Copiar Pegar Digital S.L.</corpauthor>
+  <publisher>
+    <publishername>David Vaquero Santiago</publishername>
+  </publisher>
+  <copyright>
+    <year>2007</year>
+    <holder>Copiar Pegar Digital S.L.</holder>
+  </copyright>
+  <date>Abril 11, 2007</date>
+  <legalnotice>
+    <title>Información y Avisos Legales</title> <para>Usted es libre de:</para>
+    <para>
+copiar, distribuir y comunicar públicamente la obra</para>
+<para>hacer obras derivadas</para>
+<para>Bajo las condiciones siguientes:</para>
+<para>Reconocimiento. Debe reconocer los créditos de la obra de la manera especificada por el autor o el licenciador 
+(pero no de una manera que sugiera que tiene su apoyo o apoyan el uso que hace de su obra). </para>
+<para>No comercial. No puede utilizar esta obra para fines comerciales.</para>
+<para>Compartir bajo la misma licencia. Si altera o transforma esta obra, o genera una obra derivada, sólo puede distribuir 
+la obra generada bajo una licencia idéntica a ésta.</para>
+<para>Al reutilizar o distribuir la obra, tiene que dejar bien claro los términos de la licencia de esta obra.</para>
+<para>Alguna de estas condiciones puede no aplicarse si se obtiene el permiso del titular de los derechos de autor</para>
+<para>Nada en esta licencia menoscaba o restringe los derechos morales del autor.</para>
+  </legalnotice>
+</bookinfo>
+<chapter>
+	<title>Introducción a la Instalación de LAMP</title>
+<section>
+<title>Introducción</title>
+<para>
+En el presente manual se van a definir a fondo aquellas tareas necesarias para poner en funcionamiento una plataforma LAMP. 
+Por simplicidad el manual está dedicado a su instalación y configuración en una OpenSuse 10.2.
+</para>
+</section>
+</chapter>
+<chapter>
+	<title>Configuración de Servicios LAMP</title>
+<section>
+<title>Configuración de un Servidor DNS</title>
+<para>
+Debido que las distintas posibilidades a la hora de gestionar un dominio son tan variadas, en el presente manual se va a suponer que se dispone de un dominio contratado y que se sabe la dirección ip de cada una de las máquinas que van a ir dentro del dominio.
+</para>
+</section>
+<section>
+<title>Configuración de un dominio DNS</title>
+<para>
+Una vez que hayamos accedido a la herramienta de configuración dispondremos de in interfaz a través del cual podremos modificar las 
+entradas del dominio. Disponemos básicamente de tres tipo de entradas: A o entradas de maquinas (relacionan una ip con un nombre dentro 
+del dominio), CNAME relacionan mediante un alias un nombre de máquina con otro nombre y MX que relaciona el servidor por correo por 
+defecto con un nombre de máquina.
+</para>
+<para>A continuación de puede ver una figura en el que se ve cómo configurar dichas entradas:</para>
+<figure>
+	<title>Ejemplo de interfaz y configuración de un Servidor DNS</title>
+              <graphic fileref="Captura001-config-dns.png" format="PNG" scale="40" />
+</figure>
+<para>Una vez guardados los cambios espere entre 24 y 48h a que dichos cambios surtan efecto. Después de que haya pasado dicho plazo,
+pruebe a entrar mediante el navegador web para ver si funciona correctamente.</para>
+</section>
+</chapter>
+<chapter>
+	<title>Instalación de LAMP</title>
+<section>
+<title>Instalación de una LAMP en OpenSuse 10.2</title>
+<para>
+En OpenSuse 10.2 esta tarea es muy sencilla, describimos ahora todos los pasos:
+</para>
+<itemizedlist>
+<listitem>
+<para>
+Entre en el Menú de Acciones (KickOff) en el apartado de PC y pulse en el Configurador de administración YAST.
+</para>
+<figure>
+	<title>Entrada a YAST desde KickOff</title>
+              <graphic fileref="Captura002-yast-acceso.png" format="PNG" scale="100" />
+</figure>
+</listitem>
+<listitem>
+<para>
+Valídese como Superusuario. En cuanto intente entrar en YAST deberá introducir la contraseña del SuperAdministrador 
+(root) y pulsar en el botón Acaptar.
+</para>
+<figure>
+	<title>Cuadro de diálogo para introducir la contraseña de administrador.</title>
+              <graphic fileref="Captura003-yast-validacion.png" format="PNG" scale="100" />
+</figure>
+</listitem>
+<listitem>
+<para>
+En la pestaña de Software pulse en el icono de Instalar/desinstalar Software.
+</para>
+<figure>
+	<title>Acceso a herramienta de instalación y desinstalación de Software</title>
+              <graphic fileref="Captura004-yast-instalar-desinstalar-software.png" format="PNG" scale="100" />
+</figure>
+</listitem>
+<listitem>
+<para>
+En la pestaña de Software pulse en el icono de Instalar/desinstalar Software.
+</para>
+<figure>
+	<title>Acceso a herramienta de instalación y desinstalación de Software</title>
+              <graphic fileref="Captura004-yast-instalar-desinstalar-software.png" format="PNG" scale="100" />
+</figure>
+</listitem>
+<listitem>
+<para>
+Una vez haya entrado en la herramienta se actualizarán los listado de Software disponibles para su manejo.
+</para>
+<figure>
+	<title>Acceso a herramienta de instalación y desinstalación de Software</title>
+              <graphic fileref="Captura005-yast-actualizando-listados.png" format="PNG" scale="100" />
+</figure>
+<para>
+Cuando haya terminado de gestionar los listados, aparecerá una pantalla similar a la siguiente:
+</para>
+<figure>
+	<title>Pantalla principal de instalación y desintalación de paquetes.</title>
+              <graphic fileref="Captura006-yast-pantalla-principal.png" format="PNG" scale="40" />
+</figure>
+</listitem>
+<listitem>
+<para>
+En la parte superior derecha de la pantalla aparece una etiqueta llamada filtro y una lista desplegable. pulse en ella 
+y seleccione Patrones. Aparecerá un listado en la parte de la izquierda de la pantalla similar al siguiente:
+</para>
+<figure>
+	<title>Acceso a herramienta de instalación y desinstalación de Software</title>
+              <graphic fileref="Captura007-paquetes-patrones-seleccionados.png" format="PNG" scale="40" />
+</figure>
+
+<para>
+En dicho listado aparecen grupos de paquetes con funcionalidades acompañados de una caja de selección al lado izquierdo 
+de cada uno de ellos. Para seleccionar alguno de ellos pulse con el botón izquierdo en cualquiera de las cajas de selección, 
+esta caja aparecerá marcada con un símbolo de visto bueno, también verá que en la parte de la derecha de la pantalla principal,
+los paquetes individuales aparecerán todos seleccionados. Para deseleccionar un patrón repita la misma operación, verá que 
+el símbolo de visto bueno desaparecerá de la caja de selección.
+</para>
+</listitem>
+<listitem>
+<para>
+Seleccione el patrón denominado Servidor Web y LAMP. 
+</para>
+<figure>
+	<title>Paquetes individuales seleccionados.</title>
+              <graphic fileref="Captura008-paquetes-individuales-seleccionados.png" format="PNG" scale="40" />
+</figure>
+</listitem>
+<listitem>
+<para>
+Pulse en el botón Aceptar. Aparecerá la pantalla de descarga de paquetes desde los medios:
+</para>
+<figure>
+	<title>Paquetes individuales seleccionados.</title>
+              <graphic fileref="Captura009-descarga-paquetes-medios.png" format="PNG" scale="40" />
+</figure>
+<para>
+Introduzca el CD o DVD de instalación de OpenSuse 10.2. y pulse en el botón Ok. Se iniciará la descarga de paquetes individuales.
+</para>
+<figure>
+	<title>Descarga de paquetes.</title>
+              <graphic fileref="Captura010-descarga-paquetes-medios2.png" format="PNG" scale="40" />
+</figure>
+
+<para>
+A continuación se configurán los paquetes y servicios con YAST.
+</para>
+<figure>
+	<title>Configuración de paquetes y Servicios.</title>
+              <graphic fileref="Captura011-reconfigurando-paquetes.png" format="PNG" scale="40" />
+</figure>
+</listitem>
+<listitem>
+<para>
+A continuación pulse en el botón No en el cuadro de diálogo.
+</para>
+<figure>
+	<title>pregunta de seguir instalando o no paquetes.</title>
+              <graphic fileref="Captura012-seguir-instalando.png" format="PNG" scale="40" />
+</figure>
+<para>
+Se cerrará la venta de instalar y Desinstalar paquetes.
+</para>
+</listitem>
+<listitem>
+<para>
+A continuación pulse en el botón No en el cuadro de diálogo.
+</para>
+<figure>
+	<title>Pregunta de seguir instalando o no paquetes.</title>
+              <graphic fileref="Captura012-seguir-instalando.png" format="PNG" scale="40" />
+</figure>
+<para>
+Se cerrará la venta de instalar y Desinstalar paquetes.
+</para>
+</listitem>
+<listitem>
+<para>
+A continuación necesita activar el servidor Apache y el PHP. Para lo cual debe entrar en YAST en la pestaña Servicios de red en el 
+icono Servidor HTTP.
+</para>
+<figure>
+	<title>Acceso a la configuración de Apache y PHP</title>
+              <graphic fileref="Captura013-config-apache.png" format="PNG" scale="40" />
+</figure>
+</listitem>
+<listitem>
+<para>
+Después aparecerá la primera pantalla de configuración de Apache. En ella deberán aparecer: el puerto por el que escuchará las 
+peticiones web (por defecto 80) y las direcciones ip por las que se permite que escuche el servidor web(127.0.0.1 por defecto). 
+Pulse en el botón Siguiente.
+</para>
+<figure>
+	<title>Control de acceso por puerto e IP's.</title>
+              <graphic fileref="Captura014-config-apache-paso1.png" format="PNG" scale="40" />
+</figure>
+</listitem>
+<listitem>
+<para>
+A continuación deberá marcar (si no lo está hecho ya) el cuadro de selección al lado de Habilitar lenguaje de guiones PHP5. Pulse en 
+Siguiente.
+</para>
+<figure>
+	<title>Control de lenguajes de scripting.</title>
+              <graphic fileref="Captura015-config-apache-paso2.png" format="PNG" scale="40" />
+</figure>
+</listitem>
+<listitem>
+<para>
+A continuación puede ser los parámetros básicos del servidor, tales como directorio principal, dirección de correo del administrador, 
+etc.  Pulse en Siguiente.
+</para>
+<figure>
+	<title>Configuración de parámetros básicos.</title>
+              <graphic fileref="Captura016-config-apache-paso3-parametros.png" format="PNG" scale="40" />
+</figure>
+</listitem>
+<listitem>
+<para>
+Después podrá ver los Sitios Web Virtuales que maneja el servidor, si no desea manejar ninguno más pulse en Siguiente. Si desea 
+configurar un nuevo Sitio Web Virtual pulse en añadir y siga los siguientes pasos.
+</para>
+<figure>
+	<title>Configuración de Sitios Web Virtuales.</title>
+              <graphic fileref="Captura017-config-apache-paso4-virtual-host.png" format="PNG" scale="40" />
+</figure>
+</listitem>
+<listitem>
+<para>
+A continuación introduzca los parámetros de configuración del nuevo servidor virtual: nombre del servidor, directorio principal del 
+Sitio Web Virtual y el correo del administrador del sitio web virtual. Pulse en el botón Siguiente.
+</para>
+<figure>
+	<title>Datos básicos de un Sitio Web Virtual.</title>
+              <graphic fileref="Captura018-config-apache-paso4-2-nuevo-virtual-host.png" format="PNG" scale="40" />
+</figure>
+</listitem>
+<listitem>
+<para>
+A continuación introduzca otros parámetros de configuración del nuevo servidor virtual: acceso a CGI, HTML público, etc.. Pulse 
+el botón Siguiente.
+</para>
+<figure>
+	<title>Datos de Scripting de un Sitio Web Virtual.</title>
+              <graphic fileref="Captura019-config-apache-paso4-3-nuevo-virtual-host2.png" format="PNG" scale="40" />
+</figure>
+</listitem>
+<listitem>
+<para>
+Después de añadir el nuevo sitio Web Virtual. Pulse en Siguiente.
+</para>
+<figure>
+	<title>Datos de Scripting de un Sitio Web Virtual.</title>
+              <graphic fileref="Captura020-config-apache-paso4-4-nuevo-virtual-host3.png" format="PNG" scale="40" />
+</figure>
+</listitem>
+<listitem>
+<para>
+Después de configurar los Sitios Web Virtuales, marque la opción Iniciar el servidor web en el arranque. Pulse en Siguiente.
+</para>
+<figure>
+	<title>Configuración del arranque del servidor.</title>
+              <graphic fileref="Captura021-config-apache-paso5.png" format="PNG" scale="40" />
+</figure>
+</listitem>
+<listitem>
+<para>
+A continuación se configurará el servidor web y se rearrancará si es necesario. Pulse en Finalizar.
+</para>
+<figure>
+	<title>Aplicación de las configuraciones del servidor web.</title>
+              <graphic fileref="Captura022-config-apache-paso6-activacion.png" format="PNG" scale="40" />
+</figure>
+</listitem>
+<listitem>
+<para>
+A continuación introduzca la url en el navegador web y compruebe que se visualiza correctamente.
+</para>
+<figure>
+	<title>Visualización de prueba del servidor web.</title>
+              <graphic fileref="Captura023-validacion-apache.png" format="PNG" scale="100" />
+</figure>
+</listitem>
+<listitem>
+<para>
+Ahora es necesario comprobar si el módulo de php funciona correctamente, para lo cual es necesario crear un fichero index.php 
+en el directorio principal del dominio del Sitio Web Virtual. Para ello necesita abrir 
+una terminal con permisos de superadministrador, esto se puede conseguir si va al Menú de Acciones, pestaña Aplicaciones, 
+submenú Sistema, submenú Terminal, icono Programa de terminal - modo de superusuario. Le solicitará la contraseña del 
+superadministrador (root), introduzcala pulse en el botón OK.
+</para>
+<para>Una vez abierta la terminal ejecute los siguientes comandos:</para>
+<para>echo "<?php phpinfo(); ?>" >/srv/www/htdocs/index.php</para>
+<para>chmod 777 /srv/www/htdocs/index.php</para>
+<para>Evidentemente la ruta debe coincidir con la localización del directorio raiz del Sitio Web Virtual</para>
+<para>Después abra su navegador e introduzca la url seguido de /index.php  En nuestro ejemplo www.midominio.com/index.php Si se abre 
+correctamente podrá ver la información del módulo php instalado en su Apache.</para>
+<figure>
+	<title>Visualización de prueba del módulo PHP.</title>
+              <graphic fileref="Captura023-2-validacion-php.png" format="PNG" scale="100" />
+</figure>
+</listitem>
+</itemizedlist>
+
+</section>
+<section>
+<title>Configuración de Mysql</title>
+<para>A fin de poder arrancar automáticamente en el arranque el servidor Mysql es necesario modificar los niveles de arranque. 
+Para lo cual entre en YAST y vaya a la pestaña Sistema y entre en el editor de niveles de ejecución. 
+</para>
+<figure>
+	<title>Entrada al editor de niveles de ejecución.</title>
+              <graphic fileref="Captura024-niveles-ejecucion-acceso.png" format="PNG" scale="40" />
+</figure>
+<para>
+Los pasos a seguir son los siguientes:
+</para>
+<itemizedlist>
+<listitem>
+<para>
+A continuación selecciones el servicio Mysql con el botón derecho del ratón y pulse el botón Activar situado abajo a la izquierda 
+de la pantalla.
+</para>
+<figure>
+	<title>Visualización de prueba del servidor web.</title>
+              <graphic fileref="Captura025-niveles-ejecucion-pantalla-principal.png" format="PNG" scale="40" />
+</figure>
+<para>Una vez activado el servicio sandrá una pantalla con el resultado (debería marcar un éxito en el proceso de activación). 
+Pulse en el botón Ok. Después pulse en el botón finalizar.</para>
+
+<figure>
+	<title>Pantalla del resultado del proceso (con éxito).</title>
+              <graphic fileref="Captura026-niveles-ejecucion-resultado.png" format="PNG" scale="100" />
+</figure>
+<para>Después pulse el botón Finalizar para que se apliquen los cambios.Cuando salga la pantalla de validación pulse en Si.</para>
+<figure>
+	<title>.</title>
+              <graphic fileref="Captura027-niveles-ejecucion-confirmacion.png" format="PNG" scale="100" />
+</figure>
+</listitem>
+</itemizedlist>
+<para>Sería conveniente recordar que el usuario por defecto de mysql tras la instalación es root y no dispone de una contraseña 
+asignada.</para>
+<para>A fin de poder gestionar correctamente Mysql pasaremos al siguiente paso, Instalar la aplicación Web Phpmyadmin</para>
+</section>
+
+<section>
+<title>Instalación y configuración de PhpMyadmin</title>
+<para>Para poder gestionar de una manera sencilla Mysql, instalaremos Phpmyadmin, una herramienta de gestión de Mysql vía web. Así 
+mataremos dos pájaros de un tiro.
+</para>
+<para>
+Los pasos a seguir son los siguientes:
+</para>
+<itemizedlist>
+<listitem>
+<para>
+Descargarse la última versión de Phpmyadmin, por ejemplo desde aquí:
+http://ovh.dl.sourceforge.net/sourceforge/phpmyadmin/phpMyAdmin-2.10.0.2-all-languages-utf-8-only.tar.gz
+</para>
+<para>cuando nos pregunte el navegador qué hacer con el le diremos que queremos guardarlo en el disco duro, en el escritorio 
+por ejemplo.</para>
+
+</listitem>
+<listitem>
+<para>Una vez descargado el fichero deberemos descomprimirlo, para lo cual pulsamos sobre él para abrirlo y descomprimirlo tb 
+en el escritorio</para>
+</listitem>
+<listitem>
+<para>Después debe copiar el contenido de la carpeta que incluya el index.php al directorio /srv/www/phpmyadmin</para>
+<para>Debe recordar que para hacer esto es neceesario reaaalizar esta operación como  superadministrador del sistema.</para>
+</listitem>
+<listitem>
+<para>Después debe modificar los permisos de la carpeta para que el usuario root tenga permisos de acceso a los ficheros.</para>
+</listitem>
+<listitem>
+<para>Después debe comprobar mediante el navegador que tiene acceso a la url http://localhost/phpmyadmin.index.php. 
+En nuestro ejemplo: http://www.midominio.com/phpmyadmin/index.php</para>
+</listitem>
+</itemizedlist>
+</section>
+</chapter>
+
+</book>

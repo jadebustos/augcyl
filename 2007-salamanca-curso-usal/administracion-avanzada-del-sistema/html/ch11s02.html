@@ -1,0 +1,115 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Planificación de Tareas</title><meta name="generator" content="DocBook XSL Stylesheets V1.71.0"><link rel="start" href="index.html" title="Utilización y Administración avanzada de sistemas GNU/Linux y aplicaciones Software Libre para estudiantes universitarios"><link rel="up" href="ch11.html" title="Capítulo 11. Interprete de Comandos"><link rel="prev" href="ch11.html" title="Capítulo 11. Interprete de Comandos"><link rel="next" href="ch12.html" title="Capítulo 12. Interfaces de Administración"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Planificación de Tareas</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch11.html">Anterior</a> </td><th width="60%" align="center">Capítulo 11. Interprete de Comandos</th><td width="20%" align="right"> <a accesskey="n" href="ch12.html">Siguiente</a></td></tr></table><hr></div><div class="sect1" lang="es"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2577492"></a>Planificación de Tareas</h2></div></div></div><p>Es muy normal que queramos que nuestros shell script se
+      ejecuten periódicamente o en un determinado momento. Tareas como
+     la realización de backups, borrado de temporales, seguridad se
+      deben planificar mediante estos comandos. Existen unos
+      servicios para temporizar estos trabajos.</p><div class="sect2" lang="es"><div class="titlepage"><div><div><h3 class="title"><a name="id2577515"></a><span class="application">at</span></h3></div></div></div><p>Mediante el comando at podemos lanzar nuestros procesos
+        a un tiempo determinado sin necesidad de estar conectados en
+        ese momento.</p><p>Para realizar una ejecución de un script de backup a las 10 de
+        la mañana haríamos:</p><pre class="screen"><code class="prompt">[pcm@sal]$ </code><strong class="userinput"><code>at 10am &lt; backup.sh</code></strong>
+<code class="computeroutput">warning: commands will be executed using /bin/sh
+job 11 at 2007-04-01 10:00</code>
+<code class="prompt">[pcm@sal]$ </code><strong class="userinput"><code>atq</code></strong>
+<code class="computeroutput">10      2007-04-01 01:00 a pcm
+11      2007-04-01 10:00 a pcm
+</code><code class="prompt">[pcm@sal]$ </code>
+</pre><p>Con el comando <strong class="userinput"><code>atq</code></strong> vemos la lista de
+los procesos pendiente de ejecutarse. Es equivalente utilizar
+<strong class="userinput"><code>at -l</code></strong>.</p><p>Si queremos evitar que se ejecute el comando programado podemos
+borrar la entrada con <strong class="userinput"><code>atrm</code></strong> indicando el
+número de trabajo.</p><pre class="screen"><code class="prompt">[pcm@sal]$ </code><strong class="userinput"><code>atrm 10</code></strong>
+<code class="computeroutput"></code>
+<code class="prompt">[pcm@sal]$ </code><strong class="userinput"><code>at -l</code></strong>
+<code class="computeroutput">11      2007-04-01 10:00 a pcm
+</code><code class="prompt">[pcm@sal]$ </code>
+</pre><p>El proceso <strong class="userinput"><code>atd</code></strong> se encargará de ejecutar
+        nuestra orden en el momento programado.</p><p>Existe variante, realmente un script, que permite lanzar nuestra
+        orden solo si la carga del sistema es lo suficientemente baja,
+        configurada en la ejecución de servicio.</p><p>Para configurar los usuarios que tienen permisos para utilizar
+        el comando <strong class="userinput"><code>at</code></strong> existen dos ficheros
+        <code class="filename">/etc/at.allow</code> y
+        <code class="filename">/etc/at.deny</code>. En la ejecución del comando
+        se comprueba:</p><div class="orderedlist"><ol type="1"><li><p>
+Si existe <code class="filename">/etc/at.allow</code> y el usuario que ejecuta
+el comando <span class="application">at</span> o
+<span class="application">batch</span> está en el fichero se permite
+ejecución.
+</p></li><li><p>
+Si no existe <code class="filename">/etc/at.allow</code> y existe
+<code class="filename">/etc/at.deny</code>, se comprueba que el usuario que ejecuta
+el comando no este en el fichero, para permitirle.
+</p></li><li><p>Si no existen ninguno de los dos fichero, solo root
+puede utilizar el comando.
+</p></li></ol></div></div><div class="sect2" lang="es"><div class="titlepage"><div><div><h3 class="title"><a name="id2577750"></a><span class="application">cron</span></h3></div></div></div><p>Este servicio nos permite dejar las tareas
+        programadas. Con el comando <span class="application">at</span>
+        teníamos que estar lanzando el comando por cada ejecución, con
+        <span class="application">cron</span> dejamos ya programado cuando y cada
+        cuanto queremos esa ejecución.</p><p>Es uno de los principales recursos de administración ya que como
+        ya hemos comentado las tareas de administración suele ser
+        repetitivas y periódicas, por lo que con este servicio vamos a
+        poder programarlas a nuestro antojo.</p><p>El proceso que controla el servicio, es decir, que ejecuta las
+        tareas programadas es <strong class="userinput"><code>cron</code></strong>, y para
+        realizar nuestras programaciones debemos utilizar el comando
+        <strong class="userinput"><code>crontab</code></strong>.</p><p>Para listar tareas utilizaremos <strong class="userinput"><code>crontab
+        -l</code></strong>.</p><pre class="screen"><code class="prompt">[pcm@sal]$ </code><strong class="userinput"><code>crontab -l</code></strong>
+<code class="computeroutput">*/10 10-19 * * * /root/adsl/vpn.sh &gt;&gt; /root/adsl/vpn.log 2&gt;&amp;1
+</code>
+<code class="prompt">[pcm@sal]$ </code>
+</pre><p>Vemos que por cada tarea hay una serie de parámetros que debemos
+entender:</p><div class="itemizedlist"><ul type="disc"><li><p>
+La primera columna indica el minuto en que se ejecuta, pueden
+indicarse varios separándolos por comas, por ejemplo 15,30,45, o un
+rango separando dos valores por un guión. Poniendo el * indicamos que
+todos los minutos. También
+se puede indicar cada cuanto, poniendo */2, se ejecutaría cada 2
+minutos. Los
+valores serán entre 0 y 59.
+</p></li><li><p>
+En la segunda columna indicamos la hora. Igualmente se pueden indicar varias
+horas separadas por comas, rangos, asterisco y fracciones. Los valores son entre
+0 y 23.
+</p></li><li><p>
+La tercera columna nos indica el día del mes. Los valores pueden ser
+entre 1 y 31.
+</p></li><li><p>
+La cuarta nos indica el mes. Los valores son entre 1 y 12, y también
+se admiten nombres de meses.
+</p></li><li><p>
+La quita nos indica el día de la semana. Los valores pueden ser entre
+0 y 7, siendo el domingo 0 o 7. También admiten los nombres.
+</p></li><li><p>
+Por último siempre tendremos el comando a ejecutar.
+</p></li></ul></div><p>Para crear una nueva tarea utilizaremos o modificar las que
+tenemos <strong class="userinput"><code>crontab
+        -e</code></strong>, que abrirá un editor con las tareas actuales
+        para que modifiquemos o creemos una nueva.</p><pre class="screen"><code class="prompt">[pcm@sal]$ </code><strong class="userinput"><code>crontab -e</code></strong>
+<code class="computeroutput">*/10 10-19 * * * /root/adsl/vpn.sh &gt;&gt; /root/adsl/vpn.log 2&gt;&amp;1
+~
+~
+~
+~
+</code>
+</pre><p>Al igual que el comando <strong class="userinput"><code>at</code></strong> la seguridad
+        de utilización del servicio se realiza mediante los ficheros
+        <code class="filename">/etc/cron.allow</code> y
+        <code class="filename">/etc/cron.deny</code>. Tenemos que tener en
+        cuenta de nuevo:</p><div class="orderedlist"><ol type="1"><li><p>
+Si existe <code class="filename">/etc/cron.allow</code> y el usuario que ejecuta
+el comando <span class="application">cron</span> está en el fichero se permite
+la programación.
+</p></li><li><p>
+Si no existe <code class="filename">/etc/cron.allow</code> y existe
+<code class="filename">/etc/cron.deny</code>, se comprueba que el usuario que ejecuta
+el comando no este en el fichero, para permitirle.
+</p></li><li><p>Si no existen ninguno de los dos fichero, solo root
+puede utilizar el comando.
+</p></li></ol></div></div><div class="sect2" lang="es"><div class="titlepage"><div><div><h3 class="title"><a name="id2578023"></a><span class="application">anacron</span></h3></div></div></div><p>Este comando esta pensado para la automatización de
+        tareas cuando el sistema no esta disponible las 24 horas del
+        día.</p><p>Con el servicio <span class="application">cron</span> si en la
+        programación de una tarea el sistema no esta encendido, la
+        tarea no se realizara. Con <span class="application">anacron</span>
+        podemos indicar cada cuanto se realizan ciertas tareas y se
+        encarga de que se lleve acabo con esa frecuencia.</p><p>Nos permite configurar las tareas por días, lo normal es que
+        tengamos tareas diarias, semanales (7) o mensuales (30), pero
+        no nos asegura el horario de ejecución, únicamente cuando se
+        inicia el sistema y vea que han pasado esa serie de días
+        ejecutará la tarea.</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch11.html">Anterior</a> </td><td width="20%" align="center"><a accesskey="u" href="ch11.html">Subir</a></td><td width="40%" align="right"> <a accesskey="n" href="ch12.html">Siguiente</a></td></tr><tr><td width="40%" align="left" valign="top">Capítulo 11. Interprete de Comandos </td><td width="20%" align="center"><a accesskey="h" href="index.html">Inicio</a></td><td width="40%" align="right" valign="top"> Capítulo 12. Interfaces de Administración</td></tr></table></div></body></html>

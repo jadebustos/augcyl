@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+  <chapter>
+    <title>Introducción</title>
+    <para>Este manual se ha realizado como parte de la documentación
+    del curso de que imparte la Universidad de Salamanca, Augcyl y GLiSA: <emphasis>Utilización y Administración Avanzadas de Sistemas GNU/Linux
+y aplicaciones Software Libre para estudiantes Universitarios</emphasis>.</para>
+<para>Una
+    de las ponencias de curso es la Administración Avanzada del Sistema
+    GNU/Linux, la cual se plasma en este manual. En esta ponencia se
+    presenta todas las posibilidades de la administración del sistema,
+    y en el resto de ponencias entrarán en detalle de algunos de los conceptos más importantes de administración que en esta documentación encontramos.</para>
+    <sect1>
+      <title>Objetivo</title>
+      <para>En este manual vamos a intentar dar las características
+      generales que tiene un sistema GNU/Linux y que la persona
+      encargada, el administrador, debe conocer para "mantener" el
+      sistema.</para>
+<para>Un sistema GNU/Linux nos lo encontramos como un conjunto de
+      aplicaciones reunidas entorno a núcleo del sistema, es lo que
+      denominamos distribución. No vamos a entrar en las
+      particularidades de cada distribución, aunque el curso se imparte con la distribución SuSE. Vamos a intentar ver las generalidades de todas ellas, que a su vez son parecidas a los sistemas operativos UNIX, del cual Linux hereda.</para>
+      <para>Tampoco intenta ser un manual de sistema operativo (SO)
+      UNIX, pero
+      si vamos a dividir los capítulos por componentes de un Sistema Operativo.</para>
+<para>Con la ponencia y con este manual de apoyo queremos lograr que
+      el alumno obtenga los conceptos básicos de la administración de
+      GNU/Linux, las responsabilidades del administrador de GNU/Linux y pueda afrontar cualquier reto que la administración de GNU/Linux pueda plantearles.</para>
+    </sect1>
+  </chapter>

@@ -1,0 +1,247 @@
+
+  <chapter>
+    <title>GNU/Linux</title>
+    <sect1>
+      <title>Un poco de historia</title>
+      <para>
+        A finales de la d&eacute;cada de los 60, Ken Thompson y Dennis Ritchie, de
+	los Bell Laboratories (AT&amp;T), desarrollaron un sistema
+	operativo que denominaron jocosamente UNIX. Esto fue una broma,
+	porque el proyecto en el que hab&iacute;a estado trabajando antes Thompson
+	se llamaba MULTICS.
+      </para>
+      <para>
+	Era un sistema elegante y, sobre todo, sencillo. Originalmente
+	corr&iacute;a en una m&aacute;quina (DEC PDP-7) que era menos potente que cualquier
+	tel&eacute;fono m&oacute;vil actual.
+	El sistema primeramente se escribi&oacute; en lenguaje ensamblador,
+	espec&iacute;fico para el PDP-7. Si bien esto le brindaba una gran
+	eficiencia al c&oacute;digo, ten&iacute;a un inconveniente muy serio: el sistema
+	no pod&iacute;a transportarse a otro ordenador distinto; si quer&iacute;an correr
+	UNIX en un ordenador nuevo, tendr&iacute;an que reescribirlo
+	&iacute;ntegramente. Claramente, este enfoque no era muy pr&aacute;ctico.
+	Tuvieron una idea: crear un lenguaje ensamblador 'abstracto', de
+	manera que, reescribiendo UNIX en dicho lenguaje, el esfuerzo de
+	transportarlo a una nueva arquitectura deber&iacute;a de ser m&iacute;nimo.
+	As&iacute; naci&oacute; el lenguaje de programaci&oacute;n C. Y, con &eacute;l UNIX fue
+	reescrito, convirti&eacute;ndose as&iacute; en el primer sistema operativo
+	transportable de la historia.
+      </para>
+      <sect2>
+      	<title>UNIX prospera.</title>
+      <para>
+      	Por aquel entonces, AT&amp;T, que pose&iacute;a los Bell Laboratories, no
+	pod&iacute;a explotar comercialmente UNIX, debido a su calidad de
+	monopolio. La compa&ntilde;&iacute;a permiti&oacute; su distribuci&oacute;n a empresas y
+	universidades por un precio simb&oacute;lico. Esto fue un factor crucial
+	en la expansi&oacute;n y desarrollo ulterior de UNIX. En Berkeley, por
+	ejemplo, crearon su propia variante del sistema, que llamaron BSD
+	(de Berkeley Software Distribution). All&iacute; se desarrollaron
+	herramientas tales como el editor 'vi', o la capa de red.
+	Mientras tanto, AT&amp;T segu&iacute;a trabajando en su versi&oacute;n,
+	llamada <emphasis>System V.</emphasis> El lenguaje AWK, por ejemplo,
+	fue contribuido
+	en esta &eacute;poca. A su vez, la empresa <emphasis>SUN
+	Microsystems</emphasis> desarroll&oacute; una variante llamada SunOS, que
+	luego pasar&iacute;a a llamarse Solaris.
+	Toda esta pl&eacute;tora de variantes fue posible porque el c&oacute;digo fuente
+	de UNIX estaba disponible, y los mejoras realizadas pod&iacute;an
+	compartirse, para el beneficio de los usuarios. Pero toda este
+	sistema de cooperaci&oacute;n se ver&iacute;a pronto amenazado.
+      </para>
+      </sect2>
+      <sect2>
+      	<title>Los tiempos oscuros.</title>
+	<para>
+		En el a&ntilde;o 1984, debido a la ley antimonopolio existente en
+		EE.UU., AT&amp;T fue obligada a dividirse. A partir de
+		este momento, la restricci&oacute;n que le imped&iacute;a explotar
+		comercialmente UNIX desapareci&oacute;, y la primera medida que se
+		dej&oacute; notar fue la restricci&oacute;n en la distribuci&oacute;n del c&oacute;digo
+		fuente del sistema. Esto supon&iacute;a una amenaza para el
+		esquema de cooperaci&oacute;n que se hab&iacute;a establecido. Pero hab&iacute;a
+		alguien que estaba dispuesto a intentar cambiar esto.
+	</para>
+	</sect2>
+	<sect2>
+	<title>Richard Matthew Stallman.</title>
+	<para>
+		En el a&ntilde;o 1984, Stallman decidi&oacute; iniciar el proyecto GNU
+		(GNU's Not UNIX), un proyecto cuya finalidad era
+		proporcionar un sistema operativo similar a UNIX, pero con
+		una licencia que impidiese una 'vuelta a la oscuridad' como
+		la que sufri&oacute; el propio UNIX. Dicha licencia se llam&oacute; GPL
+		(GNU Public License) y le confiere al
+		<emphasis>software</emphasis> la propiedad de ser libre y
+		<emphasis>permanecer</emphasis> libre.
+	</para>
+	</sect2>
+	<sect2>
+	<title>El proyecto GNU.</title>
+	<para>Stallman comenz&oacute; a construir una herramienta fundamental para
+	el sistema: el <emphasis>compilador</emphasis> para el lenguaje
+	C (gcc, de GNU C Compiler). Esta pieza de
+	<emphasis>software</emphasis> se ha convertido probablemente en el
+	nexo de uni&oacute;n m&aacute;s importante de todo el software libre. Con el
+	tiempo, fue el compilador utilizado por Linus Torvalds para
+	desarrollar el famoso <emphasis>kernel</emphasis> Linux. Un
+	porcentaje muy alto de todo el c&oacute;digo asociado al
+	<emphasis>software</emphasis> libre, est&aacute; escrito en C. &eacute;ste
+	lenguaje es, pues, una <emphasis>lingua franca</emphasis>, como
+	podr&iacute;a haber sido el esperanto, en el marco de las lenguas humanas.
+	Y, gracias a Stallman, el compilador gcc (y el resto del sistema)
+	es, literalmente, patrimonio de la humanidad.
+	</para>
+	</sect2>
+    </sect1>
+    <sect1>
+      <title>Filosof&iacute;a UNIX.</title>
+      <para>
+      &iquest;Por qu&eacute; tuvo tanto &eacute;xito el enfoque de UNIX? Aparentemente, su
+      simplicidad fue un factor decisivo. En su dise&ntilde;o, sus creadores
+      antepusieron la facilidad de comprensi&oacute;n a la eficiencia, de manera
+      que era f&aacute;cil <emphasis>entender</emphasis> el c&oacute;digo y, por ende,
+      adaptarlo a las necesidades de otros. UNIX no es una reliquia del
+      pasado; de hecho, la mayor parte de los sistemas operativos actuales
+      son una evoluci&oacute;n de UNIX (incluidos  MS-DOS y  Windows NT/2000/XP). Por
+      eso conviene conocer los principios en los que se fundamente, puesto
+      que esos mismos principios estar&aacute;n presentes (de una u otra manera)
+      en los sistemas que hoy podamos manejar.
+      </para>
+      <sect2>
+      <title>Todo es un archivo.</title>
+      <para>
+      Esta idea, propia de la orientaci&oacute;n a objetos (si bien la precede),
+      consiste en que la unidad b&aacute;sica para la interacci&oacute;n con el sistema
+      es una entidad llamada archivo que, como los archivos en papel, puede
+      abrirse, leerse, avanzar hojas hacia delante y hacia atr&aacute;s, escribir
+      en &eacute;l, y cerrarse. Este modelo tan sencillo puede parecer ingenuo,
+      pero ha probado ser extremadamente valioso. Permite a un programa
+      acceder transparentemente a un documento de texto o a un puerto de
+      comunicaciones.
+      </para>
+      </sect2>
+      <sect2>
+      <title>La navaja suiza.</title>
+      <para>
+      UNIX incorpora un conjunto de herramientas que guardan cierta
+      analog&iacute;a con una navaja multiusos. Son simples, pero hacen
+      <emphasis>muy bien</emphasis> su trabajo. En lugar de construir
+      programas muy complejos, UNIX proporcionaba muchas peque&ntilde;as
+      herramientas, y un esquema para poder
+      <emphasis>combinarlas</emphasis> de forma efectiva. Este dise&ntilde;o
+      escala muy bien, permitiendo al sistema crecer, incorporar nuevas
+      herramientas y, a la vez, ser compatible hacia atr&aacute;s.
+      </para>
+      </sect2>
+      <sect2>
+      <title>Manual en l&iacute;nea.</title>
+      <para>
+      Cuando Thompson y Ritchie estaban desarrollando UNIX, solicitaron a
+      sus jefes un ordenador m&aacute;s potente (un DEC PDP-11), a cambio de
+      desarrollar un sistema completo de tipograf&iacute;a (no les dijeron nada
+      acerca de UNIX). Con el nuevo ordenador desarrollaron UNIX sobre C y,
+      Joe F. Ossanna desarroll&oacute; troff (de <emphasis>typesetting run-off
+      </emphasis>).
+      Este sistema fue incluido en el propio UNIX, de manera que el manual
+      del sistema fue escrito con &eacute;l, estando disponible en l&iacute;nea desde
+      entonces (a trav&eacute;s del programa <emphasis>man</emphasis>).
+      </para>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>&iquest;Por qu&eacute; llamarlo "GNU/Linux" en lugar de "linux"?</title>
+      <para>
+	Porque de esa manera se reconoce expl&iacute;citamente que el
+	sistema operativo no solo es el n&uacute;cleo linux, sino muchas
+	otras piezas que se escribieron con anterioridad y sin cuya
+	existencia nunca habr&iacute;a sido posible construirlo ni tener
+	algo funcional en nuestros equipos. Todas esas piezas juntas
+	forman un sistema GNU, que es como se denomina al proyecto
+	para construir un sistema operativo totalmente libre
+	iniciado a mediados de los ochenta por la Free Software
+	Foundation. De hecho, el sistema GNU podr&iacute;a tener en un
+	futuro no muy lejano otros n&uacute;cleos, como el Hurd, con los
+	cuales los usuarios podr&aacute;n elegir entre sistemas GNU/Linux o
+	GNU/Hurd. Lo realmente importante es disponer de un sistema
+	operativo libre, no el n&uacute;cleo, el escritorio o el subsistema
+	gr&aacute;fico que lleve (y que ir&aacute; cambiando con el tiempo).
+      </para>
+    </sect1>
+    <sect1>
+      <title>&iquest;Qu&eacute; son las "distribuciones" de GNU/Linux?</title>
+      <para>
+	Una distribuci&oacute;n es un modo de facilitar la instalaci&oacute;n, la
+	configuraci&oacute;n y el mantenimiento de un sistema GNU/Linux. Al
+	principio, las distribuciones se limitaban a recopilar
+	software libre, empaquetarlo en disquetes o CD-ROM y
+	redistribuirlo o venderlo.
+      </para>
+      <para>
+	Ahora las grandes distribuciones -RedHat, SuSE, Caldera,
+	Mandrake, Corel Linux, TurboLinux...- son potentes empresas
+	que compiten entre s&iacute; por incluir el &uacute;ltimo software, a veces
+	tambi&eacute;n software propietario, con instalaciones gr&aacute;ficas
+	capaces de autodetectar el hardware y que instalan un sistema
+	entero en unos cuantos minutos sin apenas preguntas.
+      </para>
+      <para>
+	Entre las distribuciones de GNU/Linux, destaca el proyecto
+	Debian/GNU. Debian nace como una iniciativa no comercial de la
+	FSF, aunque luego se independiza de &eacute;sta y va m&aacute;s all&aacute; del
+	propio sistema GNU/Linux. Es la &uacute;nica de las grandes
+	distribuciones que no tiene intereses comerciales ni
+	empresariales. Son sus propios usuarios, muy activos, quienes
+	mantienen la distribuci&oacute;n de modo comunitario, incluidas todas
+	sus estructuras de decisi&oacute;n y funcionamiento. Su objetivo es
+	recopilar, difundir y promover el uso del software
+	libre. Re&uacute;ne el mayor cat&aacute;logo de software libre, todos ellos
+	probados, mantenidos y documentados por alg&uacute;n desarrollador
+	voluntario.
+      </para>
+      <para>
+	En una distribuci&oacute;n hay todo el software necesario para
+	instalar en un ordenador personal; servidor, correo,
+	ofim&aacute;tica, fax, navegaci&oacute;n de red, seguridad, etc.
+      </para>
+    </sect1>
+    <sect1>
+      <title>Documentaci&oacute;n</title>
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    <ulink url="http://tldp.org/">
+	      The Linux Documentation Project
+	    </ulink>
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    <ulink url="http://es.tldp.org/">
+	      TLDP-ES/LuCAS
+	    </ulink>
+	    </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    <ulink url="http://laespiral.org/documentacion.html">
+	      La Espiral
+	    </ulink>
+	    </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    <ulink url="http://www.debian.org/doc/index.es.html">
+	      Debian: Documentaci&oacute;n
+	    </ulink>
+	  </para>
+	</listitem>
+      </itemizedlist>
+    </sect1>
+    
+  </chapter>
+  
+  <!-- Local Variables: -->
+  <!-- sgml-parent-document: "Introduccion.sgml" -->
+  <!-- End: -->
+  

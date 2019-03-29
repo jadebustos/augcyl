@@ -1,0 +1,6 @@
+html:
+	xmlto html -o html CursoGnome.xml
+	cp -Rpf img/*png html
+
+clean:
+	rm -Rf *html *~

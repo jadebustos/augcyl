@@ -1,0 +1,482 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+<chapter>
+<title>Introducci&oacute;n a la plataforma LAMP</title>
+<para>
+Bienvenidos a esta documentaci&oacute;n sobre La Teor&iacute;a de funcionamiento de la plataforma LAMP. Espero que os sea grata y que os ayude a 
+entender mejor el desarrollo de aplicaciones mediante los ordenadores con GNU/Linux.
+</para>
+<section>
+<title>Principios de la arquitectura cliente servidor.
+</title>
+<para>A fin de poder entender correctamente el comportamiento de la arquitectura LAMP es importante describir el funcionamiento de 
+la arquitectura de aplicaciones Cliente-Servidor.
+En Dicha arquitectura disponemos de dos tipos de agentes:
+</para>
+<itemizedlist>
+<listitem>
+<para>
+Cliente: Ordenador o programa inform&aacute;tico que solicita informaci&oacute;n.
+</para>
+</listitem>
+<listitem>
+<para>
+Servidor: Ordenador o programa inform&aacute;tico que dispone de informaci&oacute;n.
+</para>
+</listitem>
+</itemizedlist>
+
+      <figure>
+	<title>Arquitectura Cliente Servidor B&aacute;sica</title>
+              <graphic fileref="Cliente-Servidor-1.png" format="PNG" scale="100" />
+
+</figure>
+<para>Dentro de este tipo de arquitectura podemos definir distintos tipos de Agentes dependiendo del tratamiento que se realice 
+con la informaci�n</para>
+<itemizedlist>
+<listitem>
+<para>
+Activo: El Agente realiza un procesado activo de la informaci&oacute;n. Calculo intensivo, c&aacute;lculo de la presentaci&oacute;n gr&aacute;fica de la 
+informaci&oacute;n, acceso a datos son algunas de las tareas t&iacute;picas de un Agente Activo.
+</para>
+</listitem>
+<listitem>
+<para>
+Pasivo: El agente se limita a manejar informaci&oacute;n en bruto o preprocesada.
+</para>
+</listitem>
+</itemizedlist>
+</section>
+<section>
+<title>Tipos de Arquitectura Cliente Servidor
+</title>
+<para>A continuaci&oacute;n se detallan los distintos tipos de Arquitecturas de Cliente - Servidor:</para>
+<itemizedlist>
+<listitem>
+<para>
+Cliente Activo, Servidor Pasivo: El cliente realiza la practica totalidad del trabajo de procesado de la informaci&oacute;n. 
+Ejemplo: Google Earth.
+</para>
+</listitem>
+<listitem>
+<para>
+Cliente Pasivo, Servidor Pasivo: Tanto el cliente como el Servidor simplemente pasan informaci&oacute;n. Ejemplo: Gateways de 
+comunicaciones VoIP.
+</para>
+</listitem>
+<listitem>
+<para>
+Cliente Pasivo, Servidor Activo: El Servidor realiza todo el trabajo de procesado y el cliente simplemente presenta los datos. 
+Ejemplo: Servidores de terminales.
+</para>
+</listitem>
+<listitem>
+<para>
+Cliente Activo, Servidor Activo: Tanto el Servidor como el Cliente procesan la informaci&oacute;n. Ejemplo: Servicios de Correo Electr&oacute;nico.
+</para>
+</listitem>
+</itemizedlist>
+</section>
+</chapter>
+<chapter>
+<title>La Arquitectura LAMP</title>
+<section>
+<title>Introducci&oacute;n a LAMP</title>
+<para>Dependiendo de la aplicaci&oacute;n LAMP que el tipo de arquitectura puede variar, pero por simplicidad en el presente manual s&oacute;lo 
+va a tratarse del Tipo Cliente Activo - Servidor Activo.</para>
+</section>
+<section>
+<title>Glosario LAMP</title>
+<para>A continuaci&oacute;n se detallan un glosario de t&eacute;rminos que permiten entender mejor la arquitectura LAMP:</para>
+<itemizedlist>
+<listitem>
+<para>
+HTML: Hyper Text Markup Language. Lenguaje que permite definir el contenido y su presentaci&oacute;n para que el cliente 
+web permita visualizar la informaci&oacute;n que contiene. Dicho lenguaje permite la inclusi&oacute;n de medios (gr&aacute;ficos, sonidos, v&iacute;deos, etc.).
+</para>
+</listitem>
+<listitem>
+<para>
+Etiqueta o TAG: Unidad m&iacute;nima de representaci&oacute;n en el Lenguaje HTML. Permite definir: p&aacute;rrafos, tablas, enlaces, im&aacute;genes, etc...
+</para>
+</listitem>
+<listitem>
+<para>CSS: (Cascading Style Sheets) Hojas de Estilo en Cascada . Permiten generar clases de estilo que se pueden aplicar a etiquetas 
+HTML. Dichas hojas de estilo se pueden definir dentro de los ficheros HTML o incluso referenciarlos. Los TAG permiten agrupar cambios 
+en las propiedades de un determinando TAG.
+</para>
+</listitem>
+<listitem>
+<para>
+Java Script (JS): Lenguaje de programaci&oacute;n que permite en la parte cliente procesar y realizar cambios en la presentaci&oacute;n. Dichos 
+Scripts suelen estar referenciados desde el fichero HTML.
+</para>
+</listitem>
+<listitem>
+<para>
+P&aacute;gina Web: Unidad de contenido de un servidor web. Normalmente est&aacute; compuesta de un fichero formateado en HTML y sus referencias.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Sitio Web: Conjunto de reglas del Servidor Web y las p&aacute;ginas Web que lo componen.
+</para>
+</listitem>
+<listitem>
+<para>
+Servicio DNS: Servidor que entre otras funciones permite traducir nombres de m&aacute;quinas en Internet a direcciones IP.
+</para>
+</listitem>
+<listitem>
+<para>
+Navegador Web: Cliente que permite consultar a Servidores Web y presentar la informaci&oacute;n HTML. Ejemplos: Firefox, Konqueror, Opera, 
+Internet Explorer, etc.
+</para>
+</listitem>
+<listitem>
+<para>
+Plugin Web: Extensi&oacute;n de un navegador web que permite a&ntilde;adir una funcionalidad a un navegador web, por ejemplo la visualizaci&oacute;n 
+de elementos no est&aacute;ndar. Ejemplos: Flash Player, JVM, etc.
+</para>
+</listitem>
+<listitem>
+<para>
+Apache: Servidor Web Libre. Dicho servidor es altamente flexible y actualmente el 60% de los sitios web funcionan con Apache.
+</para>
+</listitem>
+<listitem>
+<para>
+M&oacute;dulo de Apache: Conjunto de funcionalidades agrupadas que permiten extender el tratamiento de la informaci&oacute;n por parte del 
+servidor Web Apache.
+</para>
+</listitem>
+<listitem>
+<para>
+URL: Uniform Resource Locator. Definici&oacute;n del acceso a un recurso. El concepto de URL ha sido incorporado dentro del m&aacute;s 
+general de URI (Uniform Resource Identifier - Identificador Uniforme de Recurso), pero el t&eacute;rmino URL a&uacute;n se utiliza ampliamente. 
+La URL est&aacute; dividida en tres partes: Nombre del Servidor Web, Recurso a acceder y Par&aacute;metros GET.
+</para>
+</listitem>
+<listitem>
+<para>
+M&eacute;todo GET: Forma de paso de par&aacute;metros mediante URL.
+</para>
+</listitem>
+<listitem>
+<para>
+M&eacute;todo POST: Forma de paso de par&aacute;metros mediante formulario (normalmente).
+</para>
+</listitem>
+<listitem>
+<para>
+PHP: PHP Hypertext Pre-processor. es un lenguaje de programaci&oacute;n usado generalmente para la creaci&oacute;n de contenido para sitios web.
+PHP est&aacute; preparado para funcionar como un m&oacute;dulo de Apache (y otros servidores Web).
+</para>
+</listitem>
+<listitem>
+<para>
+Direcci&oacute;n IP: Identificativo &uacute;nico de un interfaz de red basado en el Protocolo IP.
+</para>
+</listitem>
+<listitem>
+<para>
+SGBD: Sistema de Gesti&oacute;n de Bases de Datos. Son un tipo de software muy espec&iacute;fico, dedicado a servir de interfaz entre la 
+base de datos, el usuario y las aplicaciones que la utilizan. Se compone de un lenguaje de definici&oacute;n de datos, de un 
+lenguaje de manipulaci&oacute;n de datos y de un lenguaje de consulta. En los textos que tratan este tema, o temas relacionados, 
+se mencionan los t&eacute;rminos SGBD y DBMS, siendo ambos equivalentes, y acr&oacute;nimos, respectivamente, de Sistema Gestor de Bases 
+de Datos y DataBase Management System, su expresi&oacute;n inglesa.
+</para>
+</listitem>
+<listitem>
+<para>
+SQL: Lenguaje de Consulta Estructurado (Structured Query Language). Es un lenguaje declarativo de acceso a bases de datos 
+relacionales que permite especificar diversos tipos de operaciones sobre las mismas. Auna caracter&iacute;sticas del &aacute;lgebra y 
+el c&aacute;lculo relacional permitiendo lanzar consultas con el fin de recuperar informaci&oacute;n de inter&eacute;s de una base de datos, 
+de una forma sencilla.
+</para>
+</listitem>
+
+</itemizedlist>
+</section>
+<section>
+<title>Elementos de la Arquitectura LAMP</title>
+<para>A continuaci&oacute;n se detallar&aacute;n los elementos de una arquitectura LAMP:</para>
+<itemizedlist>
+<listitem>
+<para>
+Cliente Web/DNS: Navegador Web. Por ejemplo: Firefox.
+</para>
+</listitem>
+<listitem>
+<para>
+Servidor DNS: Conversor de nombres a IP's. Por ejemplo: BIND.
+</para>
+</listitem>
+<listitem>
+<para>
+Servidor Web: Almac&eacute;n y procesador de la Informaci&oacute;n Web. Apache en nuestro caso.
+</para>
+</listitem>
+<listitem>
+<para>
+M&oacute;dulo de PHP: M&oacute;dulo para apache que permite procesar ficheros escritos en el Lenguaje PHP. Por ejemplo: PHP5
+</para>
+</listitem>
+<listitem>
+<para>
+Aplicaci&oacute;n LAMP: Conjunto de ficheros PHP que componen una Aplicaci&oacute;n Web.Por ejemplo: PhpMyAdmin
+</para>
+</listitem>
+<listitem>
+<para>
+SGBD: Sistema de gesti&oacute;n de bases de datos que permitir&aacute; almacenar la informaci&oacute;n din&aacute;micamente. En nuestro caso Mysql.
+</para>
+</listitem>
+</itemizedlist>
+</section>
+<section>
+<title>Proceso de una Petici&oacute;n LAMP</title>
+<para>A continuaci&oacute;n se detallar&aacute;n los pasos que realizan el cliente y el servidor de una arquitectura LAMP</para>
+<itemizedlist>
+<listitem>
+<para>
+Cliente Web: Solicitud de conversi&oacute;n del nombre de una m&aacute;quina al Servidor DNS. Por ejemplo: www.google.es
+</para>
+</listitem>
+<listitem>
+<para>
+Servidor DNS: Recepci&oacute;n y tratamiento de la solicitud. Una vez recibida la petici&oacute;n realiza las consultas necesarias para resolver y 
+obtener la direcci&oacute;n IP.
+</para>
+</listitem>
+<listitem>
+<para>
+Servidor DNS: Devuelve la direcci&oacute;n IP que corresponde al Servidor Web al navegador Web.
+</para>
+</listitem>
+<listitem>
+<para>
+Cliente Web: Realiza la solicitud de informaci&oacute;n mediante una URL(M&eacute;todo GET) o un formulario (M&eacute;todo POST). Dicha solicitud incluye: 
+la direcci&oacute;n IP del servidor web, el puerto del servidor web, URL y par&aacute;metros POST(esta s&oacute;lo en el caso de formularios normalmente).
+</para>
+</listitem>
+<listitem>
+<para>
+Servidor Web: Control de Acceso, An&aacute;lisis de la petici&oacute;n y localizaci&oacute;n del recurso.
+</para>
+</listitem>
+<listitem>
+<para>
+Servidor Web: Selecci&oacute;n del m&oacute;dulo de PHP para interpretar el fichero PHP elegido.
+</para>
+</listitem>
+<listitem>
+<para>
+M&oacute;dulo de PHP: Ejecuci&oacute;n del programa PHP elegido.
+</para>
+</listitem>
+<listitem>
+<para>
+Aplicaci&oacute;n PHP: Procesado de los par&aacute;metros GET o POST.
+</para>
+</listitem>
+<listitem>
+<para>
+Aplicaci&oacute;n PHP: Realizaci&oacute;n de las llamadas SQL al Servidor de SGBD.
+</para>
+</listitem>
+<listitem>
+<para>
+SGBD: Recogida y procesado de la petici&oacute;n SQL.
+</para>
+</listitem>
+<listitem>
+<para>
+SGBD: Retorno de los datos solicitados.
+</para>
+</listitem>
+<listitem>
+<para>
+Aplicaci&oacute;n PHP: Procesado de los datos devueltos por el SGBD y Generaci&oacute;n del HTML resultante.
+</para>
+</listitem>
+<listitem>
+<para>
+Modulo PHP: Paso del HTML resultante a Apache.
+</para>
+</listitem>
+<listitem>
+<para>
+Apache: Devuelve el HTML al cliente Web.
+</para>
+</listitem>
+<listitem>
+<para>
+Cliente Web: Presentaci&oacute;n del HTML resultante, CSS y elementos relacionados y ejecuci&oacute;n del Javascript.
+</para>
+</listitem>
+</itemizedlist>
+<para>A continuaci&oacute;n se puede visualizar un gr&aacute;fico que resume dichos pasos:</para>
+<figure>
+	<title>Procesado de una petici&oacute;n LAMP</title>
+              <graphic fileref="lamp-arquitectura.png" format="PNG" scale="80" />
+</figure>
+</section>
+</chapter>
+<chapter>
+<title>Pasos de la Instalaci&oacute;n de un Entorno LAMP</title>
+<section>
+<title>Instalaci&oacute;n y configuraci&oacute;n o acceso a un Servidor DNS.
+</title>
+<para>
+Debido a que la instalaci&oacute;n y configuraci&oacute;n espec&iacute;ficas dependen del sistema operativo y la versi&oacute;n escojida, se van a enumerar 
+los pasos necesarios para su configuraci&oacute;n, que son los siguientes:
+</para>
+<itemizedlist>
+<listitem>
+<para>
+Alta de un dominio. Ejemplo: midominio.com
+</para>
+</listitem>
+<listitem>
+<para>
+Alta de las m&aacute;quinas que pertenecen al dominio. Ejemplo: servidor.midominio.com. en este paso se relaciona la direcci&oacute;n IP de la m&aacute;quina con el nombre dentro del dominio.
+</para>
+</listitem>
+<listitem>
+<para>
+Alta de los Alias necesarios: www, ftp, correo, etc. Se relacionan los nombre reales de las m&aacute;quinas con un alias o apodo de la m&aacute;quina.
+</para>
+</listitem>
+<listitem>
+<para>
+Esperar de 24 a 48h a que se replique la informaci&oacute;n entre los Servidores DNS de todo el mundo.
+</para>
+</listitem>
+<listitem>
+<para>
+Realizar una consulta de DNS para ver si ha funcionado correctamente la operaci&oacute;n para cada una de las m&aacute;quinas y alias creados.
+</para>
+</listitem>
+</itemizedlist>
+</section>
+<section>
+<title>Instalaci&oacute;n y configuraci&oacute;n de Apache.
+</title>
+<para>
+Debido a que la instalaci&oacute;n y configuraci&oacute;n espec&iacute;ficas dependen del sistema operativo y la versi&oacute;n escojida, se van a enumerar los pasos necesarios para su configuraci&oacute;n, que son los siguientes:
+</para>
+<itemizedlist>
+<listitem>
+<para>
+Configuraci&oacute;n de los par&aacute;metros b&aacute;sicos: Directorio principal de directorio, reglas de acceso por defecto, numero de hijos, memoria ram, n&uacute;mero m&aacute;ximo de peticiones, etc...
+</para>
+</listitem>
+<listitem>
+<para>
+Alta y Configuraci&oacute;n de los m&oacute;dulos b&aacute;sicos necesarios: redirecci&oacute;n, proxy, configuraci&oacute;n, etc...
+</para>
+</listitem>
+
+<listitem>
+<para>
+Prueba de funcionamiento del servidor web con un fichero HTML de ejemplo.
+</para>
+</listitem>
+<listitem>
+<para>
+Instalaci&oacute;n y Configuraci&oacute;n del m&oacute;dulo de PHP: inclusi&oacute;n del m&oacute;dulo, asociaci&oacute;n del tipo de fichero al m&oacute;dulo, configuraci&oacute;n de tama&ntilde;o m&aacute;ximo de upload, memoria por hilo php, acceso a datos, etc...
+</para>
+</listitem>
+<listitem>
+<para>
+Alta de un sitio web virtual que permita manejar el sitio principal del dominio. Ejemplo: www.midominio.com relacionado con el directorio /var/www/midominio.com/
+</para>
+</listitem>
+<listitem>
+<para>
+Configuraci&oacute;n de las reglas especiales para el sitio principal del dominio: control de acceso, etc.
+</para>
+</listitem>
+<listitem>
+<para>
+Prueba de funcionamiento de PHP con un fichero de ejemplo.
+</para>
+</listitem>
+</itemizedlist>
+</section>
+<section>
+<title>Instalaci&oacute;n y configuraci&oacute;n de un Sistema de Gesti&oacute;n de Bases de Datos: Mysql.
+</title>
+
+<para>
+Debido a que la instalaci&oacute;n y configuraci&oacute;n espec&iacute;ficas dependen del sistema operativo y la versi&oacute;n escojida, se van a enumerar los pasos necesarios para su configuraci&oacute;n, que son los siguientes:
+</para>
+<itemizedlist>
+<listitem>
+<para>
+Configuraci&oacute;n b&aacute;sica del servidor Mysql: memoria principal disponible, tipos de tabla disponibles, memoria destinada a cache, etc...
+</para>
+</listitem>
+<listitem>
+<para>
+Inserci&oacute;n de usuarios b&aacute;sicos.
+</para>
+</listitem>
+<listitem>
+<para>
+Creaci&oacute;n de una base de datos de ejemplo.
+</para>
+</listitem>
+<listitem>
+<para>
+Creaci&oacute;n de una tabla de ejemplo.
+</para>
+</listitem>
+<listitem>
+<para>
+Modificaci&oacute;n de un usuario para tener acceso a la base de datos creada.
+</para>
+</listitem>
+<listitem>
+<para>
+Prueba de funcionamiento con un cliente de Mysql.
+</para>
+</listitem>
+</itemizedlist>
+</section>
+<section>
+<title>Instalaci&oacute;n y configuraci&oacute;n de una aplicaci&oacute;n LAMP.
+</title>
+<para>
+Debido a que la instalaci&oacute;n y configuraci&oacute;n espec&iacute;ficas dependen del sistema operativo y la versi&oacute;n escojida, se van a enumerar los pasos necesarios para su configuraci&oacute;n, que son los siguientes:
+</para>
+<itemizedlist>
+<listitem>
+<para>
+Creaci&oacute;n de una base de datos en el servidor para la aplicaci&oacute;n.
+</para>
+</listitem>
+<listitem>
+<para>
+Colocaci&oacute;n de las tablas principales necesarias para el funcionamiento de la aplicaci&oacute;n LAMP.
+</para>
+</listitem>
+<listitem>
+<para>
+Instalaci&oacute;n de la aplicaci&oacute;n web en el sitio web principal.
+</para>
+</listitem>
+<listitem>
+<para>
+Configuraci&oacute;n de la aplicaci&oacute;n web.
+</para>
+</listitem>
+<listitem>
+<para>
+Prueba de la aplicaci&oacute;n web.
+</para>
+</listitem>
+</itemizedlist>
+</section>
+</chapter>

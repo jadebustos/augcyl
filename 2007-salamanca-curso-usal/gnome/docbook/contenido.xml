@@ -1,0 +1,283 @@
+	
+	<chapter><title>&iquest;Qu&eacute; es GNOME?</title>
+	
+		<section><title>El proyecto GNOME</title>
+		
+		<para>GNOME, escrito con may&uacute;sculas, es el acr&oacute;nimo de <emphasis>GNU Network Object Model Environment</emphasis>, cuyo significado literal, gnomo en ingl&eacute;s, no es fruto de la casualidad. </para>
+
+		<para>Cuando se habla de GNOME, solemos referirnos a un escritorio muy popular entre las plataformas GNU/Linux. En realidad, es un proyecto mucho m&aacute;s amplio cuyos objetivos son ofrecer tanto un escritorio como un surtido completo de aplicaciones y una plataforma de desarrollo con la que generar aplicaciones integradas entre s&iacute;. Visitando la p&aacute;gina http://www.gnome.org/projects podemos comprobrar la variedad de proyectos relacionados con GNOME; desde <emphasis>LibXML</emphasis>, un analizador sint&aacute;ctico, hasta <emphasis>Hipo</emphasis>, una aplicaci&oacute;n para gestionar los contendidos de un iPod.</para>
+
+		<para>Su desarrollo comienza en agosto de 1997 con el objetivo de crear un escritorio completamente libre. Surge como n&eacute;mesis de KDE, cuyas herramientas gr&aacute;ficas, Qt, no ten&iacute;an una licencia compatible con el proyecto GNU en aquel momento. A la cabeza del proyecto aparecen dos j&oacute;venes mexicanos, Miguel de Icaza y Federico Mena, quienes escogen como lenguaje principal de desarrollo <emphasis>C</emphasis> y como herramientas gr&aacute;ficas las librer&iacute;as GTK+, desarrolladas en torno a <emphasis>The GIMP</emphasis>, un popular editor gr&aacute;fico. La propuesta tuvo &eacute;xito, lo que se traduce, en el &aacute;mbito del Software Libre, en la formaci&oacute;n de una activa comunidad que lo mantiene en constante evoluci&oacute;n.
+		</para>
+		
+		<para>La comunidad que participa en el desarrollo de GNOME se compone de programadores, desarrolladores, usuarios, dise&ntilde;adores, traductores... distribu&iacute;dos por todo el mundo que colaboran a trav&eacute;s de internet. Algunos trabajan de forma independiente y otros contratados o patrocinados por empresas, pero todas sus aportaciones se presentan de la misma forma y con el mismo derecho al desarroll&oacute; de la rama principal, la que se publica a trav&eacute;s de la p&aacute;gina principal del proyecto (http://gnome.org) y es gestionada por la Fundaci&oacute;n GNOME. Esta versi&oacute;n oficial de GNOME, a la que nos referimos como la versi&oacute;n <emphasis>upstream</emphasis>, recoge las modificaciones aceptadas por la comunidad de desarrolladores acordes con los planteamientos que sirven de gu&iacute;a al proyecto. Los m&aacute;s caracter&iacute;sticos ser&iacute;an:	</para>
+		
+		<itemizedlist>
+		<listitem>
+                  <para><emphasis>Libertad:</emphasis> Tanto el usuario como el desarrollador deben tener la &uacute;ltima palabra sobre su escritorio, su software y su informaci&oacute;n.</para>
+                </listitem>
+		
+		<listitem>
+                  <para><emphasis>Usabilidad y accesibilidad:</emphasis> La prioridad en el desarrollo de aplicaciones es que sean f&aacute;ciles de usar por todo tipo de personas. Ello se traduce en la existencia de una gu&iacute;a de dise&ntilde;o de interfaces (http://developer.gnome.org/projects/gup/hig/) que todas las aplicaciones que se quieran formar parte del proyecto deben respetar.</para>
+                  </listitem>
+		
+		<listitem>
+                  <para><emphasis>Comunidad:</emphasis> Colaborar con GNOME implica participar en la comunidad GNOME.</para>
+                </listitem>
+		</itemizedlist>
+		
+		</section>
+		
+		
+		<section><title>La experiencia del usuario</title>
+		
+		<para>Los usuarios que se acercan a GNOME se encuentran con un escritorio al que se le acusa de ser demasiado simple. Es famoso un comentario de Linus Torvalds llamando a los desarrolladores de GNOME "nazis del interfaz" por su empe&ntilde;o en priorizar la usabilidad frente la funcionalidad. Lo cierto, es que la cr&iacute;tica de Linus estaba justificada porque se dirig&iacute;a a uno de los dos puntos m&aacute;s escabrosos del interfaz de GNOME, el di&aacute;logo de impresi&oacute;n; el otro es el di&aacute;logo para guardar un archivo. Pero tambi&eacute;n hay que ser comprensivos con la situaci&oacute;n, pues buscar un interfaz simple y usable implica encontrar qu&eacute; es lo que realmente se usa y c&oacute;mo poner a disposici&oacute;n de usuario lo que usa de una forma evidente. Hay que pensar que si los miembros de GNOME han recogido como lema: "GNOME es gente", lo importante es que el proyecto sea receptivo y se vaya adaptando a las exigencias del usuario conforme se van revelando. As&iacute; es que, el di&aacute;logo de impresi&oacute;n, ya puede ofrecer las funciones que en su d&iacute;a Linus reclam&oacute;.</para>
+		
+		<para>Fuera de la pol&eacute;mica respecto su simpleza, el escritorio GNOME sigue la met&aacute;fora de escritorio virtual tradicional. Una zona donde colocar iconos de cualquier tipo, paneles en los que anclar miniaplicaciones, men&uacute;s para ejecutar diferentes programas, posibilidad de gestionar las diferentes aplicaciones, espacios virtuales... Tambi&eacute;n existe una gama de aplicaciones suficiente para realizar las actividades diarias m&aacute;s comunes sin romper la consistencia del ambiente gr&aacute;fico; si bien es cierto, que la consistencia en cuanto el uso no es tan constate, ya que muchas distribuciones ofrecen en la configuraci&oacute;n b&aacute;sica aplicaciones que, sin formar parte del proyecto GNOME utilizan las mismas herramientas gr&aacute;ficas.</para>
+				
+		<para>En general, es un escritorio muy recomendable para cualquier usuario. Aunque tambi&eacute;n es cierto que los usuarios sin grandes pretensiones se sentir&aacute;n felices con el planteamiento de GNOME por la sencillez con la que se pueden desarrollar las tareas b&aacute;sicas; que los usarios de nivel medio/alto pueden echar en falta opciones de configuraci&oacute;n y que los usuarios realmente avanzados podr&aacute;n aprovechar que sus aplicaciones incluyen la posibilidad de programar complementos para responder a sus necesidadesf&aacute;cilmente. Como siempre, que sea el escritorio adecuado para nosotros o no, depender&aacute; de lo que busquemos, necesitemos o sepamos aprovechar.	</para>
+		
+		</section>
+		
+		
+		<section><title>Las herramientas del programador</title>
+		
+		<para>La primera facilidad que ofrece al desarrollador el proyecto GNOME, es que las librer&iacute;as del escritorio est&aacute;n distribu&iacute;das con licencia LGPL. Esta licencia, a diferencia de la GPL no es t&aacute;n "v&iacute;rica", permitiendo que el desarrollador de aplicaciones pueda escoger para su aplicaci&oacute;n una licencia que no se la GPL. Incluso podr&iacute;amos desarrollar programas de c&oacute;digo cerrado sobre GNOME.</para>
+		
+		
+	<para>La segunda es la existencia de la documentaci&oacute;n necesaria para poder aprender a utilizar las facilidades de desarrollo que nos ofrece la plataforma GNOME/GTK disponibles en: http://developer.gnome.org/  y de una comunidad dispuesta a colaborar con nosotros si poseemos las capacidades de comunicaci&oacute;n y educaci&oacute;n m&iacute;nimas.</para>
+		
+		<para>A pesar de que el escritorio GNOME est&eacute; desarrollado en <emphasis>C</emphasis> y que tengamos un IDE muy bueno integrado como es <emphasis>Anjuta</emphasis> no es necesario que las aplicaciones lo est&eacute;n igualmente. Actualmente, los lenguajes preferidos para el desarrollo de aplicaciones, o su mejora a trav&eacute;s de complementos, son, adem&aacute;s de <emphasis>C</emphasis>, <emphasis>Python</emphasis> y <emphasis>C#</emphasis> (a trav&eacute;s de la plataforma <emphasis>Mono</emphasis>, una implementaci&oacute;n libre de <emphasis>.NET</emphasis>). Pero tambi&eacute;n hay bindings a otros lenguajes como <emphasis>Java</emphasis>, <emphasis>Perl</emphasis> o <emphasis>Ruby</emphasis>.
+		
+		</para>
+		
+		</section>
+		
+		
+		<section><title>Un proyecto distribu&iacute;do</title>
+		
+		<para>Como ya hemos comentado, existe una versi&oacute;n oficial del escritorio GNOME que gestiona la Fundaci&oacute;n GNOME. Esta versi&oacute;n se distribuye de forma gratu&iacute;ta a trav&eacute;s de la p&aacute;gina web principal de GNOME (http://www.gnome.org), pero, tal como corresponde con la filosof&iacute;a del Software Libre, lo que se distribuye, es lo importante, el c&oacute;digo fuente. Aunque la versi&oacute;n 2.18 se ha publicado tambi&eacute;n en liveCD y en diferentes im&aacute;genes para m&aacute;quinas virtuales facilitando as&iacute; que podamos comprobar las novedades sin afectar a nuestra puesto de trabajo. Compilar todo el c&oacute;digo fuente de GNOME resulta una tarea tediosa, aunque f&aacute;cilmente automatizable, ya que se distribuye en muchos paquetes (esto se debe a que el desarrollo se plantea modularizado) y faltan aplicaciones oficiales para cubrir todas las funciones que se le exigen a un ambiente de escritorio, por lo que hay que recurrir a aplicaciones externas al proyecto. Dado que hay mucha gente y empresas trabajando en distribuir el escritorio GNOME con vistas al usuario final, la dificultad de manejarse con el c&oacute;digo fuente fuente puede suponer un problema  s&oacute;lo para el usuario que no sea capaz de entender qu&eacute; es una <emphasis>distribuci&oacute;n de linux</emphasis> y c&oacute;mo se trabaja con ella.</para>
+
+		<para>Los usuarios de Windows, cuando quieren instalar una aplicaci&oacute;n, buscan por internet la p&aacute;gina web del programa intentando encontrar un instalador autom&aacute;tico que ejecutan y dejan trabajar por su cuenta. Cuando se acercan al &aacute;mbito GNU/Linux y repiten este modus operandi s&oacute;lo consiguen un paquete de c&oacute;digo fuente e instrucciones sobre c&oacute;mo compilarlo, aunque nunca lo consiguen porque no saben hacerlo. Se supone que la primera opci&oacute;n es m&aacute;s transparente para el usuario, pero, en realidad, es bastante latosa: navegar en busca del cofre del tesoro y abrirlo sin saber que nos vamos a encontrar. En el &aacute;mbito GNU/Linux, hay una organizaci&oacute;n que pone a disposici&oacute;n del usuario los programas disponibles seg&uacute;n consideren que son lo suficientemente &uacute;tiles o seguros. El usuario no tiene que buscar tesoros, sino que a trav&eacute;s de canales de distribuci&oacute;n automatizados, puede solicitar la instalaci&oacute;n de aplicaci&oacute;n con la seguridad de que los responsables de la distribuci&oacute;n que ha escogido garantizan que no hay escondido en el programa pasajeros indeseables.</para>
+		
+		<para>Por ejemplo, en openSUSE, la distribuci&oacute;n que manejamos en este curso, la instalaci&oacute;n es mucho m&aacute;s sencilla y l&oacute;gica, tenemos un programa que se encarga de instalar y desinstalar aplicaciones que, como le corresponde, busca &eacute;l mismo las aplicaciones que tenemos disponibles con la garant&iacute;a de estabilidad y seguridad que nos ofrece la distribuci&oacute;n.</para>
+		
+		<para>Hay que tener presente que en el &aacute;mbito GNU/Linux, se trabaja con programas cuyo c&oacute;digo fuente est&aacute; accesible para cualquiera, pero no todos estamos interesados en el c&oacute;digo fuente, sino que muchos buscamos aplicaciones usables en nuestros ordenadores de forma sencilla. El objetivo de las distribuciones (openSUSE, Ubuntu, Fedora, Debian...) es facilitar la instalaci&oacute;n y configuraci&oacute;n de aplicaciones. Algunas, como Gentoo Linux, ofrecen herramientas que automatizan la compilaci&oacute;n de las diferentes aplicaciones, pero otras, como openSUSE ofrecen una experiencia completa al usuario modificando con parches la "versiones upstream" de los programas en busca de una mayor consistencia tanto gr&aacute;fica como de uso.</para>
+		
+		<para>Se podr&iacute;a afirmar que el GNOME que nos ofrece openSUSE es un proyecto paralelo a la versi&oacute;n oficial. No s&oacute;lo se ofrece una configuraci&oacute;n incial y un tema gr&aacute;fico distintos, sino que se incluyen por defecto aplicaciones que no se consideran parte de la versi&oacute;n oficial del escritorio aunque s&iacute; parte del proyecto GNOME, aplicaciones de configuraci&oacute;n del sistema propias y alg&uacute;n parche o compilaci&oacute;n que no entrar&iacute;a dentro de lo que se entiende por configuraci&oacute;n oficial. Esta situaci&oacute;n, no se da s&oacute;lo con openSUSE, sino que pr&aacute;cticamente todas las distribuciones que distribuyen GNOME presentan su propia selecci&oacute;n de aplicaciones y configuraci&oacute;n gr&aacute;fica. Por ello, es bueno ser consciente de la configurabilidad y las pautas de uso del escritorio para poder ajustarlo a nuestro gusto.
+		</para> 
+		
+		</section>
+	
+	</chapter>
+
+
+	
+	<chapter><title>Interactuando con el escritorio</title>
+	
+		<section><title>Vista global</title>
+		
+		<para>Al iniciar nuestra sesi&oacute;n con GNOME en openSUSE 10.2 nos encontramos con el siguiente "panorama":</para>
+
+     <mediaobject>
+        <imageobject>
+	  <imagedata align="center" fileref="img/vista-general.pdf" format="EPS" scale="20"/>
+       </imageobject>
+        <imageobject>
+	  <imagedata align="center" fileref="img/vista-general.png" format="PNG" scale="20"/>
+       </imageobject>
+     </mediaobject>      
+		
+		<para>Un "panorama" que adecuado para no resultar extra&ntilde;o al usuario proveniente del mundo Windows. Normalmente, el escritorio GNOME ofrece un aspecto inicial diferente, pero Novell ha realizado unas pruebas de usabilidad en las que se ha comprobado que el orden del escritorio ofrecido por Microsoft en su Sistema Operativo Windows se ha implantado en el subconsciente de una mayor&iacute;a de usuarios. Desde openSUSE, se ha decidido ofrecer esta configuraci&oacute;n para simplificar el primer acercamiento a estos usuarios. Los que busquen otra configuraci&oacute;n, es sencillo cambiar la disposici&oacute;n y g&eacute;nero de los objetos del escritorio.</para>
+		
+		<para>En la configuraci&oacute;n inicial nos encontramos con un panel inferior en el que localizamos el men&uacute; principal (llamado "Ordenador"), un lanzador de Tomboy (un programa para tomar notas), un espacio donde se ir&aacute;n mostrando las diferentes tareas que mantenemos en primer plano, una bandeja del sistema donde se anclan las aplicaciones lanzadas en segundo plano dentro de la sesi&oacute;n de usuario, un reloj, un bot&oacute;n para minimizar todas las aplicaciones abiertas en nuestro escritorio y, situada en la esquina inferior derecha, una zona de avisos que s&oacute;lo veremos cuando el sistema o una aplicaci&oacute;n nos quiera avisar de algo. El resto del espacio se reserva para el escritorio, un espacio que representa a un directorio, donde podemos situar lanzadores, archivos, directorios... Cabe señalar, que los iconos presentes en el escritorio se presentan de modo vectorial, lo que quiere decir que el usuario puede modificar su tamaño, lo que nos permite un par&aacute;metro m&aacute;s a la hora de ordenarlos.</para>
+		
+		
+		
+		<para>Toda la diversi&oacute;n, inica con el men&uacute; llamado "Ordenador", equivalente al famoso men&uacute; de "Inicio" de Windows que tan extra&ntilde;o nos resulta usar para apagar el equipo. No vamos a decir que "Ordenador" sea m&aacute;s comprensible, porque personalmente, tampoco me lo parece, en especial cuando el componente se conoce como "Main Menu" (Men&uacute; Principal), mucho m&aacute;s acertado. Acerqu&eacute;menos a las posibildiades que nos ofrece:</para>
+		
+     <mediaobject>
+        <imageobject>
+	  <imagedata align="center" fileref="img/gnome-main-menu.pdf" format="EPS" scale="50"/>
+       </imageobject>
+        <imageobject>
+	  <imagedata align="center" fileref="img/gnome-main-menu.png" format="PNG" scale="50"/>
+       </imageobject>
+     </mediaobject>      
+
+		
+		<para>Nos llama la atenci&oacute;n en primer lugar el campo de b&uacute;squeda, enlazado con  el herramienta de b&uacute;squeda "Beagle" que indexa todo tipo de informaci&oacute;n perteneciente a nuestro espacio personal. Con el mismo fondo de color encontramos lanzadores para 6 aplicaciones, seleccionadas entre las m&aacute;s populares; podemos a&ntilde;adir, ordenar u ocultar estos lanzadores seg&uacute;n nuestro gusto o preferencias f&aacute;cilmente recurriendo al bot&oacute;n derecho de nuestro rat&oacute;n. Junto a estos lanzadores tenemos tambi&eacute;n un selector en el que  se nos ofrecen distintas opciones de vista: ver los documentos abiertos recientemente, las aplicaciones que hemos usado &uacute;ltimamente o lugares puntuales a los que nos puede interesar acceder.  </para>
+		
+		<para>Con otro tono de color de fondo, encontramos lanzadores relativos al sistema: la herramienta de ayuda, el centro de control de configuraciones, gesti&oacute;n de software, bloqueo de pantallas y el control de sesi&oacute;n; e informaci&oacute;n acerca del estado del equipo, carga del disco duro y el estado de la conexi&oacute;n principal de red, en dos iconos que sirven al mismo tiempo como lanzadores del gestor de redes y de la aplicaci&oacute;n que nos informa sobre el estado del sistema.
+		</para>
+		
+		</section>
+	
+		<section><title>Pautas de uso</title>
+		
+			<section><title>Encontrar lo que necesitamos</title>
+			
+			<para>Uno de los planteamientos que m&aacute;s le puede facilitar el uso a quien aprenda a sacarle provecho es <emphasis>Beagle</emphasis>, una herramienta de indexaci&oacute;n similar a  <emphasis>Spotlight</emphasis> o <emphasis>Google Desktop</emphasis>.</para>
+
+     <mediaobject>
+        <imageobject>
+	  <imagedata align="center" fileref="img/beagle.pdf" format="EPS" scale="50"/>
+       </imageobject>
+        <imageobject>
+	  <imagedata align="center" fileref="img/beagle.png" format="PNG" scale="50"/>
+       </imageobject>
+     </mediaobject>      			
+		
+			<para><emphasis>Beagle</emphasis> nos permite buscar todo tipo de cosas en nuestro espacio de usuario; desde aplicaciones hasta en el interior de nuestros documentos, pasando por los contactos de nuestra agenda o en el interior de nuestros correos electr&oacute;nicos. Por ello no tenemos que dudar en usarlo cuando necesitemos algo. Muchas de las tareas que podr&iacute;amos querer hacer con nuestra computadora las podemos localizar buscando, s&oacute;lo tenemos que acertar o conocer la denominaci&oacute;n correcta del mismo modo que hacemos cuando buscamos algo en internet a trav&eacute;s de buscadores como Google o Yahoo.
+			</para>
+			
+			<para>Otra fuente en la que es bueno buscar, es en la propia ayuda de GNOME. Cada aplicaci&oacute;n tiene la opci&oacute;n "Ayuda" a trav&eacute;s de la cu&aacute;l podremos acceder a la documentaci&oacute;n espec&iacute;fica. Esta ayuda se presenta a trav&eacute;s de una herramienta que se llama <emphasis>Yelp</emphasis>, a la que podemos acceder a trav&eacute;s del men&uacute; principal (Ordenador) o pulsando "F1" para acceder a los manuales que tengamos instalados, ya sean de GNOME o de openSUSE</para>
+			
+     <mediaobject>
+        <imageobject>
+	  <imagedata align="center" fileref="img/yelp.pdf" format="EPS" scale="30"/>
+       </imageobject>
+        <imageobject>
+	  <imagedata align="center" fileref="img/yelp.png" format="PNG" scale="30"/>
+       </imageobject>
+     </mediaobject>      			
+
+			
+			</section>
+						
+			<section><title>Archivos, carpetas y dem&aacute;s familia</title>
+			
+			<para>Una de las funciones principales que esperamos de un escritorio es la gesti&oacute;n de nuestros ficheros y los soportes en los que los tengamos. Todo ello se le muestra al usuario final a trav&eacute;s del gestor de ficheros, <emphasis>Nautilus</emphasis>.</para>
+
+     <mediaobject>
+        <imageobject>
+	  <imagedata align="center" fileref="img/nautilus.pdf" format="EPS" scale="40"/>
+       </imageobject>
+        <imageobject>
+	  <imagedata align="center" fileref="img/nautilus.png" format="PNG" scale="40"/>
+       </imageobject>
+     </mediaobject>      						
+		
+			<para>Su manejo no ser&aacute; ajeno para cualquier usuario que ya haya trabajado con cualquier otro gestor de archivos. Cada archivo se presenta con un icono que nos permite identificar de qu&eacute; tipo es, podemos arrastrarlos de una ventana a otra, o entre los marcadores para moverlo de sitio, movernos por los directorios pinchando en las carpetas que lo representan, acceder a funciones realizables sobre el fichero a trav&eacute;s de la tecla derecha del rat&oacute;n...</para>
+			
+			<para>A trav&eacute;s de tecnolog&iacute;as como Hal o GNOME-VFS, los dispositivos de almacenamiento f&iacute;sicos que conectemos a nuestro equipo se montar&aacute;n autom&aacute;ticamente, apareci&eacute;ndonos un icono tanto en el escritorio como en la barra lateral de gestor de ficheros. Adem&aacute;s de los dispositivos f&iacute;sicos, a trav&eacute;s de GNOME-VFS podemos tambi&eacute;n activar servidores externos ftp, sftp, webdav... como discos duros locales sobre los que trabajar como un directorio m&aacute;s de tal forma que las aplicaciones puedan trabajar con archivos externos de forma transparente.</para>
+		
+			</section>
+			
+			<section><title>Configuraci&oacute;n</title>
+		
+			<para>El <emphasis>Centro de Control</emphasis>, a pesar de ocupar poco espacio en el men&uacute; principal, lo cual se entiende porque no es algo que debi&eacute;semos usar muy a menudo, es una parte importante en nuestro escritorio. Es el m&eacute;todo de realizar las configuraciones necesrias para que todo funcione y no tener que volver a usarlo. Para navegar por &eacute;l, las diferentes opciones est&aacute;n divididas en categor&iacute;as que podemos filtrar a trav&eacute;s de la barra lateral o recurrir al campo de b&uacute;squeda.</para>
+	
+     <mediaobject>
+        <imageobject>
+	  <imagedata align="center" fileref="img/control-center.pdf" format="EPS" scale="30"/>
+       </imageobject>
+        <imageobject>
+	  <imagedata align="center" fileref="img/control-center.png" format="PNG" scale="30"/>
+       </imageobject>
+     </mediaobject>      						
+	
+			<para>Fuera del <emphasis>Centro de Control</emphasis>Cada aplicaci&oacute;n nos ofrece su propio di&aacute;logo de configuraci&oacute;n para funciones espec&iacute;ficas. Este se encuentra, siempre que estemos usando una aplicaci&oacute;n relacionada con GNOME, en la secci&oacute;n "Editar" de la barra de men&uacute;s como la opci&oacute;n "Preferencias".</para>
+		
+     <mediaobject>
+        <imageobject>
+	  <imagedata align="center" fileref="img/menu-editar.pdf" format="EPS" scale="50"/>
+       </imageobject>
+        <imageobject>
+	  <imagedata align="center" fileref="img/menu-editar.png" format="PNG" scale="50"/>
+       </imageobject>
+     </mediaobject>      						
+
+	
+	
+			<para>Al plantearse un interfaz sencillo de usar para el usuario, se han ocultado aplicado dos medidas, una es ocultar opciones en los di&aacute;logos de configuraci&oacute;n que se consideran de poca utilidad y otra convertir ciertas funciones que no se consideran dentro de un uso normal de las aplicaciones en complementos.</para>	
+		
+			<para>Las opciones de configuraci&oacute;n que se ocultan, siguen estando accesibles a trav&eacute;s de una la aplicaci&oacute;n <emphasis>gconf-editor</emphasis>. </para>
+
+     <mediaobject>
+        <imageobject>
+	  <imagedata align="center" fileref="img/configuraciones.pdf" format="EPS" scale="30"/>
+       </imageobject>
+        <imageobject>
+	  <imagedata align="center" fileref="img/configuraciones.png" format="PNG" scale="30"/>
+       </imageobject>
+     </mediaobject>      								
+		
+		
+			<para>Podemos comprobar en la siguiente captura de pantalla c&oacute;mo a trav&eacute;s de gconf-editor tenemos disponibles par&aacute;metros que no son accesibles a trav&eacute;s del di&aacute;logo de configuraci&oacute;n est&aacute;ndar, como la extensi&oacute;n que se a&ntilde;ade a los archivos donde se realiza una copia de seguridad o los protocolos gestionados por GNOME-VFS que queremos que realicen copias de seguridad.</para>
+	
+			<para>Los complementos pueden estar accesibles a trav&eacute;s del di&aacute;logo de preferencias de la aplicaci&oacute;n o en una secci&oacute;n propia dentro del men&uacute; "Editar" llamada, como es l&oacute;gico, "Complementos". Los complementos sirven para ampliar las funciones de cada aplicaci&oacute;n. En muchas ocasiones, a trav&eacute;s de la p&aacute;gina web de una aplicaci&oacute;n, podremos encontrar complementos que pueden responder a nuestras necesidades espec&iacute;ficas, as&iacute; que es siempre recomendable informarmos de todas las posibilidades que nos puede ofrecer la herramienta que nos interesa. Un ejemplo, ser&iacute;a, en el caso de estar interesados en usar <emphasis>Gedit</emphasis> para editar documentos escritos en LaTeX, si visitamos http://live.gnome.org/Gedit/Plugins descubriremos la existencia de un complemento que nos facilita las cosas: http://live.gnome.org/Gedit/LaTeXPlugin	</para>
+		
+			</section>
+	
+		</section>
+		
+		<section><title>Aplicaciones</title>
+	
+			<para>Cada usuario tiene gustos y necesidades  diferentes, por lo que siempre es recormendable probar distintas aplicaciones en busca de la que mejor se adapte a ellas. Para conocer las diferentes opciones disponibles es bueno revisar las aplicaciones que se nos ofrecen a trav&eacute;s del gestor de paquetes, el que se encarga de instalar y desinstalar aplicaciones, o visitar p&aacute;ginas como http://gnomefiles.org </para>
+			
+			<para>La comunidad que participa en el desarrollo de openSUSE selecciona una serie de aplicaciones con los que el usuario pueda hacer frente a las tareas b&aacute;sicas y comunes.</para>
+
+     <mediaobject>
+        <imageobject>
+	  <imagedata align="center" fileref="img/aplicaciones.pdf" format="EPS" scale="30"/>
+       </imageobject>
+        <imageobject>
+	  <imagedata align="center" fileref="img/aplicaciones.png" format="PNG" scale="30"/>
+       </imageobject>
+     </mediaobject>      									
+			
+			<section><title>Internet</title>
+			
+			<para>Para navegar por internet se nos ofrece el navegador web multiplataforma <emphasis>Firefox</emphasis>, desarrollado por la fundaci&oacute;n Mozilla ya se usa en 1 de cada 4 ordenadores europeos.</para>
+			
+			<para>La mensajer&iacute;a instant&aacute;nea se pone a nuestra disposici&oacute;n a trav&eacute;s de <emphasis>Gaim</emphasis>, un cliente compatible con m&uacute;ltiples protocolos: IRC, MSN, Jabber (el que usa GTalk de Google), AIM, Yahoo, Groupwise, GaduGadu... </para>
+			
+			<para>Si trabajamos con el correo de forma local, tenemos disponible el m&oacute;dulo dedicado a correo de <emphasis>Evolution</emphasis>, compatible con los protocolos POP3/IMAP.</para>
+					
+			</section>
+			
+			<section><title>Oficina</title>
+			
+			<para>Como Suite Ofim&aacute;tica, openSUSE nos ofrece <emphasis>OpenOffice.org</emphasis>, otra exitosa aplicaci&oacute;n multiplataforma en continuo desarrollo esponsorizada por Sun. Con <emphasis>OpenOffice.org</emphasis> podremos preparar documentos de textos, hojas de c&aacute;lculo, tablas estad&iacute;sticas, bases de datos... Hay que destacar la gran ventaja que ofrece al usuario permitiendo trabajar sobre diferentes tipos de documentos pero, en especial, con el formato OpenDocument, un est&aacute;ndar aprovado por ISO.</para>
+			
+			<para>El programa escogido para gestionar nuestra informaci&oacute;n personal es <emphasis>Evolution</emphasis>, una aplicaci&oacute;n que integra nuestra agenda, libreta de contactos y correo electr&oacute;nico.	</para>			
+			
+			<para> Tambi&eacute;n podemos organizarmos con <emphasis>Tomboy</emphasis>, una aplicaci&oacute;n para tomar notas de forma f&aacute;cil que a todos sorprende y convence. </para>
+			
+			<para><emphasis>Planificador</emphasis> es un programa para la gesti&oacute;n de los recursos de cualquier proyecto y <emphasis>Dia</emphasis> un programa para crear diagramas de todo tipo, tanto de car&aacute;cter personal como en el &aacute;mbito laboral.</para>			
+			
+			</section>
+			
+			<section><title>Gr&aacute;ficos</title>
+			
+			<para><emphasis>The GIMP</emphasis> no es s&oacute;lo el programa de cuyas liber&iacute;as gr&aacute;ficas se orgin&oacute; GNOME, es tambi&eacute;n un potente editor de im&aacute;genes que satisfar&aacute; las necesidades de cualquier usuario.	</para>
+			
+			 <para>Ahora que todo el mundo tiene una c&aacute;mara de fotos digital, es necesario tener un gestor de fotograf&iacute;as personal como <emphasis>F-Spot</emphasis>, que se encarga de descargar las fotos de nuestra c&aacute;mara, las organiza, nos permite modificarlas, verlas y compartirlas a trav&eacute;s de los principales servicios web o a trav&eacute;s de galer&iacute;as realizadas autom&aacute;ticamente.</para>
+			 
+			</section>
+			
+			<section><title>Multimedia</title>
+			
+			<para>Tal como se indica en la propia web del programa,<emphasis>Banshee</emphasis> sirve para importar, organizar, escuchar y compartir tu m&uacute;sica a trav&eacute;s de un interfaz amigable y potente. Es, efectivamente, un gestor para nuestra fonoteca, tanto local como externa.</para>
+
+			<para><emphasis>Totem</emphasis> es un reproductor multimedia al que solemos acudir principalmente para visualizar v&iacute;deos, pero tambi&eacute;n hay que se&ntilde;alar sus capacidades para manejar listas de reproducci&oacute;n y encolar m&uacute;ltiples ficheros que lo hacen un perfecto compa&ntilde;ero a la hora de escuchar m&uacute;sica.</para>
+
+			</section>
+
+			<section><title>Desarrollo</title>
+			
+			<para>Una de las aplicaciones que m&aacute;s se cuida &uacute;ltimamente para el desarrollo es <emphasis>Monodevelop</emphasis>, un editor para la plataforma Mono/.NET optimizado principalmente para C#.</para>
+			
+			<para>Siendo el lenguaje principal de desarrollo del escritorio GNOME, tambi&eacute;n encontramos un interesante IDE para <emphasis>C</emphasis> en <emphasis>Anjuta</emphasis>.</para>
+			
+			<para>El diseño de los intefaces lo podemos realizar f&aacute;cilmente y de forma gr&aacute;fica con <emphasis>Glade</emphasis> para luego enlazarnos a nuestros proyectos.</para>
+			
+			<para>El desarrollo Web puede resultarnos m&aacute;s f&aacute;cil con <emphasis>Bluefish</emphasis> si nos gusta trabajar con el c&oacute;digo directamente o con <emphasis>NVU</emphasis> si preferimos un ver el resultado al mismo tiempo que lo editamos.</para>
+			
+			</section>
+			
+		</section>
+	
+	</chapter>
+		

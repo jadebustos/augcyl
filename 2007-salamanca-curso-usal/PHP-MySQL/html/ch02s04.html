@@ -1,0 +1,89 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Añadir un nuevo registro.</title><meta name="generator" content="DocBook XSL Stylesheets V1.71.0"><link rel="start" href="index.html" title="Utilización y Administración avanzada de sistemas GNU/Linux y aplicaciones Software Libre para estudiantes universitarios"><link rel="up" href="ch02.html" title="Capítulo 2. Principios de la Web"><link rel="prev" href="ch02s03.html" title="El manejo de una tabla sencilla."><link rel="next" href="ch02s05.html" title="El fichero ver.php del directorio"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Añadir un nuevo registro.</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch02s03.html">Anterior</a> </td><th width="60%" align="center">Capítulo 2. Principios de la Web</th><td width="20%" align="right"> <a accesskey="n" href="ch02s05.html">Siguiente</a></td></tr></table><hr></div><div class="section" lang="es"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2544674"></a>Añadir un nuevo registro.</h2></div></div></div><p>A continuación veremos cómo se
+      estructura un fichero nuevo.php:</p><div class="informalexample"><pre class="programlisting">
+          &lt;?php 
+          //incluimos el fichero config.php para coger los datos de la conexión
+          include_once('../config.php');
+          //cogemos las variables de las coneción para que se puedan utilizar en el script
+          global $server, $database, $user, $passwd;
+          //abrimos la conexión
+          $conexion = mysql_connect($server,$user,$passwd);
+          //elegimos la BBDD
+          mysql_select_db ($database, $conexion) OR die ("No se puede conectar");
+
+          ?&gt;
+          &lt;html&gt;
+            &lt;head&gt;
+              &lt;TITLE&gt;Nueva Asignatura&lt;/TITLE&gt;
+              &lt;LINK REL="stylesheet" TYPE="text/css"
+              HREF="../estilo.css" /&gt;
+            &lt;/head&gt;
+            &lt;body&gt;
+              &lt;?php
+              //comprueba si se entas enviando datos para guardar
+              //si no es asi es que tiene que presentar el formulario
+              if(!isset( $_POST['nuevo']))
+              {
+              //coloca el principio del formulario para que vuelva al mismo script cuando se rellene
+                      echo "&lt;form method=\"post\" action=\"nuevo.php\"&gt;";
+              //aqui se deben poner tantas líneas echo como campos haya
+              //cambiando el echo "Nombre : &lt;input type=\"text\" name=\"nombre\" maxlength=200 size=40&gt;&lt;br&gt;";
+              // por echo "Nombre : &lt;input type=\"text\" name=\"nombre_campo\" maxlength=longitud_campo size=tamaño_caja_texto&gt;&lt;br&gt;";
+              //se coloca la caja de texto para el nombre
+                      echo "Nombre : &lt;input type=\"text\" name=\"nombre\" maxlength=100 size=40&gt;&lt;br&gt;";
+              ////se coloca el botón de guardar
+                      echo "&lt;input type=\"submit\" name=\"nuevo\" value=\"Guardar\"&gt;&lt;/form&gt;&lt;br&gt;";
+              }else{
+              //si se han metido los datos en el formulario
+              //se deben colocar tantos isset($_POST['nombre_campo']) &amp;&amp; como campos haya en la tabla
+                      if(isset($_POST['nombre'])){
+              //en esta linea se ponen los nombres de los campos separados por comas y en la parte de values lo mismo pero con 
+              //variables $_POST['nombre_campo']
+                              $sql="INSERT INTO `asignaturas` ( `id` , `nombre`)
+                              VALUES (NULL , '".$_POST['nombre']."');";
+                              //echo $sql;
+              //se ejecuta la inserción de datos
+                              $result=mysql_query($sql,$conexion);
+              //se informa de que se añadido un nueva asignatura
+                              echo "&lt;p&gt;Asignatura Añadida&lt;/p&gt;";
+              //se coloca el enlace que permite volver al listado
+                              echo "&lt;p&gt;&lt;A HREF='index.php'&gt;Volver&lt;/A&gt;&lt;/p&gt;";
+                      }else{
+              // si no nos han metido campos
+                              echo "&lt;p&gt;Vuelva a intentarlo&lt;/p&gt;";
+              // se vuelve a colocar el formulario con los mismos campos que ahora, la diferenia es que se pone tantas veces como campos haya en 
+              //los VALUE el $_POST['nombre_de_campo'] para que no haya que volver a teclearlo
+                              echo "&lt;form method=\"post\" action=\"nuevo.php\" &gt;";
+              // se coloca la caja del nombre
+                              echo "Nombre : &lt;input type=\"text\" name=\"nombre\" value=\"".$_POST['nombre']."\"  maxlength = 100 size=40&gt;&lt;br&gt;";
+              // se coloca el boton de guardar
+                              echo "&lt;input type=\"submit\" name=\"nuevo\" value=\"Guardar\"&gt;&lt;/form&gt;&lt;br&gt;";
+                      }
+              }
+              ?&gt;
+            &lt;/body&gt;
+          &lt;/html&gt;
+        </pre></div><p>Como puede verse la estructura principal es muy
+      parecida a la del fichero index.php del directorio. En la
+      primera parte se hacen las inicializaciones de la BBDD, en la
+      segunda se ponen los tags inciales de HTML, en la tercera se
+      hacen las comprobaciones , presentación del
+      formulario e inserción del registro y en la cuarta
+      parte los tags finales del HTML.</p><p>En al tercera parte se puede ver cómo se
+      discrimina dependiendo de si el valor 'nuevo' de la variable
+      POST está presente (si se está mandando
+      el formulario, recordar el método POST explicado
+      en el punto anterior, que se utiliza en el formulario de esta
+      pagina, se expondrá más adelante). En
+      el primer caso ( no se ha enviado un formulario ), se genera
+      el formulario de alta de asignatura, indicando los campos
+      necesarios, observse que el formualrio se envía
+      por el método POST, así se pueden pasar
+      también los parámetros, al siguiente
+      script que se ejecute. En el segundo caso el formulario ya se
+      ha enviado, si se cumplen los requisitos para dar de alta un
+      registro de asignatura se pasa a hacer al
+      inserción, se informa de ello al usuario y se
+      coloca el botón para volver; si no se cumplen los
+      requisitos para dar de alta el registro, se informa de ello
+      al usuario y se vuelve a presentar el formulario.</p><p>Por lo que se puede ver no hay muchas más
+      diferencias con el resto de las partes del fichero.</p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch02s03.html">Anterior</a> </td><td width="20%" align="center"><a accesskey="u" href="ch02.html">Subir</a></td><td width="40%" align="right"> <a accesskey="n" href="ch02s05.html">Siguiente</a></td></tr><tr><td width="40%" align="left" valign="top">El manejo de una tabla sencilla. </td><td width="20%" align="center"><a accesskey="h" href="index.html">Inicio</a></td><td width="40%" align="right" valign="top"> El fichero ver.php del directorio</td></tr></table></div></body></html>

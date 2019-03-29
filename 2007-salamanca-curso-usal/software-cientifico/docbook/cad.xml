@@ -1,0 +1,79 @@
+  <chapter>
+    <title>CAD</title>
+    <sect1>
+      <title>QCad</title>
+      <para><emphasis>QCad</emphasis> es un programa de CAD que maneja ficheros <filename>DXF</filename> y <filename>CFX</filename>.</para>
+    <mediaobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/qcad.pdf" format="EPS" scale="40"/>
+      </imageobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/qcad.jpg" format="JPG" scale="160"/>
+      </imageobject>
+	<caption>
+          <para><emphasis>Qcad</emphasis> CAD en GNU/Linux.</para>
+	</caption>
+    </mediaobject>      
+      <sect2>
+          <title>Recursos para <emphasis>QCad</emphasis></title>
+        <itemizedlist>
+          <listitem>
+            <para><ulink url="http://www.ribbonsoft.com/qcad_doc.html">QCad</ulink>.</para>
+          </listitem>
+        </itemizedlist>	
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>PythonCAD</title>
+      <para><emphasis>PythonCAD</emphasis> es un programa de CAD desarrollado en <emphasis>Python</emphasis> que utiliza <emphasis>XML</emphasis> para guardar sus datos.</para>
+    <mediaobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/pythoncad.pdf" format="EPS" scale="40"/>
+      </imageobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/pythoncad.png" format="PNG" scale="40"/>
+      </imageobject>
+	<caption>
+          <para><emphasis>PythonCAD</emphasis>, python, CAD y XML.</para>
+	</caption>
+    </mediaobject>      
+      <sect2>
+          <title>Recursos para <emphasis>PythonCAD</emphasis></title>
+        <itemizedlist>
+          <listitem>
+            <para><ulink url="http://www.pythoncad.org/">PythonCAD</ulink>.</para>
+          </listitem>
+        </itemizedlist>	
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>FreeCAD</title>
+      <para><emphasis>FreeCAD</emphasis> es un programa de CAD de proposito general.</para>
+    <mediaobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/freecad.pdf" format="EPS" scale="60"/>
+      </imageobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/freecad.jpg" format="JPG" scale="60"/>
+      </imageobject>
+	<caption>
+          <para><emphasis>FreeCAD</emphasis>.</para>
+	</caption>
+    </mediaobject>      
+      <sect2>
+          <title>Recursos para <emphasis>FreeCAD</emphasis></title>
+        <itemizedlist>
+          <listitem>
+            <para><ulink url="http://juergen-riegel.net/FreeCAD/Docu/index.php?title=Main_Page">FreeCAD</ulink>.</para>
+          </listitem>
+          <listitem>
+            <para><ulink url="http://sourceforge.net/projects/free-cad/">FreeCAD en Sourceforge</ulink>.</para>
+          </listitem>
+        </itemizedlist>	
+      </sect2>
+    </sect1>
+  </chapter>
+
+<!-- Local Variables: -->
+<!-- xml-parent-document: "Software-Cientifico.xml" -->
+<!-- End: -->

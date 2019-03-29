@@ -1,0 +1,41 @@
+<?php 
+include_once('config.php');
+global $server, $database, $user, $passwd;
+$conexion = mysql_connect($server,$user,$passwd);
+mysql_select_db ($database, $conexion) OR die ("No se puede conectar");
+
+?>
+
+<html>
+<head>
+<TITLE>Nuevo Alumno</TITLE>
+<LINK REL="stylesheet" TYPE="text/css" HREF="estilo.css">
+</head>
+
+<body>
+<?php
+if(!isset( $_POST['nuevo']))
+{
+	echo "<form method=\"post\" action=\"nuevo.php\">";
+	echo "Nombre : <input type=\"text\" name=\"nombre\" maxlength=200 size=40><br>";
+	echo "DNI : <input type=\"text\" name=\"dni\" size=10 maxlength =10><br>";
+	echo "<input type=\"submit\" name=\"nuevo\" value=\"Guardar\"></form><br>";
+}else{
+	if(isset($_POST['nombre']) && isset($_POST['dni'])){
+		$sql="INSERT INTO `alumnos` ( `id` , `nombre` , `dni` )
+		VALUES (NULL , '".$_POST['nombre']."' , '".$_POST['dni']."');";
+		//echo $sql;
+		$result=mysql_query($sql,$conexion);
+		echo "<p>Alumno Añadido</p>";
+		echo "<p><A HREF='index.php'>Volver</A></p>";
+	}else{
+		echo "<p>Vuelva a intentarlo</p>";
+		echo "<form method=\"post\" action=\"nuevo.php\" >";
+		echo "Nombre : <input type=\"text\" name=\"nombre\" value=\"".$_POST['nombre']."\"  maxlength = 20 size=40><br>";
+		echo "DNI : <input type=\"text\" name=\"dni\" value=\"".$_POST['dni']."\" size=10 maxlength = 10><br>";
+		echo "<input type=\"submit\" name=\"nuevo\" value=\"Guardar\"></form><br>";
+	}
+}
+?>
+</body>
+</html>

@@ -1,0 +1,826 @@
+<chapter>
+<title>Redes</title>
+<sect1><title>Redes con GNU/Linux</title>
+<para/><sect2><title>Nota sobre la distribuci&oacute;n de GNU/Linux y la parte del curso referente a redes</title>
+<para/>
+<para>Por un tema de unidad, se usar&aacute; la misma distribuci&oacute;n en todo el curso. OpenSuSE tiene la ventaja de ser bastante amigable. Adem&aacute;s es la distribuci&oacute;n instalada en los laboratorios.</para>
+<para/>
+<para>Sin embargo, OpenSuSE no es la distribuci&oacute;n recomendada para un servidor de red, un cortafuegos o una VPN en una empresa. En general tampoco es una distribuci&oacute;n adecuada para usar en empresas, sino que es m&aacute;s bien para uso personal: lo mismo puede decirse de distribuciones como Fedora, Mandriva o las versiones normales de Ubuntu.</para>
+<para/>
+<para>El motivo es que no es una distribuci&oacute;n de ciclo largo, que tenga actualizaciones de seguridad durante a&ntilde;os. Esto se traduce en que al cabo de unos meses de instalarla tendremos que actualizar a la siguiente versi&oacute;n de OpenSuSE y repetir este proceso con sucesiones versiones. Para quien desee una distribuci&oacute;n de ciclo largo, Novell tiene su propia versi&oacute;n de SuSE adecuada para estos menesteres, pero es software privativo por el que hay que pagar por m&aacute;quina una subscripci&oacute;n anual. Algo parecido (aunque t&eacute;cnicamente no sea software privativo sino libre, gracias a lo cual existen cl&oacute;nicos gratuitos como CentOS) ocurre con Red Hat y su versi&oacute;n Enterprise. La alternativa a estas distribuciones de pago es usar Ubuntu Dapper o un derivado de Red Hat Enterprise como CentOS.</para>
+<para/>
+<para>Para instalar un cortafuegos, servidor DHCP etc tambi&eacute;n est&aacute; la opci&oacute;n de usar una distribuci&oacute;n de prop&oacute;sito espec&iacute;fico como IPCop o Smoothwall. Ambas tienen una intuitiva interfaz web. No s&oacute;lo incluyen el cortafuegos, tambi&eacute;n gesti&oacute;n del ancho de banda, servidor DHCP, DNS din&aacute;mico, servidor de tiempo (NTP), servidor SSH y VPN (con IPSec) admitiendo la VPN tanto unir dos redes como configuraci&oacute;n road-warrior (conexi&oacute;n de un usuario remoto a la red local de la empresa).</para>
+<para/>
+<para>Smoothwall en estos momentos est&aacute; en fase de transici&oacute;n, pues la actual versi&oacute;n (2.0) est&aacute; un poco anticuada, con un kernel 2.4, mientras que la versi&oacute;n en desarrollo (3.0) est&aacute;n a&uacute;n en fase alpha. Est&aacute; mantenido por una empresa, que comercializa una versi&oacute;n coorporativa y extensiones. Algunas de las extensiones de pago de Smoothwall, como la gesti&oacute;n del ancho de banda, son caracter&iacute;sticas que est&aacute;n disponibles libremente en Ipcop. En el caso de IPCop no hay una empresa detr&aacute;s del producto, pero en su web hay una relaci&oacute;n de empresas que venden soporte t&eacute;cnico.</para>
+<para/>
+<para>Mi recomendaci&oacute;n personal es IPCop. La documentaci&oacute;n de la p&aacute;gina web tambi&eacute;n est&aacute; muy trabajada y hay una relaci&oacute;n de a&ntilde;adidos para IPCop sorprendentemente completa, adem&aacute;s de incluir de serie un IDS (detector de intrusiones). Por ejemplo puede agregarse un filtro de contenidos (SquidGuard, DansGuardian), o un m&oacute;dulo para iptables para ajustar el ancho de banda en las conexiones peer-to-peer (Emule, Bittorrent...)</para>
+<para/>
+<para>IPCop es una soluci&oacute;n para un cortafuegos. No es buena idea poner un gran n&uacute;mero de servicios sobre un cortafuegos, incluso alguno de los que trae ser&iacute;a buena idea desactivarlos y ponerlos en otra m&aacute;quina. Hay otras distribuciones orientadas a servidores de empresa. Destacaremos dos:</para>
+<orderedlist>
+<listitem>
+<para>SMEServer (<ulink url="http://www.smeserver.org/">www.smeserver.org/</ulink>). GPL, basado en CentOS 4. Servidor de correo, con filtro de SPAM y virtus, conversi&oacute;n de correos en formato TNEF, webmail. Servidor de ficheros, con sistema de administraci&oacute;n de usuarios, cuotas. Servidor web. Compartici&oacute;n de la conexi&oacute;n a Internet. I-Bays: Un sistema para compartir informaci&oacute;n entre un grupo de usuarios. Servidor de impresi&oacute;n.</para>
+</listitem>
+<listitem>
+<para>ClarkConnect: (<ulink url="http://www.clarkconnect.com/">http://www.clarkconnect.com/</ulink>). Servidor de correo, impresi&oacute;n, ficheros, backup... Hay distintas ediciones, una libre y otras de pago. </para>
+</listitem>
+</orderedlist>
+<para/>
+<para>Para evitar la dependencia de SuSE, no se usar&aacute; la herramienta de administraci&oacute;n Yast, sino o bien herramientas gen&eacute;ricas o configuraci&oacute;n manual.</para>
+<para/></sect2><sect2><title>Paquetes de red. Modelo en Capas</title>
+<para/>
+<para>Para entender los conceptos avanzados de redes, es muy &uacute;til tener presente el modelo en capas de las redes. Cada capa presta servicio a la capa superior encarg&aacute;ndose de implementar una funcionalidad. La capa superior pasa a la que est&aacute; debajo los datos que quiere enviar y cada capa hace lo propio con la capa inmediatamente inferior, tras a&ntilde;adir a lo que recibi&oacute; de la capa superior cabeceras espec&iacute;ficas de su capa.</para>
+<para/>
+<orderedlist>
+<listitem>
+<para>Layer 1: capa f&iacute;sica. Nos basta saber que existe: se implementa enteramente en hardware. No nos detendremos m&aacute;s en ella. Es a partir de la capa 2 d&oacute;nde podemos ver los paquetes con un sniffer.</para>
+</listitem>
+<listitem>
+<para>Layer 2: capa de enlace de datos/acceso de red: Depende del tipo de red local o comunicaci&oacute;n punto a punto que utilicemos: por ejemplo si es una Ethernet, una FDDI (red metropolitana de fibra &oacute;ptica, muy usada para unir los centros de las facultades o los edificios en un parque tecnol&oacute;gico), una conexi&oacute;n PPP sobre una l&iacute;nea telef&oacute;nica... En la actualidad un administrador de red raramente maneja otro enlace de datos distinto de Ethernet, pues aunque se trate de un router que conecta con otros routers v&iacute;a FDDI, normalmente se usa un transceptor de fibra al que la conexi&oacute;n es v&iacute;a Ethernet y la comunicaci&oacute;n es realmente a nivel Layer3. Lo mismo ocurre con el enlace punto a punto utilizado para el ADSL, podr&aacute; usar PPPoA o PPPoE, pero lo normal es que eso sea en el router ADSL y la comunicaci&oacute;n hasta el router ADSL es v&iacute;a ethernet y de nuevo a nivel IP (layer3). La capa 2 es la m&aacute;s baja que ven los bridges, switchs y hubs.</para>
+</listitem>
+<listitem>
+<para>Layer 3: capa de red. La capa IP. Es la capa m&aacute;s baja que ven los routers. Sobre una red Ethernet puede haber m&aacute;s de una red IP, si los rangos de direcciones no se solapan o incluso pueden mezclarse distintos tipos de redes, por ejemplo una red IP con una AppleTalk o IPX (Netware).</para>
+</listitem>
+<listitem>
+<para>Layer 4: capa de trasporte: TCP,UDP... En esta capa y en la 5, s&oacute;lo suelen intervenir el nodo origen y destino, aunque se puede ver afectado por ejemplo por un router que haga NAT.</para>
+</listitem>
+<listitem>
+<para>Layer 5: capa de aplicaci&oacute;n: HTTP, MAIL, JABBER... En ocasiones esta capa se menciona como l7 (layer7) porque en el modelo de referencia OSI hay otras dos capas entre la capa de transporte y la de aplicaci&oacute;n: sesi&oacute;n y presentaci&oacute;n.</para>
+</listitem>
+</orderedlist>
+<para/>
+<para>La mayor&iacute;a de las aplicaciones utilizan protocolos IP y para ellos las capas 1 y 2 son transparentes, como si no existieran. Sin embargo hay protocolos que se implementan directamente sobre la capa2.</para>
+<para/>
+<para>A veces sobre la capa de red, la de transporte o incluso sobre la capa de aplicaci&oacute;n se encapsula otro paquete desde la capa de red o incluso desde la f&iacute;sica. El motivo es hacer t&uacute;neles y se usa mucho en las redes privadas virtuales: se hace que dos nodos que no est&aacute;n en la misma red local se comporten como si lo estuvieran, gracias a que hemos cargado los paquetes sobre otros paquetes que van por Internet y en destino los reconstruimos.</para>
+<para/><sect3><title>Capa enlace de datos (Layer2)</title>
+<para/>
+<para>Aunque la mayor&iacute;a de las aplicaciones son independientes de esta capa al utilizar protocolos IP, hay excepciones, por ejemplo muchos juegos operan sobre layer2. Lo mismo ocurre con mecanismos que utilizan posibilidad de broadcast de las redes ethernet.</para>
+<para/>
+<para>Tanto en una red Ethernet como en una Wifi, cada tarjeta tiene una direcci&oacute;n que es &uacute;nica, la direcci&oacute;n MAC (es como un n&uacute;mero de serie que no se repite, cada fabricante tiene asignado un rango de direcciones MAC para evitar que se repitan). Son 48 bits, o lo que es lo mismo, 12 caracteres hexadecimales. Suelen representarse as&iacute;: 00:09:6C:EF:E4:69.</para>
+<para/>
+<para>Las direcciones MAC al ser &uacute;nicas en principio se pueden usar para filtrar paquetes en un cortafuegos o para restringir el acceso en un Access Point Wifi. Error. Lo m&aacute;s probable es que nuestra tarjeta nos permita cambiar la direcci&oacute;n ARP con un simple ifconfig eth0 hw ether 00:09:6c:EF:e4:69. Este cambio es temporal, dura hasta que lo volvamos a cambiar o reiniciemos la m&aacute;quina. Adem&aacute;s en muchas tarjetas se puede hacer el cambio permanente, pues la direcci&oacute;n MAC se escribe en una memoria flash dentro de la tarjeta. En este caso la herramienta a utilizar se llama ethertool y la opci&oacute;n que cambia la MAC es phyad.</para>
+<para/>
+<para>El hardware de las tarjetas de red y de los hubs no sabe nada de direcciones IP, lo &uacute;nico que entiende es el formato de los paquetes ethernet, con sus direcciones MAC. </para>
+<para/>
+<para>Es un error pensar que las tramas Ethernet se generan en el hardware o en el sistema operativo sin posibilidad de manipulaci&oacute;n. En GNU/Linux mediante los sockets RAW es posible escribir tramas Ethernet. As&iacute; mismo mediante TUN/TAP tanto en GNU/Linux como en la mayor&iacute;a de los sistemas operativos es posible leer/escribir por medio de un dispositivo tanto tramas ethernet como paquetes IP. Si en nuestra red existe un t&uacute;nel (por ejemplo para hacer una VPN) es posible generar paquetes Ethernet en un equipo remoto, enviarlos v&iacute;a Internet y que un nodo en la red local los emita como si hubieran sido generados localmente.</para>
+<para/>
+<para>En una red Ethernet para unir los distintos equipos se usa un hub o un switch. Un hub opera a nivel f&iacute;sico y es muy primitivo: no deja de ser el equivalente en conectores de red a un "ladr&oacute;n" en clavijas para enchufes. Tambi&eacute;n se le compara con un repetidor. El problema de los hubs es que este modelo es poco escalable cuando existen muchos equipos en una red (especialmente si se enlazan varias redes locales f&iacute;sicamente para no usar enrutadores, simplificando la configuraci&oacute;n de la red y que funcionen servicios que usan broadcast a nivel Ethernet como DHCPD (en realidad tambi&eacute;n se puede tener un &uacute;nico servidor para varias subredes no conectadas a nivel de enlace de datos si se usa un bootp/DHCPD agent relay), o est&eacute; disponible funcionalidad como wake-on-lan o servicios de autoconfiguraci&oacute;n PnP). Un hub es poco escalable porque lo que se hace es transmitir para cada nodo todos los paquetes.</para>
+<para/>
+<para>La alternativa a los hub son los switchs. La diferencia entre un hub y un swtich es que el segundo analiza las tramas ethernet que pasan por &eacute;l; si ve que un paquete ha entrado por un puerto (cada conector para un cable de red es un puerto) registra la direcci&oacute;n MAC de origen junto con el puerto en una tabla llamada CAM, de modo que si llega un paquete para esa direcci&oacute;n no lo env&iacute;a por todos los puertos sino s&oacute;lo por ese. Hoy en d&iacute;a si vamos a una tienda a comprar un hub, lo normal es que ya no lo tengan y s&oacute;lo vendan switchs.</para>
+<para/>
+<para>En una red local Ethernet pueden coexistir paquetes de distintos protocolos, por ejemplo tr&aacute;fico IP y tr&aacute;fico AppleTalk. Tambi&eacute;n es posible que sobre una misma red Ethernet haya m&aacute;s de una subred IP: si los rangos no se solapan tampoco habr&aacute; problemas.</para>
+<para/></sect3><sect3><title>Capa de red: capa IP (Layer3)</title>
+<para/>
+<para>Sobre la capa f&iacute;sica va la capa IP; en realidad pueden ir otro tipo de capas de protocolos distintos a IP, como IPX, el protocolo de Netware, pero nos centraremos s&oacute;lo en los paquetes IP que son los que se usan en la casi totalidad de las redes locales de hoy en d&iacute;a adem&aacute;s de por supuesto en Internet.</para>
+<para/>
+<para>Un paquete IP se llama datagrama. La informaci&oacute;n m&aacute;s importante que incluye un datagrama es la IP de origen y la IP destino.</para>
+<para/>
+<para>Las direcciones IP a diferencia de las MAC est&aacute;n pensadas para ser enrutables, es decir, hay unos nodos enrutadores que examinan la direcci&oacute;n destino y deciden por qu&eacute; camino siguen los paquetes. Gracias a que las direcciones IP se asignan por grupos a las distintas organizaciones y proveedores de Internet es factible establecer rutas. Esto con las direcciones MAC ser&iacute;a imposible: como vienen a equivaler a n&uacute;meros de serie del hardware son in&uacute;tiles para enrutar: puedo tener dos equipos juntos con MACs que no tienen nada que ver porque son de fabricantes distintos o uno tiene a&ntilde;os m&aacute;s que el otro: quiz&aacute;s el nodo con la siguiente MAC a la nuestra se vendi&oacute; en una ciudad de Jap&oacute;n.</para>
+<para/>
+<para>Hay rangos de direcciones IP que est&aacute;n reservados para uso privado dentro de una organizaci&oacute;n. Por ejemplo todas las direcciones que empiezan por 192.168.. En las empresas, o en los hogares cuando se tienen varios ordenadores en casa y se quiere compartir la ADSL, lo habitual es usar direcciones de este tipo (privadas) en lugar de direcciones IP p&uacute;blicas. Las direcciones privadas no son enrutables fuera del &aacute;mbito en que se usan, por lo que no son utilizables para conectarse fuera de la red local. Por ejemplo no podemos conectarnos v&iacute;a mensajer&iacute;a instant&aacute;nea a un usuario de Internet utilizando la IP 192.168.120.7, porque los paquetes de respuesta no nos llegar&iacute;an, dado que esa IP no es p&uacute;blica y no es p&uacute;blica porque puede haber mucha gente que la est&aacute; usando en su red local. La soluci&oacute;n est&aacute; en el uso del NAT (Network Address Translator). El enrutador de salida a Internet de nuestra red modifica el paquete IP para que use como direcci&oacute;n IP origen la IP p&uacute;blica que tiene asignada la empresa y guarda en una tabla informaci&oacute;n para saber </para>
+<para/>
+<para>Siempre que hay enrutado y esto incluye casos especiales como tener una VPN en un nodo, hay que activar el forwarding. Para ello hay que ejecutar echo 1 &gt; /proc/sys/net/ipv4/ip_forward. El forwarding consiste simplemente en que si un paquete viene por una interfaz de red (por ejemplo eth0) y se ve por la tabla de rutas que est&aacute; destinado a la red de otra interfaz (por ejemplo la eth1) se traspasa a esa otra interfaz. Tambi&eacute;n es posible activar el fordwarding para unas interfaces de red s&iacute; y para otras no, por ejemplo para eth0 ser&iacute;a /proc/sys/net/ipv4/conf/eth0/forwarding.</para>
+<para/>
+<para>Hay una parte de la direcci&oacute;n que indica el nodo dentro de la red pero otra indica la red. Los enrutadores tienen rutas para saber por d&oacute;nde tienen que encaminar los paquetes seg&uacute;n la parte de red destino, con una ruta por defecto para los paquetes que no encajan en ninguna de las otras rutas. Los enrutadores s&oacute;lo suelen tener en cuenta la direcci&oacute;n destino, no la direcci&oacute;n origen, pero en GNU/Linux hay herramientas avanzadas que permiten considerar tambi&eacute;n la direcci&oacute;n origen.</para>
+<para/><sect4><title>M&aacute;scaras de red. Notaci&oacute;n CIDR</title>
+<para/>
+<para>Es importante conocer no s&oacute;lo la IP de un equipo, sino su red. Para determinar la red a la que pertenece un equipo a partir de su IP, se usa la m&aacute;scara de red, que al aplicar a nivel de bits un AND sobre la IP nos da la red. Una notaci&oacute;n m&aacute;s concisa que utilizar el par IP y m&aacute;scara de red es la notaci&oacute;n CIDR: tras la direcci&oacute;n IP, separado por / se indica el n&uacute;mero de bits a uno de la m&aacute;scara de red. Por ejemplo, 192.168.120.19/24 indica que la m&aacute;scara de bits es de 255.255.255.0. Esta notaci&oacute;n adem&aacute;s de m&aacute;s concisa tiene la ventaja que es m&aacute;s r&aacute;pido de ver cuantos nodos tiene una red, pues es 2^(32-x)-2; en nuestro caso ser&iacute;a 2^(32-24) = 2^8-2= 254.</para>
+<para/>
+<para>La m&aacute;scara de red m&aacute;s grande (es decir, la red con menos nodos) es 30, con lo que tendr&iacute;a 2^2-2=2. El motivo de restar 2 unidades es que el primer valor (con todos los bits a cero) es la propia red y el &uacute;ltimo (con todos los bits a 1) es la direcci&oacute;n de broadcast, es decir, la utilizada para enviar un paquete a todos los nodos de una red. As&iacute; pues, una red de este tipo es &uacute;til para definir una red para una conexi&oacute;n punto a punto, por ejemplo para una conexi&oacute;n que se usa &uacute;nicamente para enlazar dos redes.</para>
+<para/></sect4><sect4><title>Enrutamiento din&aacute;mico</title>
+<para/>
+<para>Hay protocolos de frontera interior como RIP, OSPF, IS-IS y protocolos de frontera exterior, como BGP. El programa recomendado es o bien Zebra o Quagga (este &uacute;ltimo es un fork surgido de Zebra). Hay otros programas, como Routed (parte de netkit), que s&oacute;lo es adecuado si no vamos a utilizar m&aacute;s que RIP, Gated (que no es libre)o Bird, con desarrollo menos activo. Un art&iacute;culo algo antiguo, pero que puede servir de introducci&oacute;n a los protocolos de enrutamiento, se public&oacute; en Linux Magazine: http://www.linux-magazine.com/issue/31/Zebra.pdf</para>
+<para/></sect4><sect4><title>Vinculaci&oacute;n entre capa de red y f&iacute;sica</title>
+<para/>
+<para>A nivel de red se utilizan direcciones Ips, pero las redes locales a nivel f&iacute;sico utilizan Ethernet, por lo que en &uacute;ltimo t&eacute;rmino para enviar un paquete a una m&aacute;quina de la red local no basta con utilizar su IP, adem&aacute;s en la parte de cabeceras Ethernet habr&aacute; que poner su direcci&oacute;n MAC. El protocolo que permite averiguar la direcci&oacute;n MAC de una m&aacute;quina a partir de su IP es ARP. El funcionamiento de ARP se basa en utilizar una direcci&oacute;n de broadcast Ethernet para preguntar a todos los nodos de la red local qui&eacute;n tiene una determinada IP: la respuesta se cachea en cada host para evitar preguntarla cada vez. Con el comando arp de Unix se puede ver y manipular la tabla que convierte de IP a direcci&oacute;n MAC en una m&aacute;quina.</para>
+<para/>
+<para>Existe un protocolo llamada RARP (reverse ARP) que hace lo contrario que ARP: a partir de la MAC un servidor responde qu&eacute; Ip tenemos. Se usa para hacer los nodos de la red autoconfigurables, pero se considera preferible usar un protocolo m&aacute;s avanzado como BOOTP o DHCP.</para>
+<para/>
+<para>GNU/Linux incluye soporte de ProxyARP. Un proxy ARP es una m&aacute;quina que responde peticiones ARP en nombre de otras m&aacute;quinas que estando en la misma red IP que el nodo que hace la petici&oacute;n, no est&aacute;n en la misma red f&iacute;sica (ni est&aacute;n unidas por un hub, switch o bridge). El uso m&aacute;s t&iacute;pico es para poner equipos detr&aacute;s de un cortafuegos, pero usando Ips de la misma red que el resto de equipos. El host que act&uacute;a de proxyARP ante una petici&oacute;n ARP a una IP de la que hace de proxy responde con su propia direcci&oacute;n MAC; luego cuando le lleguen paquetes los redirigir&aacute; a la m&aacute;quina. Otro uso importante es para que un nodo que accede a trav&eacute;s de una VPN a la red local pueda tener una IP local.</para>
+<para/></sect4><sect4><title>ipalias</title>
+<para>Una caracter&iacute;stica interesante de Linux es que un dispositivo de red Ethernet puede tener m&aacute;s de una IP, puede tener cuantas Ips queramos. Virtualmente es como si tuvi&eacute;ramos varias Ips con una &uacute;nica tarjeta.</para>
+<para>As&iacute;, si tenemos la interfaz eth0 con la IP 192.168.1.1 y queremos tener otra interfaz con la 192.168.1.2, simplemente creamos:</para>
+<para>ifconfig eth0:1 192.168.1.2</para>
+<para>No hay restricciones sobre si las Ips tienen que estar en la misma red o en redes distintas: la &uacute;nica restricci&oacute;n es que seguimos teniendo s&oacute;lo una direcci&oacute;n ARP, pues esto ya es una limitaci&oacute;n del hardware de la tarjeta.</para>
+<para>Esta funcionalidad se llama ipalias.</para>
+<para/></sect4></sect3><sect3><title>Capa de transporte (Layer4)</title>
+<para/>
+<para>Sobre los datagramas IP va la capa de transporte. Aqu&iacute; hay distintos tipos de protocolos, los m&aacute;s famosos son los TCP (que usan casi todas las aplicaciones) los UDP (que se usan para el DNS y para aplicaciones como streaming de v&iacute;deo o para construir VPNs). </para>
+<para/>
+<para>Hay m&aacute;s tipos de contenidos que UDP y TCP: as&iacute;, los ICMP son paquetes de control, por ejemplo son los paquetes que se reciben cuando se recibe un error de que no se ha podido establecer una conexi&oacute;n a un puerto o que no hay ruta para llegar a una red. Son tambi&eacute;n los paquetes que se env&iacute;an y reciben al hacer un ping para comprobar si llegamos a una red. De los paquetes ICMP s&oacute;lo nos interesa saber que llevan un campo con el tipo de mensaje, que ser&aacute; el campo por el que filtraremos o dejaremos pasar este tipo de mensajes en nuestro cortafuegos. Con iptables -p icmp -h se ven los tipos de paquetes ICMP</para>
+<para/>
+<para>Los paquetes IGMP son paquetes de control para multicast (multidifusi&oacute;n). El origen del modo multicast es que hay comunicaciones en las que los mismos paquetes son de inter&eacute;s de varios nodos destino en lugar de uno solo; el ejemplo m&aacute;s socorrido es una emisi&oacute;n de v&iacute;deo. Si se transmite una pel&iacute;cula usando unicast (el modo normal de comunicaci&oacute;n IP) entonces se transmitir&aacute; un paquete por cada destinatario, mientras que con multicast en los tramos comunes a todos los destinatarios ir&aacute; un solo paquete. El multicast se basa en rangos de Ips reservados para este fin, pero no hablaremos m&aacute;s de &eacute;l porque se usa muy raramente. No hay que confudir multicast con broadcast: este &uacute;ltimo es enviar a todos los nodos de la red, el multicast es m&aacute;s restringido.</para>
+<para/>
+<para>Otros tipos de paquetes de los que no vamos a hablar pero que van directamente sobre la capa IP son distintos protocolos de encaminamiento (para pasarse entre los routers informaci&oacute;n din&aacute;micamente sobre las rutas que deben seguir los paquetes). </para>
+<para/>
+<para>Nos centraremos pues en la distinci&oacute;n entre UDP y TCP. TCP es un protocolo orientado a la conexi&oacute;n. Esto quiere decir que con TCP todos los paquetes que pertenecen a una conexi&oacute;n se numeran (el n&uacute;mero de secuencia inicial se genera aleatoriamente para dificultar ataques de seguridad de falsificar una conexi&oacute;n) y se garantiza que llegan todos a destino y en el orden en que se enviaron. Al comienzo de la conexi&oacute;n, el primer paquete TCP lleva un flaq indicando que se quiere establecer una conexi&oacute;n. El protocolo TCP incluye mecanismos para confirmar la recepci&oacute;n de los paquetes (los paquetes que no se confirmen que se han recibido hay que volverlos a enviar) as&iacute; como mecanismos de control de congesti&oacute;n (detectar que se est&aacute;n enviando m&aacute;s paquetes de los que permite el ancho de banda de la conexi&oacute;n y en ese caso bajar el ritmo).</para>
+<para/>
+<para>UDP en cambio es un protocolo sin conexi&oacute;n. Cada paquete es independiente de los dem&aacute;s. No hay ninguna garant&iacute;a de que el programa llegue a su destino, ya sea porque hay errores o porque la red est&aacute; saturada: si estamos saturando la red y por eso no llegan los paquetes nos tendremos que dar cuenta nosotros y tomar las medidas oportunas (bajar el ritmo de env&iacute;o). As&iacute; mismo no hay garant&iacute;a que los paquetes que lleguen lo hagan en el mismo orden en que se enviaron, dado que los paquetes IP pueden ir por rutas distintas.</para>
+<para/>
+<para>&iquest;Qu&eacute; aporta entonces la capa de transporte UDP sobre lo que proporciona la capa de red IP? &iquest;por qu&eacute; no enviar los datos directamente como datagramas IP en lugar de como paquetes UDP? El gran aporte de UDP, que tambi&eacute;n forma parte de TCP, es que adem&aacute;s de incluir IP de origen y destino, incluye puerto origen y destino. El puerto destino es &uacute;til para poder ejecutar varios servicios en la misma m&aacute;quina: por ejemplo en el puerto 80 puede estar el servidor web y en el 25 el servidor de correo. Podemos ver al puerto destino como una extensi&oacute;n y a la IP como un tel&eacute;fono. El puerto origen tambi&eacute;n es muy &uacute;til: cuando el cliente env&iacute;a un paquete elige un puerto origen libre y gracias a este puerto el servidor puede distinguir, a la hora de responder, entre dos conexiones procedentes de la misma IP.</para>
+<para/>
+<para>Por lo que hemos visto, TCP garantiza fiabilidad en la conexi&oacute;n mientras que con UDP si se quiere enviar una secuencia de paquetes todo se complica todo y adem&aacute;s no hay garant&iacute;a de que no se pierdan los paquetes. &iquest;Qu&eacute; sentido tiene usar entonces UDP? Para la mayor&iacute;a de los protocolos de aplicaci&oacute;n, ninguno: la mayor&iacute;a requieren un canal de transporte orientado a la comunicaci&oacute;n (que dicho sea de paso, podr&iacute;a ser TCP o cualquier otro actual como sockets UNIX o que se cree en el futuro, el API de programaci&oacute;n de Unix es independiente del protocolo concreto que est&eacute; por debajo). Hay casos, sin embargo, en que UDP es &uacute;til:</para>
+<orderedlist>
+<listitem>
+<para>Cuando se trata de un env&iacute;o simple, de un &uacute;nico paquete y se espera otro paquete de respuesta. Aqu&iacute; no es problema que el paquete se pierda: si el servidor no responde, se vuelve a enviar la petici&oacute;n. Con UDP s&oacute;lo se env&iacute;a dos paquetes (el de petici&oacute;n y el de respuesta), mientras que con TCP se env&iacute;an varios paquetes para primero establecer la conexi&oacute;n y luego para cerrarla, adem&aacute;s de implicar reservar/liberar recursos para el control de la conexi&oacute;n. Un ejemplo son las consultas DNS, o el uso de BOOTP/DHCP (en el caso de DHCP cuenta adem&aacute;s que UDP es m&aacute;s f&aacute;cil de implementar que TCP y puede que la petici&oacute;n BOOTP se haga desde un gestor de arranque o la ROM de arranque de una tarjeta de red, por lo que a&uacute;n no hay sistema operativo. </para>
+</listitem>
+<listitem>
+<para>Cuando no pasa nada porque se pierdan paquetes, pero lo fundamental es que los paquetes que lleguen lo hagan a tiempo, no perdiendo el tiempo en retransmisiones, confirmaciones y control de congesti&oacute;n. Es el caso de streaming de v&iacute;deo o la VoIP (voz sobre IP). Otro caso son protocolos de sincronizaci&oacute;n. </para>
+</listitem>
+<listitem>
+<para>Cuando se usa el protocolo de transporte para hacer de t&uacute;nel transportando otros paquetes, por ejemplo para implementar una VPN. Por un lado est&aacute; que si transporta paquetes de v&iacute;deo con UDP porque lo fundamental es que lleguen muchos paquetes a tiempo aunque algunos se pierdan, si usamos TCP por debajo UDP ya no tiene ninguna ventaja: llegar&aacute;n todos los paquetes, pero algunos demasiado tarde, m&aacute;s tarde de lo que hubieran llegado si no hubiera TCP por debajo. Con los paquetes TCP estar&iacute;amos innecesariamente aplicando dos veces el control de errores, de congesti&oacute;n, de que llegan los paquetes ordenados... TCP est&aacute; dise&ntilde;ado para ir sobre IP, no sobre TCP; sobre UDP tambi&eacute;n est&aacute; bien porque s&oacute;lo a&ntilde;ade unas cabeceras, principalmente para los puertos. Es m&aacute;s, los algoritmos de control de congesti&oacute;n de TCP tienen un indeseable efecto multiplicador cuando se aplican sobre una conexi&oacute;n que ya va sobre TCP, que se traduce en que tarda m&aacute;s en coger velocidad. Ocurre sobre todo sobre medios f&iacute;sicos propensos a errores, como Wifi. El motivo es que cuando por culpa de un error se pierde un paquete, los algoritmos de congesti&oacute;n lo atribuyen a que se est&aacute; transmitiendo a demasiada velocidad, por lo que reducen el ritmo de env&iacute;o de paquetes, con lo que la aplicaci&oacute;n que crea los paquetes TCP percibe que hay congesti&oacute;n, pero adem&aacute;s una severa, pues suele disminuirse la velocidad a la mitad.</para>
+</listitem>
+</orderedlist>
+<para/></sect3><sect3><title>Capa de aplicaci&oacute;n (Layer5; Layer7 en OSI)</title>
+<para/>
+<para>Finalmente la &uacute;ltima capa es el protocolo de aplicaci&oacute;n, por ejemplo HTTP (web), SMTP (correo) o XMPP (Jabber). En Unix estos protocolos se escriben utilizando sockets, que se utilizan (sobre todo cuando la capa de transporte es TCP) pr&aacute;cticamente igual que los ficheros.</para>
+<para/>
+<para>Dado que con los sniffers es posible espiar el tr&aacute;fico de red, un mecanismo de seguridad muy utilizado en las aplicaciones es a&ntilde;adir una capa intermedia en la capa de aplicaci&oacute;n sobre la que realmente va el protocolo: esta subcapa lo que hace es cifrar los paquetes y a&ntilde;adirles informaci&oacute;n de control para detectar si alguien los intenta manipular. El protocolo m&aacute;s est&aacute;ndar par implementar esta funcionalidad es TLS (anteriormente conocido como SSL). </para>
+<para/>
+<para>Ojo, puede parecer que un switchs elimina la posibilidad de que un nodo en una red local esp&iacute;e las comunicaciones entre otros nodos, utilizando un sniffer. Al fin y al cabo con un hub todo el tr&aacute;fico se reenviaba a todos los nodos y el nodo en escucha realiza una actividad totalmente pasiva e indetectable, pero con un swtich se supone que cada nodo s&oacute;lo recibe los paquetes que van destinados a &eacute;l. Lamentablemente no es as&iacute;, existen sniffers como <ulink url="http://ettercap.sourceforge.net/">http://ettercap.sourceforge.net/</ulink> que funcionan tambi&eacute;n con switchs. As&iacute; mismo hay sniffers especializados como oreka.sf.net, que sirven para grabar VoIP, generando un fichero de audio.</para>
+<para/>
+<para>El problema es el ARP Spoofing/Port Stealing y ARP Poisoning. El ARP poisoning consiste en enviar al nodo que queremos enga&ntilde;ar una respuesta ARP en el que indicamos que nuestra direcci&oacute;n MAC es la correspondiente a la direcci&oacute;n IP del nodo que queremos suplantar. La mayor&iacute;a de los sistemas operativos no ven nada extra&ntilde;o en que les llegue este paquete aunque no lo hayan solicitado y lo almacenan en su cach&eacute; ARP y en los que no se puede trucar con un ping. El ARP posioning act&uacute;a falsificando la IP no la direcci&oacute;n ARP, por lo que es dif&iacute;cil de detectar y evitar por parte del switch. Otras t&eacute;cnicas (Port Stealing) explotan enga&ntilde;ar al switch haci&eacute;ndole creer que tenemos la direcci&oacute;n ARP de la m&aacute;quina a suplantar (los swtich que no soporten Safe Port, es decir, que permitan que cambie el puerto asociado a una direcci&oacute;n MAC). As&iacute; mismo hay ataques que buscan saturar con entradas falsas la tabla CAM del switch, pues necesariamente esta tabla tiene capacidad limitada.</para>
+<para/>
+<para>La buena noticia es que estos ataques ya no son pasivos sino activos y son detectables con herramientas apropiadas como arpwatch (que hace escucha pasiva) o el propio ettercap. M&aacute;s informaci&oacute;n: <ulink url="http://en.wikipedia.org/wiki/ARP_spoofing">http://en.wikipedia.org/wiki/ARP_spoofing</ulink>
+</para>
+<para/>
+<para>Si necesitamos un sniffer para hacer comprobaciones de red o aprender sobre protocolos, el sniffer recomendado es Ehtereal, que ha cambiado de nombre recientemente a whireshark.</para>
+<para/>
+<para>Hay m&aacute;s herramientas &uacute;tiles para depurar problemas en las redes, adem&aacute;s de los sniffers. Por ejemplo iftop (http://www.ex-parrot.com/pdw/iftop/ ): muestra consumo de ancho de banda, al estilo de top, mostrando origen y destino de la conexi&oacute;n. Utiliza libpcap (como sniffer) por lo que al ponerlo en la m&aacute;quina que hace de router podemos ver qui&eacute;n est&aacute; consumiendo en ese momento m&aacute;s ancho de banda. </para>
+<para/>
+<para>Una herramienta extremadamente &uacute;til para depurar problemas de red y aprender sobre redes es Netcat. Esta utilidad permite conectarse a cualquier socket TCP/UDP y enviar/recibir datos como si estuvi&eacute;ramos escribiendo en un terminal. De igual modo puede escuchar en un puerto TCP/UDP. Es muy &uacute;til por ejemplo para probar antes de montar una VPN si hay visibilidad entre las Ips y puertos: escuchamos con netcat en un lado y desde el otro enviamos. As&iacute;, para escuchar tr&aacute;fico UDP en el puerto 9037 (opcionalmente con -s se podr&iacute;a indicar una IP, en el caso de ser un puesto multihome, con m&aacute;s de una interfaz de red): netcat -u -l -p 9037. Para enviar tr&aacute;fico a el puerto 9037 desde otra m&aacute;quina: netcat -u 83.59.36.220 9037</para>
+<para/>
+<para>Se recomienda usar tamb&iacute;en un IDS (sistema detector de intrusiones). El m&aacute;s conocido es snort (<ulink url="http://www.snort.org/">http://www.snort.org/</ulink>), aunque es programa es pol&eacute;mico debido a que las nuevas reglas para detectar intrusiones ya no son libres, aunque s&iacute; gratuitas pero distribuidas con varios d&iacute;as de retraso para los clientes no de pago.</para>
+<para/>
+<para>Para redes wireless hay programas como kissmet (<ulink url="http://kismetwireless.net/">http://kismetwireless.net/</ulink>) que act&uacute;a de forma pasiva y no es detectable, airsnort (<ulink url="http://airsnort.shmoo.com/">http://airsnort.shmoo.com/</ulink>) y swscanner (<ulink url="http://www.swscanner.org/">http://www.swscanner.org/</ulink>)</para></sect3></sect2><sect2><title>Servidores DHCP</title>
+<para/>
+<para>Un servidor DHCP sirve para que los equipos presentes en una red obtengan su configuraci&oacute;n de red autom&aacute;ticamente. As&iacute;, el servidor asigna a cada equipo su IP y lo comunica su m&aacute;scara de red, las rutas, el DNS, servidor de impresi&oacute;n, servidor de hora, zona horaria etc. Opcionalmente permite hacer un arranque v&iacute;a red. Adem&aacute;s es posible definir nuevos par&aacute;metro de configuraci&oacute;n si se extienden tambi&eacute;n los clientes DHCP para que reconozcan y apliquen estos par&aacute;metros. </para>
+<para/>
+<para>DHCP es un protocolo surgido con posterioridad a BOOTP; en realidad es una extensi&oacute;n compatible con &eacute;l, es decir, un cliente BOOTP tambi&eacute;n puede operar con servidores DHCP.</para>
+<para/>
+<para>El servidor DHCP permite al administrador asignar una IP manualmente a un cliente (manual allocation); permite asignarlas autom&aacute;ticamente sin que caduque nunca la asignaci&oacute;n (automatic allocation) o permite asignarlas autom&aacute;ticamente por un tiempo limitado (dynamic allocation), de tal modo que si el cliente no vuelve a pedirlas antes que finalice ese tiempo se marcar&aacute; la IP como libre.</para>
+<para/>
+<para>El servidor DHCPD guarda en una tabla las asociaciones entre clientes e Ips. El servidor identifica al cliente a trav&eacute;s de su identificador de cliente, si es que lo proporciona, en otro caso usa su direcci&oacute;n MAC.</para>
+<para/>
+<para>En un segmento Ethernet puede haber m&aacute;s de un servidor DHCPD; el cliente env&iacute;a usando broadcast un mensaje DHCPDISCOVER (puede indicar en &eacute;l la IP que le gustar&iacute;a tener y durante cu&aacute;nto tiempo) al que responden con un mensaje DHCPOFFER los servidores presentes; en ese mensaje ya va la IP que le ofrecen y los datos de configuraci&oacute;n. El cliente escoge el servidor que quiere utilizar enviando una petici&oacute;n DHCPREQUEST que incluye el identificador del servidor; esta petici&oacute;n tambi&eacute;n es broadcast, para que sepan el resto de servidores que su ofrecimiento se ha rechazado. En la petici&oacute;n adem&aacute;s se pueden solicitar datos de configuraci&oacute;n adicionales. Si el servidor acepta la petici&oacute;n del cliente responde con DHCPPACK (d&oacute;nde ir&aacute; configuraci&oacute;n adicional si la solicit&oacute; el cliente), o DHCPNAK si la rechaza, debido por ejemplo a que la IP ya est&aacute; asignada; a priori no tiene mucho sentido que un servidor rechace la petici&oacute;n del cliente cuando son los datos que le acaba de ofrecer, pero en realidad un cliente puede hacer una petici&oacute;n DHCPREQUEST sin acabar de recibir un DHCPOFFER; por ejemplo una vez que ya se tiene una IP para renovar el "alquiler" se pide directamente la IP al servidor DHCPD que nos la dio sin necesidad de hacer DHCPDISCOVER.</para>
+<para/>
+<para>Finalmente, el cliente tiene la opci&oacute;n de rechazar el mensaje DHCPPACK. As&iacute; mismo el cliente tambi&eacute;n tiene la opci&oacute;n de liberar la IP que se le ha asignado, con DHCPRELEASE.</para>
+<para/>
+<para>En las peticiones DHCP es muy importante el uso del broadcast. Para permitir que funcione el DHCP sin necesidad de poner un servidor en cada subred se usan BOOTP/DHCP relay agents, que se encargan de reencaminar estas peticiones. </para>
+<para/>
+<para>Software DHCP:</para>
+<orderedlist>
+<listitem>
+<para>Clientes: dhcpd, dhcp-client (dhcp3-client), udhcp (cliente muy peque&ntilde;o)</para>
+</listitem>
+<listitem>
+<para>Servidores: dhcp3-server, udhcp-server (servidor muy ligero)</para>
+</listitem>
+<listitem>
+<para>Relays: dhcp3-relay, dhcp-helper</para>
+</listitem>
+<listitem>
+<para>Otros: dnsmasq: servidor cach&eacute; DNS y servidor DHCP, los nodos a&ntilde;adidos aparecen en el DNS; ltsp-server: sistema de clientes ligeros, usan DHCP para obtener la configuraci&oacute;n y arrancar v&iacute;a red.</para>
+</listitem>
+</orderedlist>
+<para/><sect3><title/><sect4><title>DHCP vs ZeroConf</title>
+<para/>
+<para>Zeroconf (<ulink url="http://www.zeroconf.org/">www.zeroconf.org</ulink>) es un sistema de autoconfiguraci&oacute;n de dispositivos, que pretende que los dispositivos funcionen con s&oacute;lo conectarlos a la red, sin necesidad de que para ello existan servidores en la red local (servidores DHCP, DNS o directorio). Hay otras alternativas a Zeroconf como UPnP de Microsoft.</para>
+<para/>
+<para>El componente m&aacute;s extendido de zeroconf es Ipv4 Link local Addresses (IPV4LL), que se define en el RFC1397. El prop&oacute;sito de IPV4LL es que un equipo obtenga autom&aacute;ticamente una IP sin necesidad de que exista un servidor DHCP, RARP ni de ning&uacute;n otro tipo. El modo de lograrlo es elegir al azar una IP dentro del rango reservado para este sistema: 169.254.0.0/16; se comprueba que la IP no est&aacute; en uso, si lo estuviera se escoge otra hasta encontrar una libre.</para>
+<para/>
+<para>La utilidad de este sistema frente a DHCP est&aacute; en redes "ad-hoc" (sobre la marcha), por ejemplo para comunicar dos equipos a trav&eacute;s de un cable cruzado o conect&aacute;ndolos a una red local pero sin afectar al resto de equipos. Tambi&eacute;n puede ser &uacute;til en una red peque&ntilde;a aislada en una oficina o en una casa, d&oacute;nde no se quiera tener encendido un servidor para hacer de DHCPD. Sin embargo lo normal en una red de empresa o de casa es que haya un acceso a Internet utilizando un router ADSL, que ya integra un servidor DHCP.</para>
+<para/>
+<para>En GNU/Linux existe el proyecto zeroconf.sf.net, que ha creado el programa zcip que implementa Ipv4LL.</para>
+<para/>
+<para>UPNP tambi&eacute;n usa IPV4LL, tras intentar usar un servidor DHCP. En Windows podemos comprobar que cuando configuramos la red para obtener la IP autom&aacute;ticamente, primero intenta usar un servidor DHCP y si no lo logra obtiene una IP aleatoria: eso es porque implementa Ipv4LL.</para>
+<para/>
+<para>Otro componente interesante que aporta Zeroconf es mDNS (multicast DNS). Este sistema sirve para reemplazar al DNS. As&iacute; mismo zeroconf aporta DNS Service Discovery (DNS-SD) que permite utilizar el DNS para localizar servicios, por ejemplo el servidor Jabber. DNS-SD se puede implementar sobre mDNS o sobre un servidor DNS convencional. </para>
+<para/>
+<para>La idea de mDNS es que cada nodo incluye su propio servidor que responde con su IP cuando alguien pregunta por su nombre o hace una b&uacute;squeda inversa (el nombre a partir de la IP). En el caso de usar mDNS para implementar DNS-SD, el servidor proporciona informaci&oacute;n sobre los servicios que ofrece la propia m&aacute;quina. La consulta se hace utilizando broadcast: la idea es la misma que para obtener el nombre NetBIOS de un equipo de Windows cuando no hay DNS ni servidor Wins.</para>
+<para/>
+<para>El utilizar el servidor DNS para localizar servicios no es una idea nueva: el servidor de correo correspondiente a un dominio siempre se ha localizado as&iacute; (aunque no el servidor de correo saliente). As&iacute; mismo el RFC 2782 (Service Types) describe el registro SRV para los servidores DNS que extiende lo que se hac&iacute;a con el correo a todo tipo de servicios: por ejemplo Jabber usa este tipo de registros. Zeroconf usa tambi&eacute;n otro tipo de registros DNS: los TXT. </para>
+<para/>
+<para>La utilidad de estos registros sobre los SRV, es que los SRV est&aacute;n pensados para que se ofrezca una m&aacute;quina por tipo de servicio o en todo caso varias, pero a efectos de balanceo de carga o redundancia. Los registros TXT son &uacute;tiles para servicios como impresoras: en una red puede haber varias impresoras pero normalmente no interesa usar una cualquiera sino que se puede preferir una u otra en funci&oacute;n de por ejemplo si imprime o no en color o determinado tama&ntilde;o o si est&aacute; en la misma planta que el usuario. En los registros TXT adem&aacute;s del nombre del servicio aparece una etiqueta, la instancia (instance) que admite caracteres UTF-8. Cualquier etiqueta DNS est&aacute; limitada a 63 bytes; ojo, que en UTF-8 caracteres como la e&ntilde;e o los acentos ocupan dos bytes. Los registros TXT permiten m&aacute;s flexibilidad: por ejemplo se puede poner un servicio para ver una p&aacute;gina personal y entre la informaci&oacute;n no s&oacute;lo estar&aacute; el nombre del servidor y el puerto sino la ruta.</para>
+<para/>
+<para>La funcionalidad de DNS-SD es utilizable en m&aacute;s casos que Ipv4LL. Por ejemplo en las empresas para descubrir impresoras, servidores de ficheros.. Incluso hay aplicaciones como sistemas para compartir archivos. En el escritorio se integra en el panel de control y permite navegar por los servicios disponibles en la red.</para>
+<para/>
+<para>DNS-SD a&ntilde;ade adem&aacute;s unos nombres de host espec&iacute;ficos al DNS para indicar que es navegable para descubrir servicios: </para>
+<para>b._dns-sd._udp IN PTR @ ; b = browse domain</para>
+<para>lb._dns-sd._udp IN PTR @ ; lb = legacy browse domain</para>
+<para>En GNU/Linux la implementaci&oacute;n de mDNS y DNS_SD recomendada es Avahi (<ulink url="http://avahi.org/">http://avahi.org/</ulink>). Proporciona un demonio y una librer&iacute;a para las aplicaciones.</para>
+<para/>
+<para>En Apple la implementaci&oacute;n de Zeroconf primero se llam&oacute; Rendezvous y luego Bonjour. Lo implementan como software libre y est&aacute; portado tambi&eacute;n a Windows. Mucha gente conoce m&aacute;s estas marcas de Apple que Zeroconf, debido a que esta iniciativa ha sido impulsada por Apple, al migrar de AppleTalk a TCP/IP y querer conservar el car&aacute;cter autoconfigurable propio de AppleTalk.</para>
+<para/>
+<para>UPnP trata de ofrecer funcionalidades similares a mDNS y DNS_SD, pero no son compatibles y la implementaci&oacute;n es m&aacute;s compleja. Va m&aacute;s all&aacute; e incluye posibilidad de hacer llamadas SOAP, o abrir puertos en un firewall para traspasar el NAT. Esto &uacute;ltimo lo hace IGD (Internet Gateway Device) y hay una implementaci&oacute;n para GNU/Linux: <ulink url="http://linux-igd.sourceforge.net/">http://linux-igd.sourceforge.net/</ulink>; sin embargo conviene saber que IGD es una caracter&iacute;stica insegura y que potencialmente un nodo podr&iacute;a hacer que se abran agujeros que suponga acceder desde el exterior a otras Ips si se hace IP Spoofing. La parte que m&aacute;s &eacute;xito ha tenido ha sido UPnP AV, que trata sobre dispositivos de audio y v&iacute;deo con conexi&oacute;n a red. Hay varios proyectos multimedia que pueden hacer streaming para dispositivos UPnP o ser los reproductores: por ejemplo Myth, VideoLan, Geexbox, MediaTomb...</para>
+<para/>
+<para>SLP: sistema de descubrimiento, a diferencia del de UPnP y el de Zeroconf s&iacute; es est&aacute;ndar IETF. No muy extendido, excepto para localizar las impresoras de red. Hay una implementaci&oacute;n libre que es OpenSLP. Funciona con un servidor, pero tambi&eacute;n puede estar m&aacute;s centralizado, utilizando broadcast/multicast.</para>
+<para/></sect4></sect3></sect2><sect2><title>Caso pr&aacute;ctico: router red local, red otra empresa, Internet</title>
+<para>M&uacute;ltiples redes IP en una misma tarjeta: ipalias.</para>
+<para/>
+<para>Supongamos la red local de una empresa, d&oacute;nde hay un enrutador que tiene que comunicar estas redes entre s&iacute;:</para>
+<orderedlist>
+<listitem>
+<para>red local con los equipos de los usuarios y servidores de impresi&oacute;n. Est&aacute;n todos en la red 192.168.120.0/24</para>
+</listitem>
+<listitem>
+<para>red local de otra empresa del parque tecnol&oacute;gico con la que colaboran un grupo de usuarios. Esta red es 10.2.0.0/16. La otra empresa ha pedido que los equipos de la red local no vean directamente su router, sino que haya un enlace punto a punto entre los servidores de las dos redes. Las Ips ser&aacute;n visibles en ambas redes, es decir, desde 192.168.120.* se ver&aacute;n las Ips de 10.2.*.* y viceversa.</para>
+</listitem>
+<listitem>
+<para>acceso a Internet con router ADSL. Hay una &uacute;nica direcci&oacute;n IP, luego habr&aacute; que hacer NAT con configuraci&oacute;n multipuesto, aunque tambi&eacute;n podr&iacute;amos ponerlo en multipuesto y que el NAT lo haga la m&aacute;quina Linux que act&uacute;a de router.</para>
+</listitem>
+</orderedlist>
+<para/>
+<para>Para esta configuraci&oacute;n necesitamos tres tarjetas de red para la m&aacute;quina Linux que har&aacute; de router: una ser&aacute; para la red local (192.168.120.0/24), otra para conectarse con la red de la empresa y una tercera para el router ADSL para la conexi&oacute;n a Internet. &iquest;Nos las pod&iacute;amos haber apa&ntilde;ado con una sola tarjeta utilizando ipalias? pues realmente s&iacute;. El problema es que no es la configuraci&oacute;n m&aacute;s adecuada, pues lo deseable es que desde la red local no accedan directamente a Internet ni a la red de la otra empresa y desde luego separar tambi&eacute;n Internet y la red de la otra empresa y poder poner cortafuegos en medio. Si se usa una &uacute;nica red f&iacute;sica no hay tal separaci&oacute;n y cualquier nodo podr&iacute;a tratar de espiar la red.</para>
+<para/>
+<para>Tanto para conectarnos con la red de la otra empresa como con el router ADSL, utilizamos sendas redes con m&aacute;scara de 30 bits, es decir de dos nodos. Por ejemplo con la red 192.168.200.84/30 nuestro nodo tendr&aacute; la IP 192.168.200.85 y el otro router la 192.168.200.86.</para>
+<para/><sect3><title>El problema de la IP de origen en m&aacute;quinas multihome (con m&aacute;s de una IP). </title>
+<para/>
+<para>Los enrutadores tienen m&aacute;s de una direcci&oacute;n IP, dado que tienen una IP en cada interfaz de red que enrutan. Ahora bien, cuando una m&aacute;quina que tiene varias direcciones IP se comunica con otra m&aacute;quina &iquest;qu&eacute; IP origen figura en los paquetes? la IP de la interfaz de red por la que saldr&aacute; el paquete.</para>
+<para/>
+<para>Esto puede ser problem&aacute;tico en algunos casos. Por ejemplo en nuestra configuraci&oacute;n, en la interfaz eth1 que conecta nuestra red con la red de otra empresa. Resulta que los equipos de la red de la otra empresa no saben c&oacute;mo llegar a 192.168.200.86: los equipos de ambas redes conocen las Ips 192.168.120.0 y 10.0.0.0, pero no conocen la red 192.168.200.84/30, que es un artificio para comunicar los dos enrutadores. As&iacute; pues, cualquier paquete que proceda de nuestro enrutador y vaya a una direcci&oacute;n de la red 10.0.0.0 llevar&aacute; como IP origen 192.168.200.86, por lo que podr&aacute; llegar a destino pero luego no llegar&aacute;n los paquetes respuesta. Podemos hacer una prueba muy sencilla: un simple ping a una m&aacute;quina de la red 10.0.0.0 y veremos que la IP origen es 192.168.20.86 y no nos llega la respuesta, mientras que desde otra IP de la red s&iacute;.</para>
+<para/>
+<para>La soluci&oacute;n pasa por utilizar como IP origen 192.168.120.19 tambi&eacute;n cuando los paquetes vayan a la red 10.0.0.0 y no s&oacute;lo cuando vayan a la red local. Ante esto caben dos enfoques:</para>
+<orderedlist>
+<listitem>
+<para>Configurar cada programa que necesita contactar con la red 10 para que use la IP 192.168.120.19. Cada programa se configura de forma distinta. Por ejemplo con un ping basta indicar la IP con la opci&oacute;n -I, con SSH se indica mediante la opci&oacute;n BindAddress...</para>
+</listitem>
+<listitem>
+<para>Hacer NAT: mediante iptables ponemos una regla para que todo paquete con la direcci&oacute;n origen 192.168.200.86 que vaya a salir por la interfaz eth1 cambie su IP a 192.168.120.19. Esta regla ser&iacute;a:</para>
+<para>iptables -t nat -A POSTROUTING --source 192.168.200.86 -o eth1 -j SNAT --to-source 192.168.120.19</para>
+</listitem>
+</orderedlist>
+<para/>
+<para>&iquest;Qu&eacute; soluci&oacute;n es m&aacute;s apropiada? Depende. La segunda obviamente es m&aacute;s directa, pues no hay que cambiar programa a programa. Ahora bien, por seguridad desde el enrutador no se deber&iacute;a acceder a m&aacute;s equipos de la otra red que los imprescindibles, por ejemplo los servidores DNS. Obligarse a reconfigurar cada programa que hay lo necesita es obligarse a mantener controlado a qu&eacute; servicios de la otra red estamos accediendo desde el router.</para>
+<para/></sect3></sect2><sect2><title>Acceso remoto</title>
+<para/><sect3><title>Soluciones de acceso remoto</title>
+<para>Para conectarse desde casa o desde otra ubicaci&oacute;n a la red del trabajo, hay distintas alternativas:</para>
+<orderedlist>
+<listitem>
+<para>Usar una VPN, de modo que nuestro ordenador de casa virtualmente est&eacute; en la red de la empresa, pero a trav&eacute;s de una conexi&oacute;n cifrada v&iacute;a Internet. Esta es la opci&oacute;n m&aacute;s potente, pero tambi&eacute;n la m&aacute;s compleja. Una empresa que tenga una pol&iacute;tica estricta de seguridad sobre las m&aacute;quinas instaladas en la red, con el filtrado de red, se encontrar&aacute; con que cada vez que se conecte el usuario se a&ntilde;ade a su red local un nodo que puede estar en una red insegura (aunque esto depende tambi&eacute;n de la configuraci&oacute;n, un equipo puede conectarse a la red remota y desconectarse del resto). Es una opci&oacute;n especialmente interesante cuando el usuario usa un port&aacute;til tanto cuanto est&aacute; en la empresa como en su casa.</para>
+</listitem>
+<listitem>
+<para>Conectarnos remotamente a nuestro escritorio del PC del trabajo, usando un t&uacute;nel con SSH (tambi&eacute;n se puede hacer con SSL), con lo que s&oacute;lo habr&iacute;a que abrir un puerto en el cortafuegos de la empresa. Es una soluci&oacute;n m&aacute;s conservadora, pues virtualmente el usuario est&aacute; usando su monitor, teclado y rat&oacute;n para acceder a la m&aacute;quina del trabajo, pero por ejemplo no puede ni transferir ficheros entre su equipo local y el de la oficina (aunque algunas soluciones de escritorio remoto s&iacute; lo permiten) o conectarse desde su equipo de casa a ning&uacute;n servicio. Para el usuario tambi&eacute;n es una soluci&oacute;n sencilla, pues est&aacute; usando su equipo de la oficina en el que ya est&aacute; todo el software instalado y configurado. Sin embargo no es una soluci&oacute;n id&oacute;nea si por ejemplo el usuario tiene que escribir un documento y luego enviarlo: para eso ser&iacute;a m&aacute;s razonable que lo pueda editar en su equipo y conectarse a la intranet de la empresa. Adem&aacute;s esta posibilidad no est&aacute; disponible cuando el trabajador que se conecta remotamente no tiene un PC de sobremesa en la oficina sino que usa un port&aacute;til que se lleva a casa. </para>
+<para/>
+<para>T&eacute;cnicamente usando SSH se pueden abrir m&aacute;s t&uacute;neles para por ejemplo acceder a la web interna o transferir ficheros, pero eso ya supone mayor conocimiento por parte de los usuarios y es as&iacute; mismo posible limitar estas posibilidades. De todos modos en el momento que se permite al usuario crear un t&uacute;nel encriptado potencialmente se le est&aacute; dando acceso total a la red local de la empresa, pues el usuario puede utilizar el t&uacute;nel para encapsular lo que quiera, incluyendo por ejemplo una sesi&oacute;n PPP para implementar as&iacute; una VPN completa.</para>
+</listitem>
+<listitem>
+<para>Usar lo que se ha dado en llamar, no con demasiada propiedad, SSL VPN. Es el caso del programa SSLExplorer Community Edition. Este tipo de soluci&oacute;n es intermedia entre las dos anteriores. Ofrece una interfaz web, que completada con c&oacute;digo Java permite navegar por el disco duro de la m&aacute;quina remota, transferir ficheros entre las dos m&aacute;quinas, navegar por la intranet de la empresa... Se implementa tambi&eacute;n con un t&uacute;nel SSL y permite crear t&uacute;neles para distintas aplicaciones y lanzar la aplicaci&oacute;n en cuesti&oacute;n, por ejemplo rdesktop para conectarse a un escritorio remoto de Windows.</para>
+<para/>
+<para>Un detalle de nomenclatura, es que OpenVPN se define tambi&eacute;n como una SSL VPN pero no tiene nada que ver con esto, puesto que es una VPN real, que permite todo lo que ofrece cualquier otra VPN, mientras que las aplicaciones como SSLExplorer no son realmente VPNs. Se define como SSL VPN porque la VPN se encapsula en un t&uacute;nel SSL y s&oacute;lo hay que abrir un puerto</para>
+</listitem>
+</orderedlist>
+<para/></sect3><sect3><title>Soluci&oacute;n pr&aacute;ctica: crear un t&uacute;nel con openSSH</title>
+<para/>
+<para>Supongamos que queremos conectarnos desde casa con el puerto 8080 en la m&aacute;quina 192.168.1.100 de la red local de nuestra empresa. Para ello contamos con una m&aacute;quina SSH que est&aacute; dentro de la red local de la empresa y a la que llegamos a trav&eacute;s de un DNAT que hemos hecho en el cortafuegos. En este caso hemos abierto el puerto 34321 del cortafuegos, que tiene la IP p&uacute;blica 87.15.10.120: los paquetes con este destino cambiar&aacute;n de 87.15.10.120 a 192.168.1.1:22. As&iacute; pues, cuando nos conectemos v&iacute;a ssh a 87.15.10.120:34321, llegamos en realidad al puerto SSH de 192.168.1.1.</para>
+<para/>
+<para>La soluci&oacute;n est&aacute; en utilizar la posibilidad que ofrece SSH de crear t&uacute;neles. SSH es un protocolo que no s&oacute;lo encripta y garantiza la integridad de los datos, sino que es capaz de encapsular cuantas conexiones necesitemos en una sola. As&iacute;, nuestro prop&oacute;sito es que SSH cree un servidor local en nuestra m&aacute;quina, por ejemplo con el puerto 8081, recoga todo lo que escribamos en &eacute;l, lo env&iacute;e encriptado hasta la m&aacute;quina 192.168.1.1 (la m&aacute;quina remota a la que nos hemos conectado v&iacute;a SSH) y desde all&iacute; los desencripte y los env&iacute;e al puerto 8080 de la m&aacute;quina 192.168.1.100; los paquetes de respuesta seguir&aacute;n el proceso inverso, hasta llegar al puerto 8081 local de nuestra m&aacute;quina. Observes&eacute; que en el caso del t&uacute;nel los paquetes pasan por la capa de aplicaci&oacute;n, mientras que en el NAT simplemente se modifican las cabeceras a nivel IP y TCP para hacer el NAT. La m&aacute;quina 192.168.1.100 no ver&aacute; como IP origen de los paquetes a la IP de nuestra casa, sino a 192.168.1.1, la m&aacute;quina SSH que ha retransmitido el paquete.</para>
+<para/>
+<para>En la pr&aacute;ctica, hacer el t&uacute;nel es tan sencillo como:</para>
+<para>ssh -N 801020.13 -p 34231 -o ServerAliveInterval 1200 -L8081:192.168.1.100:8080</para>
+<para/>
+<para>La opci&oacute;n -N es para crear el t&uacute;nel pero no iniciar una shell. La opci&oacute;n ServerAliveInterval es para enviar cada 2 minutos un paquete en caso de que la conexi&oacute;n est&eacute; inactiva, para evitar que el cortafuegos asuma que la conexi&oacute;n est&eacute; muerta y olvide la asociaci&oacute;n NAT. Es posible a&ntilde;adir m&aacute;s opciones interesantes. Por ejemplo por defecto el puerto 8081 que ha creado ssh es s&oacute;lo accesible dentro de nuestra m&aacute;quina, si quisi&eacute;ramos que pudieran conectarse a &eacute;l otras m&aacute;quinas de nuestra red local, a&ntilde;adiremos la opci&oacute;n -g.</para>
+<para/>
+<para>Es posible tambi&eacute;n crear t&uacute;neles en los que el puerto servidor se abre en la IP a la que nos conectamos remotamente (en este caso 192.168.1.1) y que se enviara a una IP y puerto de nuestra red local. Esto nos permite crear servidores en la red local de nuestra empresa (para que el puerto sea accesible desde todas las Ips de la red local de la empresa y no s&oacute;lo desde 192.168.1.1, habr&aacute; que usar la opci&oacute;n -g).</para>
+<para/>
+<para>As&iacute;, si queremos crear el puerto 8087 en 192.168.1.1 y que todo lo que se reciba all&iacute; vaya al puerto 9000 de la IP 192.168.7.3 (en nuestra red local de casa) usar&iacute;amos:</para>
+<para>ssh -N 801020.13 -p 34231 -o ServerAliveInterval 1200 -g -R192.168.1.1:8087:192.168.7.3:9000</para>
+<para/>
+<para>Como puede verse, los t&uacute;neles SSH son muy potentes y un tanto inquietantes desde el punto de vista de la seguridad para un administrador: podemos hacer un t&uacute;nel para usar el escritorio remoto, para conectarnos a la web de la empresa, para enviar correos desde casa utilizando el servidor SMTP de la empresa, e incluso para ejecutar una aplicaci&oacute;n en local que usa una BB.DD. de la red, cambiando la configuraci&oacute;n para que use un puerto en nuestra m&aacute;quina local y usando un t&uacute;nel. Es m&aacute;s, es posible crear toda una VPN como veremos m&aacute;s adelante, con s&oacute;lo la posibilidad de crear t&uacute;neles de SSH.</para>
+<para/>
+<para>Por este motivo el administrador de SSH puede desactivar el uso de t&uacute;neles o especificar exactamente qu&eacute; t&uacute;neles se pueden usar, as&iacute; como permitir o denegar obtener una shell o permitir ejecutar s&oacute;lo un comando en concreto. Puede as&iacute; mismo no permitir el acceso al sistema no d&aacute;ndole una contrase&ntilde;a y autenticando por clave p&uacute;blica: el propio fichero de clave p&uacute;blica almacenado en el servidor tendr&aacute; las restricciones que se aplican cuando se accede con esa clave, pudi&eacute;ndose tener distintas claves para un mismo usuario seg&uacute;n se le permita ejecutar una tarea u otra.</para>
+<para/>
+<para>La funcionalidad de SSH no acaba aqu&iacute;. Es posible que un usuario se conecte a una m&aacute;quina y desde ah&iacute; a otras. Si utiliza claves p&uacute;blicas para autenticarse, SSH incorpora un sistema, el ssh-agent, que permite autenticar al usuario estando conectado en otra m&aacute;quina y sin que nuestra clave privada salga de nuestra m&aacute;quina.</para>
+<para/>
+<para>Para usuarios con Windows, en lugar de utilizar el cliente en l&iacute;nea de comandos pueden recurrir a Putty, un programa con interfaz de usuario basada en ventanas y que en realidad tambi&eacute;n se puede ejecutar en GNU/Linux.</para>
+<para/></sect3></sect2><sect2><title>Redes Privadas Virtuales (VPN)</title><sect3><title>Soluciones VPN para GNU/Linux</title>
+<para/>
+<para>VPN es el acr&oacute;nimo en ingl&eacute;s de red privada virtual. El objetivo es lograr, mediante la creaci&oacute;n de un t&uacute;nel IP encriptado sobre una red p&uacute;blica como Internet, que los nodos a conectar por la VPN virtualmente est&eacute;n en una misma red local. Es posible establecer una VPN directamente entre dos nodos, pero lo m&aacute;s habitual es o bien una VPN entre un nodo remoto y la red local de la empresa (esta configuraci&oacute;n en ingl&eacute;s se llama con frecuencia road warrior, guerrero de la carretera, hace menci&oacute;n a que un usuario m&oacute;vil se conecta a la empresa con su port&aacute;til y una conexi&oacute;n a Internet desde all&iacute; d&oacute;nde est&aacute; desplazado) o una VPN que une dos redes, por ejemplo dos filiales de una empresa o una filial con la central.</para>
+<para/>
+<para>Hay distintas tecnolog&iacute;as y productos para crear una VPN con implementaciones libres para GNU/LInux: </para>
+<orderedlist>
+<listitem>
+<para>IPsec: el est&aacute;ndar por excelencia, ser&aacute; obligatorio en IPv6 y est&aacute; implementado en muchas pilas TCP/IP tambi&eacute;n para la actual generaci&oacute;n IPv4, incluyendo el kernel Linux. Se implementa directamente sobre la capa 3 (IP) mientras que el resto de soluciones suelen implementarse a nivel de capa de aplicaci&oacute;n. A diferencia de otras soluciones permite tanto t&uacute;neles como directamente encriptar la capa de transporte, lo que es &uacute;til cuando s&oacute;lo se quiere seguridad entre dos m&aacute;quinas o ya se implementa el t&uacute;nel sobre una capa posterior (t&iacute;picamente la de aplicaci&oacute;n, utilizando paquetes UDP).</para>
+</listitem>
+<listitem>
+<para>PPTP: protocolo impulsado por Microsoft. Su implementaci&oacute;n original ten&iacute;a varios fallos graves y adem&aacute;s existe el problema de que no est&aacute; tan probado como IPSec siendo tambi&eacute;n relativamente compleja. No es un est&aacute;ndar, aunque se public&oacute; un RFC informativo describiendo el protocolo. El nombre completo es Point to Point Tunneling Protocol. Hay clientes de PPTP en Windows desde Windows 95, aunque Microsoft trata ahora de substituir PPTP por LLTP e IPsec, si bien PPTP ha tenido cierto &eacute;xito por su sencillez de configurar: no se usan claves p&uacute;blicas, sino las propias cuentas de Windows para autenticar el acceso. </para>
+<para/>
+<para>Hay implementaciones para GNU/Linux interoperables con la implementaci&oacute;n de Microsoft tanto del cliente (http://pptpclient.sourceforge.net/) como del servidor (http://pptpclient.sourceforge.net/) . A destacar que los desarrolladores de estas implementaciones recomiendan no usar PPTP m&aacute;s que si no queda otro remedio: en su lugar recomienda OpenVPN o IPsec.</para>
+</listitem>
+<listitem>
+<para>L2TP: Layer 2 Tunnel Protocol: promovido por Microsoft y CISCO, sigue la v&iacute;a de estandarizaci&oacute;n del IETF. Es un protocolo que hace t&uacute;neles a nivel de la capa de aplicaci&oacute;n (mediante paquetes UDP), como lo que encapsula es PPP, encapsula tr&aacute;fico layer2. En realidad L2TP no implementa por s&iacute; s&oacute;lo una VPN, dado que no encripta la informaci&oacute;n, por lo que o bien usa PPTP o lo recomendado, usa un t&uacute;nel IPsec.</para>
+<para/>
+<para>&iquest;Qu&eacute; sentido tiene usar L2TP sobre IPsec, pudiendo usar directamente IPsec? el primer matiz es que se podr&iacute;an encapsular varios t&uacute;neles L2TP y cada uno puede autenticarse conforme a L2TP (lo que no evita que tambi&eacute;n haya que usar el mecanismo IKE en el t&uacute;nel IPsec). L2TP crea t&uacute;neles a nivel 2, por lo que puede ir todo tipo de tr&aacute;fico, no necesariamente IP, por ejemplo puede ir tr&aacute;fico IPX o incluso se puede transportar directamente paquetes de nivel 2 como ATM. L2TP en gran medida es m&aacute;s interesante para proveedores de Internet que tengan que encapsular informaci&oacute;n, que para VPNs entre oficinas (por ejemplo para revender acceso a Internet), pero en cualquier caso se agradece que haya implementaciones para GNU/Linux pues habr&aacute; servidores que no permitan conectarse directamente usando IPSec (quiz&aacute;s por desear usar la autenticaci&oacute;n PPP) y requieran L2TP. En el art&iacute;culo de la Wikipedia hay enlaces a las implementaciones existentes as&iacute; como a un tutorial: <ulink url="http://en.wikipedia.org/wiki/L2TP">http://en.wikipedia.org/wiki/L2TP</ulink>
+</para>
+</listitem>
+<listitem>
+<para>OpenVPN: es la soluci&oacute;n recomendada, por su sencillez: hace un t&uacute;nel TLS sobre el que se encapsulan paquetes layer 3 (IP) o layer 2 (Ethernet), pero usando UDP en lugar de TCP, aunque tambi&eacute;n se puede usar sobre TCP e incluso pasar a trav&eacute;s de proxies HTTP. En realidad TLS no se puede implementar directamente sobre UDP, porque requiere un protocolo fiable como TCP y con UDP se tiene que permitir la p&eacute;rdida de paquetes. Por ello en realidad TLS se usa para la funcionalidad de control, como negociar la sesi&oacute;n TLS o renegociarla en un momento dado (implementando sobre UDP un sistema para pedir de nuevo los paquetes que se puedan perder y son importantes por ser de control), sustituyendo a los protocolos PKI de IPSec. Pero adem&aacute;s se han imitado los mecanismos presentes en las cabeceras ESP de IPSec para dar seguridad a nivel de paquete y con independencia de si se pierde el paquete anterior: para ello hay que a&ntilde;adir una secuencia a los paquetes, as&iacute; como un HMAC y contemplar varios mecanismos. Una idea similar es la que se sigue en la implementaci&oacute;n del est&aacute;ndar DTLS (Datagram TLS: <ulink url="http://es.wikipedia.org/wiki/Datagram_Transport_Layer_Security">http://es.wikipedia.org/wiki/Datagram_Transport_Layer_Security</ulink>) que se define en el RFC4347 y cuya &uacute;nica implementaci&oacute;n actual conocida es la que hace el proyecto OpenSSL. En <ulink url="http://unix.freshmeat.net/projects/dtls_example/">http://unix.freshmeat.net/projects/dtls_example/</ulink> hay c&oacute;digo de ejemplo. Es posible que en un futuro se modifique OpenVPN para usar DTLS en lugar de su propio protocolo.</para>
+</listitem>
+<listitem>
+<para>Montar una VPN sobre la marcha con OpenSSH y pppd. Es una soluci&oacute;n de compromiso ante una necesidad puntual. Si hemos instalado SSH y dejamos que pase el cortafuegos por si necesitamos conectarnos o lo usamos para encriptar un tunel con la conexi&oacute;n el acceso a escritorio remoto, en un momento dado podemos instalar una VPN. La idea es utilizar el software de PPP (pppd) para crear los dispositivos de red en cada extremo y comunicarlos por un t&uacute;nel SSH: el software PPP escribe por salida est&aacute;ndar lo que lee del dispositivo de red e igualmente lo que lee por salida est&aacute;ndar lo pone en el dispositivo de red. Con SSH se pueden comunicar las entradas salidas de dos programas, formando un t&uacute;nel. Si lo preferimos, podemos hacer el t&uacute;nel utilizando Stunnel en lugar de OpenSSL.</para>
+</listitem>
+</orderedlist>
+<para/></sect3><sect3><title>IPSEC</title>
+<para/>
+<para>Hay implementaciones de IPSec para cualquier sistema Unix, MacOS X, Windows XP/2000... Una implementaci&oacute;n de IPSec consta de dos partes: la implementaci&oacute;n sobre la pila de protocolos TCP/IP, en el k&eacute;rnel y el demonio y herramientas que se ejecutan en el espacio de usuario para establecer las claves (esto es la parte IKE: Internet Key Exchange). En principio es posible utilizar la parte IKE de una implementaci&oacute;n sobre la pila de protocolos de otra. As&iacute;, la implementaci&oacute;n integrada en el kernel Linux (llamada NETKEY) no incluye herramientas IKE, por lo que hay que usar las de otra implementaci&oacute;n: habitualmente se usa la implementaci&oacute;n del proyecto Kame (surgido de un consorcio de empresas japonesas como Fujitsu y Toshiba para hacer una implementacion de Ipv6 e Ipsec), que es la implementaci&oacute;n usada en Free/NetBSD y en MacOS X; el demonio IKE de Kame se llama Racoon y el conjunto de utilidades portadas para Linux que adem&aacute;s de Racoon incluye otras como setkey es ipsec-tools (http://ipsec-tools.sf.net); en Ubuntu Dapper se incluyen los paquetes ipsec-tools y Racoon (se ha sacado en un paquete aparte el demonio porque es posible tambi&eacute;n usar IPSec sin demonio, utilizando claves precompartidas). </para>
+<para/>
+<para>Tambi&eacute;n se puede usar por ejemplo como demonio IKE isakmpd (de la implementaci&oacute;n de OpenBSD) o Pluto. Pluto es el demonio IKE de la antigua implementaci&oacute;n de IPsec para Linux, FreeSWAN, que nunca lleg&oacute; a formar parte del kernel; FreeSWAN dej&oacute; de desarrollarse pero tomaron el relevo dos proyectos: OpenSWAN (www.openswan.org) y StrongSWAN (www.strongswan.org). Mientras que OpenSWAN sigue desarrollando la pila de protocolos KLIPS como alternativa a la integrada en el kernel, NETKEY, en StrongSWAN no. StrongSWAN es compatible no s&oacute;lo con IKE1 sino con IKE2: de la compatibilidad con IKE1 se encarga el viejo demonio Pluto, mientras que para IKE2 hay un nuevo demonio llamado Charon. La flexibilidad de programas como StrongSWAN o OpenSWAN son inmensas: incluyendo toda una infraestructura de clave p&uacute;blica basada en certificados X.509, con la posibilidad de utilizar dispositivos como smartcards y teniendo en cuenta aspectos como que los certificados pueden revocarse y ya no ser v&aacute;lidos, que pueden obtenerse de servidores LDAP...</para>
+<para>Para usar IPSec hay que abrir en los cortafuegos el puerto 200 UDP, pues lo usa IKE. Tambi&eacute;n hay que tener en cuenta que los paquetes tienen un n&uacute;mero de protocolo distinto al IP, por lo que tambi&eacute;n podr&iacute;a haber problemas en el cortafuegos.</para>
+<para/>
+<para>El lado negativo de IPSec es que es una soluci&oacute;n muy compleja. Al margen que esa complejidad podr&aacute; afectar m&aacute;s o menos al usuario seg&uacute;n los asistentes para configurar una VPN (el problema est&aacute; en que todo se complica m&aacute;s si los sistemas operativos de los nodos a conectar son distintos, frente a la sencillez de usar una implementaci&oacute;n de VPN m&aacute;s simple que tenga versi&oacute;n para distintos sistemas operativos) desde el punto de vista de la seguridad son preferibles las soluciones sencillas. Hay gente que no le gusta tampoco de IPsec frente a otras soluciones que se ejecute mucho c&oacute;digo en el espacio del kernel (por ejemplo la parte de encriptaci&oacute;n, que en el caso de OpenVPN se ejecuta en el espacio de usuario) dado que un error de seguridad ah&iacute; es fatal al comprometer todo el sistema, si bien tiene un impacto positivo en el rendimiento. Esta objeci&oacute;n es opinable: es cierto, pero tambi&eacute;n la informaci&oacute;n sensible est&aacute; m&aacute;s protegida a nivel del kernel.</para>
+<para/></sect3><sect3><title>SSH + PPPD</title>
+<para/>
+<para>&iquest;Qu&eacute; inconvenientes tiene usar OpenSSH + PPPD? el principal inconveniente es que no es buena idea implementar el t&uacute;nel de una VPN sobre TCP, es mejor utilizar UDP. El motivo es porque TPC tiene mecanismos de control de congesti&oacute;n que no funcionan de la mejor forma cuando una conexi&oacute;n TCP a su vez se encapsula sobre una conexi&oacute;n TCP: se produce un efecto multiplicativo que hace que ante una congesti&oacute;n se reduzca la velocidad enormemente y que tarde mucho en coger de nuevo velocidad. Hay una explicaci&oacute;n de este fen&oacute;meno en <ulink url="http://sites.inka.de/sites/bigred/devel/tcp-tcp.html">http://sites.inka.de/sites/bigred/devel/tcp-tcp.html</ulink>. Otro argumento para usar UDP es que podemos tener aplicaciones UDP que usan este protocolo por la necesidad de que los paquetes lleguen siempre a tiempo, sin importar si se pierde alguno: como se usa TCP, los paquetes nunca se descartan y se gasta tiempo en retransmisiones.</para>
+<para/>
+<para>Parad&oacute;jicamente, hay casos en los que usar un t&uacute;nel TCP s&iacute; puede tener alguna ventaja sobre un t&uacute;nel UDP. Si un protocolo UDP est&aacute; mal dise&ntilde;ado frente a un ataque que selectivamente hace que determinados paquetes se pierdan, el que vaya sobre TCP ser&iacute;a una ventaja puesto que entonces TCP nos garantiza que ning&uacute;n paquete se pierda ni llegue fuera de orden.</para>
+<para/>
+<para>Otro inconveniente es que PPPD requiere privilegios de superusuario, aunque se pueden hacer cambios en la configuraci&oacute;n para que no sea necesario, atendiendo a que el programa se ejecuta con el bit setuid. Crear un dispositivo TUN/TAP tambi&eacute;n requiere privilegios, pero es distinto, porque una vez creado con un programa, se puede hacer que est&eacute; disponible para otros programas lanzados sin privilegios.</para>
+<para/><sect4><title>Caso pr&aacute;ctico: SSH + PPPD</title>
+<para/>
+<para>Supongamos que la IP p&uacute;blica d&oacute;nde escucha el servidor SSH es 157.88.66.102 y el puerto es 8088 . Vamos a crear una conexi&oacute;n punto a punto, en el que la IP local del enlace punto a punto (esta IP ser&aacute; la que tendr&aacute;n como origen los paquetes lleguen a la red remota a trav&eacute;s del t&uacute;nel y tengan como origen la m&aacute;quina local) ser&aacute; 172.16.16.15 y el remoto 172.16.16.16. Realmente podemos escoger el par de Ips que queramos, con tal que la IP remota no est&eacute; en uso en la propia red, teniendo en cuenta que en el otro extremo la IP local ser&aacute; la remota y por lo tanto la que no tiene que estar presente; no pasa nada porque la IP local sea la IP asignada a otra interfaz de red de la m&aacute;quina. Ejecutamos:</para>
+<para>pppd updetach nobsdcomp nodeflate usepeerdns noauth connect-delay 10000 pty "ssh <ulink url="mailto:root@81.33.18.197">root@81.33.18.197</ulink> -o ServerAliveInterval=120 -p 9436 -t -t pppd noauth 172.16.16.16:172.16.16.15"</para>
+<para/>
+<para>La opci&oacute;n updetach es para que el programa pase a segundo plano tras lograr ejecutar la conexi&oacute;n (es decir, se ejecuta como si fuera un demonio, liberando el terminal). Las opciones nobsdcomp y nodeflate son para evitar que se use compresi&oacute;n, que no se llevar&iacute;a bien con el usar un t&uacute;nel SSH. Basta ponerlas en el lado cliente, pues se negocian para los dos lados de la comunicaci&oacute;n. La opci&oacute;n "usepeerdns" es para que se actualice nuestro /etc/resolv.conf con los datos del servidor DNS del extremo con el que conectamos; a fin de usar su DNS en lugar del nuestro. Sin embargo es posible que esta opci&oacute;n no nos funcione, pues requiere que haga su trabajo el script local /etc/ppp/if-up, que no siempre tiene en cuenta estos datos, por lo que es posible que tengamos que modificarlo manualmente. La opci&oacute;n noauth se usa para que no use la autenticaci&oacute;n PPP: no hace falta, dado que ya usamos la de SSH. La opci&oacute;n connect-delay en este caso indica que no intente establecer la conexi&oacute;n PPP hasta transcurridos 10 segundos; el motivo es que el pppd en el otro extremo se ejecuta al lograr autenticarnos con el servidor SSH, para lo que tendremos que introducir la contrase&ntilde;a antes; es decir, nos damos 10 segundos de margen para lograr ejecutar en el otro extremo pppd v&iacute;a ssh. Finalmente la opci&oacute;n pty es para usar como script de conexi&oacute;n, con el se comunicar&aacute; usando un pseudo-tty, lo que va entrecomillado, que no es otra cosa que lanzar pppd en la m&aacute;quina remota. Entre las opciones de SSH, a destacar ServerAliveInterval: le estamos indicando en este ejemplo que env&iacute;e un paquete cada 2 minutos si no se transmiten datos, a fin de garantizar que el posible NAT que haga alg&uacute;n enrutador no se pierda por considerar que la conexi&oacute;n ya no est&aacute; activa.</para>
+<para/>
+<para>En realidad es posible simplificar la instrucci&oacute;n anterior, as&iacute; como mejorar la seguridad, usando para autenticarse con el servidor un certificado y configurando en el servidor que al conectarse con ese certificado en lugar de poder ejecutar cualquier programa ejecute una orden determinada, que en nuestro caso ser&iacute;a la invocaci&oacute;n a pppd.</para>
+<para/>
+<para>Tras ejecutar esta operaci&oacute;n, tendremos un nuevo dispositivo ppp0, con IP local 172.16.16.15 e IP remota 172.16.16.16. Para llegar a las m&aacute;quinas remotas caben dos opciones: una es que perdamos la conectividad local, usando como ruta por defecto 172.16.16.16; esto lo podemos hacer con "route del default &amp;&amp; route add default gw 172.16.16.16", aunque tambi&eacute;n pod&iacute;amos haber pasado directamente la opci&oacute;n "defaultroute" a pppd para que hubiera aplicado este cambio autom&aacute;ticamente. Sin embargo, al ejecutar esta operaci&oacute;n nos encontramos con un problema: no funciona, porque hasta el servidor SSH tenemos que llegar usando nuestra antigua ruta por defecto (la de nuestro router que nos permite salir a Internet). As&iacute; pues, a&ntilde;adimos una ruta:</para>
+<para/>
+<para>La otra opci&oacute;n es que s&oacute;lo a&ntilde;adamos una ruta espec&iacute;fica para llegar a las Ips de la red remota y que para la ruta por defecto sigamos usando la ruta que tenemos. As&iacute;, si la red remota es 192.168.10.0, ejecutaremos:</para>
+<para>route add -net 192.168.10.0 -netmask 255.255.255.0 gw 172.16.16.16</para>
+<para/>
+<para>Esta segunda alternativa encierra m&aacute;s riesgo de seguridad, pues si hay agujeros en nuestra m&aacute;quina y estamos conectados a Internet, estaremos arriesgando la red remota, pues los paquetes que vienen de nuestra m&aacute;quina no pasan por el cortafuegos de la red remota.</para>
+<para/>
+<para>Con la IP que hemos escogido como direcci&oacute;n local, los paquetes que enviemos llevar&aacute;n como IP origen 172.16.16.15 (la IP local en el enlace punto a punto); posiblemente en la red destino no sepan c&oacute;mo llegar a esta IP desde otro nodo que el del servidor SSH, por lo que ser&iacute;a una conexi&oacute;n host a host, salvo que precisamente la m&aacute;quina del servidor SSH sea el enrutador por defecto. A&uacute;n as&iacute;, si por ejemplo este router a su vez pasa al testigo a otro para llegar a Internet o determinadas redes, con esa IP no llegaremos porque no se esperan que la IP 172.16.16.15 est&eacute; en ese router.</para>
+<para/>
+<para>Hay dos formas de solucionarlo. Una es utilizar como IP local una IP de la red destino que no se est&eacute; usando y pasar al servidor la opci&oacute;n proxyarp. En ese caso cuando desde un nodo de la red local se pregunte por la IP, responder&aacute; la m&aacute;quina donde est&aacute; el servidor SSH con su propia direcci&oacute;n ARP y har&aacute; una redirecci&oacute;n. La otra soluci&oacute;n es hacer NAT; supongamos que la IP en la red remota del nodo que es servidor SSH es 192.168.10.7; entonces habr&iacute;a que ejecutar en la m&aacute;quina remota (para lo cual podemos usar nuestro ssh) la orden para a&ntilde;adir la regla NAT:</para>
+<para>ssh 81.33.18.197 -p 9436 iptables -t nat -A POSTROUTING --source 172.16.16.15 -j SNAT --to-source 192.168.120.19</para>
+<para/>
+<para>Esta soluci&oacute;n tal como est&aacute; es s&oacute;lo para los paquetes procedentes del equipo local: si lo que hemos hecho es usar el t&uacute;nel VPN para unir a la red remota toda la red local ya es m&aacute;s complicado, pues la IP origen ser&aacute; la de la m&aacute;quina de procedencia.</para></sect4><sect4><title>M&aacute;s sencillo: servidor SOCKS de SSHD</title>
+<para>En realidad, si se tiene acceso a una m&aacute;quina de la red local remota v&iacute;a SSH, hay un m&eacute;todo m&aacute;s sencillo para que nuestras aplicaciones de red accedan a los nodos de la red remota como si nuestra m&aacute;quina estuviera all&iacute;. Se trata del servidor de SOCKS5 que integra OpenSSH. Este servidor se arranca en nuestra m&aacute;quina local en el puerto que le indiquemos con la opci&oacute;n -D. Cualquier cliente que utilice ese proxy SOCKS acceder&aacute; a la red remota, pues el proxy hace las peticiones en la m&aacute;quina remota: todas las peticiones y respuestas van tuneladas y encriptadas en la conexi&oacute;n SSH. De este modo, es como si las aplicaciones pudieran crear t&uacute;neles SSH a petici&oacute;n, pero utilizando un protocolo est&aacute;ndar, SOCKS.</para>
+<para/>
+<para>Una caracter&iacute;stica interesante de SOCKS5 es que para establecer una conexi&oacute;n se puede pasar al proxy en lugar de la IP directamente el nombre de la m&aacute;quina. Esta posibilidad es interesante, porque as&iacute; usamos el DNS de la red remota, en lugar de el nuestro local, algo muy deseable si es un DNS privado.</para>
+<para/>
+<para>Hay aplicaciones que se pueden configurar para usar SOCKS, como Firefox. No obstante Firefox por defecto no usa el DNS remoto. Para que s&iacute; lo haga, bastar&aacute; con teclear about:config y cambiar la opci&oacute;n network.proxy.socks_remote_dns.</para>
+<para/>
+<para>Muchas aplicaciones no soportan SOCKS. La buena noticia es que se pueden "sockificar": la idea es reemplazar en tiempo de ejecuci&oacute;n la librer&iacute;a est&aacute;ndar de C para que ante un connect o un bind llame en su lugar al proxy SOCKS. La &uacute;nica pega es que esto no sirve para usar el servidor DNS remoto, aunque la alternativa es abrir un t&uacute;nel con SSH al servidor remoto y usarlo en lugar del local. En algunos casos parece que tambi&eacute;n resuelve el caso del DNS, alterando la llamada para hacer la consulta para hacerla a trav&eacute;s del servidor SOCKS. Ejemplo (s&oacute;lo para TCP) <ulink url="http://proxychains.sourceforge.net/">http://proxychains.sourceforge.net/</ulink>. M&aacute;s programas en http://en.wikipedia.org/wiki/SOCKS.</para>
+<para/>
+<para>"Sockificar" una aplicaci&oacute;n es muy sencillo en cualquier programa que no tenga bit setuid: basta con usar LD_PRELOAD. </para>
+<para/>
+<para/></sect4></sect3><sect3><title>OpenVPN</title>
+<para>El hecho de usar protocolos conocidos y una librer&iacute;a muy probada como OpenSSL da mucha fiabilidad a este programa: es relativamente f&aacute;cil fallar estrepitosamente a la hora de tratar de crear un nuevo sistema de VPN, como revela este interesante escrito de Peter Gutmann (el autor de cryptolib y la impresionante presentaci&oacute;n/tutorial de criptograf&iacute;a de m&aacute;s de 800 transparencias)</para>
+<para>que habla de CIPE, VTUN y TINC: <ulink url="http://www.cs.auckland.ac.nz/~pgut001/pubs/linux_vpn.txt">http://www.cs.auckland.ac.nz/~pgut001/pubs/linux_vpn.txt</ulink>. Del mismo autor, un art&iacute;culo m&aacute;s elaborado sobre el tema: http://www.linux-magazine.com/issue/39/VPN_Insecurity.pdf</para>
+<para/>
+<para/>
+<para>OpenVPN consta de un &uacute;nico ejecutable (para ambos extremos es el mismo) y un fichero opcional de configuraci&oacute;n, adem&aacute;s de los ficheros de claves.</para>
+<para/>
+<para>Uno de los puntos fuertes es que es multiplataforma: el poder usar exactamente el mismo programa en GNU/Linux, cualquier BSD, Solaris, Mac OS X o Windows XP/2000 supone hacer una VPN en la que intervengan equipos con cualquier sistema operativo sin problemas de interoperabilidad.</para>
+<para/>
+<para>OpenVPN permite hacer t&uacute;neles a nivel de la capa 3 (la opci&oacute;n por defecto y la recomendada, se usa un dispositivo TUN) o a nivel de la capa 2 (usando un dispositivo TAP). Si usamos la capa 2, podemos utilizar un puente. S&oacute;lo tiene sentido usar la capa 2 para transferir tr&aacute;fico no IP o cuando necesitemos la funcionalidad de un puente.</para>
+<para/>
+<para>Una funcionalidad interesante de OpenVPN desde su versi&oacute;n 2.0 es crear un &uacute;nico servidor al que pueden conectarse distintos clientes, para crear cada uno su propia red privada virtual con la red local en la que est&aacute; el servidor.</para>
+<para/><sect4><title>Caso pr&aacute;ctico: OpenVPN</title>
+<para>Supongamos que queremos conectarnos las m&aacute;quinas con IP p&uacute;blicas 83.59.36.220 y 81.33.18.197. La primera tiene abierto en el cortafuegos el puerto UDP 9037, mientras que la segunda tiene el 1198. Vamos a crear una red privada virtual, en el que el primer nodo tendr&aacute; la IP 10.4.0.2 y el segundo el 10.4.0.1.</para>
+<para/>
+<para>La configuraci&oacute;n m&aacute;s sencilla de manejo de una clave com&uacute;n es utilizar una clave compartida. Para ello en primer lugar la generamos en uno de los nodos:</para>
+<para>openvpn --genkey --secret static.key</para>
+<para/>
+<para>A continuaci&oacute;n la subiremos al otro nodo utilizando alg&uacute;n procedimiento seguro. Por ejemplo con scp (parte de SSH). Hecho esto ya podemos crear la VPN:</para>
+<para/>
+<para>En el nodo 81.33.18.197, ejecutamos:</para>
+<para/>
+<para>openvpn --remote 83.59.36.220 --rport 9037 --lport 1198 --dev tun1 --ifconfig 10.4.0.1 10.4.0.2 -secret static.key</para>
+<para/>
+<para>En el nodo 83.59.36.220 ejecutamos:</para>
+<para/>
+<para>openvpn --remote 81.33.18.197 --rport 1198 --lport 9037 --dev tun1 --ifconfig 10.4.0.2 10.4.0.1 --secret static.key</para>
+<para/>
+<para>En ambos nodos ejecutamos:</para>
+<para>echo 1 &gt; /proc/sys/net/ipv4/ip_forward</para>
+<para>iptables -I FORWARD -i tun+ -j ACCEPT</para>
+<para/>
+<para>La primera l&iacute;nea es para activar el forwarding entre interfaces de red, o lo que es lo mismo, la posibilidad de enrutado. La segunda l&iacute;nea es para evitar que rechace el cortafuegos el tr&aacute;fico procedente de la interfaz tun. En esta l&iacute;nea hemos puesto I (Insert) en lugar de A (append) como viene en la documentaci&oacute;n. Realmente es m&aacute;s apropiado append, puesto que as&iacute; si hay reglas espec&iacute;ficas para filtrar no nos las saltaremos, pero para probar primero que podemos establecer conexi&oacute;n puede ser buena idea poner la regla la primera.</para>
+<para/>
+<para>Una vez que veamos que todo funciona, podemos invocar estos programas con la opci&oacute;n --daemon.</para>
+<para/>
+<para>Si no hemos logrado conectar, posiblemente haya un problema con el cortafuegos. Podemos probar con la herramienta netcat a enviar/escuchar paquetes en estos puertos UDP.</para>
+<para/>
+<para>As&iacute;, en 83.59.36.220 ejecutamos:</para>
+<para>netcat -u -l -p 9037</para>
+<para/>
+<para>81.33.18.197 ejecutamos:</para>
+<para>netcat -u 83.59.36.220 9037</para>
+<para/>
+<para>A continuaci&oacute;n escribimos algo: deber&aacute; aparecer en 83.59.36.220 y lo que escribamos all&iacute; aparecer en 81.33.18.197.</para>
+<para/>
+<para>El uso de una clave compartida no es el m&eacute;todo m&aacute;s seguro. Por ejemplo si se compromete la clave se comprometen todas las conversaciones pasadas. No es un sistema de "perfect forward security". Aclaremos que hay sistemas basados en PSK (Preshared keys) que s&iacute; lo son, pero no as&iacute; el de OpenVPN. La diferencia es que en algunos sistemas las PSK hacen las mismas funciones que los certificados en TLS: sirven para autentificar a la otra parte, no para obtener la clave de sesi&oacute;n, que se determina utilizando Diffie-Hellman. En cambio con OpenVPN sirven para establecer la clave de sesi&oacute;n.</para>
+<para/>
+<para>Es posible usar proxyarp tambi&eacute;n con OpenVPN, lo que ocurre es que la forma de activarlo s&iacute; que es dependiente del sistema operativo y habr&aacute; sistemas que ni siquiera lo soporten. En el caso de Linux ser&iacute;a con:</para>
+<para>echo 1 &gt; /proc/sys/net/ipv4/conf/all/proxy_arp</para>
+<para/>
+<para/>
+<para>Por supuesto tambi&eacute;n es posible activar proxy_arp a nivel de cada dispositivo de red, igual que en el caso del fordwarding.</para></sect4></sect3></sect2><sect2><title>Escritorio remoto</title>
+<para/><sect3><title>Escritorio remoto: X-Window </title>
+<para/>
+<para>El sistema X-Window desde sus or&iacute;genes se dise&ntilde;&oacute; con vistas a la transparencia de red: una aplicaci&oacute;n se visualiza y maneja desde un terminal, pero puede estar ejecut&aacute;ndose en cualquier m&aacute;quina de la red con la que haya conexi&oacute;n TCP/IP. En la terminolog&iacute;a X-Window, el PC del usuario ejecuta el servidor X, mientras que las aplicaciones son los clientes: la idea es que las aplicaciones hacen peticiones al servidor del tipo dibuja este mapa de bits o notificam&eacute; determinados eventos. El servidor notifica a los clientes eventos como pulsaciones de teclas o eventos del rat&oacute;n.</para>
+<para/>
+<para>Para ejecutar una aplicaci&oacute;n desde una m&aacute;quina remota a la que nos hemos conectado por ejemplo a trav&eacute;s de un telnet o un ssh, lo primero que hace falta es que est&eacute; definida la variable DISPLAY, que indica el servidor a utilizar. As&iacute;, un valor :0 indica usar el servidor local (si hubiera m&aacute;s de uno, se incrementar&iacute;a el n&uacute;mero); con el valor 192.168.7.10:0, indicar&iacute;amos que conecte con el servidor X de la m&aacute;quina 192.168.7.10.</para>
+<para/>
+<para>El siguiente requisito, es que si la conexi&oacute;n es v&iacute;a red, tiene que estar abierto en el cortafuegos el puerto TCP del servidor X. Este puerto por defecto es 6000 para el primer servidor (:0) y se va incrementando conforme se ejecutan m&aacute;s servidores sobre una misma m&aacute;quina.</para>
+<para/>
+<para>Finalmente, el servidor X tiene que permitir que el cliente se conecte. Hay dos formas:</para>
+<orderedlist>
+<listitem>
+<para>m&eacute;todo poco sutil, xhost. Ejecutando xhost desde nuestro servidor X damos permiso para que desde las Ips que indiquemos se puedan conectar a nuestro servidor. As&iacute;, con xhost +192.168.7.1 permitir&iacute;amos conectar desde esa IP. Con xhost + permitir&iacute;amos conectar desde cualquier IP. Ojo, no conceder este permiso con ligereza: un cliente puede espiar eventos de teclado, enviar eventos de teclado (nada divertido si tenemos una terminal abierta y env&iacute;an un comando destructivo seguido de l evento de la tecla enter) o cuanto menos molestar bastante. A esto hay que a&ntilde;adir que al abrir una IP se abren a todos los posibles usuarios de la m&aacute;quina si es multiusuario o al posible malware que tuviera instalado; as&iacute; mismo no hay que olvidar la posibilidad del IP Spoofing.</para>
+</listitem>
+<listitem>
+<para>m&eacute;todo m&aacute;s adecuado, xauth. Para que el cliente pueda conectarse, salvo que se haya permitido expl&iacute;citamente utilizando xhost como se describe en el m&eacute;todo anterior, tiene que utilizar una "cookie" que est&aacute; almacenada en la cuenta de usuario del servidor que ejecuta el servidor X-Window, en el fichero que indique la variable de entorno XAUTHORITY. Este es el motivo por el que en algunas distribuciones al cambiar de usuario, incluso al cambiar a root, no permite ejecutar aplicaciones X: la variable de entorno ya no apunta a este fichero, por lo que no se env&iacute;a la cookie. Hay distribuciones en las que s&iacute; funciona al pasar a root, porque sudo, su o la orden que hayamos ejecutado para cambiar de usuario usa un m&oacute;dulo PAM para que al establecer una nueva sesi&oacute;n de usuario se copie la cookie. Como comentario adicional, con xhost es posible dar permiso para que abra conexiones cualquier cliente local con independencia de su usuario, pero no clientes remotos, mediante xhost +local:. Este mecanismo se apoya en que cuando cliente (aplicaci&oacute;n) y servidor (terminal X) est&aacute;n en la misma m&aacute;quina, no usan el socket TCP sino un socket Unix, que es s&oacute;lo accesible localmente. De hecho si s&oacute;lo vamos a permitir conexiones locales, es buena idea ejecutar el servidor X con la opci&oacute;n -nolisten tcp; es lo que hacen por defecto distribuciones como Ubuntu.</para>
+</listitem>
+</orderedlist>
+<para/>
+<para>Mediante la herramienta xauth, podemos leer la cookie en el servidor X; luego tambi&eacute;n mediante la herramienta xauth, en la m&aacute;quina remota, podemos a&ntilde;adir la cookie.</para>
+<para/>
+<para>En realidad, el m&eacute;todo recomendado para ejecutar aplicaciones remotas es conectarnos con ssh con la opci&oacute;n -X (si no a&ntilde;adimos adem&aacute;s la opci&oacute;n -Y estamos sujetos a algunas restricciones de seguridad, a decir verdad no totalmente efectivas). Al ejecutar aplicaciones a trav&eacute;s de SSH se usa para cada conexi&oacute;n un t&uacute;nel encapsulado dentro de la conexi&oacute;n SSH, con todas las ventajas que implica: seguridad, al estar encriptado y protegido contra modificaci&oacute;n y versatibilidad, pues no hay que abrir ning&uacute;n puerto en el cortafuegos ni hay problema si nuestra m&aacute;quina est&aacute; tras una ADSL con NAT. La idea en que se basa es utilizar un proxy: crea un servidor X en la m&aacute;quina remota y redirige todo lo que recibe por medio del t&uacute;nel SSH al servidor X real que tenemos en nuestra m&aacute;quina local. Gracias a este sistema funciona incluso aunque el servidor X se ejecute con la opci&oacute;n -nolisten tcp, pues la comunicaci&oacute;n es local gracias al t&uacute;nel.</para>
+<para/>
+<para>Muchas veces la forma de ejecutar las aplicaciones remotas no es ejecutando aplicaciones sueltas, en nuestro escritorio local, sino ejecutando entero el escritorio remoto. Es decir, nos sale la pantalla de GDM o KDM que nos pide nuestro usuario y contrase&ntilde;a y a continuaci&oacute;n entramos en un escritorio Gnome o KDE, pero que en realidad no es el de nuestra m&aacute;quina, sino el de una m&aacute;quina remota. Esta funcionalidad se apoya en el protocolo XDMCP, que por razones de seguridad suele estar desactivado (lo implementa el propio GDM/KDM). El protocolo usa el puerto UDP 177, pero s&oacute;lo inicialmente; para mostrar la propia pantalla de Login ya recurre a la habitual conexi&oacute;n TCP con el puerto 6000, si bien autom&aacute;ticamente configura todo, incluyendo el fichero con la cookie, para que el usuario no tenga que hacer nada especial.</para>
+<para/>
+<para>Hay servidores X libres disponibles tambi&eacute;n para Windows: recomendamos <ulink url="http://x.cygwin.com/">http://x.cygwin.com/</ulink>. </para>
+<para/></sect3><sect3><title>Escritorio remoto: VNC</title>
+<para/>
+<para>VNC es un sistema que permite conectarse a un escritorio remoto. El servidor se ejecuta en el ordenador remoto a cuyo escritorio nos queremos conectar y el cliente en nuestra m&aacute;quina. Toda la pantalla del escritorio se maneja dentro de una ventana, no es posible como con X-Window ejecutar cada aplicaci&oacute;n en su ventana, como si fueran aplicaciones locales. As&iacute; mismo es un sistema mucho menos avanzado que X-Window, basado simplemente en un framebuffer, retransmitiendo los cuadros que cambian (en cambio en X-Window se almacena informaci&oacute;n en el servidor, de modo que no hay que retransmitirla cada vez que se muestra por pantalla: como muestra un bot&oacute;n: el protocolo baso X-Window, sin extensiones, tiene 160 tipos de peticiones, respuestas y eventos).</para>
+<para/>
+<para>Si VNC es menos avanzado que X-Window, &iquest;por qu&eacute; hay gente que usa VNC en lugar de X-Window?</para>
+<orderedlist>
+<listitem>
+<para>conectividad: VNC funciona sobre cualquier escritorio, incluyendo Windows: las aplicaciones Windows no son clientes X-Window, por lo que no podemos esperar usarlas remotamente utilizando este sistema.</para>
+</listitem>
+<listitem>
+<para>conexi&oacute;n sin estado: cuando iniciamos una sesi&oacute;n remota con X-Window, no podemos en un momento dado decir, vale, me voy a casa, apago el monitor y me conecto luego desde casa y tengo todo como lo dej&eacute;, con el OpenOffice abierto editando un fichero y el visor de PDF por la p&aacute;gina 85. El motivo es que los clientes est&aacute;n ligados a esa conexi&oacute;n con el servidor y en el servidor hay informaci&oacute;n de estado: si cerramos el servidor mueren las aplicaciones. En cambio con VNC realmente funciona la analog&iacute;a monitor, teclado y rat&oacute;n remoto.</para>
+</listitem>
+<listitem>
+<para>rendimiento aceptable en una conexi&oacute;n v&iacute;a Internet. Este punto es desconcertante, porque por dise&ntilde;o X-Window es mucho m&aacute;s eficiente que VNC y deber&iacute;a ofrecer mejores resultados con menos ancho de banda. De hecho usando una red local con X-Window realmente las aplicaciones parecen locales. &iquest;Entonces que es lo que ocurre? El motivo es el round-trip. Conforme pasaban los a&ntilde;os, los desarrolladores se despreocuparon m&aacute;s de la posibilidad de ejecutar las aplicaciones remotamente v&iacute;a Internet, sobre todo en un punto: las aplicaciones e incluso los propios toolkits hacen muchas consultas al servidor X y esperan una respuesta, pese a que en general X-Window funciona as&iacute;ncronamente. Estas peticiones-respuestas tardan en procesarse cuanto menos el tiempo de latencia de la red multiplicado por dos (uno para enviar, otro para recibir). En una aplicaci&oacute;n que se ejecuta en local, la latencia es de 0,1 ms, por lo que aunque haya miles de round-trips el efecto es inapreciable. En una red local la latencia es de 1ms, todav&iacute;a asumible. Pero si usamos por ejemplo una ADSL, ya encontraremos latencias de 50ms, en una l&iacute;nea serie 200ms y estos valores subir&aacute;n a&uacute;n m&aacute;s en conexiones GSM o por sat&eacute;lite. Afortunadamente hay una tecnolog&iacute;a que trata de soluciones estos problemas, NX, de la que tambi&eacute;n hablaremos.</para>
+</listitem>
+</orderedlist>
+<para/>
+<para>VNC se ejecuta sobre una &uacute;nica conexi&oacute;n TCP, por lo que es muy f&aacute;cil de securizar utilizando un t&uacute;nel SSH, que es as&iacute; mismo una soluci&oacute;n interesante para permitir que los traajadores de una empresa puedan manejar en caso de necesidad su equipo de la oficina desde casa.</para>
+<para/>
+<para>Muchas distribuciones incluyen una opci&oacute;n de permitir administrar remotamente el equipo (por ejemplo SuSE 10.2). Esta opci&oacute;n se implementa con VNC. Tambi&eacute;n se implementa con VNC el "Apple Remote Desktop".</para>
+<para/>
+<para>A veces en lugar de VNC leeremos RFB. Es el nombre del protocolo: Remote Frame Buffer.</para>
+<para/>
+<para>Relaci&oacute;n de software que implementa VNC: http://en.wikipedia.org/wiki/Vnc</para></sect3><sect3><title>RDP. Escritorio remoto de Windows</title>
+<para/>
+<para>Microsoft a&ntilde;adi&oacute; soporte a su sistema operativo para poder ejecutar aplicaciones remotamente. En concreto lo implement&oacute; para Windows 2000 Server en el componente Windows Terminal Services, un sistema que permite al estilo Unix que varios usuarios est&eacute;n conectados a la misma m&aacute;quina. Evidemente para ello hay que pagar licencias, las de Windows 200x Server y la de Windows Terminal Services, esta &uacute;ltima en funci&oacute;n del n&uacute;mero de clientes (una licencia por cliente que potencialemente se pueda conectar; f&oacute;rmula menos ventajosa que licenciar por usuarios concurrentes y adem&aacute;s propensa a abusos, pues la licencia cliente est&aacute; incluida con algunas versiones de Windows, pero no con otros sistemas potencialmente clientes como GNU/Linux o Mac OSX). Como excepci&oacute;n, hay una licencia especial para usuarios que se conectan a trav&eacute;s de Internet, que es la que se usa tienen en Hacienda para permitir que los usuarios de Linux y Windows hagan la declaraci&oacute;n de la renta con el programa PADRE: la conexi&oacute;n es utilizando un cliente Cytrix (por Cytrix tambi&eacute;n se paga) pero a su vez Cytrix requiere Windows Terminal Services.</para>
+<para/>
+<para>De todos modos por lo que es m&aacute;s conocido RDP es porque Windows XP Professional (no as&iacute; Windows XP Home) incluye un servidor RDP limitado a una sola conexi&oacute;n y permitiendo una &uacute;nica sesi&oacute;n (es decir la m&aacute;quina es monousario: o se usa en local o en remoto, pero no se puede tener a la vez una sesi&oacute;n local y otra remota). Lo mismo ocurre con las versiones m&aacute;s caras de Windows Vista (lo incluye a partir de Ultimate); tambi&eacute;n se incluye en Windows Media Center, Windows 2003 Server y Tablet Edition 2005. Es el famoso escritorio remoto, para el que existe un cliente libre tambi&eacute;n para GNU/Linux, rdesktop. con una interfaz gr&aacute;fica muy intuitiva, tsclient. Te&oacute;ricamente Microsoft podr&iacute;a cobrar tambi&eacute;n licencias por clientes</para>
+<para/>
+<para>RDP ofrece mejor rendimiento que VNC. Sigue por detr&aacute;s de X-Window, pero recordemos que X-Window tiene un problema pr&aacute;ctico con el round-trip, que RDP. Hasta RDP 6, novedad en Windows Vista (tambi&eacute;n disponible al parecer para XP SP2) ten&iacute;a la limitaci&oacute;n de VNC: s&oacute;lo permit&iacute;a manejar el escritorio entero en una ventana, no una ventana por aplicaci&oacute;n. El soporte para ejecutar aplicaciones cada una en su ventana (SeamlessRDP) lo permite excepcionalmente rdesktop con versiones m&aacute;s viejas de RDP utilizando un componente que se ejecuta en el servidor.</para>
+<para/>
+<para>Otra ventaja com&uacute;n con VNC es que permite desconectar la sesi&oacute;n e iniciarla desde otra m&aacute;quina dejando todo como estaba.</para>
+<para/>
+<para>A&ntilde;ade alguna innovaci&oacute;n como poder utilizar remotamente m&aacute;s dispositivos que el rat&oacute;n, teclado y pantalla: por ejemplo la tarjeta de sonido o la impresora. Esto en Unix ha sido tambi&eacute;n siempre posible, a trav&eacute;s del demonio de sonido y de impresi&oacute;n, la diferencia aqu&iacute; es que todo se hace con un solo producto y en RDP 6 se han ido a&ntilde;adiendo m&aacute;s posibilidades.</para>
+<para/>
+<para>RDP se ejecuta tambi&eacute;n sobre una conexi&oacute;n TCP, por lo que al igual que VNC es f&aacute;cil de entular usando openssh o stunnel. En las &uacute;ltimas versiones permite encriptaci&oacute;n usando TLS, mientras que el sistema de encriptaci&oacute;n de las versiones viejas basado en usar RC4 no es seguro.</para>
+<para/></sect3><sect3><title>NX. Nueva tecnolog&iacute;a de escritorio remoto.</title>
+<para/>
+<para>NX ( http://en.wikipedia.org/wiki/NX_technology ) es una tecnolog&iacute;a de escritorio remoto desarrollada por una empresa Italiana, NoMachine. NoMachine comercializa su implementaci&oacute;n propietaria de esta tecnolog&iacute;a. Los clientes son freeware y hay tambi&eacute;n un servidor freeware, NX Free Edition, para GNU/Linux y Solaris, mientras que el servidor para Windows y MacOSX es de pago. </para>
+<para/>
+<para>Lo m&aacute;s interesante es que Nomachine adem&aacute;s publica el c&oacute;digo fuente necesario para implementar esta tecnlog&iacute;a bajo licencia GPL. Hay un proyecto que ha desarrollado un servidor a partir de este c&oacute;digo fuente, el proyecto FreeNX (<ulink url="http://freenx.berlios.de/">http://freenx.berlios.de</ulink>). El c&oacute;digo de FreeNX es bastante complicado de compilar: recomiendan usar la implementaci&oacute;n que venga con la distribuci&oacute;n. Es el caso de Open SuSE 10.2 y Ubuntu Dapper, pero versiones nuevas de Ubuntu se plantean no incluir FreeNX por lo dif&iacute;cil de manejar el c&oacute;digo, auque quiz&aacute;s con las nuevas versiones lo reconsideren. FreeNX incluye el servidor, pero no un cliente. Como cliente mucha gente utiliza el freeware (pero privativo) de Nomachine. Otras opciones son ThinStation (http://thinstation.sourceforge.net/wiki/index.php/ThIndex), knx y sobre todo QtNX (http://blog.gwright.org.uk/articles/search?q=QtNX). QtNX actualmente requiere que para la parte del cliente est&eacute;n instalados la versi&oacute;n 1.5 del componente (la versi&oacute;n vieja, con menos opciones que la nueva, por ejemplo poder ejecutar aplicaciones cada una en su ventana, modo rootless), pero funciona perfectamente con un servidor de la versi&oacute;n 2.0. Otra implementaci&oacute;n completa de NX bajo GPL, al parecer obtenida tras comprar una licencia a NX: <ulink url="http://code.2x.com/linuxterminalserver/downloads">http://code.2x.com/linuxterminalserver/downloads</ulink>. Esta soluci&oacute;n es para NX 1.5, no para NX 2.0.</para>
+<para/>
+<para>NX se implementa sobre X-Window para acelerarlo sensiblemente y eliminar round-trips. As&iacute;, gracias al uso de cach&eacute; o el utilizar formatos tipo PNG en lugar de bitmaps se logran ratios de compresi&oacute;n del orden de 10:1 a 100:1. Gracias a estas compresiones es utilizable un escritorio remoto incluso a trav&eacute;s de un modem.</para>
+<para/>
+<para>En una serie de art&iacute;culos sobre NX publicados en Linux Journal, se muestra como el inicio de sesi&oacute;n en KDE la primera vez supone transferencias de 4,1MB, pero gracias a NX y su cach&eacute; las siguientes veces se queda en tan solo 35Kb.</para>
+<para/>
+<para>NX aplica a X-Window mejoras que ofrece RDP, como el poder desconectar la sesi&oacute;n y conectarse desde otra m&aacute;quina con todo como estaba (lo logra haciendo que el servidor X se ejecute en la m&aacute;quina remota, mediante el agente nxagent, a la que se conecta el cliente NX) o el permitir transferencias de ficheros o utilizar por las aplicaciones remotas nuestra impresora o tarjeta de sonido local.</para>
+<para/>
+<para>En realidad NX tambi&eacute;n se puede utilizar sobre RDP o VNC para acelerar tambi&eacute;n estos protocolos, pero los resultados que se obtienen son inferiores respecto a X-Window: como hemos comentado la tecnolog&iacute;a de X-Window es superior a RDP, s&oacute;lo que hab&iacute;a problemas como los round-trips que en la pr&aacute;ctica lo hac&iacute;an poco utilizable sobre redes no locales.</para>
+<para/><sect4><title>C&oacute;mo funciona NX</title>
+<para/>
+<para>Hay paquetes nxserver, nxnode y nxclient. El servidor necesita los tres, mientras que el cliente necesita nxnode y nxclient; la mayor&iacute;a de los programas est&aacute;n dentro del paquete nxnode. Uno de los programas m&aacute;s importantes que incluye el paquete nxnode es precisamente el ejecutable nxnode, que un proxy que se ejecuta tanto en el lado local como en el remoto y que crea el t&uacute;nel entre los dos lados. En el lado de la aplicaci&oacute;n remota, nxnode ejecuta un agente que es el intermediario con la aplicaci&oacute;n: para aplicaciones X-Window es nxagent, para RDP es nxdesktop y para VNC nxviewer. Nxagent funciona en la m&aacute;quina remota como un servidor X-Window local.</para>
+<para/>
+<para>Un tema que desconcierta a un nuevo usuario de NX, es que el servidor nxserver no es un demonio que tenga que lanzar el usuario y permanezca en ejecuci&oacute;n a la espera que se conecten clientes. En realidad nxserver es un programa que lo ejecuta el cliente (nxclient) v&iacute;a SSH, bajo la cuenta de usuario nx: la idea es similar al servidor de sftp que viene con OpenSSH. Otro dato desconcertante es que a priori cualquiera puede ejecutar nxserver, pues se ejecuta accediendo con una clave SSH que la clave privada es conocida por todo el mundo, pues viene con el cliente NX. Esto no deber&iacute;a ser un problema de seguridad, pues nxserver autentica al cliente antes de hacer nada (que es invocar nxnode), pero es mejor si cambiamos la clave por otra, aunque entonces habr&aacute; que cambiarla tambi&eacute;n en todos los clientes. Por defecto nxserver para autenticar al cliente usa su usuario y contrase&ntilde;a en el sistema, pero se puede mantener una lista de usuarios y contrase&ntilde;as propia para no tener que usar la del sistema. Con nxserver --help podemos ver las ordenes disponibles para entre otras cosas administrar usuarios.</para>
+<para/>
+<para>Si usamos el cliente oficial, es muy recomendable en configure/advanced la opci&oacute;n "enable SSL encryption of all the traffic". Esta opci&oacute;n tiene un nombre confuso, porque realmente no se usa SSL: lo que hace es utilizar la conexi&oacute;n SSH para entular todas las conexiones entre el nxnode local del cliente y el del servidor; estas conexiones ir&aacute;n encriptadas, pero no con SSL sino con el protcolo de SSH, que es similar pero no es SSL. El inter&eacute;s de esta opci&oacute;n no est&aacute; s&oacute;lo en que se encripte sino en pasar los cortafuegos: sin ella habr&iacute;a que abrir varios puertos, que adem&aacute;s van cambiando conforme se abren nuevas conexiones.</para>
+<para/>
+<para>Algunas ideas para probar por qu&eacute; no funciona la conexi&oacute;n:</para>
+<orderedlist>
+<listitem>
+<para>probar primero con el cliente oficial, con la opci&oacute;n "enable SSL encryption of all the traffic". El problema m&aacute;s frecuente es de cortafuegos.</para>
+</listitem>
+<listitem>
+<para>probar a conectar al servidor con ssh -i /usr/NX/share/keys/server.id_dsa.key <ulink url="mailto:nx@ip">nx@ip</ulink>_servidor ; ejecutar login ; si no autentifica probar a a&ntilde;adir el usuario manualmente. Si no ha sido posible conectar, comprobar si es problema de SSH; podemos por ejemplo conectarnos a la m&aacute;quina y ejecutar su -- nx; si al entrar en la cuenta del usuario "nx" no se abre una shell en la que podemos ejecutar login, es que no est&aacute; correctamente instalado.</para>
+</listitem>
+</orderedlist>
+<para/>
+<para>M&aacute;s informaci&oacute;n sobre NX: <ulink url="http://en.wikipedia.org/wiki/NX_technology">http://en.wikipedia.org/wiki/NX_technology</ulink>
+</para>
+<para/>
+<para/>
+<para/></sect4></sect3></sect2><sect2><title>Proxies y software de filtrado</title>
+<para/>
+<para>Usado para los menores, para gente que le molesta que le salga pornograf&iacute;a y para los puestos de trabajo. Es t&iacute;pico el uso de listas negras (blacklisted) pero en algunos casos se usa lo contrario, listas blancas: el usuario s&oacute;lo puede navegar por esas webs.</para>
+<para/>
+<para>Para los puestos de trabajo, es importante que los sistemas permitan relajar las normas a determinadas horas: por ejemplo si un trabajador llega antes de la hora no deber&iacute;a haber ning&uacute;n problema en que lea el peri&oacute;dico, o que a la hora de descanso o en determinados momentos del d&iacute;a se permitan hacer gestiones personales por Internet. Tambi&eacute;n permiten reglas distintas seg&uacute;n la IP de origen. </para>
+<para/>
+<para>Una funcionalidad importante de este tipo de software no es s&oacute;lo filtrar sino registrar los accesos. En cierto modo su efectividad est&aacute; m&aacute;s en el efecto disuasorio de pensar que si se est&aacute; navegando por d&oacute;nde no se debe quiz&aacute;s el jefe se entere que por la habilidad del programa para filtrar.</para>
+<para/>
+<para>Las implementaciones existentes de software de filtrado para GNU/Linux se implementan sobre el proxy Squid. SQUID se puede configurar para usarlo de modo transparente (y por lo tanto obligatorio) utilizando DNAT, por lo que no es posible saltarse el proxy salvo que se pueda usar un t&uacute;nel y salir por un puerto que no est&eacute; redirigido al proxy transparente.</para>
+<para/>
+<para>Un software basado en filtrado por listas negras es Squidguard (http://www.squidguard.org/). Hay varios sitios d&oacute;nde es posible conseguir listas negras, pero hay que tener en cuenta que en muchos casos para obtener listas actualizadas hay que subscribirse y cuesta dinero. Una lista gratuita es <ulink url="http://www.squidguard.org/shallalist.html">http://www.squidguard.org/shallalist.html</ulink>; se actualiza regularmente, con un mill&oacute;n de entradas. Una lista de pago es <ulink url="http://urlblacklist.com/">http://urlblacklist.com/</ulink>; la primera vez deja descargar gratuitamente y realmente no hace demasiado control para asegurarse que no descargamos m&aacute;s veces sin subscribirnos, confiando en la honradez del usuario. Tiene unas dos millones de entradas.</para>
+<para/>
+<para>
+<ulink url="http://www.censornet.com/">http://www.censornet.com/</ulink> Distribuci&oacute;n de GNU/Linux que integra DansGuardian, administrable v&iacute;a web. Comercializan subscripci&oacute;n a lista negra (como curiosidad el precio depende del pa&iacute;s, m&aacute;s pagan los pa&iacute;ses desarrollados, los pa&iacute;ses subdesarrollados es gratis) y a un filtro de im&aacute;genes.</para>
+<para/>
+<para>Puede no ser buena idea utlizar un proxy para todo. Sobre el papel usar SQUID para la web y SOCKS para otros protocolos obligar&iacute;a a un uso responsable de la red, al estar autenticadas las conexiones. En la pr&aacute;ctica la realidad puede ser m&aacute;s compleja y funcionar mejor soluciones m&aacute;s adaptativas, que simplemente tratan de ajustar el ancho de banda para que los usuarios que m&aacute;s consumen tengan menos prioridad. Pero si se usa un proxy SOCKS estas soluciones no funcionan, pues todos los paquetes proceden de la misma IP (si ya se ha pasado el proxy) o van a la misma IP (si es antes del proxy).</para></sect2><sect2><title>Netfilter/IPtables. Soluci&oacute;n para crear cortafuegos, auditar red y hacer NAT</title>
+<para/>
+<para>El filtado en Linux lo hace un componente del kernel llamado netfilter. La utilidad para configurarlo es iptables, aunque es muy habitual no crear las reglas de un cortafuegos a mano sino utlizando una herramienta con interfaz gr&aacute;fica.</para>
+<para/>
+<para>Netfilter maneja distintas tablas: hay una tabla para filtrado (filter), es decir para el cortafuegos, que es la tabla que iptables entiende que quremos utilizar si no le indicamos otra cosa con la opci&oacute;n -t. Otra tabla que se usa mucho es nat, para hacer SNAT (sobre todo para salir a Internet con una sola IP todas las m&aacute;quinas de una red local) o DNAT (para abrir puertos en un cortafuegos, para hacer proxies transparentes, para hacer balanceo de carga entre varias m&aacute;quinas...). Hay m&aacute;s tablas que no veremos, como mangle, que permite alterar los paquetes.</para>
+<para/>
+<para>Cada tabla contiene cadenas. Los paquetes pasar&aacute;n por unas tablas u otras. As&iacute;, en la tabla filter existen estas cadenas:</para>
+<para>INPUT: por aqu&iacute; pasan los paquetes que van destinados a la m&aacute;quina</para>
+<para>OUTPUT: por aqu&iacute; pasan los paquetes que proceden de esta m&aacute;quina, pero van destinados a otra</para>
+<para>FORWARD: por aqu&iacute; pasan los paquetes que ni proceden ni se dirigen a nuestra m&aacute;quina, es decir, los paquetes que estamos enrutando.</para>
+<para/>
+<para>En cuanto a la tabla nat, tambi&eacute;n tiene tres cadenas, aunque mientras que en filter cada paquete iba a una y s&oacute;lo una de esas tres reglas b&aacute;sicas, aqu&iacute; un paquete puede pasar por dos reglas:</para>
+<para>PREROUTING: esta regla es para hacer DNAT de paquetes antes de enrutarlos, tan pronto como llegan a la m&aacute;quina desde otra m&aacute;quina.</para>
+<para>OUTPUT: esta regla es para hacer DNAT de paquetes generados por la m&aacute;quina con destino a otra m&aacute;quina, antes de enrutarlos, para hacer DNAT</para>
+<para>POSTROUTING: esta regla es para hacer SNAT de los paquetes justo despu&eacute;s de determinar su ruta de salida.</para>
+<para/>
+<para>Con iptables se a&ntilde;aden reglas a las cadenas (las reglas se pueden a&ntilde;adir al final, con -A o insertar al principio, con -I). Cada regla tiene unas condiciones de aplicaci&oacute;n; por ejemplo una condici&oacute;n puede ser que la IP destino sea la 192.168.7.10 y el puerto destino sea el puerto TCP 8080. As&iacute; mismo cada regla tiene un target (objetivo) que es qu&eacute; hacer con el paquete en caso de que se den las condiciones de aplicaci&oacute;n de la regla: se establece con la opci&oacute;n -j, por ejemplo -j ACCEPT. Cuando se determina que a un paquete le es aplicable una cadena (por ejemplo llega un paquete con destino a un servidor de la m&aacute;quina, luego le corresponde la regla INPUT) se va recorriendo la cadena secuencialmente hasta alcanzar una regla que tenga unas condiciones de aplicaci&oacute;n que se ajusten al paquete. En ese caso se aplica el target de la regla. </para>
+<para/>
+<para>El target puede ser un destino final: se ha decidido qu&eacute; hacer con el paquete y ya no se miran m&aacute;s reglas. Por ejemplo ACCEPT para dejar pasar el paquete, REJECT para rechazarlo o DROP para no dejarlo pasar pero sin retornar un error ICMP, una pr&aacute;ctica recomendable para no dar pistas a las aplicaciones que hacen escaneos de puertos, aunque para el caso TCP es m&aacute;s recomentable el target TARPIT (ver man iptables para ver c&oacute;mo se usa). Otro target final es QUEUE, que permite pasar a una aplicaci&oacute;n el paquete para que haga con &eacute;l lo que quiera.</para>
+<para/>
+<para>El target puede ser tambi&eacute;n un destino no final. Por ejemplo LOG registra el paquete; tras ejecutar esta target se siguen recorriendo las reglas.</para>
+<para/>
+<para>El target puede ser otra cadena. El usuario pude crear sus propias cadenas, a las que a&ntilde;adir&aacute; sus reglas. En caso de poner como target una cadena, el resultado es que se salta a esa regla. Si se termina de recorrer la regla sin alcanzar ning&uacute;n target final, se continuar&aacute; en la regla siguiente al punto d&oacute;nde se produjo el salto. Tambi&eacute;n se puede retornar antes de llegar al final, con el target RETURN.</para>
+<para/>
+<para>Las cadenas predefinidas (INPUT, OUTPUT, FORWARD... pero no las definidas por el usuario) pueden tener un target por defecto (que deber&aacute; ser un target final como ACCEPT o DROP, no un salto a otra cadena). El target por defecto es el que se aplica sobre los paquetes que han llegado al final de la cadena sin que les fuera aplicable ninguna regla con un target final.</para>
+<para/>
+<para>Este target por defecto se establece con la opci&oacute;n -P. Esta opci&oacute;n habla de "policy" (pol&iacute;tica) pues permite establecer una pol&iacute;tica por defecto: rechazar todo salvo lo que expl&iacute;citamente se permita (si el target por defecto es DROP) o aceptar todo salvo lo que expl&iacute;citamente se prohiba (si el target por defecto es ACCEPT). Obviamente la pol&iacute;tica m&aacute;s segura es rechazar por defecto, pero es m&aacute;s dif&iacute;cil de llevar, sobre todo en una red grande: si hay poca comunicaci&oacute;n entre los usuarios y los administradores y los usuarios ven c&oacute;mo las pol&iacute;ticas de seguridad de la empresa son un obst&aacute;culo para su trabajo buscar&aacute;n formas de saltarse el cortafuegos, por ejemplo mediante el uso de t&uacute;neles, por lo que a veces una pol&iacute;tica muy estricta si es tambi&eacute;n r&iacute;gida puede ser contraproducente. </para>
+<para/>
+<para>Ejemplos:</para>
+<para/>
+<para>Permitir el tr&aacute;fico saliente de la propia m&aacute;quina y el enrutado, con destino al puerto 80 TCP</para>
+<para>iptables -A OUTPUT -p tcp --dport 80 -j ACCEPT</para>
+<para>iptables -A FORWARDING -p tcp --dport 80 -j ACCEPT</para>
+<para/>
+<para>La opci&oacute;n -p indica el protocolo (tcp, udp) y la opci&oacute;n --dport (s&oacute;lo puede aparecer dport si aparece -t) el puerto destino; para indicar el puerto origen ser&iacute;a con sport).</para>
+<para>No permitir conectarse a ning&uacute;n servidor de la m&aacute;quina, excepto al servidor SSH</para>
+<para>iptables -A INPUT -p tcp --dport 22 -j ACCEPT</para>
+<para>iptables -A INPUT -p tcp --syn -j DROP</para>
+<para/>
+<para>Otras opciones interesantes:</para>
+<para>-s: ip de origen</para>
+<para>-d: ip destino</para>
+<para>-i: interfaz de entrada</para>
+<para>-o: interfaz de salida</para>
+<para>-p icmp -icmp-type: para filtrar por tipo de mensaje ICMP. Ver con -p icmp -h la lista de tipos.</para>
+<para/>
+<para>Recomendamos leer man iptables para conocer las impresionantes posibilidades de este programa. Por ejemplo hay una opci&oacute;n para limitar el n&uacute;mero de conexiones a un puerto por IP de origen (o incluso por red de origen, mediante una m&aacute;scara de bits). Otra opci&oacute;n permite poner como selector de reglas para paquetes generados localmente el usuario o el proceso que lo gener&oacute;. Hay opciones para detectar escaneos de puertos, para ejecutar o dejar de ejecutar cuando la regla se ha dado una serie de veces. El m&oacute;dulo connbytes es perfecto para localizar conexiones que consumen mucho ancho de banda.</para>
+<para/><sect3><title>C&oacute;mo hacer SNAT</title>
+<para/>
+<para>Supongamos que la IP p&uacute;blica de nuestro proveedor es 81.10.20.15; que la salida a Internet es por eth2 y que queremos que todas las conexiones salgan a Internet con esta IP. En este caso ejecutar&iacute;amos:</para>
+<para>iptables -t nat -A POSTROUTING -o eth2 -j SNAT --to-source 81.10.20.15</para>
+<para/>
+<para>Si nuestra IP no es fija, en lugar de SNAT utilizamos MASQUERADE y no incluimos el par&aacute;metro --to-source.</para>
+<para/>
+<para>Observes&eacute; que SNAT no se usa s&oacute;lo para hacer NAT con la IP de la conexi&oacute;n a Internet. Otro caso t&iacute;pico es si tenemos una VPN: establecemos una red privada entre nuestra m&aacute;quina y la de la empresa; para acceder al resto de m&aacute;quinas de la empresa una posible soluci&oacute;n es hacer en la m&aacute;quina en la red de la empresa SNAT a su propia IP de los paquetes procedentes de la red virtual, de modo que los paquetes procedentes de nuestra casa parecer&aacute;n que salen de la IP a la que nos hemos conectado en la red local.</para>
+<para/></sect3><sect3><title>C&oacute;mo hacer DNAT</title>
+<para/>
+<para>La regla se a&ntilde;ade a PREROUTING si el paquete procede de fuera, OUTPUT si el paquete se ha generado localmente.</para>
+<para/>
+<para>Un uso t&iacute;pico de DNAT es abrir puertos en un cortafuegos y redirigirlos a Ips y puertos de la red local.</para>
+<para/>
+<para>Otro uso t&iacute;pico es reemplazar un servidor por otro temporalmente, o incluso balancear entre varias Ips. En este &uacute;ltimo caso en lugar de DNAT usamos BALANCE y especificamos un rango de Ips.</para>
+<para/>
+<para>El tercer uso corriente es hacer un proxy transparente. Ahora bien, mientras que hay protocolos en los que en la petici&oacute;n aparece de nuevo la IP o hostname m&aacute;s puerto (por ejemplo en HTTP aparece en la cabecera Host) esto no tiene por que ser as&iacute;, de modo que el proxy no sabr&iacute;a nada sobre la IP y puerto destino. Por este motivo este caso de DNAT se hace con un target especial (REDIRECT) que s&oacute;lo funciona sobre la propia m&aacute;quina, porque as&iacute; netfilter le pasa la IP y puerto destino a la aplicaci&oacute;n a trav&eacute;s del sistema operativo.</para>
+<para/>
+<para>SQUID es un proxy que puede funcionar como proxy transparente. Es posible ejecutar SQUID en una m&aacute;quina distinta que el enrutador, utilizando la tabla mangle de iptables para marcar los paquetes con destino a SQUID y utilizar la herramienta ip (del paquete iproute; este programa es necesario para realizar operaciones avanzadas que no se pueden hacer con otras herramientas como route, por ejemplo enrutar por IP de origen o por pol&iacute;ticas. En este caso se usa una pol&iacute;tica que es que el paquete haya sido marcado desde netfilter, de modo que lo que hacemos es enrutar a la m&aacute;quina de SQUID el tr&aacute;fico que queremos que procese.</para>
+<para/></sect3><sect3><title>Contadores con netfilter</title>
+<para/>
+<para>Hay diversas herramientas para monitorizar redes y dar informaci&oacute;n sobre el ancho de banda consumido. Estas aplicaciones normalmente funcionan como sniffers, poniendo la tarjeta en modo promiscuo y recompilando informaci&oacute;n a trav&eacute;s de libpcap. La aplicaci&oacute;n sin duda m&aacute;s recomendable es iptraf (<ulink url="http://iptraf.seul.org/">http://iptraf.seul.org/</ulink>). Tiene interfaz de consola, con ncurses. Una relaci&oacute;n extensa de herramientas para monitorizar el consumo de ancho de banda est&aacute; en http://www.ubuntugeek.com/bandwidth-monitoring-tools-for-linux.html.</para>
+<para/>
+<para>La otra posibilidad es utilizar el propio netfilter. Cara al rendimiento tenemos la ventaja que se ejecuta en el espacio del kernel. </para>
+<para/>
+<para>Si ejecutamos iptables -L -v (se puede especificar una regla en concreto si no queremos ver todas) aparece junto con cada regla el n&uacute;mero de paquetes que se han ajustado a esa regla y el total de bytes. As&iacute;, podemos escribir un script que cree una nueva cadena; en esa cadena a&ntilde;adimos una regla por cada IP de la red local, precisamente con su IP como selector (origen o destino, seg&uacute;n lo que queramos monitorizar) y como target, RETURN. De este modo los contadores reflejar&aacute;n los paquetes y bytes enviados/recibidos por/para cada una de esas Ips. Esta informaci&oacute;n es &uacute;til por ejemplo para detectar virus que tratan de hacer escaneos de puertos y que a veces provocan que la tabla NAT del router ADSL se sature. En este caso apreciaremos que desde esa IP se env&iacute;an muchos paquetes, aunque probablemente con pocos bytes. </para>
+<para/>
+<para>Para poner los contadores de una cadena a cero se usa la opci&oacute;n -Z.</para>
+<para/>
+<para>Ejemplo de script para crear y borrar reglas para tener contadores:</para>
+<para/>
+<para>#!/bin/sh</para>
+<para>ipmasalta=198</para>
+<para>start() {</para>
+<para>iptables -N contadores</para>
+<para>contador=1</para>
+<para>while [ ${contador} -le $ipmasalta ]</para>
+<para>do</para>
+<para>iptables -A contadores --source 192.168.15.$contador -o eth2 -j ACCEPT</para>
+<para>contador=`expr $contador + 1`</para>
+<para>done</para>
+<para>iptables -A FORWARD -j contadores</para>
+<para>}</para>
+<para/>
+<para>stop() {</para>
+<para>iptables -D FORWARD -j contadores</para>
+<para>contador=1</para>
+<para>while [ ${contador} -le $ipmasalta ]</para>
+<para>do</para>
+<para>iptables -D contadores --source 192.168.15.$contador -o eth2 -j ACCEPT</para>
+<para>contador=`expr $contador + 1`</para>
+<para>done</para>
+<para>iptables -X contadores</para>
+<para>}</para>
+<para/>
+<para>Existe un proyecto (<ulink url="http://ipac-ng.sourceforge.net/">http://ipac-ng.sourceforge.net/</ulink>) que crea las reglas, recopila la informaci&oacute;n y la guarda, para finalmente visualizarla.</para>
+<para/>
+<para>Otro sistema basado en netfilter es el m&oacute;dulo de webmin para monitorizar el ancho de banda.</para>
+<para/>
+<para>Adem&aacute;s con el m&oacute;dulo account es posible a&ntilde;adir una sola regla para registrar la informaci&oacute;n de toda una red y que desglose el resultado a nivel de tcp, udp, icmp y resto. Para m&aacute;s informaci&oacute;n ver http://www.svn.barbara.eu.org/ipt_account/wiki/Usage</para>
+<para/></sect3></sect2><sect2><title>Wakeonlan</title>
+<para/>
+<para>Una caracter&iacute;stica interesante que permiten la mayor&iacute;a de las tarjetas de red actuales es encender el equipo remotamente: wake on lan. Es &uacute;til para tareas de mantenimiento y tambi&eacute;n para poder conectarse al equipo desde casa en caso de necesidad, por ejemplo mientras se est&aacute; de soporte.</para>
+<para/>
+<para>Para que funcione esta funcionalidad, normalmente hay que activarla en la BIOS. En algunas tarjetas de red, tambi&eacute;n hay que unir un peque&ntilde;o cable que sale de la tarjeta a un conector en la placa base que pone "wake on lan". Dependiendo del caso, tambi&eacute;n es posible que tengamos que activar la funcionalidad en la tarjeta, para eso utilizamos la herramienta ethtool. Con ethtool &lt;nombre_interfaz&gt; (por ejemplo ethtool eth0) veremos los distintos modos wake-on-lan que soporta la tarjeta, si es que soporta alguno. Con "ethtool eth0 -set wol g" activos el modo wake-on-lan basado en "magic packet", el modo m&aacute;s habitual. Se trata de un paquete que en alguna parte debe contener un patr&oacute;n consistente en primero 6 bytes con todos sus bits a 1, seguido por la direcci&oacute;n MAC de la tarjeta repetida 16 veces. Opcionalmente continua con una password, que tambi&eacute;n se fija con ethtool pero que s&oacute;lo admiten algunas tarjetas.</para>
+<para/>
+<para>El paquete normalmente se construye usando UDP al puerto 9 (discard) y enviando el paquete por broadcast, aunque puede ir encapsulado en cualquier tipo de paquete, ni siquiera tiene que ser IP.</para>
+<para/>
+<para>&iquest;Es posible despertar a un equipo mediante un "magic packet", envi&aacute;ndolo desde fuera de la red local? normalmente no, salvo que tengamos una infraestructura de VPN. El problema es c&oacute;mo hacer llegar el paquete hasta la m&aacute;quina; si est&aacute; conectada a un switch s&oacute;lo recibir&aacute; los paquetes que van destinadas a su MAC o paquetes broadcast. Es bastante frecuente que los enrutadores no dejen pasar los paquetes broadcast. Pero si intentamos la otra opci&oacute;n, enviar el paquete a su IP, al llegar al enrutador posiblemente ya no tenga la entrada ARP, pues caducan en un tiempo; cuando haga la petici&oacute;n ARP no obtendr&aacute; respuesta, pues la m&aacute;quina est&aacute; apagada. Una forma de evitarlo es insertar est&aacute;ticamente la entrada en la tabla ARP.</para>
+<para/>
+<para>Los dos programas m&aacute;s recomendables son wakeonlan y etherwake. Etherwake genera directamente un paquete Ethernet, por lo que requiere privilegios de root y s&oacute;lo sirve para ejecutarlo en la propia red local.</para>
+<para/></sect2><sect2><title>DNS</title>
+<para/>
+<para>Tener un servidor DNS p&uacute;blico exige unos requisitos. Por lo pronto no basta con un servidor, como m&iacute;nimo hay que tener dos, que deber&iacute;an estar en localizaciones diferentes. La mayor&iacute;a de las empresas optan por recurrir a una empresa que preste servicios de DNS, al menos para que les mantenga el servidor secundario, que peri&oacute;dicamente se actualiza del servidor maestro haciendo una transferencia de zona.</para>
+<para/>
+<para>En nuestra red necesitamos un servidor DNS pero no para dar servicio a nuestro dominio, sino para que puedan resolver las direcciones DNS los usuarios de nuestra red, tanto las peticiones que van dirigidas a los servidores internos de la empresa con la que estamos conectados (dominio interno .acme), como los de la salida a Internet. Aclaremos que los servidores DNS de la empresa con la que estamos conectados no s&oacute;lo sirven el dominio .acme sino tambi&eacute;n los de Internet, pues son los servidores DNS que usan todos los equipos de su red, por lo que podr&iacute;amos configurar tambi&eacute;n nuestros equipos para que usen su DNS.</para>
+<para/>
+<para>Es m&aacute;s pr&aacute;ctico tener un servidor propio, que env&iacute;e las peticiones para resolver las direcciones de Internet al DNS de nuestro ISP y las de m&aacute;quinas del dominio .acme a sus servidores DNS. La primera raz&oacute;n es porque no es l&oacute;gico que cada vez que un usuario acceda a Internet usemos los servidores de la otra empresa: por privacidad, por buen uso de nuestras propias instalaciones y porque no deber&iacute;amos depender de si funciona bien la conexi&oacute;n con la otra empresa para poder usar Internet. Adem&aacute;s si un d&iacute;a se a&ntilde;ade conectividad con otra empresa m&aacute;s es evidente que habr&aacute; que consultar a cada empresa por su DNS.</para>
+<para/>
+<para>Ejemplo de fichero de configuraci&oacute;n:</para>
+<para/>
+<para>// Ips que tienen acceso al servidor: s&oacute;lo la red local</para>
+<para>acl redinterna {</para>
+<para>192.168.120.0/24;</para>
+<para>};</para>
+<para/>
+<para>options {</para>
+<para>directory "/var/named";</para>
+<para>forward first;</para>
+<para>// Para resolver direcciones, usamos los servidores de nombres de</para>
+<para>// nuestro ISP</para>
+<para>forwarders {</para>
+<para>80.58.0.33;</para>
+<para>80.58.32.97;</para>
+<para>};</para>
+<para>// Esta l&iacute;nea es para usar la IP de la red local, en lugar de la IP de la</para>
+<para>// interfaz de salida (la de la conexi&oacute;n con la red con la otra empresa o </para>
+<para>// la de Internet</para>
+<para>query-source address 192.168.120.19 port *;</para>
+<para>};</para>
+<para/>
+<para>// Servidores ra&iacute;z</para>
+<para>zone "." IN {</para>
+<para>type hint;</para>
+<para>file "named.ca";</para>
+<para>};</para>
+<para/>
+<para>zone "localhost" IN {</para>
+<para>type master;</para>
+<para>file "localhost.zone";</para>
+<para>allow-update { none; };</para>
+<para>};</para>
+<para/>
+<para>zone "127.in-addr.arpa" IN {</para>
+<para>type master;</para>
+<para>file "named.local";</para>
+<para>allow-update { none; };</para>
+<para>};</para>
+<para/>
+<para>include "/etc/rndc.key";</para>
+<para>// aqu&iacute; ponemos los servidores DNS de la red de la otra empresa</para>
+<para>zone "acme" {</para>
+<para>type forward;</para>
+<para>forwarders {</para>
+<para>10.15.8.16;</para>
+<para>};</para>
+<para>forward only;</para>
+<para>};</para>
+<para/>
+<para>// Resoluci&oacute;n inversa, tambi&eacute;n para la red de la otra empresa</para>
+<para/>
+<para>zone "10.in-addr.arpa" {</para>
+<para>type forward;</para>
+<para>forwarders {</para>
+<para>10.15.8.16</para>
+<para>};</para>
+<para>forward only;</para>
+<para>};</para>
+<para/>
+<para>// resoluci&oacute;n inversa de nuestra zona</para>
+<para>zone "15.168.192.in-addr.arpa" {</para>
+<para>type master;</para>
+<para>file "/var/named/192.168.120.rev";</para>
+<para>};</para>
+<para/><sect3><title>DNS din&aacute;mico</title>
+<para/>
+<para>Hay muchas web y sistemas para que un equipo con IP din&aacute;mica pueda dar de alta su IP en un DNS cada vez que se conecta o cambia. B&aacute;sicamente lo que se hace es conectarse a un servidor, que analiza la IP de origen: esa ser&aacute; la IP que registrar&aacute;, tras comprobar que el usuario aporta unas credenciales que le autorizan para cambiar su entrada DNS.</para>
+<para/>
+<para>No hay un &uacute;nico sistema, por lo que hay unos programas que sirven para unos sitios y otros para otros, habiendo programas que soportan varios protocolos, como ez-ipupdate.</para>
+<para/>
+<para>El paquete <ulink url="http://gnudip2.sourceforge.net/">http://gnudip2.sourceforge.net/</ulink> sirve para implementar nuestro propio servidor de DNS din&aacute;mico, junto con el cliente y la descripci&oacute;n del protocolo.</para>
+<para/>
+<para/></sect3></sect2><sect2><title>Servidor de correo</title>
+<para/>
+<para>En general no es buena idea tener un servidor propio de correo, si se trata de una empresa peque&ntilde;a con un ADSL. Hay muchas empresas que ofrecen redirecciones de correo (en unos casos limitadas a 100 o 200 redirecciones distintas, en otros ilimitadas) por un precio razonable. Es posible usar como destino de las redirecciones por ejemplo cuentas de gmail, que nos permiten usar la direcci&oacute;n que queramos para el correo saliente. As&iacute; mismo la propia Google ofrece paquetes para empresas tipo Gmail pero con dominio propio.</para>
+<para/>
+<para>Si no obstante nos decidimos, el servidor de correo de un dominio se fija con un registro MX en el DNS; es posible tener varios registros para que si est&aacute; ca&iacute;do un servidor, se acuda a otro. Las empresas que venden servicio DNS como EasyDNS suelen ofrecer tambi&eacute;n servidor de correo de respaldo, es decir, a&ntilde;adir uno de sus servidores de correo para que reciban el correo en el supuesto que nuestro servidor est&eacute; ca&iacute;do.</para>
+<para/>
+<para>Usar como servidor de correo saliente uno propio en lugar de el del proveedor te&oacute;ricamente permite m&aacute;s control como saber si un mensaje ha sido recibido por el servidor destino; as&iacute; mismo permite que si la conexi&oacute;n a Internet est&eacute; ca&iacute;da el servidor siga aceptando mensajes y los env&iacute;e en cuanto se restablezca la conexi&oacute;n, aunque no todo el mundo ve esto como una ventaja. Un inconveniente es que las Ips asignadas a las l&iacute;neas ADSL a veces est&aacute;n en listas negras para evitar correo basura, por lo que no son las ideales para situar un servidor de correo. En concreto, las Ips de ADSL de Telef&oacute;nica est&aacute;n en SPAMHAUS PBL <ulink url="http://www.spamhaus.org/pbl">http://www.spamhaus.org/pbl</ulink>
+<ulink url="http://www.spamhaus.org/pbl"> </ulink>
+</para>
+<para>a destacar que sitios como easydns.com bloquean el correo procedente de esas direcciones.</para>
+<para/>
+<para>A priori una buena raz&oacute;n para montar un servidor de correo propio es evitar que los mensajes internos salgan a Internet. Sin embargo, recomendamos reemplazar los correos internos por mensajer&iacute;a instant&aacute;nea utilizando un servidor con Jabber.</para>
+<para/>
+<para>Si pese a todo insistimos en tener un servidor de correo propio, recomendamos usar PostFix como software y administrarlo a trav&eacute;s de Webmin (<ulink url="http://www.webmin.com/">www.webmin.com</ulink>).</para>
+<para/>
+<para>Tanto si instalamos nuestro propio servidor de correo como si usamos un proveedor, si tenemos un dominio propio es importante que usemos SPF, Sender Policy Framework (<ulink url="http://www.openspf.org/">http://www.openspf.org/</ulink>). Se trata de una medida antispam, consistente en a&ntilde;adir al DNS unos registros indicando qu&eacute; servidores est&aacute;n autorizados para enviar correo en el que el remitente sea una direcci&oacute;n de nuestro dominio. </para>
+<para>softlibre.net INT TXT "v=spf1 mx a:chemahome.softlibre.net include:gmail.com include:easydns.com -all"</para>
+<para>En este caso hemos incluido con include las direcciones autorizadas para enviar con gmail.com, puesto que lo uso para enviar correos con @softlibre.net, y easydns.com, pues es quien se encarga de mis redirecciones. Adem&aacute;s incluyo todo servidor de nombres del dominio (registros MX) y expl&iacute;ticamente a la m&aacute;quina chemahome.softlibre.net. Observes&eacute; que para simplemente incluir todas las m&aacute;quinas con registros de nombre A en el dominio bastar&iacute;a con poner s&oacute;lo "a". Al final con "-all" se indica que se deben rechazar todos los mensajes que no procedan de ninguno de los sitios indicados. Mientras estamos probando es mejor utilizar "~all", que en lugar de rechazar implica que el servidor a&ntilde;ada una cabecera para que lo puedan detectar en los filtros de los programas de correo.</para>
+<para/>
+<para>Es importante as&iacute; mismo que pongamos una regla en el cortafuegos para prohibir conexiones al puerto 25 de otra m&aacute;quina que el servidor de correo de la empresa (si es externo) o si es interno que s&oacute;lo se pueda conectar al puerto 25 desde la IP del servidor de correo.</para>
+<para/>
+<para>El servidor deber&aacute; aceptar correo destinado a su propio dominio y filtrar (o al menos clasificar) el correo que conforme a SPF es falso. Para enviar correo s&oacute;lo deber&aacute; aceptar en el que el from sea el propio dominio y hacerlo autenticado.</para>
+<para/>
+<para>Como informaci&oacute;n complementaria, este art&iacute;culo explica como a&ntilde;adir a un servidor de correo un fitro ANTISPAM y un antivirus: http://www.howtoforge.com/amavisd_postfix_debian_ubuntu</para>
+<para/></sect2><sect2><title>Wiki</title>
+<para/>
+<para>Un recurso muy &uacute;til para empresas es montar un wiki, una herramienta colaborativa en el que las personas pueden crear p&aacute;ginas de contenidos accesibles v&iacute;a web, desde el propio navegador, de forma muy sencilla. Estas p&aacute;ginas las podr&aacute;n modificar el resto de usuarios: en todo momento se podr&aacute; revisar el hist&oacute;rico de las p&aacute;ginas, ver qui&eacute;n ha hecho cada cambio... Un wiki adem&aacute;s integra un buscador. En definitiva, es una herramienta muy &uacute;til para mantener informaci&oacute;n de uso interno entre un grupo de personas.</para>
+<para/>
+<para>Hay distinto software para implementar un wiki. Aunque a la hora de editar editar las p&aacute;ginas de un wiki todas las soluciones son muy parecidas, lo cierto es que son distintos por lo que la gente cuando se acostumbra a uno le cuesta pasar a otro; as&iacute; mismo no es trivial migrar de un wiki a otro. Vamos a mencionar cuatro soluciones:</para>
+<orderedlist>
+<listitem>
+<para>Mediawiki (<ulink url="http://www.mediawiki.org/">www.mediawiki.org</ulink>). Licencia GPL. Es el software de la wikipedia, pero se usa en muchos otros proyectos, como Mozilla. Realmente no es la opci&oacute;n m&aacute;s flexible para empresas, por ejemplo de las propuestas analizadas es la m&aacute;s floja en el control de acceso para quien edita o ve las p&aacute;ginas; s&oacute;lo resulta adecuada para un control b&aacute;sico, por ejemplo para que s&oacute;lo puedan ver las p&aacute;ginas y editarlas los usuarios que est&aacute;n dados de alta en el wiki. Sus puntos fuertes son el atractivo visual de las p&aacute;ginas (adem&aacute;s con versi&oacute;n imprimible) y que a muchos usuarios les resulta m&aacute;s familiar por usarse en muchos wikis y en la wikipedia. Otro punto fuerte es que es f&aacute;cil de editar y muy flexible: se pueden editar f&oacute;rmulas matem&aacute;ticas y mediante GraphViz es sencillo crear diagramas. Incluye funcionalidades como p&aacute;gina de discusi&oacute;n, posibilidad de notificar al usuario cuando la p&aacute;gina cambia, control de p&aacute;ginas hu&eacute;rfanas, posibilidad de subir ficheros... Para instalar mediawiki hace falta Apache, PHP y MySQL.</para>
+</listitem>
+<listitem>
+<para>Twiki (<ulink url="http://twiki.org/">http://twiki.org/</ulink>). Licencia GPL. Este software lo usan muchas empresas, como Michelin, Disney, SAP, Yahoo... Tiene plugins muy interesantes, como ActionTracker (para hacer TO-DO list, que pueden compartirse con otros usuarios), Calendar (calendario, con eventos resaltados) o un editor de gr&aacute;ficos en Java. Para instalar Twiki hace falta Apache y Perl (no hace falta un gestor de base de datos).</para>
+</listitem>
+<listitem>
+<para>MoinMoin: (<ulink url="http://moinmoin.wikiwikiweb.de/">http://moinmoin.wikiwikiweb.de/</ulink>. Licencia GPL. Lo usan proyectos como Ubuntu, Debian, Apache, Hispalinux... Entre sus puntos fuertes que es f&aacute;cil de instalar: est&aacute; escrito en Python y no requiere m&aacute;s que un servidor web, por ejemplo Apache. No guarda las p&aacute;ginas en BB.DD.</para>
+</listitem>
+<listitem>
+<para>TikiWiki: (http://tikiwiki.org/) . Licencia LGPL. Destaca por no ser s&oacute;lo un wiki: tambi&eacute;n integra funciones de CMS (gestor de contenidos) y soluci&oacute;n groupware, por lo que es muy interesante para empresas. Integra webmail, foros, blogs, encuestas, calendario, agenda de direcciones, hoja de c&aacute;lculo... Para instalarlo requiere PHP y un gestor de BB.DD.: MySQL es el &uacute;nico sistema totalmente soportado, pero otros lo est&aacute;n parcialmente.</para>
+</listitem>
+</orderedlist>
+<para/>
+<para/></sect2><sect2><title>Servidor Jabber</title>
+<para>XMPP es el protocolo de mensajer&iacute;a instant&aacute;nea estandarizado por el IETF, el organismo que establece los protocolos de Internet. Es m&aacute;s conocido como Jabber, el nombre con el que se cre&oacute; en 1998. </para>
+<para/>
+<para>XMPP significa eXtensible Message Presence Protocol. Lo de "extensible" es muy importante: Jabber usa XML y gracias a ello se le han a&ntilde;adido todo tipo de extensiones, como invocar llamadas RPC entre dos clientes. Esto permite todo tipo de aplicaciones; recuerda la revoluci&oacute;n que ha supuesto las aplicaciones web, s&oacute;lo que aqu&iacute; con m&aacute;s posibilidades: la comunicaci&oacute;n no est&aacute; limitada a cliente servidor sino entre dos clientes, que pueden variar su IP y ubicaci&oacute;n. Adem&aacute;s la comunicaci&oacute;n es totalmente bidireccional, mientras que en la web es petici&oacute;n-respuesta: el navegador efect&uacute;a una petici&oacute;n y el servidor web responde, de modo que si es el servidor el que quiere notificar algo al navegador no puede salvo que se haga polling: el navegador env&iacute;a una petici&oacute;n tipo "respondem&eacute; cuando tengas algo que decirme".</para>
+<para/>
+<para>De igual modo que con el correo, una organizaci&oacute;n puede tener su propio servidor Jabber interno o elegir entre distintos proveedores. Tambi&eacute;n como ocurre con los servidores de correo, las comunicaciones entre usuarios del mismo servidor no salen del servidor y por lo tanto de la red local de la organizaci&oacute;n, mientras que si se contacta con un usuario no local se localiza su servidor a partir de su direcci&oacute;n, que son iguales de las de correo, los servidores se comunican entre s&iacute;.</para>
+<para/>
+<para>Esta es una gran diferencia respecto a soluciones propietarias como MSN Messenger, AOL o Yahoo, d&oacute;nde hay un &uacute;nico servidor para todos los usuarios, lo que lo hace muy poco adecuado para empresas: incluso el correo interno pasa por Internet, por el mismo servidor que el de su competencia. Ser&iacute;a como si para tener correo electr&oacute;nico una empresa s&oacute;lo pudiera abrir cuentas en Hotmail o en Gmail y al escoger uno de estos dos sitios no pudi&eacute;ramos enviar ni recibir mensajes del otro.</para>
+<para/>
+<para>Otro problema de las soluciones propietarias es que se est&aacute; en manos del proveedor incluso para elegir el programa de mensajer&iacute;a. En algunos casos se pueden usar distintos programas pero el proveedor tiene la sart&eacute;n por el mango y puede en un momento dado no dejar que se conecte nadie con otro programa que el oficial. Es el caso de AOL, que durante un tiempo para evitar conexiones de otros clientes preguntaba al programa fragmentos de su propio c&oacute;digo, que al estar bajo copyright no pod&iacute;an replicar los otros programas.</para>
+<para/>
+<para>De hecho la propia Microsoft tiene una soluci&oacute;n de mensajer&iacute;a instant&aacute;nea para empresas que no usa el mismo protocolo que MSN sino en un software servidor; otro producto muy conocido de mensajer&iacute;a para empresas es Lotus SameTime. En realidad estas soluciones rivales de Jabber se basan en un protocolo que tambi&eacute;n est&aacute; siendo estandarizado por el IETF, SIMPLE, pero a pesar de comenzar el proceso antes que con XMPP est&aacute; m&aacute;s atrasado y hay aspectos b&aacute;sicos sin estandarizar que por lo tanto no son interoperables. De hecho mientras que hay miles de servidores que se comunican a trav&eacute;s de Internet al estilo de los servidores de correo, de modo que puede contactar con cualquier usuario a trav&eacute;s de su direcci&oacute;n, no ocurre as&iacute; con los servidores de SIMPLE.</para>
+<para/>
+<para>El paralelismo entre correo y Jabber es tan grande que el formato de direcciones es el mismo: en Google Gmail de hecho cada cuenta es una direcci&oacute;n de correo y de Jabber</para>
+<para/>
+<para>Ventajas de tener un servidor de mensajer&iacute;a propio:</para>
+<para/>
+<orderedlist>
+<listitem>
+<para>Los mensajes no salen de la organizaci&oacute;n. Mayor confidencialidad y seguridad. Mejor aprovechamiento de la conexi&oacute;n a Internet, pues es absurdo que para enviar un mensaje local &eacute;ste salga a un servidor de Estados Unidos y vuelva.</para>
+</listitem>
+<listitem>
+<para>Posbilidad de controlar el flujo de la informaci&oacute;n y con quien pueden contactar los usuarios. </para>
+</listitem>
+<listitem>
+<para>Posibilidad de registrar las conversaciones. </para>
+</listitem>
+<listitem>
+<para>Opci&oacute;n de a&ntilde;adir autom&aacute;ticamente contactos a todos los usuarios de un grupo.</para>
+</listitem>
+<listitem>
+<para>Posibilidad de usar control de acceso coorporativo: todo el mundo accede con su usuario y contrase&ntilde;a que usa para acceder al resto de aplicaciones de la empresa o mediante tarjeta de acceso.</para>
+</listitem>
+<listitem>
+<para>Posibilidad de directorio de usuarios (usar uno en Internet hace m&aacute;s dif&iacute;cil las b&uacute;squedas y problema de no poder incluir informaci&oacute;n confidencial.</para>
+</listitem>
+<listitem>
+<para>Posibilidad de enviar mensajes a todos los usuarios o poner mensajes del d&iacute;a</para>
+</listitem>
+<listitem>
+<para>Posiblidad de a&ntilde;adir funcionalidad al servidor o de integrar otros servicios como VoIP.</para>
+</listitem>
+<listitem>
+<para>Uso de un dominio propio. Mejor imagen coorporativa. No se pierde disponibilidad si cae conexi&oacute;n a Internet o servidor del proveedor.</para>
+</listitem>
+</orderedlist>
+<para/></sect2><sect2><title>Qu&eacute; servidor instalar</title>
+<para>Hay varios servidores Jabber bajo licencia libre. Uno que viene con muchas distribuciones es jabberd, escrito en C. Uno de los m&aacute;s usados y f&aacute;ciles de instalar (hay un v&iacute;deo de c&oacute;mo instalar y empezar a usar este servidor en 180 segundos) es ejabberd (http://ejabberd.jabber.ru/). La &uacute;nica pega de ejabberd es que est&aacute; escrito en Erlang, por lo que para quien no est&eacute; familiarizado con este lenguaje requiere cierto aprendizaje para escribir nuevos m&oacute;dulos. Otra opci&oacute;n es un servidor escrito en Java: OpenFire (anteriormente se llamaba WildFire): http://www.igniterealtime.org/projects/openfire/index.jsp.</para>
+<para/></sect2></sect1>
+
+</chapter>

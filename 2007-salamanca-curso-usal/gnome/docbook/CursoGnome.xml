@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "docbook/dtd/xml/4.2/docbookx.dtd"[
+<!ENTITY bookinfo.xml SYSTEM "bookinfo.xml">
+<!ENTITY contenido.xml SYSTEM "contenido.xml">
+<!ENTITY fdl.xml SYSTEM "fdl.xml">
+]>
+
+<book lang="es">
+
+&bookinfo.xml;
+&contenido.xml;
+&fdl.xml;
+
+</book>
