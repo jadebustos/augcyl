@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chapter><title>Caso práctico: router red local, red otra empresa, Internet</title>
+<para>Supongamos la red local de una empresa, dónde hay un enrutador que tiene que comunicar estas redes entre sí:</para>
+<orderedlist>
+<listitem>
+<para>red local con los equipos de los usuarios y servidores de impresión. Están todos en la red 192.168.120.0/24</para>
+</listitem>
+<listitem>
+<para>red local de otra empresa del parque tecnológico con la que colaboran un grupo de usuarios. Esta red es 10.2.0.0/16. La otra empresa ha pedido que los equipos de la red local no vean directamente su router, sino que haya un enlace punto a punto entre los servidores de las dos redes. Las Ips serán visibles en ambas redes, es decir, desde 192.168.120.* se verán las Ips de 10.2.*.* y viceversa.</para>
+</listitem>
+<listitem>
+<para>acceso a Internet con router ADSL. Hay una única dirección IP, luego habrá que hacer NAT con configuración multipuesto, aunque también podríamos ponerlo en multipuesto y que el NAT lo haga la máquina Linux que actúa de router.</para>
+</listitem>
+</orderedlist>
+
+<para>Para esta configuración necesitamos tres tarjetas de red para la máquina Linux que hará de router: una será para la red local (192.168.120.0/24), otra para conectarse con la red de la empresa y una tercera para el router ADSL para la conexión a Internet. ¿Nos las podíamos haber apañado con una sola tarjeta utilizando ipalias? pues realmente sí. El problema es que no es la configuración más adecuada, pues lo deseable es que desde la red local no accedan directamente a Internet ni a la red de la otra empresa y desde luego separar también Internet y la red de la otra empresa y poder poner cortafuegos en medio. Si se usa una única red física no hay tal separación y cualquier nodo podría tratar de espiar la red. En una infraestructura de red con switchs que soporten VLANs sí es viable usar una única tarjeta de red y sin necesidad de ipalias, sino creando tres VLANs distintas y configurando el puerto del switch al que está conectado el router como un Trunk port con acceso a las tres VLANs.</para>
+
+<para>Tanto para conectarnos con la red de la otra empresa como con el router ADSL, utilizamos sendas redes con máscara de 30 bits, es decir de dos nodos. Por ejemplo con la red 192.168.200.84/30 nuestro nodo tendrá la IP 192.168.200.85 y el otro router la 192.168.200.86.</para>
+<sect1><title>El problema de la IP de origen en máquinas multihome (con más de una IP). </title>
+
+<para>Los encaminadores tienen más de una dirección IP, dado que tienen una IP en cada interfaz de red que encaminan. Ahora bien, cuando una máquina que tiene varias direcciones IP se comunica con otra máquina ¿qué IP origen figura en los paquetes? la IP de la interfaz de red por la que saldrá el paquete.</para>
+
+<para>Esto puede ser problemático en algunos casos. Por ejemplo en nuestra configuración, en la interfaz eth1 que conecta nuestra red con la red de otra empresa. Resulta que los equipos de la red de la otra empresa no saben cómo llegar a 192.168.200.86: los equipos de ambas redes conocen las Ips 192.168.120.0 y 10.0.0.0, pero no conocen la red 192.168.200.84/30, que es un artificio para comunicar los dos enrutadores. Así pues, cualquier paquete que proceda de nuestro enrutador y vaya a una dirección de la red 10.0.0.0 llevará como IP origen 192.168.200.86, por lo que podrá llegar a destino pero luego no llegarán los paquetes respuesta. Podemos hacer una prueba muy sencilla: un simple ping a una máquina de la red 10.0.0.0 y veremos que la IP origen es 192.168.20.86 y no nos llega la respuesta, mientras que desde otra IP de la red sí.</para>
+
+<para>La solución pasa por utilizar como IP origen 192.168.120.19 también cuando los paquetes vayan a la red 10.0.0.0 y no sólo cuando vayan a la red local. Ante esto caben dos enfoques:</para>
+<orderedlist>
+<listitem>
+<para>Configurar cada programa que necesita contactar con la red 10 para que use la IP 192.168.120.19. Cada programa se configura de forma distinta. Por ejemplo con un ping basta indicar la IP con la opción -I, con SSH se indica mediante la opción BindAddress...</para>
+</listitem>
+<listitem>
+<para>Hacer NAT: mediante iptables ponemos una regla para que todo paquete con la dirección origen 192.168.200.86 que vaya a salir por la interfaz eth1 cambie su IP a 192.168.120.19. Esta regla sería:
+<userinput>iptables -t nat -A POSTROUTING --source 192.168.200.86 -o eth1 -j SNAT --to-source 192.168.120.19</userinput></para>
+</listitem>
+</orderedlist>
+
+<para>¿Qué solución es más apropiada? Depende. La segunda obviamente es más directa, pues no hay que cambiar programa a programa. Ahora bien, por seguridad desde el enrutador no se debería acceder a más equipos de la otra red que los imprescindibles, por ejemplo los servidores DNS. Obligarse a reconfigurar cada programa que hay lo necesita es obligarse a mantener controlado a qué servicios de la otra red estamos accediendo desde el router.</para>
+</sect1></chapter>
+

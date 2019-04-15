@@ -1,0 +1,976 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Acceso a sistemas de ficheros</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Sistemas de Ficheros"
+HREF="c304.html"><LINK
+REL="PREVIOUS"
+TITLE="Tipos de dispositivos físicos"
+HREF="x625.html"><LINK
+REL="NEXT"
+TITLE="Creación de sistemas de ficheros"
+HREF="x915.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x625.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 4. Sistemas de Ficheros</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x915.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN707"
+>4.8. Acceso a sistemas de ficheros</A
+></H1
+><P
+>Para tener acceso a los diferentes sistemas de ficheros es necesario:</P
+><P
+></P
+><UL
+><LI
+><P
+>Soporte en el núcleo para el tipo de dispositivo físico.</P
+></LI
+><LI
+><P
+>Soporte en el núcleo para el sistema de ficheros que hay en el dispositivo.</P
+></LI
+><LI
+><P
+>Montar el sistema de ficheros.</P
+></LI
+></UL
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN717"
+>4.8.1. El comando <B
+CLASS="command"
+>mount</B
+></A
+></H2
+><P
+>El comando <B
+CLASS="command"
+>mount</B
+> se utiliza para montar los sistemas de ficheros. Es decir para hacerlos accesibles desde el sistema.</P
+><P
+>En principio sólo es <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>superusuario</I
+></SPAN
+> o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>root</I
+></SPAN
+> puede montar sistemas de ficheros en el sistema.</P
+><P
+>Para montar un sistema de ficheros:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>mount -t ext3 /dev/sda5 /media/removible</KBD
+>
+</PRE
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-t ext3</I
+></SPAN
+> es el tipo de sistema de ficheros que reside en el dispositivo.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>/dev/sda5</I
+></SPAN
+> dispositivo que se quiere montar.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>/media/removible</I
+></SPAN
+> punto de montaje en el que se montará.</P
+></LI
+></UL
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Es posible especificar opciones de montaje mediante el uso de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-o</I
+></SPAN
+> tales como sólo lectura, ...</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Algunos tipos de sistemas de ficheros:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext2</I
+></SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext3</I
+></SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>iso9660</I
+></SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>reiserfs</I
+></SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>xfs</I
+></SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>jfs</I
+></SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>nfs</I
+></SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>cifs</I
+></SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>vfat</I
+></SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>msdos</I
+></SPAN
+></P
+></LI
+></UL
+><P
+>Existen algunas opciones interesantes a la hora de montar un sistema de ficheros. Algunas de ellas son comunes a todos ellos, mientras que otras dependen del sistema de ficheros:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-o loop</I
+></SPAN
+> permite el montar imágenes ISO a través del dispositivo de loopback:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>mount -t iso9660 debian-sarge-dvd1.iso /media/iso -o loop</KBD
+>
+</PRE
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-o rw</I
+></SPAN
+> monta un sistema de ficheros en modo lectura/escritura.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-o ro</I
+></SPAN
+> monta un sistema de ficheros en modo sólo lectura.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-o suid</I
+></SPAN
+> permite la ejecución de SUIDs en el sistema de ficheros.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-o nosuid</I
+></SPAN
+> no permite la ejecución de SUIDs en el sistema de ficheros.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-o exec</I
+></SPAN
+> permite la ejecución de comandos en el sistema de ficheros.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-o noexec</I
+></SPAN
+> no permite la ejecución de comando en el sistema de ficheros.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-o remount</I
+></SPAN
+> permite montar un sistema de ficheros ya montado con otras opciones diferentes.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-o owner</I
+></SPAN
+> permite a un usuario sin privilegios montar un sistema de ficheros si es el propietario del dispositivo físico.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-o nouser</I
+></SPAN
+> no permite a los usuarios sin privilegios el montar sistemas de ficheros.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-o user</I
+></SPAN
+> permite a cualquier usuario montar y desmontar el sistema de ficheros.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN812"
+>4.8.2. El comando <B
+CLASS="command"
+>umount</B
+></A
+></H2
+><P
+>El comando <B
+CLASS="command"
+>umount</B
+> se utiliza para desmontar sistemas de ficheros:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>umount /media/iso</KBD
+>
+</PRE
+><P
+>Desmontaría el sistema de ficheros montado en <TT
+CLASS="filename"
+>/media/iso</TT
+>.</P
+><P
+>Sólo el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>superusuario</I
+></SPAN
+> o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>root</I
+></SPAN
+> puede desmontar sistemas de ficheros.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Es posible permitir a usuarios sin privilegios montar sistemas de ficheros. En este caso el usuario que montó el sistema de ficheros podrá desmontarlo también.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/warning.gif"
+HSPACE="5"
+ALT="Aviso"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Para poder desmontar un sistema de archivos es necesario que ningún recurso del sistema este usando dicho dispositivo:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>pwd</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>/media/iso</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>umount /media/iso</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>umount: /media/iso: dispositivo ocupado</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/warning.gif"
+HSPACE="5"
+ALT="Aviso"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Bajo ningún concepto se debe desconectar ningún dispositivo de almacenamiento del sistema sin desmontarlo previamente.</P
+><P
+>Cuando se hace una operación de escritura sobre un dispositivo, rara vez se hace directamente al dispositivo. Normalmente se escribe en una zona intermedia denominada <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>buffer cache</I
+></SPAN
+> y son los algoritmos de multitarea los que deciden cuando se va a ir escribiendo esa información al dispositivo.</P
+><P
+>Cuando se hace un <B
+CLASS="command"
+>umount</B
+> de un dispositivo se priorizan las escrituras pendientes sobre ese dispositivo (se hace un <B
+CLASS="command"
+>sync</B
+> sobre el dispositivo). Por este motivo si se desconecta un dispositivo del sistema sin haberlo desmontado previamente se perderan datos y se dice entonces que hay una inconsistencia en el sistema de archivos.</P
+><P
+>Con sistemas de archivos <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>transaccionales</I
+></SPAN
+> o de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>journaling</I
+></SPAN
+> como <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext3</I
+></SPAN
+> o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Reiser</I
+></SPAN
+> es posible, en principio, recuperar esa información.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN849"
+>4.8.3. El fichero de configuración <TT
+CLASS="filename"
+>/etc/fstab</TT
+></A
+></H2
+><P
+>Este fichero tiene dos propositos:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Especificar que sistemas de ficheros se montan en el arranque.</P
+></LI
+><LI
+><P
+>Indicar las opciones de montaje de los sistemas de ficheros.</P
+></LI
+></OL
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Es posible montar un sistema de archivos especificando unicamente el punto de montaje si está en el fichero <TT
+CLASS="filename"
+>/etc/fstab</TT
+>. Se montará con las opciones especificadas en dicho fichero.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Un <TT
+CLASS="filename"
+>/etc/fstab</TT
+> típico:</P
+><PRE
+CLASS="programlisting"
+>&#13;LABEL=/     /             ext3          defaults       1 1
+none        /proc         proc          defaults       0 0
+/dev/hda5   swap          swap          defaults       0 0
+/dev/hdc    /media/cdrom  iso9660       noauto,user,ro 0 0
+/dev/fd0    /media/floppy auto          noauto,user    0 0
+/dev/hda6   /media/vfat   vfat          noauto,user    0 0
+/dev/sda1   /media/scsi   reiserfs      auto           0 0
+</PRE
+><P
+>Este fichero consta de seis columnas:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>La primera columna es el dispositivo físico o la etiqueta del sistema de ficheros.</P
+></LI
+><LI
+><P
+>La segunda columna es el punto de montaje.</P
+></LI
+><LI
+><P
+>La tercera columna es el sistema de ficheros que hay en el dispositivo.</P
+></LI
+><LI
+><P
+>La cuarta columna son las opciones de montaje.</P
+></LI
+><LI
+><P
+>La quinta columna es información para <B
+CLASS="command"
+>dump</B
+>. Si es un cero no es necesario hacer un dump del sistema de ficheros.</P
+><P
+>En caso de no encontrar nada se asume que es un cero.</P
+></LI
+><LI
+><P
+>La sexta columna indica a <B
+CLASS="command"
+>fsck</B
+> el orden en el que chequeará los sistemas de ficheros al arrancar.</P
+><P
+>Si hay un cero no chequeará el sistema de ficheros.</P
+></LI
+></OL
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Si se utiliza <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>user</I
+></SPAN
+> como una de las opciones entonces se permite montar el sistema a cualquier usuario con las opciones indicadas en <TT
+CLASS="filename"
+>/etc/fstab</TT
+> pasandole a <B
+CLASS="command"
+>mount</B
+> el punto de montaje especificado en <TT
+CLASS="filename"
+>/etc/fstab</TT
+> unicamente.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN888"
+>4.8.4. El fichero <TT
+CLASS="filename"
+>/proc/partitions</TT
+></A
+></H2
+><P
+>Este fichero nos muestra las particiones que tenemos en el sistema:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>cat /proc/partitions</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>&#13;major minor  #blocks  name
+
+   3     0  195360984 hda
+   3     1  192418506 hda1
+   3     2          1 hda2
+   3     5    2939863 hda5
+</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN897"
+>4.8.5. El fichero <TT
+CLASS="filename"
+>/proc/filesystems</TT
+></A
+></H2
+><P
+>Este fichero nos muestra los filesystems con los que puede trabajar el núcleo en ese momento.</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>cat /proc/filesystems</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>&#13;nodev   sysfs
+nodev   rootfs
+nodev   bdev
+nodev   proc
+nodev   securityfs
+nodev   sockfs
+nodev   pipefs
+nodev   futexfs
+nodev   tmpfs
+nodev   inotifyfs
+nodev   eventpollfs
+nodev   devpts
+        cramfs
+nodev   ramfs
+nodev   mqueue
+nodev   usbfs
+        ext3
+</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN906"
+>4.8.6. El fichero <TT
+CLASS="filename"
+>/etc/mtab</TT
+></A
+></H2
+><P
+>Este fichero nos muestra los filesystems que tenemos montados en el sistema y las opciones con las que fueron montados.</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>cat /etc/mtab</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>/dev/hda1 / ext3 rw,errors=remount-ro 0 0
+proc /proc proc rw,noexec,nosuid,nodev 0 0
+/sys /sys sysfs rw,noexec,nosuid,nodev 0 0
+udev /dev tmpfs rw,mode=0755 0 0
+devshm /dev/shm tmpfs rw 0 0
+devpts /dev/pts devpts rw,noexec,nosuid,gid=5,mode=620 0 0
+usbfs /proc/bus/usb usbfs rw,noexec,nosuid,nodev 0 0</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x625.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x915.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Tipos de dispositivos físicos</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c304.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Creación de sistemas de ficheros</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

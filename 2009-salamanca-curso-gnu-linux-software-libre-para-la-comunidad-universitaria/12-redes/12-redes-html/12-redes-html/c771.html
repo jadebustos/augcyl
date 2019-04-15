@@ -1,0 +1,244 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Soluciones de virtualización/redes con virtualizadores</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Caso práctico: router red local, red otra empresa, Internet"
+HREF="c747.html"><LINK
+REL="NEXT"
+TITLE="Virtualización para aprender sobre redes"
+HREF="x812.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c747.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x812.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN771"
+></A
+>Cap�tulo 10. Soluciones de virtualización/redes con virtualizadores</H1
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN773"
+>10.1. Virtualización</A
+></H1
+><P
+>Mediante la virtualización en una sola máquina es posible tener varios sistemas, como si en lugar de un PC tuviéramos varios. Así, un ISP que ofrezca servidores dedicados puede ofrecer varios servidores virtuales sobre una máquina: cada uno funcionará como un servidor independiente con su propia IP, se podrán instalar todo tipo de servicios (DNS, mail, Jabber, web, PostgreSQL) y reiniciar y administrar independientemente.</P
+><P
+>Al sistema sobre el que se ejecuta el virtualizador se le llama host; a veces también se habla de domain 0, porque cada sistema que se ejecuta se le considera un dominio. A cada uno de los sistemas que se ejecutan sobre el virtualizador se les denomina guest. En algunos casos no hay sistema host porque el virtualizador se ejecuta directamente sobre el hardware.</P
+><P
+>Hay hardware como los mainframes de IBM, que soportan virtualización. El diseño original del PC no soporta virtualización: hay instrucciones de modo protegido que impiden ejecutar dos sistemas operativos simultáneamente, pero mediante software se pueden suplir (con bastante complejidad) las carencias de hardware. Así mismo mediante sofware se emulan componentes del hardware como discos, tarjeta gráfica, de red y de sonido.</P
+><P
+>Además de la virtualización de la CPU, está la del resto del hardware: tarjeta de red, discos, tarjeta gráfica... Para esta parte la mayoría de los proyectos libres toman código de Qemu.</P
+><P
+>Hay varios métodos de implementar la virtualiación del procesador:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Emuladores totales: emulan totalmente el hardware, incluyendo el procesador. Es el caso de Booch, o el de Qemu cuando emula una arquitectura distinta (por ejemplo ARM). Su rendimiento es muy pobre.</P
+></LI
+><LI
+><P
+>Emuladores con compilación JIT: es el caso de Qemu, cuando se ejecuta sin el módulo kqemu. El código necesita "compilarse" para la máquina virtual, si bien como los compiladores JIT de Java se hace sólo la primera vez que se ejecuta el código, luego ya está compilado. Mucho más rápidos que los emuladores totales, pero más lentos que el resto de soluciones. Se puede ejecutar como usuario normal sin instalar nada como root. Se pueden emular procesadores distintos.</P
+></LI
+><LI
+><P
+>Virtualizadores completos: es el caso de Vmware (software privativo), Qemu con el módulo de aceleración Kqemu  y Virtual Box (software con una versión libre y otra más funcional privativa). Se basan en un VMM (Virtual Machine Monitor, también conocido como hypervisor) que mediante complicadas técnicas (como traps y análisis del código antes de su ejecución) detecta en tiempo de ejecución el código que no puede ejecutarse directamente porque afectaría a todo el sistema, modificando dinámicamente las instrucciones conflictivas. El rendimiento varía mucho según lo avanzado que sea el VMM: Vmware tiene varias patentes. Estos tres programas permiten instalar un sistema operativo sobre un virtualizador del mismo modo que sobre un PC: la ventana del virtualizador asemeja el monitor de un PC, podemos entrar en la BIOS, reiniciar el ordenador...</P
+></LI
+><LI
+><P
+>Paravirtualizadores: es el caso de Xen y UML (User mode Linux). En lugar de tener que detectar un VMM los casos conflictivos en tiempo de ejecución, se modifica el código fuente de los sistemas operativos para evitar esos casos conflictivos. En lugar de el VMM tener que analizar el código, es el código quien invoca al VMM cuando sea necesario. Esta técnica simplifica muchísimo el VMM y ofrece muy buen rendimiento, aunque en el caso concreto de UML el rendimiento es mediocre. La pega es que haya que parchear el sistema operativo, sobre todo para poder ejecutar Windows. Xen parcheó un Windows XP en un programa de investigación que permitía acceso al código fuente de Microsoft, pero ese tipo de licencias no permitía distribuir el resultado. UML también se puede considerar dentro de esta categoría, pues es una modificación del kernel de Linux para que pueda ejecutarse dentro de otro Linux. Xen no emula una tarjeta gráfica SVGA "completa" como Qemu, Vmware o VirtualBox, pero utiliza VNC que para el sistema guest se ve como una tarjeta VGA.</P
+><P
+>Vmware y VirtualBox no son paravirtualizadores, pero utilizan esta técnica para virtualizar la E/S en los drivers especiales que se ejecutan en el sistema guest (por ejemplo el driver de red y el de la tarjeta gráfica: se comunican con el hipervisor en lugar de ser drivers normales sobre el hardware emulado). Lo mismo planea hacer KVM. En el caso de Vmware estas herramientas y drivers que se instalan sobre el sistema guest son las vmware tools; las versiones para Unix de estas herramientas, no así las de Windows, las ha liberado Vmware en un alto porcentaje bajo licencias libres, en el proyecto <A
+HREF=" http://open-vm-tools.sourceforge.net/"
+TARGET="_top"
+>Open Virtual Machine Tools</A
+></P
+></LI
+><LI
+><P
+>Virtualizadores apoyados en el hardware (un tanto pretenciosamente llamados nativos): tanto Intel con sus extensiones VT como AMD con AMD-V (también conocido como Pacífica) ofrecen extensiones de virtualización desde hace tiempo. Hay que decir que mientras que AMD soporta virtualización en casi todos sus procesadores actuales, Intel juega más a la segmentación del mercado y hay modelos modernos que no lo incluyen, como muchos modelos de Atom e incluso algunos de Core2 Duo; ver la página sobre virtualization en la Wikipedia para obtener una relación completa. Gracias a estas instrucciones ya no es necesario un complicado VMM ni parchear el sistema operativo, si bien sigue siendo necesario virtualizar otros dispositivos y emular discos, tarjetas gráficas, de red... Ejemplos de estas soluciones son KVM (integrado en el kernel desde la versión 2.6.20, utiliza qemu para la virtualización del resto del hardware) y Virtual Iron (basado en Xen, pero ya no es paravirtualizador; en cualquier caso es una solución propietaria, con algo de código bajo GPL). Además Xen soporta también estas instrucciones, como método para poder ejecutar Windows o simplemente sistemas sin paravirtualizar. Los virtualizadores apoyados en el hardware son más lentos que los paravirtualizadores e incluso pueden ser menos eficientes que los virtualizadores completos con un VMM avanzado. Algunos virtualizadores de hecho soportan estas extensiones pero no las usan salvo para determinadas configuraciones, si bien por ejemplo VirtualBox inicialmente no las usaba por defecto y ahora sí. </P
+></LI
+><LI
+><P
+>Virtualización a nivel de sistema operativo (OS level Virtualization): no permite ejecutar dos sistemas operativos simultáneamente, sino servidores privados virtuales (SVP) dentro de un único servidor, es decir, es un único kernel, pero que permite aislar (isolate) los servidores. Cada servidor tendrá su propia red, espacio de disco, de memoria, se podrá reiniciar... así mismo tendrá limitación de uso de CPU con el fin de evitar que un servidor virtual esquilme recursos de los otros. También esta tecnología se denomina como Jail, pues es extender el concepto de chroot. Dentro del kernel de Linux ya existen namespaces de red (Ver <A
+HREF="http://lxc.sourceforge.net/network.php"
+TARGET="_top"
+>http://lxc.sourceforge.net/network.php</A
+> ), que permiten que una interfaz sea privada a un proceso y sus hijos, pero las soluciones que están disponibles como parches van más allá. Tanto Linux VServer como Virtuozzo lo vienen ofreciendo proveedores de hosting desde hace años. Estas son las dos soluciones libres más destacadas: </P
+><P
+></P
+><OL
+TYPE="a"
+><LI
+><P
+>Linux VServer: <A
+HREF="http://linux-vserver.org/"
+TARGET="_top"
+>http://linux-vserver.org</A
+> (no confundir con linux virtual server, que es sobre clusters). Software libre. Una limitación es que no admite usar iptables dentro de cada SVP, sino dentro del host. Tampoco admite migración de procesos. Así mismo está más limitado en lo que se virtualiza, por ejemplo no se virtualiza nada de /proc). Por otro lado la distribución host parece menos restringida que en OpenVZ, que como host sólo admite Fedora, algunas versiones de CentOS y algunas de RHEL. Hay varias distribuciones que funcionan como guest directamente (las instalamos en su partición y luego las usamos, con sus programas y librerías, pero no obviamente con su kernel) aunque otras como Gentoo no. </P
+></LI
+><LI
+><P
+>OpenVZ (<A
+HREF="http://openvz.org/"
+TARGET="_top"
+>http://openvz.org</A
+>). Virtuozzo es un virtualizador bajo una licencia privativa; OpenVZ es el producto de la misma compañía que es software libre y que es la base de Virtuozzo. Un hecho positivo es que OpenVZ no es un conjunto de código GPL difícil de integrar y sin soporte como ocurre con otros productos en los que hay versión GPL y privativa: también venden soporte para OpenVZ. Admite distintas distribuciones como host, a través de templates, que son repositorios para bajar los paquetes necesarios para esa distribución. Hosting con OpenVZ: <A
+HREF="http://www.vpslink.com/vps-hosting/"
+TARGET="_top"
+>http://www.vpslink.com/vps-hosting/</A
+>. En algún caso es más caro con OpenVZ que con Virtuozzo, por ser menos maduro y requerir más recursos... </P
+></LI
+></OL
+></LI
+></OL
+><P
+>Entre las posibilidades más avanzadas de algunos virtualizadores está el migrar en caliente con una indisponibilidad inapreciable un dominio de un servidor a otro. Dentro de los productos libres lo permiten Xen, KVM y OpenVZ. Vmware lo permite a través de productos de pago. Para saber más sobre este tema: <A
+HREF="http://www.linux-kvm.org/page/Migration"
+TARGET="_top"
+>http://www.linux-kvm.org/page/Migration</A
+>
+</P
+><P
+>Un debate interesante es el de los virtualizadores que se ejecutan "bare metal", es decir, directamente sobre el hardware, en lugar de sobre un sistema operativo "host". Vmware ESX y ESXi (el segundo es gratuito con ciertas restricciones, ninguno de los dos libres; Vmware vSphere funciona sobre ESX o ESXi) sigue esta fórmula de forma pura, de tal modo que sólo funciona con determinado hardware. En el caso de Xen, se ejecuta sobre un host, pero asume parte de las funciones de un sistema operativo, al tener código por ejemplo para planificar la CPU. En cambio KVM utiliza todo lo que aporta Linux, lo que para muchos desarrolladores es la opción preferible pues difícilmente una empresa que desarrolla un producto de virtualización tendrá más experiencia en elementos de sistemas operativos como un planificador, que el grupo de personas que llevan desarrollando estos componentes desde hace años en un sistema tan extendido como el kernel Linux.</P
+><P
+>Software interesante:</P
+><P
+> <A
+HREF="http://virt-manager.org/interfaz"
+TARGET="_top"
+>http://virt-manager.org/</A
+>: Interfaz gráfica para administrar máquinas virtuales con Xen, KVM y Qemu. Incluye parte para gestionar redes.</P
+><P
+>Información muy completa (navegar por los enlaces del marco de la izquierda):
+<A
+HREF="http://virt.kernelnewbies.org/TechOverview"
+TARGET="_top"
+>http://virt.kernelnewbies.org/TechOverview</A
+>
+</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c747.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x812.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Caso práctico: router red local, red otra empresa, Internet</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Virtualización para aprender sobre redes</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

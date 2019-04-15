@@ -1,0 +1,1153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Cuotas en ext2/ext3</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Sistemas de Ficheros"
+HREF="c304.html"><LINK
+REL="PREVIOUS"
+TITLE="Obtención de información sobre los sistemas de ficheros"
+HREF="x1132.html"><LINK
+REL="NEXT"
+TITLE="Atributos en sistemas de ficheros ext2/ext3"
+HREF="x1418.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x1132.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 4. Sistemas de Ficheros</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x1418.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN1174"
+>4.11. Cuotas en <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext2/ext3</I
+></SPAN
+></A
+></H1
+><P
+>Es posible establecer cuotas de espacio en disco tanto por usuario como por grupo para evitar que un determinado usuario o grupo monopolice el espacio en disco.</P
+><P
+>Esta característica tiene que estar soportada dentro del núcleo.</P
+><P
+>El espacio en disco es un recurso finito y una mala gestión de su uso puede provocar una denegación de servicio.</P
+><P
+>Será necesario controlar la actividad de los usuarios para evitar un mal uso del espacio en disco.</P
+><P
+>Aunque el espacio en disco pueda parecer asequible a los usuarios en realidad es bastante caro. Ya que el tener espacio desaprovechado implica:</P
+><P
+></P
+><UL
+><LI
+><P
+>Un mayor coste en tiempo y recursos de almacenamiento debido a las políticas de backup.</P
+></LI
+><LI
+><P
+>Un mayor coste en tiempo a la hora de restaurar backups.</P
+></LI
+><LI
+><P
+>Hoy en día el espacio en disco se suele asignar en <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SAN</I
+></SPAN
+> debido a su verstilidad. El uso de tecnologías <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SAN</I
+></SPAN
+> es de un alto coste.</P
+></LI
+></UL
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1191"
+>4.11.1. ¿En qué sistemas de ficheros podemos establecer cuotas de usuario?</A
+></H2
+><P
+>Podemos establecer cuotas de espacio en disco en todos los sistemas de ficheros que aparezcan en <TT
+CLASS="filename"
+>/etc/fstab</TT
+>.</P
+><P
+>Debido a la posibilidad de realizar una instalación en varios sistemas de ficheros podemos optimizar el uso de cuotas para los usuarios y grupos en cada sistema de fichero.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1196"
+>4.11.2. Cuotas <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>hard</I
+></SPAN
+></A
+></H2
+><P
+>Las cuotas <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>hard</I
+></SPAN
+> establecen la cantidad máxima de espacio que se puede utilizar y no se pueden sobrepasar a menos que el administrador las cambie. Estas cuotas se pueden establecer:</P
+><P
+></P
+><UL
+><LI
+><P
+>Por usuario. Una vez superado el usuario no podrá escribir en el sistema de ficheros.</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Al contrario que en otros sistemas un usuario que haya sobrepasado la cuota sí podrá borrar ficheros.</P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+><LI
+><P
+>Por grupo. Una vez superado ningún usuario del grupo podrá escribir en el sistema de ficheros, a pesar de que no haya alcanzado su cuota como usuario.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1208"
+>4.11.3. Cuotas <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>soft</I
+></SPAN
+></A
+></H2
+><P
+>Las cuotas <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>soft</I
+></SPAN
+> establen el umbral para avisar a los usuarios o grupos de que están llegando al límite máximo o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>cuota hard</I
+></SPAN
+>. Cuando se llega a esta cuota cada vez que un usuario que la ha sobrepasado escribe en el sistema de ficheros le aparece un mensaje en la terminal recordandoselo. Estas cuotas se pueden establecer:</P
+><P
+></P
+><UL
+><LI
+><P
+>Por usuario.</P
+></LI
+><LI
+><P
+>Por grupo.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1219"
+>4.11.4. El periodo de gracia</A
+></H2
+><P
+>Cuando se sobrepasa la <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>cuota soft</I
+></SPAN
+> se entra en el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>periodo de gracia</I
+></SPAN
+>. Una vez terminado el periodo no le es permitido al usuario o grupo escribir en el sistema de ficheros hasta que libere el espacio necesario para estar por debajo de la <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>cuota soft</I
+></SPAN
+>.</P
+><P
+>Este periodo se puede especificar en meses, semanas, dís, horas, minutos o segundos.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1226"
+>4.11.5. Pasos previos a la activación de las cuotas</A
+></H2
+><P
+>Será necesario que el núcleo este activado con soporte para cuotas.</P
+><P
+>Como se podría esperar sólo es <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>superusuario</I
+></SPAN
+> o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>root</I
+></SPAN
+> podrá establecer las cuotas.</P
+><P
+>Para cada sistema de ficheros en el que queramos establecer las cuotas deberemos hacer lo siguiente:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Añadir en el fichero <TT
+CLASS="filename"
+>/etc/fstab</TT
+> las opciones <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>usrquota</I
+></SPAN
+> para habilitar las cuotas para usuarios y <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>grpquota</I
+></SPAN
+> para los grupos.</P
+></LI
+><LI
+><P
+>Crear los ficheros <TT
+CLASS="filename"
+>quota.user</TT
+> y <TT
+CLASS="filename"
+>quota.group</TT
+> en la raíz del sistema de ficheros y establecer los permisos adecuados. Supongamos que queremos establecer las cuotas de usuario y grupo para el sistema de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>/dev/sda5</I
+></SPAN
+> que está montado en <TT
+CLASS="filename"
+>/home</TT
+>:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>touch /home/quota.user</KBD
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>touch /home/quota.group</KBD
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>chmod 400 /home/quota.*</KBD
+>
+</PRE
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Estos ficheros contendran datos binarios y no texto.</P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+><LI
+><P
+>Tendremos que inicializar las bases de datos que van a almacenar la información relativa a las cuotas en los ficheros que hemos creado anteriormente:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>quotacheck -avug</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>quotacheck: Scanning /dev/sda5 [/home] done
+quotacheck: Checked 79 directories and 657 files</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><P
+>Las opciones que le hemos pasado a <B
+CLASS="command"
+>quotacheck</B
+>:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>a</I
+></SPAN
+> realiza la comprobación para todos los sistemas de ficheros con cuotas.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>v</I
+></SPAN
+> modo verbose.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>u</I
+></SPAN
+> realiza la comprobación para las cuotas de usuario.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>g</I
+></SPAN
+> realiza la comprobación para las cuotas de grupo.</P
+></LI
+></UL
+></LI
+><LI
+><P
+>Activamos el sistema de quotas:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>quotaon -a</KBD
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+></LI
+></OL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1282"
+>4.11.6. Estableciendo cuotas</A
+></H2
+><P
+>Una vez configurado y arrancado el sistema de cuotas tendremos que establecer las cuotas para los diferentes usuarios y grupos.</P
+><P
+>Las cuotas se establecen por bloques e inodos. A menos que se haya jugueteado con las opciones la crear un sistema de ficheros cada bloque equivaldráa, normalmente, a 1 KB (1.24 bytes).</P
+><P
+>Utilizaremos el comando <B
+CLASS="command"
+>edquota</B
+> para establecer las cuotas. Este comando accede a los ficheros <TT
+CLASS="filename"
+>quota.user</TT
+> y <TT
+CLASS="filename"
+>quota.group</TT
+> creando un fichero temporal en <TT
+CLASS="filename"
+>/tmp</TT
+> editandolo por defecto con <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>vi</I
+></SPAN
+> a menos que se especifique otro editor en las variables de entorno <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>EDITOR</I
+></SPAN
+> o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>VISUAL</I
+></SPAN
+>. Algunos de los flags que podemos utilizar son:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>u</I
+></SPAN
+> que se utiliza para editar las cuotas de disco de los usuarios. Si se especifica la opción <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>g</I
+></SPAN
+> esta opción es ignorada.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>g</I
+></SPAN
+> que se utiliza para editar las cuotas de disco de los grupos.</P
+></LI
+></UL
+><P
+>Para cambiar las cuotas del usuario <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>pcm</I
+></SPAN
+> deberemos:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>edquotacheck -u pcm</KBD
+>
+</PRE
+><P
+>A continuación se accederá a los ficheros de cuotas y se creará en <TT
+CLASS="filename"
+>/tmp</TT
+> un fichero con datos que será editado y aparecerá algo como esto:</P
+><PRE
+CLASS="programlisting"
+>&#13;Disk quotas for user pcm (uid 1000):
+Filesystem     blocks   soft   hard   inodes   soft   hard
+/dev/sda5        1084  15000  25000      732   2000   3500
+</PRE
+><P
+>Modificamos los valores para <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>hard</I
+></SPAN
+> y <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>soft</I
+></SPAN
+> y al grabar y salir se actualiza el sistema de cuotas con los nuevos datos.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Los valores que aparecen en <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>blocks</I
+></SPAN
+> y en <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>inodes</I
+></SPAN
+> son los bloques e inodos que está utilizando el usuario en ese sistema de ficheros en ese momento.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Es posible establecer cuotas de usuario en línea de comando utilizando el comando <B
+CLASS="command"
+>setquota</B
+>.</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="command"
+>man setquota</B
+></P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1322"
+>4.11.7. Estableciendo el periodo de gracia</A
+></H2
+><P
+>El periodo de gracia lo estableceremos con <B
+CLASS="command"
+>edquota -t</B
+>. El procedimiento es el mismo que para establecer las cuotas de usuarios y grupos con <B
+CLASS="command"
+>edquota</B
+>. Al ejecutar <B
+CLASS="command"
+>edquota -t</B
+>:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>edquota -t</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>Grace period before enforcing soft limits for users:
+Time units may be: days, hours, minutes, or seconds
+Filesystem       Block grace period   Inode grace period
+/dev/sda5        7days                7 days</SAMP
+>
+</PRE
+><P
+>Podemos establecer el periodo de gracia pro bloques o por inodos. Lo establecemos según nuestras necesidades y al salir grabando se actualizan las BBDD del sistema con los nuevos datos.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1333"
+>4.11.8. Iniciando y parando el sistema de cuotas</A
+></H2
+><P
+>Una vez que hemos configurado los sistemas de ficheros sobre los cuales tendremos cuotas y hemos establecido dichas cuotas tendremos que arrancar el sistema de cuotas:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>quotaon -av</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>/dev/sda5 [/home]: group quotas turned on
+/dev/sda5 [/home]: user quotas turned on</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><P
+>Los flags más habituales son:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>a</I
+></SPAN
+> que inicializa las cuotas en todos los sistemas de ficheros que las tienen activadas.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>v</I
+></SPAN
+> modo verbose.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>u</I
+></SPAN
+> unicamente inicializa las cuotas de usuario.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>g</I
+></SPAN
+> unicamente inicializa las cuotas de grupo.</P
+></LI
+></UL
+><P
+>Es posible inicializar las cuotas sobre un determinado sistema de ficheros:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>quotaon -v /opt</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>/dev/sda6 [/opt]: group quotas turned on
+/dev/sda6 [/opt]: user quotas turned on</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><P
+>Podemos parar el sistema de cuotas con el comando <B
+CLASS="command"
+>quotaoff</B
+>.</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="command"
+>man quotaoff</B
+></P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1366"
+>4.11.9. Chequeando el sistema de cuotas</A
+></H2
+><P
+>Utilizaremos para ello el comando <B
+CLASS="command"
+>quotacheck</B
+>. Este comando se utiliza para chequear y actualizar el uso de espacio en disco en los sistemas de ficheros y para repar los ficheros de cuotas <TT
+CLASS="filename"
+>quota.user</TT
+> y <TT
+CLASS="filename"
+>quota.group</TT
+>.</P
+><P
+>Por defecto sólo se comprueban las cuotas de usuario, si se quieren comprobar las de grupo habrá que utilizar <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>g</I
+></SPAN
+>.</P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/warning.gif"
+HSPACE="5"
+ALT="Aviso"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Cuando se chequeen las cuotas de disco es recomendable hacerlo con el sistema de cuotas parado.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/warning.gif"
+HSPACE="5"
+ALT="Aviso"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Es aconsejable que cuando se arranque el sistema se comprueben los sistemas de ficheros con cuotas antes de inicializar el sistema de cuotas.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Los flags más habituales son:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>a</I
+></SPAN
+> comprueba todos los sistemas de ficheros montados con cuotas establecidas.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>g</I
+></SPAN
+> comprueba las cuotas de grupo. No se comprueban a menos que se use este flag.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>i</I
+></SPAN
+> trabaja en modo interactivo.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>u</I
+></SPAN
+> comprueba las cuotas de usuario. Acción por defecto.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>v</I
+></SPAN
+> modo verbose. Es aconsejable utilizar este flag.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1395"
+>4.11.10. Reporting de cuotas</A
+></H2
+><P
+>Mediante el uso de <B
+CLASS="command"
+>repquota</B
+> es posible obtener informes sobre el estado de las cuotas del sistema. Los flags más significativos son:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>a</I
+></SPAN
+> informe sobre todos los sistemas de ficheros con cuotas presentes en <TT
+CLASS="filename"
+>/etc/fstab</TT
+>.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>g</I
+></SPAN
+> informe sobre las cuotas de grupo.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>u</I
+></SPAN
+> informe sobre las cuotas de usuario.</P
+></LI
+></UL
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>repquota -a</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>*** Report for user quotas on device /dev/sda5
+Block grace time: 7days; Inode grace time: 7days
+                  Block limits                  File limits
+User       used   soft   hard   grace    used    soft   hard   grace
+--------------------------------------------------------------------
+root   --    20      0      0               4       0      0
+pcm -- 10848  15000  25000             732    2000   3500</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Es posible sacar informes sobre un único sistema de ficheros pasandole el punto de montaje o el dispositivo físico como argumento a <B
+CLASS="command"
+>repquota</B
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x1132.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x1418.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Obtención de información sobre los sistemas de ficheros</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c304.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Atributos en sistemas de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext2/ext3</I
+></SPAN
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

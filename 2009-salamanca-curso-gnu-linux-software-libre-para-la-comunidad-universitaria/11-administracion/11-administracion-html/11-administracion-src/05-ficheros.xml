@@ -1,0 +1,1201 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- CAPITULO 3 -->
+  <chapter>
+    <title>Sistemas de Ficheros</title>
+    <para>Dentro del mundo UNIX todo son ficheros, debido a esta abstracci&oacute;n los sistemas UNIX tienen una gran potencia y versatilidad para el manejo de cualquier tipo de dispositivo.</para>
+  <para>No existe el concepto de dispositivo f&iacute;sico, por lo cual es habitual encontrarnos en una m&aacute;quina UNIX con directorios que fisicamente estan en otro equipo en la red siendo transparente para el usuario.</para>
+    <sect1>
+      <title>Organizaci&oacute;n de directorios</title>
+      <para>El esquema de directorios y la organizaci&oacute;n de estos es bastante diferente en los sistemas UNIX del resto de sistemas.</para>
+      <para>Cada directorio tiene un cometido.</para>
+      <para>Cada sistema UNIX tiene una estructura ligeramente diferente al resto.</para>
+      <para>En los sistemas GNU/Linux pasa lo mismo lo cual no deja de ser un engorro. Para evitar esto se ha tratado de estandarizar la jeraqu&iacute;a del sistema de ficheros.</para>
+      <tip><para>La referencia para esta estandarizaci&oacute;n la podemos encontrar en <ulink url="http://www.pathname.com/fhs/"><emphasis>http://www.pathname.com/fhs/</emphasis></ulink></para></tip>
+    </sect1>
+    <sect1>
+      <title>Ficheros est&aacute;ndar</title>
+      <para>En los sistemas UNIX y en GNU/Linux en particular los ficheros est&aacute;ndar son:</para>
+      <itemizedlist>
+	<listitem>
+          <para><emphasis>stdinput</emphasis> o Salida est&aacute;ndar.</para>
+	</listitem>
+        <listitem>
+          <para><emphasis>stdoutput</emphasis> o Entrada est&aacute;ndar.</para>
+	</listitem>
+        <listitem>
+          <para><emphasis>stderr</emphasis> o Salida est&aacute;ndar de errores.</para>
+	</listitem>
+      </itemizedlist>
+      <sect2>
+        <title>La entrada est&aacute;ndar</title>
+        <para>Es el dispositivo que se utiliza por defecto para la entrada de datos.</para>
+        <para>Por defecto es el teclado y el descriptor de la entrada est&aacute;ndar es el <emphasis>0</emphasis>.</para>
+      </sect2>
+      <sect2>
+        <title>La salida est&aacute;ndar</title>
+        <para>Es el dispositivo que se utiliza por defecto, como su propio nombre indica, para mostrar la salida de datos.</para>
+        <para>Por defecto es el monitor y el descriptor de la salida est&aacute;ndar es el <emphasis>1</emphasis>.</para>
+      </sect2>
+      <sect2>
+        <title>La salida est&aacute;ndar de errores</title>
+        <para>Es el dispositivo que se utiliza por defecto para la salida de errores.</para>
+        <para>Por defecto es el monitor y el descriptor de la salida est&aacute;ndar de errores es el <emphasis>2</emphasis>.</para>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Redirecciones</title>
+      <para>Aunque por defecto los ficheros est&aacute;ndar estan redirigidos a unos dispositivos en particular es posible cambiar esa redirecci&oacute;n hac&iacute;a otro dispositivo.</para>
+      <para>Para las redirecciones se utilizan los siguientes operadores:</para>
+      <itemizedlist>
+        <listitem>
+          <para><emphasis>&lt;</emphasis> se utiliza para para indicar el fichero del que se recogeran los datos en lugar de la entrada est&aacute;ndar.</para>
+	</listitem>
+        <listitem>
+          <para><emphasis>&gt;</emphasis> se utiliza para redirigir hac&iacute;a un fichero. El contenido del fichero es reemplazado.</para>
+	</listitem>
+        <listitem>
+          <para><emphasis>&gt;&gt;</emphasis> se utiliza para a&ntilde;adir a un fichero. Se mantiene el contenido del fichero.</para>
+	</listitem>
+        <listitem>
+          <para><emphasis>&amp;n</emphasis> donde <emphasis>n</emphasis> es un descriptor. Se utiliza para redirigir un flujo hac&iacute;a donde ha sido redirigido un fichero.</para>
+	</listitem>
+      </itemizedlist>
+      <sect2>
+        <title>Redirecci&oacute;n de la salida est&aacute;ndar</title>
+        <para>Muchas veces es necesario recoger la salida de un comando en un fichero para su posterior proceso.</para>
+        <para>Habr&aacute; que tener en cuenta si la informaci&oacute;n que vamos a recoger se va a almacenar en un fichero con datos o en uno vac&iacute;o. En caso de almacenarse en uno con datos tendremos que tener claro si vamos o no a necesitar los datos ya existentes. En funci&oacute;n de esto utilizaremos el operador <emphasis>&gt;</emphasis> o <emphasis>&gt;&gt;</emphasis>:</para>
+<screen>
+<prompt>[pcm@sal]$ </prompt><userinput>ls -lh > contents.dir</userinput>
+</screen>
+      <para>La cual eliminar&iacute;a el contenido del fichero <filename>contents.dir</filename> reemplazandolo con el listado del directorio. O bien:</para>
+<screen>
+<prompt>[pcm@sal]$ </prompt><userinput>ls -lh >> contents.dir</userinput>
+</screen>
+      <para>Que a&ntilde;adir&iacute;a el listado de directorios al contenido del fichero <filename>contents.dir</filename>.</para>
+      </sect2>
+      <sect2>
+        <title>Redirecci&oacute;n de la entrada est&aacute;ndar</title>
+        <para>Es posible sustituir la entrada de datos a trav&eacute;s del teclado mediante el operador <emphasis>&lt;</emphasis>.</para>
+        <para>Esto es &uacute;til cuando queremos lanzar scripts de forma automatizada sin la intervenci&oacute;n del usuario y es necesario el suplir informaci&oacute;n como login o contrase&ntilde;a.</para>
+      </sect2>
+      <sect2>
+        <title>Redirecci&oacute;n de la salida est&aacute;ndar de errores</title>
+        <para>Aunque por defecto tanto la salida est&aacute;ndar como la de errores estan ambas redirigidas hac&iacute;a el monitor en realidad apuntan a dos ficheros diferentes.</para>
+        <para>Gracias a esto es posible separar ambas salidas para procesar por separado los errores y la salida del programa.</para>
+        <para>Para referirnos a la salida est&aacute;ndar de errores lo haremos mediante el operador <emphasis>2&gt;</emphasis>:</para>
+<screen>
+<prompt>[pcm@sal]$ </prompt><userinput>ls -lh >> contents.dir 2> errores</userinput>
+</screen>
+        <para>Se a&ntilde;adir&aacute;a el listado de directorios al fichero <filename>contents.dir</filename> y los mensajes de errores que pudieran ocurrir en lugar de mostarse por la pantalla se almacenar&aacute;n en el fichero <filename>errores</filename>.</para>
+      <important><para>En realidad lo que estamos haciendo es utilizando el descriptor de la salida est&aacute;ndar e indicandole el tipo de redirecci&oacute;n que queremos hacer.</para></important>
+      </sect2>
+      <sect2>
+        <title>El operador <emphasis>&amp;n</emphasis></title>
+        <para>Hay veces que es necesario redirigir tanto la salida como la salida est&aacute;ndar a un mismo fichero. Por ejemplo durante una compilaci&oacute;n ya que es necesario conocer el orden de los mensajes, tanto de la compilaci&oacute;n como de los errores.</para>
+        <para>Cuando queramos hacer una redirecci&oacute;n hac&iacute;a un fichero sobre el que ya se ha hecho una redirecci&oacute;n utilizaremos el operador <emphasis>&amp;n</emphasis> donde <emphasis>n</emphasis> es el descriptor del fichero que ha sido redirigido previamente a ese fichero:</para>
+<screen>
+<prompt>[pcm@sal]$ </prompt><userinput>make all > resultados 2>&amp;1</userinput>
+</screen>
+        <para>En el ejemplo anterior estamos haciendo lo siguiente:</para>
+        <itemizedlist>
+         <listitem>
+           <para>Redirigimos hac&iacute;a el fichero <filename>resultados</filename> la salida est&aacute;ndar del comando <command>make all</command>.</para>
+         </listitem>        
+         <listitem>
+           <para>Mediante <emphasis>2&gt;</emphasis> indicamos que queremos redirigir la salida de errores.</para>
+	 </listitem>
+         <listitem>
+           <para>Con <emphasis>&amp;1</emphasis> indicamos que la redirecci&oacute;n de la salida de errores se har&aacute; al fichero al que se haya redirigido la salida est&aacute;ndar (descriptor <emphasis>1</emphasis>).</para>
+	 </listitem>
+	</itemizedlist>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Conceptos</title>
+      <sect2>
+        <title>i-nodos</title>
+        <para>Los i-nodos son una especie de indice que nos indica donde est&aacute; localizado un determinado fichero dentro de un sistema de ficheros.</para>
+        <para>Aunque se tiende a asociar ficheros con i-nodos, un i-nodo no es un fichero.</para>
+        <important><para>Todo fichero tiene asociado un i-nodo.</para></important>
+        <para>Un i-nodo contiene toda la informaci&oacute;n referente al fichero.</para>
+        <para>Un i-nodo tambi&eacute;n puede contener informaci&oacute;n sobre enlaces simb&oacute;licos, sockets y dispositivos especiales.</para>
+        <important><para>Cuando creamos un sistema de ficheros lo creamos con una cantidad de i-nodos. Si se acaban los i-nodos no podremos escribir en el disco aunque nos quede espacio libre.</para></important>
+      </sect2>
+      <sect2>
+        <title>El <emphasis>Virtual File System</emphasis> o <emphasis>VFS</emphasis></title>
+        <para>Aunque pueda parecer sencillo el hecho de acceder a diferentes tipos de sistemas de ficheros no lo es tanto ya que cada sistema de ficheros tiene sus peculiaridades.</para>
+        <para>GNU/Linux utiliza el <emphasis>Virtual File System</emphasis> para acceder a los diferentes sistemas de ficheros. El <emphasis>VFS</emphasis> es un sistema de ficheros gen&eacute;rico.</para>
+        <para>La forma m&aacute;s sencilla de explicarlo es recurrir a la programaci&oacute;n orientada a objetos.</para>
+        <para>El <emphasis>VFS</emphasis> lo podemos considerar como una clase y los diferentes sistemas de ficheros como clases derivadas.</para>
+        <para>Todos los sistemas de ficheros comparten una serie de caracter&iacute;sticas comunes que son las heredadas del <emphasis>VFS</emphasis> y luego las suyas propias.</para>
+      </sect2>
+      <sect2>
+        <title>El <emphasis>Buffer Cache</emphasis></title>
+        <para>El <emphasis>Buffer Cache</emphasis> es una memoria intermedia en la que se almacenan temporalmente las operaciones de escritura. Estas operaciones no se hacen de forma inmediata al sistema de ficheros. De este modo se mejora el rendimiento ya que no se penalizan otras acciones del sistema, como la interacci&oacute;n del usuario, por las operaciones de escritura.</para>
+        <para>Ser&aacute;n los algoritmos de multitarea los que decidan cuando van escribiendo esa informaci&oacute;n al disco.</para>
+        <para>Para el usuario todo esto es transparente y de cara a el es como si los datos se hubieran escrito al sistema de ficheros.</para>
+        <para>M&aacute;s adelante veremos que es necesario montar un sistema de ficheros para hacerlo accesible. Debido a que los datos no se escriben al momento en el sistema de ficheros si quitamos un dispositivo f&iacute;sico del sistema sin que se hayan escrito los datos los perderemos. Se produce entonces una <emphasis>inconsistencia en el sistema de ficheros</emphasis>.</para>
+        <para>Para retirar un dispositivo es necesario desmontarlo, en ese momento se da prioridad a las operaciones de escritura pendientes y se escriben al sistema de ficheros. Una vez realizadas todas el sistema de ficheros es desmontado (ya no es accesible) sin perdida de datos.</para>
+        <tip><para>Es posible utilizar <command>sync</command> para sincronizar un sistema de ficheros con el <emphasis>Buffer Cache</emphasis>.</para></tip>
+      </sect2>
+      <sect2>
+        <title>Sistemas de ficheros <emphasis>transaccionales</emphasis> o de <emphasis>journaling</emphasis></title>
+        <para>Estos sistemas de ficheros fueron desarrollados para ser tolerantes a fallos. El ejemplo t&iacute;pico es cuando se va la luz mientras estamos trabajando. Con sistemas de ficheros no <emphasis>transaccionales</emphasis> al iniciar de nuevo el ordenador el sistema de ficheros se tendr&aacute; que chequear. Con los sistemas de ficheros <emphasis>transaccionales</emphasis> el inicio es mucho m&aacute;s r&aacute;pido ya que poseen la informaci&oacute;n necesaria para hacer la recuperaci&oacute;n de forma r&aacute;pida y precisa.</para>
+      <para>Todos los ficheros tienen asociados los siguientes datos:</para>
+      <itemizedlist>
+        <listitem>
+          <para>El contenido del fichero, los datos.</para>
+	</listitem>
+        <listitem>
+          <para>Los datos referentes al fichero, tama&ntilde;o, fecha, nombre, lugar dentro del sistema de ficheros en el que se encuentra, ...</para>
+	</listitem>
+      </itemizedlist>
+      <para>En los sistemas de ficheros tradicionales al realizar una operaci&oacute;n de escritura se modifican directamente los metadatos, pero no los datos que se ir&aacute;n modificando poco a poco. Si se va la luz, por ejemplo, cuando el sistema arranque los metadatos no coincidir&aacute;n con los datos (<emphasis>inconsistencia en el sistema de ficheros</emphasis>), teniendo entonces una perdida de datos.</para>
+      <para>Los sistemas de ficheros <emphasis>transaccionales</emphasis> disponen de dos zonas para solucionar este problema:</para>
+      <orderedlist>
+        <listitem>
+	  <para>Una zona de datos, donde se almacenar&aacute;n tanto el contenido de los ficheros como los metadatos.</para>
+	</listitem>
+        <listitem>
+          <para>Una zona de <emphasis>log</emphasis> o <emphasis>diario</emphasis> donde es n&uacute;cleo va registrando los cambios realizados y los pendientes.</para>
+	</listitem>
+      </orderedlist>
+      <para>Cuando el sistema actualiza los datos de un fichero, borra de la zona de <emphasis>log</emphasis> la informaci&oacute;n referente a los cambios realizados. De esta forma cuando se monta un sistema de ficheros <emphasis>transaccional</emphasis> si hay modificaciones pendientes en la zona de <emphasis>log</emphasis> se actualiza el sistema de ficheros sin perdida de datos.</para>
+      <para>Sistemas de ficheros <emphasis>transaccionales</emphasis>:</para>
+      <itemizedlist>
+        <listitem>
+          <para><emphasis>ext3</emphasis>.</para>
+	</listitem>
+        <listitem>
+          <para><emphasis>ReiserFS</emphasis>.</para>
+	</listitem>
+        <listitem>
+          <para><emphasis>JFS</emphasis> de IBM.</para>
+	</listitem>
+        <listitem>
+          <para><emphasis>XFS</emphasis> de SGI.</para>
+	</listitem>
+      </itemizedlist>
+      </sect2>
+      <sect2>
+        <title>Sistemas de ficheros de <emphasis>acceso concurrente</emphasis></title>
+        <para>Los sistemas de ficheros de <emphasis>acceso concurrente</emphasis> son aquellos sistemas de ficheros que permiten el acceso simultaneo al sistema de ficheros a m&aacute;s de una m&aacute;quina al mismo tiempo.</para>
+        <para>Estos sistemas de ficheros no se acceden por red ethernet como pudiera ser exportado por <emphasis>NFS</emphasis> o <emphasis>CIFS</emphasis>.</para>
+        <para>Estos sistemas de ficheros se suelen utilizar en redes <emphasis>SAN</emphasis> y son t&iacute;picos de clusters en configuraciones activo/activo.</para>
+        <para>Cuando tenemos un cluster en configuraci&oacute;n activo/activo con varios nodos todos los nodos estar&aacute;n accediendo simultaneamente al sistema de ficheros. Es necesario coordinar mediante bloqueos los accesos de escritura para evitar corrupciones de datos.</para>
+        <para>Los sistemas de ficheros de <emphasis>acceso concurrente</emphasis> que soporta <emphasis>GNU/Linux</emphasis> son los siguientes:</para>
+        <itemizedlist>
+          <listitem>
+            <para><emphasis>GFS</emphasis> o <emphasis>G</emphasis>lobal <emphasis>F</emphasis>ile <emphasis>S</emphasis>ystem es el sistema de ficheros de <emphasis>acceso concurrente</emphasis> que <emphasis>Red Hat</emphasis> compr&oacute; a <emphasis>Sixtina</emphasis> para su inclusi&oacute;n en <emphasis>Red Hat Cluster Suite</emphasis>.</para>
+	  </listitem>
+          <listitem>
+            <para><emphasis>GPFS</emphasis> o <emphasis>G</emphasis>eneral <emphasis>P</emphasis>aralell <emphasis>F</emphasis>ile <emphasis>S</emphasis>ystem es el sistema de ficheros de <emphasis>acceso concurrente</emphasis> de <emphasis>IBM</emphasis>.</para>
+	  </listitem>
+          <listitem>
+            <para><emphasis>OCFS</emphasis> o <emphasis>O</emphasis>racle <emphasis>C</emphasis>luster <emphasis>F</emphasis>ile <emphasis>S</emphasis>ystem. Es el sistema de ficheros de <emphasis>acceso concurrente</emphasis> de Oracle que utiliza en <emphasis>Oracle RAC</emphasis>.</para>
+	  </listitem>
+	</itemizedlist>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Sistemas de ficheros</title>
+      <para>Ya hemos dicho que en los sistemas UNIX like todo son ficheros.</para>
+      <para>Al contrario que en otros sistemas en los sistemas UNIX los ficheros est&aacute;n organizados de una forma rigurosa pero flexible:</para>
+      <itemizedlist>
+        <listitem>
+          <para>Mediante una organizaci&oacute;n jerarquica de directorios.</para>
+	</listitem>
+        <listitem>
+          <para>Mediante sistemas de ficheros.</para>
+	</listitem>
+      </itemizedlist>
+      <para>Un sistema de ficheros es un espacio en disco, bien sea una partici&oacute;n o un disco en su totalidad, en el cual se almacenan ficheros.</para>
+      <para>El estructurar la instalaci&oacute;n de un sistema en sistemas de ficheros tiene las siguientes ventajas:</para>
+      <itemizedlist>
+       <listitem>
+         <para>Cuanto m&aacute;s peque&ntilde;o sea un sistema de ficheros menos probable es una corrupci&oacute;n de datos.</para>
+       </listitem>
+       <listitem>
+         <para>Si un sistema de ficheros se llena eso s&oacute;lo perjudicar&aacute; a las aplicaciones que escriban en ese sistema de ficheros. Si unicamente hay un sistema de ficheros todo el sistema se ver&aacute; afectado.</para>
+       </listitem>
+       <listitem>
+         <para>Permite una mayor estructuraci&oacute;n y control.</para>
+       </listitem>
+       <listitem>
+         <para>Ahorro en recursos.</para>
+         <para>En los primeros tiempos de la inform&aacute;tica los recursos eran muy caros. Para ahorrar costes se recurr&iacute;a a tener un &uacute;nico sistema de ficheros y compartirlo por <emphasis>nfs</emphasis> entre todas las m&aacute;quinas que lo necesitaran.</para>
+         <para>Esto pasaba, por ejemplo, con el directorio <filename>/usr/bin</filename>. Adem&aacute;s tambi&eacute;n simplificaba la administraci&oacute;n porque de esta forma es muy f&aacute;cil garantizar que todas las m&aacute;quinas tienen las mismas versiones de software instaladas.</para>
+         <para>Pero esto tambi&eacute;n ten&iacute;a sus problemas y es que si la m&aacute;quina que exporta el sistema de ficheros deja de funcionar todas lo har&aacute;n.</para>
+       </listitem>
+        <listitem>
+          <para>Una mayor flexibilidad para la gesti&oacute;n de cuotas.</para>
+        </listitem>
+      </itemizedlist>
+    <para>Esta estructuraci&oacute;n tambi&eacute;n tiene sus inconvenientes:</para>
+    <itemizedlist>
+      <listitem>
+        <para>Se requiere de una buena planificaci&oacute;n a la hora de elegir cuantos sistemas de ficheros vamos a montar y su tama&ntilde;o.</para>
+      </listitem>
+    </itemizedlist>
+      <important><para>Cuando dividimos el sistema en varias particiones para asegurar que pueda arrancar en caso de problemas con los sistemas de ficheros es recomendable que los directorios <filename>/bin/</filename>, <filename>/sbin/</filename>, <filename>/dev/</filename>, <filename>/etc/</filename>, <filename>/lib/</filename> y <filename>/root</filename> esten en el <emphasis>root filesystem</emphasis>.</para></important>
+
+    </sect1>
+    <sect1>
+      <title>Particiones</title>
+      <para>Para poder utilizar un dispositivo f&iacute;sico, un disco duro, es necesario crear particiones en el.</para>
+      <para>En un disco duro se pueden tener los siguientes tipos de particiones:</para>
+      <itemizedlist>
+        <listitem>
+          <para>Primarias.</para>
+        </listitem>
+        <listitem>
+          <para>Extendidas.</para>
+        </listitem>
+        <listitem>
+          <para>L&oacute;gicas.</para>
+        </listitem>
+      </itemizedlist>
+      <para>A la hora de crear particiones tenemos que tener en cuenta las siguientes limitaciones:</para>
+      <itemizedlist>
+        <listitem>
+          <para>El n&uacute;mero total de particiones en un dispositivo f&iacute;sico ser&aacute; como mucho de 15.</para>
+        </listitem>
+        <listitem>
+          <para>S&oacute;lo puede haber cuatro particiones primarias en un dispositivo f&iacute;sico.</para>
+        </listitem>
+        <listitem>
+          <para>S&oacute;lo puede haber una partici&oacute;n extendida por dispositivo f&iacute;sico.</para>
+        </listitem>
+        <listitem>
+          <para>La partici&oacute;n extendida cuenta como una primaria.</para>
+        </listitem>
+        <listitem>
+          <para>Las particiones l&oacute;gicas se incluyen siempre dentro de la extendida.</para>
+        </listitem>
+      </itemizedlist>
+      <sect2>
+        <title>Particiones primarias</title>
+          <para>Estas particiones son las utilizamos cuando queremos que un sistema operativo arranque desde ella.</para>
+          <para>Como ya hemos dicho puede haber como mucho un m&aacute;ximo de cuatro por cada dispositivo f&iacute;sico (disco duro).</para>
+          <important><para>Estas particiones siempre se numeran del uno al cuatro.</para></important>
+      </sect2>
+      <sect2>
+        <title>Particiones extendidas</title>
+          <para>Estas particiones son un contenedor en el cual se incluir&aacute;n las particiones l&oacute;gicas.</para>
+          <para>Estas particiones se consideran primarias y tienen la mismas limitaciones.</para>
+      </sect2>
+      <sect2>
+        <title>Particiones l&oacute;gicas</title>
+        <para>Desde estas particiones no se puede arrancar un sistema operativo.</para>
+        <important><para>Estas particiones se numeran del cinco al quince.</para></important>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Tipos de dispositivos f&iacute;sicos</title>
+      <para>Existen diferentes tipos de discos f&iacute;sicos y a cada uno se le referencia de un modo diferente. El nombre del fichero correspondiente a ese dispositivo tiene un nombre diferente dependiendo del tipo de dispositivo que sea.</para>
+      <para>Existen diferentes tipos de dispositivos y para poder acceder a cada uno de ellos es necesario que el n&uacute;cleo tenga soporte para dichos dispositivos.</para>
+      <sect2>
+        <title>Dispositivos IDE</title>
+        <para>Estos dispositivos reciben el nombre <filename>/dev/hd?n</filename>:</para>
+        <itemizedlist>
+          <listitem>
+            <para><emphasis>?</emphasis> es una letra:</para>
+            <itemizedlist>
+              <listitem>
+                <para><emphasis>a</emphasis> es el canal primario del primer IDE.</para>
+              </listitem>
+              <listitem>
+                <para><emphasis>b</emphasis> es el canal secundario del primer IDE.</para>
+	      </listitem>
+              <listitem>
+                <para><emphasis>c</emphasis> es el canal primario del segundo IDE.</para>
+	      </listitem>
+              <listitem>
+                <para><emphasis>d</emphasis> es el canal secundario del segundo IDE.</para>
+	      </listitem>
+	    </itemizedlist>
+	  </listitem>
+          <listitem>
+            <para><emphasis>n</emphasis> es el n&uacute;mero de la partici&oacute;n dentro del dispositivo f&iacute;sico.</para>
+	  </listitem>
+	</itemizedlist>
+      </sect2>
+      <sect2>
+        <title>Dispositivos SCSI</title>
+        <para>La forma en la que se nombran los discos SCSI es la misma utilizada para:</para>
+        <itemizedlist>
+          <listitem>
+            <para>Memorias y discos USB.</para>
+	  </listitem>
+          <listitem>
+            <para>Discos SATA.</para>
+	  </listitem>
+          <listitem>
+            <para>Discos SAN (<emphasis>S</emphasis>torage <emphasis>A</emphasis>rea <emphasis>N</emphasis>etwork).</para>
+	  </listitem>
+	</itemizedlist>
+        <para>Estos dispositivos reciben el nombre <filename>/dev/sd?n</filename>:</para>
+        <itemizedlist>
+          <listitem>
+            <para><emphasis>?</emphasis> son una o varias letras: <emphasis>a</emphasis>, <emphasis>b</emphasis>, <emphasis>...</emphasis>, <emphasis>z</emphasis>, <emphasis>aa</emphasis>, <emphasis>ab</emphasis>, <emphasis>...</emphasis>, <emphasis>az</emphasis>, <emphasis>ba</emphasis>, <emphasis>...</emphasis> hasta un l&iacute;mite de 256 (como mucho).</para>
+            <para>Estas letras se van asignando por orden alfabetico seg&uacute;n se vayan descubriendo los dispositivos.</para>
+	  </listitem>
+          <listitem>
+            <para><emphasis>n</emphasis> es el n&uacute;mero de la partici&oacute;n dentro del dispositivo f&iacute;sico.</para>
+          </listitem>
+	</itemizedlist>
+        <warning><para>Con los dispositivos removibles y los discos SAN existe el problema de que el nombre del fichero que representa al disco f&iacute;sico no siempre va a ser el mismo.</para>
+          <para>Para un usuario esto no deja de se un engorro. Pero para un servidor esto es un problema bastante grande (que tiene soluci&oacute;n).</para></warning>
+      </sect2>
+      <sect2>
+        <title>Disqueteras</title>
+        <para>A las disqueteras nos referiremos como <filename>/dev/fdn</filename>:</para>
+        <itemizedlist>
+          <listitem>
+           <para><emphasis>n</emphasis> es un n&uacute;mero empezando en cero para la primera y siguiendo en orden ascendente.</para>
+	  </listitem>
+	</itemizedlist>
+      </sect2>
+      <sect2>
+        <title>Unidades de cinta</title>
+        <para>Podemos encontrar varios tipos de unidades de cinta:</para>
+        <itemizedlist>
+          <listitem>
+            <para><filename>/dev/stn</filename> n-&eacute;sima unidad de cinta SCSI.</para>
+	  </listitem>
+          <listitem>
+            <para><filename>/dev/ftn</filename> n-&eacute;sima unidad de cinta.</para>
+	  </listitem>
+	</itemizedlist>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Acceso a sistemas de ficheros</title>
+      <para>Para tener acceso a los diferentes sistemas de ficheros es necesario:</para>
+      <itemizedlist>
+        <listitem>
+          <para>Soporte en el n&uacute;cleo para el tipo de dispositivo f&iacute;sico.</para>
+	</listitem>
+        <listitem>
+          <para>Soporte en el n&uacute;cleo para el sistema de ficheros que hay en el dispositivo.</para>
+	</listitem>
+        <listitem>
+          <para>Montar el sistema de ficheros.</para>
+	</listitem>
+      </itemizedlist>
+      <sect2>
+        <title>El comando <command>mount</command></title>
+        <para>El comando <command>mount</command> se utiliza para montar los sistemas de ficheros. Es decir para hacerlos accesibles desde el sistema.</para>
+        <para>En principio s&oacute;lo es <emphasis>superusuario</emphasis> o <emphasis>root</emphasis> puede montar sistemas de ficheros en el sistema.</para>
+        <para>Para montar un sistema de ficheros:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>mount -t ext3 /dev/sda5 /media/removible</userinput>
+</screen>
+         <itemizedlist>
+           <listitem>
+             <para><emphasis>-t ext3</emphasis> es el tipo de sistema de ficheros que reside en el dispositivo.</para>
+           </listitem>
+           <listitem>
+             <para><emphasis>/dev/sda5</emphasis> dispositivo que se quiere montar.</para>
+           </listitem>
+           <listitem>
+             <para><emphasis>/media/removible</emphasis> punto de montaje en el que se montar&aacute;.</para>
+           </listitem>
+         </itemizedlist>
+         <important><para>Es posible especificar opciones de montaje mediante el uso de <emphasis>-o</emphasis> tales como s&oacute;lo lectura, ...</para></important>
+      <para>Algunos tipos de sistemas de ficheros:</para>
+      <itemizedlist>
+           <listitem>
+             <para><emphasis>ext2</emphasis></para>
+           </listitem>        
+           <listitem>
+             <para><emphasis>ext3</emphasis></para>
+           </listitem>
+           <listitem>
+             <para><emphasis>iso9660</emphasis></para>
+           </listitem>
+           <listitem>
+             <para><emphasis>reiserfs</emphasis></para>
+           </listitem>
+           <listitem>
+             <para><emphasis>xfs</emphasis></para>
+           </listitem>
+           <listitem>
+             <para><emphasis>jfs</emphasis></para>
+           </listitem>
+           <listitem>
+             <para><emphasis>nfs</emphasis></para>
+           </listitem>
+           <listitem>
+             <para><emphasis>cifs</emphasis></para>
+           </listitem>
+           <listitem>
+             <para><emphasis>vfat</emphasis></para>
+           </listitem>
+           <listitem>
+             <para><emphasis>msdos</emphasis></para>
+           </listitem>
+      </itemizedlist>
+      <para>Existen algunas opciones interesantes a la hora de montar un sistema de ficheros. Algunas de ellas son comunes a todos ellos, mientras que otras dependen del sistema de ficheros:</para>
+      <itemizedlist>
+           <listitem>
+             <para><emphasis>-o loop</emphasis> permite el montar im&aacute;genes ISO a trav&eacute;s del dispositivo de loopback:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>mount -t iso9660 debian-sarge-dvd1.iso /media/iso -o loop</userinput>
+</screen>
+           </listitem>
+           <listitem>
+             <para><emphasis>-o rw</emphasis> monta un sistema de ficheros en modo lectura/escritura.</para>
+           </listitem>
+           <listitem>
+             <para><emphasis>-o ro</emphasis> monta un sistema de ficheros en modo s&oacute;lo lectura.</para>
+           </listitem>
+           <listitem>
+             <para><emphasis>-o suid</emphasis> permite la ejecuci&oacute;n de SUIDs en el sistema de ficheros.</para>
+           </listitem>
+           <listitem>
+             <para><emphasis>-o nosuid</emphasis> no permite la ejecuci&oacute;n de SUIDs en el sistema de ficheros.</para>
+           </listitem>
+           <listitem>
+             <para><emphasis>-o exec</emphasis> permite la ejecuci&oacute;n de comandos en el sistema de ficheros.</para>
+           </listitem>
+           <listitem>
+             <para><emphasis>-o noexec</emphasis> no permite la ejecuci&oacute;n de comando en el sistema de ficheros.</para>
+           </listitem>
+           <listitem>
+             <para><emphasis>-o remount</emphasis> permite montar un sistema de ficheros ya montado con otras opciones diferentes.</para>
+           </listitem>
+           <listitem>
+             <para><emphasis>-o owner</emphasis> permite a un usuario sin privilegios montar un sistema de ficheros si es el propietario del dispositivo f&iacute;sico.</para>
+           </listitem>
+           <listitem>
+             <para><emphasis>-o nouser</emphasis> no permite a los usuarios sin privilegios el montar sistemas de ficheros.</para>
+           </listitem>
+           <listitem>
+             <para><emphasis>-o user</emphasis> permite a cualquier usuario montar y desmontar el sistema de ficheros.</para>
+	   </listitem>
+      </itemizedlist>
+      </sect2>
+      <sect2>
+        <title>El comando <command>umount</command></title>
+        <para>El comando <command>umount</command> se utiliza para desmontar sistemas de ficheros:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>umount /media/iso</userinput>
+</screen>
+        <para>Desmontar&iacute;a el sistema de ficheros montado en <filename>/media/iso</filename>.</para>
+        <para>S&oacute;lo el <emphasis>superusuario</emphasis> o <emphasis>root</emphasis> puede desmontar sistemas de ficheros.</para>
+        <important><para>Es posible permitir a usuarios sin privilegios montar sistemas de ficheros. En este caso el usuario que mont&oacute; el sistema de ficheros podr&aacute; desmontarlo tambi&eacute;n.</para></important>
+        <warning><para>Para poder desmontar un sistema de archivos es necesario que ning&uacute;n recurso del sistema este usando dicho dispositivo:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>pwd</userinput>
+<computeroutput>/media/iso</computeroutput>
+<prompt>[root@sal]# </prompt><userinput>umount /media/iso</userinput>
+<computeroutput>umount: /media/iso: dispositivo ocupado</computeroutput>
+<prompt>[root@sal]# </prompt>
+</screen></warning>
+      <warning><para>Bajo ning&uacute;n concepto se debe desconectar ning&uacute;n dispositivo de almacenamiento del sistema sin desmontarlo previamente.</para>
+      <para>Cuando se hace una operaci&oacute;n de escritura sobre un dispositivo, rara vez se hace directamente al dispositivo. Normalmente se escribe en una zona intermedia denominada <emphasis>buffer cache</emphasis> y son los algoritmos de multitarea los que deciden cuando se va a ir escribiendo esa informaci&oacute;n al dispositivo.</para>
+      <para>Cuando se hace un <command>umount</command> de un dispositivo se priorizan las escrituras pendientes sobre ese dispositivo (se hace un <command>sync</command> sobre el dispositivo). Por este motivo si se desconecta un dispositivo del sistema sin haberlo desmontado previamente se perderan datos y se dice entonces que hay una inconsistencia en el sistema de archivos.</para>
+      <para>Con sistemas de archivos <emphasis>transaccionales</emphasis> o de <emphasis>journaling</emphasis> como <emphasis>ext3</emphasis> o <emphasis>Reiser</emphasis> es posible, en principio, recuperar esa informaci&oacute;n.</para></warning>
+      </sect2>
+      <sect2>
+        <title>El fichero de configuraci&oacute;n <filename>/etc/fstab</filename></title>
+        <para>Este fichero tiene dos propositos:</para>
+        <orderedlist>
+          <listitem>
+            <para>Especificar que sistemas de ficheros se montan en el arranque.</para>
+	  </listitem>
+          <listitem>
+            <para>Indicar las opciones de montaje de los sistemas de ficheros.</para>
+	  </listitem>
+        </orderedlist>
+        <tip><para>Es posible montar un sistema de archivos especificando unicamente el punto de montaje si est&aacute; en el fichero <filename>/etc/fstab</filename>. Se montar&aacute; con las opciones especificadas en dicho fichero.</para></tip>
+        <para>Un <filename>/etc/fstab</filename> t&iacute;pico:</para>
+<programlisting>
+LABEL=/     /             ext3          defaults       1 1
+none        /proc         proc          defaults       0 0
+/dev/hda5   swap          swap          defaults       0 0
+/dev/hdc    /media/cdrom  iso9660       noauto,user,ro 0 0
+/dev/fd0    /media/floppy auto          noauto,user    0 0
+/dev/hda6   /media/vfat   vfat          noauto,user    0 0
+/dev/sda1   /media/scsi   reiserfs      auto           0 0
+</programlisting>
+        <para>Este fichero consta de seis columnas:</para>
+        <orderedlist>
+          <listitem>
+            <para>La primera columna es el dispositivo f&iacute;sico o la etiqueta del sistema de ficheros.</para>
+	  </listitem>
+          <listitem>
+            <para>La segunda columna es el punto de montaje.</para>
+	  </listitem>
+          <listitem>
+            <para>La tercera columna es el sistema de ficheros que hay en el dispositivo.</para>
+	  </listitem>
+          <listitem>
+            <para>La cuarta columna son las opciones de montaje.</para>
+	  </listitem>
+          <listitem>
+            <para>La quinta columna es informaci&oacute;n para <command>dump</command>. Si es un cero no es necesario hacer un dump del sistema de ficheros.</para>
+            <para>En caso de no encontrar nada se asume que es un cero.</para>
+	  </listitem>
+          <listitem>
+            <para>La sexta columna indica a <command>fsck</command> el orden en el que chequear&aacute; los sistemas de ficheros al arrancar.</para>
+            <para>Si hay un cero no chequear&aacute; el sistema de ficheros.</para>
+	  </listitem>
+	</orderedlist>
+        <tip><para>Si se utiliza <emphasis>user</emphasis> como una de las opciones entonces se permite montar el sistema a cualquier usuario con las opciones indicadas en <filename>/etc/fstab</filename> pasandole a <command>mount</command> el punto de montaje especificado en <filename>/etc/fstab</filename> unicamente.</para></tip>
+      </sect2>
+      <sect2>
+        <title>El fichero <filename>/proc/partitions</filename></title>
+        <para>Este fichero nos muestra las particiones que tenemos en el sistema:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>cat /proc/partitions</userinput>
+<computeroutput>
+major minor  #blocks  name
+
+   3     0  195360984 hda
+   3     1  192418506 hda1
+   3     2          1 hda2
+   3     5    2939863 hda5
+</computeroutput>
+<prompt>[root@sal]# </prompt>
+</screen>
+      </sect2>
+      <sect2>
+        <title>El fichero <filename>/proc/filesystems</filename></title>
+        <para>Este fichero nos muestra los filesystems con los que puede trabajar el n&uacute;cleo en ese momento.</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>cat /proc/filesystems</userinput>
+<computeroutput>
+nodev   sysfs
+nodev   rootfs
+nodev   bdev
+nodev   proc
+nodev   securityfs
+nodev   sockfs
+nodev   pipefs
+nodev   futexfs
+nodev   tmpfs
+nodev   inotifyfs
+nodev   eventpollfs
+nodev   devpts
+        cramfs
+nodev   ramfs
+nodev   mqueue
+nodev   usbfs
+        ext3
+</computeroutput>
+<prompt>[root@sal]# </prompt>
+</screen>
+      </sect2>
+      <sect2>
+        <title>El fichero <filename>/etc/mtab</filename></title>
+        <para>Este fichero nos muestra los filesystems que tenemos montados en el sistema y las opciones con las que fueron montados.</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>cat /etc/mtab</userinput>
+<computeroutput>/dev/hda1 / ext3 rw,errors=remount-ro 0 0
+proc /proc proc rw,noexec,nosuid,nodev 0 0
+/sys /sys sysfs rw,noexec,nosuid,nodev 0 0
+udev /dev tmpfs rw,mode=0755 0 0
+devshm /dev/shm tmpfs rw 0 0
+devpts /dev/pts devpts rw,noexec,nosuid,gid=5,mode=620 0 0
+usbfs /proc/bus/usb usbfs rw,noexec,nosuid,nodev 0 0</computeroutput>
+<prompt>[root@sal]# </prompt>
+</screen>
+      </sect2>
+    </sect1>
+<sect1>
+      <title>Creaci&oacute;n de sistemas de ficheros</title>
+      <para>Para crear un sistema de ficheros lo primero que tenemos que hacer es crear una partici&oacute;n. Para ello podemos utilizar el comando <command>fdisk</command> o <command>parted</command>.</para>
+      <sect2>
+        <title>Los sistemas de ficheros <emphasis>ext2/ext3</emphasis></title>
+        <sect3>
+          <title>El comando <command>mkfs</command></title>
+          <para>Este comando es utilizado para crear los sistemas de ficheros <emphasis>ext2</emphasis> y <emphasis>ext3</emphasis>, entre otros. Para m&aacute;s informaci&oacute;n mirar la p&aacute;gina del manual.</para>
+          <para>Su sintaxis es muy sencilla:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>mkfs -t ext2 /dev/fd0</userinput>
+<computeroutput>mke2fs 1.23, 15-Aug-2001 for EXT2 FS 0.5b, 95/08/09
+Filesystem label=
+OS type: Linux
+Block size=1024 (log=0)
+Fragment size=1024 (log=0)
+184 ubidesm 1440 blocks
+72 blocks (5.00\%) reserved for the super user
+First data block=1
+1 block group
+8192 blocks per group, 8192 fragments per group
+184 inodes per group
+
+Writing inode tables: done
+Writing superblocks and filesystem accounting information: done
+
+This filesystem will be automatically checked every 20 mounts or 
+180 days, whichever comes first. Use tune2fs -c or -i to override.</computeroutput>
+<prompt>[root@sal]# </prompt>
+</screen>
+          <para>La opci&oacute;n m&aacute;s interesante es <emphasis>-c</emphasis> para que busque bloques en mal estado durante el formateo.</para>
+        <tip><para>Para los tipos de sistemas de ficheros manejados por <command>mkfs</command> existe el comando <command>mkfs.tipo</command> donde <emphasis>tipo</emphasis> es <emphasis>ext2</emphasis>, ... y su uso es igual al de <command>mkfs</command> s&oacute;lo que no es necesario especificar el tipo de sistema de ficheros a crear.</para></tip>
+	</sect3>
+        <sect3>
+        <title>Conversi&oacute;n de sistemas de ficheros en <emphasis>ext2</emphasis> a <emphasis>ext3</emphasis></title>
+        <para>En GNU/Linux los sistemas de ficheros m&aacute;s extendidos son <emphasis>ext2</emphasis> y <emphasis>ext3</emphasis>.</para>
+        <para>En realidad <emphasis>ext3</emphasis> se puede considerar como <emphasis>ext2</emphasis> con algunas mejoras. La m&aacute;s significativa de ellas es el <emphasis>journaling</emphasis>.</para>
+        <para>Para convertir un sistema de ficheros <emphasis>ext2</emphasis> a <emphasis>ext3</emphasis>:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>tune2fs -j /dev/sda1</userinput>
+</screen>
+	</sect3>
+        <sect3>
+          <title>El superbloque y <command>tune2fs</command></title>
+          <para>El superbloque es bloque especial que contiene informaci&oacute;n sobre el sistema de ficheros. Para los sistemas de ficheros <emphasis>ext2/ext3</emphasis> se puede ver o modificar con <command>tune2fs</command>:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>tune2fs -l /dev/hda2</userinput>
+<computeroutput>tune2fs 1.40-WIP (02-Oct-2006)
+Filesystem volume name:   &lt;none&gt;
+Last mounted on:          &lt;not available&gt;
+Filesystem UUID:          85314ef9-3429-42d2-b8bc-41b51b328ffa
+Filesystem magic number:  0xEF53
+Filesystem revision #:    1 (dynamic)
+Filesystem features:      has_journal resize_inode dir_index filetype needs_recovery sparse_super large_file
+Default mount options:    (none)
+Filesystem state:         clean
+Errors behavior:          Continue
+Filesystem OS type:       Linux
+Inode count:              24068096
+Block count:              48104626
+Reserved block count:     2405231
+Free blocks:              43311411
+Free inodes:              23958460
+First block:              0
+Block size:               4096
+Fragment size:            4096
+Reserved GDT blocks:      1012
+Blocks per group:         32768
+Fragments per group:      32768
+Inodes per group:         16384
+Inode blocks per group:   512
+Filesystem created:       Sun Mar 25 06:10:23 2007
+Last mount time:          Thu Apr  5 04:55:15 2007
+Last write time:          Thu Apr  5 04:55:15 2007
+Mount count:              9
+Maximum mount count:      26
+Last checked:             Sun Mar 25 06:10:23 2007
+Check interval:           15552000 (6 months)
+Next check after:         Fri Sep 21 06:10:23 2007
+Reserved blocks uid:      0 (user root)
+Reserved blocks gid:      0 (group root)
+First inode:              11
+Inode size:               128
+Journal inode:            8
+Default directory hash:   tea
+Directory Hash Seed:      1ff4a0e4-fceb-45c1-93f8-5e9799e39496
+Journal backup:           inode blocks</computeroutput>
+<prompt>[root@sal]# </prompt>
+</screen>
+        <para>Las opciones m&aacute;s interesantes que podemos realizar:</para>
+        <itemizedlist>
+          <listitem>
+            <para><emphasis>-c n</emphasis> indicar despu&eacute;s de cuantas operaciones de montaje se ha de realiza el chequeo del sistema de ficheros.</para>
+          </listitem>
+          <listitem>
+            <para><emphasis>-j </emphasis> a&ntilde;adir la zona de <emphasis>journaling</emphasis> a un sistema de ficheros <emphasis>ext2</emphasis> para convertirlo en <emphasis>ext3</emphasis>.</para>
+          </listitem>
+          <listitem>
+            <para><emphasis>-C n</emphasis> cambiar el n&uacute;mero de veces que el sistema ha sido montado. Si se estable a un valor mayor del indicado por <emphasis>-c n</emphasis> en el siguiente montaje se chequear&aacute; de forma autom&aacute;tica.</para>
+          </listitem>
+          <listitem>
+            <para><emphasis>-g gid</emphasis> indicar el GID del grupo para el que se reservar&aacute; espacio en el sistema de ficheros.</para>
+          </listitem>
+          <listitem>
+            <para><emphasis>-i n [d|w|m]</emphasis> establece el periodo m&aacute;ximo de tiempo tras el cual se chequear&aacute; el sistema de ficheros. Independientemente de si se ha llegado al n&uacute;mero m&aacute;ximo de operaciones de montaje.</para>
+          </listitem>
+          <listitem>
+            <para><emphasis>-L label</emphasis> establece la etiqueta del sistema de ficheros.</para>
+          </listitem>
+          <listitem>
+            <para><emphasis>-m n</emphasis> establece el tanto por ciento de bloques que se reservan.</para>
+          </listitem>
+          <listitem>
+            <para><emphasis>-r n</emphasis> establece el n&uacute;mero de bloques que se reservan.</para>
+          </listitem>
+          <listitem>
+            <para><emphasis>-u uid</emphasis> establece el usuario para el que se reservar&aacute; espacio.</para>
+          </listitem>
+	</itemizedlist>
+	</sect3>
+        <sect3>
+          <title>El comando <command>mke2fs</command></title>
+          <para>La funci&oacute;n de este comando es la de crear sistemas de ficheros <emphasis>ext2/ext3</emphasis> y su uso es preferible al de <command>mkfs</command>.</para>
+          <para>Se utiliza el fichero <filename>/etc/mke2fs.conf</filename> para determinar los valores por defecto cuando se crea un sistema de ficheros.</para>
+          <warning><para>No modificar <filename>/etc/mke2fs.conf</filename> a menos que se sepa lo que se est&aacute; haciendo.</para></warning>
+        </sect3>
+        <sect3>
+          <title>Recuperaci&oacute;n de sistemas de ficheros <emphasis>ext2/ext3</emphasis></title>
+          <para>Cuando nos encontremos errores en los sistemas de ficheros tendremos que chequearlos y para ello tendr&aacute;n que estar desmontados.</para>
+          <para>El comando utilizado para chequear estos sistemas de ficheros es <command>e2fsck</command>.</para>
+          <para>Algunas opciones interesantes:</para>
+          <itemizedlist>
+            <listitem>
+              <para><emphasis>-b n</emphasis> donde <emphasis>n</emphasis> indica una copia del superbloque.</para>
+              <para>En los sistemas de ficheros <emphasis>ext2/ext3</emphasis> se hacen copias de seguridad del superbloque repartidas por todo el sistema de ficheros (ver p&aacute;gina del manual).</para>
+	    </listitem>
+            <listitem>
+              <para><emphasis>-c</emphasis> se utiliza el comando <command>badblocks</command> para localizar bloques defectuosos y marcarlos como tales.</para>
+	    </listitem>
+            <listitem>
+              <para><emphasis>-f</emphasis> forzar el chequeo aunque el sistema de ficheros parezca limpio.</para>
+	    </listitem>
+            <listitem>
+              <para><emphasis>-p</emphasis> reparar&aacute; de forma autom&aacute;tica el sistema de ficheros si se puede hacer de forma segura.</para>
+	    </listitem>
+	  </itemizedlist>
+          <tip><para>Al igual que en el caso de <command>mke2fs</command> exist&iacute;a <command>mkfs</command> para chequear sistemas de ficheros tambi&eacute;n se puede utilizar el comando <command>fsck</command>.</para></tip>
+        </sect3>
+        <sect3>
+          <title>El comando <command>badblocks</command></title>
+          <para>Este comando se utiliza para localizar bloques defectuosos en un sistema de ficheros.</para>
+          <para>La forma m&aacute;s sencilla de utilizarlo es:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>badblocks /dev/sda1</userinput>
+</screen>       
+          <tip><para>Podemos guardar la lista de bloques defectuosos en un fichero utilizando <emphasis>-o filename</emphasis>.</para></tip>
+	</sect3>
+      </sect2>
+      <sect2>
+        <title>El sistema de ficheros <emphasis>ReiserFS</emphasis></title>
+        <para><emphasis>ReiserFS</emphasis> es otro sistema de ficheros <emphasis>transaccional</emphasis>.</para>
+<tip><para>Ser&aacute; necesario instalar las utilidades de administraci&oacute;n de dicho sistema de ficheros ya que no se suelen instalar por defecto.</para></tip>
+         <para>Las principales utilidades de administraci&oacute;n son:</para>
+         <itemizedlist>
+           <listitem>
+             <para><emphasis>mkreiserfs</emphasis> para crear sistemas de ficheros.</para>
+	   </listitem>
+           <listitem>
+             <para><emphasis>reiserfsck</emphasis> para chequear sistemas de ficheros.</para>
+	   </listitem>
+           <listitem>
+             <para><emphasis>reiserfstune</emphasis> para ajustar los par&aacute;metros del sistema de ficheros.</para>
+	   </listitem>
+           <listitem>
+             <para><emphasis>resize_reiserfs</emphasis> para redimensionar sistemas de ficheros.</para>
+	   </listitem>
+	 </itemizedlist>
+      </sect2>
+      <sect2>
+        <title>El sistema de ficheros <emphasis>JFS</emphasis></title>
+        <para>Este sistema de ficheros lo desarroll&oacute; <emphasis>IBM</emphasis> y al igual que <emphasis>ext3</emphasis> y <emphasis>ReiserFS</emphasis> es un sistema de ficheros <emphasis>transaccional</emphasis>.</para>
+        <tip><para>Ser&aacute; necesario instalar las utilidades de administraci&oacute;n de dicho sistema de ficheros ya que no se suelen instalar por defecto.</para></tip>
+        <para>Las principales utilidades de administraci&oacute;n son:</para>
+        <itemizedlist>
+          <listitem>
+            <para><emphasis>jfs_mkfs</emphasis> para crear sistemas de ficheros.</para>
+	  </listitem>
+          <listitem>
+            <para><emphasis>jfs_fsck</emphasis> para chequear sistemas de ficheros.</para>
+	  </listitem>
+	  <listitem>
+            <para><emphasis>jfs_tune</emphasis> para ajustar los par&aacute;metros del sistema de ficheros.</para>
+	  </listitem>
+	</itemizedlist>
+      </sect2>
+      <sect2>
+        <title>El sistema de ficheros <emphasis>XFS</emphasis></title>
+        <para>Este sistema de ficheros lo desarroll&oacute; <emphasis>SGI</emphasis> y al igual que <emphasis>ext3</emphasis> y <emphasis>ReiserFS</emphasis> es un sistema de ficheros <emphasis>transaccional</emphasis>.</para>        
+<tip><para>Ser&aacute; necesario instalar las utilidades de administraci&oacute;n de dicho sistema de ficheros ya que no se suelen instalar por defecto.</para></tip>
+        <para>Las principales utilidades de administraci&oacute;n son:</para>
+        <itemizedlist>
+          <listitem>
+            <para><emphasis>mkfs.xfs</emphasis> para crear sistemas de ficheros.</para>
+	  </listitem>
+          <listitem>
+            <para><emphasis>xfs_check</emphasis> para chequear sistemas de ficheros.</para>
+	  </listitem>
+          <listitem>
+            <para><emphasis>xfs_repair</emphasis> para reparar sistemas de ficheros.</para>
+	  </listitem>
+          <listitem>
+            <para><emphasis>xfs_admin</emphasis> para ajustar los par&aacute;metros del sistema de ficheros.</para>
+	  </listitem>
+          <listitem>
+            <para><emphasis>xfs_freeze</emphasis> congela el acceso al sistema de ficheros. Util para la creaci&oacute;n de snapshots.</para>
+	  </listitem>
+          <listitem>
+            <para><emphasis>xfs_growfs</emphasis> redimensionar el sistema de ficheros.</para>
+	  </listitem>
+          <listitem>
+            <para><emphasis>xfs_quota</emphasis> manejo de cuotas.</para>
+	  </listitem>
+	</itemizedlist>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Obtenci&oacute;n de informaci&oacute;n sobre los sistemas de ficheros</title>
+      <sect2>
+        <title>El comando <command>du</command></title>
+        <para>Este comando trabaja a nivel de directorios. En caso de no pasarle ning&uacute;n argumento nos muestra el tama&ntilde;o que utiliza en disco el directorio actual y sus subdirectorios. Por defecto muestra la informaci&oacute;n en bloques y si utilizamos el flag <emphasis>-h</emphasis> nos mostrar&aacute; la informaci&oacute;n en un formato m&aacute;s comprensible.</para>
+<screen>
+<prompt>[pcm@sal]$ </prompt><userinput>du</userinput>
+<computeroutput>245     ./Adm/html
+486     ./Adm
+16539   ./Doc/cluster
+18256   ./Doc
+4       ./Software-Cientifico
+16      ./Clustering/dia
+125     ./Clustering/html
+44      ./Clustering/images
+269     ./Clustering
+19014   .</computeroutput>
+<prompt>[pcm@sal]$ </prompt>
+</screen>
+      <tip><para>Si le pasamos como argumento un directorio nos dar&aacute; la informaci&oacute;n sobre dicho directorio.</para></tip>
+      <tip><para>Si unicamente queremos conocer el espacio en disco deberemos utilizar el flag <emphasis>-hs</emphasis>.</para></tip>
+      </sect2>
+      <sect2>
+        <title>El comando <command>df</command></title>
+        <para>Ese comando nos da informaci&oacute;n sobre los sistemas de ficheros montados en el sistema:</para>
+<screen>
+<prompt>[pcm@sal]$ </prompt><userinput>df</userinput>
+<computeroutput>S.ficheros         Bloques de 1K   Usado    Dispon Uso% Montado en
+/dev/hdg1               459143     82646    352000  20% /
+tmpfs                  1038484         0   1038484   0% /lib/init/rw
+udev                     10240        44     10196   1% /dev
+tmpfs                  1038484         0   1038484   0% /dev/shm
+/dev/mapper/system_vg-home_lv
+                       2097084   1633876    463208  78% /home
+/dev/mapper/system_vg-opt_lv
+                        511980     32840    479140   7% /opt
+/dev/mapper/system_vg-tmp_lv
+                       1023964     32852    991112   4% /tmp
+/dev/mapper/system_vg-usr_lv
+                       5242716   2528076   2714640  49% /usr
+/dev/mapper/system_vg-var_lv
+                       2097084    575252   1521832  28% /var
+/dev/mapper/system_vg-software_lv
+                       1048540     32840   1015700   4% /mnt/software
+/dev/mapper/system_vg-ftp_lv
+                      52427196  18240412  34186784  35% /media/ftp</computeroutput>
+<prompt>[pcm@sal]$ </prompt>
+</screen>
+      <tip><para>Podemos ver la informaci&oacute;n relativa a un &uacute;nico sistema de ficheros si se lo pasamos como argumento.</para></tip>
+      <para>Por defecto muestra informaci&oacute;n en bloques. Podemos hacer que salga la informaci&oacute;n en un formato m&aacute;s comprensible utilizando el flag <emphasis>-h</emphasis>:</para>
+<screen>
+<prompt>[pcm@sal]$ </prompt><userinput>df -h</userinput>
+<computeroutput>S.ficheros          Tama&ntilde;o Usado  Disp Uso% Montado en
+/dev/hdg1             449M   81M  344M  20% /
+tmpfs                1015M     0 1015M   0% /lib/init/rw
+udev                   10M   44K   10M   1% /dev
+tmpfs                1015M     0 1015M   0% /dev/shm
+/dev/mapper/system_vg-home_lv
+                      2,0G  1,6G  451M  78% /home
+/dev/mapper/system_vg-opt_lv
+                      500M   33M  468M   7% /opt
+/dev/mapper/system_vg-tmp_lv
+                     1000M   33M  968M   4% /tmp
+/dev/mapper/system_vg-usr_lv
+                      5,0G  2,5G  2,6G  49% /usr
+/dev/mapper/system_vg-var_lv
+                      2,0G  562M  1,5G  28% /var
+/dev/mapper/system_vg-software_lv
+                      1,0G   33M  992M   4% /mnt/software
+/dev/mapper/system_vg-ftp_lv
+                       50G   18G   33G  35% /media/ftp</computeroutput>
+<prompt>[pcm@sal]$ </prompt>
+</screen>
+      <para>Podemos hacer que salga la informaci&oacute;n sobre los inodos utilizando el flag <emphasis>-i</emphasis>:</para>
+<screen>
+<prompt>[pcm@sal]$ </prompt><userinput>df -i</userinput>
+<computeroutput>S.ficheros           Nodos-i NUsados NLibres NUso% Montado en
+/dev/hdg1             245280   11612  233668    5% /
+tmpfs                 224347       2  224345    1% /lib/init/rw
+udev                  224347    1430  222917    1% /dev
+tmpfs                 224347       1  224346    1% /dev/shm
+/dev/mapper/system_vg-home_lv
+                           0       0       0    -  /home
+/dev/mapper/system_vg-opt_lv
+                           0       0       0    -  /opt
+/dev/mapper/system_vg-tmp_lv
+                           0       0       0    -  /tmp
+/dev/mapper/system_vg-usr_lv
+                           0       0       0    -  /usr
+/dev/mapper/system_vg-var_lv
+                           0       0       0    -  /var
+/dev/mapper/system_vg-software_lv
+                           0       0       0    -  /mnt/software
+/dev/mapper/system_vg-ftp_lv
+                           0       0       0    -  /media/ftp</computeroutput>
+<prompt>[pcm@sal]$ </prompt>
+</screen>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Cuotas en <emphasis>ext2/ext3</emphasis></title>
+      <para>Es posible establecer cuotas de espacio en disco tanto por usuario como por grupo para evitar que un determinado usuario o grupo monopolice el espacio en disco.</para>
+      <para>Esta caracter&iacute;stica tiene que estar soportada dentro del n&uacute;cleo.</para>
+      <para>El espacio en disco es un recurso finito y una mala gesti&oacute;n de su uso puede provocar una denegaci&oacute;n de servicio.</para>
+      <para>Ser&aacute; necesario controlar la actividad de los usuarios para evitar un mal uso del espacio en disco.</para>
+      <para>Aunque el espacio en disco pueda parecer asequible a los usuarios en realidad es bastante caro. Ya que el tener espacio desaprovechado implica:</para>
+      <itemizedlist>
+        <listitem>
+          <para>Un mayor coste en tiempo y recursos de almacenamiento debido a las pol&iacute;ticas de backup.</para>
+        </listitem>
+        <listitem>
+          <para>Un mayor coste en tiempo a la hora de restaurar backups.</para>
+        </listitem>
+        <listitem>
+          <para>Hoy en d&iacute;a el espacio en disco se suele asignar en <emphasis>SAN</emphasis> debido a su verstilidad. El uso de tecnolog&iacute;as <emphasis>SAN</emphasis> es de un alto coste.</para>
+        </listitem>
+      </itemizedlist>
+      <sect2>
+        <title>&iquest;En qu&eacute; sistemas de ficheros podemos establecer cuotas de usuario?</title>
+        <para>Podemos establecer cuotas de espacio en disco en todos los sistemas de ficheros que aparezcan en <filename>/etc/fstab</filename>.</para>
+        <para>Debido a la posibilidad de realizar una instalaci&oacute;n en varios sistemas de ficheros podemos optimizar el uso de cuotas para los usuarios y grupos en cada sistema de fichero.</para>
+      </sect2>
+      <sect2>
+        <title>Cuotas <emphasis>hard</emphasis></title>
+        <para>Las cuotas <emphasis>hard</emphasis> establecen la cantidad m&aacute;xima de espacio que se puede utilizar y no se pueden sobrepasar a menos que el administrador las cambie. Estas cuotas se pueden establecer:</para>
+        <itemizedlist>
+        <listitem>
+          <para>Por usuario. Una vez superado el usuario no podr&aacute; escribir en el sistema de ficheros.</para>
+          <tip><para>Al contrario que en otros sistemas un usuario que haya sobrepasado la cuota s&iacute; podr&aacute; borrar ficheros.</para></tip>
+        </listitem>        
+        <listitem>
+          <para>Por grupo. Una vez superado ning&uacute;n usuario del grupo podr&aacute; escribir en el sistema de ficheros, a pesar de que no haya alcanzado su cuota como usuario.</para>
+        </listitem>
+	</itemizedlist>
+      </sect2>         
+      <sect2>
+        <title>Cuotas <emphasis>soft</emphasis></title>
+        <para>Las cuotas <emphasis>soft</emphasis> establen el umbral para avisar a los usuarios o grupos de que est&aacute;n llegando al l&iacute;mite m&aacute;ximo o <emphasis>cuota hard</emphasis>. Cuando se llega a esta cuota cada vez que un usuario que la ha sobrepasado escribe en el sistema de ficheros le aparece un mensaje en la terminal recordandoselo. Estas cuotas se pueden establecer:</para>
+        <itemizedlist>
+        <listitem>
+          <para>Por usuario.</para>
+        </listitem>
+        <listitem>
+          <para>Por grupo.</para>
+        </listitem>       
+        </itemizedlist>
+      </sect2>
+      <sect2>
+        <title>El periodo de gracia</title>
+        <para>Cuando se sobrepasa la <emphasis>cuota soft</emphasis> se entra en el <emphasis>periodo de gracia</emphasis>. Una vez terminado el periodo no le es permitido al usuario o grupo escribir en el sistema de ficheros hasta que libere el espacio necesario para estar por debajo de la <emphasis>cuota soft</emphasis>.</para>
+	<para>Este periodo se puede especificar en meses, semanas, d&iacute;s, horas, minutos o segundos.</para>
+      </sect2>
+      <sect2>
+        <title>Pasos previos a la activaci&oacute;n de las cuotas</title>
+        <para>Ser&aacute; necesario que el n&uacute;cleo este activado con soporte para cuotas.</para>
+        <para>Como se podr&iacute;a esperar s&oacute;lo es <emphasis>superusuario</emphasis> o <emphasis>root</emphasis> podr&aacute; establecer las cuotas.</para>
+        <para>Para cada sistema de ficheros en el que queramos establecer las cuotas deberemos hacer lo siguiente:</para>
+        <orderedlist>
+        <listitem>
+          <para>A&ntilde;adir en el fichero <filename>/etc/fstab</filename> las opciones <emphasis>usrquota</emphasis> para habilitar las cuotas para usuarios y <emphasis>grpquota</emphasis> para los grupos.</para>
+        </listitem>        
+        <listitem>
+          <para>Crear los ficheros <filename>quota.user</filename> y <filename>quota.group</filename> en la ra&iacute;z del sistema de ficheros y establecer los permisos adecuados. Supongamos que queremos establecer las cuotas de usuario y grupo para el sistema de ficheros <emphasis>/dev/sda5</emphasis> que est&aacute; montado en <filename>/home</filename>:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>touch /home/quota.user</userinput>
+<prompt>[root@sal]# </prompt><userinput>touch /home/quota.group</userinput>
+<prompt>[root@sal]# </prompt><userinput>chmod 400 /home/quota.*</userinput>
+</screen>
+        <important><para>Estos ficheros contendran datos binarios y no texto.</para></important>
+        </listitem>
+        <listitem>
+          <para>Tendremos que inicializar las bases de datos que van a almacenar la informaci&oacute;n relativa a las cuotas en los ficheros que hemos creado anteriormente:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>quotacheck -avug</userinput>
+<computeroutput>quotacheck: Scanning /dev/sda5 [/home] done
+quotacheck: Checked 79 directories and 657 files</computeroutput>
+<prompt>[root@sal]# </prompt>
+</screen>
+        <para>Las opciones que le hemos pasado a <command>quotacheck</command>:</para>
+        <itemizedlist>
+        <listitem>
+          <para><emphasis>a</emphasis> realiza la comprobaci&oacute;n para todos los sistemas de ficheros con cuotas.</para>
+	</listitem>
+        <listitem>
+          <para><emphasis>v</emphasis> modo verbose.</para>
+	</listitem>
+        <listitem>
+          <para><emphasis>u</emphasis> realiza la comprobaci&oacute;n para las cuotas de usuario.</para>
+	</listitem>
+        <listitem>
+          <para><emphasis>g</emphasis> realiza la comprobaci&oacute;n para las cuotas de grupo.</para>
+	</listitem>
+	</itemizedlist>
+	</listitem>
+        <listitem>
+          <para>Activamos el sistema de quotas:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>quotaon -a</userinput>
+<prompt>[root@sal]# </prompt>
+</screen>
+	</listitem>
+	</orderedlist>
+      </sect2>
+      <sect2>
+        <title>Estableciendo cuotas</title>
+        <para>Una vez configurado y arrancado el sistema de cuotas tendremos que establecer las cuotas para los diferentes usuarios y grupos.</para>
+        <para>Las cuotas se establecen por bloques e inodos. A menos que se haya jugueteado con las opciones la crear un sistema de ficheros cada bloque equivaldr&aacute;a, normalmente, a 1 KB (1.24 bytes).</para>
+        <para>Utilizaremos el comando <command>edquota</command> para establecer las cuotas. Este comando accede a los ficheros <filename>quota.user</filename> y <filename>quota.group</filename> creando un fichero temporal en <filename>/tmp</filename> editandolo por defecto con <emphasis>vi</emphasis> a menos que se especifique otro editor en las variables de entorno <emphasis>EDITOR</emphasis> o <emphasis>VISUAL</emphasis>. Algunos de los flags que podemos utilizar son:</para>
+        <itemizedlist>
+          <listitem>
+            <para><emphasis>u</emphasis> que se utiliza para editar las cuotas de disco de los usuarios. Si se especifica la opci&oacute;n <emphasis>g</emphasis> esta opci&oacute;n es ignorada.</para>
+	  </listitem>
+          <listitem>
+            <para><emphasis>g</emphasis> que se utiliza para editar las cuotas de disco de los grupos.</para>
+	  </listitem>
+	</itemizedlist>
+        <para>Para cambiar las cuotas del usuario <emphasis>pcm</emphasis> deberemos:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>edquotacheck -u pcm</userinput>
+</screen>
+        <para>A continuaci&oacute;n se acceder&aacute; a los ficheros de cuotas y se crear&aacute; en <filename>/tmp</filename> un fichero con datos que ser&aacute; editado y aparecer&aacute; algo como esto:</para>
+<programlisting>
+Disk quotas for user pcm (uid 1000):
+Filesystem     blocks   soft   hard   inodes   soft   hard
+/dev/sda5        1084  15000  25000      732   2000   3500
+</programlisting>
+      <para>Modificamos los valores para <emphasis>hard</emphasis> y <emphasis>soft</emphasis> y al grabar y salir se actualiza el sistema de cuotas con los nuevos datos.</para>
+      <important><para>Los valores que aparecen en <emphasis>blocks</emphasis> y en <emphasis>inodes</emphasis> son los bloques e inodos que est&aacute; utilizando el usuario en ese sistema de ficheros en ese momento.</para></important>
+      <para>Es posible establecer cuotas de usuario en l&iacute;nea de comando utilizando el comando <command>setquota</command>.</para>
+      <tip><para><command>man setquota</command></para></tip>
+      </sect2>
+      <sect2>
+        <title>Estableciendo el periodo de gracia</title>
+	<para>El periodo de gracia lo estableceremos con <command>edquota -t</command>. El procedimiento es el mismo que para establecer las cuotas de usuarios y grupos con <command>edquota</command>. Al ejecutar <command>edquota -t</command>:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>edquota -t</userinput>
+<computeroutput>Grace period before enforcing soft limits for users:
+Time units may be: days, hours, minutes, or seconds
+Filesystem       Block grace period   Inode grace period
+/dev/sda5        7days                7 days</computeroutput>
+</screen>
+      <para>Podemos establecer el periodo de gracia pro bloques o por inodos. Lo establecemos seg&uacute;n nuestras necesidades y al salir grabando se actualizan las BBDD del sistema con los nuevos datos.</para>
+      </sect2>
+      <sect2>
+        <title>Iniciando y parando el sistema de cuotas</title>
+        <para>Una vez que hemos configurado los sistemas de ficheros sobre los cuales tendremos cuotas y hemos establecido dichas cuotas tendremos que arrancar el sistema de cuotas:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>quotaon -av</userinput>
+<computeroutput>/dev/sda5 [/home]: group quotas turned on
+/dev/sda5 [/home]: user quotas turned on</computeroutput>
+<prompt>[root@sal]# </prompt>
+</screen>
+      <para>Los flags m&aacute;s habituales son:</para>
+      <itemizedlist>
+        <listitem>
+          <para><emphasis>a</emphasis> que inicializa las cuotas en todos los sistemas de ficheros que las tienen activadas.</para>
+	</listitem>
+        <listitem>
+          <para><emphasis>v</emphasis> modo verbose.</para>
+	</listitem>
+        <listitem>
+          <para><emphasis>u</emphasis> unicamente inicializa las cuotas de usuario.</para>
+	</listitem>
+        <listitem>
+          <para><emphasis>g</emphasis> unicamente inicializa las cuotas de grupo.</para>
+	</listitem>
+      </itemizedlist>
+      <para>Es posible inicializar las cuotas sobre un determinado sistema de ficheros:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>quotaon -v /opt</userinput>
+<computeroutput>/dev/sda6 [/opt]: group quotas turned on
+/dev/sda6 [/opt]: user quotas turned on</computeroutput>
+<prompt>[root@sal]# </prompt>
+</screen>
+      <para>Podemos parar el sistema de cuotas con el comando <command>quotaoff</command>.</para>
+      <tip><para><command>man quotaoff</command></para></tip>
+      </sect2>
+      <sect2>
+        <title>Chequeando el sistema de cuotas</title>
+	<para>Utilizaremos para ello el comando <command>quotacheck</command>. Este comando se utiliza para chequear y actualizar el uso de espacio en disco en los sistemas de ficheros y para repar los ficheros de cuotas <filename>quota.user</filename> y <filename>quota.group</filename>.</para>
+        <para>Por defecto s&oacute;lo se comprueban las cuotas de usuario, si se quieren comprobar las de grupo habr&aacute; que utilizar <emphasis>g</emphasis>.</para>
+        <warning><para>Cuando se chequeen las cuotas de disco es recomendable hacerlo con el sistema de cuotas parado.</para></warning>
+        <warning><para>Es aconsejable que cuando se arranque el sistema se comprueben los sistemas de ficheros con cuotas antes de inicializar el sistema de cuotas.</para></warning>
+        <para>Los flags m&aacute;s habituales son:</para>
+        <itemizedlist>
+          <listitem>
+            <para><emphasis>a</emphasis> comprueba todos los sistemas de ficheros montados con cuotas establecidas.</para>
+	  </listitem>
+          <listitem>
+            <para><emphasis>g</emphasis> comprueba las cuotas de grupo. No se comprueban a menos que se use este flag.</para>
+	  </listitem>
+          <listitem>
+            <para><emphasis>i</emphasis> trabaja en modo interactivo.</para>
+	  </listitem>
+          <listitem>
+            <para><emphasis>u</emphasis> comprueba las cuotas de usuario. Acci&oacute;n por defecto.</para>
+	  </listitem>
+          <listitem>
+            <para><emphasis>v</emphasis> modo verbose. Es aconsejable utilizar este flag.</para>
+	  </listitem>
+	</itemizedlist>
+      </sect2>
+      <sect2>
+        <title>Reporting de cuotas</title>
+        <para>Mediante el uso de <command>repquota</command> es posible obtener informes sobre el estado de las cuotas del sistema. Los flags m&aacute;s significativos son:</para>
+        <itemizedlist>
+          <listitem>
+            <para><emphasis>a</emphasis> informe sobre todos los sistemas de ficheros con cuotas presentes en <filename>/etc/fstab</filename>.</para>
+	  </listitem>
+          <listitem>
+            <para><emphasis>g</emphasis> informe sobre las cuotas de grupo.</para>
+	  </listitem>
+          <listitem>
+            <para><emphasis>u</emphasis> informe sobre las cuotas de usuario.</para>
+	  </listitem>
+	</itemizedlist>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>repquota -a</userinput>
+<computeroutput>*** Report for user quotas on device /dev/sda5
+Block grace time: 7days; Inode grace time: 7days
+                  Block limits                  File limits
+User       used   soft   hard   grace    used    soft   hard   grace
+--------------------------------------------------------------------
+root   --    20      0      0               4       0      0
+pcm -- 10848  15000  25000             732    2000   3500</computeroutput>
+<prompt>[root@sal]# </prompt>
+</screen>
+      <tip><para>Es posible sacar informes sobre un &uacute;nico sistema de ficheros pasandole el punto de montaje o el dispositivo f&iacute;sico como argumento a <command>repquota</command>.</para></tip>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Atributos en sistemas de ficheros <emphasis>ext2/ext3</emphasis></title>
+      <para>El usuario <emphasis>root</emphasis> puede acceder sin restricciones a todo el sistema y esto puede suponer un peligro ya que sin querer se puede borrar un fichero. Mediante el sistema de atributos se puede solucionar.</para>
+      <para>Ademas de permisos los ficheros tambi&eacute;n tienen atributos.</para>
+      <warning><para>Esta caracter&iacute;stica tiene que estar compilada en el n&uacute;cleo.</para></warning>
+      <sect2>
+        <title>El comando <command>chattr</command></title>
+        <para>Este comando se utiliza para cambiar los atributos de un fichero.</para>
+        <para>Algunos de los atributos que podemos establecer son:</para>
+        <itemizedlist>
+          <listitem>
+            <para><emphasis>no modificable</emphasis> el fichero no se puede modificar, renombrar, ni hacer enlaces a un fichero con este atributo activado. Para activarlo utilizaremos el flag <emphasis>-i</emphasis>.</para>
+            <important><para>S&oacute;lo el <emphasis>root</emphasis> puede establecer este atributo.</para></important>
+          </listitem>
+          <listitem>
+            <para><emphasis>a&ntilde;adir</emphasis> unicamente se puede a&ntilde;adir informaci&oacute;n al fichero. Para activarlo utilizaremos el flag <emphasis>-a</emphasis>.</para>
+          </listitem>
+          <listitem>
+            <para><emphasis>borrado seguro</emphasis> ant&eacute;s de borrar el fichero lo sobreescribe con ceros y lo guarda en disco. Para activarlo utilizaremos el flag <emphasis>s</emphasis>.</para>
+          </listitem>
+        </itemizedlist>
+        <tip><para>Utilizaremos "<emphasis>=</emphasis>" para asignar atributos, "<emphasis>+</emphasis>" para a&ntilde;adir atributos y "<emphasis>-</emphasis>" para quitarlos.</para></tip>
+      </sect2>
+      <sect2>
+        <title>El comando <command>lsattr</command></title>
+        <para>Este comando se utiliza para ver los atributos que tiene establecidos un fichero.</para>
+<screen>
+<prompt>[pcm@sal]$ </prompt><userinput>lsattr admlinux.xml</userinput>
+<computeroutput>----i------------- admlinux.xml</computeroutput>
+<prompt>[pcm@sal]$ </prompt>
+</screen>
+        <para>Vemos que el fichero <filename>admlinux.xml</filename> tiene activado el atributo de <emphasis>no modificable</emphasis> con lo cual no podr&aacute; ser modificado a menos que el <emphasis>root</emphasis> le quite ese atributo.</para>
+      </sect2>
+    </sect1>
+  </chapter>
+
+<!-- Local Variables: -->
+<!-- xml-parent-document: "admlinux.xml" -->
+<!-- End: -->
+

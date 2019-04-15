@@ -1,0 +1,281 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chapter>
+  <title>Procesadores de texto</title>
+
+  <sect1>
+    <title>TeX</title>
+
+    <para>
+      <ulink url="http://www.tug.org/">TeX</ulink> es un sistema de
+      tipograf&iacute;a creado por Donald E. Knuth en 1978.
+    </para>
+
+    <para>
+      Su aparici&oacute;n supuso un hito en la composici&oacute;n de
+      f&oacute;rmulas matem&aacute;ticas.
+    </para>
+
+    <para>
+      Su complejidad ha hecho que surjan soluciones de alto nivel basadas en
+      &eacute;l y que conservan sus bondades.
+    </para>
+
+    <para>
+      Posee una gran cantidad de complementos que se pueden encontrar en la
+      red <ulink url="http://www.ctan.org/">CTAN</ulink>.
+    </para>
+
+    <para>
+      De manera similar a lo que ocurre con GNU/Linux, TeX y el resto de
+      programas basados en &eacute;l se distribuyen empaquetados en
+      distribuciones que facilitan su instalaci&oacute;n. Las m&aacute;s
+      importantes son:
+    </para>
+
+    <itemizedlist>
+      <listitem>
+        <para>
+          <ulink url="http://www.tug.org/tetex/">teTeX</ulink>
+        </para>
+        <para>
+          Es una distribuci&oacute;n de TeX para GNU/Linux. El desarollo de
+          teTeX sido abandonado por su autor, aunque todav&iacute;a forma
+          parte de algunas distribuciones.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <ulink url="http://www.tug.org/texlive/">TeX Live</ulink>
+        </para>
+        <para>
+          TeX Live es una distribuci&oacute;n de TeX para GNU/Linux. Ha
+          sustituido a teTeX en la mayor&iacute;a de distribuciones GNU/Linux.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <ulink url="http://www.tug.org/mactex/">MacTeX</ulink>
+        </para>
+        <para>
+          Es una distribuci&oacute;n de TeX para Mac OS X.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <ulink url="http://www.miktex.org/">MiKTeX</ulink>
+        </para>
+        <para>
+          Es una distribuci&oacute;n de TeX para Microsoft Windows.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <ulink url="http://www.tug.org/protext/">proTeXt</ulink>
+        </para>
+        <para>
+          Es una distribuci&oacute;n de TeX para Microsoft Windows basada en
+          MiKTeX. Su objetivo es dotar a MiKTeX de un proceso de
+          instalaci&oacute;n sencillo.
+        </para>
+      </listitem>
+    </itemizedlist>
+
+    <para>
+      Tambi&eacute;n es importante destacar que existen comunidades de
+      usuarios de TeX y sus variantes que favorecen su difusi&oacute;n y
+      aprendizaje. Una de ellas que podr&iacute;a interesar al lector es
+      <ulink url="http://www.cervantex.es/">CervanTeX</ulink>, pues se centra
+      en la comunidad hispanohablante.
+    </para>
+
+    <figure>
+      <title>
+        Logotipo de TeX
+      </title>
+      <graphic
+      fileref="img/01-texto/01-tex.png"
+      format="PNG" width="261" scale="20"/>
+    </figure>
+
+    <sect2>
+      <title>LaTeX</title>
+
+      <para>
+        <ulink url="http://www.latex-project.org/">LaTeX</ulink> es un sistema
+        de preparaci&oacute;n de documentos basado en TeX y el lenguaje de
+        marcado utilizado en el mismo. En concreto, es un conjunto de macros
+        de TeX.
+      </para>
+
+      <para>
+        Fue creado por Leslie Lamport en 1984.
+      </para>
+
+      <para>
+        En la actualidad es un est&aacute;ndar de facto en las revistas
+        cient&iacute;ficas.
+        <footnote>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <ulink url="http://www.ams.org/jourhtml/authors.html">
+                Informaci&oacute;n general para los autores de la Sociedad
+                Matem&aacute;tica Americana</ulink>
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                <ulink url="http://authors.aps.org/esubs/guidelines.html">
+                Directrices de entrega de art&iacute;culos de Physical
+                Review</ulink>
+              </para>
+            </listitem>
+          </itemizedlist>
+        </footnote>
+      </para>
+
+      <figure>
+        <title>
+          Logotipo de LaTeX
+        </title>
+        <graphic
+        fileref="img/01-texto/02-latex.png"
+        format="PNG" width="350" scale="20"/>
+      </figure>
+
+      <sect3>
+        <title>Texmaker</title>
+
+        <para>
+          <ulink url="http://www.xm1math.net/texmaker/">Texmaker</ulink> es un
+          editor de texto dise&ntilde;ado para facilitar la producci&oacute;n
+          y procesado de archivos LaTeX.
+        </para>
+
+        <para>
+          Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+          Microsoft Windows y Mac OS.
+        </para>
+
+        <figure>
+          <title>
+            Texmaker
+          </title>
+          <graphic
+          fileref="img/01-texto/03-texmaker.png"
+          format="PNG" width="1000" scale="40"/>
+        </figure>
+      </sect3>
+
+      <sect3>
+        <title>Kile</title>
+
+        <para>
+          <ulink url="http://kile.sourceforge.net/">Kile</ulink> es el editor
+          de texto del proyecto KDE pensado para ser utilizado en la
+          creaci&oacute;n de documentos TeX o LaTeX.
+        </para>
+
+        <figure>
+          <title>
+            Kile
+          </title>
+          <graphic
+          fileref="img/01-texto/04-kile.png"
+          format="PNG" width="1000" scale="40"/>
+        </figure>
+      </sect3>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>GNU TeXmacs</title>
+
+    <para>
+      <ulink url="http://www.texmacs.org/">GNU TeXmacs</ulink> es un editor
+      WYSIWYG (lo que ves es lo que consigues) especilizado en textos
+      cient&iacute;ficos.
+    </para>
+
+    <para>
+      GNU TeXmacs es capaz de ejecutar de manera integrada a aplicaciones como
+      gnuplot, Maxima, GNU Octave...
+    </para>
+
+    <para>
+      Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+      Microsoft Windows y Mac OS entre otros.
+    </para>
+
+    <figure>
+      <title>
+        GNU TeXmacs
+      </title>
+      <graphic
+      fileref="img/01-texto/05-gnu_texmacs.png"
+      format="PNG" width="1000" scale="40"/>
+    </figure>
+  </sect1>
+
+  <sect1>
+    <title>LyX</title>
+
+    <para>
+      <ulink url="http://www.lyx.org/">LyX</ulink> es un procesador de texto
+      gr&aacute;fico basado en el modelo WYSIWYM (lo que ves es lo que quieres
+      decir). Esto significa que el autor s&oacute;lo se debe preocupar de la
+      estructura y contenido del texto, ya que el programa se encarga de la
+      presentaci&oacute;n.
+    </para>
+
+    <para>
+      La potencia de LyX radica en que combina la potencia de LaTeX con la
+      facilidad de uso de una interfaz gr&aacute;fica.
+    </para>
+
+    <para>
+      Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+      Microsoft Windows y Mac OS.
+    </para>
+
+    <figure>
+      <title>
+        LyX
+      </title>
+      <graphic
+      fileref="img/01-texto/06-lyx.png"
+      format="PNG" width="1000" scale="40"/>
+    </figure>
+  </sect1>
+
+  <sect1>
+    <title>OpenOffice.org Math</title>
+
+    <para>
+      <ulink url="http://www.openoffice.org/product/math.html">OpenOffice.org
+      Math</ulink> es el editor de ecuaciones de las suite ofim&aacute;tica
+      OpenOffice.org.
+    </para>
+
+    <para>
+      Aparece en esta recopilaci&oacute;n por su capacidad para exportar las
+      ecuaciones en formato MathML, que es el est&aacute;ndar para incluir
+      expresiones matem&aacute;ticas en p&aacute;ginas web.
+    </para>
+
+    <para>
+      Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+      Microsoft Windows y Mac OS entre otros.
+    </para>
+
+    <figure>
+      <title>
+        OpenOffice.org Math
+      </title>
+      <graphic
+      fileref="img/01-texto/07-openoffice_org_math.png"
+      format="PNG" width="1000" scale="40"/>
+    </figure>
+  </sect1>
+</chapter>
+

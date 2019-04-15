@@ -1,0 +1,249 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Acceso remoto seguro</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Servidor Jabber"
+HREF="x329.html"><LINK
+REL="NEXT"
+TITLE="Redes Privadas Virtuales (VPN)"
+HREF="c395.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x329.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c395.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN362"
+></A
+>Cap�tulo 5. Acceso remoto seguro</H1
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN364"
+>5.1. Distintas soluciones de acceso remoto</A
+></H1
+><P
+>Para conectarse desde casa o desde otra ubicación a la red del trabajo, hay distintas alternativas:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Usar una VPN, de modo que nuestro ordenador de casa virtualmente esté en la red de la empresa, pero a través de una conexión cifrada vía Internet. Esta es la opción más potente, pero también la más compleja. Una empresa que tenga una política estricta de seguridad sobre las máquinas instaladas en la red, con el filtrado de red, se encontrará con que cada vez que se conecte el usuario se añade a su red local un nodo que puede estar en una red insegura (aunque esto depende también de la configuración, un equipo puede conectarse a la red remota y desconectarse del resto). Es una opción especialmente interesante cuando el usuario usa un portátil tanto cuanto está en la empresa como en su casa.</P
+></LI
+><LI
+><P
+>Conectarnos remotamente a nuestro escritorio del PC del trabajo, usando un túnel con SSH (también se puede hacer con SSL), con lo que sólo habría que abrir un puerto en el cortafuegos de la empresa. Es una solución más conservadora, pues virtualmente el usuario está usando su monitor, teclado y ratón para acceder a la máquina del trabajo, pero por ejemplo no puede ni transferir ficheros entre su equipo local y el de la oficina (aunque algunas soluciones de escritorio remoto sí lo permiten) o conectarse desde su equipo de casa a ningún servicio. Para el usuario también es una solución sencilla, pues está usando su equipo de la oficina en el que ya está todo el software instalado y configurado. Sin embargo no es una solución idónea si por ejemplo el usuario tiene que escribir un documento y luego enviarlo: para eso sería más razonable que lo pueda editar en su equipo y conectarse a la intranet de la empresa. Además esta posibilidad no está disponible cuando el trabajador que se conecta remotamente no tiene un PC de sobremesa en la oficina sino que usa un portátil que se lleva a casa. </P
+><P
+>Técnicamente usando SSH se pueden abrir más túneles para por ejemplo acceder a la web interna o transferir ficheros, pero eso ya supone mayor conocimiento por parte de los usuarios y es así mismo posible limitar estas posibilidades. De todos modos en el momento que se permite al usuario crear un túnel cifrado potencialmente se le está dando acceso total a la red local de la empresa, pues el usuario puede utilizar el túnel para encapsular lo que quiera, incluyendo por ejemplo una sesión PPP para implementar así una VPN completa.</P
+></LI
+><LI
+><P
+>Usar lo que se ha dado en llamar, no con demasiada propiedad, SSL VPN. Es el caso del programa SSLExplorer Community Edition. Este tipo de solución es intermedia entre las dos anteriores. Ofrece una interfaz web, que completada con código Java permite navegar por el disco duro de la máquina remota, transferir ficheros entre las dos máquinas, navegar por la intranet de la empresa... Se implementa también con un túnel SSL y permite crear túneles para distintas aplicaciones y lanzar la aplicación en cuestión, por ejemplo rdesktop para conectarse a un escritorio remoto de Windows.</P
+><P
+>Un detalle de nomenclatura, es que OpenVPN se define también como una SSL VPN pero no tiene nada que ver con esto, puesto que es una VPN real, que permite todo lo que ofrece cualquier otra VPN, mientras que las aplicaciones como SSLExplorer no son realmente VPNs. Se define como SSL VPN porque la VPN se encapsula en un túnel SSL y sólo hay que abrir un puerto.</P
+></LI
+></OL
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN376"
+>5.1.1. Una solución práctica: crear un túnel con openSSH<A
+NAME="AEN378"
+HREF="#FTN.AEN378"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></A
+></H2
+><P
+>Supongamos que queremos conectarnos desde casa con el puerto 8080 en la máquina 192.168.1.100 de la red local de nuestra empresa. Para ello contamos con una máquina SSH que está dentro de la red local de la empresa y a la que llegamos a través de un DNAT que hemos hecho en el cortafuegos. En este caso hemos abierto el puerto 34321 del cortafuegos, que tiene la IP pública 87.15.10.120: los paquetes con este destino cambiarán de 87.15.10.120 a 192.168.1.1:22. Así pues, cuando nos conectemos vía ssh a 87.15.10.120:34321, llegamos en realidad al puerto SSH de 192.168.1.1.</P
+><P
+>La solución está en utilizar la posibilidad que ofrece SSH de crear túneles. SSH es un protocolo que no sólo cifra y garantiza la integridad de los datos, sino que es capaz de encapsular cuantas conexiones necesitemos en una sola. Así, nuestro propósito es que SSH cree un servidor local en nuestra máquina, por ejemplo con el puerto 8081, recoga todo lo que escribamos en él, lo envíe cifrado hasta la máquina 192.168.1.1 (la máquina remota a la que nos hemos conectado vía SSH) y desde allí los descifre y los envíe al puerto 8080 de la máquina 192.168.1.100; los paquetes de respuesta seguirán el proceso inverso, hasta llegar al puerto 8081 local de nuestra máquina. Observesé que en el caso del túnel los paquetes pasan por la capa de aplicación, mientras que en el NAT simplemente se modifican las cabeceras a nivel IP y TCP para hacer el NAT. La máquina 192.168.1.100 no verá como IP origen de los paquetes a la IP de nuestra casa, sino a 192.168.1.1, la máquina SSH que ha retransmitido el paquete.</P
+><P
+>En la práctica, hacer el túnel es tan sencillo como:
+<KBD
+CLASS="userinput"
+>ssh -N 801020.13 -p 34231 -o ServerAliveInterval 1200 -L8081:192.168.1.100:8080</KBD
+></P
+><P
+>La opción -N es para crear el túnel pero no iniciar una shell. La opción ServerAliveInterval es para enviar cada 2 minutos un paquete en caso de que la conexión esté inactiva, para evitar que el cortafuegos asuma que la conexión esté muerta y olvide la asociación NAT. Es posible añadir más opciones interesantes. Por ejemplo por defecto el puerto 8081 que ha creado ssh es sólo accesible dentro de nuestra máquina, si quisiéramos que pudieran conectarse a él otras máquinas de nuestra red local, añadiremos la opción -g.</P
+><P
+>Es posible también crear túneles en los que el puerto servidor se abre en la IP a la que nos conectamos remotamente (en este caso 192.168.1.1) y que se enviara a una IP y puerto de nuestra red local. Esto nos permite crear servidores en la red local de nuestra empresa (para que el puerto sea accesible desde todas las Ips de la red local de la empresa y no sólo desde 192.168.1.1, habrá que usar la opción -g).</P
+><P
+>Así, si queremos crear el puerto 8087 en 192.168.1.1 y que todo lo que se reciba allí vaya al puerto 9000 de la IP 192.168.7.3 (en nuestra red local de casa) usaríamos:
+<KBD
+CLASS="userinput"
+>ssh -N 801020.13 -p 34231 -o ServerAliveInterval 1200 -g -R192.168.1.1:8087:192.168.7.3:9000</KBD
+></P
+><P
+>Como puede verse, los túneles SSH son muy potentes y un tanto inquietantes desde el punto de vista de la seguridad para un administrador: podemos hacer un túnel para usar el escritorio remoto, para conectarnos a la web de la empresa, para enviar correos desde casa utilizando el servidor SMTP de la empresa, e incluso para ejecutar una aplicación en local que usa una BB.DD. de la red, cambiando la configuración para que use un puerto en nuestra máquina local y usando un túnel. Es más, es posible crear toda una VPN como veremos más adelante, con sólo la posibilidad de crear túneles de SSH.</P
+><P
+>Por este motivo el administrador de SSH puede desactivar el uso de túneles o especificar exactamente qué túneles se pueden usar, así como permitir o denegar obtener una shell o permitir ejecutar sólo un comando en concreto. Puede así mismo no permitir el acceso al sistema no dándole una contraseña y autenticando por clave pública: el propio fichero de clave pública almacenado en el servidor tendrá las restricciones que se aplican cuando se accede con esa clave, pudiéndose tener distintas claves para un mismo usuario según se le permita ejecutar una tarea u otra. El administrador también puede limitar lo que hagan los usuarios en el fichero de configuración global sshd_config mediantve la directiva Match, por usuario, grupo, dirección o host de origen.</P
+><P
+>La funcionalidad de SSH no acaba aquí. Es posible que un usuario se conecte a una máquina y desde ahí a otras. Si utiliza claves públicas para autenticarse, SSH incorpora un sistema, el ssh-agent, que permite autenticar al usuario estando conectado en otra máquina y sin que nuestra clave privada salga de nuestra máquina. Esta funcionalidad también es necesaria si se usa una tarjeta criptográfica, pues la clave privada no puede extraerse de la tarjeta ni siquiera por su propietario.</P
+><P
+>Para usuarios con Windows, en lugar de utilizar el cliente en línea de comandos pueden recurrir a Putty, un programa con interfaz de usuario basada en ventanas y que en realidad también se puede ejecutar en GNU/Linux.</P
+><P
+>Un pequeño detalle con SSH: el lanzar programas para ejecutar en modo batch (segundo plano) y que ssh retorne inmediatamente, sin esperar a que el programa lanzado termine. Si se abre una sesión y se lanzan con nohup funciona, pero si se invoca directamente con ssh un programa no; el cliente de ssh se queda esperando hasta que el programa acabe. El motivo por el que espera es porque la entrada/salida está redirigida a sockets y hasta que ssh no detecta que esos sockets están cerrados, no retorna. En la shell interactiva esto no pasa, porque al ejecutar nohup, aparte de no considerarse la señal HUP al morir la shell, que es algo que a SSH ni le va ni le importa (y que se puede hacer en cualquier momento aunque el programa no se lanzara con nohup, mediante el comando interno de la shell disown), ocurre que salida estándar y de error se redirige al fichero nohup.out y la entrada estándar a /dev/null, cerrándose la que hasta ahora era E/S estándar y de error, por lo que ssh ya no tiene que esperar. ¿Pero por qué la diferencia de comportamiento? La diferencia está en que en con una sesión interactiva se usa un ptty (un terminal virtual) mientras que con un comando aislado no, se usan los sockets directamente y nohup sólo hace la redirección si la E/S está asociada a un terminal, pues esa es su función, que el programa no utilice un terminal que ya no está disponible, mientras que sin son ficheros se supone que aunque muera la shell los ficheros siguen existiendo.</P
+><P
+>La solución por lo tanto está o bien en manualmente redigir la E/S estándar y de error a nohup.out o /dev/null, o invocar con la opción -t para que se cree un TTY virtual.</P
+></DIV
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notas</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN378"
+HREF="c362.html#AEN378"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>Openssh no es la única implementación libre de SSH. A destacar dropbear (<A
+HREF="http://matt.ucc.asn.au/dropbear/"
+TARGET="_top"
+>http://matt.ucc.asn.au/dropbear/</A
+>), usado sobre todo en sistemas empotrados como PDAs, teléfonos, routers por ser mucho más ligero que openssh... La mayoría de lo expuesto en este manual sobre openssh funciona igualmente en dropbear.</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x329.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c395.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Servidor Jabber</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Redes Privadas Virtuales (VPN)</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Balanceo en DNS</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Balanceo de Carga"
+HREF="c281.html"><LINK
+REL="PREVIOUS"
+TITLE="Balanceadores software"
+HREF="x309.html"><LINK
+REL="NEXT"
+TITLE="Linux Virtual Server - LVS"
+HREF="x350.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Clustering y alta disponibilidad en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x309.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 3. Balanceo de Carga</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x350.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN326"
+>3.3. Balanceo en DNS</A
+></H1
+><P
+>A partir de la version 9 de BIND nos bastaria simplemte con añadir varias entradas "IN A", una para cada servidor, que apunten al mismo nombre, el del servidor que queremos balancear:</P
+><PRE
+CLASS="programlisting"
+>&#13;www	IN	A	192.168.0.100
+www	IN	A	192.168.0.101
+www	IN	A	192.168.0.102
+</PRE
+><P
+>Utilizando el comando "host" varias veces podemos ver como se balancean las peticiones dns:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[jadebustos@dedalo ~]$ </SAMP
+><KBD
+CLASS="userinput"
+>host www.servidorbalanceado.es</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>www.servidorbalanceado.es has address 192.168.0.100
+www.servidorbalanceado.es has address 192.168.0.101
+www.servidorbalanceado.es has address 192.168.0.102</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[jadebustos@dedalo ~]$ </SAMP
+><KBD
+CLASS="userinput"
+>host www.servidorbalanceado.es</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>www.servidorbalanceado.es has address 192.168.0.101
+www.servidorbalanceado.es has address 192.168.0.102
+www.servidorbalanceado.es has address 192.168.0.100</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[jadebustos@dedalo ~]$ </SAMP
+><KBD
+CLASS="userinput"
+>host www.servidorbalanceado.es</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>www.servidorbalanceado.es has address 192.168.0.100
+www.servidorbalanceado.es has address 192.168.0.101
+www.servidorbalanceado.es has address 192.168.0.102</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[jadebustos@dedalo ~]$</SAMP
+>
+</PRE
+><P
+>De esta forma cada vez que se haga una solicitud DNS para www.servidorbalanceado.es se resolverá con una IP diferente, irá rotando.</P
+><P
+>Este sistema tiene varios inconvenientes:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+> El primero es que si un servidor cae el DNS no será consciente de ello y el cliente que obtenga la IP del servidor caido como respuesta a su solicitud encontrará que el servicio no esta disponible.</P
+></LI
+><LI
+><P
+>El segundo inconveniente es que con las caches de DNS se cacheará permanente el nombre <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>www.servidorbalanceado.es</I
+></SPAN
+> con una IP especifica, con lo cual todas las peticiones iran a esa IP y no habrá balanceo, pudiendo de esta forma estar uno o varios servidores sobrecargados y el resto muy ligeros.</P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x309.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x350.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Balanceadores software</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c281.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Linux Virtual Server - LVS</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

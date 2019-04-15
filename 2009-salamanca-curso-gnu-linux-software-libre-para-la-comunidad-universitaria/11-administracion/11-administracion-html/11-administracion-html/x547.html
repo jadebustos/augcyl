@@ -1,0 +1,263 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Sistemas de ficheros</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Sistemas de Ficheros"
+HREF="c304.html"><LINK
+REL="PREVIOUS"
+TITLE="Conceptos"
+HREF="x422.html"><LINK
+REL="NEXT"
+TITLE="Particiones"
+HREF="x587.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x422.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 4. Sistemas de Ficheros</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x587.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN547"
+>4.5. Sistemas de ficheros</A
+></H1
+><P
+>Ya hemos dicho que en los sistemas UNIX like todo son ficheros.</P
+><P
+>Al contrario que en otros sistemas en los sistemas UNIX los ficheros están organizados de una forma rigurosa pero flexible:</P
+><P
+></P
+><UL
+><LI
+><P
+>Mediante una organización jerarquica de directorios.</P
+></LI
+><LI
+><P
+>Mediante sistemas de ficheros.</P
+></LI
+></UL
+><P
+>Un sistema de ficheros es un espacio en disco, bien sea una partición o un disco en su totalidad, en el cual se almacenan ficheros.</P
+><P
+>El estructurar la instalación de un sistema en sistemas de ficheros tiene las siguientes ventajas:</P
+><P
+></P
+><UL
+><LI
+><P
+>Cuanto más pequeño sea un sistema de ficheros menos probable es una corrupción de datos.</P
+></LI
+><LI
+><P
+>Si un sistema de ficheros se llena eso sólo perjudicará a las aplicaciones que escriban en ese sistema de ficheros. Si unicamente hay un sistema de ficheros todo el sistema se verá afectado.</P
+></LI
+><LI
+><P
+>Permite una mayor estructuración y control.</P
+></LI
+><LI
+><P
+>Ahorro en recursos.</P
+><P
+>En los primeros tiempos de la informática los recursos eran muy caros. Para ahorrar costes se recurría a tener un único sistema de ficheros y compartirlo por <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>nfs</I
+></SPAN
+> entre todas las máquinas que lo necesitaran.</P
+><P
+>Esto pasaba, por ejemplo, con el directorio <TT
+CLASS="filename"
+>/usr/bin</TT
+>. Además también simplificaba la administración porque de esta forma es muy fácil garantizar que todas las máquinas tienen las mismas versiones de software instaladas.</P
+><P
+>Pero esto también tenía sus problemas y es que si la máquina que exporta el sistema de ficheros deja de funcionar todas lo harán.</P
+></LI
+><LI
+><P
+>Una mayor flexibilidad para la gestión de cuotas.</P
+></LI
+></UL
+><P
+>Esta estructuración también tiene sus inconvenientes:</P
+><P
+></P
+><UL
+><LI
+><P
+>Se requiere de una buena planificación a la hora de elegir cuantos sistemas de ficheros vamos a montar y su tamaño.</P
+></LI
+></UL
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Cuando dividimos el sistema en varias particiones para asegurar que pueda arrancar en caso de problemas con los sistemas de ficheros es recomendable que los directorios <TT
+CLASS="filename"
+>/bin/</TT
+>, <TT
+CLASS="filename"
+>/sbin/</TT
+>, <TT
+CLASS="filename"
+>/dev/</TT
+>, <TT
+CLASS="filename"
+>/etc/</TT
+>, <TT
+CLASS="filename"
+>/lib/</TT
+> y <TT
+CLASS="filename"
+>/root</TT
+> esten en el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>root filesystem</I
+></SPAN
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x422.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x587.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Conceptos</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c304.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Particiones</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

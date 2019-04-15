@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>RDP. Escritorio remoto de Windows</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Escritorio remoto"
+HREF="c562.html"><LINK
+REL="PREVIOUS"
+TITLE="Escritorio remoto: RFB (VNC)"
+HREF="x591.html"><LINK
+REL="NEXT"
+TITLE="NX. Nueva tecnología de escritorio remoto."
+HREF="x624.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x591.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Cap�tulo 7. Escritorio remoto</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x624.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN613"
+>7.3. RDP. Escritorio remoto de Windows</A
+></H1
+><P
+>Microsoft añadió soporte a su sistema operativo para poder ejecutar aplicaciones remotamente. En concreto lo implementó para Windows 2000 Server en el componente Windows Terminal Services, un sistema que permite al estilo Unix que varios usuarios estén conectados a la misma máquina. Evidemente para ello hay que pagar licencias, las de Windows 200x Server y la de Windows Terminal Services, esta última en función del número de clientes (una licencia por cliente que potencialemente se pueda conectar; fórmula menos ventajosa que licenciar por usuarios concurrentes y además propensa a abusos, pues la licencia cliente está incluida con algunas versiones de Windows, pero no con otros sistemas potencialmente clientes como GNU/Linux o Mac OSX). Como excepción, hay una licencia especial para usuarios que se conectan a través de Internet, que es la que se usa tienen en Hacienda para permitir que los usuarios de Linux y Windows hagan la declaración de la renta con el programa PADRE: la conexión es utilizando un cliente Cytrix (por Cytrix también se paga) pero a su vez Cytrix requiere Windows Terminal Services.</P
+><P
+>De todos modos por lo que es más conocido RDP es porque Windows XP Professional (no así Windows XP Home) incluye un servidor RDP limitado a una sola conexión y permitiendo una única sesión (es decir la máquina es monousario: o se usa en local o en remoto, pero no se puede tener a la vez una sesión local y otra remota). Lo mismo ocurre con las versiones más caras de Windows Vista (lo incluyen las versiones Enterprise y Vista Ultimate, pero no ninguna de las ediciones de Windows Home); también se incluye en el antiguo Windows Media Center, Windows 2003 Server y Tablet Edition 2005. Es el famoso escritorio remoto, para el que existe un cliente libre también para GNU/Linux, rdesktop. con una interfaz gráfica muy intuitiva, tsclient. Teóricamente Microsoft podría cobrar también licencias por clientes</P
+><P
+>RDP ofrece mejor rendimiento que VNC. Sigue por detrás de X-Window, pero recordemos que X-Window tiene un problema práctico con el round-trip, que RDP. Hasta RDP 6, novedad en Windows Vista (también disponible al parecer para XP SP2) tenía la limitación de VNC: sólo permitía manejar el escritorio entero en una ventana, no una ventana por aplicación. El soporte para ejecutar aplicaciones cada una en su ventana (SeamlessRDP) lo permite excepcionalmente rdesktop con versiones más viejas de RDP utilizando un componente que se ejecuta en el servidor.</P
+><P
+>Otra ventaja común con VNC es que permite desconectar la sesión e iniciarla desde otra máquina dejando todo como estaba.</P
+><P
+>Añade alguna innovación como poder utilizar remotamente más dispositivos que el ratón, teclado y pantalla: por ejemplo la tarjeta de sonido o la impresora. Esto en Unix ha sido también siempre posible, a través del demonio de sonido y de impresión, la diferencia aquí es que todo se hace con un solo producto y en RDP 6 se han ido añadiendo más posibilidades.</P
+><P
+>RDP se ejecuta también sobre una conexión TCP, por lo que al igual que VNC es fácil de enrutar usando openssh o stunnel. En las últimas versiones permite cifrado usando TLS, mientras que el sistema de cifrado de las versiones viejas basado en usar RC4 no es seguro.</P
+><P
+>En Linux existe también un servidor RDP que va sobre VNC o directamente X-Window: <A
+HREF="http://xrdp.sourceforge.net/"
+TARGET="_top"
+>http://xrdp.sourceforge.net/</A
+>
+</P
+><P
+>La versión propietaria del virtualizador VirtualBox incluye un servidor RDP para manejar remotamente el escritorio que se ejecuta dentro del virtualizador.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x591.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x624.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Escritorio remoto: RFB (VNC)</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c562.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>NX. Nueva tecnología de escritorio remoto.</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

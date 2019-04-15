@@ -1,0 +1,561 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>La página principal</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Principios de la Web"
+HREF="c21.html"><LINK
+REL="PREVIOUS"
+TITLE="Principios de la Web"
+HREF="c21.html"><LINK
+REL="NEXT"
+TITLE="El manejo de una tabla sencilla."
+HREF="x98.html"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: 
+    Creación de páginas web dinámicas con PHP/MySQL
+  </TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c21.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 2. Principios de la Web</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x98.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="AEN36"
+>2.2. La página principal</A
+></H1
+><P
+>Como primer reto tenemos el de construir una
+      página principal. Para este paso necesimos
+      más cosas de las que pensamos en un primer
+      momento. Los pasos a dar son los siguientes:</P
+><P
+></P
+><UL
+><LI
+><P
+>Saber el directorio raiz del servidor web. Por
+          defecto en OpenSuse 10.2 es /srv/www/htdocs</P
+></LI
+><LI
+><P
+>Crear un directorio para almacenar los ficheros de
+          la aplicación. Para ello en Openoffice 10.2
+          debemos ejecutar como root el comando:</P
+><PRE
+CLASS="screen"
+>&#13;            <SAMP
+CLASS="prompt"
+>[root@Glisa-host htdocs]#</SAMP
+>
+            <KBD
+CLASS="userinput"
+>mkdir /srv/www/htdocs/ejercicios</KBD
+>
+          </PRE
+></LI
+><LI
+><P
+>Modificar los permisos del directorio para permitir
+          la escritura de todos los usuarios (no es muy seguro pero
+          sí funcional). Para ello ejecutaremos:</P
+><PRE
+CLASS="screen"
+>&#13;            <SAMP
+CLASS="prompt"
+>[root@Glisa-host htdocs]#</SAMP
+>
+            <KBD
+CLASS="userinput"
+>chmod 777
+            /srv/www/htdocs/ejercicios</KBD
+>
+          </PRE
+><P
+>Una vez cambiados los permisos ya puede utilizar su
+          editor favorito para realizar todas la operaciones
+          necesarias con ficheros y carpetas. A Partir de este
+          momento siempre que se diga crear un fichero o carpeta
+          será respecto al directorio:
+          /srv/www/htdocs</P
+></LI
+><LI
+><P
+>Creamos un fichero php principal para el sitio web,
+          que se llame index.php , y copiamos el siguiente
+          contenido:</P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN55"
+></A
+><PRE
+CLASS="programlisting"
+>&#13;              &#60;html&#62;
+                &#60;head&#62;
+                  &#60;TITLE&#62;Título Provisional&#60;/TITLE&#62;
+                &#60;/head&#62;
+                &#60;body&#62;
+                  &#60;p&#62;Mi Primer HTML&#60;/p&#62;
+                &#60;/body&#62;
+              &#60;/html&#62;
+            </PRE
+><P
+></P
+></DIV
+><P
+>Mediante este ejemplo puede ver cómo se
+          estructura un fichero html, no se ha metido nada de
+          código php para no complicar más
+          las cosas.</P
+></LI
+><LI
+><P
+>Crear un fichero css y enlazarlo con el fichero
+          index.php . El fichero css va a ayudar a que cambiar el
+          aspecto de la aplicación de una manera
+          automatizada para todos los ficheros .php . El contenido
+          del CSS será similar al siguiente:</P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN60"
+></A
+><PRE
+CLASS="programlisting"
+>&#13;		/* Definición de estilos en un archivo aparte */ 
+		/* Estilo para el documento */ 
+		BODY {font-family:Verdana,sans-serif;font-size:20pt;margin-left:0.25in; margin-right:0.25in} 
+		/* Estilo para la cabecera de nivel 2 */ 
+		P.cabecera {font-family:Verdana,sans-serif;font-size:15pt;color:red} 
+		/* Estilos para otras etiquetas */ 
+		TD.titulo {font-family:Verdana,sans-serif;font-size:20;color:red} 
+		TD.linea {font-family:Verdana,sans-serif;font-size:18;color:black} 
+		:link { color: rgb(0, 0, 153) } /* for unvisited links */ 
+		:visited { color: rgb(153, 0, 153) } /* for visited links */ 
+		a:active { color: rgb(255, 0,102) } /* when link is clicked */ 
+		a:hover { color: rgb(0, 96, 255) } /* when mouse is over link*/
+		</PRE
+><P
+></P
+></DIV
+><P
+>Mediante este ejemplo puede ver cómo se
+          aplican modificaciones sobre atributos de tags HTML
+          mediante la definición de una clase CSS. Para
+          Enlazar el fichero en el fichero .php se haría
+          las siguientes modificaciones en el index.php:</P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN63"
+></A
+><PRE
+CLASS="programlisting"
+>&#13;              &#60;html&#62;
+                &#60;head&#62;
+                  &#60;TITLE&#62;Título Provisional&#60;/TITLE&#62;
+                  &#60;link REL="stylesheet" TYPE="text/css"
+                  HREF="estilo.css" /&#62;
+                &#60;/head&#62;
+                &#60;body&#62;
+                  &#60;p CLASS="cabecera"&#62;Mi Primer HTML&#60;/p&#62;
+                &#60;/body&#62;
+              &#60;/html&#62;
+            </PRE
+><P
+></P
+></DIV
+><P
+>Como puede ver se ha añadido un nuevo
+          tag llamado LINK dentro de la cabecera del fichero .php
+          que indica donde se encuentra el fichero .css , si se da
+          cuenta, el fichero no tiene ningún tipo de
+          ruta definida, sólo se identifica el nombre
+          del fichero, ya que, dicho fichero se encuentra en el
+          mismo directorio que el fichero index.php.
+          También se puede ver como en el tag 
+          &#60;p /&#62;se ha añadido una nueva propiedad
+          denominada Class al que le hemos puesto el estilo
+          definido como "cabecera" para el tag 
+          &#60;p /&#62;en el fichero estilo.css</P
+></LI
+><LI
+><P
+>Una vez definida la página principal y
+          aplicado el estilo, necesita probar que funciona
+          correctmente. Para lo cual abra su navegador favorito e
+          introduzca la siguiente URL:
+          http://localhost/ejercicios/index.php .
+          Debería ver la Página definida en
+          el fichero index.php. A partir de este momento siempre
+          que se vaya a visualizar una página, asuma que
+          la dirección URL siempre empezará
+          por http://localhost/ejemplos/</P
+></LI
+><LI
+><P
+>Una vez comprobado que la página
+          está correctamente definida y verificada,
+          resta pensar qué datos son los que necesitamos
+          manejar. Este tipo de decisiones son las que se suelen
+          realizar en la fase de análisis de un proyecto
+          y dan normalmente como resultado un diagrama de entidad
+          relación, que una vez pasado a una base de
+          datos nos resulta un fichero .sql o fichero de datos de
+          una base de datos. A continuación se muestra
+          el fichero sql resultante del análisis de una
+          aplicación de gestión de
+          matriculaciones:</P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN70"
+></A
+><PRE
+CLASS="programlisting"
+>-- phpMyAdmin SQL Dump --
+            version 2.6.4-pl4 -- http://www.phpmyadmin.net -- --
+            Servidor: localhost -- Tiempo de generación:
+            26-01-2006 a las 17:18:36 -- Versión del
+            servidor: 5.0.18 -- Versión de PHP:
+            5.1.2-1ubuntu1 -- -- Base de datos: `cfie` -- --
+            --------------------------------------------------------
+            -- -- Estructura de tabla para la tabla `alumnos` --
+            DROP TABLE IF EXISTS `alumnos`; CREATE TABLE `alumnos`
+            ( `id` int(10) unsigned NOT NULL auto_increment,
+            `nombre` varchar(100) NOT NULL, `dni` varchar(10) NOT
+            NULL, `id_tipo_de_alumno` int(11) unsigned NOT NULL,
+            PRIMARY KEY (`id`) ) ENGINE=MyISAM DEFAULT
+            CHARSET=latin1 AUTO_INCREMENT=6 ; -- -- Volcar la base
+            de datos para la tabla `alumnos` -- INSERT INTO
+            `alumnos` (`id`, `nombre`, `dni`, `id_tipo_de_alumno`)
+            VALUES (5, 'David Vaquero', '7077052A', 6); --
+            --------------------------------------------------------
+            -- -- Estructura de tabla para la tabla `asignaturas`
+            -- DROP TABLE IF EXISTS `asignaturas`; CREATE TABLE
+            `asignaturas` ( `id` int(10) unsigned NOT NULL
+            auto_increment, `nombre` varchar(100) NOT NULL, PRIMARY
+            KEY (`id`) ) ENGINE=MyISAM DEFAULT CHARSET=latin1
+            AUTO_INCREMENT=4 ; -- -- Volcar la base de datos para
+            la tabla `asignaturas` -- INSERT INTO `asignaturas`
+            (`id`, `nombre`) VALUES (3, 'Algoritmia'); INSERT INTO
+            `asignaturas` (`id`, `nombre`) VALUES (2, 'POO'); --
+            --------------------------------------------------------
+            -- -- Estructura de tabla para la tabla `matriculas` --
+            DROP TABLE IF EXISTS `matriculas`; CREATE TABLE
+            `matriculas` ( `id_mat` int(10) unsigned NOT NULL
+            auto_increment, `id_alum` int(10) unsigned NOT NULL,
+            `id_asig` int(10) unsigned NOT NULL, PRIMARY KEY
+            (`id_mat`) ) ENGINE=MyISAM DEFAULT CHARSET=latin1
+            AUTO_INCREMENT=23 ; -- -- Volcar la base de datos para
+            la tabla `matriculas` -- INSERT INTO `matriculas`
+            (`id_mat`, `id_alum`, `id_asig`) VALUES (10, 1, 3);
+            INSERT INTO `matriculas` (`id_mat`, `id_alum`,
+            `id_asig`) VALUES (18, 1, 2); INSERT INTO `matriculas`
+            (`id_mat`, `id_alum`, `id_asig`) VALUES (16, 1, 2);
+            INSERT INTO `matriculas` (`id_mat`, `id_alum`,
+            `id_asig`) VALUES (17, 1, 3); INSERT INTO `matriculas`
+            (`id_mat`, `id_alum`, `id_asig`) VALUES (22, 5, 2);
+            INSERT INTO `matriculas` (`id_mat`, `id_alum`,
+            `id_asig`) VALUES (21, 5, 3); --
+            --------------------------------------------------------
+            -- -- Estructura de tabla para la tabla
+            `tipos_de_alumno` -- DROP TABLE IF EXISTS
+            `tipos_de_alumno`; CREATE TABLE `tipos_de_alumno` (
+            `id_tipo_de_alumno` int(11) unsigned NOT NULL
+            auto_increment, `nombre` varchar(50) NOT NULL, PRIMARY
+            KEY (`id_tipo_de_alumno`) ) ENGINE=MyISAM DEFAULT
+            CHARSET=latin1 AUTO_INCREMENT=7 ; -- -- Volcar la base
+            de datos para la tabla `tipos_de_alumno` -- INSERT INTO
+            `tipos_de_alumno` (`id_tipo_de_alumno`, `nombre`)
+            VALUES (6, 'descarriado'); INSERT INTO
+            `tipos_de_alumno` (`id_tipo_de_alumno`, `nombre`)
+            VALUES (5, 'trasto'); INSERT INTO `tipos_de_alumno`
+            (`id_tipo_de_alumno`, `nombre`) VALUES (4,
+            'aplicado');</PRE
+><P
+></P
+></DIV
+><P
+>Como puede verse se han definido varias tablas y
+          algunos datos ya introducidos para facilitar el
+          aprendizaje.</P
+></LI
+><LI
+><P
+>Ahora lo que debe hacer es crear la base de datos y
+          ejecutar el fichero .sql para definir las tablas y los
+          datos de las tablas en dicha base de datos, esto lo puede
+          hacer fácilmente mediante PhpMyAdmin. No se
+          olvide de apuntar los datos de conexión a la
+          base de datos: servidor base de datos, nombre de la base
+          de datos, nombre de usuario y contraseña; los
+          necesitará más tarde para crear el
+          fichero de configuración config.php.</P
+></LI
+><LI
+><P
+>Crear un directorio por cada entidad mediante el
+          comando:</P
+><PRE
+CLASS="screen"
+>&#13;            <SAMP
+CLASS="prompt"
+>[root@Glisa-host ejercicios]#</SAMP
+>
+            <KBD
+CLASS="userinput"
+>mkdir entidad</KBD
+>
+          </PRE
+></LI
+><LI
+><P
+>Modificar los permisos de cada directorio
+          creado:</P
+><PRE
+CLASS="screen"
+>&#13;            <SAMP
+CLASS="prompt"
+>[root@Glisa-host ejercicios]#</SAMP
+>
+            <KBD
+CLASS="userinput"
+>chmod 777 entidad</KBD
+>
+          </PRE
+></LI
+><LI
+><P
+>Una vez que están definidos los datos a
+          manejar podemos finalizar el fichero index.php
+          introduciendo los enlaces a los ficheros index.php que
+          crearemos en cada nuevo directorio. A
+          continuación verá el fichero
+          index.php definitivo:</P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN87"
+></A
+><PRE
+CLASS="programlisting"
+>&#13;              &#60;html&#62;
+                &#60;head&#62;
+                  &#60;TITLE&#62;Título Provisional&#60;/TITLE&#62;
+                  &#60;LINK REL="stylesheet" TYPE="text/css"
+                  HREF="estilo.css" /&#62;
+                &#60;/head&#62;
+                &#60;body&#62;
+                  &#60;A href="alumnos/index.php" name="alumnos"&#62;
+                  Gestión de alumnos&#60;/A&#62;
+                  &#60;br /&#62;
+                  &#60;A href="asignaturas/index.php"
+                  name="asignaturas"&#62;Gestión de
+                  asignaturas&#60;/A&#62;
+                  &#60;BR /&#62;
+                  &#60;A href="tipos_de_alumno/index.php"
+                  name="tipos_de_alumno"&#62;Gestión de
+                  tipos de alumno&#60;/A&#62;
+                  &#60;BR /&#62;
+                &#60;/body&#62;
+              &#60;/html&#62;
+            </PRE
+><P
+></P
+></DIV
+><P
+>Como puede ver se han añadido tres
+          enlaces cada uno de ellos a un index.php que permite la
+          gestión de cada una de las entidades del
+          modelo de datos.</P
+></LI
+><LI
+><P
+>Compruebe que se visualiza correctamente, actualice
+          en su navegador web el index.php de la
+          aplicación.</P
+></LI
+><LI
+><P
+>A continuación definiremos nuestro
+          primer fichero con código PHP, el config.php,
+          lo crearemos en el directorio donde se encuentra el
+          index.php de la página principal y aplicarle
+          los permisos necesarios(siempre que cree in fichero
+          recuerde aplicarle los permisos). El contenido del
+          fichero debería ser similar al
+          siguiente:</P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN94"
+></A
+><PRE
+CLASS="programlisting"
+>&#13;              &#60;?php
+              //ponemos el nombre del servidor de mysql
+              $server= 'localhost';
+              //ponemos el nombre de la bbdd
+              $database='ejemplo';
+              //ponemos el nombre del usuario
+              $user='root';
+              //ponemos la contraseña del usuario
+              $passwd='micontrasegna';
+              ?&#62;
+            </PRE
+><P
+></P
+></DIV
+><P
+>Substituya los valores entrecomillados, por los
+          datos que ha anotado previamente. Como puede ver el
+          fichero empieza con la identificación del
+          lenguaje de script php y termina con la
+          finalización de la parte PHP del fichero, en
+          medio, disponemos de comentarios y asignaciones de
+          variables, como puede ver todas las variables empiezan
+          con el símbolo $, la asignaciones en
+          sí mismas son muy parecidas a otros lenguajes
+          de programación. Y como puede observar toda
+          sentencia se finaliza con el símbolo ;</P
+></LI
+></UL
+><P
+>Con esto dispone ya de los elementos para empezar
+      construir su aplicación web. Ahora se
+      procederá a explicar el funcionamiento de los
+      ficheros .php que manejan una entidad.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c21.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x98.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Principios de la Web</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c21.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>El manejo de una tabla sencilla.</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

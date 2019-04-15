@@ -1,0 +1,683 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Configuración de Samba</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Utilidad swat (Samba Web Administration Tool)"
+HREF="x94.html"><LINK
+REL="NEXT"
+TITLE="Optimización de Samba"
+HREF="x263.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: 
+    Samba, compartiendo archivos e impresoras con MS Windows
+  </TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x94.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x263.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN107"
+></A
+>Capítulo 2. Configuración de Samba</H1
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN109"
+>2.1. El archivo <TT
+CLASS="filename"
+>/etc/samba/smb.conf</TT
+></A
+></H1
+><P
+>El archivo <TT
+CLASS="filename"
+>/etc/samba/smb.conf</TT
+> es la columna vertebral del Servidor Samba. Este fichero determina qué recursos del sistema se quieren compartir y qué restricciones se desea aplicar sobre ellos. Este fichero se divide en secciones, las cuáles quedan delimitadas por el nombre de la sección, que debe estar entre corchetes. Su estructura es muy parecida a la de los ficheros .INI de MS Windows. Cada una de las secciones de este archivo describe un servicio determinado, a excepción de tres secciones que no describen ningún servicio y que son opcionales:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Sección [global], en esta sección se definen los parámetros globales del servidor, es decir, que afectarán a todos los servicios del servidor.</P
+></LI
+><LI
+><P
+>Sección [homes], define el acceso a las cuentas de usuario, y el espacio en disco que tienen reservado en el servidor, generalmente en <TT
+CLASS="filename"
+>/home/&#60;usuario&#62;</TT
+>. Proporciona un método sencillo para que los usuarios que tienen una cuenta en el servidor Samba (Linux) accedan sin configurar apenas nada.</P
+></LI
+><LI
+><P
+>Sección [printers], que engloba a todas las impresoras, de forma que el servidor utiliza estos parámetros para las impresoras instaladas en el servidor (en <TT
+CLASS="filename"
+>/etc/printcap</TT
+>).</P
+></LI
+></OL
+><P
+>Todos los recursos compartidos se definen en secciones separadas que comienzan con el nombre con el que el recurso compartido va a ser visible desde la red, encerrado entre corchetes (y que no puede tener más de 12 caracteres).</P
+><P
+>Dentro de la configuración es posible utilizar variables para expandirla y añadirle complejidad, con lo que se pueden definir comportamientos dependientes de la máquina del cliente, del usuario que accede al servicio, etc.</P
+><P
+>Después de hacer cualquier modificación, es importante ejecutar el programa <B
+CLASS="command"
+>testparm</B
+>, para probar que la configuración no tiene errores. Si este programa no da aviso de que hay problemas, devuelve la lista de servicios disponibles en el servidor.</P
+><P
+><B
+CLASS="command"
+>smbstatus</B
+> es un programa que devuelve la lista de todas las conexiones activas a Samba en el servidor local.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN129"
+>2.1.1. Variables utilizables en <TT
+CLASS="filename"
+>smb.conf</TT
+></A
+></H2
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>%S, nombre del servicio actual, si lo hay.</P
+></LI
+><LI
+><P
+>%P, directorio raíz del servicio actual, si lo hay.</P
+></LI
+><LI
+><P
+>%u, nombre de usuario del servicio actual.</P
+></LI
+><LI
+><P
+>%g, grupo principal de %u.</P
+></LI
+><LI
+><P
+>%U, nombre de sesión del usuario (el que desea el cliente).</P
+></LI
+><LI
+><P
+>%G, grupo principal de %U.</P
+></LI
+><LI
+><P
+>%H, directorio raíz (home) del usuario %u.</P
+></LI
+><LI
+><P
+>%v, versión de Samba.</P
+></LI
+><LI
+><P
+>%h, nombre del servidor donde Samba está ejecutándose.</P
+></LI
+><LI
+><P
+>%m, nombre NetBios de la máquina cliente.</P
+></LI
+><LI
+><P
+>%L, nombre NetBios del servidor.</P
+></LI
+><LI
+><P
+>%M, nombre de Internet de la máquina cliente.</P
+></LI
+><LI
+><P
+>%d, número de proceso del servidor actual.</P
+></LI
+><LI
+><P
+>%a, arquitectura de la máquina cliente. Sólo reconoce algunas: Samba, WfWg, WinNT y Win95. Cualquier otra cosa la reconoce como <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>UNKNOWN</I
+></SPAN
+>.</P
+></LI
+><LI
+><P
+>%I, dirección IP de la máquina cliente.</P
+></LI
+><LI
+><P
+>%T, fecha y hora actuales.</P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN166"
+>2.1.2. Sección [global]</A
+></H2
+><P
+>A continuación, se detallan los parámetros más importantes de la sección.</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>workgroup</I
+></SPAN
+>, indica el nombre del grupo de trabajo (o dominio) en el que se quiere que funcione Samba. Ejemplo:</P
+><PRE
+CLASS="programlisting"
+>&#13;workgroup = NetSystems2000
+</PRE
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>encrypt passwords = no</I
+></SPAN
+>, evita que los passwords no se pasen como texto plano. Ponerlo a <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>yes</I
+></SPAN
+> si se tienen clientes W98 ó NT4/2000.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>server string</I
+></SPAN
+>, es una cadena de caracteres que describe a la máquina, y que aparecerá como comentario en los clientes Windows. Ejemplo:</P
+><PRE
+CLASS="programlisting"
+>&#13;server string = NetSystems 2000 Internet Server ...
+</PRE
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>log file</I
+></SPAN
+>, permite que se cree un fichero de log por cada máquina que se conecta. Ejemplo:</P
+><PRE
+CLASS="programlisting"
+>&#13;log file = /var/log/samba.log.%m
+</PRE
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>security</I
+></SPAN
+>, indica el tipo de seguridad que empleará el servidor y puede tomar tres valores:</P
+><P
+></P
+><OL
+TYPE="a"
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>user</I
+></SPAN
+>, que requiere que la máquina cliente se identifique con un nombre de usuario y una contraseña válida antes de conectarse al recurso compartido. Es el valor más adecuado.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Share</I
+></SPAN
+>, que sólo espera una contraseña válida para conectarse a un recurso.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Server</I
+></SPAN
+>, que es igual que el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>user</I
+></SPAN
+> pero la autenticación del usuario se relega a otra máquina Windows NT.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>En el caso de que se opte por este valor, habrá que añadir otra línea al <TT
+CLASS="filename"
+>/etc/smb.conf</TT
+>, que es:</P
+><PRE
+CLASS="programlisting"
+>&#13;password server = &#60;máquina&#62;
+</PRE
+><P
+>Ejemplo:</P
+><PRE
+CLASS="programlisting"
+>&#13;security = user
+</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+></OL
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>domain controller</I
+></SPAN
+>, que permite especificar un controlador principal de dominio, en el caso de que lo haya. Ejemplo:</P
+><PRE
+CLASS="programlisting"
+>&#13;domain controller = mintserver
+</PRE
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>netbios name</I
+></SPAN
+>, es el nombre bajo el que el servidor Samba aparecerá en los clientes Windows. Ejemplo:</P
+><PRE
+CLASS="programlisting"
+>&#13;netbios name = SuSE10Linux
+</PRE
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>wins support</I
+></SPAN
+>, indica si se desea que el servidor Samba actúe como un servidor WINS.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>wins server = &#60;host&#62;</I
+></SPAN
+>, indica qué máquina actúa como servidor WINS. Es decir, se supone que la máquina que ejecute Samba actuará como cliente WINS.</P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN220"
+>2.1.3. Sección [homes]</A
+></H2
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>guest ok</I
+></SPAN
+>, si un servicio tiene este parámetro habilitado, Samba no pedirá password para él. Ejemplo:</P
+><PRE
+CLASS="programlisting"
+>&#13;guest ok = yes
+</PRE
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>valid users</I
+></SPAN
+>, limita el acceso a un servicio a los usuarios que pertenezcan a la lista. Ejemplo:</P
+><PRE
+CLASS="programlisting"
+>&#13;valid users = juan,pepe,antonio
+</PRE
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>hosts allow</I
+></SPAN
+>, permite restringir las máquinas que podrán acceder a un determinado servicio. Ejemplo:</P
+><PRE
+CLASS="programlisting"
+>&#13;hosts allow = 192.168.30
+</PRE
+><P
+>permite que todas las máquinas de esa subred accedan mientras que <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>hosts allow = 192.168.30.100</I
+></SPAN
+> permite que sólo esa máquina acceda.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Puede aparecer también en un servicio.</P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>comment</I
+></SPAN
+>, permite añadir un comentario al recurso que luego puede verse desde el Explorador de Windows.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>browseable</I
+></SPAN
+>, define si un recurso es visto cuando se listen los recursos compartidos por el equipo.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>writable</I
+></SPAN
+>, permite que los equipos que se conecten al recurso puedan escribir en él, crear carpetas, borrar, etc.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>path = &#60;ruta&#62;</I
+></SPAN
+>, permite indicar el directorio físico real al cuál se accederá cuando se acceda al recurso compartido. Hay que tener cuidado con la máscara de permisos que tenga este directorio porque dependiendo de ella, dicho directorio pudiera no verse adecuadamente desde las máquinas Windows.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>printable</I
+></SPAN
+>, permite imprimir en un recurso que sea una impresora.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>public</I
+></SPAN
+>, define si un recurso es visible sólo para los usuarios autentificados (public = no) o para cualquiera que se conecte al equipo con Samba (public = yes).</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>create mode</I
+></SPAN
+>, permite especificar la máscara de permisos que tendrán los archivos que se vayan a crear en un determinado recurso.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>directory mode</I
+></SPAN
+> hace exactamente lo mismo, pero para directorios.</P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+></OL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x94.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x263.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Utilidad swat (Samba Web Administration Tool)</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Optimización de Samba</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

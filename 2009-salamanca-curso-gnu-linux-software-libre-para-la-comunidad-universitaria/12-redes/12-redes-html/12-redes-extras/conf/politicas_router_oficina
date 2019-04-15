@@ -1,0 +1,12 @@
+flush;
+spdflush;
+add 88.1.2.3 88.4.5.6 esp 7320 -m tunnel -E 3des-cbc "i92dfafgehogexxxx1112222";
+add 88.4.5.6 88.1.2.3 esp 6698 -m tunnel -E 3des-cbc "xxxXXXXXXrjZZZ(xx111z<<3";
+spdadd 10.0.1.92 192.168.1.0/24 any -P out ipsec esp/tunnel/88.4.5.6-88.1.2.3/require;
+spdadd 192.168.1.0/24 10.0.1.92 any -P in ipsec esp/tunnel/88.1.2.3-88.4.5.6/require;
+
+#spdadd 10.0.1.92 88.1.2.3 any -P out ipsec esp/tunnel/88.4.5.6-88.1.2.3/require;
+#spdadd 88.1.2.3 10.0.1.92 any -P in ipsec esp/tunnel/88.1.2.3-88.4.5.6/require;
+#spdadd 88.4.5.6 192.168.1.0/24 any -P out ipsec esp/tunnel/88.4.5.6-88.1.2.3/require;
+#spdadd 192.168.1.0/24 88.4.5.6 any -P in ipsec esp/tunnel/88.1.2.3-88.4.5.6/require;
+

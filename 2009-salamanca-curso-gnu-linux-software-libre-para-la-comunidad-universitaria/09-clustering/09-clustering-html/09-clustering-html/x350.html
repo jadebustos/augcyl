@@ -1,0 +1,1529 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Linux Virtual Server - LVS</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Balanceo de Carga"
+HREF="c281.html"><LINK
+REL="PREVIOUS"
+TITLE="Balanceo en DNS"
+HREF="x326.html"><LINK
+REL="NEXT"
+TITLE="Detección de fallos en los nodos del cluster."
+HREF="c615.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Clustering y alta disponibilidad en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x326.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 3. Balanceo de Carga</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c615.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN350"
+>3.4. Linux Virtual Server - LVS</A
+></H1
+><P
+><A
+HREF="http://www.linuxvirtualserver.org"
+TARGET="_top"
+>Linux Virtual Server</A
+> es una solución para poder implementar un servidor virtual altamente escalable y en alta disponibilidad.</P
+><P
+>Esta solución consiste en un balanceador de carga, también conocido como director, que será la máquina que será accesible directamente para los clientes y luego tendremos los servidores que serán aquellos que recibiran las peticiones de los clientes, vía el balanceador de carga, y responderán a las peticiones.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Los servidores podrán estar o bien en la misma red física o en redes diferentes lo que permitirá el tener servidores en granjas distribuidas geográficamente.</P
+><P
+>Esta solución nos permitirá tener el servicio funcionando casi continuamente ya que no se verá afectado por posibles caídas de las máquinas debido a fallos en el suministro eléctrico o bien cortes en el ISP de una determinada granja. Cualquiera de estos fallos, u otros que pudieran ocurrir, afectarán a una o varias granjas, pero nunca a todas con lo cual el servicio seguiráa funcionando aunque los clientes podráan experimentar cierta demora en el servicio.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Para los clientes existirá un único servidor (el balanceador) que se encargará de distribuir la carga entre los servidores reales.</P
+><P
+>La escalabilidad en el servicio la conseguiremos añadiendo nodos, mientras que la disponibilidad se logrará identificando el nodo o el balanceador que no funciona y reconfigurando el sistema de tal forma que el servicio no se vea interrumpido. Es decir no enviando peticiones a un nodo que no pudiera dar servicio en ese momento.</P
+><P
+>El balanceo lo podemos hacer de tres formas:</P
+><P
+></P
+><UL
+><LI
+><P
+>Mediante <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>NAT</I
+></SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>IP Tunneling</I
+></SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Direct Routing</I
+></SPAN
+></P
+></LI
+></UL
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN371"
+>3.4.1. Virtual Server mediante <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>NAT</I
+></SPAN
+></A
+></H2
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>NAT</I
+></SPAN
+> (<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>N</I
+></SPAN
+>etwork <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>A</I
+></SPAN
+>ddress <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>T</I
+></SPAN
+>ranslation) es una técnica utilizada para que una máquina reciba información dirigida a otra y esta pueda reenviarla a quien la solicitó inicialmente.</P
+><P
+>Para ello la máquina que recibe la información, en forma de paquetes, deberá reescribir los paquetes sustituyendo su propia dirección con la de la máquina que realizó la petición (nos referimos a direcciones tanto físicas, MAC, como lógicas, IP) una vez reescrito el paquete de la forma correcta el balanceador se encargará de enviar los paquetes por la interface adecuada para que le lleguen al destino verdadero del paquete.</P
+><P
+>Cuando el balanceador reciba peticiones este sobreescribirá el paquete y pondrá la dirección de un servidor real, gracias a esto los servidores reales podrán estar ejecutando cualquier sistema operativo que sea accesible vía TCP/IP.</P
+><P
+>Cuando el servidor responda lo hará al balanceador y este reescribirá el paquete, otra vez, poniendo en los paquetes la dirección del cliente que solicitó la información.</P
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="img/04-balanceo/lvs-nat.png"
+ALIGN="center"><DIV
+CLASS="caption"
+>&#13;          <P
+>LVS - NAT.</P
+>
+	</DIV
+></P
+></DIV
+><P
+>El balanceador guardará los datos de todas las conexiones que balancee para luego devolver la respuesta al cliente adecuado.</P
+><P
+>Pero no todo son ventajas, esta sobreescritura de los paquetes trae consigo una carga de CPU que puede llegar a ser un cuello de botella. Además tendremos que tener en cuenta cual es el ancho real de nuestra interface de red y tener presente que por el balanceador van a pasar tanto las peticiones hacia los servidores, como las respuestas de los servidores hacia los clientes.</P
+><P
+>Todos estos paquetes tendrán que ser reescritos por el balanceador y aunque aumentemos la memoria o las capacidades de procesamiento del balanceador todavía estaremos limitados por el ancho real de la interface ya que las respuestas de los servidores ocuparán mas ancho de banda que las peticiones.</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>El problema del ancho de banda se podrá paliar utilizando las capacidades de Bonding del núcleo de Linux.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>No suele ser muy recomendable esta opción ya que los costes necesarios para desplegar la infraestructura suelen ser mayores que los de implementar LVS con IP Tunneling o Direct Routing.</P
+><P
+>El balanceador deberá tener dos IP una de cara a los posibles clientes (DIP) y otra en la red de los servidores (VIP), es decir que el balanceador deberá hacer funciones de enrutado con lo cual el núcleo deberá estar configurado para ello y tendremos que tener el enrutado habilitado y el núcleo tendrá que estar compilado para poder sobreescribir paquetes.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Para tener habilitado el enrutado es necesario que el núcleo esté configurado para ello y necesitaremos que el fichero <TT
+CLASS="filename"
+>/proc/sys/net/ipv4/ip_forward</TT
+> si utilizamos <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ipv4</I
+></SPAN
+> o <TT
+CLASS="filename"
+>/proc/sys/net/ipv6/conf/all/forwarding</TT
+> estén a <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>1</I
+></SPAN
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Los servidores en este caso estarán en la misma red de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>VIP</I
+></SPAN
+> y tendrán como gateway al balanceador de carga.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN403"
+>3.4.2. Virtual Server mediante <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>IP Tunneling</I
+></SPAN
+></A
+></H2
+><P
+>Utilizando <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>NAT</I
+></SPAN
+> teníamos un cuello de botella en el balanceador ya que tiene que reescribir y distribuir los paquetes del cliente al servidor y viceversa.</P
+><P
+>Utilizando <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>IP Tunneling</I
+></SPAN
+> el balanceador únicamente tendrá que hacerse cargo de las peticiones de los clientes y enviarlas a los servidores, siendo estos mismos los que responderán a los clientes. De esta forma el balanceador de carga puede manejar mas nodos, es decir el servicio es mas escalable.</P
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="img/04-balanceo/LVS-IPTunneling.png"
+ALIGN="center"><DIV
+CLASS="caption"
+>&#13;          <P
+>LVS - IP Tunneling.</P
+>
+	</DIV
+></P
+></DIV
+><P
+>Una vez el balanceador de carga tiene el paquete determina si pertenece a uno de los servicios que tiene balanceados. De ser así encapsula el paquete en otro paquete y se lo envía al servidor de destino. Es este el que se encarga de responder al cliente directametne sin pasar por el balanceador.</P
+><P
+>El balanceador guarda una tabla de conexiones y cuando le llega un paquete determina si ya existe una conexión abierta y de ser así que servidor real es el que está sirviendola para enviarle el paquete.</P
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="img/04-balanceo/VS-TUN-flow.png"
+ALIGN="center"><DIV
+CLASS="caption"
+>&#13;          <P
+>Encapsulamiento IP en IP-Tunneling.</P
+>
+	</DIV
+></P
+></DIV
+><P
+>Los servidores deberán estar configurados para trabajar con <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>IP Tunneling (encapsulation)</I
+></SPAN
+> ya que cuando el balanceador recibe un paquete para uno de los servidores este lo encapsula en un datagrama IP y lo manda a uno de los servidores. Cuando el servidor lo recibe tendá que desencapsularlo y responderá directamente al cliente sin pasar por el balanceador con lo cual los servidores tendrán que estar conectados tanto al balanceador como a los clientes (en NAT sólo con el balanceador).</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>No es necesario que los servidores estén en la misma red, pueden estar geográficamente distribuidos.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>En esta configuración surge el problema de ARP.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN428"
+>3.4.3. Virtual Server mediante <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Direct Routing</I
+></SPAN
+></A
+></H2
+><P
+>Al igual que en <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>IP Tunneling</I
+></SPAN
+> el balanceador sólo gestionará las peticiones del cliente hacía el servidor con lo cual es una solución altamente escalable.</P
+><P
+>La dirección virtual (VIP) es compartida por el balanceador y los servidores. De esta manera el balanceador recibe las peticiones y las envía a los servidores que procesan las peticiones y dan servicio directamente a los clientes.</P
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="img/04-balanceo/lvs-dr.png"
+ALIGN="center"><DIV
+CLASS="caption"
+>&#13;          <P
+>LVS - Direct Routing.</P
+>
+	</DIV
+></P
+></DIV
+><P
+>En esta solución es necesario que una de las interfaces del balanceador y los servidores están en el mismo segmento físico de red ya que el balanceador de carga cambiará su dirección física, MAC, en la trama por la dirección física de uno de los servidores que tendrá un alias con la dirección VIP.</P
+><P
+>El balanceador guarda una tabla de conexiones y cuando le llega un paquete determina si ya existe una conexión abierta y de ser así que servidor real es el que está sirviendola para enviarle el paquete.</P
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="img/04-balanceo/VS-DR-flow.png"
+ALIGN="center"><DIV
+CLASS="caption"
+>&#13;          <P
+>LVS - Direct Routing.</P
+>
+	</DIV
+></P
+></DIV
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>El alias se acostumbra a poner en el dispositivo de loopback.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>En esta configuración surge el problema de ARP.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN450"
+>3.4.4. El problema del <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ARP</I
+></SPAN
+></A
+></H2
+><P
+>Cuando utilizamos <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Tunneling</I
+></SPAN
+> o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Direct Routing</I
+></SPAN
+> tanto el balanceador como los servidores comparten una dirección IP (VIP) y esto puede traer consigo problemas si los balanceadores y los servidores están en la misma red.</P
+><P
+>El modelo <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>OSI</I
+></SPAN
+> de la <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ISO</I
+></SPAN
+> consta de 7 capas, las tres primeras son la capa física, la capa de enlace de datos y la capa de red.</P
+><P
+>Cuando un ordenador transmite datos empieza a encapsular en la capa de aplicación, séptima capa. Cuando llega a la capa de red añade la información de red, direcciones IP y direcciones lógicas (origen y  destino). Acto seguido añade su dirección física o MAC que es una dirección única que tiene cada tarjeta de red o NIC y que consta de dos partes una que identifica al fabricante de la tarjeta y la otra parte identifica a la tarjeta.</P
+><P
+>Después en la capa física se traduce toda la información a señales eléctricas y se transmite por el medio. Además de sus direcciones propias IP y MAC se añaden las direcciones del destinatario y si el paquete fuera destinado a una red diferente de la de partida se pondría en el campo de la MAC de destino la MAC de gateway o del router por defecto y este se iría encargando de enrutar el paquete hasta que llegará al último router o gateway el cual cambiaría su MAC por la MAC del equipo que tuviera la IP de destino del paquete. Este último router mandaría el paquete por la interface correspondiente y todos los equipos en esa red desencapsularín el paquete hasta la segunda capa y sólo aquel cuya MAC este en esa trama, como destino, tomará el paquete y lo desencapsulara entero para hacer uso de el. </P
+><P
+>Cuando utilizamos <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Tunneling</I
+></SPAN
+> o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Direct Routing</I
+></SPAN
+> tenemos que tener en cuenta que los clientes hacen las peticiones al balanceador, pero sin embargo las respuestas las reciben de los servidores.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Tanto el balanceador de carga como los servidores comparten una IP (VIP), cuando un cliente solicita una conexión con VIP la petición se debe de hacer al balanceador, no a los clientes.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Cuando llega una petición de un cliente para el servicio bajo <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>LVS</I
+></SPAN
+> esta llegará desde fuera de la red, con lo cual el router de esa red hará una petición ARP para obtener la MAC de la máquina con la IP VIP.</P
+><P
+>En esa red podría haber varias máquinas con la IP VIP (el balanceador y los servidores comparten dicha IP) con lo cual cualquiera de ellas podría, y de hecho lo hará, responder a la petición. Pero el paquete deberá ir destinado al balanceador no a los servidores.</P
+><P
+>El balanceador registrará en sus tablas a que servidor le manda las peticiones y consecuentemente todas las peticiones de ese cliente irán al mismo servidor, bajo la conexión ya establecida. Si uno de los servidores respondiera a la petición ARP el router tendría en su tabla ARP la dirección física del servidor y todos los paquetes se los enviará  directamente al servidor sin utilizar el balanceador.</P
+><P
+>Si en algún momento se cambiará la entrada en la tabla ARP y el router actualizará con la MAC de otra máquina (el balanceador y el resto de servidores tienen una interface o alias con la IP VIP) entonces las peticiones de ese cliente iran a otro servidor en lugar de al servidor que originariamente estaban yendo. Si esto pasa dentro de una misma conexión cuando un servidor empiece a recibir las solicitudes de una conexión que el no ha iniciado (la realizó el servidor que primero respondió a la petición ARP) la conexión se cerrará y habrá que volver a negociarla.</P
+><P
+>Este problema se presenta con núcleos a partir de la serie 2.2.x y se soluciona haciendo que la interface que tiene la IP VIP no responda a peticiones ARP en los servidores y si en el balanceador de carga. De esta forma nos aseguramos que cuando el router haga una petición ARP para la VIP la única máquina que responda sea el balanceador y de esta forma todos los paquetes para el LVS serán enviados al balanceador y este hará su trabajo.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN472"
+>3.4.5. Algoritmos de planificación en <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>LVS</I
+></SPAN
+></A
+></H2
+><P
+>Hemos estado haciendo referencia a que el balanceador distribuirá las peticiones entre los servidores. Pero para que esta distribución sea efectiva ha de ser planificada de alguna forma. A la hora de compilar el núcleo en el balanceador tendremos que escoger que algoritmos vamos a utilizar para hacer el balanceo de carga.</P
+><P
+>Los algoritmos más interesantes son los siguientes:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Round-Robin</I
+></SPAN
+>. Este algoritmo es el más simple y lo que hace es distribuir las peticiones entre los servidores de tal manera que si hay 5 servidores y 100 peticiones cada servidor atenderá a 20 peticiones.</P
+><P
+>El orden de distribución de la carga será secuencial, primera petición hacía el primer servidor, segunda al segundo, ...,  quinta al quinto, sexta al primero, ...</P
+><P
+>Esta distribución es muy sencilla pero presupone que todas las peticiones van a ser equivalentes, en términos de carga, para el servidor, algo que en la realidad dista mucho de ser cierto. O que la capacidad de procesamiento de los servidores es la misma.</P
+><P
+>Podría darse el caso de que haya servidores atendiendo varias peticiones y otros esperando o que los servidores más lentos estuvieran muy sobrecargados mientras que los más potentes estuvieran más desahogados.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Weighted Round-Robin</I
+></SPAN
+>. Este algoritmo permite un aprovechamiento mejor del cluster cuando hay máquinas con diferentes capacidades de procesamiento, de esta forma a las máquinas con mayor capacidad de procesamiento se les dará una mayor prioridad (weight) para responder a las peticiones de los clientes y el balanceador distribuirá la carga entre los servidores teniendo en cuenta su prioridad.</P
+><P
+>En realidad el Round-Robin Scheduling es un Weighted Round-Robin Scheduling y todas las prioridades son iguales para los servidores.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Least-Connection</I
+></SPAN
+>. Con este algoritmo las peticiones se enviaran al servidor que menos conexiones este sirviendo en ese momento.</P
+><P
+>Si la capacidad de procesamiento de los servidores es similar este algoritmo distribuirá la carga de forma óptima entre todas las máquinas del cluster. Sin embargo si las capacidades de procesamiento varían mucho la carga no sera repartida de forma ecuánime ya que la carga se repartirá según el número de conexiones abiertas en ese momento y no sobre la carga real de cada máquina.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Weighted Least-Connection</I
+></SPAN
+>. Este algoritmo es al <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Least-Connection Scheduling</I
+></SPAN
+> lo que el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Weighted Round-Robin Scheduling</I
+></SPAN
+> es al <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Round-Robin Scheduling</I
+></SPAN
+>.</P
+><P
+>A cada servidor se le asigna una prioridad según su capacidad de procesamiento y aquellos que mas prioridad tengan asignada atenderán más peticiones, es decir tendrún mús conexiones abiertas.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN499"
+>3.4.6. ipvsadm</A
+></H2
+><P
+><B
+CLASS="command"
+>ipvsadm</B
+> es una herramienta en espacio de usuario para interactuar con <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>LVS</I
+></SPAN
+>.</P
+><P
+>Podemos ver el listado de conexiones:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[jadebustos@dedalo ~]# </SAMP
+><KBD
+CLASS="userinput"
+>ipvsadm -Ln</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>IP Virtual Server version 1.2.0 (size=4096) 
+Prot LocalAddress:Port Scheduler Flags 
+  -&#62; RemoteAddress:Port           Forward Weight ActiveConn InActConn 
+TCP  172.16.0.207:443 wlc persistent 3600 
+  -&#62; 172.16.0.199:443             Route   1      5          0 
+  -&#62; 172.16.0.198:443             Route   1      2          0 
+TCP  172.16.0.205:9085 wlc 
+  -&#62; 172.16.0.200:9085            Route   1      2          0 
+  -&#62; 172.16.0.201:9085            Route   1      2          0 
+TCP  172.16.0.206:80 wlc 
+  -&#62; 172.16.0.197:80              Route   1      1          0 
+  -&#62; 172.16.0.195:80              Route   1      4          0 
+  -&#62; 172.16.0.196:80              Route   1      2          0 
+TCP  172.16.0.207:80 wlc persistent 3600 
+  -&#62; 172.16.0.199:80              Route   1      1          0 
+  -&#62; 172.16.0.198:80              Route   1      1          0 
+TCP  172.16.0.205:80 wlc 
+  -&#62; 172.16.0.200:80              Route   1      1          0 
+  -&#62; 172.16.0.201:80              Route   1      1          0</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[jadebustos@dedalo ~]#</SAMP
+>
+</PRE
+><P
+>Podemos sacar estadísticas:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[jadebustos@dedalo ~]# </SAMP
+><KBD
+CLASS="userinput"
+>ipvsadm --list --stats --numeric</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>IP Virtual Server version 1.2.0 (size=4096) 
+Prot LocalAddress:Port               Conns   InPkts  OutPkts  InBytes OutBytes 
+  -&#62; RemoteAddress:Port 
+TCP  172.16.0.207:443                    7        169     292       x        y 
+  -&#62; 172.16.0.199:443                    5        113     214       x        y 
+  -&#62; 172.16.0.198:443                    2         56      78       x        y 
+TCP  172.16.0.205:9085                   4         67      99       x        y 
+  -&#62; 172.16.0.200:9085                   2         34      45       x        y 
+  -&#62; 172.16.0.201:9085                   2         33      44       x        y 
+TCP  172.16.0.206:80                     7        109     178       x        y 
+  -&#62; 172.16.0.197:80                     1         12      23       x        y 
+  -&#62; 172.16.0.195:80                     4         67     100       x        y 
+  -&#62; 172.16.0.196:80                     2         30      45       x        y 
+TCP  172.16.0.207:80                     2         30      58       x        y 
+  -&#62; 172.16.0.199:80                     1         13      25       x        y 
+  -&#62; 172.16.0.198:80                     1         17      33       x        y 
+TCP  172.16.0.205:80                     2         27      50       x        y  
+  -&#62; 172.16.0.200:80                     1         15      27       x        y 
+  -&#62; 172.16.0.201:80                     1         12      23       x        y </SAMP
+>
+<SAMP
+CLASS="prompt"
+>[jadebustos@dedalo ~]#</SAMP
+>
+</PRE
+><P
+>Otras opciones que nos permite:</P
+><P
+></P
+><UL
+><LI
+><P
+>Añadir, modificar y borrar servicios.</P
+></LI
+><LI
+><P
+>Añadir, modificar y borrar servidores.</P
+></LI
+><LI
+><P
+>Modificar los parámetros de configuración de los servicios balanceados.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN524"
+>3.4.7. Alta disponibilidad en los balanceadores con <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>keepalived</I
+></SPAN
+></A
+></H2
+><P
+>El balanceador es un punto de fallo crítico. Si el balanceador no está disponible no habrá servicio aunque las máquinas que den el servicio estén en perfecto estado de funcionamiento.</P
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="img/04-balanceo/balanceador-2.png"
+ALIGN="center"><DIV
+CLASS="caption"
+>&#13;          <P
+>Fallo en balanceador.</P
+>
+	</DIV
+></P
+></DIV
+><P
+>La alta disponibilidad se lográ garantizando que siempre haya un balanceador funcionando, resumiendo el servicio siempre tiene que estar disponible.</P
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="img/04-balanceo/balanceador-ha.png"
+ALIGN="center"><DIV
+CLASS="caption"
+>&#13;          <P
+>Balanceadores en Alta Disponibilidad.</P
+>
+	</DIV
+></P
+></DIV
+><P
+><A
+HREF="http://www.keepalived.org"
+TARGET="_top"
+>Keepalived</A
+> es un demonio que se encarga de que siempre haya un balanceador balanceanado el servicio (<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>failover</I
+></SPAN
+>). En realidad es un interface a <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>LVS</I
+></SPAN
+>.</P
+><P
+>Además también se encarga de que no se envíen peticiones a servidores que en ese momento no puedan atenderlas (<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>health-checking</I
+></SPAN
+>).</P
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Keepalived</I
+></SPAN
+> se instala en los balanceadores. Uno de ellos será el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>MASTER</I
+></SPAN
+> y el resto serán denominados de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>BACKUP</I
+></SPAN
+>. Cuando el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>MASTER</I
+></SPAN
+> deje de estar operativo entrará en funcionamiento el balanceador <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>BACKUP</I
+></SPAN
+> de más alta prioridad y continuará balanceando hasta que el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>MASTER</I
+></SPAN
+> vuelva a estar operativo o hasta que tenga algún problema, entonces lo sustituirá otro balanceador de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>BACKUP</I
+></SPAN
+>, el siguiente de más alta prioridad. De esta forma siempre estará balanceando el balanceador de más alta prioridad. En el momento que un balanceador de más alta prioridad que el activo vuelva al servicio asumirá el balanceo.</P
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Keepalived</I
+></SPAN
+> utiliza el protocolo <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>VRRP</I
+></SPAN
+> (rfc 2338). <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Keepalived</I
+></SPAN
+> formará un balanceador virtual formado por un balanceador <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>MASTER</I
+></SPAN
+> y varios balanceadores <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>BACKUP</I
+></SPAN
+> funcionando de la manera antés descrita.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Los balanceadores informarán al resto de su disponibilidad utilizando el protocolo <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>VRRP</I
+></SPAN
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Para el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>health-checking</I
+></SPAN
+> de los servicios balanceados <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>keepalived</I
+></SPAN
+> puede realizar la comprobación de varias formas:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>TCP_CHECK</I
+></SPAN
+> se hará una petición TCP y si no es respondida se eliminará el servidor de la lista de servidores activos.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>HTTP_GET</I
+></SPAN
+> Se solicitará una página del servidor y se comprobará con una que es la correcta mediante un hashing MD5, previamente calculado,  en caso de no coincidir el servidor será eliminado de la lista de servidores activos.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Para general el hashing MD5 utilizaremos la utilidad <B
+CLASS="command"
+>genhash</B
+> que nos permitirá generar el hashing directamente desde el servidor.</P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SSL_GET</I
+></SPAN
+> igual que <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>HTTP_GET</I
+></SPAN
+> pero la página será solicitada bajo una conexión SSL por el puerto 443 (https).</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>MISC_CHECK</I
+></SPAN
+> esta opción nos permitirá comprobar la disponibilidad de los servidores mediante un script creado por nosotros. Si la situación lo  requiere podremos comprobar la disponibilidad de los servidores de forma personalizada.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN582"
+>3.4.8. Configuración de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>keepalived</I
+></SPAN
+></A
+></H2
+><P
+>El fichero de configuración de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>keepalived</I
+></SPAN
+> normalmente en <TT
+CLASS="filename"
+>/etc/keepalived.conf</TT
+> consta de tres partes:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Zona de configuración global</I
+></SPAN
+> donde se especificará la forma en la que <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>keepalived</I
+></SPAN
+> avisará a los administradores de un fallo en el servidor virtual (dirección de correo, servidor SMTP, ...)</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Configuración de VRRP</I
+></SPAN
+> donde indicaremos si el balanceador es <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>MASTER</I
+></SPAN
+> o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>BACKUP</I
+></SPAN
+>, la prioridad, cual será la interface por la que tiene acceso al servidor virtual, la IP virtual (VIP) ...</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Configuración del servidor virtual</I
+></SPAN
+> indicando la IP (VIP) y el puerto, protocolo, ... y una entrada real server con los parámetros de cada servidor real, IP (real), puerto, método de health-checking, ...</P
+></LI
+></OL
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Este fichero será exactamente igual en el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>MASTER</I
+></SPAN
+> y en los <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>BACKUPS</I
+></SPAN
+> salvo que en los <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>BACKUPS</I
+></SPAN
+> el parámetro <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>state</I
+></SPAN
+> en la configuración de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>VRRP</I
+></SPAN
+> será <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>BACKUP</I
+></SPAN
+> y en el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>MASTER</I
+></SPAN
+> será <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>MASTER</I
+></SPAN
+> como cabría esperar.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Un ejemplo típico del fichero <TT
+CLASS="filename"
+>/etc/keepalived.conf</TT
+> para una configuración <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Direct Routing</I
+></SPAN
+>:</P
+><PRE
+CLASS="programlisting"
+>&#13;# Configuration File for keepalived
+
+# Configuracion Global
+
+global_defs {
+   notification_email {
+     alertas@midominio.com
+   }
+   notification_email_from balanceador1@midominio.com
+   smtp_server 192.168.1.10
+   smtp_connect_timeout 30
+   lvs_id LVS_DEVEL
+}
+
+vrrp_instance wasIntranet {
+    state MASTER
+    interface eth1
+    virtual_router_id 50
+    priority 100
+    advert_int 1
+    wdog-vrrp 1
+    virtual_ipaddress {
+        172.16.0.205
+	172.16.0.206
+	172.16.0.207
+    }
+}
+
+virtual_server 172.16.0.205 80{ 
+    delay_loop 6
+    lb_algo wlc
+    lb_kind DR
+    persistence_timeout 3600
+    protocol TCP
+
+    real_server 172.16.0.200 80 {
+        weight 1
+        TCP_CHECK {
+            connect_port 80
+            connect_timeout 30
+        }
+        delay_before_retry 3
+    }
+    real_server 172.16.0.201 80 {
+        weight 1
+        TCP_CHECK {
+            connect_port 80 
+            connect_timeout 30
+        }
+        delay_before_retry 3
+    }
+}
+
+virtual_server 172.16.0.205 9085 {
+    delay_loop 6
+    lb_algo wlc
+    lb_kind DR
+    persistence_timeout 3600
+    protocol TCP
+
+    real_server 172.16.0.200 9085 {
+        weight 1
+        TCP_CHECK {
+           connect_port 9085
+           connect_timeout 30
+        }
+        delay_before_retry 3
+    }
+    real_server 172.16.0.201 9085 {
+        weight 1
+        TCP_CHECK {
+           connect_port 9085
+           connect_timeout 30
+        }
+        delay_before_retry 3
+    }
+}
+
+virtual_server 172.16.0.206 80 { 
+    delay_loop 6
+    lb_algo wlc
+    lb_kind DR
+    persistence_timeout 3600
+    protocol TCP
+
+    real_server 172.16.0.195 80 {
+        weight 1
+        TCP_CHECK {
+            connect_port 80
+            connect_timeout 30
+        }
+        delay_before_retry 3
+    }
+    real_server 172.16.0.196 80 {
+        weight 1
+        TCP_CHECK {
+            connect_port 80
+            connect_timeout 30
+        }
+        delay_before_retry 3
+    }
+    real_server 172.16.0.197 80 {
+        weight 1
+        TCP_CHECK {
+            connect_port 80
+            connect_timeout 30
+        }
+        delay_before_retry 3
+    }
+}
+
+virtual_server 172.16.0.207 80 { 
+    delay_loop 6
+    lb_algo wlc
+    lb_kind DR
+    persistence_timeout 3600
+    protocol TCP
+
+    real_server 172.16.0.198 80 {
+        weight 1
+        TCP_CHECK {
+            connect_port 80
+            connect_timeout 30
+        }
+        delay_before_retry 3
+    }
+    real_server 172.16.0.199 80 {
+        weight 1
+        TCP_CHECK {
+            connect_port 80
+            connect_timeout 30
+        }
+        delay_before_retry 3
+    }
+}
+
+virtual_server 172.16.0.207 443 {
+    delay_loop 6
+    lb_algo wlc
+    lb_kind DR
+    persistence_timeout 3600
+    protocol TCP
+
+    real_server 172.16.0.198 443 {
+         weight 1
+         TCP_CHECK {
+            connect_port 443
+            connect_timeout 30
+         }
+         delay_before_retry 3
+    }
+    real_server 172.16.0.199 443 {
+         weight 1
+         TCP_CHECK {
+             connect_port 443
+             connect_timeout 30
+         }
+         delay_before_retry 3
+    }
+}
+</PRE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x326.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c615.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Balanceo en DNS</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c281.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Detección de fallos en los nodos del cluster.</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

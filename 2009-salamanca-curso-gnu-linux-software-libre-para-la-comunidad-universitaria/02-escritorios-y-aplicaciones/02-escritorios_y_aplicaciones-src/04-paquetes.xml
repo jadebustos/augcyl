@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='utf-8'?>
+<appendix>
+  <title>Paquetes de las aplicaciones de usuario en openSUSE 11.1</title>
+
+  <table>
+    <title>Paquetes de las aplicaciones de usuario en openSUSE 11.1</title>
+
+    <tgroup cols='3'>
+      <thead>
+        <row>
+          <entry>
+            Programa
+          </entry>
+          <entry>
+            Paquete
+          </entry>
+          <entry>
+            Repositorio
+            <footnote>
+              <itemizedlist>
+                <listitem>
+                  <para>
+                    <ulink url="http://download.opensuse.org/distribution/11.1/repo/oss/">
+                      openSUSE-11.1-Oss
+                    </ulink>
+                  </para>
+                </listitem>
+                <listitem>
+                  <para>
+                    <ulink url="http://packman.iu-bremen.de/suse/11.1">
+                      Packman
+                    </ulink>
+                  </para>
+                </listitem>
+              </itemizedlist>
+            </footnote>
+          </entry>
+        </row>
+      </thead>
+
+      <tbody>
+        <row>
+          <entry>OpenOffice.org Writer</entry>
+          <entry>OpenOffice_org-writer</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>OpenOffice.org Math</entry>
+          <entry>OpenOffice_org-math</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>OpenOffice.org Calc</entry>
+          <entry>OpenOffice_org-calc</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>OpenOffice.org Impress</entry>
+          <entry>OpenOffice_org-impress</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>OpenOffice.org Draw</entry>
+          <entry>OpenOffice_org-draw</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>OpenOffice.org Base</entry>
+          <entry>OpenOffice_org-base</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>KWord</entry>
+          <entry>koffice-wordprocessing</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>KSpread</entry>
+          <entry>koffice-spreadsheet</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>KPresenter</entry>
+          <entry>koffice-presentation</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>Kexi</entry>
+          <entry>koffice-database</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>Mozilla Firefox</entry>
+          <entry>MozillaFirefox</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>Mozilla Thunderbird</entry>
+          <entry>MozillaThunderbird</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>KMail</entry>
+          <entry>kdepim3</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>Evolution</entry>
+          <entry>evolution</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>K3b</entry>
+          <entry>k3b</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>Brasero</entry>
+          <entry>brasero</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>VLC</entry>
+          <entry>vlc</entry>
+          <entry>Packman</entry>
+        </row>
+        <row>
+          <entry>MPlayer</entry>
+          <entry>MPlayer</entry>
+          <entry>Packman</entry>
+        </row>
+        <row>
+          <entry>Kaffeine</entry>
+          <entry>kaffeine</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>Totem</entry>
+          <entry>totem</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>Amarok</entry>
+          <entry>amarok</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>Rhythmbox</entry>
+          <entry>rhythmbox</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>Audacious</entry>
+          <entry>audacious</entry>
+          <entry>Packman</entry>
+        </row>
+        <row>
+          <entry>Banshee</entry>
+          <entry>banshee-1</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>GIMP</entry>
+          <entry>gimp</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>Inkscape</entry>
+          <entry>inkscape</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>Pidgin</entry>
+          <entry>pidgin</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>Ekiga</entry>
+          <entry>ekiga</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>aMule</entry>
+          <entry>aMule</entry>
+          <entry>Packman</entry>
+        </row>
+        <row>
+          <entry>Vuze</entry>
+          <entry>Vuze</entry>
+          <entry>Packman</entry>
+        </row>
+        <row>
+          <entry>KTorrent</entry>
+          <entry>ktorrent</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>Transmission</entry>
+          <entry>transmission-gtk</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+        <row>
+          <entry>YaST</entry>
+          <entry>yast2</entry>
+          <entry>openSUSE-11.1-Oss</entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </table>
+</appendix>
+

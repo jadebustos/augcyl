@@ -1,0 +1,820 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chapter>
+  <title>Aplicaciones de usuario en GNU/Linux</title>
+
+  <para>
+    Cada usuario tiene gustos y necesidades diferentes, por lo que siempre es
+    recomendable probar distintas aplicaciones en busca de la que mejor se
+    adapte a ellas.
+  </para>
+
+  <para>
+    Para conocer las diferentes opciones disponibles es conveniente revisar
+    las aplicaciones que se nos ofrecen a trav&eacute;s del gestor de paquetes
+    de nuestra distribuci&oacute;n, que es el programa que se encarga de
+    instalar y desinstalar aplicaciones, o visitar p&aacute;ginas web como
+    <ulink url="http://alts.homelinux.net/">Alternativas libres</ulink>.
+  </para>
+
+  <para>
+    En este cap&iacute;tulo se pretenden mostrar las aplicaciones m&aacute;s
+    utilizadas por los usuarios de GNU/Linux para cubrir actividades
+    cotidianas.
+  </para>
+
+  <sect1>
+    <title>Suite ofim&aacute;tica</title>
+
+    <sect2>
+      <title>OpenOffice.org</title>
+
+      <para>
+        OpenOffice.org es una suite ofim&aacute;tica libre que incluye todas
+        las herramientas habituales de este tipo de aplicaciones: procesador
+        de textos, editor para f&oacute;rmulas matem&aacute;ticas, hoja de
+        c&aacute;lculo, programa para presentaciones, editor de dibujo
+        vectorial y base de datos.
+      </para>
+
+      <para>
+        Sus principales caracter&iacute;sticas son el soporte nativo del
+        formato est&aacute;ndar OpenDocument y la capacidad para exportar a
+        PDF en un solo click.
+      </para>
+
+      <para>
+        Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+        Microsoft Windows y Mac OS entre otros.
+      </para>
+
+      <sect3>
+        <title>OpenOffice.org Writer</title>
+
+        <para>
+          OpenOffice.org Writer es el procesador de textos de OpenOffice.org.
+        </para>
+
+        <figure>
+          <title>
+            OpenOffice.org Writer
+          </title>
+          <graphic
+          fileref="img/02-aplicaciones/01-openoffice_org_writer.png"
+          format="PNG" width="1000" scale="40"/>
+        </figure>
+      </sect3>
+
+      <sect3>
+        <title>OpenOffice.org Math</title>
+
+        <para>
+          OpenOffice.org Math es el editor para f&oacute;rmulas
+          matem&aacute;ticas de OpenOffice.org.
+        </para>
+
+        <figure>
+          <title>
+            OpenOffice.org Math
+          </title>
+          <graphic
+          fileref="img/02-aplicaciones/02-openoffice_org_math.png"
+          format="PNG" width="1000" scale="40"/>
+        </figure>
+      </sect3>
+
+      <sect3>
+        <title>OpenOffice.org Calc</title>
+
+        <para>
+          OpenOffice.org Calc es la hoja de c&aacute;lculo de OpenOffice.org.
+        </para>
+
+        <figure>
+          <title>
+            OpenOffice.org Calc
+          </title>
+          <graphic
+          fileref="img/02-aplicaciones/03-openoffice_org_calc.png"
+          format="PNG" width="1000" scale="40"/>
+        </figure>
+      </sect3>
+
+      <sect3>
+        <title>OpenOffice.org Impress</title>
+
+        <para>
+          OpenOffice.org Impress es el programa para presentaciones de
+          OpenOffice.org.
+        </para>
+
+        <figure>
+          <title>
+            OpenOffice.org Impress
+          </title>
+          <graphic
+          fileref="img/02-aplicaciones/04-openoffice_org_impress.png"
+          format="PNG" width="1000" scale="40"/>
+        </figure>
+      </sect3>
+
+      <sect3>
+        <title>OpenOffice.org Draw</title>
+
+        <para>
+          OpenOffice.org Draw es el editor de dibujo vectorial de
+          OpenOffice.org.
+        </para>
+
+        <figure>
+          <title>
+            OpenOffice.org Draw
+          </title>
+          <graphic
+          fileref="img/02-aplicaciones/05-openoffice_org_draw.png"
+          format="PNG" width="1000" scale="40"/>
+        </figure>
+      </sect3>
+
+      <sect3>
+        <title>OpenOffice.org Base</title>
+
+        <para>
+          OpenOffice.org Base es la base de datos de OpenOffice.org.
+        </para>
+
+        <figure>
+          <title>
+            OpenOffice.org Base
+          </title>
+          <graphic
+          fileref="img/02-aplicaciones/06-openoffice_org_base.png"
+          format="PNG" width="1000" scale="40"/>
+        </figure>
+      </sect3>
+    </sect2>
+
+    <sect2>
+      <title>KOffice</title>
+
+      <para>
+        KOffice es una suite ofim&aacute;tica que forma parte del proyecto
+        KDE.
+      </para>
+
+      <para>
+        A parte de los programas esenciales que toda suite ofim&aacute;tica
+        debe tener, cuenta con una serie adicional de programas que permiten
+        realizar tareas como las gesti&oacute;n y la elaboraci&oacute;n de
+        informes de calidad. Tambi&eacute;n cabe destacar que soporta de
+        manera nativa el formato est&aacute;ndar OpenDocument.
+      </para>
+
+      <para>
+        Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+        Microsoft Windows y Mac OS.
+      </para>
+
+      <sect3>
+        <title>KWord</title>
+
+        <para>
+          KWord es el procesador de textos de KOffice.
+        </para>
+
+        <figure>
+          <title>
+            KWord
+          </title>
+          <graphic
+          fileref="img/02-aplicaciones/07-kword.png"
+          format="PNG" width="1000" scale="40"/>
+        </figure>
+      </sect3>
+
+      <sect3>
+        <title>KSpread</title>
+
+        <para>
+          KSpread es la hoja de c&aacute;lculo de KOffice.
+        </para>
+
+        <figure>
+          <title>
+            KSpread
+          </title>
+          <graphic
+          fileref="img/02-aplicaciones/08-kspread.png"
+          format="PNG" width="1000" scale="40"/>
+        </figure>
+      </sect3>
+
+      <sect3>
+        <title>KPresenter</title>
+
+        <para>
+          KPresenter es el programa para presentaciones de KOffice.
+        </para>
+
+        <figure>
+          <title>
+            KPresenter
+          </title>
+          <graphic
+          fileref="img/02-aplicaciones/09-kpresenter.png"
+          format="PNG" width="1000" scale="40"/>
+        </figure>
+      </sect3>
+
+      <sect3>
+        <title>Kexi</title>
+
+        <para>
+          Kexi es la base de datos de KOffice.
+        </para>
+
+        <figure>
+          <title>
+            Kexi
+          </title>
+          <graphic
+          fileref="img/02-aplicaciones/10-kexi.png"
+          format="PNG" width="1000" scale="40"/>
+        </figure>
+      </sect3>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Navegador web</title>
+
+    <sect2>
+      <title>Mozilla Firefox</title>
+
+      <para>
+        Mozilla Firefox es un navegador web libre desarrollado por la
+        Fundaci&oacute;n Mozilla.
+      </para>
+
+      <para>
+        Sus caracter&iacute;sticas m&aacute;s rese&ntilde;ables son la
+        navegaci&oacute;n por pesta&ntilde;as, el bloqueador de ventanas
+        emergentes, el corrector ortogr&aacute;fico integrado, la
+        compatibilidad con est&aacute;ndares de programaci&oacute;n, los
+        marcadores din&aacute;micos, los buscadores integrados y un mecanismo
+        para a&ntilde;adir nuevas funcionalidades mediante extensiones.
+      </para>
+
+      <para>
+        Esta serie de caracter&iacute;sticas son las que le han llevado a
+        conseguir un 23% del mercado en agosto de 2009.
+      </para>
+
+      <para>
+        Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+        Microsoft Windows y Mac OS.
+      </para>
+
+      <figure>
+        <title>
+          Mozilla Firefox
+        </title>
+        <graphic
+        fileref="img/02-aplicaciones/11-mozilla_firefox.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Clientes de correo electr&oacute;nico</title>
+
+    <sect2>
+      <title>Mozilla Thunderbird</title>
+
+      <para>
+        Mozilla Thunderbird es un cliente de correo electr&oacute;nico libre
+        desarrollado por la Fundaci&oacute;n Mozilla.
+      </para>
+
+      <para>
+        Sus caracter&iacute;sticas m&aacute;s destacables son un filtro
+        bayesiano de correo basura, el corrector ortogr&aacute;fico
+        incorporado, el cifrado OpenPGP, el lector RSS y el soporte de
+        extensiones y temas.
+      </para>
+
+      <para>
+        Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+        Microsoft Windows y Mac OS.
+      </para>
+
+      <figure>
+        <title>
+          Mozilla Thunderbird
+        </title>
+        <graphic
+        fileref="img/02-aplicaciones/12-mozilla_thunderbird.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+
+    <sect2>
+      <title>KMail</title>
+
+      <para>
+        KMail es el cliente de correo electr&oacute;nico del proyecto KDE.
+        Forma parte de la suite Kontact, que tiene como objetivo la
+        creaci&oacute;n y mantenimiento de un conjunto de programas que
+        permita una gesti&oacute;n eficaz de la informaci&oacute;n personal.
+      </para>
+
+      <figure>
+        <title>
+          KMail
+        </title>
+        <graphic
+        fileref="img/02-aplicaciones/13-kmail.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+
+    <sect2>
+      <title>Evolution</title>
+
+      <para>
+        Evolution es el cliente de correo electr&oacute;nico del proyecto
+        GNOME.
+      </para>
+
+      <para>
+        Aunque no s&oacute;lo tiene las capacidades t&iacute;picas de un
+        cliente de correo, sino que adem&aacute;s incorpora otras
+        funcionalidades como una agenda de contactos, un calendario, un
+        gestor de tareas y otro de notas.
+      </para>
+
+      <para>
+        Es una de las aplicaciones de GNOME Office, que es la parte del
+        proyecto GNOME encaminada a desarrollar un entorno de oficina
+        &uacute;til.
+      </para>
+
+      <figure>
+        <title>
+          Evolution
+        </title>
+        <graphic
+        fileref="img/02-aplicaciones/14-evolution.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Programas para la grabaci&oacute;n de CD y DVD</title>
+
+    <sect2>
+      <title>K3b</title>
+
+      <para>
+        K3b es el programa para la grabaci&oacute;n de CD y DVD del proyecto
+        KDE. Es la aplicaci&oacute;n m&aacute;s completa de este tipo que
+        existe para GNU/Linux.
+      </para>
+
+      <figure>
+        <title>
+          K3b
+        </title>
+        <graphic
+        fileref="img/02-aplicaciones/15-k3b.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+
+    <sect2>
+      <title>Brasero</title>
+
+      <para>
+        Brasero es el programa para la grabaci&oacute;n de CD y DVD del
+        proyecto GNOME.
+      </para>
+
+      <para>
+        La principal virtud que presenta frente K3b, es la que hereda de las
+        directrices de dise&ntilde;o del proyecto GNOME: da prioridad de la
+        usabilidad frente a la funcionalidad.
+      </para>
+
+      <figure>
+        <title>
+          Brasero
+        </title>
+        <graphic
+        fileref="img/02-aplicaciones/16-brasero.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Reproductores multimedia</title>
+
+    <sect2>
+      <title>VLC</title>
+
+      <para>
+        VLC es uno de los mejores reproductores multimedia de GNU/Linux.
+        Una de las caracter&iacute;sticas que le hace especial es que puede
+        ser utilizado como servidor de streaming.
+      </para>
+
+      <para>
+        Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+        Microsoft Windows y Mac OS entre otros.
+      </para>
+
+      <figure>
+        <title>
+          VLC
+        </title>
+        <graphic
+        fileref="img/02-aplicaciones/17-vlc.png"
+        format="PNG" scale="60"/>
+      </figure>
+    </sect2>
+
+    <sect2>
+      <title>MPlayer</title>
+
+      <para>
+        MPlayer es un reproductor multimedia muy popular entre los usuarios de
+        GNU/Linux. Es capaz de reproducir la mayor&iacute;a de formatos de
+        audio y v&iacute;deo que existen en la actualidad. Otra funcionalidad
+        que le hace destacar es la multitud de formatos de subt&iacute;tulos
+        que tiene implementados.
+      </para>
+
+      <para>
+        Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+        Microsoft Windows y Mac OS.
+      </para>
+
+      <figure>
+        <title>
+          MPlayer
+        </title>
+        <graphic
+        fileref="img/02-aplicaciones/18-mplayer.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+
+    <sect2>
+      <title>Kaffeine</title>
+
+      <para>
+        Kaffeine es el reproductor multimedia del proyecto KDE.
+      </para>
+
+      <figure>
+        <title>
+          Kaffeine
+        </title>
+        <graphic
+        fileref="img/02-aplicaciones/19-kaffeine.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+
+    <sect2>
+      <title>Totem</title>
+
+      <para>
+        Totem es el reproductor multimedia del proyecto GNOME.
+      </para>
+
+      <figure>
+        <title>
+          Totem
+        </title>
+        <graphic
+        fileref="img/02-aplicaciones/20-totem.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Reproductores de audio</title>
+
+    <sect2>
+      <title>Amarok</title>
+
+      <para>
+        Amarok es el reproductor de audio de KDE.
+      </para>
+
+      <figure>
+        <title>
+          Amarok
+        </title>
+        <graphic
+        fileref="img/02-aplicaciones/21-amarok.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+
+    <sect2>
+      <title>Rhythmbox</title>
+
+      <para>
+        Rhythmbox es el reproductor de audio de GNOME.
+      </para>
+
+      <figure>
+        <title>
+          Rhythmbox
+        </title>
+        <graphic
+        fileref="img/02-aplicaciones/22-rhythmbox.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+
+    <sect2>
+      <title>Audacious</title>
+
+      <para>
+        Audacious es un reproductor de audio con una interfaz gr&aacute;fica
+        muy similar a la del popular Winamp.
+      </para>
+
+      <figure>
+        <title>
+          Audacious
+        </title>
+        <graphic
+        fileref="img/02-aplicaciones/23-audacious.png"
+        format="PNG" scale="60"/>
+      </figure>
+    </sect2>
+
+    <sect2>
+      <title>Banshee</title>
+
+      <para>
+        Banshee es un reproductor de audio que openSUSE 11.1 trae integrado en
+        el escritorio GNOME.
+      </para>
+
+      <figure>
+        <title>
+          Banshee
+        </title>
+        <graphic
+        fileref="img/02-aplicaciones/24-banshee.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Editor de im&aacute;genes</title>
+
+    <sect2>
+      <title>GIMP</title>
+
+      <para>
+        GIMP es un programa de edici&oacute;n de im&aacute;genes.
+      </para>
+
+      <para>
+        Es considerado como la alternativa m&aacute;s firme a Adobe Photoshop,
+        aunque el dise&ntilde;o de su interfaz es muy diferente.
+      </para>
+
+      <para>
+        Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+        Microsoft Windows y Mac OS.
+      </para>
+
+      <figure>
+        <title>
+          GIMP
+        </title>
+        <graphic
+        fileref="img/02-aplicaciones/25-gimp.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Editor de gr&aacute;ficos vectoriales</title>
+
+    <sect2>
+      <title>Inkscape</title>
+
+      <para>
+        Inkscape es un editor de gr&aacute;ficos vectoriales que utiliza como
+        formato el est&aacute;ndar del World Wide Web Consortium llamado SVG.
+      </para>
+
+      <para>
+        Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+        Microsoft Windows y Mac OS.
+      </para>
+
+      <figure>
+        <title>
+          Inkscape
+        </title>
+        <graphic
+        fileref="img/02-aplicaciones/26-inkscape.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Cliente de mensajer&iacute;a instant&aacute;nea</title>
+
+    <sect2>
+      <title>Pidgin</title>
+
+      <para>
+        Pidgin es un cliente de mensajer&iacute;a instant&aacute;nea capaz de
+        conectarse a m&uacute;ltiples redes y cuentas de manera
+        simult&aacute;nea.
+      </para>
+
+      <para>
+        Sus mayores virtudes son la posibilidad de organizar las
+        conversaciones en pesta&ntilde;as y la multitud de redes que soporta
+        (XMPP, MSN, IRC, Yahoo!, ICQ...).
+      </para>
+
+      <para>
+        Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+        Microsoft Windows y Mac OS entre otros.
+      </para>
+
+      <figure>
+        <title>
+          Pidgin
+        </title>
+        <graphic
+        fileref="img/02-aplicaciones/27-pidgin.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Aplicaci&oacute;n de videoconferencia</title>
+
+    <sect2>
+      <title>Ekiga</title>
+
+      <para>
+        Ekiga es una aplicaci&oacute;n de videoconferencia y telefon&iacute;a
+        por IP que forma parte del proyecto GNOME.
+      </para>
+
+      <para>
+        Utiliza los protocolos SIP y H.323.
+      </para>
+
+      <figure>
+        <title>
+          Ekiga
+        </title>
+        <graphic
+        fileref="img/02-aplicaciones/28-ekiga.png"
+        format="PNG" scale="60"/>
+      </figure>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Programas de intercambio P2P</title>
+
+    <sect2>
+      <title>aMule</title>
+
+      <para>
+        aMule es un programa de intercambio P2P similar al popular eMule que
+        funciona con la redes eDonkey y Kademlia.
+      </para>
+
+      <para>
+        Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+        Microsoft Windows y Mac OS entre otros.
+      </para>
+
+      <figure>
+        <title>
+          aMule
+        </title>
+        <graphic
+        fileref="img/02-aplicaciones/29-amule.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+
+    <sect2>
+      <title>Vuze</title>
+
+      <para>
+        Vuze es un cliente de la red BitTorrent.
+      </para>
+
+      <para>
+        Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+        Microsoft Windows y Mac OS.
+      </para>
+
+      <figure>
+        <title>
+          Vuze
+        </title>
+        <graphic
+        fileref="img/02-aplicaciones/30-vuze.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+
+    <sect2>
+      <title>KTorrent</title>
+
+      <para>
+        KTorrent es un cliente de la red BitTorrent para KDE.
+      </para>
+
+      <para>
+        Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux y
+        Microsoft Windows.
+      </para>
+
+      <figure>
+        <title>
+          KTorrent
+        </title>
+        <graphic
+        fileref="img/02-aplicaciones/31-ktorrent.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+
+    <sect2>
+      <title>Transmission</title>
+
+      <para>
+        Transmission es un cliente de la red BitTorrent.
+      </para>
+
+      <para>
+        Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux y Mac
+        OS entre otros.
+      </para>
+
+      <figure>
+        <title>
+          Transmission
+        </title>
+        <graphic
+        fileref="img/02-aplicaciones/32-transmission.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Aplicaci&oacute;n para la administraci&oacute;n del sistema</title>
+
+    <sect2>
+      <title>YaST</title>
+
+      <para>
+        YaST es la herramienta de configuraci&oacute;n del sistema de la
+        distribuci&oacute;n openSUSE.
+      </para>
+
+      <para>
+        Algunas de las tareas que se pueden realizar desde YaST son las
+        instalaci&oacute;n de software y la configuraci&oacute;n de la red.
+      </para>
+
+      <figure>
+        <title>
+          YaST
+        </title>
+        <graphic
+        fileref="img/02-aplicaciones/33-yast.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+  </sect1>
+</chapter>
+

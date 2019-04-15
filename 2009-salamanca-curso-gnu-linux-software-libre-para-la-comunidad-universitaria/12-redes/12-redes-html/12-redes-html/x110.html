@@ -1,0 +1,402 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Capa de red: capa IP (Layer3)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Paquetes de red. Modelo en Capas"
+HREF="c49.html"><LINK
+REL="PREVIOUS"
+TITLE="Paquetes de red. Modelo en Capas"
+HREF="c49.html"><LINK
+REL="NEXT"
+TITLE="Capa de transporte (Layer4)"
+HREF="x170.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c49.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Cap�tulo 2. Paquetes de red. Modelo en Capas</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x170.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN110"
+>2.2. Capa de red: capa IP (Layer3)</A
+></H1
+><P
+>Sobre la capa de enlace de datos va la capa IP; en realidad pueden ir otro tipo de capas de protocolos distintos a IP, como IPX, el protocolo de Netware, pero nos centraremos sólo en los paquetes IP que son los que se usan en la casi totalidad de las redes locales de hoy en día además de por supuesto en Internet.</P
+><P
+>Un paquete IP se llama datagrama. La información más importante que incluye un datagrama es la IP de origen y la IP destino.</P
+><P
+>Las direcciones IP a diferencia de las MAC están pensadas para ser enrutables, es decir, hay unos nodos enrutadores que examinan la dirección destino y deciden por qué camino siguen los paquetes. Gracias a que las direcciones IP se asignan por grupos a las distintas organizaciones y proveedores de Internet es factible establecer rutas. Esto con las direcciones MAC sería imposible: como vienen a equivaler a números de serie del hardware son inútiles para enrutar: puedo tener dos equipos juntos con MACs que no tienen nada que ver porque son de fabricantes distintos o uno tiene años más que el otro: quizás el nodo con la siguiente MAC a la nuestra se vendió en una ciudad de Japón.</P
+><P
+>Hay rangos de direcciones IP que están reservados para uso privado dentro de una organización. Por ejemplo todas las direcciones que empiezan por 192.168.<A
+NAME="AEN116"
+HREF="#FTN.AEN116"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>. En las empresas, o en los hogares cuando se tienen varios ordenadores en casa y se quiere compartir la ADSL, lo habitual es usar direcciones de este tipo (privadas) en lugar de direcciones IP públicas. Las direcciones privadas no son enrutables fuera del ámbito en que se usan, por lo que no son utilizables para conectarse fuera de la red local. Por ejemplo no podemos conectarnos vía mensajería instantánea a un usuario de Internet utilizando la IP 192.168.120.7, porque los paquetes de respuesta no nos llegarían, dado que esa IP no es pública y no es pública porque puede haber mucha gente que la está usando en su red local. La solución está en el uso del NAT (Network Address Translator). El enrutador de salida a Internet de nuestra red modifica el paquete IP para que use como dirección IP origen la IP pública que tiene asignada la empresa y guarda en una tabla información para hacer la modificación inversa en los paquetes de respuesta entrantes.</P
+><P
+>Siempre que hay enrutado y esto incluye casos especiales como tener una VPN en un nodo, hay que activar el forwarding. Para ello hay que ejecutar <KBD
+CLASS="userinput"
+>sysctl net.ipv4.ip_forward=1</KBD
+>. El forwarding consiste simplemente en que si un paquete viene por una interfaz de red (por ejemplo eth0) y se ve por la tabla de rutas que está destinado a la red de otra interfaz (por ejemplo la eth1) se traspasa a esa otra interfaz. También es posible activar el forwarding para unas interfaces de red sí y para otras no, por ejemplo para eth0 sería <KBD
+CLASS="userinput"
+>sysctl net.ipv4.conf.eth0.forwarding=1</KBD
+>.</P
+><P
+>Hay una parte de la dirección que indica el nodo dentro de la red pero otra indica la red. Los enrutadores tienen rutas para saber por dónde tienen que encaminar los paquetes según la parte de red destino, con una ruta por defecto para los paquetes que no encajan en ninguna de las otras rutas. Los enrutadores sólo suelen tener en cuenta la dirección destino, no la dirección origen, pero en GNU/Linux hay herramientas avanzadas que permiten considerar también la dirección origen.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN122"
+>2.2.1. Máscaras de red. Notación CIDR</A
+></H2
+><P
+>Es importante conocer no sólo la IP de un equipo, sino su red. Para determinar la red a la que pertenece un equipo a partir de su IP, se usa la máscara de red, que al aplicar a nivel de bits un AND sobre la IP nos da la red. Una notación más concisa que utilizar el par IP y máscara de red es la notación CIDR: tras la dirección IP, separado por / se indica el número de bits a uno de la máscara de red. Por ejemplo, 192.168.120.19/24 indica que la máscara de bits es de 255.255.255.0. Esta notación además de más concisa tiene la ventaja que es más rápido de ver cuantos nodos tiene una red, pues es 2^(32-x)-2; en nuestro caso sería 2^(32-24) = 2^8-2= 254.</P
+><P
+>La máscara de red más grande (es decir, la red con menos nodos) es 30, con lo que tendría 2^2-2=2. El motivo de restar 2 unidades es que el primer valor (con todos los bits a cero) es la propia red y el último (con todos los bits a 1) es la dirección de broadcast, es decir, la utilizada para enviar un paquete a todos los nodos de una red. Así pues, una red de este tipo es útil para definir una red para una conexión punto a punto, por ejemplo para una conexión que se usa únicamente para enlazar dos redes.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN126"
+>2.2.2. Enrutamiento dinámico</A
+></H2
+><P
+>Hay protocolos de frontera interior como RIP, OSPF, IS-IS y protocolos de frontera exterior, como BGP<A
+NAME="AEN129"
+HREF="#FTN.AEN129"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>. El programa recomendado es o bien Zebra o Quagga (este último es un fork surgido de Zebra). Hay otros programas, como Routed (parte de netkit), que sólo es adecuado si no vamos a utilizar más que RIP, Gated (que no es libre) o Bird, con desarrollo menos activo. Un artículo algo antiguo, pero que puede servir de introducción a los protocolos de enrutamiento, se publicó en Linux Magazine: <A
+HREF="http://www.linux-magazine.com/issue/31/Zebra.pdf"
+TARGET="_top"
+>http://www.linux-magazine.com/issue/31/Zebra.pdf</A
+></P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN132"
+>2.2.3. Paquetes ICMP, IGMP</A
+></H2
+><P
+>Los paquetes ICMP (Internet Control Message Protocol) son paquetes de control, que van sobre la capa IP pero siguen siendo parte de la capa de red. Por ejemplo son los paquetes que se reciben cuando se recibe un error de que no se ha podido establecer una conexión a un puerto o que no hay ruta para llegar a una red. Son también los paquetes que se envían y reciben al hacer un ping para comprobar si llegamos a una red. De los paquetes ICMP sólo nos interesa saber que llevan un campo con el tipo de mensaje, que será el campo por el que filtraremos o dejaremos pasar este tipo de mensajes en nuestro cortafuegos. Con iptables -p icmp -h se ven los tipos de paquetes ICMP.</P
+><P
+>Los paquetes IGMP son paquetes de control para multicast (multidifusión). El origen del modo multicast es que hay comunicaciones en las que los mismos paquetes son de interés de varios nodos destino en lugar de uno solo; el ejemplo más socorrido es una emisión de vídeo. Si se transmite una película usando unicast (el modo normal de comunicación IP) entonces se transmitirá un paquete por cada destinatario, mientras que con multicast en los tramos comunes a todos los destinatarios irá un solo paquete. El multicast se basa en rangos de Ips reservados para este fin, pero no hablaremos más de él porque se usa muy raramente. No hay que confudir multicast con broadcast: este último es enviar a todos los nodos de la red, el multicast es más restringido.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN136"
+>2.2.4. Vinculación entre capa de red y enlace de datos</A
+></H2
+><P
+>A nivel de red se utilizan direcciones Ips, pero las redes locales a nivel físico utilizan Ethernet, por lo que en último término para enviar un paquete a una máquina de la red local no basta con utilizar su IP, además en la parte de cabeceras Ethernet habrá que poner su dirección MAC. El protocolo que permite averiguar la dirección MAC de una máquina a partir de su IP es ARP. El funcionamiento de ARP se basa en utilizar una dirección de broadcast Ethernet para preguntar a todos los nodos de la red local quién tiene una determinada IP: la respuesta se cachea en cada host para evitar preguntarla cada vez. Con el comando arp de Unix se puede ver y manipular la tabla que convierte de IP a dirección MAC en una máquina.</P
+><P
+>Existe un protocolo llamada RARP (reverse ARP) que hace lo contrario que ARP: a partir de la MAC un servidor responde qué Ip tenemos. Se usa para hacer los nodos de la red autoconfigurables, pero se considera preferible usar un protocolo más avanzado como BOOTP o DHCP.</P
+><P
+>GNU/Linux incluye soporte de ProxyARP. Un proxy ARP es una máquina que responde peticiones ARP en nombre de otras máquinas que estando en la misma red IP que el nodo que hace la petición, no están en la misma red física (ni están unidas por un hub, switch o bridge). El uso más típico es para poner equipos detrás de un cortafuegos, pero usando Ips de la misma red que el resto de equipos. El host que actúa de proxyARP ante una petición ARP a una IP de la que hace de proxy responde con su propia dirección MAC; luego cuando le lleguen paquetes los redirigirá a la máquina. Otro uso importante es para que un nodo que accede a través de una VPN a la red local pueda tener una IP local, sin necesidad de usar un bridge. Otro uso es para el caso de una red Wifi que no soporta WDS y tenemos un nodo que enlaza a varios equipos Ethernet con la red Wifi y los equipos quieren usar direcciones IP válidas en la red Wifi en lugar de NAT para ser accesibles sin tener que hacer mapeos de puertos. Típicamente esto se hace dando la misma IP a la interfaz Wifi y la Ethernet, pero poniendo el enrutado de toda la red por la Wifi salvo los nodos concretos (a los que se accederá en la red Wifi gracias a proxyARP) que se pondrá una ruta concreta usando "dev" a la interfaz ethernet. </P
+><P
+>En general podemos ver a proxyARP como una alternativa a tener un bridge, para usarlo con tráfico IP y hacerlo con una única IP o unas pocas.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN142"
+>2.2.5. ipalias</A
+></H2
+><P
+>Una característica interesante de Linux es que un dispositivo de red Ethernet puede tener más de una IP, puede tener cuantas direcciones queramos. De este modo con una única tarjeta es posible tener varios servidores en el mismo puerto y máquina (por ejemplo varios servidores de correo, que obligatoriamente usan el puerto 25), usando cada uno una IP distinta, sin necesidad de comprar más tarjetas.</P
+><P
+>Así, si tenemos la interfaz eth0 con la IP 192.168.1.1 y queremos tener otra interfaz con la 192.168.1.2, simplemente creamos:<KBD
+CLASS="userinput"
+>ifconfig eth0:1 192.168.1.2</KBD
+></P
+><P
+>Esta funcionalidad se llama ipalias.</P
+><P
+>No hay restricciones sobre si las Ips tienen que estar en la misma red o en redes distintas: la única restricción es que seguimos teniendo sólo una dirección ARP, pues esto ya es una limitación del hardware de la tarjeta, para que la tarjeta pudiera tener más de una MAC, tendría que ponerse en modo promiscuo, con la consiguiente pérdida de eficiencia: el hardware de la tarjeta está optimizado para filtrar los paquetes que no van a su MAC ni a ninguna de las de difusión. </P
+><P
+>Técnicamente una interfaz ipalias aunque con ifconfig aparezca como un dispositivo más, no es un dispositivo reconocido por el sistema operativo al mismo nivel que los reales ni los virtuales creados con TUN/TAP. Por ejemplo no tiene entrada específica en /proc/sys/net/ipv4/conf. Esto provoca que no funcione tratar de obtener una dirección de un servidor DHCP con dhcpclient: falla cuando intenta abrir un socket raw sobre este dispositivo. Técnicamente nada impide que una tarjeta de red obtenga más de una IP, pues como dhcp-client-identifier no tiene por qué usar su dirección MAC, por lo que usa solución sería un programa que obtenga una segunda dirección, utilizando eth0. Una solución que ofrece dhcpclient es usar "interface" para obtener la IP de eth0 y para la de eth0:1 usar la directiva "pseudo", teniendo que proporcionar además un script para configurar eth0:1 con la IP obtenida. Para más información, ver man dhclient.conf.</P
+><P
+>Ojo, no usar como alias "eth0:0", pues el alias acabado en ":0" lo reserva precisamente dhclient para la opción "alias", que es para asignar otra IP estática a una interfaz mediante ipalias, para posibles usos en entornos de movilidad donde se requiera también una IP que no cambie con la ubicación.</P
+><P
+>De todos modos la mejor opción es usar otro cliente de DHCP, en concreto udhcp, que sí pemite trabajar con interfaces creadas con ipalias.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN152"
+>2.2.6. NAT trasversal</A
+></H2
+><P
+>El NAT provoca sobre todo dos tipos de problemas:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Que la IP y puerto vayan dentro del payload del paquete, por lo que no concordará con el de las cabeceras IP que se modifican en el NAT. Este problema se da por ejemplo con SIP.</P
+></LI
+><LI
+><P
+>Que haya NAT en los dos lados, por lo que ninguna de las dos partes puede ser la parte que acepta la conexión entrante.</P
+></LI
+></OL
+><P
+>Para el primer problema una posible solución es que en la máquina que hace NAT exista un módulo que reconoce ese protocolo y modifica también esos contenidos dentro del payload del paquete. Es lo que se conoce como un ALG (Application Layer Gateway). Un problema de los ALG es que en protocolos complejos como SIP limitan el protocolo y que funcionen posibles extensiones. Otro problema es que un ALG está funcionando como un "man in middle" que manipula el paquete, por lo tanto no funcionará si por ejemplo la aplicación está usando TLS para evitar manipulaciones.</P
+><P
+>Otro tipo de solución es utilizar un servidor STUN (creado para UDP, aunque hay alguna extensión para TCP). El cliente detrás del NAT conecta con el servidor STUN para conecer la IP y puerto por el que sale. Esto puede resolver además el segundo problema con un tipo de dispositivos NAT, en los que el mapeo al puerto es el mismo dependiendo del puerto destino y no de la IP destino. Linux no hace este tipo de NAT, pero sí facilita las cosas utilizando el mismo puerto de origen si está libre.</P
+><P
+>Otro tipo de servidores son los TURN, que hacen relay y por lo tanto son como redirectores. El problema es que mientras que un servidor STUN sólo se usa para establecer la conexión, un servidor TURN se utiliza durante toda la conexión para enviar todo el tráfico a través suyo.</P
+><P
+>ICE es un mecanismo, originalmente creado para SIP, que consiste en probar distintas vías y métodos de conexión (conexión directa por cada interfaz, conexión vía STUN, conexión vía TURN) y entre los "candidatos" que tengan éxito se escoge al que se haya dado la mayor prioridad (normalmente a TURN es la que menos, luego STUN). Jingle, en Jabber (es tanto una especificación como una librería), utiliza también ICE<A
+NAME="AEN164"
+HREF="#FTN.AEN164"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+>.</P
+><P
+>Otras soluciones pasan por modificaciones en la máquina que hace NAT (el middlebox), que permita por ejemplo a un programa pedir que se abran puertos o que le asigne un rango de puertos dentro de una IP pública, pero ninguna de estas soluciones son universales (una buena referencia es la página sobre NAT trasversal de la wikipedia, la versión en inglés). Algunas de ellas se mencionan en el apartado sobre Zeroconf y UPnP de este manual. Cabe esperar que algún día salgo algo más estándar de un grupo de trabajo del IETF como midcomm. Otra posibilidad interesante y antigua es SOCKS, que también permite abrir puertos. El atractivo de todas estas soluciones frente a STUN/TURN/ICE es que se basan en la colaboración con la política de seguridad de la empresa, no en tratar de abrir un agujero en el cortafuegos.</P
+><P
+>Para IPsec una solución específica es NAT-T, pero por ejemplo en Windows XP SP2 hay que activarla editando el registro<A
+NAME="AEN168"
+HREF="#FTN.AEN168"
+><SPAN
+CLASS="footnote"
+>[4]</SPAN
+></A
+>.</P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notas</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN116"
+HREF="x110.html#AEN116"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>En concreto, las redes reservadas para uso privado están fijadas por el RFC 1918 y son 10.0.0.0/8, 172.16.0.0/12 (es decir, de 172.16.0.0 a 172.31.255.255 y 192.168.0.0/16. Hay más rangos reservados para usos especiales, por ejemplo 169.254.0.0/16 para link-local o 224.0.0.0/4 para Ipv4 multicast.</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN129"
+HREF="x110.html#AEN129"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>Protocolos de frontera interior son los que se usa para enrutar el tráfico dentro de la organización que tiene asignado un rango de Ips y es responsable cara a Internet de su enrutamiento (típicamente un proveedor de Internet, o por ejemplo RedIris), que es lo que se conoce como un AS (Autonomus System) mientras que los protocolos de frontera exterior son para enrutar entre AS.</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN164"
+HREF="x110.html#AEN164"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>Maemo usa también libjingle y cuenta con un documento introductorio sobre NAT-T interesante: http://maemo.org/development/documentation/how-tos/4-x/how_to_use_stun_in_applications.html</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN168"
+HREF="x110.html#AEN168"
+><SPAN
+CLASS="footnote"
+>[4]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>En este SP Microsoft desactivó NAT-T por defecto, por considerar un caso que podría ser un riesgo de seguridad. Esta decisión es muy discutida, pues no todo el mundo ve ese supuesto y consideran más inseguras las alternativas que ofrece a IPsec la propia Microsoft.</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c49.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x170.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Paquetes de red. Modelo en Capas</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c49.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Capa de transporte (Layer4)</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

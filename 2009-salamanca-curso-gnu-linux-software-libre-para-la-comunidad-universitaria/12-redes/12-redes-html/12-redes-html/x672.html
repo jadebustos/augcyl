@@ -1,0 +1,363 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Netfilter/IPtables. Solución para crear cortafuegos, auditar red y hacer NAT</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Proxies, cortafuegos, software de filtrado"
+HREF="c657.html"><LINK
+REL="PREVIOUS"
+TITLE="Proxies, cortafuegos, software de filtrado"
+HREF="c657.html"><LINK
+REL="NEXT"
+TITLE="Caso práctico: router red local, red otra empresa, Internet"
+HREF="c747.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c657.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Cap�tulo 8. Proxies, cortafuegos, software de filtrado</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c747.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN672"
+>8.2. Netfilter/IPtables. Solución para crear cortafuegos, auditar red y hacer NAT</A
+></H1
+><P
+>El filtrado en Linux lo hace un componente del kernel llamado netfilter. La utilidad para configurarlo es iptables, aunque es muy habitual no crear las reglas de un cortafuegos a mano sino utilizando una herramienta con interfaz gráfica.</P
+><P
+>Netfilter maneja distintas tablas: hay una tabla para filtrado (filter), es decir para el cortafuegos, que es la tabla que iptables entiende que queremos utilizar si no le indicamos otra cosa con la opción -t. Otra tabla que se usa mucho es nat, para hacer SNAT (sobre todo para salir a Internet con una sola IP todas las máquinas de una red local) o DNAT (para abrir puertos en un cortafuegos, para hacer proxies transparentes, para hacer balanceo de carga entre varias máquinas...). Hay más tablas que no veremos, como mangle, que permite alterar los paquetes.</P
+><P
+>Cada tabla contiene cadenas. Los paquetes pasarán por unas cadenas u otras. Así, en la tabla filter existen estas cadenas:</P
+><P
+>INPUT: por aquí pasan los paquetes que van destinados a la máquina</P
+><P
+>OUTPUT: por aquí pasan los paquetes que proceden de esta máquina, pero van destinados a otra</P
+><P
+>FORWARD: por aquí pasan los paquetes que ni proceden ni se dirigen a nuestra máquina, es decir, los paquetes que estamos enrutando.</P
+><P
+>En cuanto a la tabla nat, también tiene tres cadenas, aunque mientras que en filter cada paquete iba a una y sólo una de esas tres reglas básicas, aquí un paquete puede pasar por dos reglas:</P
+><P
+>PREROUTING: esta regla es para hacer DNAT de paquetes antes de enrutarlos, tan pronto como llegan a la máquina desde otra máquina.</P
+><P
+>OUTPUT: esta regla es para hacer DNAT de paquetes generados por la máquina con destino a otra máquina, antes de enrutarlos, para hacer DNAT</P
+><P
+>POSTROUTING: esta regla es para hacer SNAT de los paquetes justo después de determinar su ruta de salida.</P
+><P
+>Con iptables se añaden reglas a las cadenas (las reglas se pueden añadir al final, con -A o insertar al principio, con -I). Cada regla tiene unas condiciones de aplicación; por ejemplo una condición puede ser que la IP destino sea la 192.168.7.10 y el puerto destino sea el puerto TCP 8080. Así mismo cada regla tiene un target (objetivo) que es qué hacer con el paquete en caso de que se den las condiciones de aplicación de la regla: se establece con la opción -j, por ejemplo -j ACCEPT. Cuando se determina que a un paquete le es aplicable una cadena (por ejemplo llega un paquete con destino a un servidor de la máquina, luego le corresponde la regla INPUT) se va recorriendo la cadena secuencialmente hasta alcanzar una regla que tenga unas condiciones de aplicación que se ajusten al paquete. En ese caso se aplica el target de la regla. </P
+><P
+>El target puede ser un destino final: se ha decidido qué hacer con el paquete y ya no se miran más reglas. Por ejemplo ACCEPT para dejar pasar el paquete, REJECT para rechazarlo o DROP para no dejarlo pasar pero sin retornar un error ICMP, una práctica recomendable para no dar pistas a las aplicaciones que hacen escaneos de puertos, aunque para el caso TCP es más recomentable el target TARPIT (ver man iptables para ver cómo se usa). Otro target final es QUEUE, que permite pasar a una aplicación el paquete para que haga con él lo que quiera.</P
+><P
+>El target puede ser también un destino no final. Por ejemplo LOG registra el paquete; tras ejecutar esta target se siguen recorriendo las reglas.</P
+><P
+>El target puede ser otra cadena. El usuario pude crear sus propias cadenas, a las que añadirá sus reglas. En caso de poner como target una cadena, el resultado es que se salta a esa regla. Si se termina de recorrer la regla sin alcanzar ningún target final, se continuará en la regla siguiente al punto dónde se produjo el salto. También se puede retornar antes de llegar al final, con el target RETURN.</P
+><P
+>Las cadenas predefinidas (INPUT, OUTPUT, FORWARD... pero no las definidas por el usuario) pueden tener un target por defecto (que deberá ser un target final como ACCEPT o DROP, no un salto a otra cadena). El target por defecto es el que se aplica sobre los paquetes que han llegado al final de la cadena sin que les fuera aplicable ninguna regla con un target final.</P
+><P
+>Este target por defecto se establece con la opción -P. Esta opción habla de "policy" (política) pues permite establecer una política por defecto: rechazar todo salvo lo que explícitamente se permita (si el target por defecto es DROP) o aceptar todo salvo lo que explícitamente se prohíba (si el target por defecto es ACCEPT). Obviamente la política más segura es rechazar por defecto, pero es más difícil de llevar, sobre todo en una red grande: si hay poca comunicación entre los usuarios y los administradores y los usuarios ven cómo las políticas de seguridad de la empresa son un obstáculo para su trabajo buscarán formas de saltarse el cortafuegos, por ejemplo mediante el uso de túneles, por lo que a veces una política muy estricta si es también rígida puede ser contraproducente. </P
+><P
+>Ejemplos:</P
+><P
+>Permitir el tráfico saliente de la propia máquina y el enrutado, con destino al puerto 80 TCP
+<PRE
+CLASS="screen"
+>iptables -A OUTPUT -p tcp --dport 80 -j ACCEPT
+iptables -A FORWARDING -p tcp --dport 80 -j ACCEPT</PRE
+></P
+><P
+>La opción -p indica el protocolo (tcp, udp) y la opción --dport (sólo puede aparecer dport si aparece -t) el puerto destino; para indicar el puerto origen sería con sport).</P
+><P
+>No permitir conectarse a ningún servidor de la máquina, excepto al servidor SSH
+<PRE
+CLASS="screen"
+>iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+iptables -A INPUT -p tcp --syn -j DROP</PRE
+></P
+><P
+>Otras opciones interesantes:</P
+><P
+></P
+><UL
+><LI
+STYLE="list-style-type: opencircle"
+><P
+>-s: ip de origen</P
+></LI
+><LI
+STYLE="list-style-type: opencircle"
+><P
+>-d: ip destino</P
+></LI
+><LI
+STYLE="list-style-type: opencircle"
+><P
+>-i: interfaz de entrada</P
+></LI
+><LI
+STYLE="list-style-type: opencircle"
+><P
+>-o: interfaz de salida</P
+></LI
+><LI
+STYLE="list-style-type: opencircle"
+><P
+>-p icmp -icmp-type: para filtrar por tipo de mensaje ICMP. Ver con -p icmp -h la lista de tipos.</P
+></LI
+></UL
+><P
+>Recomendamos leer man iptables para conocer las impresionantes posibilidades de este programa. Por ejemplo hay una opción para limitar el número de conexiones a un puerto por IP de origen (o incluso por red de origen, mediante una máscara de bits). Otra opción permite poner como selector de reglas para paquetes generados localmente el usuario o el proceso que lo generó. Hay opciones para detectar escaneos de puertos, para ejecutar o dejar de ejecutar cuando la regla se ha dado una serie de veces. El módulo connbytes es perfecto para localizar conexiones que consumen mucho ancho de banda.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN709"
+>8.2.1. Cómo hacer SNAT</A
+></H2
+><P
+>Supongamos que la IP pública de nuestro proveedor es 81.10.20.15; que la salida a Internet es por eth2 y que queremos que todas las conexiones salgan a Internet con esta IP. En este caso ejecutaríamos:
+<KBD
+CLASS="userinput"
+>iptables -t nat -A POSTROUTING -o eth2 -j SNAT --to-source 81.10.20.15</KBD
+></P
+><P
+>Si nuestra IP no es fija, en lugar de SNAT utilizamos MASQUERADE y no incluimos el parámetro --to-source.</P
+><P
+>Observesé que SNAT no se usa sólo para hacer NAT con la IP de la conexión a Internet. Otro caso típico es si tenemos una VPN: establecemos una red privada entre nuestra máquina y la de la empresa; para acceder al resto de máquinas de la empresa una posible solución es hacer en la máquina en la red de la empresa SNAT a su propia IP de los paquetes procedentes de la red virtual, de modo que los paquetes procedentes de nuestra casa parecerán que salen de la IP a la que nos hemos conectado en la red local.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN715"
+>8.2.2. Cómo hacer DNAT</A
+></H2
+><P
+>La regla se añade a PREROUTING si el paquete procede de fuera, OUTPUT si el paquete se ha generado localmente.</P
+><P
+>Un uso típico de DNAT es abrir puertos en un cortafuegos y redirigirlos a Ips y puertos de la red local.</P
+><P
+>Otro uso típico es reemplazar un servidor por otro temporalmente, o incluso balancear entre varias Ips. En este último caso en lugar de DNAT usamos BALANCE y especificamos un rango de Ips.</P
+><P
+>El tercer uso corriente es hacer un proxy transparente. Ahora bien, mientras que hay protocolos en los que en la petición aparece de nuevo la IP o hostname más puerto (por ejemplo en HTTP aparece en la cabecera Host) esto no tiene por que ser así, de modo que el proxy no sabría nada sobre la IP y puerto destino. Por este motivo este caso de DNAT se hace con un target especial (REDIRECT) que sólo funciona sobre la propia máquina, porque así netfilter le pasa la IP y puerto destino a la aplicación a través del sistema operativo.</P
+><P
+>SQUID es un proxy que puede funcionar como proxy transparente. Es posible ejecutar SQUID en una máquina distinta que el enrutador, utilizando la tabla mangle de iptables para marcar los paquetes con destino a SQUID y utilizar la herramienta ip (del paquete iproute; este programa es necesario para realizar operaciones avanzadas que no se pueden hacer con otras herramientas como route, por ejemplo enrutar por IP de origen o por políticas. En este caso se usa una política que es que el paquete haya sido marcado desde netfilter, de modo que lo que hacemos es enrutar a la máquina de SQUID el tráfico que queremos que procese.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN722"
+>8.2.3. Cortafuegos a nivel capa de enlace de datos</A
+></H2
+><P
+>Hay dos posibilidades para montar un cortafuegos sobre un bridge (lo que permite tener un cortafuegos transparente), en lugar de sobre un router, filtrando a nivel de información de la capa de enlace (además podemos seguir usando filtrado a nivel de capa IP).</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Usar ebtables en lugar de iptables (en realidad se pueden usar los dos, cada uno con sus tablas). La fórmula más avanzada, permite por ejemplo considerar la VLAN (IEEE 802.1Q)</P
+></LI
+><LI
+><P
+>Usar en iptables las extensiones mac (para filtrar por dirección MAC) y physdev, para tener en cuenta en las reglas la interfaz de entrada o salida en el bridge. </P
+></LI
+></OL
+><P
+>Para más información: <A
+HREF="http://ebetables.sf.net/"
+TARGET="_top"
+>http://ebetables.sf.net/</A
+></P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN732"
+>8.2.4. Contadores con netfilter</A
+></H2
+><P
+>Hay diversas herramientas para monitorizar redes y dar información sobre el ancho de banda consumido. Estas aplicaciones normalmente funcionan como sniffers, poniendo la tarjeta en modo promiscuo y recompilando información a través de libpcap. Una aplicación visual muy vistosa es Etherape. Una de las aplicaciones más recomendadas es iptraf (<A
+HREF="http://iptraf.seul.org/"
+TARGET="_top"
+>http://iptraf.seul.org/</A
+>). Tiene interfaz de consola, con ncurses. Una relación extensa de herramientas para monitorizar el consumo de ancho de banda está en <A
+HREF="http://www.ubuntugeek.com/bandwidth-monitoring-tools-for-linux.html"
+TARGET="_top"
+>www.ubuntugeek.com/bandwidth-monitoring-tools-for-linux.html</A
+>.</P
+><P
+>La otra posibilidad es utilizar el propio netfilter. Cara al rendimiento tenemos la ventaja que se ejecuta en el espacio del kernel. </P
+><P
+>Si ejecutamos iptables -L -v (se puede especificar una regla en concreto si no queremos ver todas) aparece junto con cada regla el número de paquetes que se han ajustado a esa regla y el total de bytes. Así, podemos escribir un script que cree una nueva cadena; en esa cadena añadimos una regla por cada IP de la red local, precisamente con su IP como selector (origen o destino, según lo que queramos monitorizar) y como target, RETURN. De este modo los contadores reflejarán los paquetes y bytes enviados/recibidos por/para cada una de esas Ips. Esta información es útil por ejemplo para detectar virus que tratan de hacer escaneos de puertos y que a veces provocan que la tabla NAT del router ADSL se sature. En este caso apreciaremos que desde esa IP se envían muchos paquetes, aunque probablemente con pocos bytes. </P
+><P
+>Para poner los contadores de una cadena a cero se usa la opción -Z.</P
+><P
+>Ejemplo de script para crear y borrar reglas para tener contadores:
+<PRE
+CLASS="screen"
+>&#13;#!/bin/sh
+ipmasalta=198
+start() {
+iptables -N contadores
+contador=1
+while [ ${contador} -le $ipmasalta ]
+do
+iptables -A contadores --source 192.168.15.$contador -o eth2 -j ACCEPT
+contador=`expr $contador + 1`
+done
+iptables -A FORWARD -j contadores
+}
+
+stop() {
+iptables -D FORWARD -j contadores
+contador=1
+while [ ${contador} -le $ipmasalta ]
+do
+iptables -D contadores --source 192.168.15.$contador -o eth2 -j ACCEPT
+contador=`expr $contador + 1`
+done
+iptables -X contadores
+}
+</PRE
+></P
+><P
+>Existe un proyecto (<A
+HREF="http://ipac-ng.sourceforge.net/"
+TARGET="_top"
+>http://ipac-ng.sourceforge.net/</A
+>) que crea las reglas, recopila la información y la guarda, para finalmente visualizarla.</P
+><P
+>Otro sistema basado en netfilter es el módulo de webmin para monitorizar el ancho de banda.</P
+><P
+>Además con el módulo account es posible añadir una sola regla para registrar la información de toda una red y que desglose el resultado a nivel de tcp, udp, icmp y resto. Para más información ver <A
+HREF="http://www.svn.barbara.eu.org/ipt_account/wiki/Usage"
+TARGET="_top"
+>www.svn.barbara.eu.org/ipt_account/wiki/Usage</A
+></P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c657.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c747.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Proxies, cortafuegos, software de filtrado</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c657.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Caso práctico: router red local, red otra empresa, Internet</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

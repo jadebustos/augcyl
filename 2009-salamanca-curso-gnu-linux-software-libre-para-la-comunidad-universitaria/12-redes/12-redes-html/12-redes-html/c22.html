@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Distribuciones GNU/Linux para servidores de red</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="NEXT"
+TITLE="Paquetes de red. Modelo en Capas"
+HREF="c49.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="index.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c49.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN22"
+></A
+>Cap�tulo 1. Distribuciones GNU/Linux para servidores de red</H1
+><P
+>A lo largo del curso, la distribución elegida ha sido OpenSuSE. Esta distribución, al igual que otras populares como Ubuntu, Mandriva o Fedora son interesantes para uso personal, pero no son la mejor elección para un servidor de red, un cortafuegos o una VPN en una empresa. En general para empresas son más adecuadas las distribuciones de ciclo largo, que tengan actualizaciones durante años y no es preciso actualizar a otra versión al cabo de unos meses. Las distribuciones de ciclo largo no tratan de ofrecer al usuario el tener siempre el software más reciente, sino estabilidad.</P
+><P
+>Para quien desee una distribución de ciclo largo, Novell tiene su propia versión de SuSE adecuada para estos menesteres, pero es software privativo por el que hay que pagar una subscripción anual por cada máquina. Algo parecido (aunque técnicamente no sea software privativo sino libre, gracias a lo cual existen clónicos gratuitos como CentOS) ocurre con Red Hat y su versión Enterprise. La alternativa a estas distribuciones de pago es usar Ubuntu LTS o un derivado de Red Hat Enterprise gratuito, siendo la alternativa más conocida CentOS.</P
+><P
+>Para instalar un cortafuegos, servidor DHCP etc también está la opción de usar una distribución de propósito específico como IPCop o Smoothwall. Ambas tienen una intuitiva interfaz web. No sólo incluyen el cortafuegos, también gestión del ancho de banda, servidor DHCP, DNS dinámico, servidor de tiempo (NTP), servidor SSH y VPN (con IPsec) admitiendo la VPN tanto unir dos redes como configuración road-warrior (conexión de un usuario remoto a la red local de la empresa).</P
+><P
+>Smoothwall Express está financiado por una empresa, que comercializa software de seguridad relacionado, incluyendo también cortafuegos y filtros de contenidos; periódicamente smoothwall contribuye código de sus productos privativos a esta versión enteramente libre (por ejemplo el código para mostrar el uso de ancho de banda de forma gráfica). En el caso de IPCop no hay una empresa detrás del producto, pero en su web hay una relación de empresas que venden soporte técnico. Tanto IPCop como Smoothwall soportan características avanzadas como gestión del ancho de banda de las conexiones peer-to-peer (Emule, Bittorrent...) e integran un IDS (detector de intrusiones).</P
+><P
+>IPCop y Smoothwall son soluciones para un cortafuegos; no están diseñadas para ejecutar todo tipo de servidores, por ejemplo el correo o los servicios de ficheros e impresión. No es buena idea poner un gran número de servicios sobre un cortafuegos y aprovechar una máquina como servidor para todo. Cuantos más servicios críticos corran sobre una máquina, mayor riesgo es que exista alguna vulnerabilidad en uno de ellos que al comprometer la máquina afecte a la seguridad de todos los demás.</P
+><P
+> Probablemente la distribución especializada en redes y con administración web más interesante sea Zeroshell, con características muy avanzadas por ejemplo a la hora de construir un Acess Point: 
+<A
+HREF="http://www.zeroshell.net"
+TARGET="_top"
+>http://www.zeroshell.net/</A
+></P
+><P
+>&#13;Hay otras distribuciones orientadas a servidores de empresa (sobre todo a PYMES). Destacaremos tres:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Ebox (<A
+HREF="http://ebox-platform.com/"
+TARGET="_top"
+>http://ebox-platform.com/</A
+>). Software libre de una empresa española, con toda una arquitectura para desarrollar los nuevos componentes. En realidad no es una distribución, sino una plataforma que se instala sobre una distribución: por ejemplo está disponible en los repositorios para Ubuntu. De todos modos se puede descargar una distribución basada en Ubuntu 8.04 LTS con todo ya instalado.</P
+></LI
+><LI
+><P
+>SMEServer (<A
+HREF="http://www.smeserver.org/"
+TARGET="_top"
+>www.smeserver.org/</A
+>). GPL, basado en CentOS 4. Servidor de correo, con filtro de SPAM y virtus, conversión de correos en formato TNEF, webmail. Servidor de ficheros, con sistema de administración de usuarios, cuotas. Servidor web. Compartición de la conexión a Internet. I-Bays: Un sistema para compartir información entre un grupo de usuarios. Servidor de impresión.</P
+></LI
+><LI
+><P
+>ClarkConnect: (<A
+HREF="http://www.clarkconnect.com/"
+TARGET="_top"
+>http://www.clarkconnect.com/</A
+>). Servidor de correo, impresión, ficheros, backup, VPN... Lamentablemente no parece ser software libre al 100% , porque hay distintas ediciones. La edición gratuita además de tener limitaciones no es de ciclo largo.</P
+></LI
+></OL
+><P
+>Es muy recomendable acudir a las páginas de estos proyectos en la Wikipedia, porque además veremos referencias a proyectos similares y a herramientas de administración web que se pueden integrar en las distribuciones habituales</P
+><P
+>También cabe reseñar algunas soluciones basadas en Linux que corren en routers de precio asequible, como el SoC (System On Chip) ADM5120, un hardware que cuesta menos de 50EUR, tienen un consumo de energía mínimo y el tamaño de un switch barato para el hogar. Sobre estos sistemas corren distribuciones Linux específicas como OpenWRT (<A
+HREF="http://www.openwrt.org/"
+TARGET="_top"
+>www.openwrt.org/</A
+>. Se puede adquirir un router basado en una placa ADM5120 con 5 interfaces de red, 16MB de RAM y la opción de usar discos externos por USB (lamentablemente limitados a la velocidad de USB 1.0) en <A
+HREF="http://www.omnima.co.uk/store/catalog/Embedded-controller-p-16140.html"
+TARGET="_top"
+>http://www.omnima.co.uk/store/catalog/Embedded-controller-p-16140.html</A
+>. Si lo que necesitamos es un servidor y no necesitamos tener varias interfaces de red, hay otros dispositivos como <A
+HREF="http://www.dealextreme.com/details.dx/sku.20383"
+TARGET="_top"
+>http://www.dealextreme.com/details.dx/sku.20383</A
+> o <A
+HREF="http://bifferos.bizhat.com/"
+TARGET="_top"
+>http://bifferos.bizhat.com/</A
+>. Soluciones más caras son las placas de Soekris.
+</P
+><P
+>Para evitar la dependencia de OpenSuSE y facilitar al lector elegir la distribución que más le convenga para sus servidores, en los capítulos sobre redes no se usará la herramienta de administración Yast, sino que se indicará como hacer la configuración manualmente o bien se comentarán herramientas genéricas disponibles en cualquier distribución.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c49.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>GNU/Linux, software libre para la comunidad universitaria</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Paquetes de red. Modelo en Capas</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

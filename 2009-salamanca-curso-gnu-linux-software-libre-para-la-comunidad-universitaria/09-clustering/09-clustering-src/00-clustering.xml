@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+                      "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd"
+[
+  <!ENTITY bookinfo SYSTEM "01-bookinfo.xml">
+  <!ENTITY clustering SYSTEM "02-clustering.xml">
+  <!ENTITY arquitectura SYSTEM "03-arquitectura.xml">
+  <!ENTITY balanceo SYSTEM "04-balanceo.xml">
+  <!ENTITY deteccion_de_fallos SYSTEM "05-deteccion_de_fallos.xml">
+  <!ENTITY fencing SYSTEM "06-fencing.xml">
+  <!ENTITY otras_soluciones SYSTEM "07-otras_soluciones.xml">
+  <!ENTITY licencia SYSTEM "08-licencia.xml">
+]>
+
+<book lang="es">
+  &bookinfo;
+  &clustering;
+  &arquitectura;
+  &balanceo;
+  &deteccion_de_fallos;
+  &fencing;
+  &otras_soluciones;
+  &licencia;
+</book>
+

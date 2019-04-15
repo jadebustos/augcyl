@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Proceso de una Petición LAMP</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="La Arquitectura LAMP"
+HREF="c50.html"><LINK
+REL="PREVIOUS"
+TITLE="Elementos de la Arquitectura LAMP"
+HREF="x95.html"><LINK
+REL="NEXT"
+TITLE="Pasos de la Instalación de un Entorno LAMP"
+HREF="c149.html"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Configuración de plataforma LAMP - Teoría</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x95.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 2. La Arquitectura LAMP</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c149.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="AEN111"
+>2.4. Proceso de una Petición LAMP</A
+></H1
+><P
+>A continuación se detallarán los pasos que realizan el cliente y el servidor de una arquitectura LAMP</P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;Cliente Web: Solicitud de conversión del nombre de una máquina al Servidor DNS. Por ejemplo: www.google.es
+</P
+></LI
+><LI
+><P
+>&#13;Servidor DNS: Recepción y tratamiento de la solicitud. Una vez recibida la petición realiza las consultas necesarias para resolver y 
+obtener la dirección IP.
+</P
+></LI
+><LI
+><P
+>&#13;Servidor DNS: Devuelve la dirección IP que corresponde al Servidor Web al navegador Web.
+</P
+></LI
+><LI
+><P
+>&#13;Cliente Web: Realiza la solicitud de información mediante una URL(Método GET) o un formulario (Método POST). Dicha solicitud incluye: 
+la dirección IP del servidor web, el puerto del servidor web, URL y parámetros POST(esta sólo en el caso de formularios normalmente).
+</P
+></LI
+><LI
+><P
+>&#13;Servidor Web: Control de Acceso, Análisis de la petición y localización del recurso.
+</P
+></LI
+><LI
+><P
+>&#13;Servidor Web: Selección del módulo de PHP para interpretar el fichero PHP elegido.
+</P
+></LI
+><LI
+><P
+>&#13;Módulo de PHP: Ejecución del programa PHP elegido.
+</P
+></LI
+><LI
+><P
+>&#13;Aplicación PHP: Procesado de los parámetros GET o POST.
+</P
+></LI
+><LI
+><P
+>&#13;Aplicación PHP: Realización de las llamadas SQL al Servidor de SGBD.
+</P
+></LI
+><LI
+><P
+>&#13;SGBD: Recogida y procesado de la petición SQL.
+</P
+></LI
+><LI
+><P
+>&#13;SGBD: Retorno de los datos solicitados.
+</P
+></LI
+><LI
+><P
+>&#13;Aplicación PHP: Procesado de los datos devueltos por el SGBD y Generación del HTML resultante.
+</P
+></LI
+><LI
+><P
+>&#13;Modulo PHP: Paso del HTML resultante a Apache.
+</P
+></LI
+><LI
+><P
+>&#13;Apache: Devuelve el HTML al cliente Web.
+</P
+></LI
+><LI
+><P
+>&#13;Cliente Web: Presentación del HTML resultante, CSS y elementos relacionados y ejecución del Javascript.
+</P
+></LI
+></UL
+><P
+>A continuación se puede visualizar un gráfico que resume dichos pasos:</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN146"
+></A
+><P
+><B
+>Figura 2-1. Procesado de una petición LAMP</B
+></P
+><P
+><IMG
+SRC="img/lamp-arquitectura.png"></P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x95.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c149.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Elementos de la Arquitectura LAMP</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c50.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Pasos de la Instalación de un Entorno LAMP</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

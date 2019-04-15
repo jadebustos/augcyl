@@ -1,0 +1,495 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- CAPITULO 4 -->
+  <chapter>
+    <title>N&uacute;cleo de Linux</title>
+    <para>El n&uacute;cleo (kernel) es el "programa principal" de todo sistema
+    operativo, a trav&eacute;s de &eacute;l se controla todo el sistema. El n&uacute;cleo
+    de Linux de tipo monol&iacute;tico y esta basado en los n&uacute;cleos de
+    Unix.</para>
+<para>Algunas caracter&iacute;sticas destacables son:</para>
+<itemizedlist>
+    <listitem>
+<para>Multitarea y multihilo, es capaz de ejecutar varios proceso al mismo
+tiempo, en incluso varios hilos. Soportando varios procesadores.</para>
+</listitem>
+ <listitem>
+<para>El kernel y las aplicaciones corren en distintos espacios de
+trabajo. En el <emphasis>kernel mode</emphasis> se tiene acceso al
+hardware de la m&aacute;quina e interrupciones, y
+en <emphasis>user mode</emphasis>, donde corren las aplicaciones, que tienen
+que acceder al hardware a trav&eacute;s del kernel.</para>
+</listitem>
+<listitem>
+<para>Gesti&oacute;n de memoria a trav&eacute;s del n&uacute;cleo y memoria virtual para
+ampliar la memoria f&iacute;sica disponible mediante la utilizaci&oacute;n de parte de sistema de ficheros como memoria.</para>
+</listitem>
+<listitem>
+<para>Soporte de librer&iacute;as compartidas con las llamadas al sistema.</para>
+</listitem>
+<listitem>
+<para>Portabilidad, Linux esta disponible en muchas plataformas, desde
+grandes ordenadores hasta pdas.</para>
+</listitem>
+</itemizedlist>
+<para>Podemos ver la versi&oacute;n de nuestro n&uacute;cleo actual con:</para>
+<screen>
+<prompt>[pcm@sal]# </prompt><userinput>uname -a</userinput>
+<computeroutput>Linux merc 2.4.24-20040430 #1 SMP Fri Apr 30 21:34:00 CEST 2004 i686 GNU/Linux</computeroutput>
+<prompt>[pcm@sal]# </prompt>
+</screen>
+<sect1>
+      <title>Historia</title>
+      <para>En 1991 Linus Torvalds public&oacute; en unas news de minix
+      un nuevo kernel muy b&aacute;sico para procesadores Intel 386 y
+      486. Utilizando el compilador de C de GNU <application>gcc</application> y portando la shell
+      bash.</para>
+<para>La gente aport&oacute; c&oacute;digo a ese n&uacute;cleo inicial y as&iacute; se fue
+      ampliando y soportando m&aacute;s hardware. Se adopt&oacute; la licencia GNU GPL.</para>
+<para>En el 1992 se creo ya su propio foro y se porto las X11. En 1994
+      apareci&oacute; la versi&oacute;n 1.0. La versi&oacute;n 2 se comenz&oacute; en el
+      1996.</para>
+<itemizedlist>
+    <listitem>
+<para>La versi&oacute;n 2.2 comenz&oacute; en 1999 con 1.800.847 de lineas de c&oacute;digo.</para>
+</listitem>
+     <listitem>
+<para>La versi&oacute;n 2.4 comenz&oacute; en 2001 con 3.377.902 de lineas de c&oacute;digo.</para>
+</listitem>
+    <listitem>
+<para>La versi&oacute;n 2.6 comenz&oacute; en 2003 con 5.929.913 de lineas de
+c&oacute;digo.</para>
+</listitem>
+    <listitem>
+<para>La versiones impares (1.1, 2.3 o 2.5) son versiones de desarrollo, no son estables.</para>
+</listitem>
+    <listitem>
+<para>Actualmente, a Abril del 2008, se acaba de publicar la versi&oacute;n 2.6.25.</para>
+</listitem>
+</itemizedlist>
+    </sect1>
+    <sect1>
+      <title>Configurando un nuevo n&uacute;cleo</title>
+      <para>Cuando arrancamos Linux ya tenemos configurado un n&uacute;cleo
+      de sistema, pero este puede que no contenga soporte para alg&uacute;n
+      dispositivo o funcionalidad que queramos tener. Tambi&eacute;n podemos
+      querer optimizar o actualizar nuestro sistema.</para>
+<para>Normalmente la distribuci&oacute;n que estemos utilizando nos tendr&aacute;
+      preparado y actualizado nuevas actualizaciones ya compiladas del
+      n&uacute;cleo, pero puede que no sea suficiente para lo que
+      necesitamos.</para>
+<para>Entonces tendremos que coger el c&oacute;digo fuente del kernel,
+      configurarlo, compilarlo nosotros e instalarlo.</para>
+    <sect2>
+        <title>Obtener los fuentes del n&uacute;cleo</title>
+<para>Normalmente las distribuciones de Linux tambi&eacute;n nos proporcionan
+      las fuentes de n&uacute;cleo como paquete. Suelen ser las versiones
+estables. Si queremos una versi&oacute;n m&aacute;s moderna o de desarrollo
+      podemos directamente descargarnos los fuentes de
+      www.kernel.org.</para>
+<para>Una vez instalado el paquete o descargado descomprimimos, deber&aacute;
+colocarse en <filename>/usr/src</filename>.</para>
+    </sect2>
+<sect2>
+        <title>Configuraci&oacute;n</title>
+        <para>Para configurar los fuentes del n&uacute;cleo debemos ir a
+        directorio donde se encuentran y ejecutar <command>make</command> con una de las
+        siguientes opciones.</para>
+<itemizedlist>
+    <listitem>
+      <para><emphasis>config</emphasis>: nos ir&aacute; preguntando por
+      consola una por una las opciones del n&uacute;cleo. Debiendo responder
+      si la queremos o no.</para>
+<screen><prompt>[root@sal]# </prompt><userinput>make config</userinput>
+<computeroutput>
+scripts/kconfig/conf arch/i386/Kconfig
+#
+# using defaults found in .config
+#
+*
+* Linux Kernel Configuration
+*
+*
+* Code maturity level options
+*
+Prompt for development and/or incomplete code/drivers (EXPERIMENTAL) [Y/n/?]
+</computeroutput><userinput>y</userinput>
+</screen>
+    </listitem>
+    <listitem>
+      <para><emphasis>menuconfig</emphasis>: podremos configurar las
+      opciones con una pantalla
+      con men&uacute;s textuales, moviendo con los cursores entrando en las
+      opciones y seleccionado las opciones.</para>
+<informalfigure>
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="img/c4mconfig.png" format="PNG"/>
+        </imageobject>
+        <textobject>
+          <phrase>menuconfig</phrase>
+        </textobject>
+      </mediaobject>
+    </screenshot>
+  </informalfigure>
+    </listitem>
+    <listitem>
+      <para><emphasis>xconfig</emphasis>: Nos permite utilizar en
+      entorno X Windows.</para>
+<informalfigure>
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="img/c4xconfig.png" format="PNG"/>
+        </imageobject>
+        <textobject>
+          <phrase>xconfig</phrase>
+        </textobject>
+      </mediaobject>
+    </screenshot>
+  </informalfigure>
+    </listitem>
+</itemizedlist>
+<para>Con estas presentaciones de opciones se pretende que vayamos
+seleccionado que dispositivos, protocolos, sistemas de ficheros y
+otras opciones del n&uacute;cleo queremos que est&eacute;n disponibles en nuestro
+nuevo n&uacute;cleo. Se nos presentan las opciones ordenadas por
+grupos:</para>
+<itemizedlist>
+<listitem><para><emphasis>Code maturity level options</emphasis>:
+Contiene opciones para que nos muestre o no opciones del n&uacute;cleo que
+todav&iacute;a no est&aacute;n suficientemente probadas. Sobre todo son drivers para
+nuevos dispositivos.</para></listitem>
+<listitem><para><emphasis>General setup</emphasis>: Opciones
+generales, sobre si el n&uacute;cleo va a tener llamadas de sistema de
+est&aacute;ndares de UNIX.</para></listitem>
+<listitem><para><emphasis>Loadable module support</emphasis>: Soporte
+de m&oacute;dulos en el n&uacute;cleo. Se abordar&aacute; en una secci&oacute;n posterior.</para></listitem>
+<listitem><para><emphasis>Processor type and features</emphasis>: Nos permite
+compilar el n&uacute;cleo m&aacute;s espec&iacute;ficamente para procesador.</para></listitem>
+<listitem><para><emphasis>Power management options (ACPI,
+APM)</emphasis>: Soporte para los sistemas de ahorro de energ&iacute;a.</para></listitem>
+<listitem><para><emphasis>Bus options (PCI, PCMCIA, EISA, MCA,
+ISA)</emphasis>: Soporte para los distintos buses de datos.</para></listitem>
+<listitem><para><emphasis>Executable file formats</emphasis>: Los
+distintos formatos de binarios en que pueden encontrarse en las
+aplicaciones, que el n&uacute;cleo reconocer&aacute; y ser&aacute; capaz de
+ejecutar.</para></listitem>
+<listitem><para><emphasis>Device Drivers</emphasis>: Opciones para
+todos los dispositivos hardware que Linux soporta. Este grupo es muy
+extenso y esta divido por los tipos de hardware. Suele ser el motivo
+por el cual recompilamos el n&uacute;cleo.</para></listitem>
+<listitem><para><emphasis>File systems</emphasis>: Tipos de sistemas
+de ficheros que nos soporta el n&uacute;cleo</para></listitem>
+<listitem><para><emphasis>Profiling support</emphasis>: Opciones que
+nos van a permitir analizar el comportamiento del n&uacute;cleo. Esto se hace normalmente
+para desarrollo y optimizaci&oacute;n.</para></listitem>
+<listitem><para><emphasis>Kernel hacking</emphasis>: Soporte para
+depurar el n&uacute;cleo.</para></listitem>
+<listitem><para><emphasis>Security options</emphasis>: Opciones para
+ sistemas de seguridad que permiten que
+incluso el superusuario no tenga totalmente el
+control de la m&aacute;quina.</para></listitem>
+<listitem><para><emphasis>Cryptographic options</emphasis>: API para
+que el n&uacute;cleo tenga opciones de criptograf&iacute;a. Algunos drivers lo
+utilizan, por ejemplo los driver para tarjetas y redes
+wifi.</para></listitem>
+<listitem><para><emphasis>Library routines</emphasis>: Librerias
+disponibles para el resto de driver y opciones.</para></listitem>
+</itemizedlist>
+<para>Siempre para cada opci&oacute;n o grupo tenemos una peque&ntilde;a ayuda que
+nos indica para que sirve y aconseja que opci&oacute;n es la mejor.</para>
+<para>Una vez seleccionadas podemos guardar la configuraci&oacute;n en un
+fichero a parte o bien al salir nos preguntar&aacute; si queremos guardarlo
+en el fichero <filename>.config</filename> que ser&aacute; el utilizado en la
+compilaci&oacute;n.</para>
+</sect2>
+
+      <sect2>
+        <title>Compilando el n&uacute;cleo</title>
+        <para>Una vez configurada las opciones y guardadas las
+        opciones en el fichero <filename>.config</filename> debemos
+        compilar para ello ejecutaremos el comando
+        <command>make</command> con las siguientes opciones:</para>
+<screen><prompt>[root@sal]# </prompt><userinput>make dep</userinput>
+<computeroutput>...
+</computeroutput>
+<prompt>[root@sal]# </prompt><userinput>make bzImage</userinput>
+<computeroutput>...
+</computeroutput>
+<prompt>[root@sal]# </prompt>
+</screen>
+<para>Nos crear&aacute; el bloque principal del n&uacute;cleo. Antes de instalarlo debermos crear los modulos</para>
+<tip><para>Debian dispone unas herramientas en paquete
+        <filename>kernel-package</filename>, que nos permiten
+        compilar y crear un
+        paquete <emphasis>deb</emphasis> con el n&uacute;cleo compilado ya preparado
+        para su instalaci&oacute;n. Haciendo mucho m&aacute;s sencillo el proceso y
+facilitando la instalaci&oacute;n en otros sistemas con esta distribuci&oacute;n.</para></tip>
+</sect2>
+    <sect2>
+        <title>M&oacute;dulos de n&uacute;cleo</title>
+        <para>Aunque se supone que el n&uacute;cleo es monol&iacute;tico, es decir,
+        todas los servicios del n&uacute;cleo est&aacute;n en un solo bloque,
+        realmente en Linux se pueden cargar din&aacute;micamente
+        m&oacute;dulos.</para>
+<para>Esto nos permite durante la ejecuci&oacute;n cargar solo los drivers
+        para los dispositivos que estemos utilizando. Tambi&eacute;n hace que
+        el programa principal sea m&aacute;s peque&ntilde;o y ocupe menos en memoria
+        y s&oacute;lo se ocupe la memoria cuando estemos utilizando el
+        m&oacute;dulo.</para>
+<para>Las distribuciones lo que suelen hacer para tener un n&uacute;cleo que
+        tenga soporte para cualquier sistema es compilar la mayor
+        parte de las opciones como n&uacute;cleo, as&iacute; es poco probable que
+        todo nuestro hardware no este soportado. Aunque se supone que
+        es m&aacute;s &oacute;ptimo que un driver este en el n&uacute;cleo principal en vez
+        de como m&oacute;dulo.</para>
+<para>Para crear los m&oacute;dulos debemos en el momento de la
+        configuraci&oacute;n del n&uacute;cleo establecer que queremos soporte para
+        m&oacute;dulos, y poner en la configuraci&oacute;n las opciones que queremos
+        como m&oacute;dulos. Para ello al establecer una opci&oacute;n como m&oacute;dulo
+        con los distintos sistemas de configuraci&oacute;n (config,
+        menuconfig y xconfig) debemos poner una M.</para>
+<para>Para compilarlos debemos hacer <command>make
+        modules</command>.</para>
+<para>Una vez compilados cada m&oacute;dulo es un archivo binario con
+        extensi&oacute;n <filename>.o</filename> en las versiones 2.4 y
+        anteriores o <filename>.ko</filename> en las versiones
+        2.6. Los m&oacute;dulos instalados se encuentra en la ruta
+        <filename>/lib/modules/</filename><emphasis>versi&oacute;n del n&uacute;cleo</emphasis>.</para>
+      </sect2>
+<sect2>
+        <title>Instalando el n&uacute;cleo</title>
+        <para>Una vez que tenemos el binario del n&uacute;cleo y los m&oacute;dulos
+        tenemos que instalarlo. Para ello tenemos que hacer <command>make
+        modules_install</command> y <command>make install</command>.</para>
+</sect2>
+<sect2>
+        <title>Gestor de Arranque para el n&uacute;cleo</title>
+        <para>Para que el nuevo kernel funcione debemos arrancar el
+        sistema, para ello el gestor de arranque debe estar
+        configurado y reinstalado con el nuevo n&uacute;cleo.</para>
+<para>El gestor de arranque es un peque&ntilde;o programa instalado en los
+        sectores de arranque que se encarga de arrancar
+        Linux.</para>
+<para>Existe dos gestores de arranque m&aacute;s conocidos (para plataformas intel), dependiendo de la distribuci&oacute;n:</para>
+<itemizedlist>
+    <listitem>
+      <para><emphasis>lilo</emphasis>: Es el gestor m&aacute;s antiguo pero
+      m&aacute;s probado.</para>
+<para>Para el nuevo
+      n&uacute;cleo debemos configurar su fichero
+      de configuraci&oacute;n <filename>/etc/lilo.conf</filename> con el
+      nuevo n&uacute;cleo en la etiqueta <emphasis>image</emphasis> y ejecutar <command>lilo</command>.
+</para>
+    </listitem>
+<listitem>
+      <para><emphasis>grub</emphasis>: El gestor nuevo, gr&aacute;ficamente
+      m&aacute;s atractivo y otras mejoras.</para>
+<para>El fichero de
+      configuraci&oacute;n es grub.conf, donde metemos el nuevo la
+      localizaci&oacute;n del fichero binario del n&uacute;cleo en la etiqueta
+      <emphasis>kernel</emphasis>. Despu&eacute;s ejecutamos el comando <command>grub</command>.
+</para>
+    </listitem>
+</itemizedlist>
+</sect2>
+      </sect1>
+    <sect1>
+      <title>Configuraci&oacute;n de par&aacute;metros del n&uacute;cleo</title>
+      <para>El comando <command>sysctl</command> nos permite parametrizar par&aacute;metros del n&uacute;cleo. No hace falta decir que son aquellos con los que fue compilado el n&uacute;cleo.</para>
+      <para>Toda la configuraci&oacute;n se hace a trav&eacute;s del fichero <filename>/etc/sysctl.conf</filename>:</para>
+<programlisting>
+# Kernel sysctl configuration file
+#
+# For binary values, 0 is disabled, 1 is enabled.  See sysctl(8) and
+# sysctl.conf(5) for more details.
+
+# Controls IP packet forwarding
+net.ipv4.ip_forward = 0
+
+# Controls source route verification
+net.ipv4.conf.default.rp_filter = 1
+
+# Do not accept source routing
+net.ipv4.conf.default.accept_source_route = 0
+
+# Controls the System Request debugging functionality of the kernel
+kernel.sysrq = 0
+
+# Controls whether core dumps will append the PID to the core filename.
+# Useful for debugging multi-threaded applications.
+kernel.core_uses_pid = 1
+
+net.ipv4.tcp_syncookies = 1
+net.ipv4.tcp_fin_timeout = 60
+net.ipv4.tcp_keepalive_time = 1800
+net.ipv4.conf.all.accept_redirects = 0
+net.ipv4.conf.all.send_redirects = 0
+net.ipv4.conf.all.accept_source_route = 0
+net.ipv4.conf.all.forwarding = 0
+net.ipv4.conf.all.rp_filter = 1
+net.ipv4.icmp_ignore_bogus_error_responses = 1
+</programlisting>
+    <para>Esta configuraci&oacute;n se activar&aacute; en el arranque de la m&aacute;quina o bien podemos modificar el fichero y:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>sysctl -p</userinput>
+<computeroutput>net.ipv4.ip_forward = 0
+net.ipv4.conf.default.rp_filter = 1
+net.ipv4.conf.default.accept_source_route = 0
+kernel.sysrq = 0
+kernel.core_uses_pid = 1
+net.ipv4.tcp_syncookies = 1
+net.ipv4.tcp_fin_timeout = 60
+net.ipv4.tcp_keepalive_time = 1800
+net.ipv4.conf.all.accept_redirects = 0
+net.ipv4.conf.all.send_redirects = 0
+net.ipv4.conf.all.accept_source_route = 0
+net.ipv4.conf.all.forwarding = 0
+net.ipv4.conf.all.rp_filter = 1
+net.ipv4.icmp_ignore_bogus_error_responses = 1</computeroutput>
+<prompt>[root@sal]# </prompt>
+</screen>
+    <sect2>
+      <title>Modificaci&oacute;n de los par&aacute;metros</title>
+      <para>Como ya hemos visto lo podemos hacer modificando el fichero de configuraci&oacute;n <filename>/etc/sysctl.conf</filename> y ejecutando despu&eacute;s <command>sysctl -p</command>.</para>
+      <para>Tambi&eacute;n es posible modificar estos par&aacute;metros directamente en el sistema de ficheros <filename>/proc/</filename>.</para>
+      <para>Todos los par&aacute;metros que podemos configurar los encontraremos en <filename>/proc/sys/</filename>.</para> 
+      <important><para>Para algunas familias de dispositivos podemos establecer configuraciones por defecto, para todos, o por dispositivo individual. Por ejemplo para los dispositivos de red lo podemos hacer en <emphasis>/proc/sys/net/ipv4/conf/default/</emphasis>, <emphasis>/proc/sys/net/ipv4/conf/all/eth?/</emphasis>, <emphasis>/proc/sys/net/ipv4/conf/lo/</emphasis>, ...</para></important>
+      <para>Por ejemplo el par&aacute;metro <emphasis>net.ipv4.ip_forward</emphasis> lo encontraremos en <filename>/proc/sys/net/ipv4/ip_forward</filename>. Para modificar este par&aacute;metro:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>echo 0 > /proc/sys/net/ipv4/ip_forward</userinput>
+<prompt>[root@sal]# </prompt>
+</screen>
+      <para>El inconveniente de este m&eacute;todo es que al reiniciar la m&aacute;quina esta configuraci&oacute;n se pierde.</para>
+      <para>Por lo tanto ser&aacute; necesario ejecutar los <emphasis>echoes</emphasis> y habr&aacute; que incluirlos en los ficheros de arranque.</para>
+      <para>El uso de <emphasis>echoes</emphasis> es una mala practica de administraci&oacute;n y debe evitarse y usarse en su lugar el fichero <filename>/etc/sysctl.conf</filename>.</para>
+    </sect2>
+    <sect2>
+      <title>Par&aacute;metros configurables</title>
+      <para>Los par&aacute;metros que podremos configurar son aquellos que se hayan seleccionado en la configuraci&oacute;n del n&uacute;cleo que se est&aacute; usando.</para>
+      <para>Podemos comprobar los par&aacute;metros que podemos configurar:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>sysctl -A</userinput>
+<computeroutput>
+sunrpc.tcp_slot_table_entries = 16
+sunrpc.udp_slot_table_entries = 16
+sunrpc.max_resvport = 1023
+sunrpc.min_resvport = 650
+sunrpc.nlm_debug = 0
+sunrpc.nfsd_debug = 0
+sunrpc.nfs_debug = 0
+sunrpc.rpc_debug = 0
+abi.vsyscall32 = 1
+dev.scsi.logging_level = 0
+dev.raid.speed_limit_max = 200000
+dev.raid.speed_limit_min = 1000
+dev.cdrom.check_media = 0
+dev.cdrom.lock = 1
+dev.cdrom.debug = 0
+dev.cdrom.autoeject = 0
+dev.cdrom.autoclose = 1
+dev.cdrom.info = CD-ROM information, Id: cdrom.c 3.20 2003/12/17
+dev.cdrom.info =
+dev.cdrom.info = drive name:            sr0
+dev.cdrom.info = drive speed:           24
+dev.cdrom.info = drive # of slots:      1
+dev.cdrom.info = Can close tray:                1
+dev.cdrom.info = Can open tray:         1
+dev.cdrom.info = Can lock tray:         1
+dev.cdrom.info = Can change speed:      1
+dev.cdrom.info = Can select disk:       0
+dev.cdrom.info = Can read multisession: 0
+dev.cdrom.info = Can read MCN:          1
+dev.cdrom.info = Reports media changed: 1
+dev.cdrom.info = Can play audio:                1
+dev.cdrom.info = Can write CD-R:                0
+dev.cdrom.info = Can write CD-RW:       0
+dev.cdrom.info = Can read DVD:          1
+dev.cdrom.info = Can write DVD-R:       0
+dev.cdrom.info = Can write DVD-RAM:     0
+dev.cdrom.info = Can read MRW:          1
+dev.cdrom.info = Can write MRW:         1
+dev.cdrom.info = Can write RAM:         1
+dev.cdrom.info =
+dev.cdrom.info =
+dev.rtc.max-user-freq = 64
+debug.exception-trace = 1
+net.ipv6.conf.default.max_addresses = 16
+net.ipv6.conf.default.max_desync_factor = 600
+net.ipv6.conf.default.regen_max_retry = 5
+...</computeroutput>
+</screen>
+    </sect2>
+    <sect2>
+      <title>Algunos par&aacute;metros &uacute;tiles</title>
+      <itemizedlist>
+        <listitem>
+          <para><emphasis>net.ipv4.tcp_syncookies = 1</emphasis> proteje contra los ataques <emphasis>Sync packet flooding</emphasis> pero no es conforme a los est&aacute;ndares marcados por los RFCs.</para>
+        <warning><para>Puede tener impacto en el rendimiento de servidores sobrecargados.</para></warning>
+        <important><para><emphasis>Sync packet flooding</emphasis> es una ataque de denegaci&oacute;n de servicio. Cuando se va a establecer una conexi&oacute;n TCP un host manda un paquete <emphasis>SYNC</emphasis> a lo que el otro host responde con un paquete <emphasis>ACK</emphasis>. Si el host atacante empieza a mandar de forma indiscriminada paquetes <emphasis>SYNC</emphasis> con la cabecera falseada con una IP de origen falsa el host atacado mandar&aacute; sus <emphasis>ACK</emphasis> o bien a ning&uacute;n host o a un host que no es el que est&aacute; intentando establecer la comunicaci&oacute;n. Dependiendo de la implementaci&oacute;n de la pila TCP de ese host tratar&aacute; el paquete <emphasis>ACK</emphasis> de una forma u otra.</para>
+<para>El host atacado llegar&aacute; un momento en el que no pueda atender m&aacute;s conexiones.</para>
+<para>Otra forma de prevenir estos ataques es ampliando el tama&ntilde;o de las colas en las que se almacena la informaci&oacute; referente a las peticiones de conexi&oacute;n: <emphasis>net.ipv4.tcp_max_syn_backlog</emphasis>.</para></important>
+        </listitem>
+        <listitem>
+          <para><emphasis>net.ipv4.tcp_max_sync_backlog = XXX</emphasis> por defecto suele estar a 1024 y estable el tama&ntilde;o de la cola donde se guarda la informaci&oacute;n referente a las peticiones de conexi&oacute;n.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>net.ipv4.tcp_fin_timeout = 60</emphasis> cierra los sockets in&aacute;ctivos, no se recivi&oacute; paquete <emphasis>FIN</emphasis>, despu&eacute;s de 60 segundos.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>net.ipv4.tcp_keepalive_time = 1800</emphasis> segundos despu&eacute;s de un proceso de inactividad tras los cuales se intenta verificar si el cliente sigue vivo.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>net.ipv4.conf.all.accept_redirects = 0</emphasis> no se aceptan redirecciones ICMP para evitar ataques <emphasis>Man in the middle</emphasis>.</para>
+          <warning><para>Mediante el uso del protocolo <emphasis>ICMP</emphasis> es posible modificar los gateways definidos est&aacute;ticamente en la m&aacute;quina.</para></warning>
+        </listitem>
+        <listitem>
+          <para><emphasis>net.ipv4.conf.all.send_redirects = 0</emphasis> evita que la m&aacute;quina mande paquetes <emphasis>ICMP</emphasis> con redirecciones.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>net.ipv4.conf.all.accept_source_route = 0</emphasis> se evita que TCP tenga control para decidir sobre la determinaci&oacute;n de la ruta de los paquetes.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>net.ipv4.conf.all.rp_filter = x</emphasis> protecci&oacute;n contra ataques de spoofing.</para>
+          <para><emphasis>x</emphasis> puede tomar los valores:</para>
+          <itemizedlist>
+            <listitem>
+              <para><emphasis>0</emphasis> no realiza comprobaciones.</para>
+            </listitem>
+            <listitem>
+              <para><emphasis>1</emphasis> rechazar suplantaciones evidentes.</para>
+            </listitem>
+            <listitem>
+              <para><emphasis>2</emphasis> comprobaci&oacute;n exahustiva.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+        <listitem>
+          <para><emphasis>net.ipv4.ip_forward = 0</emphasis> deshabilitar el reenvio de paquetes.</para>
+        <important><para>Esta opci&oacute;n suele estar con un valor distinto de cero en m&aacute;quinas que hacen enrutado entre diferentes redes.</para></important>
+        </listitem>
+        <listitem>
+          <para><emphasis>net.ipv4.icmp_ignore_bogus_error_responses = 1</emphasis> activa la protecci&oacute;n ante mensajes de error malformados.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>net.ipv4.icmp_echo_ignore_broadcast = 1</emphasis> desactivar la respuestas a las peticiones de broadcast de echo ICMP.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>net.ipv4.icmp_echo_ignore_all = 1</emphasis> desactivaci&oacute; de la respuesta a ping.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>kernel.panic = n</emphasis> despu&eacute;s de un <emphasis>kernel panic</emphasis> espera <emphasis>n</emphasis> segundos para reinciar el sistema.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>kernel.sysrq = 1</emphasis> activa <emphasis>SYSRQ</emphasis>.</para>
+          <para><emphasis>SYSRQ</emphasis> es una caracter&iacute;stica del n&uacute;cleo que permite pasarle instrucciones con fines de depuraci&oacute;n.</para>
+          <tip><para>Con el <emphasis>SYSRQ</emphasis> activado si se presionan las teclas <emphasis>AltGr+PetSis+t</emphasis>, <emphasis>AltGr+PetSis+m</emphasis> y <emphasis>AltGr+PetSis+p</emphasis> se escribir&aacute;n en los logs el estado de los procesos, memoria y CPU.</para></tip>
+        </listitem>
+      </itemizedlist>
+      <tip><para>En la documentaci&oacute;n del n&uacute;cleo podemos encontrar toda la informaci&oacute;n sobre <emphasis>sysctl</emphasis> en <filename>Documentacion/networking/ip-sysctl.txt</filename>.</para></tip>
+    </sect2>
+    </sect1>
+
+  </chapter>
+

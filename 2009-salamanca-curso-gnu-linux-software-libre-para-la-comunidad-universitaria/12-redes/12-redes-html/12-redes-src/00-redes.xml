@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+                      "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd"
+[
+  <!ENTITY bookinfo SYSTEM "01-bookinfo.xml">
+  <!ENTITY nota SYSTEM "02-nota.xml">
+  <!ENTITY paquetes SYSTEM "03-paquetes.xml">
+  <!ENTITY autoconfiguracion SYSTEM "04-autoconfiguracion.xml">
+  <!ENTITY servidores SYSTEM "05-servidores.xml">
+  <!ENTITY acceso_remoto SYSTEM "06-acceso_remoto.xml">
+  <!ENTITY vpn SYSTEM "07-vpn.xml">
+  <!ENTITY escritorio_remoto SYSTEM "08-escritorio_remoto.xml">
+  <!ENTITY filtrado SYSTEM "09-filtrado.xml">
+  <!ENTITY caso_practico SYSTEM "10-caso_practico.xml">
+  <!ENTITY virtualizacion SYSTEM "11-virtualizacion.xml">
+  <!ENTITY licencia SYSTEM "12-licencia.xml">
+]>
+
+<book lang="es">
+  &bookinfo;
+  &nota;
+  &paquetes;
+  &autoconfiguracion;
+  &servidores;
+  &acceso_remoto;
+  &vpn;
+  &escritorio_remoto;
+  &filtrado;
+  &caso_practico;
+  &virtualizacion;
+  &licencia;
+</book>
+

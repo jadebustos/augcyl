@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chapter>
+  <title>C&aacute;lculo num&eacute;rico</title>
+
+  <sect1>
+    <title>GNU Octave</title>
+
+    <para>
+      <ulink url="http://www.gnu.org/software/octave/">GNU Octave</ulink> es
+      un programa de l&iacute;nea de comandos y un lenguaje de alto nivel,
+      dise&ntilde;ado principalmente para realizar c&oacute;mputos
+      num&eacute;ricos que forma parte del proyecto GNU.
+    </para>
+
+    <para>
+      Tiene una sintaxis altamente compatible con la del programa privativo
+      MATLAB.
+    </para>
+
+    <para>
+      Desde la l&iacute;nea de comandos de GNU Octave se pueden generar
+      gr&aacute;ficos de funciones y datos, aunque conviene saber que para
+      ello utiliza herramientas externas como gnuplot.
+    </para>
+
+    <para>
+      Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+      Microsoft Windows y Mac OS entre otros.
+    </para>
+
+    <sect2>
+      <title>QtOctave</title>
+
+      <para>
+        <ulink url="http://qtoctave.wordpress.com/">QtOctave</ulink> es una
+        interfaz gr&aacute;fica que tiene como objetivo facilitar el trabajo
+        con GNU Octave mediante ventanas, men&uacute;s y asistentes.
+      </para>
+
+      <para>
+        QtOctave gan&oacute; el premio de primer finalista del I Concurso
+        Universitario de Software Libre en la categor&iacute;a de ocio y
+        educaci&oacute;n.
+      </para>
+
+      <para>
+        Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux y
+        Microsoft Windows.
+      </para>
+
+      <figure>
+        <title>
+          QtOctave
+        </title>
+        <graphic
+        fileref="img/04-calculo_numerico/01-qtoctave.png"
+        format="PNG" width="1000" scale="40"/>
+      </figure>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>Scilab</title>
+
+    <para>
+      <ulink url="http://www.scilab.org/">Scilab</ulink> es un programa
+      cient&iacute;fico para c&oacute;mputos num&eacute;ricos.
+    </para>
+
+    <para>
+      Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+      Microsoft Windows y Mac OS.
+    </para>
+
+    <figure>
+      <title>
+        Scilab
+      </title>
+      <graphic
+      fileref="img/04-calculo_numerico/02-scilab.png"
+      format="PNG" width="1000" scale="40"/>
+    </figure>
+  </sect1>
+
+  <sect1>
+    <title>FreeMat</title>
+
+    <para>
+      <ulink url="http://freemat.sourceforge.net/">FreeMat</ulink> es un
+      entorno para cient&iacute;ficos e ingenieros que se dedican al modelado
+      y procesamiento de datos.
+    </para>
+
+    <para>
+      Su sintaxis es altamente compatible con la del sistema privativo MATLAB.
+    </para>
+
+    <para>
+      Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+      Microsoft Windows y Mac OS.
+    </para>
+
+    <figure>
+      <title>
+        FreeMat
+      </title>
+      <graphic
+      fileref="img/04-calculo_numerico/03-freemat.png"
+      format="PNG" width="1000" scale="40"/>
+    </figure>
+  </sect1>
+</chapter>
+

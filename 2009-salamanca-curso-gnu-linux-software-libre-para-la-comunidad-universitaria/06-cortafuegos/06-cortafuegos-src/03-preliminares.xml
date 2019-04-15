@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- CAPITULO 1 -->
+  <chapter>
+    <title>Introducci&oacute;n a <emphasis>Iptables</emphasis></title>
+    <para>GNU/Linux permite la gesti&oacute;n y filtrado del tr&aacute;fico de red mediante <ulink url="http://www.netfilter.org/">netfilter</ulink>.</para>
+
+    <para><emphasis>Iptables</emphasis> es la interface de configuraci&oacute;n para utilizar <emphasis>netfilter</emphasis> en el filtrado de tr&aacute;fico de red.</para>
+
+    <para>Esta herramienta se ha venido mejorando desde hace mucho tiempo y su nombre ha variado dependiendo de la versi&oacute;n del n&uacute;cleo:</para>
+
+<itemizedlist>
+<listitem>
+<para><emphasis>iptables</emphasis> introducido en las versiones del n&uacute;cleo 2.4 y posteriores.</para>
+</listitem>
+<listitem>
+<para><emphasis>ipchains</emphasis> utilizado en las versiones del n&uacute;cleo 2.2.</para>
+</listitem>
+<listitem>
+<para><emphasis>ipforward</emphasis> utilizado en las versiones del n&uacute;cleo 2.0</para>
+</listitem>
+</itemizedlist>
+
+<sect1>
+<title>Las <emphasis>tablas</emphasis> en iptables</title>
+<para>Por defecto en <emphasis>iptables</emphasis> vienen definidas tres:</para>
+
+<itemizedlist>
+<listitem>
+<para><emphasis>filter</emphasis> en esta tabla se realiza el filtrado del tr&aacute;fico permitido de entrada y salida al ordenador. Por defecto se trabaja en esta tabla.</para>
+</listitem>
+<listitem>
+<para><emphasis>NAT</emphasis> se utiliza para la redirecci&oacute;n de conexiones.</para>
+</listitem>
+<listitem>
+<para><emphasis>Mangle</emphasis> se utiliza para la alteraci&oacute;n de los paquetes. Cambio de direcciones de origen y destino, puertos de origen y destino, ...</para>
+</listitem>
+</itemizedlist>
+
+</sect1>
+
+<sect1>
+<title>Las <emphasis>cadenas</emphasis> en iptables</title>
+<para>Existen cinco cadenas que nos indican en que punto se realiza el procesado de los paquetes:</para>
+
+<itemizedlist>
+<listitem>
+<para><emphasis>PREROUTING</emphasis> el procesado del paquete se realiza justo despu&eacute;s de entrar el paquete por el interface de red y despu&eacute;s de ser verificado como v&aacute;lido.</para>
+</listitem>
+<listitem>
+<para><emphasis>POSTROUTING</emphasis> el procesado del paquete se realiza justo antes de dejar el interface de red.</para>
+</listitem>
+<listitem>
+<para><emphasis>OUTPUT</emphasis> el procesado se realiza despu&eacute;s de que el paquete sea generado por un proceso local.</para>
+</listitem>
+<listitem>
+<para><emphasis>INPUT</emphasis> el procesado se realiza antes de que el paquete sea entregado a un proceso local.</para>
+</listitem>
+<listitem>
+<para><emphasis>FORDWARD</emphasis> el procesado se realiza en la transici&oacute;n del paquete entre dos interfaces de red.</para>
+</listitem>
+</itemizedlist>
+<para>Las cadenas contienen reglas que son las encargadas de especificar las acciones a realizar sobre los paquetes. Estas reglas se ejecutan en orden secuencial y cuando existe una coincidencia se aplica la regla y se termina el proceso para ese paquete.</para>
+<para>En caso de no existir ninguna coincidencia del paquete con las reglas existe una pol&iacute;tica por defecto que es la que se aplica.</para>
+</sect1>
+
+<sect1>
+<title>Las <emphasis>acciones</emphasis> o <emphasis>targets</emphasis> en iptables</title>
+<para>Cada cadena tiene que indicar la acci&oacute;n a realizar ocn el paquete en el caso de coincidencia:</para>
+<itemizedlist>
+<listitem>
+<para><emphasis>ACCEPT</emphasis> acepta el paquete.</para>
+</listitem>
+<listitem>
+<para><emphasis>DROP</emphasis> rechaza el paquete sin ofrecer informaci&oacute;n.</para>
+</listitem>
+<listitem>
+<para><emphasis>REJECT</emphasis> rechaza el paquete ofreciendo informaci&oacute;n al remitente.</para>
+</listitem>
+<listitem>
+<para><emphasis>QUEUE</emphasis> envia el paquete al espacio de usuario donde puede ser tratado mediante scripts u otras herramientas no incluidas dentro del n&uacute;cleo.</para>
+</listitem>
+<listitem>
+<para><emphasis>RETURN</emphasis> si es desde una cadena definida por el usuario, se continua el procesado del paquete desde la cadena que invoc&oacute; a la cadena definida por el usuario. Si es desde una cadena predefinida se aplica la pol&iacute;tica por defecto de esa cadena al paquete.</para>
+</listitem>
+</itemizedlist>
+</sect1>
+
+<sect1>
+<title>Usos de <emphasis>Iptables</emphasis></title>
+<para>Ya hemos visto algunos de los usos de <emphasis>iptables</emphasis>:</para>
+<itemizedlist>
+<listitem>
+<para><emphasis>Filtrado de paquetes</emphasis>, es el uso b&aacute;sico. Se inspeccionan los paquetes y se toman decisiones sobre que hacer con el paquete.</para>
+</listitem>
+<listitem>
+<para><emphasis>Accounting</emphasis>, empleado para el control del volumen de tr&aacute;fico existente.</para>
+</listitem>
+<listitem>
+<para><emphasis>Connection Tracking</emphasis>, diferentes servicios utilizan varias conexiones. Por ejemplo FTP utiliza una conexi&oacute;n para control y otra para datos.</para>
+</listitem>
+<listitem>
+<para><emphasis>Mangling</emphasis>, modificaci&oacute;n de las cabeceras de los paquetes.</para>
+</listitem>
+<listitem>
+<para><emphasis>NAT</emphasis>, <emphasis>N</emphasis>etwork <emphasis>A</emphasis>ddress <emphasis>T</emphasis>ranslation es un caso especial de <emphasis>mangling</emphasis> en el que se reescriben las direcciones de origen o destino de los paquetes.</para>
+<para>Existen dos tipos de <emphasis>NAT</emphasis>:</para>
+<itemizedlist>
+<listitem>
+<para><emphasis>SNAT</emphasis>, NATTING sobre la direcci&oacute;n de origen del paquete.</para>
+</listitem>
+<listitem>
+<para><emphasis>DNAT</emphasis>, NATTING sobre la direcci&oacute;n de destino del paquete.</para>
+</listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para><emphasis>Masquerading</emphasis>, es un caso especial de <emphasis>SNAT</emphasis> en el que un ordenador reescribe todos los paquetes como si fueran suyos. Se usa en funciones de PROXY o pasarela de acceso a internet.</para>
+</listitem>
+<listitem>
+<para><emphasis>Port Forwarding</emphasis>, es un caso especial de <emphasis>DNAT</emphasis> en el que un ordenador actua como proxy para varios ordenadores. Es comunmente utilizado para ofrecer varios servicios en una ip. Los paquetes de tr&aacute;fico http se reenvian al servidor web, los de correo al servidor de correo, ...</para>
+</listitem>
+<listitem>
+<para><emphasis>Balanceo de Carga</emphasis>, se puede distribuir carga entre varios servidores.</para>
+</listitem>
+</itemizedlist>
+
+</sect1>
+
+  </chapter>
+

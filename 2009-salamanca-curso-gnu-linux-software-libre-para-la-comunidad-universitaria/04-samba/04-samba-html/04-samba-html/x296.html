@@ -1,0 +1,342 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Compartiendo una impresora de GNU/Linux con máquinas Windows</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Configuración de Samba"
+HREF="c107.html"><LINK
+REL="PREVIOUS"
+TITLE="Compartiendo una impresora de Windows con máquinas GNU/Linux"
+HREF="x283.html"><LINK
+REL="NEXT"
+TITLE="GNU Free Documentation License"
+HREF="a337.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: 
+    Samba, compartiendo archivos e impresoras con MS Windows
+  </TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x283.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 2. Configuración de Samba</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="a337.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN296"
+>2.5. Compartiendo una impresora de GNU/Linux con máquinas Windows</A
+></H1
+><P
+>Para utilizar los servicios de impresión de Samba, hay que comprobar primeramente que la impresora está instalada y funcionando. Esto se puede verificar desde <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>YaST -&#62; Hardware -&#62; Impresora</I
+></SPAN
+>.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Todo lo explicado en este apartado es válido a partir de la versión 2.2 de Samba (que utiliza el sistema de impresión CUPS, Common UNIX Printing System), puesto que en anteriores versiones, se empleaba otro mecanismo de impresión.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>La configuración del servicio de impresión se realiza en el fichero <TT
+CLASS="filename"
+>/etc/samba/smb.conf</TT
+> en la sección [printers]. El nombre de sección debe ser <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>printers</I
+></SPAN
+> y no otro cualquiera. El contenido de esta sección será el siguiente:</P
+><PRE
+CLASS="programlisting"
+>&#13;[printers]
+comment = Impresora GNU/Linux
+path = /tmp
+printable = Yes
+public = yes
+guest ok = yes
+writable = no
+create mode = 0755
+browseable = no
+client driver = yes
+printer admin = root, @ntadmins
+</PRE
+><P
+>Asimismo, en la sección [global] de este mismo fichero, se deben añadir las siguientes líneas:</P
+><PRE
+CLASS="programlisting"
+>&#13;load printers = yes
+printing = CUPS
+printcap = CUPS
+printcap name = CUPS
+</PRE
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Por defecto, los drivers de impresión que se instalan sobre Windows suponen modo RAW, lo cuál implica que deben renderizar los trabajos de impresión y dejarlos listos para ser enviados al dispositivo de impresión.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Es posible configurar CUPS para que acepte trabajos de impresión en modo RAW, siendo responsabilidad del cliente Samba (es decir, la máquina Windows) la renderización del trabajo de impresión. Dicha configuración se realiza del siguiente modo:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Editar el archivo <TT
+CLASS="filename"
+>/etc/cups/mime.types</TT
+> y descomentar la línea <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>#application-octet...</I
+></SPAN
+></P
+></LI
+><LI
+><P
+>Editar el archivo <TT
+CLASS="filename"
+>/etc/cups/mime.convs</TT
+> y descomentar la línea <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>#application-octet...</I
+></SPAN
+></P
+></LI
+><LI
+><P
+>Añadir una impresora RAW utilizando un interface Web. Abrir mozilla y teclear la URL, <A
+HREF="http://localhost:631/"
+TARGET="_top"
+>http://localhost:631</A
+>. Pinchar sobre el botón <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Administration</I
+></SPAN
+> y luego sobre el botón <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Add Printer</I
+></SPAN
+>. Sobre la pantalla <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Add new printer</I
+></SPAN
+>, teclear <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>raw</I
+></SPAN
+> por ejemplo (en realidad, este será el nombre de la cola) sobre el campo Name y localhost sobre el campo Location. Teclear, si se desea, una descripción para la cola.</P
+><P
+>En la pantalla Device for raw seleccionar del combo la impresora detectada por YaST. En la pantalla Model/driver for raw seleccionar Raw y en la siguiente pantalla, seleccionar Raw queue. Siguiendo estos pasos se habrá creado una cola de impresión llamada raw en el fichero <TT
+CLASS="filename"
+>/etc/printcap</TT
+>.</P
+></LI
+><LI
+><P
+>Lo siguiente será instalar el driver de impresión sobre la máquina Windows. Seleccionar <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Inicio -&#62; Configuración -&#62; Impresoras -&#62; Agregar Impresora...</I
+></SPAN
+> Posteriormente, seleccionar Impresora Local. En la selección del puerto de impresora, seleccionar <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Crear nuevo puerto -&#62; Local Port</I
+></SPAN
+> y después teclear el nombre de la cola de impresión creada en la máquina GNU/Linux en el punto anterior en la forma <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\\&#60;host&#62;\&#60;cola&#62;</I
+></SPAN
+>. Posteriormente se pedirá la selección del modelo de impresora concreto conectado a la máquina GNU/Linux para proceder a la instalación de su correspondiente driver en la máquina Windows.</P
+></LI
+></OL
+><P
+>Ejemplo:</P
+><P
+>El nombre de la cola de impresión en el caso actual sería <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\\SuSELinux\raw</I
+></SPAN
+>, suponiendo que la máquina GNU/Linux corriendo sobre Samba (y con la impresora conectada) se llama SuSELinux y también suponiendo que la cola se haya denominado raw.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x283.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="a337.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Compartiendo una impresora de Windows con máquinas GNU/Linux</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c107.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>GNU Free Documentation License</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

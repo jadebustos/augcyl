@@ -1,0 +1,300 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Fencing</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Disco de quorum"
+HREF="x632.html"><LINK
+REL="NEXT"
+TITLE="Otras soluciones libres para Clustering"
+HREF="c684.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Clustering y alta disponibilidad en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x632.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c684.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN644"
+></A
+>Capítulo 5. Fencing</H1
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Fencing</I
+></SPAN
+> es la capacidad de un cluster para hacer que uno de sus nodos libere los recursos que tiene ocupados.</P
+><P
+>También es posible encontrarnos con el témino <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>STONITH</I
+></SPAN
+> que es un acrónimo para <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>S</I
+></SPAN
+>hoot <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>T</I
+></SPAN
+>he <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>O</I
+></SPAN
+>ther <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>N</I
+></SPAN
+>ode <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>I</I
+></SPAN
+>nto <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>T</I
+></SPAN
+>he <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>H</I
+></SPAN
+>ead (Dispara al otro nodo en la cabeza).</P
+><P
+>Cuando un nodo no dectecta a otro, mediante <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>heartbeat</I
+></SPAN
+> o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>disco de quorum</I
+></SPAN
+>, asume que el otro nodo no está disponible. Si este nodo está en estado pasivo intentará levantar el servicio.</P
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>STONITH</I
+></SPAN
+> es una modalidad de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>fencing</I
+></SPAN
+> que consiste en apagar o reiniciar a un nodo para asegurarse que libera los recursos que tiene asignados.</P
+><P
+>Cuando se tiene alguna duda al respecto se hace <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>fencing</I
+></SPAN
+>. Hay diferentes tipos de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>fencing</I
+></SPAN
+>:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Power fencing</I
+></SPAN
+>, consiste en utilizar un dispositivo que pueda apagar o reiniciar el servidor:</P
+><P
+></P
+><UL
+><LI
+><P
+>Tarjetas <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>RSA</I
+></SPAN
+> de IBM.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Management Module</I
+></SPAN
+> en los Blade Centers de IBM.</P
+></LI
+><LI
+><P
+>Tarjetas <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ILO</I
+></SPAN
+> de HP.</P
+></LI
+></UL
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Fabric fencing</I
+></SPAN
+>, consiste en suprimir el acceso a los discos. Por ejemplo utilizando <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SCSI reservations</I
+></SPAN
+>.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x632.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c684.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Disco de quorum</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Otras soluciones libres para Clustering</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,532 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Qemu/UML y TUN/TAP</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Soluciones de virtualización/redes con virtualizadores"
+HREF="c771.html"><LINK
+REL="PREVIOUS"
+TITLE="VMWare y la red"
+HREF="x826.html"><LINK
+REL="NEXT"
+TITLE="GNU Free Documentation License"
+HREF="a898.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x826.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Cap�tulo 10. Soluciones de virtualización/redes con virtualizadores</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="a898.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN839"
+>10.4. Qemu/UML y TUN/TAP</A
+></H1
+><P
+>En Qemu hay dos formas de utilizar la red. Por defecto se usa -net socket, que sería el equivalente al modo NAT de Vmware. Mediante la opción -redir se pueden abrir puertos de servidor. Una diferencia interesante sobre Vmware es que esta solución se implementa enteramente en espacio de usuario, por lo que no se crea interfaz de red ni se precisa cargar ningún módulo del kernel, lo que es bueno porque en el caso de Vmware es un módulo privativo que activa la marca "tained" del kérnel, con lo que perdemos toda opción de soporte. Además así no hay que tener privilegios de superusuario para instalar Qemu (Vmware no requiere privilegios para ejecutarse, pero sí hace falta para insertar el módulo en el kernel).</P
+><P
+>Un inconveniente de -net socket es que como ocurre con los modos NAT y Bridge de Vmware los paquetes no pasan por ninguna interfaz de red, por lo que no se puede utilizar iptables para restringir la red.</P
+><P
+>La solución está en el uso del soporte de TUN/TAP del kernel. Consiste en que una aplicación puede abrir el fichero de dispositivo /dev/net/tun y con eso crear una nueva interfaz de red (por defecto tun0). Todo lo que la aplicación escriba en ese dispositivo se recibirá en la interfaz de red recién creada; de igual modo todo lo que llegue a esa interfaz de red (por ejemplo a través de enrutamiento, un ping, un servidor que escucha en esa IP y recibe paquetes de otro programa) lo leerá la aplicación del fichero de dispositivo. </P
+><P
+>Los dispositivos TUN operan a nivel IP<A
+NAME="AEN845"
+HREF="#FTN.AEN845"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+> y son punto a punto. Los dispositivos TAP operan a nivel 2 y son multipunto, como las interfaces eth*. Un dispositivo tap0 y un dispositivo vmnet1 vienen a funcionar de forma muy similar y a nivel de ejemplos de configuración con iptables o brctl donde aparezca un tap0 podría aparecer un vmnet1 y viceversa. Por lo general se usa tun0 en lugar de tap0; para la mayoría de los usos son equivalentes por lo que es mucho más habitual utilizar tun0 que resulta más sencillo y directo.</P
+><P
+>Normalmente un dispositivo tun/tap sólo existe mientras el programa no cierra el fichero /dev/net/tun. Esto a veces es problemático, especialmente porque para crear un dispositivo TUN/TAP hacen falta privilegios de superusuario. Afortunadamente, con root se puede abrir un dispositivo en modo persistente para un determinado usuario, de modo que luego un programa ejecutado por ese usario sin privilegios podrá abrir ese dispositivo tun/tap creado para él por el root. Este se puede hacer con el programa tunctl, que forma parte del paquete uml-utilities. </P
+><P
+>¿Por qué no usa Vmware TUN/TAP en lugar de vmnet1? quizás por unicidad entre plataformas, o por diferencia de implementación; es posible que vmnet1 también permita driver de red de la máquina virtual directamente en espacio del kernel.</P
+><P
+>TUN/TAP es la solución utilizada también por otros virtualizadores, como UML. Muy interesantes los documentos sobre red avanzada en la web de Virtual Box, aunque desde la versión 3.0 ya no es necesario utilizar TUN/TAP: <A
+HREF="http://www.virtualbox.org/wiki/User_HOWTOS"
+TARGET="_top"
+>http://www.virtualbox.org/wiki/User_HOWTOS</A
+>.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN851"
+>10.4.1. Ejemplos</A
+></H2
+><P
+>Permitir acceso sólo a red local 192.168.10.0 y además excluir el nodo 9 de esa red:
+<PRE
+CLASS="screen"
+>&#13;iptables -A FORWARD -i vmnet1 --destination 192.168.10.9 -j REJECT
+iptables -A FORWARD -i vmnet1 --destination 192.168.10.0/24 -j ACCEPT
+iptables -A FORWARD -i vmnet1 -j REJECT
+iptables -t nat -A POSTROUTING -j MASQUERADE -o eth0
+echo 1 &#62; /proc/sys/net/ipv4/conf/eth0/forwarding
+echo 1 &#62; /proc/sys/net/ipv4/conf/vmnet1/forwarding
+</PRE
+>
+</P
+><P
+>&#13;Crear un bridge, pero prohibiendo el acceso a la IP 157.88.10.20. Se puede filtrar con ebtables o con iptables (ojo,
+ que hay tarjetas wireless y AP que no soportan bridges:
+<PRE
+CLASS="screen"
+>&#13;ifconfig eth0 0.0.0.0
+ifconfig vmnet1 0.0.0.0
+brctl addbr puente
+brctl addbr puente
+brctl addif eth0
+brctl addif vmnet1
+ifconfig puente 192.168.10.1
+iptables -O FORWARD -m physdev --physdev-in vmnet1 --destination 157.88.10.20 -j REJECT
+</PRE
+></P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN857"
+>10.4.2. Instalar QEMU</A
+></H2
+><P
+>Para compilar kqemu no hace falta versión vieja de compilador gcc, ni las fuentes de qemu. Es bastante rápido:
+<KBD
+CLASS="userinput"
+>./configure &#38;&#38; make &#38;&#38; &#38;&#38; make install &#38;&#38; modprobe kqemu</KBD
+></P
+><P
+>Por defecto, necesitamos permisos de root para leer /dev/kqemu</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>creamos grupo qemu: <KBD
+CLASS="userinput"
+>sudo addgroup qemu</KBD
+></P
+></LI
+><LI
+><P
+>añadimos nuestro usuario (jomar) al grupo: <KBD
+CLASS="userinput"
+>sudo gpasswd -a jomar qemu</KBD
+></P
+></LI
+><LI
+><P
+>configuramos udev para que cree fichero de dispositivo con permisos para grupo qemu. Para ello editamos fichero /etc/udev/rules.d/60-kqemu.rules con este contenido: 
+<PRE
+CLASS="screen"
+>KERNEL=="kqemu", NAME="%k", MODE="0666", GROUP="qemu", RUN="/root/prueba.sh"
+</PRE
+></P
+></LI
+><LI
+><P
+>hacemos lo propio con el fichero /dev/net/tun. A partir del kernel 2.6.18 no pasa nada por dar permiso para todo el mundo, pues nadie sin privilegios puede crear una nueva interfaz si no se ha creado antes por el root para ese usuario. Esto se puede hacer con la herramienta tunctl, que forma parte del paquete uml-utilities. También se puede usar el programa que adjuntamos más adelante, cambiando el tipo de dispositivo de tun a tap. Para crear el dispositivo con tunctl se usa <KBD
+CLASS="userinput"
+>tunctl -u jomar -t tap0</KBD
+>; para borrarlo <KBD
+CLASS="userinput"
+>tunctl -d tap0</KBD
+>.</P
+></LI
+></OL
+><P
+>Ejemplos:
+<PRE
+CLASS="screen"
+>./qemu -net nic -net tap,script=no ~/linux-0.2.img -net nic,vlan=1 -net socket,vlan=1,listen=:8081 centos.qcow
+
+ifconfig tap0 up
+ifconfig eth0
+brctl addif puente tap0
+ifconfig eth0 0.0.0.0
+brctl addif puente eth0
+ifconfig eth0 192.168.15.45
+./qemu -net nic -net tap,script=no ~/centos.qcow2 -no-kqemu
+</PRE
+>
+</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN878"
+>10.4.3. Crear una imagen con Qemu</A
+></H2
+><P
+><KBD
+CLASS="userinput"
+>qemu-img create -f qcow2 centos.qcow2 3G</KBD
+></P
+><P
+>Con esta orden se crea una imagen de un disco de 3GB; en realidad con GNU/Linux este fichero no ocupa 3GB; el espacio sin usar del fichero no ocupa espacio en el disco.</P
+><P
+>Para arrancar del CD de instalación podemos ejecutar: <KBD
+CLASS="userinput"
+>qemu -kernel-kqemu -cdrom /home/jomar/centos1of6.iso -boot d -m 512 centos.qcow2</KBD
+></P
+><P
+>La opción -kernel-kqemu es para obtener la máxima aceleración: acelera también el código del espacio del kernel; por defecto sólo se acelera la de usuario. Si se produce algún problema, reintentaremos sin esta opción; si sigue habiendo problemas podemos probar con -no-kqemu a quitar incluso la aceleración de espacio de usuario. Tras la instalación, podemos probar a volver a utilizar aceleración: a veces los posibles problemas sólo se dan durante la instalación, aunque esta situación es más propia de Windows que GNU/Linux.</P
+><P
+>Con la opción -cdrom le indicamos que el CDROM es en realidad esa ISO; así evitamos el tener que tostar un CD. Con la opción -boot d indicamos que arranque de CD en vez de disco duro. La opción -m 512 establece que la máquina virtual tenga 512 MB de memoria. La cantidad de memoria puede cambiarse de una ejecución a otra, pero hay que tener en cuenta que los instaladores suelen crear una partición de intercambio con el doble de la memoria RAM.</P
+><P
+>¿Cómo cambiar de CD durante la instalación? Con ctrl-alt-2 (ojo 1, no F1) pasamos al monitor, en el que ejecutamos el comando: <KBD
+CLASS="userinput"
+>change cdrom /home/jomar/centos2of6.iso</KBD
+></P
+><P
+>Tras escribir la orden (qemu no indica ni errores ni que la operación se ha realizado con éxito) volvemos a la pantalla de la máquina virtual con ctrl-alt-1.</P
+><P
+>Una característica interesante de Qemu es que permite crear a partir de un fichero de imagen, otra imagen que sólo contendrá los cambios que se produzcan en la primera, si la primera permanece sin modificar. Esta característica es útil por ejemplo para crear dos imágenes muy parecidas para hacer pruebas de redes entre las dos imágenes, sin que ocupe tanto en el disco.
+<KBD
+CLASS="userinput"
+>qemu-img create -b xubuntu.qcow2 xubuntu1.qcow2 &#38;
+qemu-img create -b xubuntu.qcow2 xubuntu2.qcow2</KBD
+></P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN892"
+>10.4.4. Listados de ejemplos de TUN/TAP</A
+></H2
+><P
+>Listado para usar el dispositivo creado para este usuario (en kernels viejos lo crea si no existe): muestra primer paquete que recibe, una salida similar a la de tcpdump -x -i tun0. Para probarlo configuramos con ifconfig el dispositivo tun0, usando pointtopoint para indicar una IP supuestamente destino; podemos hacer un ping a esa dirección y ver lo que recibe el programa.</P
+><PRE
+CLASS="programlisting"
+>&#13;
+/* 
+ Este programa abre un dispositivo TUN (intenta que sea tun0), lee paquetes de
+ él y los muestra por pantalla en formato hexadecimal. Tras ejecutar el
+ programa, en otro terminal configuramos la interfaz tun0, por ejemplo: 
+ ifconfig tun0 192.168.13.1 pointopoint 192.168.13.2 
+
+ Podemos utilizar la IP 192.168.13.1 para poner un servidor en ella y enviar paquetes: 
+ este programa no recibirá ningún paquete hasta que sea un paquete que pretenda ir por
+ el enlace punto a punto, por ejemplo si intentamos hacer un ping a 192.168.13.2 
+
+ Con TAP es similar, con la diferencia que no es punto a punto. El programa no verá
+ paquetes que vayan para la propia IP, pero sí los destinados a otras. Esto es 
+ comportamiento del kernel, que no envía al dispositivo (por eso tampoco lo veremos
+ con un sniffer) los paquetes que pueda procesar directamente; nos pasa lo mismo 
+ con dispositivos "reales" como eth0. 
+
+
+Información sobre TUN/TAP en: 
+ http://www.mjmwired.net/kernel/Documentation/networking/tuntap.txt 
+Y también en el fichero de cabecera: 
+ /usr/include/linux/if_tun.h 
+ 
+Este programa requiere que exista /dev/net/tun y que o bien seamos root, o si no lo
+somos que además de tener permiso de lectura/escritura sobre ese fichero el dispositivo
+ya ha sido creado persistente por el root (o por alguien con privilegio CAP_NET_ADMIN)
+y nos haya asignado a nuestro UID como dueños; esto se puede hacer por ejemplo con tunctl
+(de User Mode Linux) o con el otro programa de ejemplo que acompaña a este. 
+
+En versiones anterioes al kernel 2.6.18 bastaba con tener derecho de lectura/escritura en
+/dev/net/tun, el sistema actual es más adecuado, permitiendo dejar /dev/net/tun con
+permiso para todo el mundo sin problemas de seguridad. 
+
+(c) 2007 Chema Peribáñez 
+    Pongo este fichero bajo dominio público. 
+*/ 
+#include &#60;stdio.h&#62; 
+#include &#60;sys/types.h&#62; 
+#include &#60;sys/stat.h&#62; 
+#include &#60;sys/ioctl.h&#62; 
+#include &#60;sys/socket.h&#62; 
+#include &#60;fcntl.h&#62; 
+#include &#60;unistd.h&#62; 
+#include &#60;stdlib.h&#62; 
+#include &#60;linux/if.h&#62; 
+#include &#60;linux/if_tun.h&#62; 
+#include &#60;string.h&#62; 
+
+int main() { 
+   struct ifreq ifr; 
+   int fd; 
+   int err, leidos, i; 
+   char *nombre="tun0"; 
+   char dev[IFNAMSIZ]; 
+   char buffer[1024]; 
+   
+   fd = open("/dev/net/tun", O_RDWR) ; 
+   memset(&#38;ifr, 0, sizeof(ifr)); 
+
+   /* Flags: 
+    * IFF_TUN   - Crear dispositivo TUN 
+    * IFF_TAP   - Crear dispositivo TAP 
+    * IFF_NO_PI - No incluir información del paquete (TUN): son 4 bytes, los dos
+                  primeros flags y los dos siguientes el protocolo del paquete
+                 (si es IPv4, IPv6, etc. este código es el número de protocolo
+                  en un paquete ethernet, por ejemplo 0x0800 es un paquete IP.
+                  Una lista de constantes podemos encontrarlas en 
+                 linux/if_ether.h 
+    */ 
+    ifr.ifr_flags = IFF_TUN|IFF_NO_PI; 
+    strcpy(ifr.ifr_name, nombre); 
+    err= ioctl(fd, TUNSETIFF, (void *) &#38;ifr); 
+    if( err&#60;0) {  
+	perror("falló"); 
+        close(fd); 
+        return err; 
+    } 
+    strcpy(dev, ifr.ifr_name); 
+    printf("%s\n",ifr.ifr_name); 
+    while (1) { 
+      leidos=read(fd,buffer,1024); 
+      printf("Longitud datagrama: %d\n",leidos); 
+      for (i=0;i&#60;leidos;++i) { 
+	  printf("[%02hhx]",buffer[i]); 
+      }	    
+      printf("\n"); 
+   } 
+}
+
+</PRE
+><P
+>Listado para crear como persistente el nodo:</P
+><PRE
+CLASS="programlisting"
+>&#13;
+/* 
+ Este programa crea un dispositivo TUN  persistente (intenta que sea tun0) y lo asigna
+ al usuario con uid=1000. Este programa hay que ejecutarlo con privilegios de root (o al 
+ menos con privilegios CAP_NET_ADMIN) 
+
+ Información sobre TUN/TAP en: 
+ http://www.mjmwired.net/kernel/Documentation/networking/tuntap.txt 
+Y también en el fichero de cabecera: 
+ /usr/include/linux/if_tun.h 
+ 
+(c) 2007 Chema Peribáñez 
+    Pongo este fichero bajo dominio público. 
+*/ 
+#include &#60;stdio.h&#62; 
+#include &#60;sys/types.h&#62; 
+#include &#60;sys/stat.h&#62; 
+#include &#60;sys/ioctl.h&#62; 
+#include &#60;sys/socket.h&#62; 
+#include &#60;fcntl.h&#62; 
+#include &#60;unistd.h&#62; 
+#include &#60;stdlib.h&#62; 
+#include &#60;linux/if.h&#62; 
+#include &#60;linux/if_tun.h&#62; 
+#include &#60;string.h&#62; 
+int main() { 
+   struct ifreq ifr; 
+   int fd, err; 
+   char dev[IFNAMSIZ]; 
+   char *nombre="tun0"; 
+
+   fd = open("/dev/net/tun", O_RDWR) ; 
+   memset(&#38;ifr, 0, sizeof(ifr)); 
+
+   /* Flags: 
+    * IFF_TUN   - Crear dispositivo TUN 
+    * IFF_TAP   - Crear dispositivo TAP 
+    * IFF_NO_PI - No incluir información del paquete (TUN): son 4 bytes, los dos
+                   primeros flags y los dos siguientes el protocolo del paquete 
+                  (si es IPv4, IPv6, etc. este código es el número de protocolo en
+                  un paquete ethernet, por ejemplo 0x0800 es un paquete IP. Una
+                  lista de constantes podemos encontrarlas en linux/if_ether.h 
+  */ 
+    ifr.ifr_flags = IFF_TUN|IFF_NO_PI; 
+    strcpy(ifr.ifr_name, nombre); 
+    err= ioctl(fd, TUNSETIFF, (void *) &#38;ifr); 
+    if (!(err&#60;0)) { 
+      // Hacer dispositivo persistente, es decir, que permanece 
+      // creado aunque se cierre dispositivo; normalmente el 
+      // dispositivo sólo existe mientras está abierto el 
+      // descriptor de fichero a /dev/net/tun. 
+      // Cambiar 1 por 0 para borrar un dispositivo persistente. 
+      err= ioctl(fd, TUNSETPERSIST, 1); 
+
+      // Poner como dueño del dispositivo al UID 1000; de este 
+      // modo puede crear dispositivo proceso ejecutado por 
+      // usuario con este UID en lugar de root, si además tiene 
+      // permiso de lectura y escritura sobre /dev/net/tun 
+      // antes de kernel 2.6.18 no era necesario hacer esto, pero 
+      // ahora ya sí. Con Qemu otra alternativa es hacer un 
+      // programa lanzador setuid que abra fichero, revoque 
+      // privilegios y lance Qemu pasándole handler abierto; o que 
+      // un programa con privilegio de root abra fichero y pase el 
+      // handler vía un socket UNIX (ver man cmsg) 
+      if (!(err&#60;0)) { 
+          err= ioctl(fd, TUNSETOWNER, 1000);    
+          strcpy(dev, ifr.ifr_name); 
+          printf("%s\n",ifr.ifr_name); 
+      } 
+    }  
+    
+    if( err&#60;0) {  
+	perror("falló"); 
+        close(fd); 
+        return err; 
+    } 
+    return 0; 
+}
+
+</PRE
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notas</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN845"
+HREF="x839.html#AEN845"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>En realidad no tiene por qué ser tráfico IP, puede ser también IPX o cualquier otro protocolo de red con tal que sea todo del mismo. Es decir, es a nivel del "payload" (contenido) del paquete Ethernet, mientras que TAP es a nivel del paquete Ethernet entero.</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x826.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="a898.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>VMWare y la red</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c771.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>GNU Free Documentation License</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

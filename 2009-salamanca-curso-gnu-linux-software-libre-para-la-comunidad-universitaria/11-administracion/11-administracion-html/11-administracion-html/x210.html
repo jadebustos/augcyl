@@ -1,0 +1,254 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Memoria virtual</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Gestión de Memoria"
+HREF="c201.html"><LINK
+REL="PREVIOUS"
+TITLE="Gestión de Memoria"
+HREF="c201.html"><LINK
+REL="NEXT"
+TITLE="Cache y Buffers"
+HREF="x240.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c201.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 3. Gestión de Memoria</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x240.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN210"
+>3.2. Memoria virtual</A
+></H1
+><P
+>Cuando algún espacio de memoria no es utilizado puede ser
+      llevado a un dispositivo de almacenamiento. Con <B
+CLASS="command"
+>free</B
+> podemos ver
+      su utilización actual.</P
+><P
+>La memoria swap debemos indicar nosotros en donde queremos
+      ubicarla. Para ello podemos dedicar una partición entera de
+      nuestros discos duros o bien crear un fichero en uno de los
+      sistemas de ficheros que lo soporten. Debemos tener en cuenta
+      que es más óptimo la utilización de una partición pero para ello
+      debemos tener el espacio reservado para la creación de la partición.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN215"
+>3.2.1. Creación de Swap</A
+></H2
+><P
+>Para crear una partición de swap debemos utilizar el
+        programa de particiones.</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>[root@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>fdisk</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>Command (m for help): n
+Command action
+   e   extended
+   p   primary partition (1-4)
+</SAMP
+>
+</PRE
+><P
+>Crearemos la partición del tipo y tamaño que deseemos y lo único
+que cambiaremos con la opción t es el id de la partición al tipo
+82. Nos debe quedar algo así:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="computeroutput"
+>&#13;/dev/hda3           14552       14593      337365   82  Linux swap / Solaris
+</SAMP
+>
+</PRE
+><P
+>Si bien queremos crear un fichero de swap lo haremos con el
+siguiente comando.</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>[root@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>mkswap /file-swap 1024</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>Setting up swapspace, size = 1044480 
+	bytes
+</SAMP
+>
+</PRE
+><P
+>Ya tenemos creada la swap ahora hay que indicar al sistema que
+la utilice.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN231"
+>3.2.2. Usando el Swap</A
+></H2
+><P
+>Para empezar a utilizarla ejecutamos el comando swapon.</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>[root@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>swapon /file-swap</KBD
+>
+</PRE
+><P
+>Evidentemente para no estar haciendo esto cada vez que
+arrancamos se puede configurar en el fichero
+<TT
+CLASS="filename"
+>/etc/fstab</TT
+> que es donde están las particiones a
+montar (y ficheros swap) en el arranque.</P
+><P
+>Una vez puesta a disposición del sistema el gestor de memoria la
+utilizará cuando lo considere necesario.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c201.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x240.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Gestión de Memoria</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c201.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Cache y Buffers</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

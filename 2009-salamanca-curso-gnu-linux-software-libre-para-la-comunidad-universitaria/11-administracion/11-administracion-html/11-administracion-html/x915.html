@@ -1,0 +1,1145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Creación de sistemas de ficheros</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Sistemas de Ficheros"
+HREF="c304.html"><LINK
+REL="PREVIOUS"
+TITLE="Acceso a sistemas de ficheros"
+HREF="x707.html"><LINK
+REL="NEXT"
+TITLE="Obtención de información sobre los sistemas de ficheros"
+HREF="x1132.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x707.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 4. Sistemas de Ficheros</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x1132.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN915"
+>4.9. Creación de sistemas de ficheros</A
+></H1
+><P
+>Para crear un sistema de ficheros lo primero que tenemos que hacer es crear una partición. Para ello podemos utilizar el comando <B
+CLASS="command"
+>fdisk</B
+> o <B
+CLASS="command"
+>parted</B
+>.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN920"
+>4.9.1. Los sistemas de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext2/ext3</I
+></SPAN
+></A
+></H2
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="AEN923"
+>4.9.1.1. El comando <B
+CLASS="command"
+>mkfs</B
+></A
+></H3
+><P
+>Este comando es utilizado para crear los sistemas de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext2</I
+></SPAN
+> y <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext3</I
+></SPAN
+>, entre otros. Para más información mirar la página del manual.</P
+><P
+>Su sintaxis es muy sencilla:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>mkfs -t ext2 /dev/fd0</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>mke2fs 1.23, 15-Aug-2001 for EXT2 FS 0.5b, 95/08/09
+Filesystem label=
+OS type: Linux
+Block size=1024 (log=0)
+Fragment size=1024 (log=0)
+184 ubidesm 1440 blocks
+72 blocks (5.00\%) reserved for the super user
+First data block=1
+1 block group
+8192 blocks per group, 8192 fragments per group
+184 inodes per group
+
+Writing inode tables: done
+Writing superblocks and filesystem accounting information: done
+
+This filesystem will be automatically checked every 20 mounts or 
+180 days, whichever comes first. Use tune2fs -c or -i to override.</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><P
+>La opción más interesante es <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-c</I
+></SPAN
+> para que busque bloques en mal estado durante el formateo.</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Para los tipos de sistemas de ficheros manejados por <B
+CLASS="command"
+>mkfs</B
+> existe el comando <B
+CLASS="command"
+>mkfs.tipo</B
+> donde <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>tipo</I
+></SPAN
+> es <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext2</I
+></SPAN
+>, ... y su uso es igual al de <B
+CLASS="command"
+>mkfs</B
+> sólo que no es necesario especificar el tipo de sistema de ficheros a crear.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="AEN944"
+>4.9.1.2. Conversión de sistemas de ficheros en <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext2</I
+></SPAN
+> a <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext3</I
+></SPAN
+></A
+></H3
+><P
+>En GNU/Linux los sistemas de ficheros más extendidos son <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext2</I
+></SPAN
+> y <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext3</I
+></SPAN
+>.</P
+><P
+>En realidad <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext3</I
+></SPAN
+> se puede considerar como <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext2</I
+></SPAN
+> con algunas mejoras. La más significativa de ellas es el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>journaling</I
+></SPAN
+>.</P
+><P
+>Para convertir un sistema de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext2</I
+></SPAN
+> a <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext3</I
+></SPAN
+>:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>tune2fs -j /dev/sda1</KBD
+>
+</PRE
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="AEN961"
+>4.9.1.3. El superbloque y <B
+CLASS="command"
+>tune2fs</B
+></A
+></H3
+><P
+>El superbloque es bloque especial que contiene información sobre el sistema de ficheros. Para los sistemas de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext2/ext3</I
+></SPAN
+> se puede ver o modificar con <B
+CLASS="command"
+>tune2fs</B
+>:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>tune2fs -l /dev/hda2</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>tune2fs 1.40-WIP (02-Oct-2006)
+Filesystem volume name:   &#60;none&#62;
+Last mounted on:          &#60;not available&#62;
+Filesystem UUID:          85314ef9-3429-42d2-b8bc-41b51b328ffa
+Filesystem magic number:  0xEF53
+Filesystem revision #:    1 (dynamic)
+Filesystem features:      has_journal resize_inode dir_index filetype needs_recovery sparse_super large_file
+Default mount options:    (none)
+Filesystem state:         clean
+Errors behavior:          Continue
+Filesystem OS type:       Linux
+Inode count:              24068096
+Block count:              48104626
+Reserved block count:     2405231
+Free blocks:              43311411
+Free inodes:              23958460
+First block:              0
+Block size:               4096
+Fragment size:            4096
+Reserved GDT blocks:      1012
+Blocks per group:         32768
+Fragments per group:      32768
+Inodes per group:         16384
+Inode blocks per group:   512
+Filesystem created:       Sun Mar 25 06:10:23 2007
+Last mount time:          Thu Apr  5 04:55:15 2007
+Last write time:          Thu Apr  5 04:55:15 2007
+Mount count:              9
+Maximum mount count:      26
+Last checked:             Sun Mar 25 06:10:23 2007
+Check interval:           15552000 (6 months)
+Next check after:         Fri Sep 21 06:10:23 2007
+Reserved blocks uid:      0 (user root)
+Reserved blocks gid:      0 (group root)
+First inode:              11
+Inode size:               128
+Journal inode:            8
+Default directory hash:   tea
+Directory Hash Seed:      1ff4a0e4-fceb-45c1-93f8-5e9799e39496
+Journal backup:           inode blocks</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><P
+>Las opciones más interesantes que podemos realizar:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-c n</I
+></SPAN
+> indicar después de cuantas operaciones de montaje se ha de realiza el chequeo del sistema de ficheros.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-j </I
+></SPAN
+> añadir la zona de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>journaling</I
+></SPAN
+> a un sistema de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext2</I
+></SPAN
+> para convertirlo en <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext3</I
+></SPAN
+>.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-C n</I
+></SPAN
+> cambiar el número de veces que el sistema ha sido montado. Si se estable a un valor mayor del indicado por <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-c n</I
+></SPAN
+> en el siguiente montaje se chequeará de forma automática.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-g gid</I
+></SPAN
+> indicar el GID del grupo para el que se reservará espacio en el sistema de ficheros.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-i n [d|w|m]</I
+></SPAN
+> establece el periodo máximo de tiempo tras el cual se chequeará el sistema de ficheros. Independientemente de si se ha llegado al número máximo de operaciones de montaje.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-L label</I
+></SPAN
+> establece la etiqueta del sistema de ficheros.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-m n</I
+></SPAN
+> establece el tanto por ciento de bloques que se reservan.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-r n</I
+></SPAN
+> establece el número de bloques que se reservan.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-u uid</I
+></SPAN
+> establece el usuario para el que se reservará espacio.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="AEN1005"
+>4.9.1.4. El comando <B
+CLASS="command"
+>mke2fs</B
+></A
+></H3
+><P
+>La función de este comando es la de crear sistemas de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext2/ext3</I
+></SPAN
+> y su uso es preferible al de <B
+CLASS="command"
+>mkfs</B
+>.</P
+><P
+>Se utiliza el fichero <TT
+CLASS="filename"
+>/etc/mke2fs.conf</TT
+> para determinar los valores por defecto cuando se crea un sistema de ficheros.</P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/warning.gif"
+HSPACE="5"
+ALT="Aviso"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>No modificar <TT
+CLASS="filename"
+>/etc/mke2fs.conf</TT
+> a menos que se sepa lo que se está haciendo.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="AEN1016"
+>4.9.1.5. Recuperación de sistemas de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext2/ext3</I
+></SPAN
+></A
+></H3
+><P
+>Cuando nos encontremos errores en los sistemas de ficheros tendremos que chequearlos y para ello tendrán que estar desmontados.</P
+><P
+>El comando utilizado para chequear estos sistemas de ficheros es <B
+CLASS="command"
+>e2fsck</B
+>.</P
+><P
+>Algunas opciones interesantes:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-b n</I
+></SPAN
+> donde <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>n</I
+></SPAN
+> indica una copia del superbloque.</P
+><P
+>En los sistemas de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext2/ext3</I
+></SPAN
+> se hacen copias de seguridad del superbloque repartidas por todo el sistema de ficheros (ver página del manual).</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-c</I
+></SPAN
+> se utiliza el comando <B
+CLASS="command"
+>badblocks</B
+> para localizar bloques defectuosos y marcarlos como tales.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-f</I
+></SPAN
+> forzar el chequeo aunque el sistema de ficheros parezca limpio.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-p</I
+></SPAN
+> reparará de forma automática el sistema de ficheros si se puede hacer de forma segura.</P
+></LI
+></UL
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Al igual que en el caso de <B
+CLASS="command"
+>mke2fs</B
+> existía <B
+CLASS="command"
+>mkfs</B
+> para chequear sistemas de ficheros también se puede utilizar el comando <B
+CLASS="command"
+>fsck</B
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="AEN1045"
+>4.9.1.6. El comando <B
+CLASS="command"
+>badblocks</B
+></A
+></H3
+><P
+>Este comando se utiliza para localizar bloques defectuosos en un sistema de ficheros.</P
+><P
+>La forma más sencilla de utilizarlo es:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>badblocks /dev/sda1</KBD
+>
+</PRE
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Podemos guardar la lista de bloques defectuosos en un fichero utilizando <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-o filename</I
+></SPAN
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1056"
+>4.9.2. El sistema de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ReiserFS</I
+></SPAN
+></A
+></H2
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ReiserFS</I
+></SPAN
+> es otro sistema de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>transaccional</I
+></SPAN
+>.</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Será necesario instalar las utilidades de administración de dicho sistema de ficheros ya que no se suelen instalar por defecto.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Las principales utilidades de administración son:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>mkreiserfs</I
+></SPAN
+> para crear sistemas de ficheros.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>reiserfsck</I
+></SPAN
+> para chequear sistemas de ficheros.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>reiserfstune</I
+></SPAN
+> para ajustar los parámetros del sistema de ficheros.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>resize_reiserfs</I
+></SPAN
+> para redimensionar sistemas de ficheros.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1078"
+>4.9.3. El sistema de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>JFS</I
+></SPAN
+></A
+></H2
+><P
+>Este sistema de ficheros lo desarrolló <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>IBM</I
+></SPAN
+> y al igual que <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext3</I
+></SPAN
+> y <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ReiserFS</I
+></SPAN
+> es un sistema de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>transaccional</I
+></SPAN
+>.</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Será necesario instalar las utilidades de administración de dicho sistema de ficheros ya que no se suelen instalar por defecto.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Las principales utilidades de administración son:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>jfs_mkfs</I
+></SPAN
+> para crear sistemas de ficheros.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>jfs_fsck</I
+></SPAN
+> para chequear sistemas de ficheros.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>jfs_tune</I
+></SPAN
+> para ajustar los parámetros del sistema de ficheros.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1099"
+>4.9.4. El sistema de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>XFS</I
+></SPAN
+></A
+></H2
+><P
+>Este sistema de ficheros lo desarrolló <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SGI</I
+></SPAN
+> y al igual que <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext3</I
+></SPAN
+> y <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ReiserFS</I
+></SPAN
+> es un sistema de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>transaccional</I
+></SPAN
+>.</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Será necesario instalar las utilidades de administración de dicho sistema de ficheros ya que no se suelen instalar por defecto.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Las principales utilidades de administración son:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>mkfs.xfs</I
+></SPAN
+> para crear sistemas de ficheros.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>xfs_check</I
+></SPAN
+> para chequear sistemas de ficheros.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>xfs_repair</I
+></SPAN
+> para reparar sistemas de ficheros.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>xfs_admin</I
+></SPAN
+> para ajustar los parámetros del sistema de ficheros.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>xfs_freeze</I
+></SPAN
+> congela el acceso al sistema de ficheros. Util para la creación de snapshots.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>xfs_growfs</I
+></SPAN
+> redimensionar el sistema de ficheros.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>xfs_quota</I
+></SPAN
+> manejo de cuotas.</P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x707.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x1132.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Acceso a sistemas de ficheros</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c304.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Obtención de información sobre los sistemas de ficheros</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chapter>
+  <title>Circuitos el&eacute;ctricos</title>
+
+  <sect1>
+    <title>Logisim</title>
+
+    <para>
+      <ulink url="http://ozark.hendrix.edu/~burch/logisim/">Logisim</ulink> es
+      una herramienta educativa para el dise&ntilde;o y la simulaci&oacute;n
+      de circuitos l&oacute;gicos digitales.
+    </para>
+
+    <para>
+      Aunque cuenta con una interfaz muy sencilla, Logisim puede ser usado (y
+      es usado) para dise&ntilde;ar y simular completas unidades centrales de
+      procesamiento con prop&oacute;sitos educativos.
+    </para>
+
+    <para>
+      Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+      Microsoft Windows y Mac OS entre otros.
+    </para>
+
+    <figure>
+      <title>
+        Logisim
+      </title>
+      <graphic
+      fileref="img/08-circuitos/01-logisim.png"
+      format="PNG" width="1000" scale="40"/>
+    </figure>
+  </sect1>
+
+  <sect1>
+    <title>KiCad</title>
+
+    <para>
+      <ulink url="http://kicad.sourceforge.net/">KiCad</ulink> es un programa
+      de automatizaci&oacute;n del dise&ntilde;o electr&oacute;nico (EDA).
+    </para>
+
+    <para>
+      KiCad se compone de un gestor de proyectos que interacciona con cuatro
+      programas principales:
+    </para>
+
+    <itemizedlist>
+      <listitem>
+        <para>
+          El editor de esquemas eeschema.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          El selector de componentes usados en el dise&ntilde;o del circuito
+          cvpcb.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          El programa editor de circuitos impresos pcbnew.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          El visor Gerber gerbview.
+        </para>
+      </listitem>
+    </itemizedlist>
+
+    <figure>
+      <title>
+        KiCad
+      </title>
+      <graphic
+      fileref="img/08-circuitos/02-kicad.png"
+      format="PNG" width="1000" scale="40"/>
+    </figure>
+  </sect1>
+</chapter>
+

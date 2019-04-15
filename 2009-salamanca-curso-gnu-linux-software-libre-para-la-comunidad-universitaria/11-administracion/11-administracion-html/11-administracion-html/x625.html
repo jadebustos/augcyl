@@ -1,0 +1,451 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Tipos de dispositivos físicos</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Sistemas de Ficheros"
+HREF="c304.html"><LINK
+REL="PREVIOUS"
+TITLE="Particiones"
+HREF="x587.html"><LINK
+REL="NEXT"
+TITLE="Acceso a sistemas de ficheros"
+HREF="x707.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x587.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 4. Sistemas de Ficheros</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x707.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN625"
+>4.7. Tipos de dispositivos físicos</A
+></H1
+><P
+>Existen diferentes tipos de discos físicos y a cada uno se le referencia de un modo diferente. El nombre del fichero correspondiente a ese dispositivo tiene un nombre diferente dependiendo del tipo de dispositivo que sea.</P
+><P
+>Existen diferentes tipos de dispositivos y para poder acceder a cada uno de ellos es necesario que el núcleo tenga soporte para dichos dispositivos.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN629"
+>4.7.1. Dispositivos IDE</A
+></H2
+><P
+>Estos dispositivos reciben el nombre <TT
+CLASS="filename"
+>/dev/hd?n</TT
+>:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>?</I
+></SPAN
+> es una letra:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>a</I
+></SPAN
+> es el canal primario del primer IDE.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>b</I
+></SPAN
+> es el canal secundario del primer IDE.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>c</I
+></SPAN
+> es el canal primario del segundo IDE.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>d</I
+></SPAN
+> es el canal secundario del segundo IDE.</P
+></LI
+></UL
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>n</I
+></SPAN
+> es el número de la partición dentro del dispositivo físico.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN653"
+>4.7.2. Dispositivos SCSI</A
+></H2
+><P
+>La forma en la que se nombran los discos SCSI es la misma utilizada para:</P
+><P
+></P
+><UL
+><LI
+><P
+>Memorias y discos USB.</P
+></LI
+><LI
+><P
+>Discos SATA.</P
+></LI
+><LI
+><P
+>Discos SAN (<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>S</I
+></SPAN
+>torage <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>A</I
+></SPAN
+>rea <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>N</I
+></SPAN
+>etwork).</P
+></LI
+></UL
+><P
+>Estos dispositivos reciben el nombre <TT
+CLASS="filename"
+>/dev/sd?n</TT
+>:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>?</I
+></SPAN
+> son una o varias letras: <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>a</I
+></SPAN
+>, <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>b</I
+></SPAN
+>, <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>...</I
+></SPAN
+>, <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>z</I
+></SPAN
+>, <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>aa</I
+></SPAN
+>, <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ab</I
+></SPAN
+>, <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>...</I
+></SPAN
+>, <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>az</I
+></SPAN
+>, <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ba</I
+></SPAN
+>, <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>...</I
+></SPAN
+> hasta un límite de 256 (como mucho).</P
+><P
+>Estas letras se van asignando por orden alfabetico según se vayan descubriendo los dispositivos.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>n</I
+></SPAN
+> es el número de la partición dentro del dispositivo físico.</P
+></LI
+></UL
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/warning.gif"
+HSPACE="5"
+ALT="Aviso"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Con los dispositivos removibles y los discos SAN existe el problema de que el nombre del fichero que representa al disco físico no siempre va a ser el mismo.</P
+><P
+>Para un usuario esto no deja de se un engorro. Pero para un servidor esto es un problema bastante grande (que tiene solución).</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN689"
+>4.7.3. Disqueteras</A
+></H2
+><P
+>A las disqueteras nos referiremos como <TT
+CLASS="filename"
+>/dev/fdn</TT
+>:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>n</I
+></SPAN
+> es un número empezando en cero para la primera y siguiendo en orden ascendente.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN697"
+>4.7.4. Unidades de cinta</A
+></H2
+><P
+>Podemos encontrar varios tipos de unidades de cinta:</P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="filename"
+>/dev/stn</TT
+> n-ésima unidad de cinta SCSI.</P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>/dev/ftn</TT
+> n-ésima unidad de cinta.</P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x587.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x707.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Particiones</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c304.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Acceso a sistemas de ficheros</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

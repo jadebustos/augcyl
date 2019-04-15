@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Servidor de correo</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Servidores de red para empresas"
+HREF="c279.html"><LINK
+REL="PREVIOUS"
+TITLE="Servidores de red para empresas"
+HREF="c279.html"><LINK
+REL="NEXT"
+TITLE="Servidor Wiki"
+HREF="x313.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c279.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Cap�tulo 4. Servidores de red para empresas</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x313.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN295"
+>4.2. Servidor de correo</A
+></H1
+><P
+>En general no es buena idea tener un servidor propio de correo, si se trata de una empresa pequeña con un ADSL. Hay muchas empresas que ofrecen redirecciones de correo (en unos casos limitadas a 100 o 200 redirecciones distintas, en otros ilimitadas) por un precio razonable. Es posible usar como destino de las redirecciones por ejemplo cuentas de gmail, que nos permiten usar la dirección que queramos para el correo saliente. Así mismo la propia Google ofrece paquetes para empresas tipo Gmail pero con dominio propio.</P
+><P
+>Si no obstante nos decidimos, el servidor de correo de un dominio se fija con un registro MX en el DNS; es posible tener varios registros para que si está caído un servidor, se acuda a otro. Las empresas que venden servicio DNS como EasyDNS suelen ofrecer también servidor de correo de respaldo, es decir, añadir uno de sus servidores de correo para que reciban el correo en el supuesto que nuestro servidor esté caído.</P
+><P
+>Usar como servidor de correo saliente uno propio en lugar de el del proveedor teóricamente permite más control como saber si un mensaje ha sido recibido por el servidor destino; así mismo permite que si la conexión a Internet esté caída el servidor siga aceptando mensajes y los envíe en cuanto se restablezca la conexión, aunque no todo el mundo ve esto como una ventaja. Un inconveniente es que las Ips asignadas a las líneas ADSL a veces están en listas negras para evitar correo basura, por lo que no son las ideales para situar un servidor de correo. En concreto, las Ips de ADSL de Telefónica están en SPAMHAUS PBL <A
+HREF="http://www.spamhaus.org/pbl"
+TARGET="_top"
+>http://www.spamhaus.org/pbl</A
+>
+<A
+HREF="http://www.spamhaus.org/pbl"
+TARGET="_top"
+> </A
+>
+</P
+><P
+>a destacar que sitios como easydns.com bloquean el correo procedente de esas direcciones.</P
+><P
+>A priori una buena razón para montar un servidor de correo propio es evitar que los mensajes internos salgan a Internet. Sin embargo, recomendamos reemplazar los correos internos por mensajería instantánea utilizando un servidor con Jabber.</P
+><P
+>Si pese a todo insistimos en tener un servidor de correo propio, recomendamos usar PostFix como software y administrarlo a través de Webmin (<A
+HREF="http://www.webmin.com/"
+TARGET="_top"
+>www.webmin.com</A
+>).</P
+><P
+>Tanto si instalamos nuestro propio servidor de correo como si usamos un proveedor, si tenemos un dominio propio es importante que usemos SPF, Sender Policy Framework (<A
+HREF="http://www.openspf.org/"
+TARGET="_top"
+>http://www.openspf.org/</A
+>). Se trata de una medida antispam, consistente en añadir al DNS unos registros indicando qué servidores están autorizados para enviar correo en el que el remitente sea una dirección de nuestro dominio. </P
+><P
+>softlibre.net INT TXT "v=spf1 mx a:chemahome.softlibre.net include:gmail.com include:easydns.com -all"</P
+><P
+>En este caso hemos incluido con include las direcciones autorizadas para enviar con gmail.com, puesto que lo uso para enviar correos con @softlibre.net, y easydns.com, pues es quien se encarga de mis redirecciones. Además incluyo todo servidor de nombres del dominio (registros MX) y explíticamente a la máquina chemahome.softlibre.net. Observesé que para simplemente incluir todas las máquinas con registros de nombre A en el dominio bastaría con poner sólo "a". Al final con "-all" se indica que se deben rechazar todos los mensajes que no procedan de ninguno de los sitios indicados. Mientras estamos probando es mejor utilizar "~all", que en lugar de rechazar implica que el servidor añada una cabecera para que lo puedan detectar en los filtros de los programas de correo.</P
+><P
+>Es importante así mismo que pongamos una regla en el cortafuegos para prohibir conexiones al puerto 25 de otra máquina que el servidor de correo de la empresa (si es externo) o si es interno que sólo se pueda conectar al puerto 25 desde la IP del servidor de correo.</P
+><P
+>El servidor deberá aceptar correo destinado a su propio dominio y filtrar (o al menos clasificar) el correo que conforme a SPF es falso. Para enviar correo sólo deberá aceptar en el que el from sea el propio dominio y hacerlo autenticado.</P
+><P
+>Como información complementaria, este artículo explica como añadir a un servidor de correo un fitro ANTISPAM y un antivirus: http://www.howtoforge.com/amavisd_postfix_debian_ubuntu</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c279.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x313.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Servidores de red para empresas</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c279.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Servidor Wiki</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

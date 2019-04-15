@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>  
+  <chapter>
+    <title>Detecci&oacute;n de fallos en los nodos del cluster.</title>
+    <para>Un cluster debe conocer cuando alg&uacute;n nodo no est&aacute; disponible para no enviale peticiones.</para>
+
+    <para>Esto se hace de dos formas:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para><emphasis>Heartbeat</emphasis> es la t&eacute;cnica m&aacute;s habitual. Consiste en comunicarse o bien a trav&eacute;s de una interface de red o puerto serie cada cierto tiempo. Si se pierde la comunicaci&oacute;n durante un determinado tiempo se supone que el nodo ha caido.</para>
+      </listitem>
+      <listitem>
+        <para><emphasis>Disco de quorum</emphasis> es una t&eacute;nica complementaria que lo que se hace es que todos los nodos del cluster escriben su estado en un disco y de esa forma se determina quien est&aacute; disponible para dar el servicio.</para>
+      </listitem>
+    </itemizedlist>
+
+    <sect1>
+      <title>Heartbeat</title>
+      <para>Para implementar est&aacute; t&eacute;nica los nodos tiene l&iacute;neas dedicadas, bien sea por red o conexiones serie por las que se comunican de forma continua para verificar el correcto funcionamiento de los nodos.</para>
+
+      <tip><para>Es recomendable utilizar varias l&iacute;neas de <emphasis>heartbeat</emphasis>.</para></tip>
+    </sect1>
+
+    <sect1>
+      <title>Disco de quorum</title>
+      <para>Si un nodo tiene problemas de red y no llega a los otros nodos pensar&aacute; que los otros nodos no est&aacute;n disponibles e intentar&aacute; hacerse con el servicio.</para>
+
+      <para>Si disponemos de dispositivos serie para el <emphasis>heartbeat</emphasis> entonces dispondremos de una forma de comprobar que los otros nodos est&aacute;n funcionando correctamente y el problema es nuestro. De no disponerlo se asumir&aacute; de forma incorrecta que los otros nodos han fallado, intentando asumir el control del cluster y produciendo un <emphasis>Split Brain</emphasis>.</para>
+
+      <para>Para evitar esto se utiliza el disco de quorum. Cada nodo escribe de forma continua su estado en el disco y de esta forma se puede verificar que nodos est&aacute;n disponibles para hacerse con el servicio en el cluster.</para>
+
+      <important><para>El <emphasis>disco de quorum</emphasis> no es una t&eacute;cnica que sustituya al <emphasis>heartbeat</emphasis> es una t&eacute;nica que debe usarse como complemento al <emphasis>heartbeat</emphasis>.</para></important>
+    </sect1>
+
+  </chapter>
+
+<!-- Local Variables: -->
+<!-- xml-parent-document: "clustering.xml" -->
+<!-- End: -->
+

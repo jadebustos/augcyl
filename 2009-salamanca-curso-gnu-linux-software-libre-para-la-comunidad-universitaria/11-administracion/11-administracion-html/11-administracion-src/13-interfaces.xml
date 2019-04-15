@@ -1,0 +1,425 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- CAPITULO 8 -->
+  <chapter>
+    <title>Interfaces de Administraci&oacute;n</title>
+    <para>La gran cantidad de servicios, recursos y comandos que hay
+    que tener en cuenta para administrar actualmente un sistema con Linux, ha
+    hecho que aparezcan distintas aplicaciones que nos permiten tener
+    centralizada la mayor parte de las tareas habituales de
+    administraci&oacute;n.</para>
+<para>Adem&aacute;s las distribuciones, e incluso los entornos gr&aacute;ficos
+    principales, en su intento de simplificar al m&aacute;ximo
+    los procesos de administraci&oacute;n han creado y colaborado con la
+    aparici&oacute;n de este tipo de herramientas, Yast para
+    <acronym>SuSE</acronym>, Control Center para Mandriva o el Control
+    Center de <acronym>KDE</acronym>.</para>
+<para>Al ser muy variable las posibles configuraciones de Linux hace
+    que estos interfaces sean orientados a administrar solo algunos
+    aspecto. As&iacute; nos encontramos que los interfaces de administraci&oacute;n
+    de los entornos gr&aacute;ficos gestionan mayormente aspectos para una
+    configuraci&oacute;n de workstation. 
+</para>
+<para>Comentaremos las dos m&aacute;s conocidas, gen&eacute;ricas, modulares y amplias.</para>
+    <sect1>
+      <title><application>webmin</application></title>
+      <para><application>Webmin</application> es una c&oacute;moda herramienta ya que nos va a permitir
+      administrar nuestra m&aacute;quina desde nuestro navegador
+      favorito. Incluso al ser un servidor web podemos realizar la administraci&oacute;n      remotamente.</para>
+<para>Soporta un gran n&uacute;mero de distribuciones e incluso otros
+      sistemas operativos distintos a GNU/Linux.</para>
+ <sect2>
+      <title>Instalaci&oacute;n</title>
+      <para>En algunas distribuciones como Debian ya viene como un
+      paquete lo que nos va a ahorrar el tener que configurar algunos
+      par&aacute;metros.</para>
+<para>No esta incluido dentro la distribuci&oacute;n <acronym>SuSE</acronym>
+      por lo que deberemos baj&aacute;rnoslo de <ulink
+ url="http://www.webmin.com">www.webmin.com</ulink>.</para>
+<para>Una vez descargado lo descomprimimos, entramos en el directorio
+      creado y ejecutamos el comando de instalaci&oacute;n.</para>
+<screen><prompt>
+      sal:/usr/src # </prompt><userinput>tar -xzvf webmin-1.330.tar.gz</userinput>
+<prompt>
+      sal:/usr/src # </prompt><userinput>cd webmin-1.330</userinput>
+<prompt>
+      sal:/usr/src/webmin-1.330 # </prompt><userinput>./setup.sh</userinput>
+</screen>
+<para>
+Nos ira preguntando la configuraci&oacute;n b&aacute;sica de <application>webmin</application>.</para>
+<screen><prompt>
+***********************************************************************
+*            Welcome to the Webmin setup script, version 1.330
+*
+***********************************************************************
+Webmin is a web-based interface that allows Unix-like operating
+systems and common Unix services to be easily administered.
+
+Installing Webmin in /usr/src/webmin-1.330 ...
+
+***********************************************************************
+Webmin uses separate directories for configuration files and log
+files.
+Unless you want to run multiple versions of Webmin at the same time
+you can just accept the defaults.
+
+Config file directory [/etc/webmin]:
+</prompt></screen>
+<para>Donde debe guardar la configuraci&oacute;n de la aplicaci&oacute;n.</para>
+<screen><prompt>
+Log file directory [/var/webmin]:
+</prompt></screen>
+<para>Directorio donde queremos que deje las trazas.</para>
+<screen><prompt>
+***********************************************************************
+Webmin is written entirely in Perl. Please enter the full path to the
+Perl 5 interpreter on your system.
+
+Full path to perl (default /usr/bin/perl):
+</prompt></screen>
+<para><application>Webmin</application> utiliza perl por lo que
+tenemos que tener instalado el interprete. Damos la ruta o si es
+correcta la propuesta pulsamos Intro.</para>
+<screen><prompt>
+Testing Perl ...
+Perl seems to be installed ok
+
+***********************************************************************
+Operating system name:    SuSE Linux
+Operating system version: 10.2
+
+***********************************************************************
+ </prompt>
+</screen>
+<para>
+Nos detecta correctamente el sistema operativo, la distribuci&oacute;n y la versi&oacute;n instalada.</para>
+<screen><prompt>
+Webmin uses its own password protected web server to provide access
+to the administration programs. The setup script needs to know :
+ - What port to run the web server on. There must not be another
+   web server already using this port.
+ - The login name required to access the web server.
+ - The password required to access the web server.
+ - If the webserver should use SSL (if your system supports it).
+ - Whether to start webmin at boot time.
+
+Web server port (default 10000):</prompt>
+</screen>
+<para>
+Puerto en el que va a escuchar el servidor web de webmin. Pulsando
+Intro aceptamos el que nos propone por defecto. Tener en cuenta que el
+puerto web por defecto en los navegadores es el 80 que normalmente lo
+tendremos ocupado por <application>apache</application></para>
+<screen><prompt>
+      Login name (default admin): </prompt><userinput>root</userinput>
+</screen>
+<para>Usuario con el que vamos a acceder, por ejemplo root.</para>
+<screen><prompt>
+      Login password:
+</prompt>
+<prompt>
+      Password again:
+</prompt>
+</screen>
+<para>Nos pide repetida la contrase&ntilde;a con la que vamos a entrar.</para>
+<screen><prompt>Use SSL (y/n): </prompt><userinput>y</userinput>
+</screen>
+<para>Es recomendable aceptar el uso de SSL. Nos lo debe preguntar
+siempre que tengamos correctamente instalado los paquete de
+OpenSSL. Si no lo tenemos instalado nos dar&aacute; el siguiente
+error:</para>
+<screen><prompt>The Perl SSLeay library is not installed. SSL not
+available.</prompt></screen>
+<para>Por &uacute;ltimo pregunta si queremos que se ejecute como
+servicio en el arranque del sistema</para>
+<screen><prompt>Start Webmin at boot time (y/n): </prompt><userinput>y</userinput>
+</screen>
+<para>Para arrancar el servicios debemos ejecutar su script de
+arranque de <filename>/etc/init.d</filename>, que nos debe haber
+preparado al decir que queremos arrancarlo en arranque.</para>
+<screen><prompt>sal:/usr/src/webmin-1.330 # </prompt><userinput>/etc/init.d/webmin start</userinput>
+</screen>
+<para>Por &uacute;ltimo vamos a nuestro navegador y tecleamos:
+<userinput>https://localhost:10000</userinput> y veremos:</para>
+<informalfigure>
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="img/c9login.png" format="PNG"/>
+        </imageobject>
+        <textobject>
+          <phrase>Ventana de login</phrase>
+        </textobject>
+      </mediaobject>
+    </screenshot>
+  </informalfigure>
+    </sect2>
+<sect2>
+      <title>Administraci&oacute;n con <application>webmin</application></title>
+      <para>Una vez que metemos la usuario que establecimos antes nos
+      aparecer&aacute; la pantalla inicial de administraci&oacute;n.</para>
+<informalfigure>
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="img/c9tema.png" format="PNG"/>
+        </imageobject>
+        <textobject>
+          <phrase>Ventana de tema</phrase>
+        </textobject>
+      </mediaobject>
+    </screenshot>
+  </informalfigure>
+<para><application>Webmin</application> se presenta con diferentes
+temas, y tambi&eacute;n soporta distintos idiomas. En la versi&oacute;n que
+presentamos por defecto nos muestra un tema en el cual se organiza la
+aplicaci&oacute;n con distintos <emphasis>frames</emphasis>, con un men&uacute; desplegable a la
+izquierda y el centro con la selecci&oacute;n actual, que inicialmente es
+informaci&oacute;n sobre la m&aacute;quina.</para>
+<para>En el men&uacute; Webmin tenemos las siguientes opciones:</para>
+      <itemizedlist>
+	<listitem>
+          <para><emphasis>Cambio de Idioma y Tema</emphasis> nos
+          permite configurar el idioma y la visualizaci&oacute;n de la aplicaci&oacute;n.</para>
+	</listitem>
+        <listitem>
+          <para><emphasis>Configuraci&oacute;n Usermin</emphasis> m&oacute;dulo para
+          configurar una aplicaci&oacute;n web para acceso de los usuarios a
+          recursos del sistema con una filosof&iacute;a parecida a
+          webmin. Permite leer y configurar el correo, configurar los
+          fichero de usuario, etc.</para>
+	</listitem>
+        <listitem>
+          <para><emphasis>Configuraci&oacute;n de Webmin</emphasis> permite
+          la configuraci&oacute;n global de la aplicaci&oacute;n, IP que
+          pueden acceder, actualizaci&oacute;n de la aplicaci&oacute;n, etc.</para>
+	</listitem>
+<listitem>
+          <para><emphasis>Copia de seguridad de Archivos de
+          configuraci&oacute;n</emphasis> es un sistema para hacer copias de
+          seguridad de la configuraci&oacute;n del sistema.</para>
+	</listitem><listitem>
+          <para><emphasis>Hist&oacute;rico de Acciones</emphasis> lleva un
+          control de las acciones que se han hecho con la aplicaci&oacute;n.</para>
+</listitem> 
+<listitem>
+          <para><emphasis>Usuarios de Webmin</emphasis> usuarios que
+	pueden entrar en Webmin y se puede configurar las opciones
+	(m&oacute;dulos) a las que puede acceder.</para>
+	</listitem>
+<listitem>
+          <para><emphasis>&Iacute;ndice de Servidores</emphasis> nos permite
+	acceder a otros servidores webmin de otros sistemas.</para>
+	</listitem>	    
+ </itemizedlist>
+<para>La segunda opci&oacute;n es la de Sistema.</para>
+<informalfigure>
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="img/c9sis.png" format="PNG"/>
+        </imageobject>
+        <textobject>
+          <phrase>Ventana de Sistema</phrase>
+        </textobject>
+      </mediaobject>
+    </screenshot>
+  </informalfigure>
+<para>Nos permite el control de todas las tareas que debe hacer el
+administrador sobre un sistema. Desde este panel controlamos desde copias de seguridad de
+nuestra m&aacute;quina a configuraci&oacute;n de usuarios de la m&aacute;quina. Esta vez
+vemos el tema cl&aacute;sico de <application>webmin</application>.</para>
+<informalfigure>
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="img/c9ser.png" format="PNG"/>
+        </imageobject>
+        <textobject>
+          <phrase>Ventana de Servicios</phrase>
+        </textobject>
+      </mediaobject>
+    </screenshot>
+  </informalfigure>
+<para>A continuaci&oacute;n tenemos administraci&oacute;n Servidores, referido a los servicios de
+la m&aacute;quina y Red que realmente son servicios, pero est&aacute;n m&aacute;s
+orientados a niveles m&aacute;s bajos de red, como vpn, contrafuegos, ppp,
+etc. Entre los servidores se encuentra la configuraci&oacute;n de apache,
+correo, ftp, jabber, bases de datos, etc.</para>
+<para>Hay que tener en cuenta que webmin, en su men&uacute; de Configuraci&oacute;n
+de Webmin nos permite reordenar los m&oacute;dulos seg&uacute;n nuestros
+criterios.</para>
+<informalfigure>
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="img/c9hard.png" format="PNG"/>
+        </imageobject>
+        <textobject>
+          <phrase>Ventana de Hardware</phrase>
+        </textobject>
+      </mediaobject>
+    </screenshot>
+  </informalfigure>
+<para>La opci&oacute;n <emphasis>Hardware</emphasis> nos muestra m&oacute;dulos de
+gesti&oacute;n de distintos componentes f&iacute;sicos de nuestro sistema. Como son
+los discos, el reloj de sistema, grabadora, etc. Incluye en este apartado las
+impresoras, permiti&eacute;ndonos controlar un servicio de impresoras como
+<application>cups</application> de una manera transparente.</para>
+<para>En la pesta&ntilde;a de <emphasis>Cluster</emphasis> nos permite administrar distintas
+m&aacute;quinas que tengan <application>webmin</application>, realizando los
+mismos cambios sobre todos las instancias. Por ejemplo podemos
+ejecutar un script sobre varios o todos de estos sistemas.</para>
+<informalfigure>
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="img/c9otr.png" format="PNG"/>
+        </imageobject>
+        <textobject>
+          <phrase>Ventana de Otros</phrase>
+        </textobject>
+      </mediaobject>
+    </screenshot>
+  </informalfigure>
+<para>Por &uacute;ltimo en <emphasis>Otros</emphasis> tenemos algunas
+herramientas de administraci&oacute;n, como copiar ficheros, lanzar comandos
+sobre la m&aacute;quina, conectarnos por ssh con un <emphasis>applet</emphasis> java a
+nuestro sistema, etc.</para>
+<para>En resumen, tenemos en nuestro navegador favorito todo aquello
+que un administrador puede necesitar.</para>
+    </sect2>
+<sect2>
+      <title>Nuevos m&oacute;dulos</title>
+      <para>Una de las ventajas de <application>webmin</application> es
+      la posibilidad de a&ntilde;adir nuevos m&oacute;dulos lo que permite
+      administrar servicios que son menos comunes, incluso que el
+      creador del servicio decide implementar el m&oacute;dulo para que se pueda
+      realizar la administraci&oacute;n desde
+      <application>webmin</application></para>
+<para>As&iacute; podemos ver en la web de <application>webmin</application>
+      los distintos m&oacute;dulos realizados por terceras partes, agrupados
+      por distintas categor&iacute;as.</para>
+    </sect2>
+</sect1>
+    <sect1>
+      <title><application>linuxconf</application></title>
+      <para>Se trata de otro interface de administraci&oacute;n, tambi&eacute;n
+      modular y aunque su modo de presentaci&oacute;n inicial fue en consola textual tiene
+      implementado un interface web.</para>
+<para>Resulta m&aacute;s sencillo y es com&uacute;n que este en las distribuciones
+      ya que tiene menos requisitos que
+      <application>webmin</application>.</para>
+<para>Para ejecutarlo con el usuario root escribimos en
+      consola:</para>
+<screen><prompt>sal:/ # </prompt><userinput>linuxconf</userinput></screen>
+<para>Nos aparecer&aacute; una pantalla con la siguiente:</para>
+<informalfigure>
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="img/c9linuxconf.png" format="PNG"/>
+        </imageobject>
+        <textobject>
+          <phrase>Ventana de linuxconf</phrase>
+        </textobject>
+      </mediaobject>
+    </screenshot>
+  </informalfigure>
+<sect2>
+      <title>Administraci&oacute;n con <application>linuxconf</application></title>
+      <para>A partir de la pantalla de inicio podemos navegar con los
+      cursores por las distintas opciones de administraci&oacute;n de
+      <application>linuxconf</application>.</para>
+<para>Para mostrar la utilizaci&oacute;n de la aplicaci&oacute;n vamos a a&ntilde;adir un
+      usuario, para ello desde la pantalla inicial con la flecha hacia
+      bajo nos desplazamos hasta <userinput>Users</userinput>,
+      pulsamos Intro y nuevamente sobre <userinput>User
+      acounts</userinput>, nos aparecer&aacute; la lista de usuarios. Con
+      ello lo que ha hecho nuestro interface es mostrarnos en contenido del fichero de
+      administraci&oacute;n de usuarios <filename>/etc/passwd</filename>.</para>
+<para>Con el tabulador seleccionamos el bot&oacute;n
+      <userinput>Add</userinput> e Intro. Nos aparece una pantalla
+      para introducir los datos de usuario, rellenando cada campo y
+      movi&eacute;ndose por ellos con las teclas de cursor. Con el tabulador
+      podemos ir al bot&oacute;n de Accept. La herramienta har&aacute; un
+      <application>useradd</application> con los par&aacute;metros que hemos rellenado.</para>
+<informalfigure>
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="img/c9user.png" format="PNG"/>
+        </imageobject>
+        <textobject>
+          <phrase>Creaci&oacute;n de Usuario</phrase>
+        </textobject>
+      </mediaobject>
+    </screenshot>
+  </informalfigure>
+<para>Si el grupo no existe, nos pregunta si queremos crearlo y nos
+pide las claves de usuario, actualizando el fichero de administraci&oacute;n
+de grupos <filename>/etc/groups</filename>. Nos aparecer&aacute; la lista de usuarios con el
+nuevo. Con el bot&oacute;n de Dismiss podemos ir al men&uacute; inicial.</para>
+<para>Podemos administrar los siguientes aspectos con la configuraci&oacute;n
+los m&oacute;dulos b&aacute;sica de <application>linuxconf</application>:</para>
+<itemizedlist>
+<listitem><para>
+La hora de sistema, la zona horaria y el reloj del ordenador.
+</para></listitem><listitem><para>
+Gestor de arranque LILO.
+</para></listitem><listitem><para>
+Configuraci&oacute;n de la red b&aacute;sica (n&uacute;mero IP, mascara de red, ...).
+</para></listitem><listitem><para>
+Red IPX.
+</para></listitem><listitem><para>
+Rutas de red est&aacute;ticas.
+</para></listitem><listitem><para>
+Sistemas de ficheros (/etc/fstab).
+</para></listitem><listitem><para>
+Servicio de Enrutado.
+</para></listitem><listitem><para>
+Cliente NIS (ypbind).
+</para></listitem><listitem><para>
+Servidor de ficheros NFS.
+</para></listitem><listitem><para>
+Cliente PPP.
+</para></listitem><listitem><para>
+Cuentas de usuario y grupos.
+</para></listitem><listitem><para>
+Pol&iacute;tica Shadow.
+</para></listitem><listitem><para>
+Servicio DNS.
+</para></listitem><listitem><para>
+Servicio de correo Sendmail.
+</para></listitem><listitem><para>
+Cortafuegos (Filtrado de paquetes).
+</para></listitem><listitem><para>
+Servicio RARP.
+</para></listitem><listitem><para>
+Servicio DHCP.
+</para></listitem><listitem><para>
+Alias IP.
+</para></listitem><listitem><para>
+Conexi&oacute;n con UUCP.
+</para></listitem><listitem><para>
+Cuotas de Disco. 
+</para></listitem>
+</itemizedlist>
+<para><application>Linuxconf</application> es capaz de editar algunos ficheros de
+configuraci&oacute;n est&aacute;ndar del sistema, como por ejemplo.</para>
+<itemizedlist>
+<listitem><para>
+/etc/fstab
+</para></listitem><listitem><para>
+/etc/host.conf
+</para></listitem><listitem><para>
+/etc/hosts
+</para></listitem><listitem><para>
+/etc/networks
+</para></listitem><listitem><para>
+/etc/resolv.conf
+</para></listitem>
+</itemizedlist> 
+    </sect2>
+    </sect1>
+  </chapter>
+

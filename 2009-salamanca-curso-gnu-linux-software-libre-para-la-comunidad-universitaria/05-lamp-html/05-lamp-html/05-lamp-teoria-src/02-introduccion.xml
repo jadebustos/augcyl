@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chapter>
+<title>Introducci&oacute;n a la plataforma LAMP</title>
+<para>
+Bienvenidos a esta documentaci&oacute;n sobre La Teor&iacute;a de funcionamiento de la plataforma LAMP. Espero que os sea grata y que os ayude a 
+entender mejor el desarrollo de aplicaciones mediante los ordenadores con GNU/Linux.
+</para>
+<section>
+<title>Principios de la arquitectura cliente servidor.
+</title>
+<para>A fin de poder entender correctamente el comportamiento de la arquitectura LAMP es importante describir el funcionamiento de 
+la arquitectura de aplicaciones Cliente-Servidor.
+En Dicha arquitectura disponemos de dos tipos de agentes:
+</para>
+<itemizedlist>
+<listitem>
+<para>
+Cliente: Ordenador o programa inform&aacute;tico que solicita informaci&oacute;n.
+</para>
+</listitem>
+<listitem>
+<para>
+Servidor: Ordenador o programa inform&aacute;tico que dispone de informaci&oacute;n.
+</para>
+</listitem>
+</itemizedlist>
+
+      <figure>
+	<title>Arquitectura Cliente Servidor B&aacute;sica</title>
+              <graphic fileref="img/Cliente-Servidor-1.png" format="PNG" scale="100" />
+
+</figure>
+<para>Dentro de este tipo de arquitectura podemos definir distintos tipos de Agentes dependiendo del tratamiento que se realice 
+con la informaci&oacute;n</para>
+<itemizedlist>
+<listitem>
+<para>
+Activo: El Agente realiza un procesado activo de la informaci&oacute;n. Calculo intensivo, c&aacute;lculo de la presentaci&oacute;n gr&aacute;fica de la 
+informaci&oacute;n, acceso a datos son algunas de las tareas t&iacute;picas de un Agente Activo.
+</para>
+</listitem>
+<listitem>
+<para>
+Pasivo: El agente se limita a manejar informaci&oacute;n en bruto o preprocesada.
+</para>
+</listitem>
+</itemizedlist>
+</section>
+<section>
+<title>Tipos de Arquitectura Cliente Servidor
+</title>
+<para>A continuaci&oacute;n se detallan los distintos tipos de Arquitecturas de Cliente - Servidor:</para>
+<itemizedlist>
+<listitem>
+<para>
+Cliente Activo, Servidor Pasivo: El cliente realiza la practica totalidad del trabajo de procesado de la informaci&oacute;n. 
+Ejemplo: Google Earth.
+</para>
+</listitem>
+<listitem>
+<para>
+Cliente Pasivo, Servidor Pasivo: Tanto el cliente como el Servidor simplemente pasan informaci&oacute;n. Ejemplo: Gateways de 
+comunicaciones VoIP.
+</para>
+</listitem>
+<listitem>
+<para>
+Cliente Pasivo, Servidor Activo: El Servidor realiza todo el trabajo de procesado y el cliente simplemente presenta los datos. 
+Ejemplo: Servidores de terminales.
+</para>
+</listitem>
+<listitem>
+<para>
+Cliente Activo, Servidor Activo: Tanto el Servidor como el Cliente procesan la informaci&oacute;n. Ejemplo: Servicios de Correo Electr&oacute;nico.
+</para>
+</listitem>
+</itemizedlist>
+</section>
+</chapter>
+

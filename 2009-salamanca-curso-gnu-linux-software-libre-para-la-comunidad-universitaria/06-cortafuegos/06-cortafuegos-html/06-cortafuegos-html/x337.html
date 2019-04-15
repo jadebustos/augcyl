@@ -1,0 +1,379 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Haciendo SNAT (Cluster de Correo)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Haciendo Natting"
+HREF="c263.html"><LINK
+REL="PREVIOUS"
+TITLE="Haciendo Natting"
+HREF="c263.html"><LINK
+REL="NEXT"
+TITLE="Administración de iptables"
+HREF="c387.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración de cortafuegos en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c263.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 4. Haciendo Natting</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c387.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN337"
+>4.2. Haciendo SNAT (Cluster de Correo)</A
+></H1
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SNAT</I
+></SPAN
+> es la funcionalidad para cambiar la dirección de origen del paquete.</P
+><P
+>En realidad <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>MASQUERADING</I
+></SPAN
+> y <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SNAT</I
+></SPAN
+> son muy parecidos. La diferencia es que <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>MASQUERADING</I
+></SPAN
+> introduce más carga en el sistema que <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SNAT</I
+></SPAN
+> ya que cada vez que tiene que actuar sobre un paquete la dirección que pone al paquete es la que tiene el interface por el que va a salir en lugar de la especificada y es la comprobación de esa IP se realiza por cada paquete procesado lo que introduce la sobrecarga en el sistema.</P
+><P
+>Por este motivo si tenemos que hacer <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SNAT</I
+></SPAN
+> deberemos utilizar <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>MASQUERADING</I
+></SPAN
+> si el interface sobre el que se hace tiene asignación dinámica de IP por <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>DHCP</I
+></SPAN
+>.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN350"
+>4.2.1. Descripción del escenario</A
+></H2
+><P
+>Supongamos que tenemos un cluster de correo con dos nodos y por comodidad utilizaremos direccionamiento privado:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>nodo1_mail.localdomain</I
+></SPAN
+> con ip <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>192.168.1.21</I
+></SPAN
+> en el dispositivo <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>eth0</I
+></SPAN
+>.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>nodo2_mail.localdomain</I
+></SPAN
+> con ip <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>192.168.1.22</I
+></SPAN
+> en el dispositivo <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>eth0</I
+></SPAN
+>.</P
+></LI
+></UL
+><P
+>La ip del servicio de correo <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>192.168.1.100 (mail.localdomain)</I
+></SPAN
+>. Está ip estará levantada en el nodo que esté dando el servicio como un alias <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>eth0:1</I
+></SPAN
+>.</P
+><P
+>Todos los paquetes que salgan por el interface <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>eth0</I
+></SPAN
+> saldrán con ip de origen la que tenga el interface <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>eth0</I
+></SPAN
+>. Si el paquete está originado por el servidor de correo y el servidor de correo destino hace una comprabación por resolución inversa descubrirá que la ip de origen no está asociada a <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>mail.localdomain</I
+></SPAN
+>.</P
+><P
+>Dependiendo de la configuración del servidor de correo de destino no podría pasar nada, podría no aceptar el correo o incluso incluir nuestro servidor de correo en las blacklists.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN372"
+>4.2.2. Configuración de iptables</A
+></H2
+><P
+>Las reglas de iptables:</P
+><PRE
+CLASS="programlisting"
+>&#13;iptables -A POSTROUTING -o eth0 -p tcp --dport 25 -j SNAT --to-source 192.168.1.100
+</PRE
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Todo el tráfico de salida por la interface <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>eth0</I
+></SPAN
+> usando el protocolo <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>TCP</I
+></SPAN
+> y con puerto de destino <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>25</I
+></SPAN
+> será rescrito con dirección de origen <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>192.168.1.100</I
+></SPAN
+>.</P
+></LI
+></OL
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>En este caso no podrímos utilizar <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>MASQUERADING</I
+></SPAN
+> ya que en ese caso la ip que se utilizaría como origen del paquete serí la de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>eth0</I
+></SPAN
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c263.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c387.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Haciendo Natting</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c263.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Administración de iptables</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

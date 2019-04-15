@@ -1,0 +1,735 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Interfaces de Administración</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Planificación de Tareas"
+HREF="x3592.html"><LINK
+REL="NEXT"
+TITLE="linuxconf"
+HREF="x3866.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x3592.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x3866.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN3700"
+></A
+>Capítulo 12. Interfaces de Administración</H1
+><P
+>La gran cantidad de servicios, recursos y comandos que hay
+    que tener en cuenta para administrar actualmente un sistema con Linux, ha
+    hecho que aparezcan distintas aplicaciones que nos permiten tener
+    centralizada la mayor parte de las tareas habituales de
+    administración.</P
+><P
+>Además las distribuciones, e incluso los entornos gráficos
+    principales, en su intento de simplificar al máximo
+    los procesos de administración han creado y colaborado con la
+    aparición de este tipo de herramientas, Yast para
+    <ACRONYM
+CLASS="acronym"
+>SuSE</ACRONYM
+>, Control Center para Mandriva o el Control
+    Center de <ACRONYM
+CLASS="acronym"
+>KDE</ACRONYM
+>.</P
+><P
+>Al ser muy variable las posibles configuraciones de Linux hace
+    que estos interfaces sean orientados a administrar solo algunos
+    aspecto. Así nos encontramos que los interfaces de administración
+    de los entornos gráficos gestionan mayormente aspectos para una
+    configuración de workstation. 
+</P
+><P
+>Comentaremos las dos más conocidas, genéricas, modulares y amplias.</P
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN3708"
+>12.1. <SPAN
+CLASS="application"
+>webmin</SPAN
+></A
+></H1
+><P
+><SPAN
+CLASS="application"
+>Webmin</SPAN
+> es una cómoda herramienta ya que nos va a permitir
+      administrar nuestra máquina desde nuestro navegador
+      favorito. Incluso al ser un servidor web podemos realizar la administración      remotamente.</P
+><P
+>Soporta un gran número de distribuciones e incluso otros
+      sistemas operativos distintos a GNU/Linux.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3714"
+>12.1.1. Instalación</A
+></H2
+><P
+>En algunas distribuciones como Debian ya viene como un
+      paquete lo que nos va a ahorrar el tener que configurar algunos
+      parámetros.</P
+><P
+>No esta incluido dentro la distribución <ACRONYM
+CLASS="acronym"
+>SuSE</ACRONYM
+>
+      por lo que deberemos bajárnoslo de <A
+HREF="http://www.webmin.com"
+TARGET="_top"
+>www.webmin.com</A
+>.</P
+><P
+>Una vez descargado lo descomprimimos, entramos en el directorio
+      creado y ejecutamos el comando de instalación.</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>&#13;      sal:/usr/src # </SAMP
+><KBD
+CLASS="userinput"
+>tar -xzvf webmin-1.330.tar.gz</KBD
+>
+<SAMP
+CLASS="prompt"
+>&#13;      sal:/usr/src # </SAMP
+><KBD
+CLASS="userinput"
+>cd webmin-1.330</KBD
+>
+<SAMP
+CLASS="prompt"
+>&#13;      sal:/usr/src/webmin-1.330 # </SAMP
+><KBD
+CLASS="userinput"
+>./setup.sh</KBD
+>
+</PRE
+><P
+>&#13;Nos ira preguntando la configuración básica de <SPAN
+CLASS="application"
+>webmin</SPAN
+>.</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>&#13;***********************************************************************
+*            Welcome to the Webmin setup script, version 1.330
+*
+***********************************************************************
+Webmin is a web-based interface that allows Unix-like operating
+systems and common Unix services to be easily administered.
+
+Installing Webmin in /usr/src/webmin-1.330 ...
+
+***********************************************************************
+Webmin uses separate directories for configuration files and log
+files.
+Unless you want to run multiple versions of Webmin at the same time
+you can just accept the defaults.
+
+Config file directory [/etc/webmin]:
+</SAMP
+></PRE
+><P
+>Donde debe guardar la configuración de la aplicación.</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>&#13;Log file directory [/var/webmin]:
+</SAMP
+></PRE
+><P
+>Directorio donde queremos que deje las trazas.</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>&#13;***********************************************************************
+Webmin is written entirely in Perl. Please enter the full path to the
+Perl 5 interpreter on your system.
+
+Full path to perl (default /usr/bin/perl):
+</SAMP
+></PRE
+><P
+><SPAN
+CLASS="application"
+>Webmin</SPAN
+> utiliza perl por lo que
+tenemos que tener instalado el interprete. Damos la ruta o si es
+correcta la propuesta pulsamos Intro.</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>&#13;Testing Perl ...
+Perl seems to be installed ok
+
+***********************************************************************
+Operating system name:    SuSE Linux
+Operating system version: 10.2
+
+***********************************************************************
+ </SAMP
+>
+</PRE
+><P
+>&#13;Nos detecta correctamente el sistema operativo, la distribución y la versión instalada.</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>&#13;Webmin uses its own password protected web server to provide access
+to the administration programs. The setup script needs to know :
+ - What port to run the web server on. There must not be another
+   web server already using this port.
+ - The login name required to access the web server.
+ - The password required to access the web server.
+ - If the webserver should use SSL (if your system supports it).
+ - Whether to start webmin at boot time.
+
+Web server port (default 10000):</SAMP
+>
+</PRE
+><P
+>&#13;Puerto en el que va a escuchar el servidor web de webmin. Pulsando
+Intro aceptamos el que nos propone por defecto. Tener en cuenta que el
+puerto web por defecto en los navegadores es el 80 que normalmente lo
+tendremos ocupado por <SPAN
+CLASS="application"
+>apache</SPAN
+></P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>&#13;      Login name (default admin): </SAMP
+><KBD
+CLASS="userinput"
+>root</KBD
+>
+</PRE
+><P
+>Usuario con el que vamos a acceder, por ejemplo root.</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>&#13;      Login password:
+</SAMP
+>
+<SAMP
+CLASS="prompt"
+>&#13;      Password again:
+</SAMP
+>
+</PRE
+><P
+>Nos pide repetida la contraseña con la que vamos a entrar.</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>Use SSL (y/n): </SAMP
+><KBD
+CLASS="userinput"
+>y</KBD
+>
+</PRE
+><P
+>Es recomendable aceptar el uso de SSL. Nos lo debe preguntar
+siempre que tengamos correctamente instalado los paquete de
+OpenSSL. Si no lo tenemos instalado nos dará el siguiente
+error:</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>The Perl SSLeay library is not installed. SSL not
+available.</SAMP
+></PRE
+><P
+>Por último pregunta si queremos que se ejecute como
+servicio en el arranque del sistema</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>Start Webmin at boot time (y/n): </SAMP
+><KBD
+CLASS="userinput"
+>y</KBD
+>
+</PRE
+><P
+>Para arrancar el servicios debemos ejecutar su script de
+arranque de <TT
+CLASS="filename"
+>/etc/init.d</TT
+>, que nos debe haber
+preparado al decir que queremos arrancarlo en arranque.</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>sal:/usr/src/webmin-1.330 # </SAMP
+><KBD
+CLASS="userinput"
+>/etc/init.d/webmin start</KBD
+>
+</PRE
+><P
+>Por último vamos a nuestro navegador y tecleamos:
+<KBD
+CLASS="userinput"
+>https://localhost:10000</KBD
+> y veremos:</P
+><DIV
+CLASS="informalfigure"
+><P
+></P
+><A
+NAME="AEN3772"
+></A
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="img/c9login.png"></P
+></DIV
+><P
+></P
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3779"
+>12.1.2. Administración con <SPAN
+CLASS="application"
+>webmin</SPAN
+></A
+></H2
+><P
+>Una vez que metemos la usuario que establecimos antes nos
+      aparecerá la pantalla inicial de administración.</P
+><DIV
+CLASS="informalfigure"
+><P
+></P
+><A
+NAME="AEN3783"
+></A
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="img/c9tema.png"></P
+></DIV
+><P
+></P
+></DIV
+><P
+><SPAN
+CLASS="application"
+>Webmin</SPAN
+> se presenta con diferentes
+temas, y también soporta distintos idiomas. En la versión que
+presentamos por defecto nos muestra un tema en el cual se organiza la
+aplicación con distintos <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>frames</I
+></SPAN
+>, con un menú desplegable a la
+izquierda y el centro con la selección actual, que inicialmente es
+información sobre la máquina.</P
+><P
+>En el menú Webmin tenemos las siguientes opciones:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Cambio de Idioma y Tema</I
+></SPAN
+> nos
+          permite configurar el idioma y la visualización de la aplicación.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Configuración Usermin</I
+></SPAN
+> módulo para
+          configurar una aplicación web para acceso de los usuarios a
+          recursos del sistema con una filosofía parecida a
+          webmin. Permite leer y configurar el correo, configurar los
+          fichero de usuario, etc.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Configuración de Webmin</I
+></SPAN
+> permite
+          la configuración global de la aplicación, IP que
+          pueden acceder, actualización de la aplicación, etc.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Copia de seguridad de Archivos de
+          configuración</I
+></SPAN
+> es un sistema para hacer copias de
+          seguridad de la configuración del sistema.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Histórico de Acciones</I
+></SPAN
+> lleva un
+          control de las acciones que se han hecho con la aplicación.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Usuarios de Webmin</I
+></SPAN
+> usuarios que
+	pueden entrar en Webmin y se puede configurar las opciones
+	(módulos) a las que puede acceder.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Índice de Servidores</I
+></SPAN
+> nos permite
+	acceder a otros servidores webmin de otros sistemas.</P
+></LI
+></UL
+><P
+>La segunda opción es la de Sistema.</P
+><DIV
+CLASS="informalfigure"
+><P
+></P
+><A
+NAME="AEN3817"
+></A
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="img/c9sis.png"></P
+></DIV
+><P
+></P
+></DIV
+><P
+>Nos permite el control de todas las tareas que debe hacer el
+administrador sobre un sistema. Desde este panel controlamos desde copias de seguridad de
+nuestra máquina a configuración de usuarios de la máquina. Esta vez
+vemos el tema clásico de <SPAN
+CLASS="application"
+>webmin</SPAN
+>.</P
+><DIV
+CLASS="informalfigure"
+><P
+></P
+><A
+NAME="AEN3826"
+></A
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="img/c9ser.png"></P
+></DIV
+><P
+></P
+></DIV
+><P
+>A continuación tenemos administración Servidores, referido a los servicios de
+la máquina y Red que realmente son servicios, pero están más
+orientados a niveles más bajos de red, como vpn, contrafuegos, ppp,
+etc. Entre los servidores se encuentra la configuración de apache,
+correo, ftp, jabber, bases de datos, etc.</P
+><P
+>Hay que tener en cuenta que webmin, en su menú de Configuración
+de Webmin nos permite reordenar los módulos según nuestros
+criterios.</P
+><DIV
+CLASS="informalfigure"
+><P
+></P
+><A
+NAME="AEN3835"
+></A
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="img/c9hard.png"></P
+></DIV
+><P
+></P
+></DIV
+><P
+>La opción <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Hardware</I
+></SPAN
+> nos muestra módulos de
+gestión de distintos componentes físicos de nuestro sistema. Como son
+los discos, el reloj de sistema, grabadora, etc. Incluye en este apartado las
+impresoras, permitiéndonos controlar un servicio de impresoras como
+<SPAN
+CLASS="application"
+>cups</SPAN
+> de una manera transparente.</P
+><P
+>En la pestaña de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Cluster</I
+></SPAN
+> nos permite administrar distintas
+máquinas que tengan <SPAN
+CLASS="application"
+>webmin</SPAN
+>, realizando los
+mismos cambios sobre todos las instancias. Por ejemplo podemos
+ejecutar un script sobre varios o todos de estos sistemas.</P
+><DIV
+CLASS="informalfigure"
+><P
+></P
+><A
+NAME="AEN3848"
+></A
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="img/c9otr.png"></P
+></DIV
+><P
+></P
+></DIV
+><P
+>Por último en <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Otros</I
+></SPAN
+> tenemos algunas
+herramientas de administración, como copiar ficheros, lanzar comandos
+sobre la máquina, conectarnos por ssh con un <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>applet</I
+></SPAN
+> java a
+nuestro sistema, etc.</P
+><P
+>En resumen, tenemos en nuestro navegador favorito todo aquello
+que un administrador puede necesitar.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3859"
+>12.1.3. Nuevos módulos</A
+></H2
+><P
+>Una de las ventajas de <SPAN
+CLASS="application"
+>webmin</SPAN
+> es
+      la posibilidad de añadir nuevos módulos lo que permite
+      administrar servicios que son menos comunes, incluso que el
+      creador del servicio decide implementar el módulo para que se pueda
+      realizar la administración desde
+      <SPAN
+CLASS="application"
+>webmin</SPAN
+></P
+><P
+>Así podemos ver en la web de <SPAN
+CLASS="application"
+>webmin</SPAN
+>
+      los distintos módulos realizados por terceras partes, agrupados
+      por distintas categorías.</P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x3592.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x3866.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Planificación de Tareas</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><SPAN
+CLASS="application"
+>linuxconf</SPAN
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

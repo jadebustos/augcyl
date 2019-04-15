@@ -1,0 +1,547 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Grupos de usuarios</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Usuarios y permisos en GNU/Linux"
+HREF="c2312.html"><LINK
+REL="PREVIOUS"
+TITLE="Usuarios y permisos en GNU/Linux"
+HREF="c2312.html"><LINK
+REL="NEXT"
+TITLE="Gestión de usuarios"
+HREF="x2416.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c2312.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 8. Usuarios y permisos en GNU/Linux</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x2416.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN2332"
+>8.2. Grupos de usuarios</A
+></H1
+><P
+>Los usuarios se agrupan en grupos. Un grupo no es más que un conjunto de usuarios con una tarea en común.</P
+><P
+>El fichero <TT
+CLASS="filename"
+>/etc/group</TT
+> contiene los grupos del sistema. Dentro de este fichero podremos ver grupos:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>apache</I
+></SPAN
+> grupo para usuarios o demonios que van a administrar el servidor web.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>mysql</I
+></SPAN
+> idem para el servidor de BBDD <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>MySQL</I
+></SPAN
+>.</P
+></LI
+></UL
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2345"
+>8.2.1. El fichero <TT
+CLASS="filename"
+>/etc/group</TT
+></A
+></H2
+><P
+>En este fichero se encuentran todos los grupos presentes en el sistema. Las entradas serán del tipo:</P
+><PRE
+CLASS="programlisting"
+>&#13;users:x:100:tux,pepito,pcm
+</PRE
+><P
+>Este fichero está compuesto por varias líneas con campos separados por ":":</P
+><P
+></P
+><UL
+><LI
+><P
+>El primer campo es el nombre del grupo.</P
+></LI
+><LI
+><P
+>El segundo campo es el password para el grupo. Normalmente no se utiliza y este campo contiene una "x".</P
+></LI
+><LI
+><P
+>En el tercer campo tenemos el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>GID</I
+></SPAN
+> del grupo. GNU/Linux utiliza el GID para manejar los grupos. El nombre unicamente se utiliza para hacerle la vida más comoda al usuario.</P
+></LI
+><LI
+><P
+>El cuarto campo son los usuarios que pertenecen a dicho grupo separados por comas.</P
+></LI
+></UL
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/warning.gif"
+HSPACE="5"
+ALT="Aviso"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>No siempre aparecen en <TT
+CLASS="filename"
+>/etc/group</TT
+> los usuarios en el grupo al que pertenecen. Si no se han creado los usuarios de forma correcta no aparecerán.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Si listamos un fichero cualquiera:</P
+><PRE
+CLASS="programlisting"
+>&#13;-rw-r--r-- 1 jose users 1764 2007-04-08 18:38 admlinux.xml
+</PRE
+><P
+>Podemos ver que el fichero pertenece al usuario <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>jose</I
+></SPAN
+> y al grupo <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>users</I
+></SPAN
+> además de otra información.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Es importante que el fichero <TT
+CLASS="filename"
+>/etc/group</TT
+> tenga permisos de lectura para todo el mundo ya que es a través de este fichero que se hace la conversión del GID al nombre del grupo. Si se quitara el permiso de lectura tendríamos algo como esto:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>ls -l admlinux.xml</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>-rw-r--r-- 1 jose 100 1764 2007-04-08 18:38 admlinux.xml</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+>
+</PRE
+><P
+>Vemos que en la salida ya no aparece <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>users</I
+></SPAN
+>. En su lugar aparece <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>100</I
+></SPAN
+> que es el GID del grupo <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>users</I
+></SPAN
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2381"
+>8.2.2. Añdiendo grupos al sistema</A
+></H2
+><P
+>Sólo el usuario <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>root</I
+></SPAN
+> puede añdir grupos al sistema. Aunque puede conceder privilegios a otros para hacerlo.</P
+><P
+>Para añdir grupos al sistema se utiliza el comando <B
+CLASS="command"
+>groupadd</B
+>:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[pcm@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>groupadd alumnos</KBD
+>
+<SAMP
+CLASS="prompt"
+>[pcm@sal]# </SAMP
+>
+</PRE
+><P
+>Esto añadiría el grupo <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>alumnos</I
+></SPAN
+> al sistema.</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Si quisieramos crear un grupo con un GID en particular nos bastaría el especificar el GID mediante el parámetro <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-g</I
+></SPAN
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Una practica habitual de buena administración es el establecer rangos para los GID de los grupos.Por ejemplo del GID 0 al 100 para grupos administradores, ...</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2398"
+>8.2.3. Modificando grupos del sistema</A
+></H2
+><P
+>Sólo el usuario <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>root</I
+></SPAN
+> puede modificar grupos del sistema. Aunque puede conceder privilegios a otros para hacerlo.</P
+><P
+>Para esto se utiliza el comando <B
+CLASS="command"
+>groupmod</B
+>.</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="command"
+>man groupmod</B
+></P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2407"
+>8.2.4. Borrando grupos del sistema</A
+></H2
+><P
+>Sólo el usuario <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>root</I
+></SPAN
+> puede borrar grupos del sistema. Aunque puede conceder privilegios a otros para hacerlo.</P
+><P
+>Para ello se utiliza el comando <B
+CLASS="command"
+>groupdel</B
+>.</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+><B
+CLASS="command"
+>man groupdel</B
+></P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c2312.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x2416.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Usuarios y permisos en GNU/Linux</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c2312.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Gestión de usuarios</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

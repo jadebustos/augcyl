@@ -1,0 +1,254 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Añadir un nuevo registro.</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Principios de la Web"
+HREF="c21.html"><LINK
+REL="PREVIOUS"
+TITLE="El manejo de una tabla sencilla."
+HREF="x98.html"><LINK
+REL="NEXT"
+TITLE="El fichero ver.php del directorio"
+HREF="x118.html"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: 
+    Creación de páginas web dinámicas con PHP/MySQL
+  </TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x98.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 2. Principios de la Web</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x118.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="AEN110"
+>2.4. Añadir un nuevo registro.</A
+></H1
+><P
+>A continuación veremos cómo se
+      estructura un fichero nuevo.php:</P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN113"
+></A
+><PRE
+CLASS="programlisting"
+>&#13;          &#60;?php 
+          //incluimos el fichero config.php para coger los datos de la conexión
+          include_once('../config.php');
+          //cogemos las variables de las coneción para que se puedan utilizar en el script
+          global $server, $database, $user, $passwd;
+          //abrimos la conexión
+          $conexion = mysql_connect($server,$user,$passwd);
+          //elegimos la BBDD
+          mysql_select_db ($database, $conexion) OR die ("No se puede conectar");
+
+          ?&#62;
+          &#60;html&#62;
+            &#60;head&#62;
+              &#60;TITLE&#62;Nueva Asignatura&#60;/TITLE&#62;
+              &#60;LINK REL="stylesheet" TYPE="text/css"
+              HREF="../estilo.css" /&#62;
+            &#60;/head&#62;
+            &#60;body&#62;
+              &#60;?php
+              //comprueba si se entas enviando datos para guardar
+              //si no es asi es que tiene que presentar el formulario
+              if(!isset( $_POST['nuevo']))
+              {
+              //coloca el principio del formulario para que vuelva al mismo script cuando se rellene
+                      echo "&#60;form method=\"post\" action=\"nuevo.php\"&#62;";
+              //aqui se deben poner tantas líneas echo como campos haya
+              //cambiando el echo "Nombre : &#60;input type=\"text\" name=\"nombre\" maxlength=200 size=40&#62;&#60;br&#62;";
+              // por echo "Nombre : &#60;input type=\"text\" name=\"nombre_campo\" maxlength=longitud_campo size=tamaño_caja_texto&#62;&#60;br&#62;";
+              //se coloca la caja de texto para el nombre
+                      echo "Nombre : &#60;input type=\"text\" name=\"nombre\" maxlength=100 size=40&#62;&#60;br&#62;";
+              ////se coloca el botón de guardar
+                      echo "&#60;input type=\"submit\" name=\"nuevo\" value=\"Guardar\"&#62;&#60;/form&#62;&#60;br&#62;";
+              }else{
+              //si se han metido los datos en el formulario
+              //se deben colocar tantos isset($_POST['nombre_campo']) &#38;&#38; como campos haya en la tabla
+                      if(isset($_POST['nombre'])){
+              //en esta linea se ponen los nombres de los campos separados por comas y en la parte de values lo mismo pero con 
+              //variables $_POST['nombre_campo']
+                              $sql="INSERT INTO `asignaturas` ( `id` , `nombre`)
+                              VALUES (NULL , '".$_POST['nombre']."');";
+                              //echo $sql;
+              //se ejecuta la inserción de datos
+                              $result=mysql_query($sql,$conexion);
+              //se informa de que se añadido un nueva asignatura
+                              echo "&#60;p&#62;Asignatura Añadida&#60;/p&#62;";
+              //se coloca el enlace que permite volver al listado
+                              echo "&#60;p&#62;&#60;A HREF='index.php'&#62;Volver&#60;/A&#62;&#60;/p&#62;";
+                      }else{
+              // si no nos han metido campos
+                              echo "&#60;p&#62;Vuelva a intentarlo&#60;/p&#62;";
+              // se vuelve a colocar el formulario con los mismos campos que ahora, la diferenia es que se pone tantas veces como campos haya en 
+              //los VALUE el $_POST['nombre_de_campo'] para que no haya que volver a teclearlo
+                              echo "&#60;form method=\"post\" action=\"nuevo.php\" &#62;";
+              // se coloca la caja del nombre
+                              echo "Nombre : &#60;input type=\"text\" name=\"nombre\" value=\"".$_POST['nombre']."\"  maxlength = 100 size=40&#62;&#60;br&#62;";
+              // se coloca el boton de guardar
+                              echo "&#60;input type=\"submit\" name=\"nuevo\" value=\"Guardar\"&#62;&#60;/form&#62;&#60;br&#62;";
+                      }
+              }
+              ?&#62;
+            &#60;/body&#62;
+          &#60;/html&#62;
+        </PRE
+><P
+></P
+></DIV
+><P
+>Como puede verse la estructura principal es muy
+      parecida a la del fichero index.php del directorio. En la
+      primera parte se hacen las inicializaciones de la BBDD, en la
+      segunda se ponen los tags inciales de HTML, en la tercera se
+      hacen las comprobaciones , presentación del
+      formulario e inserción del registro y en la cuarta
+      parte los tags finales del HTML.</P
+><P
+>En al tercera parte se puede ver cómo se
+      discrimina dependiendo de si el valor 'nuevo' de la variable
+      POST está presente (si se está mandando
+      el formulario, recordar el método POST explicado
+      en el punto anterior, que se utiliza en el formulario de esta
+      pagina, se expondrá más adelante). En
+      el primer caso ( no se ha enviado un formulario ), se genera
+      el formulario de alta de asignatura, indicando los campos
+      necesarios, observse que el formualrio se envía
+      por el método POST, así se pueden pasar
+      también los parámetros, al siguiente
+      script que se ejecute. En el segundo caso el formulario ya se
+      ha enviado, si se cumplen los requisitos para dar de alta un
+      registro de asignatura se pasa a hacer al
+      inserción, se informa de ello al usuario y se
+      coloca el botón para volver; si no se cumplen los
+      requisitos para dar de alta el registro, se informa de ello
+      al usuario y se vuelve a presentar el formulario.</P
+><P
+>Por lo que se puede ver no hay muchas más
+      diferencias con el resto de las partes del fichero.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x98.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x118.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>El manejo de una tabla sencilla.</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c21.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>El fichero ver.php del directorio</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

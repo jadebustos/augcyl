@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>VMWare y la red</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Soluciones de virtualización/redes con virtualizadores"
+HREF="c771.html"><LINK
+REL="PREVIOUS"
+TITLE="Virtualización para aprender sobre redes"
+HREF="x812.html"><LINK
+REL="NEXT"
+TITLE="Qemu/UML y TUN/TAP"
+HREF="x839.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x812.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Cap�tulo 10. Soluciones de virtualización/redes con virtualizadores</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x839.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN826"
+>10.3. VMWare y la red</A
+></H1
+><P
+>En VMWare a la hora de crear un dispositivo de red se puede elegir entre:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>NAT: en el host aparecerá como la interfaz vmnet8, pero no podremos hacer nada con esta interfaz, por ejemplo usar Iptables para restringir las Ips que se pueden alcanzar desde el sistema que se ejecuta dentro de Vmware. El motivo es que no se usa realmente el NAT del núcleo sino un demonio, vmnet-natd, por lo que los paquetes no pasan realmente por vmnet8. Si se quiere abrir puertos, basta con editar el fichero /etc/vmware/vmnet8/nat.conf</P
+></LI
+><LI
+><P
+>Bridge: también se implementa utilizando un demonio privativo, en este caso vmnet-bridge, en lugar de utilizar el soporte del núcleo, por lo que no se puede restringir la red con iptables sobre la interfaz vmnet2. Como en el caso de vmnet8, realmente el tráfico no pasa por esta interfaz.</P
+></LI
+><LI
+><P
+>Host only: aparentemente este modo es el más limitado. Pues bien, en realidad es el más flexible, pues por la interfaz de red que crea, vmnet1, sí que pasan todos los paquetes. De este modo podemos utilizar esta interfaz para hacer NAT a través de iptables, o crear un bridge con brctl. Al usar iptables, podemos restringir el tráfico como con cualquier otra unidad de red.</P
+></LI
+></OL
+><P
+>Las interfaces de red vmnet1, vmnet2, vment8, se crean al ejecutar vmware-config, en la parte de configuración de red. Una posibilidad interesante si vamos a ejecutar varios sistemas simultáneamente o si queremos que un sistema tenga más de una interfaz es crear más de un dispositivo de red para "host only", de modo que aparte de vmnet1 haya otros. De otro modo todas las máquinas virtuales estarán conectadas a la misma red, la de vmnet1. Así, una máquina podrá tener la IP 192.168.152.128, otra la 192.168.152.129 y el host la 192.168.152.1; las dos máquinas virtuales se verán la una a la otra y podrán comunicarse, aunque eso sí, con un sniffer una máquina no verá el tráfico de los otros nodos.</P
+><P
+>La red vmnet1 que crea Vmware es de máscara de red 255.255.255.0; ejecuta un servidor DHCP automáticamente, cuya configuración y arrendamientos pueden verse en /etc/vmware/vmnet1. Pero nada impide que podamos cambiar esta configuración, pues se emula a una interfaz ethernet. Por ejemplo un nodo puede cambiar su IP a otra de la red o incluso crear un alias y usar una red distinta, tanto en el host como en las máquinas virtuales.</P
+><P
+>Si usamos vmnet1 para hacer NAT utilizando iptables, hay que tener en cuenta que habrá que configurar la red de la máquina virtual para añadirle una ruta por defecto y la configuración del DNS y que el firewall deberá permitir que llegue al servidor DNS. Para pasar la configuración de DNS y ruta por defecto podemos usar el servidor DHCP de Vmware: "option routers" y "option domain-name-servers".</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x812.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x839.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Virtualización para aprender sobre redes</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c771.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Qemu/UML y TUN/TAP</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

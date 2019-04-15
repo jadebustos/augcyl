@@ -1,0 +1,558 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>GNU/Linux, software libre para la comunidad universitaria</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="NEXT"
+TITLE="Distribuciones GNU/Linux para servidores de red"
+HREF="c22.html"></HEAD
+><BODY
+CLASS="book"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="BOOK"
+><A
+NAME="AEN1"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+><A
+NAME="AEN2"
+>GNU/Linux, software libre para la comunidad universitaria</A
+></H1
+><H2
+CLASS="subtitle"
+>Redes privadas virtuales en GNU/Linux</H2
+><H3
+CLASS="author"
+><A
+NAME="AEN6"
+></A
+>Jos� Mar�a Perib��ez Redondo</H3
+><DIV
+CLASS="legalnotice"
+><P
+></P
+><A
+NAME="AEN9"
+></A
+><P
+>&#13;      Copyright (C) 2009 Jos� Mar�a Perib��ez
+      Redondo <CODE
+CLASS="email"
+>&#60;<A
+HREF="mailto:chema@softlibre.net"
+>chema@softlibre.net</A
+>&#62;</CODE
+>,.
+    </P
+><P
+>&#13;      Permission is granted to copy, distribute and/or modify this document
+      under the terms of the GNU Free Documentation License, Version 1.2 or
+      any later version published by the Free Software Foundation; with no
+      Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A
+      copy of the license is included in the section entitled "GNU Free
+      Documentation License".
+    </P
+><P
+></P
+></DIV
+><HR></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Tabla de contenidos</B
+></DT
+><DT
+>1. <A
+HREF="c22.html"
+>Distribuciones GNU/Linux para servidores de red</A
+></DT
+><DT
+>2. <A
+HREF="c49.html"
+>Paquetes de red. Modelo en Capas</A
+></DT
+><DD
+><DL
+><DT
+>2.1. <A
+HREF="c49.html#AEN65"
+>Capa enlace de datos (Layer2)</A
+></DT
+><DD
+><DL
+><DT
+>2.1.1. <A
+HREF="c49.html#AEN80"
+>WDS</A
+></DT
+><DT
+>2.1.2. <A
+HREF="c49.html#AEN84"
+>IEEE802.1X</A
+></DT
+><DT
+>2.1.3. <A
+HREF="c49.html#AEN91"
+>WEP/WPA/WPA2/IEEE802.11i/</A
+></DT
+><DT
+>2.1.4. <A
+HREF="c49.html#AEN102"
+>Wakeonlan</A
+></DT
+></DL
+></DD
+><DT
+>2.2. <A
+HREF="x110.html"
+>Capa de red: capa IP (Layer3)</A
+></DT
+><DD
+><DL
+><DT
+>2.2.1. <A
+HREF="x110.html#AEN122"
+>Máscaras de red. Notación CIDR</A
+></DT
+><DT
+>2.2.2. <A
+HREF="x110.html#AEN126"
+>Enrutamiento dinámico</A
+></DT
+><DT
+>2.2.3. <A
+HREF="x110.html#AEN132"
+>Paquetes ICMP, IGMP</A
+></DT
+><DT
+>2.2.4. <A
+HREF="x110.html#AEN136"
+>Vinculación entre capa de red y enlace de datos</A
+></DT
+><DT
+>2.2.5. <A
+HREF="x110.html#AEN142"
+>ipalias</A
+></DT
+><DT
+>2.2.6. <A
+HREF="x110.html#AEN152"
+>NAT trasversal</A
+></DT
+></DL
+></DD
+><DT
+>2.3. <A
+HREF="x170.html"
+>Capa de transporte (Layer4)</A
+></DT
+><DT
+>2.4. <A
+HREF="x199.html"
+>Capa de aplicación (Layer5; Layer7 en OSI)</A
+></DT
+></DL
+></DD
+><DT
+>3. <A
+HREF="c224.html"
+>Autoconfiguración: DHCP, PXE, Zeroconf</A
+></DT
+><DD
+><DL
+><DT
+>3.1. <A
+HREF="c224.html#AEN226"
+>Servidores DHCP</A
+></DT
+><DD
+><DL
+><DT
+>3.1.1. <A
+HREF="c224.html#AEN236"
+>Software DHCP</A
+></DT
+></DL
+></DD
+><DT
+>3.2. <A
+HREF="x247.html"
+>DHCP vs ZeroConf y UPnP</A
+></DT
+><DT
+>3.3. <A
+HREF="x271.html"
+>PXE</A
+></DT
+></DL
+></DD
+><DT
+>4. <A
+HREF="c279.html"
+>Servidores de red para empresas</A
+></DT
+><DD
+><DL
+><DT
+>4.1. <A
+HREF="c279.html#AEN281"
+>DNS</A
+></DT
+><DD
+><DL
+><DT
+>4.1.1. <A
+HREF="c279.html#AEN289"
+>DNS dinámico</A
+></DT
+></DL
+></DD
+><DT
+>4.2. <A
+HREF="x295.html"
+>Servidor de correo</A
+></DT
+><DT
+>4.3. <A
+HREF="x313.html"
+>Servidor Wiki</A
+></DT
+><DT
+>4.4. <A
+HREF="x329.html"
+>Servidor Jabber</A
+></DT
+><DD
+><DL
+><DT
+>4.4.1. <A
+HREF="x329.html#AEN359"
+>Qué servidor instalar</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>5. <A
+HREF="c362.html"
+>Acceso remoto seguro</A
+></DT
+><DD
+><DL
+><DT
+>5.1. <A
+HREF="c362.html#AEN364"
+>Distintas soluciones de acceso remoto</A
+></DT
+><DD
+><DL
+><DT
+>5.1.1. <A
+HREF="c362.html#AEN376"
+>Una solución práctica: crear un túnel con openSSH<A
+NAME="AEN378"
+HREF="#FTN.AEN378"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>6. <A
+HREF="c395.html"
+>Redes Privadas Virtuales (VPN)</A
+></DT
+><DD
+><DL
+><DT
+>6.1. <A
+HREF="c395.html#AEN397"
+>Soluciones VPN para GNU/Linux</A
+></DT
+><DT
+>6.2. <A
+HREF="x430.html"
+>IPsec</A
+></DT
+><DD
+><DL
+><DT
+>6.2.1. <A
+HREF="x430.html#AEN451"
+>Caso práctico: IPsec en modo transporte, usando preshared keys</A
+></DT
+></DL
+></DD
+><DT
+>6.3. <A
+HREF="x461.html"
+>SSH + PPPD / SSH + TUN</A
+></DT
+><DD
+><DL
+><DT
+>6.3.1. <A
+HREF="x461.html#AEN467"
+>Caso práctico: SSH + PPPD</A
+></DT
+><DT
+>6.3.2. <A
+HREF="x461.html#AEN483"
+>Más sencillo: servidor SOCKS de SSHD</A
+></DT
+></DL
+></DD
+><DT
+>6.4. <A
+HREF="x491.html"
+>SSH con TUN</A
+></DT
+><DT
+>6.5. <A
+HREF="x503.html"
+>OpenVPN</A
+></DT
+><DD
+><DL
+><DT
+>6.5.1. <A
+HREF="x503.html#AEN515"
+>Caso práctico: OpenVPN</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>7. <A
+HREF="c562.html"
+>Escritorio remoto</A
+></DT
+><DD
+><DL
+><DT
+>7.1. <A
+HREF="c562.html#AEN564"
+>Escritorio remoto: X-Window</A
+></DT
+><DT
+>7.2. <A
+HREF="x591.html"
+>Escritorio remoto: RFB (VNC)</A
+></DT
+><DT
+>7.3. <A
+HREF="x613.html"
+>RDP. Escritorio remoto de Windows</A
+></DT
+><DT
+>7.4. <A
+HREF="x624.html"
+>NX. Nueva tecnología de escritorio remoto.</A
+></DT
+><DD
+><DL
+><DT
+>7.4.1. <A
+HREF="x624.html#AEN634"
+>Cómo funciona NX</A
+></DT
+><DT
+>7.4.2. <A
+HREF="x624.html#AEN649"
+>NX y software libre</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>8. <A
+HREF="c657.html"
+>Proxies, cortafuegos, software de filtrado</A
+></DT
+><DD
+><DL
+><DT
+>8.1. <A
+HREF="c657.html#AEN659"
+>Proxies y software de filtrado</A
+></DT
+><DT
+>8.2. <A
+HREF="x672.html"
+>Netfilter/IPtables. Solución para crear cortafuegos, auditar red y hacer NAT</A
+></DT
+><DD
+><DL
+><DT
+>8.2.1. <A
+HREF="x672.html#AEN709"
+>Cómo hacer SNAT</A
+></DT
+><DT
+>8.2.2. <A
+HREF="x672.html#AEN715"
+>Cómo hacer DNAT</A
+></DT
+><DT
+>8.2.3. <A
+HREF="x672.html#AEN722"
+>Cortafuegos a nivel capa de enlace de datos</A
+></DT
+><DT
+>8.2.4. <A
+HREF="x672.html#AEN732"
+>Contadores con netfilter</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>9. <A
+HREF="c747.html"
+>Caso práctico: router red local, red otra empresa, Internet</A
+></DT
+><DD
+><DL
+><DT
+>9.1. <A
+HREF="c747.html#AEN759"
+>El problema de la IP de origen en máquinas multihome (con más de una IP).</A
+></DT
+></DL
+></DD
+><DT
+>10. <A
+HREF="c771.html"
+>Soluciones de virtualización/redes con virtualizadores</A
+></DT
+><DD
+><DL
+><DT
+>10.1. <A
+HREF="c771.html#AEN773"
+>Virtualización</A
+></DT
+><DT
+>10.2. <A
+HREF="x812.html"
+>Virtualización para aprender sobre redes</A
+></DT
+><DT
+>10.3. <A
+HREF="x826.html"
+>VMWare y la red</A
+></DT
+><DT
+>10.4. <A
+HREF="x839.html"
+>Qemu/UML y TUN/TAP</A
+></DT
+><DD
+><DL
+><DT
+>10.4.1. <A
+HREF="x839.html#AEN851"
+>Ejemplos</A
+></DT
+><DT
+>10.4.2. <A
+HREF="x839.html#AEN857"
+>Instalar QEMU</A
+></DT
+><DT
+>10.4.3. <A
+HREF="x839.html#AEN878"
+>Crear una imagen con Qemu</A
+></DT
+><DT
+>10.4.4. <A
+HREF="x839.html#AEN892"
+>Listados de ejemplos de TUN/TAP</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>A. <A
+HREF="a898.html"
+>GNU Free Documentation License</A
+></DT
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c22.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Distribuciones GNU/Linux para servidores de red</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

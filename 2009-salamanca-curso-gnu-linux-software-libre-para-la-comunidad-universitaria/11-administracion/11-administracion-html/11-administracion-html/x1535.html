@@ -1,0 +1,606 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Grupos de volumen (volume groups)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Gestión de sistemas de ficheros mediante LVM"
+HREF="c1465.html"><LINK
+REL="PREVIOUS"
+TITLE="Gestión de sistemas de ficheros mediante LVM"
+HREF="c1465.html"><LINK
+REL="NEXT"
+TITLE="Particiones lógicas (logical volumes)"
+HREF="x1633.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c1465.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 5. Gestión de sistemas de ficheros mediante <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>LVM</I
+></SPAN
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x1633.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN1535"
+>5.2. Grupos de volumen (volume groups)</A
+></H1
+><P
+>Los grupos de volumen son el equivalente a discos duros virtuales. Es decir un grupo de volumen estará formado por uno o varios dispositivos físicos o particiones.</P
+><P
+>Un grupo de volumen se crea de la siguiente forma:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>vgcreate data_vg /dev/sda /dev/sdb /dev/sdc5</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>  Volume group "data_vg" successfully created</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><P
+>De esta forma habremos creado un grupo de volumen, disco virtual, que estará formado por los dispositivos físicos <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>/dev/sda</I
+></SPAN
+>, <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>/dev/sdb</I
+></SPAN
+> y la partición <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>/dev/sdc5</I
+></SPAN
+>.</P
+><P
+>Una vez hecho esto tendremos un directorio <TT
+CLASS="filename"
+>/dev/data_vg/</TT
+> en el cual se irán creando los ficheros de dispositivo que hacen referencia a las particiones lógicas que creemos dentro de este grupo de volumen.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1550"
+>5.2.1. Información y detección de grupos de volumen</A
+></H2
+><P
+>Podemos utilizar el comando <B
+CLASS="command"
+>vgscan</B
+> para encontrar grupos de volumen:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>vgscan</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>  Reading all physical volumes. This may take a while...
+  Found volume group "data_vg" using metadata type lvm2</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]#</SAMP
+>
+</PRE
+><P
+>También disponemos del comando <B
+CLASS="command"
+>vgdisplay</B
+> que nos ofrece más información sobre los grupos de volumen encontrados:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>vgdisplay</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>  --- Volume group ---
+  VG Name               data_vg
+  System ID
+  Format                lvm2
+  Metadata Areas        1
+  Metadata Sequence No  6
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                0
+  Cur LV                2
+  Open LV               1
+  Max PV                0
+  Cur PV                1
+  Act PV                1
+  VG Size               50,00 GB
+  PE Size               4,00 MB
+  Total PE              12799
+  Alloc PE / Size       10240 / 40,00 GB
+  Free  PE / Size       2559 / 10,00 GB
+  VG UUID               JJ3bIX-tqSM-r8Qd-nt0b-jWm9-7O4n-YiZYBK</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]#</SAMP
+>
+</PRE
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Podemos ver información detallada sobre el grupo de volumen utilizando el flag <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-v</I
+></SPAN
+>.</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>vgdisplay -v</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>  --- Volume group ---
+  VG Name               data_vg
+  System ID
+  Format                lvm2
+  Metadata Areas        1
+  Metadata Sequence No  6
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                0
+  Cur LV                2
+  Open LV               1
+  Max PV                0
+  Cur PV                1
+  Act PV                1
+  VG Size               50,00 GB
+  PE Size               4,00 MB
+  Total PE              12799
+  Alloc PE / Size       10240 / 40,00 GB
+  Free  PE / Size       2559 / 10,00 GB
+  VG UUID               JJ3bIX-tqSM-r8Qd-nt0b-jWm9-7O4n-YiZYBK
+
+  --- Logical volume ---
+  LV Name                /dev/data_vg/apache_lv
+  VG Name                data_vg
+  LV UUID                KCDc3t-jAHj-dNDK-I9qe-rF3B-oyya-Tg00JL
+  LV Write Access        read/write
+  LV Status              available
+  # open                 1
+  LV Size                20,00 GB
+  Current LE             5120
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     0
+  Block device           253:0
+
+  --- Logical volume ---
+  LV Name                /dev/data_vg/mysql_lv
+  VG Name                data_vg
+  LV UUID                0m24gV-H9BC-MdbV-vSNZ-r57x-gx37-zUy22q
+  LV Write Access        read/write
+  LV Status              available
+  # open                 0
+  LV Size                20,00 GB
+  Current LE             5120
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     0
+  Block device           253:1
+
+  --- Physical volumes ---
+  PV Name               /dev/sdd
+  PV UUID               fKgSus-ts2y-vbR2-mTfy-YKPY-Aju1-C8SgV0
+  PV Status             allocatable
+  Total PE / Free PE    12799 / 2559</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]#</SAMP
+>
+</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>El comando <B
+CLASS="command"
+>vgs</B
+> también nos ofrece información:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>vgs</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>  VG      #PV #LV #SN Attr   VSize  VFree
+  data_vg   1   2   0 wz--n- 50,00G 10,00G</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1581"
+>5.2.2. Ampliación de un grupo de volumen</A
+></H2
+><P
+>Cuando nos quedamos sin espacio en un grupo de volumen siempre podemos ampliarlo utilizando más dispositivos físicos o particiones. Para ello utilizaremos el comando <B
+CLASS="command"
+>vgextend</B
+>:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>vgextend data_vg /dev/sdd</KBD
+>
+<SAMP
+CLASS="computeroutput"
+> Volume group "data_vg" successfully extended</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1590"
+>5.2.3. Reducción de un grupo de volumen</A
+></H2
+><P
+>Podemos quitar dispositivos físicos de un grupo de volumen, siempre y cuando no esten en uso.</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>vgreduce data_vg /dev/sdd</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>  Removed "/dev/sdd" from volume group "data_vg"</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1598"
+>5.2.4. Activación y desactivación de grupos de volumen</A
+></H2
+><P
+>Para poder utilizar los grupos de volumen es necesario que esten activos. Utilizaremos el comando <B
+CLASS="command"
+>vgchange</B
+> para activarlos y desactivarlos.</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>El comando <B
+CLASS="command"
+>vgchange</B
+> se utilizar para modificar los parámetros de los grupos de volumen.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1605"
+>5.2.5. Importación y exportación de grupos de volumen</A
+></H2
+><P
+>Hay ocasiones en las que es necesario mover discos entre diferentes máquinas. Por ejemplo imaginemos que tenemos varias instancias de BBDD en una máquina.</P
+><P
+>La configuración ideal para un entorno de este tipo es que cada instancia tenga sus datos en su propia partición y cada partición este en un grupo de volumen diferente. De esta forma si alguna de las instancias crece, en términos de potencia, siempre es posible cambiar alguna instacia a otra máquina.</P
+><P
+>En este caso tendremos que exportar el grupo de volumen que queremos mover a otra máquina y posteriormente importarlo.</P
+><P
+>Será necesario desactivar todas las particiones lógicas de ese grupo de volumen:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>lvchange -a n /dev/data_vg/mysql_lv</KBD
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>vgexport data_vg</KBD
+>
+<SAMP
+CLASS="computeroutput"
+> Volume group "data_vg" successfully exported</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><P
+>Ahora podemos mover los dispositivos físicos que forman el grupo de volumen <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>data_vg</I
+></SPAN
+> a otra máquina e importarlos para poder utilizarlos:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@pal]# </SAMP
+><KBD
+CLASS="userinput"
+>vgimport -a</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>  Volume group "data_vg" successfully imported</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@pal]# </SAMP
+>
+</PRE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1625"
+>5.2.6. Eliminación de un grupo de volumen</A
+></H2
+><P
+>Para poder eliminar un grupo de volumen necesitaremos que no esté en uso ninguna de las particiones lógicas presentes y que este desactivado.</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>vgremove system_vg</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>  Volume group "system_vg" successfully removed</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c1465.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x1633.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Gestión de sistemas de ficheros mediante <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>LVM</I
+></SPAN
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c1465.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Particiones lógicas (logical volumes)</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

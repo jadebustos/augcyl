@@ -1,0 +1,322 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Jugando con origenes y destinos</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Filtrado de paquetes"
+HREF="c151.html"><LINK
+REL="PREVIOUS"
+TITLE="Políticas por defecto"
+HREF="x190.html"><LINK
+REL="NEXT"
+TITLE="Haciendo Natting"
+HREF="c263.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración de cortafuegos en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x190.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 3. Filtrado de paquetes</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c263.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN216"
+>3.3. Jugando con origenes y destinos</A
+></H1
+><P
+>Podemos realizar el filtrado de paquetes basandonos en el origen y destino de los paquetes:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-p (--protocol) tcp|udp</I
+></SPAN
+>, especifica el protocolo del paquete.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>--source-port (--sport)</I
+></SPAN
+>, especifica el puerto de origen del paquete.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>--destination-port (--dport)</I
+></SPAN
+>, especifica el puerto de destino del paquete.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-s (--source)</I
+></SPAN
+>, especifica la dirección de origen del paquete.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-d (--destination)</I
+></SPAN
+>, especifica la dirección de destino del paquete.</P
+></LI
+></UL
+><P
+>Ejemplos:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>iptables -A INPUT -s 192.168.1.23 -p tcp --dport 3306 -j ACCEPT</I
+></SPAN
+>, con esta regla permitimos todo el tráfico <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>TCP</I
+></SPAN
+> desde la IP <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>192.168.1.23</I
+></SPAN
+> con destino el puerto <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>3306</I
+></SPAN
+> (MySQL).</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>iptables -A INPUT -i lo -j ACCEPT</I
+></SPAN
+>, permitimos todas las conexiones al dispositivo de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>loopback</I
+></SPAN
+>.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>iptables -A OUTPUT -p udp --dport 53 -j REJECT</I
+></SPAN
+>, denegamos todo el tráfico <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>UDP</I
+></SPAN
+> de salida hacía el puerto <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>53</I
+></SPAN
+>.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>iptables -A INPUT -p tcp --dport 20:21 -j ACCEPT</I
+></SPAN
+>, permitimos el tráfico <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>TCP</I
+></SPAN
+> de entrada hacía los puertos <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>20</I
+></SPAN
+> y <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>21</I
+></SPAN
+>.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>iptables -A INPUT -p tcp --dport 1:1024</I
+></SPAN
+>, se aplicará la políca por defecto a todos los paquetes de entrada con destino los puertos comprendidos entre el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>1</I
+></SPAN
+> y el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>1024</I
+></SPAN
+>.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x190.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c263.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Políticas por defecto</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c151.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Haciendo Natting</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

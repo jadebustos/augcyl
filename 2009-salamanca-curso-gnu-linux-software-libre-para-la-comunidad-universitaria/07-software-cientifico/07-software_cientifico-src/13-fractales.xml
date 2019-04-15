@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chapter>
+  <title>Fractales e im&aacute;genes ca&oacute;ticas</title>
+
+  <sect1>
+    <title>GNU XaoS</title>
+
+    <para>
+      <ulink url="http://wmi.math.u-szeged.hu/xaos/">GNU XaoS</ulink> es un
+      visor interactivo de fractales que permite al usuario hacer ampliaciones
+      y reducciones de manera fluida y continua.
+    </para>
+
+    <para>
+      Puede generar una gran variedad de fractales de distintos tipos como
+      Mandelbrot, Barnsley, Newton... Tambi&eacute;n es capaz de guardar
+      im&aacute;genes y v&iacute;deos de los fractales realizados.
+    </para>
+
+    <para>
+      Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+      Microsoft Windows y Mac OS entre otros.
+    </para>
+
+    <figure>
+      <title>
+        GNU XaoS
+      </title>
+      <graphic
+      fileref="img/11-fractales/01-gnu_xaos.png"
+      format="PNG" width="1000" scale="40"/>
+    </figure>
+  </sect1>
+
+  <sect1>
+    <title>Fyre</title>
+
+    <para>
+      <ulink url="http://fyre.navi.cx/">Fyre</ulink> es una herramienta para
+      producir im&aacute;genes basadas en histogramas de funciones
+      ca&oacute;ticas iteradas.
+    </para>
+
+    <para>
+      Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux y
+      Microsoft Windows.
+    </para>
+
+    <figure>
+      <title>
+        Fyre
+      </title>
+      <graphic
+      fileref="img/11-fractales/02-fyre.png"
+      format="PNG" width="1000" scale="40"/>
+    </figure>
+  </sect1>
+</chapter>
+

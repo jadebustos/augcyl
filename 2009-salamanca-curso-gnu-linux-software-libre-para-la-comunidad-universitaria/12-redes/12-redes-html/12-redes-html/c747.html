@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Caso práctico: router red local, red otra empresa, Internet</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Netfilter/IPtables. Solución para crear cortafuegos, auditar red y hacer NAT"
+HREF="x672.html"><LINK
+REL="NEXT"
+TITLE="Soluciones de virtualización/redes con virtualizadores"
+HREF="c771.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x672.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c771.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN747"
+></A
+>Cap�tulo 9. Caso práctico: router red local, red otra empresa, Internet</H1
+><P
+>Supongamos la red local de una empresa, dónde hay un enrutador que tiene que comunicar estas redes entre sí:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>red local con los equipos de los usuarios y servidores de impresión. Están todos en la red 192.168.120.0/24</P
+></LI
+><LI
+><P
+>red local de otra empresa del parque tecnológico con la que colaboran un grupo de usuarios. Esta red es 10.2.0.0/16. La otra empresa ha pedido que los equipos de la red local no vean directamente su router, sino que haya un enlace punto a punto entre los servidores de las dos redes. Las Ips serán visibles en ambas redes, es decir, desde 192.168.120.* se verán las Ips de 10.2.*.* y viceversa.</P
+></LI
+><LI
+><P
+>acceso a Internet con router ADSL. Hay una única dirección IP, luego habrá que hacer NAT con configuración multipuesto, aunque también podríamos ponerlo en multipuesto y que el NAT lo haga la máquina Linux que actúa de router.</P
+></LI
+></OL
+><P
+>Para esta configuración necesitamos tres tarjetas de red para la máquina Linux que hará de router: una será para la red local (192.168.120.0/24), otra para conectarse con la red de la empresa y una tercera para el router ADSL para la conexión a Internet. ¿Nos las podíamos haber apañado con una sola tarjeta utilizando ipalias? pues realmente sí. El problema es que no es la configuración más adecuada, pues lo deseable es que desde la red local no accedan directamente a Internet ni a la red de la otra empresa y desde luego separar también Internet y la red de la otra empresa y poder poner cortafuegos en medio. Si se usa una única red física no hay tal separación y cualquier nodo podría tratar de espiar la red. En una infraestructura de red con switchs que soporten VLANs sí es viable usar una única tarjeta de red y sin necesidad de ipalias, sino creando tres VLANs distintas y configurando el puerto del switch al que está conectado el router como un Trunk port con acceso a las tres VLANs.</P
+><P
+>Tanto para conectarnos con la red de la otra empresa como con el router ADSL, utilizamos sendas redes con máscara de 30 bits, es decir de dos nodos. Por ejemplo con la red 192.168.200.84/30 nuestro nodo tendrá la IP 192.168.200.85 y el otro router la 192.168.200.86.</P
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN759"
+>9.1. El problema de la IP de origen en máquinas multihome (con más de una IP).</A
+></H1
+><P
+>Los encaminadores tienen más de una dirección IP, dado que tienen una IP en cada interfaz de red que encaminan. Ahora bien, cuando una máquina que tiene varias direcciones IP se comunica con otra máquina ¿qué IP origen figura en los paquetes? la IP de la interfaz de red por la que saldrá el paquete.</P
+><P
+>Esto puede ser problemático en algunos casos. Por ejemplo en nuestra configuración, en la interfaz eth1 que conecta nuestra red con la red de otra empresa. Resulta que los equipos de la red de la otra empresa no saben cómo llegar a 192.168.200.86: los equipos de ambas redes conocen las Ips 192.168.120.0 y 10.0.0.0, pero no conocen la red 192.168.200.84/30, que es un artificio para comunicar los dos enrutadores. Así pues, cualquier paquete que proceda de nuestro enrutador y vaya a una dirección de la red 10.0.0.0 llevará como IP origen 192.168.200.86, por lo que podrá llegar a destino pero luego no llegarán los paquetes respuesta. Podemos hacer una prueba muy sencilla: un simple ping a una máquina de la red 10.0.0.0 y veremos que la IP origen es 192.168.20.86 y no nos llega la respuesta, mientras que desde otra IP de la red sí.</P
+><P
+>La solución pasa por utilizar como IP origen 192.168.120.19 también cuando los paquetes vayan a la red 10.0.0.0 y no sólo cuando vayan a la red local. Ante esto caben dos enfoques:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Configurar cada programa que necesita contactar con la red 10 para que use la IP 192.168.120.19. Cada programa se configura de forma distinta. Por ejemplo con un ping basta indicar la IP con la opción -I, con SSH se indica mediante la opción BindAddress...</P
+></LI
+><LI
+><P
+>Hacer NAT: mediante iptables ponemos una regla para que todo paquete con la dirección origen 192.168.200.86 que vaya a salir por la interfaz eth1 cambie su IP a 192.168.120.19. Esta regla sería:
+<KBD
+CLASS="userinput"
+>iptables -t nat -A POSTROUTING --source 192.168.200.86 -o eth1 -j SNAT --to-source 192.168.120.19</KBD
+></P
+></LI
+></OL
+><P
+>¿Qué solución es más apropiada? Depende. La segunda obviamente es más directa, pues no hay que cambiar programa a programa. Ahora bien, por seguridad desde el enrutador no se debería acceder a más equipos de la otra red que los imprescindibles, por ejemplo los servidores DNS. Obligarse a reconfigurar cada programa que hay lo necesita es obligarse a mantener controlado a qué servicios de la otra red estamos accediendo desde el router.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x672.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c771.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Netfilter/IPtables. Solución para crear cortafuegos, auditar red y hacer NAT</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Soluciones de virtualización/redes con virtualizadores</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

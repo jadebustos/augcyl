@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- CAPITULO 1 -->
+  <chapter>
+    <title>Filtrado de paquetes</title>
+    <para>La configuraci&oacute;n de <emphasis>iptables</emphasis> se realiza desde la l&iacute;nea de comandos mediante ordenes como:</para>
+<screen>
+<computeroutput>iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 80 -j DNAT --to-destination 192.168.1.3:8080</computeroutput>
+</screen>
+
+<sect1>
+<title>Donde se aplicar&aacute;n las reglas</title>
+<para>Cada regla tendr&aacute; que aplicarse dentro de una cadena y una tabla y ser&aacute; necesario indicarle sobre el tr&aacute;fico de que interface:</para>
+<itemizedlist>
+<listitem>
+<para><emphasis>-t</emphasis> indica la tabla.</para>
+</listitem>
+<listitem>
+<para><emphasis>-A</emphasis> indica la cadena.</para>
+</listitem>
+<listitem>
+<para><emphasis>-i</emphasis> indica el interface de entrada del paquete.</para>
+</listitem>
+<listitem>
+<para><emphasis>-o</emphasis> indica el interface de salida del paquete.</para>
+</listitem>
+</itemizedlist>
+<para>Ejemplos:</para>
+<itemizedlist>
+<listitem>
+<para><emphasis>iptables -t nat -A PREROUTING -i eth1</emphasis>, se hace <emphasis>NATTING</emphasis> sobre el tr&aacute;fico de la interface <emphasis>eth1</emphasis> y la regla se aplicar&aacute; seg&uacute;n entre el paquete por la interface.</para>
+</listitem>
+<listitem>
+<para><emphasis>iptables -t nat -A POSTROUTING -i eth0</emphasis>,se hace <emphasis>NATTING</emphasis> sobre el tr&aacute;fico de la interface <emphasis>eth0</emphasis> y la regla se aplicar&aacute; justo antes de que el paquete salga  por la interface.</para>
+</listitem>
+<listitem>
+<para><emphasis>iptables -A FORWARD -i eth0 -o eth1</emphasis>, se hace forwarding de paquetes entre las interfaces <emphasis>eth0</emphasis> (entrada) y <emphasis>eth1</emphasis> (salida).</para>
+</listitem>
+</itemizedlist>
+</sect1>
+
+<sect1>
+<title>Pol&iacute;ticas por defecto</title>
+<para>Para establecer la pol&iacute;tica por defecto de una tabla:</para>
+<screen>
+<computeroutput>iptables -t tabla -P cadena target</computeroutput>
+</screen>
+<para>Ejemplos:</para>
+<itemizedlist>
+<listitem>
+<para><emphasis>iptables -t nat -P PREROUTING ACCEPT</emphasis>, en la tabla <emphasis>nat</emphasis> y dentro de la cadena <emphasis>PREROUTING</emphasis> se establece la pol&iacute;tica por defecto de <emphasis>ACCEPT</emphasis>.</para>
+</listitem>
+<listitem>
+<para><emphasis>iptables -t nat -P POSTROUTING DROP</emphasis>, en la tabla <emphasis>nat</emphasis> y dentro de la cadena <emphasis>POSTROUTING</emphasis> se establece la pol&iacute;tica por defecto de <emphasis>DROP</emphasis>.</para>
+</listitem>
+<listitem>
+<para><emphasis>iptables -P INPUT ACCEPT</emphasis>, en la tabla <emphasis>filter</emphasis> y dentro de la cadena <emphasis>INPUT</emphasis> se establece la pol&iacute;tica por defecto de <emphasis>ACCEPT</emphasis>.</para>
+</listitem>
+</itemizedlist>
+<para>La pol&iacute;tica por defecto es la acci&oacute;n a realizar sobre un paquete cuando ninguna cadena de la tabla coincide con el paquete.</para>
+</sect1>
+
+<sect1>
+<title>Jugando con origenes y destinos</title>
+<para>Podemos realizar el filtrado de paquetes basandonos en el origen y destino de los paquetes:</para>
+<itemizedlist>
+<listitem>
+<para><emphasis>-p (--protocol) tcp|udp</emphasis>, especifica el protocolo del paquete.</para>
+</listitem>
+<listitem>
+<para><emphasis>--source-port (--sport)</emphasis>, especifica el puerto de origen del paquete.</para>
+</listitem>
+<listitem>
+<para><emphasis>--destination-port (--dport)</emphasis>, especifica el puerto de destino del paquete.</para>
+</listitem>
+<listitem>
+<para><emphasis>-s (--source)</emphasis>, especifica la direcci&oacute;n de origen del paquete.</para>
+</listitem>
+<listitem>
+<para><emphasis>-d (--destination)</emphasis>, especifica la direcci&oacute;n de destino del paquete.</para>
+</listitem>
+</itemizedlist>
+<para>Ejemplos:</para>
+<itemizedlist>
+<listitem>
+<para><emphasis>iptables -A INPUT -s 192.168.1.23 -p tcp --dport 3306 -j ACCEPT</emphasis>, con esta regla permitimos todo el tr&aacute;fico <emphasis>TCP</emphasis> desde la IP <emphasis>192.168.1.23</emphasis> con destino el puerto <emphasis>3306</emphasis> (MySQL).</para>
+</listitem>
+<listitem>
+<para><emphasis>iptables -A INPUT -i lo -j ACCEPT</emphasis>, permitimos todas las conexiones al dispositivo de <emphasis>loopback</emphasis>.</para>
+</listitem>
+<listitem>
+<para><emphasis>iptables -A OUTPUT -p udp --dport 53 -j REJECT</emphasis>, denegamos todo el tr&aacute;fico <emphasis>UDP</emphasis> de salida hac&iacute;a el puerto <emphasis>53</emphasis>.</para>
+</listitem>
+<listitem>
+<para><emphasis>iptables -A INPUT -p tcp --dport 20:21 -j ACCEPT</emphasis>, permitimos el tr&aacute;fico <emphasis>TCP</emphasis> de entrada hac&iacute;a los puertos <emphasis>20</emphasis> y <emphasis>21</emphasis>.</para>
+</listitem>
+<listitem>
+<para><emphasis>iptables -A INPUT -p tcp --dport 1:1024</emphasis>, se aplicar&aacute; la pol&iacute;ca por defecto a todos los paquetes de entrada con destino los puertos comprendidos entre el <emphasis>1</emphasis> y el <emphasis>1024</emphasis>.</para>
+</listitem>
+</itemizedlist>
+
+</sect1>
+
+</chapter>
+

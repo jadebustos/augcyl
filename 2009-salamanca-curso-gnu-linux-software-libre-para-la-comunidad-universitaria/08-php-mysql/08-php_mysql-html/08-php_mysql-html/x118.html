@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>El fichero ver.php del directorio</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Principios de la Web"
+HREF="c21.html"><LINK
+REL="PREVIOUS"
+TITLE="Añadir un nuevo registro."
+HREF="x110.html"><LINK
+REL="NEXT"
+TITLE="El fichero editar.php"
+HREF="x125.html"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: 
+    Creación de páginas web dinámicas con PHP/MySQL
+  </TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x110.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 2. Principios de la Web</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x125.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="AEN118"
+>2.5. El fichero ver.php del directorio</A
+></H1
+><P
+>A continuación verá como
+      construir el fichero de visualización de un
+      registro:</P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN121"
+></A
+><PRE
+CLASS="programlisting"
+>&#13;          &#60;?php
+          //incluimos el fichero config.php para coger los datos de la conexión
+          include_once('../config.php');
+          //cogemos las variables de las coneción para que se puedan utilizar en el script
+          global $server, $database, $user, $passwd;
+          //abrimos la conexión
+          $conexion = mysql_connect($server,$user,$passwd);
+          //elegimos la BBDD
+          mysql_select_db ($database, $conexion) OR die ("No se puede conectar");
+          //rellenamos la consulta, cambiar alumnos por el nombre de la tabla a listar
+          $sql="Select * from asignaturas WHERE id=".$_GET['id'].";";
+          //re realiza la consulta
+          $result=mysql_query($sql,$conexion);
+          //print $sql;
+          //se coge el registro del alumno
+          $row= mysql_fetch_array($result);
+          ?&#62;
+          &#60;html&#62;
+            &#60;head&#62;
+              &#60;TITLE&#62;Alumno:&#60;?php echo $row['nombre']; ?&#62;&#60;/TITLE&#62;
+              &#60;LINK REL="stylesheet" TYPE="text/css"
+              HREF="../estilo.css" /&#62;
+            &#60;/head&#62;
+            &#60;body&#62;
+              &#60;?php
+              //en esta parte se muestran los campos del alumno
+              //se debe añadir líneas tantas como campos tenga la tabla: echo "&#60;p&#62;Nombre de campo:".$row["nombre_de_campo"]."&#60;/p&#62;";
+              //se muestra el código del alumno
+              echo "&#60;p&#62;Código:".$row["id"]."&#60;/p&#62;";
+              //se muestra el nombre del alumno
+              echo "&#60;p&#62;Nombre:".$row["nombre"]."&#60;/p&#62;";
+              //se coloca el enlace para que pueda editarse el alumno.
+              echo "&#60;p&#62;&#60;A HREF=editar.php?id=".$row['id']."&#62;Editar&#60;/A&#62;&#60;/TD&#62;&#60;/p&#62;";
+              // se coloca el enlace para borrar el alumno
+              echo "&#60;p&#62;&#60;A HREF=borrar.php?id=".$row['id']."&#62;Borrar&#60;/A&#62;&#60;/TD&#62;&#60;/p&#62;";
+              // se coloca el enlace para ir a listado de alumnos
+              echo "&#60;p&#62;&#60;A HREF='index.php'&#62;Atras&#60;/A&#62;&#60;/p&#62;";
+              ?&#62;
+            &#60;/body&#62;
+          &#60;/html&#62;
+        </PRE
+><P
+></P
+></DIV
+><P
+>Como se puede observar en la primera parte del fichero
+      se coge el parámetro por GET del id del registro y
+      se realiza la consulta para coger el registro.</P
+><P
+>En la tercera parte simplemente se cogen los campos de
+      la variable, se presentan al usuario y se pone el
+      botón para volver al index.php</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x110.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x125.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Añadir un nuevo registro.</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c21.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>El fichero editar.php</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

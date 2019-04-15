@@ -1,0 +1,531 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Usuarios que estuvieron en el sistema</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Auditoria y Logs"
+HREF="c2928.html"><LINK
+REL="PREVIOUS"
+TITLE="Auditoria y Logs"
+HREF="c2928.html"><LINK
+REL="NEXT"
+TITLE="Permisos SUID y SGID"
+HREF="x3081.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c2928.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 9. Auditoria y Logs</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x3081.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN3024"
+>9.2. Usuarios que estuvieron en el sistema</A
+></H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3026"
+>9.2.1. El fichero <TT
+CLASS="filename"
+>/var/log/wtmp</TT
+></A
+></H2
+><P
+>En este fichero se almacenan las conexiones, mediante login, realizadas con éxito. Es un fichero con formato binario y para leerlo tendremos que utilizar el comando <B
+CLASS="command"
+>last</B
+>.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Cada vez que se apaga el sistema se logea una entrada con el usuario <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>reboot</I
+></SPAN
+>. De esta forma podemos ver los reincios de la máquina.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Si el fichero no se encuentra en el sistema no se logea la actividad.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Este fichero es de acceso en modo lectura para todos los usuarios del sistema.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3038"
+>9.2.2. El commando <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>last</I
+></SPAN
+></A
+></H2
+><P
+>Permite ver las conexiones realizadas con éxito a nuestra máquina, si se estan logeando en <TT
+CLASS="filename"
+>/var/log/wtmp</TT
+>.</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>last</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>jose     :0                            Mon Apr  9 19:46   still logged in   
+reboot   system boot  2.6.17.8         Mon Apr  9 19:46 - 20:42 (2+00:56)   
+root     tty1                          Mon Apr  9 07:54 - down   (00:04)    
+reboot   system boot  2.6.17.8         Mon Apr  9 07:51 - 07:58  (00:07)    
+jose     :0                            Sun Apr  8 16:47 - 00:35  (07:48)    
+reboot   system boot  2.6.17.8         Sun Apr  8 16:46 - 00:35  (07:48)    
+jose     :0                            Wed Apr  4 20:30 - 20:57  (00:27)    
+reboot   system boot  2.6.17.8         Wed Apr  4 20:29 - 20:57  (00:28)    
+jose     :0                            Fri Mar 30 15:53 - down   (00:17)    
+reboot   system boot  2.6.17.8         Fri Mar 30 15:52 - 16:10  (00:17)    
+jose     :0                            Thu Mar 29 20:10 - 02:02  (05:51)    
+reboot   system boot  2.6.17.8         Thu Mar 29 20:08 - 02:02  (05:54)    
+rrey     :0                            Thu Mar 29 11:46 - 12:09  (00:22)    
+reboot   system boot  2.6.17.8         Thu Mar 29 11:46 - 12:09  (00:23)    
+rrey     :0                            Thu Mar 29 09:47 - 11:37  (01:49)    
+reboot   system boot  2.6.17.8         Thu Mar 29 09:46 - 11:37  (01:50)    
+jose     :0                            Wed Mar 28 19:48 - 00:14  (04:26)    
+reboot   system boot  2.6.17.8         Wed Mar 28 19:47 - 00:15  (04:27)    
+rrey     :0                            Wed Mar 28 14:30 - 17:02  (02:31)    
+reboot   system boot  2.6.17.8         Wed Mar 28 14:29 - 17:02  (02:32)    
+rrey     :0                            Wed Mar 28 09:13 - 09:22  (00:08)    
+reboot   system boot  2.6.17.8         Wed Mar 28 09:12 - 09:22  (00:09)    
+rrey     :0                            Wed Mar 28 00:25 - 00:57  (00:32)    
+jose     :0                            Wed Mar 28 00:09 - 00:24  (00:15)    
+reboot   system boot  2.6.17.8         Wed Mar 28 00:08 - 00:58  (00:49)    
+jose     :0                            Mon Mar 26 07:52 - 07:56  (00:03)    
+reboot   system boot  2.6.17.8         Mon Mar 26 07:51 - 07:56  (00:04)    
+jose     :0                            Sun Mar 25 23:31 - 00:37  (01:06)    
+reboot   system boot  2.6.17.8         Sun Mar 25 23:31 - 00:37  (01:06)    
+jose     :0                            Sun Mar 25 21:28 - 21:55  (00:27)    
+reboot   system boot  2.6.17.8         Sun Mar 25 20:26 - 21:55  (01:28)    
+jose     :0                            Thu Mar 22 23:27 - 00:09  (00:42)    
+reboot   system boot  2.6.17.8         Thu Mar 22 23:24 - 00:09  (00:45)    
+jose     :0                            Thu Mar 22 07:35 - 07:44  (00:09)    
+reboot   system boot  2.6.17.8         Thu Mar 22 07:34 - 07:44  (00:10)    
+jose     :0                            Tue Mar 20 19:48 - 01:58  (06:09)    
+reboot   system boot  2.6.17.8         Tue Mar 20 19:47 - 01:58  (06:10)    
+reboot   system boot  2.6.17.8         Mon Mar 19 22:15 - 01:58 (1+03:43)   
+jose     :0                            Mon Mar 19 20:12 - down   (01:16)    
+reboot   system boot  2.6.17.8         Mon Mar 19 20:09 - 21:28  (01:18)    
+jose     :0                            Mon Mar 19 07:15 - down   (00:40)    
+reboot   system boot  2.6.17.8         Mon Mar 19 07:15 - 07:56  (00:41)    
+jose     :0                            Sun Mar 18 22:58 - down   (01:40)    
+reboot   system boot  2.6.17.8         Sun Mar 18 21:26 - 00:39  (03:13)    
+jose     :0                            Fri Mar 16 16:04 - down   (02:15)    
+reboot   system boot  2.6.17.8         Fri Mar 16 16:02 - 18:20  (02:17)    
+jose     :0                            Fri Mar 16 07:45 - 07:57  (00:12)    
+reboot   system boot  2.6.17.8         Fri Mar 16 07:44 - 07:58  (00:13)    
+jose     :0                            Thu Mar 15 22:42 - 22:58  (00:16)    
+reboot   system boot  2.6.17.8         Thu Mar 15 22:41 - 22:58  (00:17)
+
+wtmp begins Fri Mar  14 07:24:54 2007</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Podemos ver los accesos en función de los terminales <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ttyn</I
+></SPAN
+> pasandole como parámetro a <B
+CLASS="command"
+>last</B
+> el número de terminal <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>n</I
+></SPAN
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Podemos ver las conexiones a los terminales <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>pts/n</I
+></SPAN
+> pasandole como parámetro a <B
+CLASS="command"
+>last</B
+> <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>pts/n</I
+></SPAN
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Para aquellas conexiones establecidas en remoto podemos utilizar los flags <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-a</I
+></SPAN
+> y <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-d</I
+></SPAN
+> para conocer el hostname y la IP desde la que se conectaron.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3062"
+>9.2.3. El fichero <TT
+CLASS="filename"
+>/var/log/btmp</TT
+></A
+></H2
+><P
+>Este fichero es análogo al fichero <TT
+CLASS="filename"
+>/var/log/wtmp</TT
+> sólo que registra los intentos fallidos de conexión.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3067"
+>9.2.4. El comando <B
+CLASS="command"
+>lastb</B
+></A
+></H2
+><P
+>Tiene la misma funcionalidad que el comando <B
+CLASS="command"
+>last</B
+> sólo que para los intentos fallidos de conexión.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3072"
+>9.2.5. El fichero <TT
+CLASS="filename"
+>/var/log/lastlog</TT
+></A
+></H2
+><P
+>El fichero almacena la última vez que los usuarios accedieron al sistema. Tiene formato binario con lo cual para consultarlo es necesario utilizar el comando <B
+CLASS="command"
+>lastlog</B
+>.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN3077"
+>9.2.6. El comando <B
+CLASS="command"
+>lastlog</B
+></A
+></H2
+><P
+>Imprime por la salida estándar la última vez que un usuario se conecto al sistema.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c2928.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x3081.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Auditoria y Logs</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c2928.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Permisos <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SUID</I
+></SPAN
+> y <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SGID</I
+></SPAN
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

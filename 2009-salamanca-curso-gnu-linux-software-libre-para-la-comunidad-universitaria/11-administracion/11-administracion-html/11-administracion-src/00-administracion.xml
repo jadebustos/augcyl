@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+                      "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd"
+[
+  <!ENTITY bookinfo SYSTEM "01-bookinfo.xml">
+  <!ENTITY introduccion SYSTEM "02-introduccion.xml">
+  <!ENTITY procesos SYSTEM "03-procesos.xml">
+  <!ENTITY memoria SYSTEM "04-memoria.xml">
+  <!ENTITY ficheros SYSTEM "05-ficheros.xml">
+  <!ENTITY lvm SYSTEM "06-lvm.xml">
+  <!ENTITY san SYSTEM "07-san.xml">
+  <!ENTITY nucleo SYSTEM "08-nucleo.xml">
+  <!ENTITY usuarios_y_permisos SYSTEM "09-usuarios_y_permisos.xml">
+  <!ENTITY auditoria_y_logs SYSTEM "10-auditoria_y_logs.xml">
+  <!ENTITY servicios SYSTEM "11-servicios.xml">
+  <!ENTITY shell SYSTEM "12-shell.xml">
+  <!ENTITY interfaces SYSTEM "13-interfaces.xml">
+  <!ENTITY paquetes SYSTEM "14-paquetes.xml">
+  <!ENTITY licencia SYSTEM "15-licencia.xml">
+]>
+
+<book lang="es">
+  &bookinfo;
+  &introduccion;
+  &procesos;
+  &memoria;
+  &ficheros;
+  &lvm;
+  &san;
+  &nucleo;
+  &usuarios_y_permisos;
+  &auditoria_y_logs;
+  &servicios;
+  &shell;
+  &interfaces;
+  &paquetes;
+  &licencia;
+</book>
+

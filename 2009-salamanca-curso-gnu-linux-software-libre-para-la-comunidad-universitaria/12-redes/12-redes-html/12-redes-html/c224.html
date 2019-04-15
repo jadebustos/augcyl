@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Autoconfiguración: DHCP, PXE, Zeroconf</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Capa de aplicación (Layer5; Layer7 en OSI)"
+HREF="x199.html"><LINK
+REL="NEXT"
+TITLE="DHCP vs ZeroConf y UPnP"
+HREF="x247.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x199.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x247.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN224"
+></A
+>Cap�tulo 3. Autoconfiguración: DHCP, PXE, Zeroconf</H1
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN226"
+>3.1. Servidores DHCP</A
+></H1
+><P
+>Un servidor DHCP sirve para que los equipos presentes en una red obtengan su configuración de red automáticamente. Así, el servidor asigna a cada equipo su IP y lo comunica su máscara de red, las rutas, el DNS, servidor de impresión, servidor de hora, zona horaria etc. Opcionalmente permite hacer un arranque vía red. Además es posible definir nuevos parámetro de configuración si se extienden también los clientes DHCP para que reconozcan y apliquen estos parámetros. </P
+><P
+>DHCP es un protocolo surgido con posterioridad a BOOTP; en realidad es una extensión compatible con él, es decir, un cliente BOOTP también puede operar con servidores DHCP.</P
+><P
+>El servidor DHCP permite al administrador asignar una IP manualmente a un cliente (manual allocation); permite asignarlas automáticamente sin que caduque nunca la asignación (automatic allocation) o permite asignarlas automáticamente por un tiempo limitado (dynamic allocation), de tal modo que si el cliente no vuelve a pedirlas antes que finalice ese tiempo se marcará la IP como libre.</P
+><P
+>El servidor DHCPD guarda en una tabla las asociaciones entre clientes e IPs. El servidor identifica al cliente a través de su identificador de cliente, si es que lo proporciona, en otro caso usa su dirección MAC.</P
+><P
+>En un segmento Ethernet puede haber más de un servidor DHCPD; el cliente envía usando broadcast un mensaje DHCPDISCOVER (puede indicar en él la IP que le gustaría tener y durante cuánto tiempo) al que responden con un mensaje DHCPOFFER los servidores presentes; en ese mensaje ya va la IP que le ofrecen y los datos de configuración. El cliente escoge el servidor que quiere utilizar enviando una petición DHCPREQUEST que incluye el identificador del servidor; esta petición también es broadcast, para que sepan el resto de servidores que su ofrecimiento se ha rechazado. En la petición además se pueden solicitar datos de configuración adicionales. Si el servidor acepta la petición del cliente responde con DHCPPACK (dónde irá configuración adicional si la solicitó el cliente), o DHCPNAK si la rechaza, debido por ejemplo a que la IP ya está asignada; a priori no tiene mucho sentido que un servidor rechace la petición del cliente cuando son los datos que le acaba de ofrecer, pero en realidad un cliente puede hacer una petición DHCPREQUEST sin acabar de recibir un DHCPOFFER; por ejemplo una vez que ya se tiene una IP para renovar el "alquiler" se pide directamente la IP al servidor DHCPD que nos la dio sin necesidad de hacer DHCPDISCOVER.</P
+><P
+>Finalmente, el cliente tiene la opción de rechazar el mensaje DHCPPACK. Así mismo el cliente también tiene la opción de liberar la IP que se le ha asignado, con DHCPRELEASE.</P
+><P
+>En las peticiones DHCP es muy importante el uso del broadcast. Para permitir que funcione el DHCP sin necesidad de poner un servidor en cada subred se usan BOOTP/DHCP relay agents, que se encargan de reencaminar estas peticiones. </P
+><P
+>Para casos como una VPN, en la que el nodo que se conecta lo queremos asignar una IP de la red local, posiblemente no nos funcione usar un cliente dhcp normal, ni siquiera acompañado de un relay. Una posible solución es ejecutar un cliente dhcp con la interfaz de la red en la que está el servidor DHCP (no pasa nada porque ya haya otro si se usan identificadores de cliente distintos y distinto fichero para guardar la ip asignada (lease), pero con un script que en lugar de configurar esa interfaz con la IP asignada se encarga de configurar la VPN para que use esa IP.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN236"
+>3.1.1. Software DHCP</A
+></H2
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Clientes: dhcpcd, dhcp-client (dhcp3-client), pump, udhcp (cliente muy pequeño)</P
+></LI
+><LI
+><P
+>Servidores: dhcp3-server, udhcp-server (servidor muy ligero)</P
+></LI
+><LI
+><P
+>Relays: dhcp3-relay, dhcp-helper. Es más ligero y más fácil de utilizar dhcp-helper.</P
+></LI
+><LI
+><P
+>Otros: dnsmasq: servidor caché DNS y servidor DHCP muy básico, útil para sistemas empotrados o para casos en que se necesita una implementación mínima y no un servidor para utilizar por muchos clientes. Ltsp-server: sistema de clientes ligeros, usan DHCP para obtener la configuración y arrancar vía red.</P
+></LI
+></OL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x199.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x247.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Capa de aplicación (Layer5; Layer7 en OSI)</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>DHCP vs ZeroConf y UPnP</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

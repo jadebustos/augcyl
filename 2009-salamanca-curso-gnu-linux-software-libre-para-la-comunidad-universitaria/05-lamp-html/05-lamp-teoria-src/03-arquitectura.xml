@@ -1,0 +1,248 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chapter>
+<title>La Arquitectura LAMP</title>
+<section>
+<title>Introducci&oacute;n a LAMP</title>
+<para>Dependiendo de la aplicaci&oacute;n LAMP que el tipo de arquitectura puede variar, pero por simplicidad en el presente manual s&oacute;lo 
+va a tratarse del Tipo Cliente Activo - Servidor Activo.</para>
+</section>
+<section>
+<title>Glosario LAMP</title>
+<para>A continuaci&oacute;n se detallan un glosario de t&eacute;rminos que permiten entender mejor la arquitectura LAMP:</para>
+<itemizedlist>
+<listitem>
+<para>
+HTML: Hyper Text Markup Language. Lenguaje que permite definir el contenido y su presentaci&oacute;n para que el cliente 
+web permita visualizar la informaci&oacute;n que contiene. Dicho lenguaje permite la inclusi&oacute;n de medios (gr&aacute;ficos, sonidos, v&iacute;deos, etc.).
+</para>
+</listitem>
+<listitem>
+<para>
+Etiqueta o TAG: Unidad m&iacute;nima de representaci&oacute;n en el Lenguaje HTML. Permite definir: p&aacute;rrafos, tablas, enlaces, im&aacute;genes, etc...
+</para>
+</listitem>
+<listitem>
+<para>CSS: (Cascading Style Sheets) Hojas de Estilo en Cascada . Permiten generar clases de estilo que se pueden aplicar a etiquetas 
+HTML. Dichas hojas de estilo se pueden definir dentro de los ficheros HTML o incluso referenciarlos. Los TAG permiten agrupar cambios 
+en las propiedades de un determinando TAG.
+</para>
+</listitem>
+<listitem>
+<para>
+Java Script (JS): Lenguaje de programaci&oacute;n que permite en la parte cliente procesar y realizar cambios en la presentaci&oacute;n. Dichos 
+Scripts suelen estar referenciados desde el fichero HTML.
+</para>
+</listitem>
+<listitem>
+<para>
+P&aacute;gina Web: Unidad de contenido de un servidor web. Normalmente est&aacute; compuesta de un fichero formateado en HTML y sus referencias.
+</para>
+</listitem>
+
+<listitem>
+<para>
+Sitio Web: Conjunto de reglas del Servidor Web y las p&aacute;ginas Web que lo componen.
+</para>
+</listitem>
+<listitem>
+<para>
+Servicio DNS: Servidor que entre otras funciones permite traducir nombres de m&aacute;quinas en Internet a direcciones IP.
+</para>
+</listitem>
+<listitem>
+<para>
+Navegador Web: Cliente que permite consultar a Servidores Web y presentar la informaci&oacute;n HTML. Ejemplos: Firefox, Konqueror, Opera, 
+Internet Explorer, etc.
+</para>
+</listitem>
+<listitem>
+<para>
+Plugin Web: Extensi&oacute;n de un navegador web que permite a&ntilde;adir una funcionalidad a un navegador web, por ejemplo la visualizaci&oacute;n 
+de elementos no est&aacute;ndar. Ejemplos: Flash Player, JVM, etc.
+</para>
+</listitem>
+<listitem>
+<para>
+Apache: Servidor Web Libre. Dicho servidor es altamente flexible y actualmente el 60% de los sitios web funcionan con Apache.
+</para>
+</listitem>
+<listitem>
+<para>
+M&oacute;dulo de Apache: Conjunto de funcionalidades agrupadas que permiten extender el tratamiento de la informaci&oacute;n por parte del 
+servidor Web Apache.
+</para>
+</listitem>
+<listitem>
+<para>
+URL: Uniform Resource Locator. Definici&oacute;n del acceso a un recurso. El concepto de URL ha sido incorporado dentro del m&aacute;s 
+general de URI (Uniform Resource Identifier - Identificador Uniforme de Recurso), pero el t&eacute;rmino URL a&uacute;n se utiliza ampliamente. 
+La URL est&aacute; dividida en tres partes: Nombre del Servidor Web, Recurso a acceder y Par&aacute;metros GET.
+</para>
+</listitem>
+<listitem>
+<para>
+M&eacute;todo GET: Forma de paso de par&aacute;metros mediante URL.
+</para>
+</listitem>
+<listitem>
+<para>
+M&eacute;todo POST: Forma de paso de par&aacute;metros mediante formulario (normalmente).
+</para>
+</listitem>
+<listitem>
+<para>
+PHP: PHP Hypertext Pre-processor. es un lenguaje de programaci&oacute;n usado generalmente para la creaci&oacute;n de contenido para sitios web.
+PHP est&aacute; preparado para funcionar como un m&oacute;dulo de Apache (y otros servidores Web).
+</para>
+</listitem>
+<listitem>
+<para>
+Direcci&oacute;n IP: Identificativo &uacute;nico de un interfaz de red basado en el Protocolo IP.
+</para>
+</listitem>
+<listitem>
+<para>
+SGBD: Sistema de Gesti&oacute;n de Bases de Datos. Son un tipo de software muy espec&iacute;fico, dedicado a servir de interfaz entre la 
+base de datos, el usuario y las aplicaciones que la utilizan. Se compone de un lenguaje de definici&oacute;n de datos, de un 
+lenguaje de manipulaci&oacute;n de datos y de un lenguaje de consulta. En los textos que tratan este tema, o temas relacionados, 
+se mencionan los t&eacute;rminos SGBD y DBMS, siendo ambos equivalentes, y acr&oacute;nimos, respectivamente, de Sistema Gestor de Bases 
+de Datos y DataBase Management System, su expresi&oacute;n inglesa.
+</para>
+</listitem>
+<listitem>
+<para>
+SQL: Lenguaje de Consulta Estructurado (Structured Query Language). Es un lenguaje declarativo de acceso a bases de datos 
+relacionales que permite especificar diversos tipos de operaciones sobre las mismas. Auna caracter&iacute;sticas del &aacute;lgebra y 
+el c&aacute;lculo relacional permitiendo lanzar consultas con el fin de recuperar informaci&oacute;n de inter&eacute;s de una base de datos, 
+de una forma sencilla.
+</para>
+</listitem>
+
+</itemizedlist>
+</section>
+<section>
+<title>Elementos de la Arquitectura LAMP</title>
+<para>A continuaci&oacute;n se detallar&aacute;n los elementos de una arquitectura LAMP:</para>
+<itemizedlist>
+<listitem>
+<para>
+Cliente Web/DNS: Navegador Web. Por ejemplo: Firefox.
+</para>
+</listitem>
+<listitem>
+<para>
+Servidor DNS: Conversor de nombres a IP's. Por ejemplo: BIND.
+</para>
+</listitem>
+<listitem>
+<para>
+Servidor Web: Almac&eacute;n y procesador de la Informaci&oacute;n Web. Apache en nuestro caso.
+</para>
+</listitem>
+<listitem>
+<para>
+M&oacute;dulo de PHP: M&oacute;dulo para apache que permite procesar ficheros escritos en el Lenguaje PHP. Por ejemplo: PHP5
+</para>
+</listitem>
+<listitem>
+<para>
+Aplicaci&oacute;n LAMP: Conjunto de ficheros PHP que componen una Aplicaci&oacute;n Web.Por ejemplo: PhpMyAdmin
+</para>
+</listitem>
+<listitem>
+<para>
+SGBD: Sistema de gesti&oacute;n de bases de datos que permitir&aacute; almacenar la informaci&oacute;n din&aacute;micamente. En nuestro caso Mysql.
+</para>
+</listitem>
+</itemizedlist>
+</section>
+<section>
+<title>Proceso de una Petici&oacute;n LAMP</title>
+<para>A continuaci&oacute;n se detallar&aacute;n los pasos que realizan el cliente y el servidor de una arquitectura LAMP</para>
+<itemizedlist>
+<listitem>
+<para>
+Cliente Web: Solicitud de conversi&oacute;n del nombre de una m&aacute;quina al Servidor DNS. Por ejemplo: www.google.es
+</para>
+</listitem>
+<listitem>
+<para>
+Servidor DNS: Recepci&oacute;n y tratamiento de la solicitud. Una vez recibida la petici&oacute;n realiza las consultas necesarias para resolver y 
+obtener la direcci&oacute;n IP.
+</para>
+</listitem>
+<listitem>
+<para>
+Servidor DNS: Devuelve la direcci&oacute;n IP que corresponde al Servidor Web al navegador Web.
+</para>
+</listitem>
+<listitem>
+<para>
+Cliente Web: Realiza la solicitud de informaci&oacute;n mediante una URL(M&eacute;todo GET) o un formulario (M&eacute;todo POST). Dicha solicitud incluye: 
+la direcci&oacute;n IP del servidor web, el puerto del servidor web, URL y par&aacute;metros POST(esta s&oacute;lo en el caso de formularios normalmente).
+</para>
+</listitem>
+<listitem>
+<para>
+Servidor Web: Control de Acceso, An&aacute;lisis de la petici&oacute;n y localizaci&oacute;n del recurso.
+</para>
+</listitem>
+<listitem>
+<para>
+Servidor Web: Selecci&oacute;n del m&oacute;dulo de PHP para interpretar el fichero PHP elegido.
+</para>
+</listitem>
+<listitem>
+<para>
+M&oacute;dulo de PHP: Ejecuci&oacute;n del programa PHP elegido.
+</para>
+</listitem>
+<listitem>
+<para>
+Aplicaci&oacute;n PHP: Procesado de los par&aacute;metros GET o POST.
+</para>
+</listitem>
+<listitem>
+<para>
+Aplicaci&oacute;n PHP: Realizaci&oacute;n de las llamadas SQL al Servidor de SGBD.
+</para>
+</listitem>
+<listitem>
+<para>
+SGBD: Recogida y procesado de la petici&oacute;n SQL.
+</para>
+</listitem>
+<listitem>
+<para>
+SGBD: Retorno de los datos solicitados.
+</para>
+</listitem>
+<listitem>
+<para>
+Aplicaci&oacute;n PHP: Procesado de los datos devueltos por el SGBD y Generaci&oacute;n del HTML resultante.
+</para>
+</listitem>
+<listitem>
+<para>
+Modulo PHP: Paso del HTML resultante a Apache.
+</para>
+</listitem>
+<listitem>
+<para>
+Apache: Devuelve el HTML al cliente Web.
+</para>
+</listitem>
+<listitem>
+<para>
+Cliente Web: Presentaci&oacute;n del HTML resultante, CSS y elementos relacionados y ejecuci&oacute;n del Javascript.
+</para>
+</listitem>
+</itemizedlist>
+<para>A continuaci&oacute;n se puede visualizar un gr&aacute;fico que resume dichos pasos:</para>
+<figure>
+	<title>Procesado de una petici&oacute;n LAMP</title>
+              <graphic fileref="img/lamp-arquitectura.png" format="PNG" scale="80" />
+</figure>
+</section>
+</chapter>
+ 

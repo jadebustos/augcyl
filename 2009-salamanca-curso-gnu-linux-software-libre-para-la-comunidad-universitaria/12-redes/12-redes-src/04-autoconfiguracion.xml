@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chapter><title>Autoconfiguración: DHCP, PXE, Zeroconf</title>
+<sect1><title>Servidores DHCP</title>
+
+<para>Un servidor DHCP sirve para que los equipos presentes en una red obtengan su configuración de red automáticamente. Así, el servidor asigna a cada equipo su IP y lo comunica su máscara de red, las rutas, el DNS, servidor de impresión, servidor de hora, zona horaria etc. Opcionalmente permite hacer un arranque vía red. Además es posible definir nuevos parámetro de configuración si se extienden también los clientes DHCP para que reconozcan y apliquen estos parámetros. </para>
+
+<para>DHCP es un protocolo surgido con posterioridad a BOOTP; en realidad es una extensión compatible con él, es decir, un cliente BOOTP también puede operar con servidores DHCP.</para>
+
+<para>El servidor DHCP permite al administrador asignar una IP manualmente a un cliente (manual allocation); permite asignarlas automáticamente sin que caduque nunca la asignación (automatic allocation) o permite asignarlas automáticamente por un tiempo limitado (dynamic allocation), de tal modo que si el cliente no vuelve a pedirlas antes que finalice ese tiempo se marcará la IP como libre.</para>
+
+<para>El servidor DHCPD guarda en una tabla las asociaciones entre clientes e IPs. El servidor identifica al cliente a través de su identificador de cliente, si es que lo proporciona, en otro caso usa su dirección MAC.</para>
+
+<para>En un segmento Ethernet puede haber más de un servidor DHCPD; el cliente envía usando broadcast un mensaje DHCPDISCOVER (puede indicar en él la IP que le gustaría tener y durante cuánto tiempo) al que responden con un mensaje DHCPOFFER los servidores presentes; en ese mensaje ya va la IP que le ofrecen y los datos de configuración. El cliente escoge el servidor que quiere utilizar enviando una petición DHCPREQUEST que incluye el identificador del servidor; esta petición también es broadcast, para que sepan el resto de servidores que su ofrecimiento se ha rechazado. En la petición además se pueden solicitar datos de configuración adicionales. Si el servidor acepta la petición del cliente responde con DHCPPACK (dónde irá configuración adicional si la solicitó el cliente), o DHCPNAK si la rechaza, debido por ejemplo a que la IP ya está asignada; a priori no tiene mucho sentido que un servidor rechace la petición del cliente cuando son los datos que le acaba de ofrecer, pero en realidad un cliente puede hacer una petición DHCPREQUEST sin acabar de recibir un DHCPOFFER; por ejemplo una vez que ya se tiene una IP para renovar el "alquiler" se pide directamente la IP al servidor DHCPD que nos la dio sin necesidad de hacer DHCPDISCOVER.</para>
+
+<para>Finalmente, el cliente tiene la opción de rechazar el mensaje DHCPPACK. Así mismo el cliente también tiene la opción de liberar la IP que se le ha asignado, con DHCPRELEASE.</para>
+
+<para>En las peticiones DHCP es muy importante el uso del broadcast. Para permitir que funcione el DHCP sin necesidad de poner un servidor en cada subred se usan BOOTP/DHCP relay agents, que se encargan de reencaminar estas peticiones. </para>
+
+<para>Para casos como una VPN, en la que el nodo que se conecta lo queremos asignar una IP de la red local, posiblemente no nos funcione usar un cliente dhcp normal, ni siquiera acompañado de un relay. Una posible solución es ejecutar un cliente dhcp con la interfaz de la red en la que está el servidor DHCP (no pasa nada porque ya haya otro si se usan identificadores de cliente distintos y distinto fichero para guardar la ip asignada (lease), pero con un script que en lugar de configurar esa interfaz con la IP asignada se encarga de configurar la VPN para que use esa IP.</para>
+
+<sect2><title>Software DHCP</title>
+<orderedlist>
+<listitem>
+<para>Clientes: dhcpcd, dhcp-client (dhcp3-client), pump, udhcp (cliente muy pequeño)</para>
+</listitem>
+<listitem>
+<para>Servidores: dhcp3-server, udhcp-server (servidor muy ligero)</para>
+</listitem>
+<listitem>
+<para>Relays: dhcp3-relay, dhcp-helper. Es más ligero y más fácil de utilizar dhcp-helper.</para>
+</listitem>
+<listitem>
+<para>Otros: dnsmasq: servidor caché DNS y servidor DHCP muy básico, útil para sistemas empotrados o para casos en que se necesita una implementación mínima y no un servidor para utilizar por muchos clientes. Ltsp-server: sistema de clientes ligeros, usan DHCP para obtener la configuración y arrancar vía red.</para>
+</listitem>
+</orderedlist>
+</sect2></sect1>
+<sect1><title>DHCP vs ZeroConf y UPnP</title>
+<para>Zeroconf (<ulink url="http://www.zeroconf.org/">www.zeroconf.org</ulink>) es un sistema de autoconfiguración de dispositivos, que pretende que los dispositivos funcionen con sólo conectarlos a la red, sin necesidad de que para ello existan servidores en la red local (servidores DHCP, DNS o directorio). Hay otras alternativas a Zeroconf como UPnP de Microsoft.</para>
+
+<para>El componente más extendido de zeroconf es Ipv4 Link local Addresses (IPV4LL), que se define en el RFC1397. El propósito de IPV4LL es que un equipo obtenga automáticamente una IP sin necesidad de que exista un servidor DHCP, RARP ni de ningún otro tipo. El modo de lograrlo es elegir al azar una IP dentro del rango reservado para este sistema: 169.254.0.0/16; se comprueba que la IP no está en uso, si lo estuviera se escoge otra hasta encontrar una libre.</para>
+
+<para>La utilidad de este sistema frente a DHCP está en redes "ad-hoc" (sobre la marcha), por ejemplo para comunicar dos equipos a través de un cable cruzado o conectándolos a una red local pero sin afectar al resto de equipos. También puede ser útil en una red pequeña aislada en una oficina o en una casa, dónde no se quiera tener encendido un servidor para hacer de DHCPD. Sin embargo lo normal en una red de empresa o de casa es que haya un acceso a Internet utilizando un router ADSL, que ya integra un servidor DHCP. Otro tipo de redes "ad-hoc" interesantes son las MANET (Mobile Ad-hoc NETwork) como las wireless mech network que usan OLSR, pero quedan fuera del alcance de este manual.</para>
+
+<para>En GNU/Linux existe el proyecto zeroconf.sf.net, que ha creado el programa zcip que implementa Ipv4LL.</para>
+
+<para>UPNP también usa IPV4LL, tras intentar usar un servidor DHCP. En Windows podemos comprobar que cuando configuramos la red para obtener la IP automáticamente, primero intenta usar un servidor DHCP y si no lo logra obtiene una IP aleatoria: eso es porque implementa Ipv4LL.</para>
+
+<para>Otro componente interesante que aporta Zeroconf es mDNS (multicast DNS). Este sistema sirve para reemplazar al DNS. Así mismo zeroconf aporta DNS Service Discovery (DNS-SD) que permite utilizar el DNS para localizar servicios, por ejemplo el servidor Jabber. DNS-SD se puede implementar sobre mDNS o sobre un servidor DNS convencional. </para>
+
+<para>La idea de mDNS es que cada nodo incluye su propio servidor que responde con su IP cuando alguien pregunta por su nombre o hace una búsqueda inversa (el nombre a partir de la IP). En el caso de usar mDNS para implementar DNS-SD, el servidor proporciona información sobre los servicios que ofrece la propia máquina. La consulta se hace utilizando broadcast: la idea es la misma que para obtener el nombre NetBIOS de un equipo de Windows cuando no hay DNS ni servidor Wins.</para>
+
+<para>El utilizar el servidor DNS para localizar servicios no es una idea nueva: el servidor de correo correspondiente a un dominio siempre se ha localizado así (aunque no el servidor de correo saliente). Así mismo el RFC 2782 (Service Types) describe el registro SRV para los servidores DNS que extiende lo que se hacía con el correo a todo tipo de servicios: por ejemplo Jabber usa este tipo de registros. Zeroconf usa también otro tipo de registros DNS: los TXT. </para>
+
+<para>La utilidad de estos registros sobre los SRV, es que los SRV están pensados para que se ofrezca una máquina por tipo de servicio o en todo caso varias, pero a efectos de balanceo de carga o redundancia. Los registros TXT son útiles para servicios como impresoras: en una red puede haber varias impresoras pero normalmente no interesa usar una cualquiera sino que se puede preferir una u otra en función de por ejemplo si imprime o no en color o determinado tamaño o si está en la misma planta que el usuario. En los registros TXT además del nombre del servicio aparece una etiqueta, la instancia (instance) que admite caracteres UTF-8. Cualquier etiqueta DNS está limitada a 63 bytes; ojo, que en UTF-8 caracteres como la eñe o los acentos ocupan dos bytes. Los registros TXT permiten más flexibilidad: por ejemplo se puede poner un servicio para ver una página personal y entre la información no sólo estará el nombre del servidor y el puerto sino la ruta.</para>
+
+<para>La funcionalidad de DNS-SD es utilizable en más casos que Ipv4LL. Por ejemplo en las empresas para descubrir impresoras, servidores de ficheros.. Incluso hay aplicaciones como sistemas para compartir archivos. En el escritorio se integra en el panel de control y permite navegar por los servicios disponibles en la red.</para>
+
+<para>DNS-SD añade además unos nombres de host específicos al DNS para indicar que es navegable para descubrir servicios: 
+<screen>
+b._dns-sd._udp IN PTR @ ; b = browse domain
+lb._dns-sd._udp IN PTR @ ; lb = legacy browse domain
+</screen>
+</para>
+<para>En GNU/Linux la implementación de mDNS y DNS_SD recomendada es Avahi (<ulink url="http://avahi.org/">http://avahi.org/</ulink>). Proporciona un demonio y una librería para las aplicaciones.</para>
+
+<para>En Apple la implementación de Zeroconf primero se llamó Rendezvous y luego Bonjour. Lo implementan como software libre y está portado también a Windows. Mucha gente conoce más estas marcas de Apple que Zeroconf, debido a que esta iniciativa ha sido impulsada por Apple, al migrar de AppleTalk a TCP/IP y querer conservar el carácter autoconfigurable propio de AppleTalk.</para>
+
+<para>UPnP trata de ofrecer funcionalidades similares a mDNS y DNS_SD, pero no son compatibles y la implementación es más compleja. Va más allá e incluye posibilidad de hacer llamadas SOAP, o abrir puertos en un firewall para traspasar el NAT. Esto último lo hace IGD (Internet Gateway Device) y hay una implementación para GNU/Linux: <ulink url="http://linux-igd.sourceforge.net/">http://linux-igd.sourceforge.net/</ulink>; sin embargo conviene saber que IGD es una característica insegura y que potencialmente un nodo podría hacer que se abran agujeros que suponga acceder desde el exterior a otras Ips si se hace IP Spoofing. Apple también tiene su alternativa a IGD, que es NAT-PMP (NAT Port Mapping Protocol), que implementan también proyectos libres como Stallone.</para>
+
+<para>La parte que más éxito ha tenido ha sido UPnP AV, que trata sobre dispositivos de audio y vídeo con conexión a red. Hay varios proyectos multimedia que pueden hacer streaming para dispositivos UPnP o ser los reproductores: por ejemplo Myth, VideoLan, Geexbox, MediaTomb... UPnP AV distingue entre servidores de contenido (MediaServers, que opcionalmente pueden encargarse también de convertir entre formatos, MediaAdaptor), reproductores (MediaRenders), controladores y mando a distancia. Un servidor libre multiplataforma escrito en C++ es FUPPES; también libre en ese lenguaje es Mediatomb, mientras uShare está escrito en C. Todos ellos funcionan también sobre dispositivos empotrados ARM como el NSLU2. Por supuesto estos protocolos no son los únicos para implementar servidores de streaming: por ejemplo está también icecast o el estándar del IEFT RTSP (recibe comandos como PLAY, luego el vídeo se envía con RTP<footnote>
+<para>RealTime Transport Protocol: se suele encapsular sobre UDP (aunque no tiene un rango de puertos fijos asignados, el hecho de usar un rango dinámico complica su uso con NAT) y puede usarse en multicast además de unicat. Además de para streaming es habitual para videoconferencia, en ese caso para la señalización se usa SIP, H.323 o Jingle en lugar de RTSP. Aunque RTP es el protocolo más usado para transmitir voz y vídeo, otra opción es IAX (Inter-Asterisk Exchange) que tiene la peculiaridad de encapsular en la misma conexión la señalización y los datos y poder multiplexar varios flujos en uno. Esto sobre todo lo hace mucho más adecuado frente a NAT y cortafuegos que RTP, además de más eficiente en consumo de ancho de banda.</para>
+</footnote>, usándose RTCP como protocolo compañero de RTP para controlar estadísticas sobre la calidad del servicio). Así mismo hay tecnologías "peercasting" basado en uso de peer-to-peer como alternativa al alto coste de usar unicast o la poca flexibilidad de multicast.</para>
+
+<para>SLP: sistema de descubrimiento, a diferencia del de UPnP y el de Zeroconf sí es estándar IETF. No muy extendido, excepto para localizar las impresoras de red. Hay una implementación libre que es OpenSLP. Funciona con un servidor, pero también puede estar más descentralizado, utilizando broadcast/multicast.</para>
+</sect1>
+<sect1>
+<title>PXE</title>
+<para>Una opción interesante en una red para ahorrar costes en los equipos y coste de mantenimiento es utilizar un sistema de clientes ligeros (como TCOS [<ulink url="http://www.tcos-project.org/">www.tcos-project.org</ulink>], LTSP, PXES o ThinStation), con arranque vía red (el arranque vía red también es típico para montar clusters). Para ello se utiliza una tarjeta con una ROM de arranque, que vía DHCP y TFPT descarga el kernel (o más frecuentemente un cargador más potente que es quien descarga el kernel) y luego monta el sistema de ficheros vía algún sistema como NFS o SMB (entornos NAS: Network Area Server) o menos frecuentemente, con un servidor SAN (Storage Area Network, se utiliza un disco externo vía red, directamente).</para>
+<para>Hoy en día normalmente ya no hay que sobreescribir una EEPROM para añadir arranque de red, sino que viene integrado en la BIOS de cualquier placa la solución estandarizada por Intel: PXE, que es el acrónimo de Preboot Execution Environment, estandariza cómo descargar un software para descargar un cargador de red (Network BootStrap Program, NBP) que se encargará del arranque (así pues es un sistema de carga en cadena, pues lo que carga es el cargador a utilizar). Un cargador de red hecho para cargarse vía red desde un equipo con una BIOS o tarjeta de red que soporte PXE es LinuxPXE.</para>
+<para>Existe un proyecto para crear un cargador de red, Etherboot, que puede grabarse en muchas tarjetas de red del mercado, lo que es útil tanto para sistemas muy antiguos que no soporten PXE, como si se desea instalar directamente un sistema más simple. Con el proyecto gPXE, Etherboot se ha reorientado a crear una versión que extiende PXE, con funcionalidades como iSCI o la posibilidad de descargar un kernel de un servidor web. gPXE no tiene por qué grabarse en la ROM de una tarjeta o en la BIOS de un equipo: también puede usarse en cualquier dispositivo de arranque (CD, disquete, llave USB) o simplemente ser el cargador de red que carga un sistema PXE. Salvo en el caso de funcionar como un NBP que se carga desde PXE, deberá hacerse una imagen en concreto para la tarjeta que disponga el equipo.</para>
+<para>Otro proyecto similar a Etherboot es Netboot.</para>
+<para>La BIOS implementada por el proyecto LinuxBIOS (surgido inialmente para OLPC) no sólo permite arrancar Linux sino entre otras cosas pasar el control a Etherboot. Esta BIOS normalmente sólo aparece en equipos específicamente fabricados para llevar Linux, pero puede usarse también con emuladores/virtualizadores como Qemu, aunque normalmente lo que se usa es según la plataforma emulada o una BIOS del proyecto Booch u OpenBIOS, que implementa la especificación OpenFirmware y necesita previamente otro software más dependiente de la máquina como LinuxBIOS: openfirmware es otro de los "payloads" que puede cargar LinuxBIOS, como el kernel, etherboot o GNUFI (que implemente UEFI, United EFI, el remplazo de la BIOS).</para></sect1>
+
+</chapter>
+

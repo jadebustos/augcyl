@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Compartiendo una unidad Windows con máquinas Linux</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Configuración de Samba"
+HREF="c107.html"><LINK
+REL="PREVIOUS"
+TITLE="Optimización de Samba"
+HREF="x263.html"><LINK
+REL="NEXT"
+TITLE="Compartiendo una impresora de Windows con máquinas GNU/Linux"
+HREF="x283.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: 
+    Samba, compartiendo archivos e impresoras con MS Windows
+  </TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x263.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 2. Configuración de Samba</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x283.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN267"
+>2.3. Compartiendo una unidad Windows con máquinas Linux</A
+></H1
+><P
+>El programa smbclient es un cliente para servidores SMB implementado en UNIX. Este programa tiene un interface que recuerda bastante al del FTP. Este programa permite realizar todas las pruebas que se deseen sobre todos los servicios existentes en la máquina Windows. </P
+><P
+>Para que smbclient funcione bien, hay que asegurarse de que el archivo /etc/samba/smb.conf, en su sección [global] tenga correctamente inicializado el parámetro workgroup. También hay que tener en cuenta que para utilizar smbclient no es preciso que esté arrancado el demonio de Samba. Aunque funciona de las dos formas, es mejor especificar el nombre del host que su dirección IP como primer parámetro de smbclient.</P
+><P
+>Ejemplo:</P
+><PRE
+CLASS="programlisting"
+>&#13;smbclient //&#60;host&#62;/&#60;carpeta&#62; -U&#60;usuario&#62;
+</PRE
+><P
+>La validación de la contraseña de &#60;usuario&#62;, la realiza Windows, lo cuál implica que no es necesario crear este usuario en la máquina GNU/Linux.</P
+><P
+>También es posible montar directorios compartidos de Windows en el sistema de ficheros de GNU/Linux, aunque para esto es necesario tener el kernel recompilado para que soporte esta característica (sistema de archivos smbfs).</P
+><P
+>Ejemplo:</P
+><PRE
+CLASS="programlisting"
+>&#13;mount -t smbfs -o username=Administrador //nsportatil/volcadocd /mnt/discovfat
+</PRE
+><P
+>...permite montar el directorio <TT
+CLASS="filename"
+>\VolcadoCD</TT
+> de la máquina nsportatil, cuyo propietario es el usuario (de MS Windows) Administrador. La validación de la contraseña de este usuario la realiza Windows, lo cuál implica que no es necesario crear este usuario en la máquina GNU/Linux. Para que este comando funcione, en el archivo <TT
+CLASS="filename"
+>/etc/samba/smb.conf</TT
+> se debe tener correctamente inicializado el parámetro workgroup en la sección [global].</P
+><P
+>Para desmontar este tipo de sistema de ficheros, se puede utilizar el comando <B
+CLASS="command"
+>smbumount &#60;punto_montaje&#62;</B
+> ó bien, el comando <B
+CLASS="command"
+>umount</B
+> habitual.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x263.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x283.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Optimización de Samba</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c107.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Compartiendo una impresora de Windows con máquinas GNU/Linux</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>PXE</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Autoconfiguración: DHCP, PXE, Zeroconf"
+HREF="c224.html"><LINK
+REL="PREVIOUS"
+TITLE="DHCP vs ZeroConf y UPnP"
+HREF="x247.html"><LINK
+REL="NEXT"
+TITLE="Servidores de red para empresas"
+HREF="c279.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Redes privadas virtuales en GNU/Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x247.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Cap�tulo 3. Autoconfiguración: DHCP, PXE, Zeroconf</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c279.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN271"
+>3.3. PXE</A
+></H1
+><P
+>Una opción interesante en una red para ahorrar costes en los equipos y coste de mantenimiento es utilizar un sistema de clientes ligeros (como TCOS [<A
+HREF="http://www.tcos-project.org/"
+TARGET="_top"
+>www.tcos-project.org</A
+>], LTSP, PXES o ThinStation), con arranque vía red (el arranque vía red también es típico para montar clusters). Para ello se utiliza una tarjeta con una ROM de arranque, que vía DHCP y TFPT descarga el kernel (o más frecuentemente un cargador más potente que es quien descarga el kernel) y luego monta el sistema de ficheros vía algún sistema como NFS o SMB (entornos NAS: Network Area Server) o menos frecuentemente, con un servidor SAN (Storage Area Network, se utiliza un disco externo vía red, directamente).</P
+><P
+>Hoy en día normalmente ya no hay que sobreescribir una EEPROM para añadir arranque de red, sino que viene integrado en la BIOS de cualquier placa la solución estandarizada por Intel: PXE, que es el acrónimo de Preboot Execution Environment, estandariza cómo descargar un software para descargar un cargador de red (Network BootStrap Program, NBP) que se encargará del arranque (así pues es un sistema de carga en cadena, pues lo que carga es el cargador a utilizar). Un cargador de red hecho para cargarse vía red desde un equipo con una BIOS o tarjeta de red que soporte PXE es LinuxPXE.</P
+><P
+>Existe un proyecto para crear un cargador de red, Etherboot, que puede grabarse en muchas tarjetas de red del mercado, lo que es útil tanto para sistemas muy antiguos que no soporten PXE, como si se desea instalar directamente un sistema más simple. Con el proyecto gPXE, Etherboot se ha reorientado a crear una versión que extiende PXE, con funcionalidades como iSCI o la posibilidad de descargar un kernel de un servidor web. gPXE no tiene por qué grabarse en la ROM de una tarjeta o en la BIOS de un equipo: también puede usarse en cualquier dispositivo de arranque (CD, disquete, llave USB) o simplemente ser el cargador de red que carga un sistema PXE. Salvo en el caso de funcionar como un NBP que se carga desde PXE, deberá hacerse una imagen en concreto para la tarjeta que disponga el equipo.</P
+><P
+>Otro proyecto similar a Etherboot es Netboot.</P
+><P
+>La BIOS implementada por el proyecto LinuxBIOS (surgido inialmente para OLPC) no sólo permite arrancar Linux sino entre otras cosas pasar el control a Etherboot. Esta BIOS normalmente sólo aparece en equipos específicamente fabricados para llevar Linux, pero puede usarse también con emuladores/virtualizadores como Qemu, aunque normalmente lo que se usa es según la plataforma emulada o una BIOS del proyecto Booch u OpenBIOS, que implementa la especificación OpenFirmware y necesita previamente otro software más dependiente de la máquina como LinuxBIOS: openfirmware es otro de los "payloads" que puede cargar LinuxBIOS, como el kernel, etherboot o GNUFI (que implemente UEFI, United EFI, el remplazo de la BIOS).</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x247.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c279.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>DHCP vs ZeroConf y UPnP</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c224.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Servidores de red para empresas</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
