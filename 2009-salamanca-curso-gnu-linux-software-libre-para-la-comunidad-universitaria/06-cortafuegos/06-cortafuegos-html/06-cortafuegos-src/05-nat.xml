@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- CAPITULO 1 -->
+  <chapter>
+    <title>Haciendo Natting</title>
+    <para>Natting es la capacidad de un ordenador de distribuir conexiones que recibe hac&iacute;a otro.</para>
+    <para>Los routers ADSL poseen tablas de NAT que nos permiten abrir el puerto 22, por ejemplo, y redirigir esas conexiones hac&iacute;a nuestro equipo de sobremesa, el puerto 80 hac&iacute;a otro equipo haciendo las funciones de servidor web, ...</para>
+<sect1>
+<title>Configurar el acceso a un servidor web con NAT (DNAT)</title>
+<para>Vamos a ver como configurar un firewall con iptables que acepte conexiones a una ip p&uacute;blica y la reenvie a un servidor dentro de una red local sin acceso a internet.</para>
+<para>Para ello necesitaremos que el firewall:</para>
+<itemizedlist>
+<listitem>
+<para>Tenga dos interfaces de red, una conectada a internet y la otra a la red local donde estar&aacute; el servidor web.</para>
+</listitem>
+<listitem>
+<para>El firewall pueda hacer routing de paquetes.</para>
+</listitem>
+</itemizedlist>
+
+<sect2>
+<title>Activando el routing en el firewall</title>
+<para>Ser&aacute; necesario que el n&uacute;cleo tenga soporte para ello:</para>
+<screen>
+<prompt>[root@dedalo ~]# </prompt><userinput>sysctl -A | grep ip_forward</userinput>
+<computeroutput>net.ipv4.ip_forward = 0</computeroutput>
+<prompt>[root@dedalo ~]# </prompt>
+</screen>
+<para>En el caso de no encontrar el par&aacute;metro <emphasis>ip_forward</emphasis> nuestro n&uacute;cleo no estar&aacute; preparado para hacer routing de paquetes y ser&aacute; necesario recompilarlo o instalar uno que si lo este.</para>
+<para>Un valor de <emphasis>0</emphasis> significa que no est&aacute; habilitado y debermos habilitarlo. Para ello a&ntilde;adiremos la siguiente l&iacute;nea en <filename>/etc/sysctl.conf</filename>:</para>
+<programlisting>
+net.ipv4.ip_forward = 1
+</programlisting>
+<para>y a continuaci&oacute;n para que tenga efecto:</para>
+<screen>
+<prompt>[root@dedalo ~]# </prompt><userinput>sysctl -p</userinput>
+<computeroutput>...</computeroutput>
+<computeroutput>net.ipv4.ip_forward = 1</computeroutput>
+<computeroutput>...</computeroutput>
+<prompt>[root@dedalo ~]# </prompt>
+</screen>
+<important><para>El activar par&aacute;metros del n&uacute;cleo en scripts ejecutando:</para>
+<programlisting>
+echo 1 > /proc/sys/net/ipv4/ip_forward
+</programlisting>
+<para>es una muy mala costumbre demasiado extendida entre administradores. Todo esto se debe centralizar en el fichero <filename>/etc/sysctl.conf</filename>.</para></important>
+<para>De esta forma activamos el reenvio de paquetes entre todas las interfaces del firewall. Si el firewall tuviera m&aacute;s de dos interfaces y quisieramos habilitar el reenvio de paquetes s&oacute;lo entre dos de ellas, por ejemplo <emphasis>eth1</emphasis> y <emphasis>eth2</emphasis>, deberemos incluir en el fichero <filename>/etc/sysctl.conf</filename>:</para>
+<programlisting>
+net.ipv4.conf.eth1.forwarding = 1
+net.ipv4.conf.eth2.forwarding = 1
+</programlisting>
+<para>y ejecutar <emphasis>sysctl -p</emphasis> para que tenga efecto.</para>
+</sect2>
+
+<sect2>
+<title>Configuraci&oacute;n de iptables</title>
+<para>Supondremos que nuestro firewall est&aacute; conectado a internet por la interface <emphasis>eth0</emphasis> y a la red local por el interface <emphasis>eth1</emphasis> siendo la ip del servidor web <emphasis>192.168.1.2</emphasis>.</para>
+<para>Las reglas de iptables:</para>
+<programlisting>
+iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j DNAT --to-destination 192.168.1.2:80
+iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 443 -j DNAT --to-destination 192.168.1.2:443
+iptables -A INPUT -s 192.168.1.0/24 -i eth1 -j ACCEPT
+iptables -t nat -A POSTROUTING -s 192.168.1.0/24 -o eth0 -j MASQUERADE
+</programlisting>
+<orderedlist>
+<listitem>
+<para>Todo el tr&aacute;fico que entra por la interface <emphasis>eth0</emphasis> con destino el puerto <emphasis>80</emphasis> y protocolo <emphasis>TCP</emphasis> se hace <emphasis>DNAT</emphasis>, es decir se cambia la direcci&oacute;n de destino del paquete y se cambia por <emphasis>192.168.1.2</emphasis>.</para>
+</listitem>
+<listitem>
+<para>Igual que el anterior pero con el puerto <emphasis>443</emphasis>.</para>
+</listitem>
+<listitem>
+<para>Nos aseguramos que el firewall acepta todo el tr&aacute;fico de la red local.</para>
+</listitem>
+<listitem>
+<para>El firewall hace masquerading de todo el tr&aacute;fico procedente de la red local y lo envia por el interface <emphasis>eth0</emphasis>.</para>
+</listitem>
+</orderedlist>
+<important>
+<para>La &uacute;ltima regla se podr&iacute; optimizar siempre y cuando el interface <emphasis>eth0</emphasis> no tenga asignaci&oacute;n din&aacute;mica en el direccionamiento ip. Lo veremos en el siguiente punto.</para>
+</important>
+</sect2>
+</sect1>
+
+<sect1>
+<title>Haciendo SNAT (Cluster de Correo)</title>
+<para><emphasis>SNAT</emphasis> es la funcionalidad para cambiar la direcci&oacute;n de origen del paquete.</para>
+<para>En realidad <emphasis>MASQUERADING</emphasis> y <emphasis>SNAT</emphasis> son muy parecidos. La diferencia es que <emphasis>MASQUERADING</emphasis> introduce m&aacute;s carga en el sistema que <emphasis>SNAT</emphasis> ya que cada vez que tiene que actuar sobre un paquete la direcci&oacute;n que pone al paquete es la que tiene el interface por el que va a salir en lugar de la especificada y es la comprobaci&oacute;n de esa IP se realiza por cada paquete procesado lo que introduce la sobrecarga en el sistema.</para>
+
+<para>Por este motivo si tenemos que hacer <emphasis>SNAT</emphasis> deberemos utilizar <emphasis>MASQUERADING</emphasis> si el interface sobre el que se hace tiene asignaci&oacute;n din&aacute;mica de IP por <emphasis>DHCP</emphasis>.</para>
+<sect2>
+<title>Descripci&oacute;n del escenario</title>
+<para>Supongamos que tenemos un cluster de correo con dos nodos y por comodidad utilizaremos direccionamiento privado:</para>
+<itemizedlist>
+<listitem>
+<para><emphasis>nodo1_mail.localdomain</emphasis> con ip <emphasis>192.168.1.21</emphasis> en el dispositivo <emphasis>eth0</emphasis>.</para>
+</listitem>
+<listitem>
+<para><emphasis>nodo2_mail.localdomain</emphasis> con ip <emphasis>192.168.1.22</emphasis> en el dispositivo <emphasis>eth0</emphasis>.</para>
+</listitem>
+</itemizedlist>
+<para>La ip del servicio de correo <emphasis>192.168.1.100 (mail.localdomain)</emphasis>. Est&aacute; ip estar&aacute; levantada en el nodo que est&eacute; dando el servicio como un alias <emphasis>eth0:1</emphasis>.</para>
+<para>Todos los paquetes que salgan por el interface <emphasis>eth0</emphasis> saldr&aacute;n con ip de origen la que tenga el interface <emphasis>eth0</emphasis>. Si el paquete est&aacute; originado por el servidor de correo y el servidor de correo destino hace una comprabaci&oacute;n por resoluci&oacute;n inversa descubrir&aacute; que la ip de origen no est&aacute; asociada a <emphasis>mail.localdomain</emphasis>.</para>
+<para>Dependiendo de la configuraci&oacute;n del servidor de correo de destino no podr&iacute;a pasar nada, podr&iacute;a no aceptar el correo o incluso incluir nuestro servidor de correo en las blacklists.</para>
+</sect2>
+<sect2>
+<title>Configuraci&oacute;n de iptables</title>
+<para>Las reglas de iptables:</para>
+<programlisting>
+iptables -A POSTROUTING -o eth0 -p tcp --dport 25 -j SNAT --to-source 192.168.1.100
+</programlisting>
+<orderedlist>
+<listitem>
+<para>Todo el tr&aacute;fico de salida por la interface <emphasis>eth0</emphasis> usando el protocolo <emphasis>TCP</emphasis> y con puerto de destino <emphasis>25</emphasis> ser&aacute; rescrito con direcci&oacute;n de origen <emphasis>192.168.1.100</emphasis>.</para>
+</listitem>
+</orderedlist>
+<important><para>En este caso no podr&iacute;mos utilizar <emphasis>MASQUERADING</emphasis> ya que en ese caso la ip que se utilizar&iacute;a como origen del paquete ser&iacute; la de <emphasis>eth0</emphasis>.</para></important>
+</sect2>
+</sect1>
+
+  </chapter>
+

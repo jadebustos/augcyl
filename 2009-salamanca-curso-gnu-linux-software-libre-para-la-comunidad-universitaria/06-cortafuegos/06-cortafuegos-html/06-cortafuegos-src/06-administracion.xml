@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- CAPITULO 1 -->
+  <chapter>
+    <title>Administraci&oacute;n de iptables</title>
+    <para>Las reglas que configuramos en <emphasis>iptables</emphasis> desaparecer&aacute;n en los reinicios y deberemos configurar <emphasis>iptables</emphasis> para que al reinicar el ordenador carge las reglas.</para>
+<sect1>
+<title>Reglas persistentes en <emphasis>iptables</emphasis></title>
+<para><emphasis>Iptables</emphasis>incorpora una serie de comandos para volcar a disco las reglas del cortafuegos y poder restaurarlas m&aacute;s adelante como por ejemplo cuando reiniciamos la m&aacute;quina:</para>
+<itemizedlist>
+<listitem>
+<para><emphasis>iptables-save</emphasis> sirve para volcar a la salida est&aacute;ndar las reglas de una tabla.</para>
+</listitem>
+<listitem>
+<para><emphasis>iptables-restore</emphasis> se utiliza para restaurar las reglas desde un fichero.</para>
+</listitem>
+</itemizedlist>
+<sect2>
+<title>Red Hat/Fedora</title>
+<para>Una vez configurado <emphasis>iptables</emphasis>:</para>
+<screen>
+<prompt>[root@dedalo ~]# </prompt><userinput>service iptables save</userinput>
+<computeroutput>Guardando las reglas del cortafuegos a /etc/sysconfig/iptables [  OK  ]</computeroutput>
+<prompt>[root@dedalo ~]# </prompt>
+</screen>
+<para>De esta forma se guardan las reglas en el fichero <filename>/etc/sysconfig/iptables</filename> y la pr&oacute;xima vez que arranque <emphasis>iptables</emphasis> cargar&aacute; las reglas.</para>
+<important>
+<para>Si queremos que el servicio <emphasis>iptables</emphasis> se arranque de forma autom&aacute;tica en los inicios del sistema deberemos ejecutar:</para>
+<screen>
+<prompt>[root@dedalo ~]# </prompt><userinput>chkconfig iptables on</userinput>
+<prompt>[root@dedalo ~]# </prompt>
+</screen>
+</important>
+</sect2>
+</sect1>
+
+<sect1>
+<title>A&ntilde;adiendo reglas</title>
+<para>El saber a&ntilde;adir, eliminar y mover reglas es muy importante ya que las reglas dentro de una cadena se ejecutan en orden secuencial y el orden es muy importante.</para>
+<sect2>
+<title>Insertando reglas</title>
+<para>Cuando a&ntilde;adimos una regla esta regla se a&ntilde;ade al final de la cadena en la que estemos trabajando.</para>
+<para>Podemos a&ntilde;dir reglas de dos formas:</para>
+<itemizedlist>
+<listitem>
+<para><emphasis>APPEND</emphasis>, este es el modo normal. Se utiliza el flag <emphasis>-A</emphasis> y la regla se a&ntilde;ade al final de la cadena:</para>
+<programlisting>
+iptables -t tabla -A cadena regla
+</programlisting>
+</listitem>
+<listitem>
+<para><emphasis>INSERT</emphasis>, en este modo insertamos la regla en una posici&oacute;n determinada dentro de la cadena:</para>
+<programlisting>
+iptables -t tabla -I cadena posicion regla
+</programlisting>
+<important><para>El orden de las reglas es importante.</para></important>
+<important><para>La primera regla de la cadena es la n&uacute;mero uno.</para></important>
+<important><para>En caso de no especificar una posici&oacute;n para la regla se asume que es la n&uacute;mero uno.</para></important>
+</listitem>
+</itemizedlist>
+</sect2>
+<sect2>
+<title>Borrando reglas</title>
+<para>Podemos borrar reglas de dos formas:</para>
+<itemizedlist>
+<listitem>
+<para>A nivel de regla:</para>
+<programlisting>
+iptables -t tabla -D cadena regla
+iptables -t tabla -D cadena posicion
+</programlisting>
+<para>Podemos especificar la regla a borrar o directamente su posici&oacute;n.</para>
+</listitem>
+<listitem>
+<para>A nivel de cadena:</para>
+<programlisting>
+iptables -t tabla -F cadena
+</programlisting>
+<para>Con el flag <emphasis>-F (--flush)</emphasis> borramos todas las reglas de la cadena especificada. En caso de no especificar ninguna cadena se borran las reglas de todas las reglas de todas las cadenas.</para>
+</listitem>
+</itemizedlist>
+</sect2>
+<sect2>
+<title>Reemplazando reglas</title>
+<para>Es posible reemplazar una regla por otra:</para>
+<programlisting>
+iptables -t tabla -R cadena posicion regla
+</programlisting>
+</sect2>
+</sect1>
+
+  </chapter>
+
