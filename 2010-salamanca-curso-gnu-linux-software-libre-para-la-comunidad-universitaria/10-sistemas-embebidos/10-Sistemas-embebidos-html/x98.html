@@ -1,0 +1,201 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>FreeAgent DockStar de Seagate (Marvell 6281)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Qué hardware podemos usar"
+HREF="c87.html"><LINK
+REL="PREVIOUS"
+TITLE="Qué hardware podemos usar"
+HREF="c87.html"><LINK
+REL="NEXT"
+TITLE="El NAS de Dealextreme/WLX-652/ (STAR STR8131 ARMv4)"
+HREF="x118.html"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Sistemas embebidos</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c87.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 6. Qué hardware podemos usar</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x118.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="AEN98"
+>6.2. FreeAgent DockStar de Seagate (Marvell 6281)</A
+></H1
+><P
+>&#13;Como el NSLU2, se comercializa como un NAS para discos USB, pero es hardware más potente con la interfaz de red Gigabit, procesador a 1.2 GHz, 128 MB de RAM y nada menos que 4 puertos USB2. Uno de ellos es un conector macho microsub para insertarlo directamente en los discos FreeAgent de Seagate, pero debería funcionar con cualquier otra carcasa 2.5 con este tipo de conector en el centro. 
+</P
+><P
+>&#13;El DockStar lo está liquidando Seagate en su web de EE.UU. y en Ebay está realmente barato, por debajo de los 28 EUR, pero lamentablemente entre gastos de envío y posibilidad de aduanas, ya no sale tan económico. Si se compra directamente en España sale con gastos de envío por unos 60 EUR en Pixmanía y se tiene la ventaja de la garantía y no hacer falta adaptador para la clavija al venir ya la europea.
+</P
+><P
+>&#13;El DockStar lleva el mismo sistema (SoC Marwell Kirkwood 88F6281) que el famoso plug computer Sheeva Plug. Los plug computer son pequeños dispositivos que se conectan directamente a un enchufe de pared con lo que casi no ocupan espacio. El Sheeva Plug es considerado como el sucesor natural del NSLU2 y ha sido llamado el NSLU2 killer, si bien no se comercializa en España y sale algo caro con los gastos de envío. El DockStar aunque lleve el mismo chip que el Sheeva Plug por lo demás incluye hardware más modesto: 128 MB de RAM en lugar de 512, la revisión más reciente también tiene menos flash, 256MB en lugar de 512 MB (aunque que nos toque la de 256 o 512 es cuestión de suerte) y no incluye lector de tarjetas SDHC. El único punto en contra del Sheeva Plug es que sólo tiene un puerto USB.
+
+</P
+><P
+>&#13;Una diferencia en contra del DockStar que le hace menos adecuado para el cacharreo es que el Sheeva Plug permite arrancar no sólo de la memoria flash, sino también de una tarjeta SD y de cualquier dispositivo USB. En realidad no es que arranque de USB como un PC porque lo permite una BIOS, sino que siempre arranca de la memoria Flash pero el cargador UBoot tiene la extensión ext2load (es decir, que si se corrompiera el cargador de la memoria flash, no sirve arrancar de USB para arreglarlo). Así mismo el Sheeva Plug proporciona interfaz serie y JTAG sin necesidad de abrirlo, a través del puerto USB. Sheeva Plug incluye software y documentación para usarlo con Linux y viene precargado con una Ubuntu (lamentablemente esta distribución se ha quedado obsoleta, al no haber sacado Ubuntu nuevas versiones para ARM compatibles). El DockStar carece de todo esto, tiene la posibilidad de usar un puerto serie pero abriéndolo y más difícil que en otros dispositivos. En definitiva, es más difícil de modificar y entraña más riesgo. 
+</P
+><P
+>&#13;Otra diferencia entre el DockStar y el Sheeva Plug, es que el DockStar no es un plug-computer: no tiene el alimentador dentro de la caja, sino externo, como el resto de dispositivos comentados. Esto a la larga es una ventaja, pues el procesador tiene fama de emitir calor y es más conveniente que el alimentador esté fuera para que ventile mejor, además de ser así mucho más fácil y barato reemplazarlo si se estropea, algo que le ha pasado a más de un poseedor de un plug-computer.
+</P
+><P
+>&#13;Aparte del DockStar y Sheeva Plug hay otros modelos, algunos con características avanzadas como conexión eSata para aprovechar realmente las posibilidades como NAS (la propia Seagate posiblemente esté liquidando el DockStar en favor del otro modelo, el Go-Flex Net, que permite conectar dos discos SATA). No recomendamos el GuruPlug, por tener menos facilidades de arranque y puerto serie a través del puerto USB y porque en algunas versiones hay problemas graves de calentamiento. El DockStar realmente deriva del PogoPlug, que se comercializa como un servicio cloud para poder acceder a los discos desde Internet sin dejar el ordenador encendido, si bien mientras que en el PogoPlug este servicio es gratis de por vida, en el DockStar es sólo gratis el primer año.
+</P
+><P
+>&#13;Para poder instalar un nuevo firmware en un disco duro externo, lo que se hace en el DockStar es aprovechar que inicialmente se tiene acceso como root por ssh. Entonces se reemplaza el cargador por otro que permite arrancar de USB como en el Sheeva (rezando para que no se vaya la luz mientras escribe y acabemos con un pisapapeles). Este cargador además redirige lo que sería el flujo del puerto serie a un puerto de red, por lo que ya no haría falta abrir el dispositivo y poner un cable en el puerto serie TTL. Esta solución basada en simplemente arrancar de disco duro permite no tocar el firmware original y poder usar el servicio de acceso al disco duro por Internet si se hace un arranque normal. Lo que no existe en la actualidad es la opción optware, instalar nuevos paquetes pero usando el firmware original: antes existía, con el proyecto OpenPlug pero este dejó de mantenerse y se reemplazó por PlugBox, una versión de ArchLinux para estos dispositivos. La web http://www.plugapps.com/ es el sitio de referencia para quien desea modificar su DockStar o hardware similar.
+</P
+><P
+>&#13;Aunque la frecuencia de reloj puede impresionar, hay que tener en cuenta que es un procesador tecnológicamente poco avanzado, con arquitectura bastante inferior a los smartphones del año 2007 o al que lleva hoy en día algunos lectores de libros electrónicos. Para hacerse una idea de las distintas generaciones de los procesadores ARM, con ejemplos de dispositivos de consumo como teléfonos que los usan, visitar http://en.wikipedia.org/wiki/ARM_architecture.
+</P
+><P
+>&#13;
+Este chip de Marvell u otros de la misma familia se usan también en varios NAS, con la frecuencia del procesador bajada a 800Mhz:
+</P
+><P
+></P
+><UL
+><LI
+STYLE="list-style-type: opencircle"
+><P
+>&#13;Synologic DS210J (175EUR, 25W con discos duros/10W sin discos), DS110J (119EUR, 19W/9W). El software es bastante completo. 128 MB RAM.
+</P
+></LI
+><LI
+STYLE="list-style-type: opencircle"
+><P
+>&#13;Qnap TS-110 (220,15 EUR con disco duro de 1GB). 256 RAM, 16 MB flash. También buen software y comunidad.
+</P
+></LI
+><LI
+STYLE="list-style-type: opencircle"
+><P
+>&#13;Netgear ReadyNas Duo. 256 RAM. 
+</P
+></LI
+></UL
+><P
+>&#13;Estos NAS tienen sus propios proyectos para modificar el firmware sin reemplazarlo, ya que su punto fuerte es precisamente todo lo que permite hacer su firmware original con una buena interfaz: Time Machine, DLNA, descargas...
+</P
+><P
+>&#13;Otro NAS más antiguo con chip Marvell es el D-LINK DNS-323, con dos bahías SATA por unos 162 EUR. http://wiki.dns323.info/howto:chroot_debian. Hablando de D-LINK, una página curiosa es http://tsd.dlink.com.tw/downloadslist.asp?SourceType=downloadOS=GPL dónde está disponible el código fuente de todo el software GPL que usan sus productos. Este tipo de páginas las hay también en otros fabricantes y son interesantes tanto para ver en cuales de sus productos usan Linux como qué otro software interesante han usado y podríamos usar nosotros también en nuestros proyectos. Por ejemplo es recomendable la de TomTom.
+</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c87.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x118.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Qué hardware podemos usar</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c87.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>El NAS de Dealextreme/WLX-652/ (STAR STR8131 ARMv4)</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

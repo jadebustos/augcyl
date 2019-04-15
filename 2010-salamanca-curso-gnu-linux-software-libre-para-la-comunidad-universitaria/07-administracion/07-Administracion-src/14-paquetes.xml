@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- CAPITULO 10 -->
+  <chapter>
+    <title>Gesti&oacute;n de paquetes</title>
+    <para>La distribuci&oacute;n de software en Linux se realiza mediante paquetes.</para>
+    <para>Se denomina gestor de paquetes a la colecci&oacute;n de herramientas que sirven para automatizar el proceso de instalaci&oacute;n, actualizaci&oacute;n, configuraci&oacute;n y eliminaci&oacute;n de paquetes de aplicaciones. Como administradores debemos conocer los principales formatos de paquetes y la utilizaci&oacute;n de las herramientas que los gestionan.</para>
+<para>Estas herramientas nos permiten mostrarnos todo el software disponible acudiendo a los repositorios de aplicaciones, ver si tenemos la ultima versi&oacute;n del software y garantizarnos que la dependencia que hay entre distintas aplicaciones por sus versiones es correcta.</para>
+<para>La distribuci&oacute;n b&aacute;sicamente ser&aacute; la que nos determine, desde que la instalamos por primera vez cual van ha ser las herramientas de gesti&oacute;n de paquetes y obtendr&aacute; el software necesario de un repositorio, v&iacute;a Internet, cd, dvd, etc.</para>
+<para>En Linux hay principalmente dos formatos o tipos de paquetes sobre los cuales se desarrollan las herramientas que luego las distribuciones utilizan para instalar el software. Es decir, existen distintas aplicaciones, repositorios, interfaces y variantes para manejar los paquetes pero todos ellos se basan en unos pocos formatos de paquetes.</para>
+    <sect1>
+      <title>rpm</title>
+      <para>Fue creado por Red Hat y es uno de los m&aacute;s usados por las
+      distribuciones. Es es formato recomendado por Linux Standard Base.</para>
+<para>Existen muchas herramientas que los manejan, que se han adaptado
+      sobre todo a cada una de las distribuciones que las
+      utilizan, incluso los gestores gr&aacute;ficos KDE y Gnome disponen de
+      herramientas para su gesti&oacute;n. Pero su utilizaci&oacute;n en linea es
+      bastante sencilla.</para>
+<screen><prompt>rpm -opciones nombre_paquete-version-sistema.rpm</prompt>
+</screen>
+<para>Con las opciones controlamos si lo que queremos es instalar,
+      desinstalar, actualizar o informaci&oacute;n de un paquete. Cuando
+      queremos desinstalar o informaci&oacute;n de un paquete instalado solo
+      con poner el nombre es suficiente. La forma de nombre, versi&oacute;n, el sistema y la
+      extensi&oacute;n de rpm es la nomenclatura que se utiliza para nombrar
+      los ficheros.</para>
+<para>Al contener los paquetes aplicaciones ya compiladas en la
+      etiqueta de sistema se
+      informa para cual est&aacute;n preparados, por lo que nos encontramos .i386 para
+      procesadores 80386 o superiores, i686 para PentiumIII o
+      superior, .ppc para PowerPC, .noarch para indicar que son
+      independientes de la arquitectura (por ejemplo ficheros de
+      texto, script, etc) o .src para rpm que contienen los fuentes de
+      la aplicaci&oacute;n. Rpm es capaz a partir de un paquete de fuentes
+      generar el rpm para un sistema en concreto.</para>
+      <para>La aplicaci&oacute;n gr&aacute;fica de administraci&oacute;n de SuSE  incluye la gesti&oacute;n de
+      paquetes, soportando el formato rpm.</para>
+<informalfigure>
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="img/c10yast.png" format="PNG"/>
+        </imageobject>
+        <textobject>
+          <phrase>yast</phrase>
+        </textobject>
+      </mediaobject>
+    </screenshot>
+  </informalfigure>
+    </sect1>
+    <sect1>
+      <title>deb</title>
+      <para>Es el formato de paquetes creado para Debian. Todas
+      aquellas distribuciones que se basan en Debian, como son Ubuntu o Linex, utilizan este
+      formato de paquetes.</para>
+<para>El programa de la distribuci&oacute;n Debian que maneja el formato de
+      los paquetes es <application>dpkg</application>. La gesti&oacute;n
+      de los paquetes se realiza con otra aplicaci&oacute;n, <application>apt</application>
+      (Advanced Packaging tool), que se encarga de la localizaci&oacute;n del
+      repositorio de paquetes, ya sea un cd, por una conexi&oacute;n ftp o http. Ambas son un conjunto de herramientas
+      que se utilizan desde consola. Su utilizaci&oacute;n es algo m&aacute;s
+      compleja que <application>rpm</application> debido a que son varios comandos que cada uno hace una
+      operaci&oacute;n distinta.</para>
+<para>Existen numerosas interfaces tanto gr&aacute;ficas como textuales que
+      nos permite instalar y gestionar las aplicaciones de una manera
+      sencilla, y se encargan de utilizar el conjunto de comandos de
+      dpkg/apt.</para>
+<para>La herramienta de gesti&oacute;n de paquetes del sistema
+      KDE permite la gesti&oacute;n e instalaci&oacute;n de este tipo de paquetes.</para>
+<informalfigure>
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="img/c10kpack.png" format="PNG"/>
+        </imageobject>
+        <textobject>
+          <phrase>kpackage</phrase>
+        </textobject>
+      </mediaobject>
+    </screenshot>
+  </informalfigure>
+<para>La estructura del paquete es un fichero <application>ar</application>
+      que contiene, a su vez tres ficheros. Uno con la versi&oacute;n del
+      paquete, otro con la informaci&oacute;n del paquete y otro
+      con los ficheros que se instalan.</para>
+    </sect1>
+    <sect1>
+      <title>Otros sistemas</title>
+      <para>En las primeras distribuciones los paquetes los distribu&iacute;an
+      en un "tar" y comprimidos. Este sistema no permite tener un
+      control de dependencias, ni gesti&oacute;n sencilla de paquetes
+      instalados, actualizado y su desinstalaci&oacute;n. Por lo cual es un sistema demasiado
+      problem&aacute;tico o redundante cuando el sistema tiene gran cantidad
+      de aplicaciones instaladas.</para>
+<para>Algunas distribuciones las aplicaciones las distribuyen en
+      paquetes que contienen el c&oacute;digo fuente, que al instalarse debe
+      antes compilarse la aplicaci&oacute;n, como por ejemplo en Gentoo. La
+      principal ventaja de esta forma de distribuir el software es que
+      la
+      compilaci&oacute;n se realiza lo m&aacute;s &oacute;ptima posible al hardware de la
+      m&aacute;quina.</para>
+<para>Existen tambi&eacute;n formatos de distribuci&oacute;n para linux en sistemas
+      embebidos y PDAs, como es ipk. Este es un derivado simplificado del
+      formato de Debian.</para>
+<para>Cuando tenemos una aplicaci&oacute;n en un tipo de paquete y estamos
+      interesados en llevarlo a una distribuci&oacute;n que utiliza otro
+      sistema, podemos todav&iacute;a instalarla mediante una conversi&oacute;n con la
+      aplicaci&oacute;n <application>alien</application>.</para>
+<para>Seguro que alguna vez, si queremos tener la &uacute;ltima versi&oacute;n o adaptar la aplicaci&oacute;n a nuestras necesidades, y si la aplicaci&oacute;n es de c&oacute;digo libre, no
+      nos quedar&aacute; m&aacute;s remedio que coger el c&oacute;digo fuente, ya sea
+      baj&aacute;ndonoslo en <filename>tar.gz</filename>, <filename>zip</filename> o del
+      repositorio de <application>cvs</application> o <application>svn</application>.</para>
+    </sect1>
+  </chapter>
+

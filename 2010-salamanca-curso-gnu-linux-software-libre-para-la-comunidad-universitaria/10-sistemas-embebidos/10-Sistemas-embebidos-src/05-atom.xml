@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<chapter>
+<title>Atom s&iacute;, Atom no, Atom depende</title>
+<para>
+Tal y como dijimos, nos centraremos en hardware barato y que consuma poca energ&iacute;a que sea la alternativa a dejar el PC encendido. Pero la pregunta es ¿no es Atom tambi&eacute;n barato y consume poca energ&iacute;a, por lo que me sirve para dejar un cliente torrent las 24 horas del d&iacute;a, pero adem&aacute;s me ofrece mucha m&aacute;s cosas como PC que es?
+</para>
+<para>
+La respuesta es que Atom es efectivamente m&aacute;s barato y consume menos energ&iacute;a que un procesador de port&aacute;til. Pero a&uacute;n as&iacute; la diferencia con muchos procesadores de ARM es abismal, sobre todo si las aplicaciones a ejecutar no requieren apenas potencia y pueden usarse micros muy simples y a pocos megahercios. En el caso de la mayor&iacute;a de los dise&ntilde;os basados en ARM y MIPS, la energ&iacute;a necesaria para todo el sistema en un Atom apenas servir&iacute;a para alimentar tan solo el procesador, si llega.
+</para>
+<para>
+Un menor consumo no es s&oacute;lo ahorro de electricidad. Est&aacute; la menor emisi&oacute;n de calor y al no necesitar ventiladores la ausencia total de ruido y tama&ntilde;os m&iacute;nimos. Como muestra, algunos de los sistemas que veremos llevan alimentadores de 6W de potencia m&aacute;xima, mientras los m&aacute;s potentes alcanzan te&oacute;ricamente algo m&aacute;s de 20W pero para poder alimentar uno o m&aacute;s discos duros por el puerto USB. Por contra la mayor&iacute;a de las fuentes para placas mini-ITX como las que llevan los Atom no bajan de 150W y s&oacute;lo en cajas espec&iacute;ficas como las de Zotac o ASRock encontraremos los t&iacute;picos alimentadores como los de netbook, pero a&uacute;n as&iacute; de 65W. En precio, una soluci&oacute;n Atom empieza por los 66 EUR de la placa (incluye procesador) a los que hay que sumar caja con fuente de alimentaci&oacute;n y la memoria. Por supuesto no tiene ni comparaci&oacute;n en cualquiera de sus caracter&iacute;sticas con una soluci&oacute;n barata (empezando por la memoria, que como m&iacute;nimo posiblemente compremos 1GB, frente a los r&iacute;duculos 16MB de algunas soluciones empotradas) pero la cuesti&oacute;n a pensar es siempre si ese hardware es suficiente para el prop&oacute;sito que quiere darse....
+</para>
+
+<para>
+En realidad hay casos en los que un sistema Atom nos parece una alternativa interesante a sistemas embebidos con procesadores basados en ARM o MIPS. Es el caso de los reproductores multimedia de gama alta, con precios por encima de los 200 EUR. Ah&iacute; la diferencia de precio no es argumento de peso y el consumo tampoco es fundamental pues no se trata de tenerlo encendido todo el rato y en cualquier caso la diferencia de consumo entre Atom y el reproductor es anecd&oacute;tica al lado del consumo del televisor de tropecientas pulgadas. El &uacute;nico punto delicado es el ruido, para lo que hay que escoger con cuidado el equipo. Las ventajas que ofrece el sistema Atom son muchas:
+</para>
+<itemizedlist mark="opencircle"><listitem>
+<para>
+Por el precio ya se tiene un ordenador completo de sal&oacute;n, apto por ejemplo para navegar o conectarse a las redes sociales. Tambi&eacute;n se podr&aacute; tener funcionalidades avanzadas como recibir notificaciones mientras se ve la pel&iacute;cula
+</para>
+</listitem>
+<listitem>
+<para>
+La m&aacute;quina Atom puede utilizarse tambi&eacute;n como escritorio remoto para tener acceso desde el sal&oacute;n a otro ordenador, puede funcionar de NAS avanzado...
+</para>
+</listitem>
+<listitem>
+<para>
+Como reproductor multimedia tiene m&aacute;s posibilidades, no habr&aacute; fichero que se resista y no hay problema de codecs, se usa el mismo software que para PC, no se depende del firmware del fabricante, se tienen media centers muy trabajados como XBMC. Eso s&iacute;, se necesita un sistema Atom con chip ION o ION2, lamentablemente propietario. Es una pena que Intel no incluya en los Atom los chips gr&aacute;ficos que llevan sus micros normales (i3, i5 e i7) porque potencialmente estos s&iacute; que permiten reproducir ficheros de alta definici&oacute;n y no son privativos. Tambi&eacute;n hay una soluci&oacute;n hardware con controladores libres para hacer s&oacute;lo la decodificaci&oacute;n (http://www.broadcom.com/support/crystal_hd/), pero el problema de los Atom sin ION es que ninguna placa viene con salida HDMI. Hay que decir que hay vientos de cambio y se vislumbra una mayor presencia de micros ULV en lugar de Atom, que aunque cuesten y consuman m&aacute;s, siguen siendo una ganancia respecto a otros procesadores.
+</para>
+
+</listitem>
+<listitem>
+<para>
+Meter nuevo software es trivial, porque se ejecuta la misma distribuci&oacute;n que en un PC y aunque el hardware Atom est&eacute; limitado en relaci&oacute;n a un PC contempor&aacute;neo y se pueda considerar equivalente a un desfase de varios a&ntilde;os, la mayor&iacute;a de aplicaciones funcionar&iacute;an tambi&eacute;n en hardware a&uacute;n m&aacute;s antiguo.
+</para>
+</listitem>
+</itemizedlist>
+<para>
+Hay que lamentar que si un PC de sal&oacute;n con Atom puede ser mejor alternativa que uno basado en chips especializados como los de Sigma o Realtek, es precisamente por el car&aacute;cter cerrado de estos dispositivos a la hora de tratar de hacer algo con el firmware. No hay ninguna raz&oacute;n t&eacute;cnica por la que no se saquen modelos m&aacute;s flexibles que sean reproductores y permitan navegar libremente (y no s&oacute;lo acceder a unos pocos servicios previstos por el fabricante como YouTube o Flickr), m&aacute;s all&aacute; del car&aacute;cter cerrado de los desarrollos, quiz&aacute;s motivado por el p&aacute;nico a los clones chinos de cualquier producto trat&aacute;ndose de diferenciar en el firmware.
+</para>
+<para>
+Otra alternativa es como NAS, sobre todo considerando que muchos NAS las versiones m&aacute;s econ&oacute;micas llevan chips ARM y los caros Atom. Aunque un NAS con Atom va a consumir sensiblemente m&aacute;s, una ventaja es que posiblemente la placa soporte wake-on-lan y se pueda apagar cuando no se usa.
+</para>
+<para>
+Puede considerarse que la ventaja del reproductor multimedia o del NAS avanzado con ARM frente a Atom es que tambi&eacute;n puede usarse para estar todo el rato encendido con tareas como descargar torrents. Ah&iacute; cabe considerar otra opci&oacute;n: no empe&ntilde;arse en tener un s&oacute;lo aparato para todo, sino conforme a la filosof&iacute;a Unix en las utilidades, apostar por la especializaci&oacute;n: un procesador Atom o uno m&aacute;s avanzado para multimedia o NAS de alto rendimiento y un dispositivo que sea m&aacute;s barato para tener siempre encendido, encargarse de cosas como las descargas e incluso de encender el ordenador.
+</para>
+
+</chapter>

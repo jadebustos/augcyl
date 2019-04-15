@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<chapter>
+<title>Ecotorrent</title>
+<para>
+Ecotorrent es un proyecto que tiene por finalidad tener un dispositivo para descargar torrents que sea econ&oacute;mico y ecol&oacute;gico (esto &uacute;ltimo por el bajo consumo) a la par que abierto. Consta de varios programas en C y unos pocos scripts, uno de ellos orientado a crear una imagen de partici&oacute;n a grabar en un disco duro o microdrive que pueda ser usado en un ADM5120 y que ya est&eacute; configurado. En el sistema de ficheros se incluyen as&iacute; mismos scripts que se ejecuten durante el primer arranque para que hagan funciones como instalar paquetes con los componentes que falten. El script es interesante tambi&eacute;n para aprender como configurar distintos aspectos de OpenWrt.
+</para>
+<para>
+Con sus 16MB de RAM, un ADM5120 con ecotorrent ofrece:
+
+</para>
+<itemizedlist mark="opencircle"><listitem>
+<para>
+demonio de bittorent que admite compartir y descargar varios torrents simult&aacute;neamente
+</para>
+</listitem>
+<listitem>
+<para>
+manejo del cliente de bittorrent de forma remota mediante comandos, jabber o web. La web es la ant&iacute;tesis de la 2.0 al funcionar con comandos, pero gracias a su simpleza funciona desde cualquier dispositivo, incluido cualquier smartphone. Operaciones como a&ntilde;adir, parar, reanudar, borrar, descarga de un fichero v&iacute;a wget, posibilidad de pasar el .torrent como una URL o subiendo el fichero (esto ha sido importante para poder a&ntilde;adir descargas desde un Nokia 5800, al no admitir ninguno de los navegadores copiar enlaces). El uso de bittorrent para controlar la m&aacute;quina permite hacerlo de forma remota sin tener que abrir puertos
+</para>
+</listitem>
+<listitem>
+<para>
+disponibilidad de ssh para tener un proxy SOCKS y por ejemplo acceder a webs desde un ordenador del trabajo envi&aacute;ndose las peticiones realmente desde el adm5120 de casa. Esto es &uacute;til para privacidad o para webs de descargas directas. 
+</para>
+</listitem>
+<listitem>
+
+<para>
+posibilidad mediante ssh, clave p&uacute;blica y extensi&oacute;n de Firefox flashgot, que al ir a descargar un fichero desde el navegador, en lugar de hacerlo el ordenador se encargue el adm5120 de modo que se pueda apagar el ordenador sin cortar la descarga. Lamentablemente esto no siempre funciona (implica repetir la petici&oacute;n, lo que no funciona en varios sitios de descargas) pero en construcci&oacute;n soluci&oacute;n m&aacute;s gen&eacute;rica para proxy que se encargue ante descarga de hacerla &eacute;l y devolver a navegador direcci&oacute;n donde estar&aacute; el fichero. Esto &uacute;til para comenzar descarga desde fuera de casa pero usando de forma transparente el router, o hacerlo desde casa pero desde un tel&eacute;fono m&oacute;vil con conexi&oacute;n wifi.
+</para>
+</listitem>
+<listitem>
+<para>
+navegador web de ficheros con operaciones b&aacute;sicas
+</para>
+</listitem>
+<listitem>
+<para>
+script de buen ciudadano que para torrent cuando alcanza &iacute;ndice de compartici&oacute;n 1.
+</para>
+</listitem>
+<listitem>
+<para>
+samba para poder acceder a los ficheros, por ejemplo desde un reproductor multimedia de red.
+
+</para>
+</listitem>
+</itemizedlist>
+
+</chapter>

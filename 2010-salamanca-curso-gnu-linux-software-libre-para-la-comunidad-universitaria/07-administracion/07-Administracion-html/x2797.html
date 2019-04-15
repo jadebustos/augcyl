@@ -1,0 +1,371 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>El permiso SUID</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Usuarios y permisos en GNU/Linux"
+HREF="c2312.html"><LINK
+REL="PREVIOUS"
+TITLE="El comando su"
+HREF="x2757.html"><LINK
+REL="NEXT"
+TITLE="El permiso SGID"
+HREF="x2842.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x2757.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 8. Usuarios y permisos en GNU/Linux</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x2842.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN2797"
+>8.6. El permiso <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SUID</I
+></SPAN
+></A
+></H1
+><P
+>Hay veces que es necesario que un programa se ejecute con los privilegios de su propietario en lugar de con los privilegios del usuario que lo ejecuta. <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SUID</I
+></SPAN
+> es un acrónomio de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>S</I
+></SPAN
+>et <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>U</I
+></SPAN
+>ser <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ID</I
+></SPAN
+>.</P
+><P
+>Un ejemplo es el comando <B
+CLASS="command"
+>passwd</B
+>, el cual necesita tener privilegios de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>root</I
+></SPAN
+> ya que tiene que acceder a los ficheros <TT
+CLASS="filename"
+>/etc/passwd</TT
+> o <TT
+CLASS="filename"
+>/etc/shadow</TT
+> en modo escritura y sólo el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>root</I
+></SPAN
+> puede hacerlo. Si deseamos que un usuario pueda cambiar su password es necesario que este comando se ejecute con los privilegios de su propietario.</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>ls -lh /usr/bin/passwd</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>-rwsr-xr-x 1 root root 28K 2007-02-27 08:53 /usr/bin/passwd</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+>
+</PRE
+><P
+>Si observamos la salida anterior veremos algo que nos llama la atención. En lugar de tener una "<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>x</I
+></SPAN
+>" en el permiso de ejecución del propietario tenemos una "<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>s</I
+></SPAN
+>" lo cual nos indica que este programa se ejecutará con los privilegios de su propietario en lugar de con los del usuario que lo está ejecutando.</P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/warning.gif"
+HSPACE="5"
+ALT="Aviso"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Estos programas constituyen un peligro potencial en un sistema ya que si se hace un mal uso de ellos y el propietario tiene privilegios, <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>root</I
+></SPAN
+>, el que lo ejecuta podrá hacer en el sistema todo lo que el propietario del programa tenga permitido.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2822"
+>8.6.1. Activación del permiso <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SUID</I
+></SPAN
+></A
+></H2
+><P
+>Como hemos visto cuando establecemos los permisos en octal utilizamos una terna de números. Para los permisos especiales utilizaremos cuatro números. El primero de ellos hará referencia al permiso especial y los otros tres a los permisos normales.</P
+><P
+>El <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SUID</I
+></SPAN
+> es el bit más significativo de los tres bits utilzados para los permisos especiales, con lo cual si hacemos:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>chmod 4755 miprograma</KBD
+>
+<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+>
+</PRE
+><P
+>Estaremos activando el permiso <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SUID</I
+></SPAN
+> y estableciendo los permisos <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>755</I
+></SPAN
+> al ejecutable <B
+CLASS="command"
+>miprograma</B
+>.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Este permiso funciona sólo con binarios y no con scripts (excepto con los de PERL).</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2838"
+>8.6.2. El permiso <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SUID</I
+></SPAN
+> y los directorios</A
+></H2
+><P
+>Este permiso no tiene efecto en los directorios.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x2757.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x2842.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>El comando <B
+CLASS="command"
+>su</B
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c2312.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>El permiso <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SGID</I
+></SPAN
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

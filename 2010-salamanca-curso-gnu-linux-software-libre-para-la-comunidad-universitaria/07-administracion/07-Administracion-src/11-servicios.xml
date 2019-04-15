@@ -1,0 +1,302 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- CAPITULO 6 -->
+ <chapter>
+    <title>Servicios</title>
+    <para>Denominamos servicios en Linux a las aplicaciones, o
+    conjunto de ellas, que est&aacute;n
+    arrancadas esperando a ser utilizadas,
+    o llevando a cabo tareas esenciales en "background".</para>
+<para>Al ser Linux un sistema orientado a redes una parte importante son
+    servicios de red, que utilizan el protocolo tcp/ip. Por ser
+    tema a parte la administraci&oacute;n de redes s&oacute;lo describiremos los
+    servicios sin entrar en al administraci&oacute;n.</para>
+<para></para>
+    <sect1>
+      <title>Generalidades</title>
+      <para>Una vez que instalamos un servicio en Linux, normalmente
+      debe ser configurado. Los servicios se deben configurar
+      normalmente con sus par&aacute;metros de arranque, y tambi&eacute;n suele
+      crear un fichero o un directorio en el directorio
+      <filename>/etc</filename>.</para>
+<para>Como el servicio ser&aacute; arrancado en el inicio de sistema, se
+      suele crear un script de inicio en el directorio
+      <filename>/etc/init.d</filename>. Es un shell script arrancable
+      que recibe un par&aacute;metro que puede ser: start, stop,
+      restart y status. Algunos servicios pueden tener otros par&aacute;metros, si lo
+      ejecutamos sin par&aacute;metros nos mostrar&aacute; los posibles.</para>
+<itemizedlist>
+<listitem><para>
+Con <emphasis>start</emphasis> arrancamos el servicio. Este par&aacute;metro es obligatorio en
+cualquier script de arranque. Dependiendo el servicio que sea
+configurar&aacute; algunas caracter&iacute;sticas el servicio y ejecutar&aacute; un proceso
+que quedar&aacute; como demonio (proceso en background con unas
+caracter&iacute;sticas especiales).
+</para></listitem>
+<listitem><para>
+<emphasis>Stop</emphasis> nos permite parar el servicio. Si existe un proceso en background
+del servicio, este ser&aacute; retenido. Es muy habitual que el servicio
+cuando arranca deje un PID en un fichero, que permitir&aacute; al script
+localizar y matar el proceso.
+</para></listitem>
+<listitem><para>
+<emphasis>Restart</emphasis> realiza una parada y luego arranca el sistema de nuevo.
+</para></listitem>
+<listitem><para>
+<emphasis>Status</emphasis> nos indica si el servicio esta arrancado.
+</para></listitem>
+</itemizedlist>
+<para>Para arrancar por ejemplo el servicio de base de datos mysql, tendr&iacute;amos:</para>
+<screen>
+<prompt>[sal]# </prompt><userinput>cd /etc/init.d</userinput>
+<prompt>[sal]# </prompt><userinput>./mysql</userinput>
+<computeroutput>Usage: /etc/init.d/mysql start|stop|restart|reload|force-reload
+</computeroutput>
+<prompt>[sal]# </prompt><userinput>./mysql start</userinput>
+<computeroutput>Starting MySQL database server: mysqld.
+Checking for crashed MySQL tables in the background.
+</computeroutput><prompt>[sal]# </prompt>
+</screen>
+<para>Siempre que queramos podemos ir al directorio donde se encuentra
+el script de arranque y ejecutarlo con el par&aacute;metro que nos
+interese. Pero si queremos que el servicio se arranque cuando se
+inicia el sistema y se pare cuando se apague o reinicie, los script
+tiene que estar en un directorio preparado para ello. Lo que se hace
+es enlazar (link) desde el directorio con el servicio en
+<filename>init.d</filename>. Seg&uacute;n el directorio donde lo pongamos se
+arrancar&aacute; en un determinado modo de arranque o se parar&aacute;:</para>
+<table>
+      <title>Tabla de modos</title>
+      <tgroup cols="3">
+	<thead>
+	  <row>
+	    <entry align="center">Modo</entry>
+             <entry align="center">Directorio</entry>
+	    <entry align="center">Descripci&oacute;n</entry>
+	  </row>
+	</thead>
+        <tbody>
+          <row>
+            <entry align="center">1</entry>
+            <entry align="center">/etc/rc1.d</entry>
+<entry align="center">Servicios que se arrancan cuando el sistema se arranca en modo
+            de Usuario &Uacute;nico. No se permite conectar nada m&aacute;s que al
+            root desde consola.</entry>
+          </row>
+          <row>
+          <entry align="center">2</entry>
+            <entry align="center">/etc/rc2.d</entry>
+<entry align="center">Servicios que se arrancan en modo multiusuario, pero sin
+            algunos servicios de red.</entry>
+          </row>
+          <row>
+           <entry align="center">3</entry>
+            <entry align="center">/etc/rc3.d</entry>
+<entry align="center">Servicios que se arrancan en modo multiusuario, con los
+            servicios de red
+            arrancados, pero en modo consola, sin las X.</entry>
+         </row>
+          <row>
+           <entry align="center">4</entry>
+            <entry align="center">/etc/rc4.d</entry>
+<entry align="center">No se suele utilizar.</entry>
+         </row>
+          <row>
+           <entry align="center">5</entry>
+            <entry align="center">/etc/rc5.d</entry>
+<entry align="center">Servicios que se arrancan en modo multiusuario, con los
+            servicios de red y X.</entry>
+         </row>
+          <row>
+           <entry align="center">6</entry>
+            <entry align="center">/etc/rc6.d</entry>
+<entry align="center">Servicios que se ejecutan en parada o reinicio.</entry>
+         </row>
+       </tbody>
+    </tgroup>
+  </table>
+<para>Los modos de arranque de 2 al 4 son configurables por el
+administrador realmente, lo descrito anterior es la
+recomendaci&oacute;n, pero la configuraci&oacute;n por defecto de las distribuciones
+es diferente en cada una de ellas. </para>
+<para>El arranque de los servicios y
+modo, as&iacute; como alguna configuraci&oacute;n de arranque m&aacute;s lo realiza el
+proceso init que tiene el fichero de configuraci&oacute;n <filename>/etc/inittab</filename>.</para>
+<para>Los nombres los links en estos directorios es distinto a como
+est&aacute;n denominados en <filename>/etc/init.d</filename>, tiene una
+nomenclatura. La primera letra en una S cuando se llamar&aacute; al servicio
+con el par&aacute;metro start, y una K cuando se llame con el par&aacute;metro
+stop. A continuaci&oacute;n lleva el n&uacute;mero en el que se quiere ejecutar el
+servicio y luego el nombre. Vemos un ejemplo:</para>
+<screen><prompt>[pcm@sal]$ </prompt><userinput>cd /etc/rc2.d</userinput>
+<prompt>[pcm@sal]$ </prompt><userinput>ls -l</userinput>
+<computeroutput>lrwxrwxrwx  1 root root 18 Feb 27  2004 S10sysklogd -> ../init.d/sysklogd
+lrwxrwxrwx  1 root root 15 Feb 27  2004 S11klogd -> ../init.d/klogd
+lrwxrwxrwx  1 root root 13 Feb 27  2004 S14ppp -> ../init.d/ppp
+lrwxrwxrwx  1 root root 17 Apr 30  2004 S18portmap -> ../init.d/portmap
+lrwxrwxrwx  1 root root 14 Feb 27  2004 S20apmd -> ../init.d/apmd
+lrwxrwxrwx  1 root root 26 Apr 24  2005 S20clamav-freshclam -> ../init.d/clamav-freshclam
+lrwxrwxrwx  1 root root 16 Feb 27  2004 S20cupsys -> ../init.d/cupsys
+lrwxrwxrwx  1 root root 17 Apr 24  2005 S20dirmngr -> ../init.d/dirmngr
+lrwxrwxrwx  1 root root 14 Feb 27  2004 S20exim -> ../init.d/exim
+lrwxrwxrwx  1 root root 13 Mar  4  2004 S20fam -> ../init.d/fam
+lrwxrwxrwx  1 root root 17 Mar  4  2004 S20hddtemp -> ../init.d/hddtemp
+lrwxrwxrwx  1 root root 15 Feb 27  2004 S20inetd -> ../init.d/inetd
+lrwxrwxrwx  1 root root 19 Feb 27  2004 S20linuxconf -> ../init.d/linuxconf
+lrwxrwxrwx  1 root root 14 Mar  5  2004 S20lisa -> ../init.d/lisa
+lrwxrwxrwx  1 root root 13 Feb 27  2004 S20lpd -> ../init.d/lpd
+lrwxrwxrwx  1 root root 17 Feb 27  2004 S20makedev -> ../init.d/makedev
+lrwxrwxrwx  1 root root 15 Apr 24  2005 S20mysql -> ../init.d/mysql
+lrwxrwxrwx  1 root root 27 Feb 27  2004 S20nfs-kernel-server -> ../init.d/nfs-kernel-server
+lrwxrwxrwx  1 root root 15 Feb 27  2004 S20samba -> ../init.d/samba
+lrwxrwxrwx  1 root root 13 Feb 27  2004 S20ssh -> ../init.d/ssh
+lrwxrwxrwx  1 root root 18 Apr 30  2004 S20timidity -> ../init.d/timidity
+lrwxrwxrwx  1 root root 16 Feb 18 14:06 S20webmin -> ../init.d/webmin
+lrwxrwxrwx  1 root root 23 Feb  3  2006 S20wpasupplicant -> ../init.d/wpasupplicant
+lrwxrwxrwx  1 root root 20 Mar  4  2004 S21nfs-common -> ../init.d/nfs-common
+lrwxrwxrwx  1 root root 18 Oct 24  2004 S21quotarpc -> ../init.d/quotarpc
+lrwxrwxrwx  1 root root 17 Feb 29  2004 S21sensord -> ../init.d/sensord
+lrwxrwxrwx  1 root root 15 Apr 24  2005 S50pcscd -> ../init.d/pcscd
+lrwxrwxrwx  1 root root 24 Aug 24  2005 S85vpnclient_init -> ../init.d/vpnclient_init
+lrwxrwxrwx  1 root root 13 Feb 27  2004 S89atd -> ../init.d/atd
+lrwxrwxrwx  1 root root 14 Feb 27  2004 S89cron -> ../init.d/cron
+lrwxrwxrwx  1 root root 16 Feb 27  2004 S91apache -> ../init.d/apache
+lrwxrwxrwx  1 root root 15 Mar  4  2004 S98local -> ../init.d/local
+lrwxrwxrwx  1 root root 13 Feb 27  2004 S99kdm -> ../init.d/kdm
+lrwxrwxrwx  1 root root 19 Feb 27  2004 S99rmnologin -> ../init.d/rmnologin
+lrwxrwxrwx  1 root root 23 Mar  4  2004 S99stop-bootlogd -> ../init.d/stop-bootlogd
+</computeroutput><prompt>[pcm@sal]$ </prompt>
+</screen>
+    </sect1>
+    <sect1>
+      <title>Servicios de Internet</title>
+      <para>Internet se basa en protocolos que eran est&aacute;ndares en UNIX,
+      para los cuales UNIX  ya contaba con servicios que los
+      implementaban. Esto ha sido una de las
+      principales ventajas del mundo UNIX, de la que Linux ha aprovechado.</para>
+      <sect2>
+        <title><application>apache</application></title>
+	<para>Es el servidor para http con m&aacute;s presencia en
+	Internet. Para Linux es el servidor de http por
+	defecto.</para>
+<para>Su configuraci&oacute;n se realiza normalmente en el directorio
+	<filename>/etc/apache</filename> que contiene el fichero <filename>httpd.conf</filename>.</para>
+      </sect2><sect2>
+        <title>Correo</title>
+	<para>En cuanto a los servicios de correo, no se ha llegado a
+	imponer ninguno. Tenemos por ejemplo: exim, postfix, sendmail, etc.</para>
+      </sect2><sect2>
+        <title><application>ssh</application></title>
+	<para>Para el acceso remoto a Linux en modo consola se ha
+	impuesto el protocolo ssh, que es un telnet encriptado y
+	mejorado. Permite tambi&eacute;n el env&iacute;o de ficheros.</para>
+<para>La configuraci&oacute;n del servicio ssh se realiza en
+	<filename>/etc/ssh</filename> tanto en su modo como servidor,
+	como su configuraci&oacute;n por defecto en modo cliente.</para>
+      </sect2><sect2>
+        <title><application>xinetd</application></title>
+	<para>Es un servicio que nos permite tener disponibles una
+	serie de servicios tcp/udp. Como puede ser finger,
+	telnet, ftp, talk, etc.</para>
+<para>Sustituye <application>inetd</application> a&ntilde;adiendo mayor
+	seguridad y control de acceso.</para>
+<para>Su configuraci&oacute;n se realiza en el fichero
+	<filename>/etc/xinetd.conf</filename>, aunque soporta tener un
+	directorio con cada configuraci&oacute;n de los servicios en un
+	fichero.</para>
+<tip><para>Existe una herramienta para pasar la configuraci&oacute;n
+	del viejo <application>inetd</application> a
+	<application>xinetd</application>, llamada <command>itox</command>.</para></tip>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Servicios de Ficheros y Impresi&oacute;n</title>
+      <para></para>
+      <sect2>
+        <title><application>nfs</application></title>
+	<para>Es el sistema de ficheros de red por defecto. En el
+	servidor nos permite mostrar en red un directorio que como
+	cliente podemos montar en nuestro sistema de ficheros.</para>
+<para>En el lado servidor s&oacute;lo tenemos que a&ntilde;adir los directorios a
+	los cuales queremos dar acceso y unos par&aacute;metros de
+	configuraci&oacute;n en el fichero
+	<filename>/etc/exports</filename>.</para>
+<para>En el cliente, bien con la
+	aplicaci&oacute;n de montaje de sistemas de ficheros,
+	<filename>mount</filename>, o bien en el
+	fichero de sistemas de ficheros montandos
+	<filename>/etc/fstab</filename> podemos incorporar los
+	directorios exportados por el servidor en nuestra m&aacute;quina.</para>
+      </sect2><sect2>
+        <title><application>samba</application></title>
+	<para>El sistema de ficheros de red de Windows se ha impuesto
+	tambi&eacute;n para su uso como servicio de ficheros. Samba es un proyecto que nos proporciona las
+	herramientas para poder exportar nuestros sistema de ficheros
+	y servicios de red de Windows, y nos permite obtener y montar en nuestro
+	sistema los ficheros compartido. </para>
+      </sect2><sect2>
+        <title><application>cups</application></title>
+	<para>Los servicios de impresi&oacute;n en en las distintas versiones
+	de UNIX fueron los portados en Linux, pero su compleja configuraci&oacute;n y
+	realidad con las impresoras que existen actualmente, as&iacute; como
+	su dif&iacute;cil utilizaci&oacute;n en red, ha hecho que se est&eacute; imponiendo
+	un sistema m&aacute;s reciente y moderno, como es
+	<application>cups</application> (Common UNIX Printing
+	System).</para>
+<para><application>cups</application> es un servicio de impresi&oacute;n que
+	permite configuraci&oacute;n remota a trav&eacute;s de un servidor web. Utiliza el protocolo Internet
+	Printing Protocol (IPP) para imprimir, aunque soporta la impresi&oacute;n por los
+	comandos tradicionales de UNIX. Tambi&eacute;n dispone de filtros
+	autom&aacute;ticamente y configuraci&oacute;n de impresoras a trav&eacute;s de
+	Postscript Printer Descriptions (PPD).</para>
+<para>La configuraci&oacute;n de impresoras se realiza desde la web de
+	administraci&oacute;n de <application>cups</application>, pero existe
+	el directorio <filename>/etc/cups</filename> donde se
+ encuentra la configuraci&oacute;n del servicio en si.</para>
+<para>La pantalla de impresoras de cups tiene est&aacute; apariencia:</para>
+<informalfigure>
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="img/c8cups.png" format="PNG"/>
+        </imageobject>
+        <textobject>
+          <phrase>cups</phrase>
+        </textobject>
+      </mediaobject>
+    </screenshot>
+  </informalfigure>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Servicios de Base de Datos</title>
+      <para>Como es sabido las bases de datos en una de las
+      aplicaciones m&aacute;s importante de la inform&aacute;tica, y los sistemas de
+      gesti&oacute;n 
+      de bases de datos (SGBD) disponibles dentro de un sistema operativo es
+      un detalle a analizar, sobre todo si se quiere utilizar Linux como un sistema
+      servidor grande.</para>
+      <para>Posiblemente Linux se ha incorporado un poco tarde a los
+      servicios de base de datos, pero los resultados son admirables y se esta imponiendo en algunos &aacute;mbitos.</para>
+<para>Una SGDB importante como Oracle Database ha sido portada a
+      Linux, pero tenemos algunas m&aacute;s, y de c&oacute;digo abierto.</para>
+      <sect2>
+        <title><application>mySQL</application></title>
+         <para>En las &uacute;ltimas versiones dispone de un mot&oacute;n de
+         caracter&iacute;sticas de BD totalmente profesionales.</para>
+	<para>mySQL es muy utilizado en aplicaciones web, ya que se ha
+	primado mucho la velocidad de acceso al dato, y una menor
+	velocidad en la escritura. Esto es muy com&uacute;n en las
+	aplicaciones web.</para>
+         <para>Como desarrollo a parte existe un administrador web de mySQL
+         hecho en PHP muy popular, llamado <application>myphpadmin</application>.</para>
+      </sect2><sect2>
+        <title><application>PostgreSQL</application></title>
+	<para>A partir de un proyecto  de la Universidad de Berkeley
+         y debido a que se distribuy&oacute; con licencia BSD, se ha
+         continuado pese a que sus desarrolladores iniciales lo hab&iacute;a
+         ya abandonado. A lo largo del tiempo se ha creado una
+         SGDB que tiene muchas funcionalidades de las BD profesionales.</para>
+      </sect2>
+    </sect1>
+  </chapter>
+

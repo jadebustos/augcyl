@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<chapter>
+<title>Instalar OpenWrt en un ADM5120</title>
+<para>
+Aunque hay un firmware basado en OpenWrt antiguo listo para instalar en el ADM5120 y tambi&eacute;n podr&iacute;amos haber incluido uno reciente hecho por nosotros en el DVD, vamos a hacer todo el proceso y crear nuestro propio firmware con prop&oacute;sitos did&aacute;cticos. Podemos descargar una versi&oacute;n estable del c&oacute;digo fuente o directamente del SVN el c&oacute;digo m&aacute;s reciente. Optamos por lo primero:<programlisting>wget http://downloads.openwrt.org/backfire/10.03/backfire_10.03_source.tar.bz2</programlisting><programlisting>tar xjvf backfire_10.03_source.tar.bz2</programlisting><programlisting>cd backfire_10.03</programlisting>
+</para>
+<para>
+Instalamos una serie de paquetes para poder compilar y para finalmente grabar el nuevo firmware en la memoria flash:<programlisting>sudo apt-get install ncurses-dev gawk flex build-essential quilt</programlisting><programlisting>wget https://squidge.svn.sourceforge.net/svnroot/squidge/adm_upload</programlisting>
+
+</para>
+<para>
+Es el momento de configurar lo que queremos que se compile. En este primer momento no vamos a detenernos a pensar qu&eacute; aplicaciones queremos en nuestro flamante sistema, sino tan s&oacute;lo lo necesario para que el sistema arranque, el resto lo compilaremos luego como m&oacute;dulos, que se traduce en paquetes instalables. Es importante compilar todo lo que puede instalarse una vez que el sistema ha arrancado como m&oacute;dulo y no incluirlo directamente, porque todo lo que seleccionemos para incluir en el sistema y no vaya como m&oacute;dulo, no s&oacute;lo ir&aacute; luego en el disco USB sino tambi&eacute;n en la imagen de la memoria flash, que es importante no ocupe mucho porque hay poco espacio. En cambio opciones como el sistema de fichero ext3 o el soporte de USB no pueden ir como m&oacute;dulo, pues hasta que no arranque el kernel no podr&aacute; cargar los m&oacute;dulos y est&aacute;n en el disco USB, formateado con ext3.
+</para>
+<para>
+Empezamos ejecutando <emphasis>make menuconfig</emphasis>: A continuaci&oacute;n indicamos lo que hay que seleccionar o cambiar, todo lo dem&aacute;s se deja como est&aacute;:
+</para>
+<itemizedlist mark="opencircle"><listitem>
+<para>
+en Target System marcamos Infineon/ADMtek ADM5120 y en Target Profile seleccionar Edimax BR-6140KP
+</para>
+</listitem>
+<listitem>
+<para>
+en Target Images dejamos s&oacute;lo squashfs y tgz
+
+</para>
+</listitem>
+<listitem>
+<para>
+En base system cambiamos a m&oacute;dulos los componentes dnsmasq, dropbear, firewall, mtd. Esto quiere decir que en lugar de copiarse a la imagen, se crean paquetes que podr&aacute;n instalarse luego. Esto es importante con la imagen que se graba en la memoria flash, porque tiene poca capacidad. Hacemos lo mismo con iptables y ppp en network y admswconfig en utilities.
+</para>
+</listitem>
+<listitem>
+<para>
+Activamos los siguientes componentes que estaban sin seleccionar, pero siempre como m&oacute;dulos: en utilities, kexec-tools y ldd
+</para>
+</listitem>
+<listitem>
+<para>
+hacemos exit hasta salir de la consola. 
+</para>
+</listitem>
+
+</itemizedlist>
+<para>
+Todav&iacute;a no ejecutamos make. Ahora hay que configurar el kernel, ejecutando <emphasis>make kernel_menuconfig</emphasis> 
+</para>
+<itemizedlist mark="opencircle"><listitem>
+<para>
+empezamos por <emphasis>Netwoking support/networking options/Network packet filtering framework</emphasis>: aqu&iacute; todas las selecciones ser&aacute;n como m&oacute;dulo. En Core Netfilter Configuration seleccionar netfilter connection tracking support. En IP: Netfilter Configuration seleccionar IPv4 connection tracking support, IP tables support, Full NAT, MASQUERADE target support, REDIRECT target support
+</para>
+</listitem>
+<listitem>
+<para>
+entramos en device drivers.
+</para>
+
+<itemizedlist mark="opencircle"><listitem>
+<para>
+entramos en Memory Technology Device (MTD) support y desactivamos las tres opciones que comienzan por Automatically....
+</para>
+</listitem>
+<listitem>
+<para>
+pasamos a SCSI device support, cambiamos el propio soporte de SCSI de m&oacute;dulo a que forme parte del kernel y activamos tambi&eacute;n para compilar en el kernel SCSI disk support (los discos USB se reconocen como discos SCSI).
+</para>
+</listitem>
+<listitem>
+<para>
+seguimos por USB support, cambiamos support for Host-side USB para que se compile en el kernel en lugar de como m&oacute;dulo y lo mismo con adm5120 hcd support y USB mass storage support.
+</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
+<listitem>
+<para>
+ya podemos salir de devices drivers; es el turno de <emphasis>file systems</emphasis>. Tiene que ir integrado en el kernel <emphasis>ext3</emphasis> mientras que ir&aacute;n como m&oacute;dulos fuse, vfat y cifs (este &uacute;ltimo dentro de network filesystems).
+</para>
+</listitem>
+<listitem>
+<para>
+finalmente en kernel hacking, vamos hasta el final y sustituimos la l&iacute;nea que indica c&oacute;mo montar el sistema de ficheros por esta otra:
+</para>
+</listitem>
+</itemizedlist>
+<para>
+
+<programlisting>console=ttyS0,115200 root=/dev/sda1 init=/etc/preinit ro rootwait</programlisting>
+</para>
+<para>
+Tras esto, salimos, ignoramos los errores y ejecutamos make (con un procesador de doble n&uacute;cleo, mejor con la opci&oacute;n -j3)
+</para>
+<para>
+Al acabar todos estos pasos, tendremos todo en bin. El fichero con extensi&oacute;n .bin es el que tendremos que grabar en la memoria flash, el .tgz el contenido que habr&aacute; que volcar en la primera partici&oacute;n del disco USB, formateada con ext3. Finalmente en packages van los paquetes instalables una vez que el sistema arranque.
+</para>
+<para>
+Para grabar en la memoria flash, tenemos que descargar el programa adm_upload, darle permisos de ejecuci&oacute;n y hacer un peque&ntilde;o cambio para que funcione en Ubuntu.<programlisting>conectamos el cable serie de Omnima, sin encender todav&iacute;a el ADM5120. Observar la peque&ntilde;a muesca circular en la cabecera del cable: deber&aacute; ir sobre el pin marcado con el n&uacute;mero 1 en la placa.</programlisting>
+</para>
+<para>
+A continuaci&oacute;n ejecutamos:<programlisting>wget https://squidge.svn.sourceforge.net/svnroot/squidge/adm_upload</programlisting><programlisting>sed -e s/lsz -X/sx -X/ adm_upload  adm_upload.new</programlisting><programlisting>mv adm_upload.new adm_upload</programlisting><programlisting>chmod 755 adm_upload</programlisting><programlisting>./adm_upload -x -b -d /dev/ttyUSB0 bin/adm5120/openwrt-adm5120-br-6104kp-squashfs-xmodem.bin </programlisting>
+
+</para>
+<para>
+Es el momento de encender el ADM5120; el proceso de reflaseo se iniciar&aacute; autom&aacute;ticamente. Tarda un rato porque necesita transmitirse la imagen entera v&iacute;a puerto serie, pero desde el principio se ver&aacute; como va el progreso.
+</para>
+<para>
+Si todo ha salido bien, ya no volveremos a necesitar el cable serie ni tocar la memoria flash salvo que queramos cambiar el kernel. Tan s&oacute;lo habr&aacute; que encender con el disco duro conectado.
+</para>
+<para>
+Todas estas instrucciones son usando la &uacute;ltima versi&oacute;n de OpenWrt (backfire), hay un tutorial bastante interesante y detallado para la versi&oacute;n anterior (kamikaze) que en caso de duda nos puede servir de referencia:<programlisting>http://137.132.247.137/se-esd/workshop/</programlisting>
+</para>
+<para>
+Al ejecutar make menuconfig, nos habremos dado cuenta que apenas hab&iacute;a programas para elegir. El motivo es que hay muchos paquetes en OpenWrt que no son parte de la distribuci&oacute;n. En cualquier caso es muy sencillo a&ntilde;adirlos: hay que ir al subdirectorio scripts y ejecutar ./feeds. Un detalle importante es que estos paquetes se toman del SVN, por lo que en alg&uacute;n caso nos podemos encontrar con que incluso falla la compilaci&oacute;n por a&ntilde;adir uno de estos paquetes. En ese caso simplemente se deselecciona y vuelve a ejecutar make para que ahora compile sin el paquete.
+</para>
+
+<para>
+Estas son las opciones m&aacute;s interesantes:
+
+</para>
+<itemizedlist mark="opencircle"><listitem>
+<para>
+update: actualiza la lista de paquetes disponibles. Es el primer comando que hay que ejecutar
+</para>
+</listitem>
+<listitem>
+<para>
+list: muestra todos los paquetes disponibles
+</para>
+</listitem>
+<listitem>
+<para>
+search: permite buscar un paquete por cualquier palabra del nombre o de la descripci&oacute;n
+</para>
+</listitem>
+<listitem>
+
+<para>
+install: al especificar un nombre de paquete, hace que ese paquete aparezca en la lista de disponibles al ejecutar make menuconfig (instala tambi&eacute;n sus dependencias). Con la opci&oacute;n -a har&aacute; que aparezcan todos los paquetes disponibles
+</para>
+</listitem>
+</itemizedlist>
+<para>
+Tambi&eacute;n est&aacute; la opci&oacute;n de instalar los paquetes ya precompilados de la web de openwrt, en lugar de generarlos nosotros: http://downloads.openwrt.org/backfire/10.03/adm5120_mipsel/packages/. Existe una utilidad de uso parecido a apt-get llamda opkg para instalar los paquetes.
+</para>
+
+</chapter>
+

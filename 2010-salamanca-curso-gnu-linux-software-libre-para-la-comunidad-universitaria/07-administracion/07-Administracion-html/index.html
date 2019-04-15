@@ -1,0 +1,1832 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>GNU/Linux, software libre para la comunidad universitaria</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="NEXT"
+TITLE="Introducción"
+HREF="c28.html"></HEAD
+><BODY
+CLASS="book"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="BOOK"
+><A
+NAME="AEN1"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+><A
+NAME="AEN2"
+>GNU/Linux, software libre para la comunidad universitaria</A
+></H1
+><H2
+CLASS="subtitle"
+>Administración avanzada del sistema</H2
+><H3
+CLASS="author"
+><A
+NAME="AEN6"
+></A
+>Pablo Cabezas Mateos</H3
+><H3
+CLASS="author"
+><A
+NAME="AEN9"
+></A
+>José Ángel de Bustos Pérez</H3
+><DIV
+CLASS="legalnotice"
+><P
+></P
+><A
+NAME="AEN12"
+></A
+><P
+>&#13;      Copyright (C) 2007 Pablo Cabezas Mateos <CODE
+CLASS="email"
+>&#60;<A
+HREF="mailto:pcm@augcyl.org"
+>pcm@augcyl.org</A
+>&#62;</CODE
+>,
+      José Ángel de Bustos Pérez
+      <CODE
+CLASS="email"
+>&#60;<A
+HREF="mailto:jadebustos@augcyl.org"
+>jadebustos@augcyl.org</A
+>&#62;</CODE
+>.
+    </P
+><P
+>&#13;      Permission is granted to copy, distribute and/or modify this document
+      under the terms of the GNU Free Documentation License, Version 1.2 or
+      any later version published by the Free Software Foundation; with no
+      Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A
+      copy of the license is included in the section entitled "GNU Free
+      Documentation License".
+    </P
+><P
+></P
+></DIV
+><HR></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Tabla de contenidos</B
+></DT
+><DT
+>1. <A
+HREF="c28.html"
+>Introducción</A
+></DT
+><DD
+><DL
+><DT
+>1.1. <A
+HREF="c28.html#AEN33"
+>Objetivo</A
+></DT
+></DL
+></DD
+><DT
+>2. <A
+HREF="c39.html"
+>Gestión de Procesos</A
+></DT
+><DD
+><DL
+><DT
+>2.1. <A
+HREF="c39.html#AEN43"
+>Estados de procesos</A
+></DT
+><DD
+><DL
+><DT
+>2.1.1. <A
+HREF="c39.html#AEN46"
+>RUN</A
+></DT
+><DT
+>2.1.2. <A
+HREF="c39.html#AEN49"
+>READY</A
+></DT
+><DT
+>2.1.3. <A
+HREF="c39.html#AEN52"
+>WAIT</A
+></DT
+><DT
+>2.1.4. <A
+HREF="c39.html#AEN55"
+>STOPPED</A
+></DT
+><DT
+>2.1.5. <A
+HREF="c39.html#AEN58"
+>ZOMBIE</A
+></DT
+></DL
+></DD
+><DT
+>2.2. <A
+HREF="x61.html"
+>Atributos de los procesos</A
+></DT
+><DD
+><DL
+><DT
+>2.2.1. <A
+HREF="x61.html#AEN64"
+>Identificación de proceso (PID)</A
+></DT
+><DT
+>2.2.2. <A
+HREF="x61.html#AEN67"
+>Identificación del proceso padre (PPID)</A
+></DT
+><DT
+>2.2.3. <A
+HREF="x61.html#AEN71"
+>Usuario (UID)</A
+></DT
+><DT
+>2.2.4. <A
+HREF="x61.html#AEN74"
+>Grupo (GID)</A
+></DT
+><DT
+>2.2.5. <A
+HREF="x61.html#AEN77"
+>Prioridad</A
+></DT
+></DL
+></DD
+><DT
+>2.3. <A
+HREF="x81.html"
+>Comandos de gestión de procesos</A
+></DT
+><DD
+><DL
+><DT
+>2.3.1. <A
+HREF="x81.html#AEN84"
+>Ejecución en background y comandos
+      <B
+CLASS="command"
+>jobs</B
+>, <B
+CLASS="command"
+>fg</B
+>
+      y  <B
+CLASS="command"
+>bg</B
+></A
+></DT
+><DT
+>2.3.2. <A
+HREF="x81.html#AEN120"
+>Comando <B
+CLASS="command"
+>ps</B
+></A
+></DT
+><DT
+>2.3.3. <A
+HREF="x81.html#AEN133"
+>Comando <B
+CLASS="command"
+>top</B
+> y <B
+CLASS="command"
+>htop</B
+></A
+></DT
+><DT
+>2.3.4. <A
+HREF="x81.html#AEN151"
+>Comando <B
+CLASS="command"
+>pstree</B
+></A
+></DT
+><DT
+>2.3.5. <A
+HREF="x81.html#AEN155"
+>Comando <B
+CLASS="command"
+>nice</B
+> y <B
+CLASS="command"
+>renice</B
+></A
+></DT
+><DT
+>2.3.6. <A
+HREF="x81.html#AEN160"
+>Comando <B
+CLASS="command"
+>kill</B
+></A
+></DT
+><DT
+>2.3.7. <A
+HREF="x81.html#AEN186"
+>Comando <B
+CLASS="command"
+>killall</B
+> y <B
+CLASS="command"
+>pkill</B
+></A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>3. <A
+HREF="c201.html"
+>Gestión de Memoria</A
+></DT
+><DD
+><DL
+><DT
+>3.1. <A
+HREF="c201.html#AEN204"
+>Memoria física</A
+></DT
+><DT
+>3.2. <A
+HREF="x210.html"
+>Memoria virtual</A
+></DT
+><DD
+><DL
+><DT
+>3.2.1. <A
+HREF="x210.html#AEN215"
+>Creación de Swap</A
+></DT
+><DT
+>3.2.2. <A
+HREF="x210.html#AEN231"
+>Usando el Swap</A
+></DT
+></DL
+></DD
+><DT
+>3.3. <A
+HREF="x240.html"
+>Cache y Buffers</A
+></DT
+><DT
+>3.4. <A
+HREF="x245.html"
+>Herramientas</A
+></DT
+><DD
+><DL
+><DT
+>3.4.1. <A
+HREF="x245.html#AEN249"
+>Comando <B
+CLASS="command"
+>free</B
+></A
+></DT
+><DT
+>3.4.2. <A
+HREF="x245.html#AEN266"
+>Comando <B
+CLASS="command"
+>vmstat</B
+></A
+></DT
+><DT
+>3.4.3. <A
+HREF="x245.html#AEN299"
+>Comando <B
+CLASS="command"
+>sar</B
+></A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>4. <A
+HREF="c304.html"
+>Sistemas de Ficheros</A
+></DT
+><DD
+><DL
+><DT
+>4.1. <A
+HREF="c304.html#AEN308"
+>Organización de directorios</A
+></DT
+><DT
+>4.2. <A
+HREF="x318.html"
+>Ficheros estándar</A
+></DT
+><DD
+><DL
+><DT
+>4.2.1. <A
+HREF="x318.html#AEN331"
+>La entrada estándar</A
+></DT
+><DT
+>4.2.2. <A
+HREF="x318.html#AEN336"
+>La salida estándar</A
+></DT
+><DT
+>4.2.3. <A
+HREF="x318.html#AEN341"
+>La salida estándar de errores</A
+></DT
+></DL
+></DD
+><DT
+>4.3. <A
+HREF="x346.html"
+>Redirecciones</A
+></DT
+><DD
+><DL
+><DT
+>4.3.1. <A
+HREF="x346.html#AEN364"
+>Redirección de la salida estándar</A
+></DT
+><DT
+>4.3.2. <A
+HREF="x346.html#AEN380"
+>Redirección de la entrada estándar</A
+></DT
+><DT
+>4.3.3. <A
+HREF="x346.html#AEN385"
+>Redirección de la salida estándar de errores</A
+></DT
+><DT
+>4.3.4. <A
+HREF="x346.html#AEN399"
+>El operador <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>&#38;n</I
+></SPAN
+></A
+></DT
+></DL
+></DD
+><DT
+>4.4. <A
+HREF="x422.html"
+>Conceptos</A
+></DT
+><DD
+><DL
+><DT
+>4.4.1. <A
+HREF="x422.html#AEN424"
+>i-nodos</A
+></DT
+><DT
+>4.4.2. <A
+HREF="x422.html#AEN434"
+>El <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Virtual File System</I
+></SPAN
+> o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>VFS</I
+></SPAN
+></A
+></DT
+><DT
+>4.4.3. <A
+HREF="x422.html#AEN447"
+>El <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Buffer Cache</I
+></SPAN
+></A
+></DT
+><DT
+>4.4.4. <A
+HREF="x422.html#AEN461"
+>Sistemas de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>transaccionales</I
+></SPAN
+> o de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>journaling</I
+></SPAN
+></A
+></DT
+><DT
+>4.4.5. <A
+HREF="x422.html#AEN504"
+>Sistemas de ficheros de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>acceso concurrente</I
+></SPAN
+></A
+></DT
+></DL
+></DD
+><DT
+>4.5. <A
+HREF="x547.html"
+>Sistemas de ficheros</A
+></DT
+><DT
+>4.6. <A
+HREF="x587.html"
+>Particiones</A
+></DT
+><DD
+><DL
+><DT
+>4.6.1. <A
+HREF="x587.html#AEN610"
+>Particiones primarias</A
+></DT
+><DT
+>4.6.2. <A
+HREF="x587.html#AEN616"
+>Particiones extendidas</A
+></DT
+><DT
+>4.6.3. <A
+HREF="x587.html#AEN620"
+>Particiones lógicas</A
+></DT
+></DL
+></DD
+><DT
+>4.7. <A
+HREF="x625.html"
+>Tipos de dispositivos físicos</A
+></DT
+><DD
+><DL
+><DT
+>4.7.1. <A
+HREF="x625.html#AEN629"
+>Dispositivos IDE</A
+></DT
+><DT
+>4.7.2. <A
+HREF="x625.html#AEN653"
+>Dispositivos SCSI</A
+></DT
+><DT
+>4.7.3. <A
+HREF="x625.html#AEN689"
+>Disqueteras</A
+></DT
+><DT
+>4.7.4. <A
+HREF="x625.html#AEN697"
+>Unidades de cinta</A
+></DT
+></DL
+></DD
+><DT
+>4.8. <A
+HREF="x707.html"
+>Acceso a sistemas de ficheros</A
+></DT
+><DD
+><DL
+><DT
+>4.8.1. <A
+HREF="x707.html#AEN717"
+>El comando <B
+CLASS="command"
+>mount</B
+></A
+></DT
+><DT
+>4.8.2. <A
+HREF="x707.html#AEN812"
+>El comando <B
+CLASS="command"
+>umount</B
+></A
+></DT
+><DT
+>4.8.3. <A
+HREF="x707.html#AEN849"
+>El fichero de configuración <TT
+CLASS="filename"
+>/etc/fstab</TT
+></A
+></DT
+><DT
+>4.8.4. <A
+HREF="x707.html#AEN888"
+>El fichero <TT
+CLASS="filename"
+>/proc/partitions</TT
+></A
+></DT
+><DT
+>4.8.5. <A
+HREF="x707.html#AEN897"
+>El fichero <TT
+CLASS="filename"
+>/proc/filesystems</TT
+></A
+></DT
+><DT
+>4.8.6. <A
+HREF="x707.html#AEN906"
+>El fichero <TT
+CLASS="filename"
+>/etc/mtab</TT
+></A
+></DT
+></DL
+></DD
+><DT
+>4.9. <A
+HREF="x915.html"
+>Creación de sistemas de ficheros</A
+></DT
+><DD
+><DL
+><DT
+>4.9.1. <A
+HREF="x915.html#AEN920"
+>Los sistemas de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext2/ext3</I
+></SPAN
+></A
+></DT
+><DT
+>4.9.2. <A
+HREF="x915.html#AEN1056"
+>El sistema de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ReiserFS</I
+></SPAN
+></A
+></DT
+><DT
+>4.9.3. <A
+HREF="x915.html#AEN1078"
+>El sistema de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>JFS</I
+></SPAN
+></A
+></DT
+><DT
+>4.9.4. <A
+HREF="x915.html#AEN1099"
+>El sistema de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>XFS</I
+></SPAN
+></A
+></DT
+></DL
+></DD
+><DT
+>4.10. <A
+HREF="x1132.html"
+>Obtención de información sobre los sistemas de ficheros</A
+></DT
+><DD
+><DL
+><DT
+>4.10.1. <A
+HREF="x1132.html#AEN1134"
+>El comando <B
+CLASS="command"
+>du</B
+></A
+></DT
+><DT
+>4.10.2. <A
+HREF="x1132.html#AEN1149"
+>El comando <B
+CLASS="command"
+>df</B
+></A
+></DT
+></DL
+></DD
+><DT
+>4.11. <A
+HREF="x1174.html"
+>Cuotas en <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext2/ext3</I
+></SPAN
+></A
+></DT
+><DD
+><DL
+><DT
+>4.11.1. <A
+HREF="x1174.html#AEN1191"
+>¿En qué sistemas de ficheros podemos establecer cuotas de usuario?</A
+></DT
+><DT
+>4.11.2. <A
+HREF="x1174.html#AEN1196"
+>Cuotas <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>hard</I
+></SPAN
+></A
+></DT
+><DT
+>4.11.3. <A
+HREF="x1174.html#AEN1208"
+>Cuotas <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>soft</I
+></SPAN
+></A
+></DT
+><DT
+>4.11.4. <A
+HREF="x1174.html#AEN1219"
+>El periodo de gracia</A
+></DT
+><DT
+>4.11.5. <A
+HREF="x1174.html#AEN1226"
+>Pasos previos a la activación de las cuotas</A
+></DT
+><DT
+>4.11.6. <A
+HREF="x1174.html#AEN1282"
+>Estableciendo cuotas</A
+></DT
+><DT
+>4.11.7. <A
+HREF="x1174.html#AEN1322"
+>Estableciendo el periodo de gracia</A
+></DT
+><DT
+>4.11.8. <A
+HREF="x1174.html#AEN1333"
+>Iniciando y parando el sistema de cuotas</A
+></DT
+><DT
+>4.11.9. <A
+HREF="x1174.html#AEN1366"
+>Chequeando el sistema de cuotas</A
+></DT
+><DT
+>4.11.10. <A
+HREF="x1174.html#AEN1395"
+>Reporting de cuotas</A
+></DT
+></DL
+></DD
+><DT
+>4.12. <A
+HREF="x1418.html"
+>Atributos en sistemas de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext2/ext3</I
+></SPAN
+></A
+></DT
+><DD
+><DL
+><DT
+>4.12.1. <A
+HREF="x1418.html#AEN1426"
+>El comando <B
+CLASS="command"
+>chattr</B
+></A
+></DT
+><DT
+>4.12.2. <A
+HREF="x1418.html#AEN1452"
+>El comando <B
+CLASS="command"
+>lsattr</B
+></A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>5. <A
+HREF="c1465.html"
+>Gestión de sistemas de ficheros mediante <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>LVM</I
+></SPAN
+></A
+></DT
+><DD
+><DL
+><DT
+>5.1. <A
+HREF="c1465.html#AEN1480"
+>Volumenes físicos (physical volumes)</A
+></DT
+><DD
+><DL
+><DT
+>5.1.1. <A
+HREF="c1465.html#AEN1492"
+>Información y detección de volumenes físicos</A
+></DT
+><DT
+>5.1.2. <A
+HREF="c1465.html#AEN1526"
+>Eliminación de volumenes físicos</A
+></DT
+></DL
+></DD
+><DT
+>5.2. <A
+HREF="x1535.html"
+>Grupos de volumen (volume groups)</A
+></DT
+><DD
+><DL
+><DT
+>5.2.1. <A
+HREF="x1535.html#AEN1550"
+>Información y detección de grupos de volumen</A
+></DT
+><DT
+>5.2.2. <A
+HREF="x1535.html#AEN1581"
+>Ampliación de un grupo de volumen</A
+></DT
+><DT
+>5.2.3. <A
+HREF="x1535.html#AEN1590"
+>Reducción de un grupo de volumen</A
+></DT
+><DT
+>5.2.4. <A
+HREF="x1535.html#AEN1598"
+>Activación y desactivación de grupos de volumen</A
+></DT
+><DT
+>5.2.5. <A
+HREF="x1535.html#AEN1605"
+>Importación y exportación de grupos de volumen</A
+></DT
+><DT
+>5.2.6. <A
+HREF="x1535.html#AEN1625"
+>Eliminación de un grupo de volumen</A
+></DT
+></DL
+></DD
+><DT
+>5.3. <A
+HREF="x1633.html"
+>Particiones lógicas (logical volumes)</A
+></DT
+><DD
+><DL
+><DT
+>5.3.1. <A
+HREF="x1633.html#AEN1647"
+>Información y detección de particiones lógicas</A
+></DT
+><DT
+>5.3.2. <A
+HREF="x1633.html#AEN1670"
+>Ampliación de una partición lógica</A
+></DT
+><DT
+>5.3.3. <A
+HREF="x1633.html#AEN1692"
+>Reducción de tamaño para particiones lógicas</A
+></DT
+><DT
+>5.3.4. <A
+HREF="x1633.html#AEN1731"
+>Activación y desactivación de particiones lógicas</A
+></DT
+><DT
+>5.3.5. <A
+HREF="x1633.html#AEN1744"
+>Eliminación de una partición lógica</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>6. <A
+HREF="c1754.html"
+>Introducción al uso de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SAN</I
+></SPAN
+> en GNU/Linux</A
+></DT
+><DD
+><DL
+><DT
+>6.1. <A
+HREF="c1754.html#AEN1763"
+>Breve introducción a una <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SAN</I
+></SPAN
+></A
+></DT
+><DT
+>6.2. <A
+HREF="x1802.html"
+>Escaneado de discos</A
+></DT
+><DT
+>6.3. <A
+HREF="x1905.html"
+>Dispositivos virtuales</A
+></DT
+><DT
+>6.4. <A
+HREF="x1924.html"
+>Multipathing utilizando <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>LVM</I
+></SPAN
+></A
+></DT
+><DD
+><DL
+><DT
+>6.4.1. <A
+HREF="x1924.html#AEN1935"
+>Localizando los dispositivos físicos</A
+></DT
+><DT
+>6.4.2. <A
+HREF="x1924.html#AEN1947"
+>Configurando el multipath</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>7. <A
+HREF="c1985.html"
+>Núcleo de Linux</A
+></DT
+><DD
+><DL
+><DT
+>7.1. <A
+HREF="c1985.html#AEN2008"
+>Historia</A
+></DT
+><DT
+>7.2. <A
+HREF="x2025.html"
+>Configurando un nuevo núcleo</A
+></DT
+><DD
+><DL
+><DT
+>7.2.1. <A
+HREF="x2025.html#AEN2030"
+>Obtener los fuentes del núcleo</A
+></DT
+><DT
+>7.2.2. <A
+HREF="x2025.html#AEN2035"
+>Configuración</A
+></DT
+><DT
+>7.2.3. <A
+HREF="x2025.html#AEN2115"
+>Compilando el núcleo</A
+></DT
+><DT
+>7.2.4. <A
+HREF="x2025.html#AEN2133"
+>Módulos de núcleo</A
+></DT
+><DT
+>7.2.5. <A
+HREF="x2025.html#AEN2146"
+>Instalando el núcleo</A
+></DT
+><DT
+>7.2.6. <A
+HREF="x2025.html#AEN2151"
+>Gestor de Arranque para el núcleo</A
+></DT
+></DL
+></DD
+><DT
+>7.3. <A
+HREF="x2170.html"
+>Configuración de parámetros del núcleo</A
+></DT
+><DD
+><DL
+><DT
+>7.3.1. <A
+HREF="x2170.html#AEN2183"
+>Modificación de los parámetros</A
+></DT
+><DT
+>7.3.2. <A
+HREF="x2170.html#AEN2210"
+>Parámetros configurables</A
+></DT
+><DT
+>7.3.3. <A
+HREF="x2170.html#AEN2218"
+>Algunos parámetros útiles</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>8. <A
+HREF="c2312.html"
+>Usuarios y permisos en GNU/Linux</A
+></DT
+><DD
+><DL
+><DT
+>8.1. <A
+HREF="c2312.html#AEN2316"
+>El <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>superusuario</I
+></SPAN
+> o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>root</I
+></SPAN
+></A
+></DT
+><DT
+>8.2. <A
+HREF="x2332.html"
+>Grupos de usuarios</A
+></DT
+><DD
+><DL
+><DT
+>8.2.1. <A
+HREF="x2332.html#AEN2345"
+>El fichero <TT
+CLASS="filename"
+>/etc/group</TT
+></A
+></DT
+><DT
+>8.2.2. <A
+HREF="x2332.html#AEN2381"
+>Añdiendo grupos al sistema</A
+></DT
+><DT
+>8.2.3. <A
+HREF="x2332.html#AEN2398"
+>Modificando grupos del sistema</A
+></DT
+><DT
+>8.2.4. <A
+HREF="x2332.html#AEN2407"
+>Borrando grupos del sistema</A
+></DT
+></DL
+></DD
+><DT
+>8.3. <A
+HREF="x2416.html"
+>Gestión de usuarios</A
+></DT
+><DD
+><DL
+><DT
+>8.3.1. <A
+HREF="x2416.html#AEN2418"
+>Zona de disco reservada a cada usuario</A
+></DT
+><DT
+>8.3.2. <A
+HREF="x2416.html#AEN2431"
+>El fichero <TT
+CLASS="filename"
+>/etc/passwd</TT
+></A
+></DT
+><DT
+>8.3.3. <A
+HREF="x2416.html#AEN2465"
+>Añadiendo usuarios al sistema</A
+></DT
+><DT
+>8.3.4. <A
+HREF="x2416.html#AEN2525"
+>Eliminando usuarios del sistema</A
+></DT
+><DT
+>8.3.5. <A
+HREF="x2416.html#AEN2543"
+>Modificando una cuenta existente en el sistema</A
+></DT
+><DT
+>8.3.6. <A
+HREF="x2416.html#AEN2548"
+>El comando <B
+CLASS="command"
+>id</B
+></A
+></DT
+></DL
+></DD
+><DT
+>8.4. <A
+HREF="x2557.html"
+>Permisos en GNU/Linux</A
+></DT
+><DD
+><DL
+><DT
+>8.4.1. <A
+HREF="x2557.html#AEN2604"
+>Tipos de permisos</A
+></DT
+><DT
+>8.4.2. <A
+HREF="x2557.html#AEN2643"
+>Cambio de permisos</A
+></DT
+><DT
+>8.4.3. <A
+HREF="x2557.html#AEN2711"
+>Permisos por defecto</A
+></DT
+></DL
+></DD
+><DT
+>8.5. <A
+HREF="x2757.html"
+>El comando <B
+CLASS="command"
+>su</B
+></A
+></DT
+><DT
+>8.6. <A
+HREF="x2797.html"
+>El permiso <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SUID</I
+></SPAN
+></A
+></DT
+><DD
+><DL
+><DT
+>8.6.1. <A
+HREF="x2797.html#AEN2822"
+>Activación del permiso <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SUID</I
+></SPAN
+></A
+></DT
+><DT
+>8.6.2. <A
+HREF="x2797.html#AEN2838"
+>El permiso <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SUID</I
+></SPAN
+> y los directorios</A
+></DT
+></DL
+></DD
+><DT
+>8.7. <A
+HREF="x2842.html"
+>El permiso <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SGID</I
+></SPAN
+></A
+></DT
+><DD
+><DL
+><DT
+>8.7.1. <A
+HREF="x2842.html#AEN2865"
+>Activación del permiso <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SGID</I
+></SPAN
+></A
+></DT
+><DT
+>8.7.2. <A
+HREF="x2842.html#AEN2881"
+>El permiso <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SGID</I
+></SPAN
+> y los directorios</A
+></DT
+></DL
+></DD
+><DT
+>8.8. <A
+HREF="x2887.html"
+>El <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Sticky Bit</I
+></SPAN
+></A
+></DT
+><DD
+><DL
+><DT
+>8.8.1. <A
+HREF="x2887.html#AEN2906"
+>Activación del <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Sticky Bit</I
+></SPAN
+></A
+></DT
+><DT
+>8.8.2. <A
+HREF="x2887.html#AEN2920"
+>El <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Sticky Bit</I
+></SPAN
+> y los directorios</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>9. <A
+HREF="c2928.html"
+>Auditoria y Logs</A
+></DT
+><DD
+><DL
+><DT
+>9.1. <A
+HREF="c2928.html#AEN2931"
+>Usuarios presentes en el sistema</A
+></DT
+><DD
+><DL
+><DT
+>9.1.1. <A
+HREF="c2928.html#AEN2934"
+>El comando <B
+CLASS="command"
+>who</B
+></A
+></DT
+><DT
+>9.1.2. <A
+HREF="c2928.html#AEN2969"
+>El comando <B
+CLASS="command"
+>w</B
+></A
+></DT
+><DT
+>9.1.3. <A
+HREF="c2928.html#AEN3006"
+>El comando <B
+CLASS="command"
+>users</B
+></A
+></DT
+><DT
+>9.1.4. <A
+HREF="c2928.html#AEN3015"
+>El fichero <TT
+CLASS="filename"
+>/var/run/utmp</TT
+></A
+></DT
+></DL
+></DD
+><DT
+>9.2. <A
+HREF="x3024.html"
+>Usuarios que estuvieron en el sistema</A
+></DT
+><DD
+><DL
+><DT
+>9.2.1. <A
+HREF="x3024.html#AEN3026"
+>El fichero <TT
+CLASS="filename"
+>/var/log/wtmp</TT
+></A
+></DT
+><DT
+>9.2.2. <A
+HREF="x3024.html#AEN3038"
+>El commando <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>last</I
+></SPAN
+></A
+></DT
+><DT
+>9.2.3. <A
+HREF="x3024.html#AEN3062"
+>El fichero <TT
+CLASS="filename"
+>/var/log/btmp</TT
+></A
+></DT
+><DT
+>9.2.4. <A
+HREF="x3024.html#AEN3067"
+>El comando <B
+CLASS="command"
+>lastb</B
+></A
+></DT
+><DT
+>9.2.5. <A
+HREF="x3024.html#AEN3072"
+>El fichero <TT
+CLASS="filename"
+>/var/log/lastlog</TT
+></A
+></DT
+><DT
+>9.2.6. <A
+HREF="x3024.html#AEN3077"
+>El comando <B
+CLASS="command"
+>lastlog</B
+></A
+></DT
+></DL
+></DD
+><DT
+>9.3. <A
+HREF="x3081.html"
+>Permisos <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SUID</I
+></SPAN
+> y <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SGID</I
+></SPAN
+></A
+></DT
+><DD
+><DL
+><DT
+>9.3.1. <A
+HREF="x3081.html#AEN3087"
+>Peligros con estos permisos</A
+></DT
+><DT
+>9.3.2. <A
+HREF="x3081.html#AEN3114"
+>Evitando la ejecución de ficheros con esos permisos</A
+></DT
+><DT
+>9.3.3. <A
+HREF="x3081.html#AEN3124"
+>Localizando estos ficheros</A
+></DT
+></DL
+></DD
+><DT
+>9.4. <A
+HREF="x3142.html"
+>El demonio <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>syslogd</I
+></SPAN
+></A
+></DT
+><DD
+><DL
+><DT
+>9.4.1. <A
+HREF="x3142.html#AEN3146"
+>Las facilidades de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>syslogd</I
+></SPAN
+></A
+></DT
+><DT
+>9.4.2. <A
+HREF="x3142.html#AEN3193"
+>Los tipos de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>syslogd</I
+></SPAN
+></A
+></DT
+><DT
+>9.4.3. <A
+HREF="x3142.html#AEN3231"
+>El fichero <TT
+CLASS="filename"
+>/etc/syslog.conf</TT
+></A
+></DT
+></DL
+></DD
+><DT
+>9.5. <A
+HREF="x3260.html"
+>Rotado de logs</A
+></DT
+><DD
+><DL
+><DT
+>9.5.1. <A
+HREF="x3260.html#AEN3268"
+>El fichero <TT
+CLASS="filename"
+>/etc/logrotate.conf</TT
+></A
+></DT
+><DT
+>9.5.2. <A
+HREF="x3260.html#AEN3281"
+>Ejecución de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>logrotate</I
+></SPAN
+></A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>10. <A
+HREF="c3288.html"
+>Servicios</A
+></DT
+><DD
+><DL
+><DT
+>10.1. <A
+HREF="c3288.html#AEN3293"
+>Generalidades</A
+></DT
+><DT
+>10.2. <A
+HREF="x3370.html"
+>Servicios de Internet</A
+></DT
+><DD
+><DL
+><DT
+>10.2.1. <A
+HREF="x3370.html#AEN3373"
+><SPAN
+CLASS="application"
+>apache</SPAN
+></A
+></DT
+><DT
+>10.2.2. <A
+HREF="x3370.html#AEN3380"
+>Correo</A
+></DT
+><DT
+>10.2.3. <A
+HREF="x3370.html#AEN3383"
+><SPAN
+CLASS="application"
+>ssh</SPAN
+></A
+></DT
+><DT
+>10.2.4. <A
+HREF="x3370.html#AEN3389"
+><SPAN
+CLASS="application"
+>xinetd</SPAN
+></A
+></DT
+></DL
+></DD
+><DT
+>10.3. <A
+HREF="x3402.html"
+>Servicios de Ficheros y Impresión</A
+></DT
+><DD
+><DL
+><DT
+>10.3.1. <A
+HREF="x3402.html#AEN3405"
+><SPAN
+CLASS="application"
+>nfs</SPAN
+></A
+></DT
+><DT
+>10.3.2. <A
+HREF="x3402.html#AEN3414"
+><SPAN
+CLASS="application"
+>samba</SPAN
+></A
+></DT
+><DT
+>10.3.3. <A
+HREF="x3402.html#AEN3418"
+><SPAN
+CLASS="application"
+>cups</SPAN
+></A
+></DT
+></DL
+></DD
+><DT
+>10.4. <A
+HREF="x3436.html"
+>Servicios de Base de Datos</A
+></DT
+><DD
+><DL
+><DT
+>10.4.1. <A
+HREF="x3436.html#AEN3441"
+><SPAN
+CLASS="application"
+>mySQL</SPAN
+></A
+></DT
+><DT
+>10.4.2. <A
+HREF="x3436.html#AEN3448"
+><SPAN
+CLASS="application"
+>PostgreSQL</SPAN
+></A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>11. <A
+HREF="c3452.html"
+>Interprete de Comandos</A
+></DT
+><DD
+><DL
+><DT
+>11.1. <A
+HREF="c3452.html#AEN3465"
+>Shell Scripting</A
+></DT
+><DD
+><DL
+><DT
+>11.1.1. <A
+HREF="c3452.html#AEN3469"
+>Algunas shells</A
+></DT
+><DT
+>11.1.2. <A
+HREF="c3452.html#AEN3484"
+>Creando shell scripts</A
+></DT
+><DT
+>11.1.3. <A
+HREF="c3452.html#AEN3542"
+>Ejemplo de un shell script</A
+></DT
+></DL
+></DD
+><DT
+>11.2. <A
+HREF="x3592.html"
+>Planificación de Tareas</A
+></DT
+><DD
+><DL
+><DT
+>11.2.1. <A
+HREF="x3592.html#AEN3595"
+><SPAN
+CLASS="application"
+>at</SPAN
+></A
+></DT
+><DT
+>11.2.2. <A
+HREF="x3592.html#AEN3640"
+><SPAN
+CLASS="application"
+>cron</SPAN
+></A
+></DT
+><DT
+>11.2.3. <A
+HREF="x3592.html#AEN3692"
+><SPAN
+CLASS="application"
+>anacron</SPAN
+></A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>12. <A
+HREF="c3700.html"
+>Interfaces de Administración</A
+></DT
+><DD
+><DL
+><DT
+>12.1. <A
+HREF="c3700.html#AEN3708"
+><SPAN
+CLASS="application"
+>webmin</SPAN
+></A
+></DT
+><DD
+><DL
+><DT
+>12.1.1. <A
+HREF="c3700.html#AEN3714"
+>Instalación</A
+></DT
+><DT
+>12.1.2. <A
+HREF="c3700.html#AEN3779"
+>Administración con <SPAN
+CLASS="application"
+>webmin</SPAN
+></A
+></DT
+><DT
+>12.1.3. <A
+HREF="c3700.html#AEN3859"
+>Nuevos módulos</A
+></DT
+></DL
+></DD
+><DT
+>12.2. <A
+HREF="x3866.html"
+><SPAN
+CLASS="application"
+>linuxconf</SPAN
+></A
+></DT
+><DD
+><DL
+><DT
+>12.2.1. <A
+HREF="x3866.html#AEN3884"
+>Administración con <SPAN
+CLASS="application"
+>linuxconf</SPAN
+></A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>13. <A
+HREF="c3961.html"
+>Gestión de paquetes</A
+></DT
+><DD
+><DL
+><DT
+>13.1. <A
+HREF="c3961.html#AEN3968"
+>rpm</A
+></DT
+><DT
+>13.2. <A
+HREF="x3984.html"
+>deb</A
+></DT
+><DT
+>13.3. <A
+HREF="x4002.html"
+>Otros sistemas</A
+></DT
+></DL
+></DD
+><DT
+>A. <A
+HREF="a4014.html"
+>GNU Free Documentation License</A
+></DT
+></DL
+></DIV
+><DIV
+CLASS="LOT"
+><DL
+CLASS="LOT"
+><DT
+><B
+>Lista de tablas</B
+></DT
+><DT
+>8-1. <A
+HREF="x2557.html#AEN2681"
+>Permisos en octal</A
+></DT
+><DT
+>8-2. <A
+HREF="x2557.html#AEN2724"
+>Máscara en octal</A
+></DT
+><DT
+>10-1. <A
+HREF="c3288.html#AEN3325"
+>Tabla de modos</A
+></DT
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c28.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Introducción</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

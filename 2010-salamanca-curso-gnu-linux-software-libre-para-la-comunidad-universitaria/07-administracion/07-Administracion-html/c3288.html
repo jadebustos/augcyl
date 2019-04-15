@@ -1,0 +1,465 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Servicios</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Rotado de logs"
+HREF="x3260.html"><LINK
+REL="NEXT"
+TITLE="Servicios de Internet"
+HREF="x3370.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x3260.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x3370.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN3288"
+></A
+>Capítulo 10. Servicios</H1
+><P
+>Denominamos servicios en Linux a las aplicaciones, o
+    conjunto de ellas, que están
+    arrancadas esperando a ser utilizadas,
+    o llevando a cabo tareas esenciales en "background".</P
+><P
+>Al ser Linux un sistema orientado a redes una parte importante son
+    servicios de red, que utilizan el protocolo tcp/ip. Por ser
+    tema a parte la administración de redes sólo describiremos los
+    servicios sin entrar en al administración.</P
+><P
+></P
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN3293"
+>10.1. Generalidades</A
+></H1
+><P
+>Una vez que instalamos un servicio en Linux, normalmente
+      debe ser configurado. Los servicios se deben configurar
+      normalmente con sus parámetros de arranque, y también suele
+      crear un fichero o un directorio en el directorio
+      <TT
+CLASS="filename"
+>/etc</TT
+>.</P
+><P
+>Como el servicio será arrancado en el inicio de sistema, se
+      suele crear un script de inicio en el directorio
+      <TT
+CLASS="filename"
+>/etc/init.d</TT
+>. Es un shell script arrancable
+      que recibe un parámetro que puede ser: start, stop,
+      restart y status. Algunos servicios pueden tener otros parámetros, si lo
+      ejecutamos sin parámetros nos mostrará los posibles.</P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;Con <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>start</I
+></SPAN
+> arrancamos el servicio. Este parámetro es obligatorio en
+cualquier script de arranque. Dependiendo el servicio que sea
+configurará algunas características el servicio y ejecutará un proceso
+que quedará como demonio (proceso en background con unas
+características especiales).
+</P
+></LI
+><LI
+><P
+>&#13;<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Stop</I
+></SPAN
+> nos permite parar el servicio. Si existe un proceso en background
+del servicio, este será retenido. Es muy habitual que el servicio
+cuando arranca deje un PID en un fichero, que permitirá al script
+localizar y matar el proceso.
+</P
+></LI
+><LI
+><P
+>&#13;<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Restart</I
+></SPAN
+> realiza una parada y luego arranca el sistema de nuevo.
+</P
+></LI
+><LI
+><P
+>&#13;<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Status</I
+></SPAN
+> nos indica si el servicio esta arrancado.
+</P
+></LI
+></UL
+><P
+>Para arrancar por ejemplo el servicio de base de datos mysql, tendríamos:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[sal]# </SAMP
+><KBD
+CLASS="userinput"
+>cd /etc/init.d</KBD
+>
+<SAMP
+CLASS="prompt"
+>[sal]# </SAMP
+><KBD
+CLASS="userinput"
+>./mysql</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>Usage: /etc/init.d/mysql start|stop|restart|reload|force-reload
+</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[sal]# </SAMP
+><KBD
+CLASS="userinput"
+>./mysql start</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>Starting MySQL database server: mysqld.
+Checking for crashed MySQL tables in the background.
+</SAMP
+><SAMP
+CLASS="prompt"
+>[sal]# </SAMP
+>
+</PRE
+><P
+>Siempre que queramos podemos ir al directorio donde se encuentra
+el script de arranque y ejecutarlo con el parámetro que nos
+interese. Pero si queremos que el servicio se arranque cuando se
+inicia el sistema y se pare cuando se apague o reinicie, los script
+tiene que estar en un directorio preparado para ello. Lo que se hace
+es enlazar (link) desde el directorio con el servicio en
+<TT
+CLASS="filename"
+>init.d</TT
+>. Según el directorio donde lo pongamos se
+arrancará en un determinado modo de arranque o se parará:</P
+><DIV
+CLASS="table"
+><A
+NAME="AEN3325"
+></A
+><P
+><B
+>Tabla 10-1. Tabla de modos</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+ALIGN="center"
+>Modo</TH
+><TH
+ALIGN="center"
+>Directorio</TH
+><TH
+ALIGN="center"
+>Descripción</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+ALIGN="center"
+>1</TD
+><TD
+ALIGN="center"
+>/etc/rc1.d</TD
+><TD
+ALIGN="center"
+>Servicios que se arrancan cuando el sistema se arranca en modo
+            de Usuario Único. No se permite conectar nada más que al
+            root desde consola.</TD
+></TR
+><TR
+><TD
+ALIGN="center"
+>2</TD
+><TD
+ALIGN="center"
+>/etc/rc2.d</TD
+><TD
+ALIGN="center"
+>Servicios que se arrancan en modo multiusuario, pero sin
+            algunos servicios de red.</TD
+></TR
+><TR
+><TD
+ALIGN="center"
+>3</TD
+><TD
+ALIGN="center"
+>/etc/rc3.d</TD
+><TD
+ALIGN="center"
+>Servicios que se arrancan en modo multiusuario, con los
+            servicios de red
+            arrancados, pero en modo consola, sin las X.</TD
+></TR
+><TR
+><TD
+ALIGN="center"
+>4</TD
+><TD
+ALIGN="center"
+>/etc/rc4.d</TD
+><TD
+ALIGN="center"
+>No se suele utilizar.</TD
+></TR
+><TR
+><TD
+ALIGN="center"
+>5</TD
+><TD
+ALIGN="center"
+>/etc/rc5.d</TD
+><TD
+ALIGN="center"
+>Servicios que se arrancan en modo multiusuario, con los
+            servicios de red y X.</TD
+></TR
+><TR
+><TD
+ALIGN="center"
+>6</TD
+><TD
+ALIGN="center"
+>/etc/rc6.d</TD
+><TD
+ALIGN="center"
+>Servicios que se ejecutan en parada o reinicio.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>Los modos de arranque de 2 al 4 son configurables por el
+administrador realmente, lo descrito anterior es la
+recomendación, pero la configuración por defecto de las distribuciones
+es diferente en cada una de ellas. </P
+><P
+>El arranque de los servicios y
+modo, así como alguna configuración de arranque más lo realiza el
+proceso init que tiene el fichero de configuración <TT
+CLASS="filename"
+>/etc/inittab</TT
+>.</P
+><P
+>Los nombres los links en estos directorios es distinto a como
+están denominados en <TT
+CLASS="filename"
+>/etc/init.d</TT
+>, tiene una
+nomenclatura. La primera letra en una S cuando se llamará al servicio
+con el parámetro start, y una K cuando se llame con el parámetro
+stop. A continuación lleva el número en el que se quiere ejecutar el
+servicio y luego el nombre. Vemos un ejemplo:</P
+><PRE
+CLASS="screen"
+><SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>cd /etc/rc2.d</KBD
+>
+<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>ls -l</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>lrwxrwxrwx  1 root root 18 Feb 27  2004 S10sysklogd -&#62; ../init.d/sysklogd
+lrwxrwxrwx  1 root root 15 Feb 27  2004 S11klogd -&#62; ../init.d/klogd
+lrwxrwxrwx  1 root root 13 Feb 27  2004 S14ppp -&#62; ../init.d/ppp
+lrwxrwxrwx  1 root root 17 Apr 30  2004 S18portmap -&#62; ../init.d/portmap
+lrwxrwxrwx  1 root root 14 Feb 27  2004 S20apmd -&#62; ../init.d/apmd
+lrwxrwxrwx  1 root root 26 Apr 24  2005 S20clamav-freshclam -&#62; ../init.d/clamav-freshclam
+lrwxrwxrwx  1 root root 16 Feb 27  2004 S20cupsys -&#62; ../init.d/cupsys
+lrwxrwxrwx  1 root root 17 Apr 24  2005 S20dirmngr -&#62; ../init.d/dirmngr
+lrwxrwxrwx  1 root root 14 Feb 27  2004 S20exim -&#62; ../init.d/exim
+lrwxrwxrwx  1 root root 13 Mar  4  2004 S20fam -&#62; ../init.d/fam
+lrwxrwxrwx  1 root root 17 Mar  4  2004 S20hddtemp -&#62; ../init.d/hddtemp
+lrwxrwxrwx  1 root root 15 Feb 27  2004 S20inetd -&#62; ../init.d/inetd
+lrwxrwxrwx  1 root root 19 Feb 27  2004 S20linuxconf -&#62; ../init.d/linuxconf
+lrwxrwxrwx  1 root root 14 Mar  5  2004 S20lisa -&#62; ../init.d/lisa
+lrwxrwxrwx  1 root root 13 Feb 27  2004 S20lpd -&#62; ../init.d/lpd
+lrwxrwxrwx  1 root root 17 Feb 27  2004 S20makedev -&#62; ../init.d/makedev
+lrwxrwxrwx  1 root root 15 Apr 24  2005 S20mysql -&#62; ../init.d/mysql
+lrwxrwxrwx  1 root root 27 Feb 27  2004 S20nfs-kernel-server -&#62; ../init.d/nfs-kernel-server
+lrwxrwxrwx  1 root root 15 Feb 27  2004 S20samba -&#62; ../init.d/samba
+lrwxrwxrwx  1 root root 13 Feb 27  2004 S20ssh -&#62; ../init.d/ssh
+lrwxrwxrwx  1 root root 18 Apr 30  2004 S20timidity -&#62; ../init.d/timidity
+lrwxrwxrwx  1 root root 16 Feb 18 14:06 S20webmin -&#62; ../init.d/webmin
+lrwxrwxrwx  1 root root 23 Feb  3  2006 S20wpasupplicant -&#62; ../init.d/wpasupplicant
+lrwxrwxrwx  1 root root 20 Mar  4  2004 S21nfs-common -&#62; ../init.d/nfs-common
+lrwxrwxrwx  1 root root 18 Oct 24  2004 S21quotarpc -&#62; ../init.d/quotarpc
+lrwxrwxrwx  1 root root 17 Feb 29  2004 S21sensord -&#62; ../init.d/sensord
+lrwxrwxrwx  1 root root 15 Apr 24  2005 S50pcscd -&#62; ../init.d/pcscd
+lrwxrwxrwx  1 root root 24 Aug 24  2005 S85vpnclient_init -&#62; ../init.d/vpnclient_init
+lrwxrwxrwx  1 root root 13 Feb 27  2004 S89atd -&#62; ../init.d/atd
+lrwxrwxrwx  1 root root 14 Feb 27  2004 S89cron -&#62; ../init.d/cron
+lrwxrwxrwx  1 root root 16 Feb 27  2004 S91apache -&#62; ../init.d/apache
+lrwxrwxrwx  1 root root 15 Mar  4  2004 S98local -&#62; ../init.d/local
+lrwxrwxrwx  1 root root 13 Feb 27  2004 S99kdm -&#62; ../init.d/kdm
+lrwxrwxrwx  1 root root 19 Feb 27  2004 S99rmnologin -&#62; ../init.d/rmnologin
+lrwxrwxrwx  1 root root 23 Mar  4  2004 S99stop-bootlogd -&#62; ../init.d/stop-bootlogd
+</SAMP
+><SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+>
+</PRE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x3260.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x3370.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Rotado de logs</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Servicios de Internet</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

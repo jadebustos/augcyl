@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<chapter>
+<title>Introducci&oacute;n</title>
+<para>
+GNU/Linux tiene fama de ser un sistema operativo minoritario fuera del campo de los servidores y de nichos de mercado como la industria del cine: los m&aacute;s agoreros pronostican que nunca podr&aacute; ser un sistema operativo para el gran p&uacute;blico como Windows. Se equivocan. En realidad, mucha gente est&aacute; usando Linux sin saberlo y de hecho puede tener m&aacute;s de un GNU/Linux en su casa funcionando.
+</para>
+<para>
+El motivo es que GNU/Linux es muy usado en sistemas empotrados (la traducci&oacute;n habitual, junto embebidos, del t&eacute;rmino embedded en ingl&eacute;s), es decir, en hardware que no son ordenadores personales sino dispositivos con un uso espec&iacute;fico, por ejemplo un GPS o un reproductor de v&iacute;deo. 
+</para>
+<para>
+
+As&iacute;, si una persona tiene un navegador de TomTom, un televisor Sony Bravia, el lector de libros electr&oacute;nicos de Amazon, cualquiera de los muchos tel&eacute;fonos Android, un PalmPre o un Nokia N900 tiene un Linux en su vida. Varios modelos de routers ADSL (como el Comtremd CT536+) as&iacute; mismo llevan GNU/Linux y lo mismo es aplicable a la mayor&iacute;a de los reproductores multimedia de MKV, a no pocos modestos reproductores de Divx, los decos de Imagenio o a muchos NAS. Linux no s&oacute;lo se usa en smartphones sino en tel&eacute;fonos m&oacute;viles convencionales: s&oacute;lo con mobilinux se han vendido 35 millones de dispositivos m&oacute;viles como tel&eacute;fonos, equipos m&eacute;dicos, GPS y POS m&oacute;viles (http://mvista.com/product_detail_mob.php)
+</para>
+<para>
+El mercado de empotrados tiene un gran potencial. Desde que en 1990 se fundara ARM se han comercializado m&aacute;s de 15.000 millones de chips bajo licencia ARM y no hay que olvidar que hay otros vendedores como MIPS. Como referencia la poblaci&oacute;n mundial se cifra en unos 6.800 millones de personas.
+</para>
+<para>
+GNU/Linux se incluye tanto en dispositivos de uso muy espec&iacute;fico que valen muchos miles de euros (como simuladores de combate) como en soluciones para construir Set-top-boxes. Llama la atenci&oacute;n que ya hace 5 a&ntilde;os (desde luego Linux no es un reci&eacute;n llegado en el sector) se pod&iacute;a encontrar un SoC (System on chip) que por 11$ integraba el procesador, controladores USB, smartcard, salida televisi&oacute;n, decodificaci&oacute;n MPEG2... Por supuesto no vamos a encontrar hardware por 11$ d&oacute;nde ejecutar GNU/Linux: al SoC hay que a&ntilde;adir m&aacute;s componentes electr&oacute;nicos, conectores, memoria RAM y flash, alimentador, adem&aacute;s de ser precios aplicados a grandes vol&uacute;menes de compras. Pero por 28 EUR s&iacute; que vamos a encontrar un dispositivo con 32MB de RAM, dos conectores USB y puerto de red.
+</para>
+<para>
+Hay dos tipos de personas que tienen inter&eacute;s pr&aacute;ctico en aprender sobre sistemas empotrados y GNU/Linux: por un lado est&aacute;n aquellos que se plantean crear un nuevo producto. Por otro est&aacute;n aquellas personas que les interesa la posibilidad de cacharrear con hardware popular y tratar de sacarlo el m&aacute;ximo partido. A estas segundas personas va orientado este texto, con el deseo de que la persona inquieta que hoy empieza cacharreando se anime quiz&aacute;s en el futuro a dar el salto a innovador y convertir un hobby en un trabajo.
+</para>
+<para>
+En el terreno pr&aacute;ctico, nos vamos a centrar en hardware concreto con la caracter&iacute;stica de ser barato y consumir muy poco, que sea una alternativa a tener el ordenador siempre encendido. La primera aplicaci&oacute;n que viene a la cabeza es cliente de bittorrent, pero realmente hay muchas m&aacute;s posibilidades. Comentaremos tambi&eacute;n si esto sigue teniendo sentido hoy en d&iacute;a con los procesadores Atom, que son bastante baratos y de bajo consumo.
+</para>
+
+</chapter>
+

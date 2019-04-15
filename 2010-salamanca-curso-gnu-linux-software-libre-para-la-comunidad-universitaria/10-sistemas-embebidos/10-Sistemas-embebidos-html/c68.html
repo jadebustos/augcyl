@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Cambiar el software del dispositivo</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Atom sí, Atom no, Atom depende"
+HREF="c50.html"><LINK
+REL="NEXT"
+TITLE="Cómo de complicado es cambiar el firmware"
+HREF="x79.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Sistemas embebidos</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c50.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x79.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN68"
+></A
+>Capítulo 5. Cambiar el software del dispositivo</H1
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="AEN70"
+>5.1. El kit de la cuestión</A
+></H1
+><P
+>&#13;En los sistemas empotrados el firmware (software) normalmente está grabado en una memoria flash. A la hora de tratar de aprovechar las características de un dispositivo más allá de lo que permitía su firmware original, caben dos posibilidades: seguir usando el sistema original, pero ampliado con nuevas aplicaciones o reemplazar totalmente el firmware que venía en la memoria flash por otro. Lo primero, que tiene como ejemplo el popular optware, puede ser menos peligroso y permite conservar la funcionalidad del firmware original. Es muy útil cuando el firmware original es bueno y cuenta con una interfaz web cómoda u ofrece funcionalidades de las que no se dispone el código fuente por lo que se perderían al reemplazar el firmware, por ejemplo la parte de ADSL en muchos routers. Sin embargo esta opción también suele ser más limitada al obligar a usar el mismo software que usaron los creadores originales del firmware: esto se traduce en la práctica en que hay menos programas disponibles que si se remplaza el firmware por otro software más flexible. Es más, en algunos sistemas esto obliga a usar un kernel 2.4 y versiones muy viejas de las librerías.
+</P
+><P
+>&#13;A la hora de sobreescribir el firmware con otro sistema Linux, en ocasiones se puede elegir entre varias opciones: desde instalar una versión de Debian para ese procesador, que normalmente es la solución que más programas (paquetes) ofrece pero también la menos optimizada, a usar un sistema como OpenWRT http://www.openwrt.org con versiones más reducidas del software y de la librería libc, pero que tiene la ventaja de necesitar menos memoria RAM y menos espacio en la memoria Flash. Una alternativa a OpenWRT también orientada a consumir el mínimo de recursos es buildroot, algo más orientado a desarrolladores que quieren construir un sistema totalmente personalizado más que una distribución: openWRT nació como un firmware para un router y cuenta con interfaz web, un sistema de configuración y paquetes instalables, mientras que en Buildroot no hay nada de eso y aunque utilice el término paquetes son más bien módulos pues no es algo que instale el usuario sino partes que se añaden o no al sistema de ficheros.
+</P
+><P
+>&#13;Los sistemas más interesantes son los que permiten conectar un disco USB, ya sea para poder montar un sistema de ficheros /opt donde estarán las nuevas aplicaciones o para poder montar el sistema de ficheros directamente de un disco USB en lugar de usar la memoria flash. La memoria flash suele estar muy limitada en capacidad y además permite muchas menos escrituras antes de empezar a fallar, lo que hace que sea inviable usarlas para hacer swapping y tener memoria virtual (muy útil porque estos dispositivos suelen venir también muy cortos de RAM) e incluso pueden llegar a ser un problema con algunos programas como clientes de bittorrent que escriben mucho en el disco para mantener estadísticas actualizadas. Además cualquier operación inadecuada en el disco USB se sabe que se no va a impedir que el dispositivo arranque o al menos va a poder arreglarse desde otro ordenador, mientras que una mala modificación en el firmware instalado en la memoria flash es más delicado. Además en una memoria flash no se puede escribir directamente ficheros como en un disco, salvo que haya una capa de software (en los pendrives de hardware) que se encarga de traducir de un dispositivo de bloques a las peculiaridades de las memorias flash (por la limitación en el número de escrituras, en una memoria flash no se puede indicar que se quiere escribir en el bloque x, sino que hay una lista de bloques libres; para modificar un fragmento de un fichero, el bloque que lo contenía se marca como borrado y se encola para su uso futuro, tomándose el primer bloque libre de la lista para escribir el nuevo contenido; de este modo el número de escrituras se reparte homogéneamente entre todos los bloques de la memoria flash y no hay bloques que se queman en seguida por alojar contenidos que cambian con frecuencia). Hay sistemas que en la memoria flash aloja simplemente un sistema de ficheros de sólo lectura.
+</P
+><P
+>&#13;La inmensa mayoría de los dispositivos, aunque permitan usar un disco USB lamentablemente lo que no permiten es arrancar de él al estilo de los PCs. Esto es una pena, porque eso permitiría arrancar un firmware más potente sin necesidad de tocar el existente, con lo que todo sería más fácil, sin posibilidad de romper nada y elegir entre usar el firmware original y el modificado sería tan simple como conectar o no el disco USB. En realidad cualquier dispositivo podría arrancar (de forma limitada) de USB sin necesidad de hardware especial, simplemente utilizando como cargador uboot con una extensión especial para reconocer discos USB y dentro de ellos las particiones Linux y poder ejecutar así un kernel presente en el disco. No es una solución igual de buena que un arranque USB de verdad (por ejemplo no funcionaría si se ha corrompido el contenido de la memoria flash y afecta al cargador) pero es mucho mejor que no tener nada.
+</P
+><P
+>&#13;Si no se puede arrancar directamente de USB, hay un par de alternativas que en la práctica funcionan muy bien, pero que implican modificar el firmware. La idea es o bien cambiar los parámetros del kernel para que trate de montar como sistema raíz uno situado en un dispositivo USB en lugar de en la memoria flash, que es la opción más rápida, o bien que el software que se ejecuta al arrancar el Linux presente en la memoria flash lo primero que haga sea montar el disco USB externo y pasar a utilizarlo como sistema de ficheros raíz (hacer pivotroot), que aunque sea menos directo permitiría decidir si montar el disco USB o ejecutar el software de la memoria flash u otras opciones como montar un sistema de ficheros en red. Por ejemplo puede decidirse entre un arranque u otro en función de que el usuario pulse un botón, el resultado de una consulta de red o simplemente que esté o no conectado el disco USB.
+
+</P
+><P
+>&#13;Ambas alternativas implican modificar el firmware para poder montar el sistema por USB, pero a partir de ese momento ya no hará falta volver a tocar el contenido de la memoria flash. La única excepción es para modificar el kernel, dado que se lee de la memoria flash y es él quien monta el disco USB. En algunos sistemas es posible utilizar una característica interesante del kernel de Linux llamada kexec. Consiste en que una vez que ha arrancado el sistema, es posible cargar un kernel en memoria y ejecutarlo reemplazando al actual (equivalente a volver a arrancar, pero ahora con el nuevo kernel y de forma muy rápida). Esta opción es muy valiosa, porque permitiría modificar tan sólo una vez el disco flash para grabar un kernel con kexec y un pequeño sistema que se encargue de buscar el kernel que quiere ejecutar el usuario de un disco USB o una localización de red y a partir de ahí ya no haría falta tocar más la memoria flash, ni para actualizar el software del sistema de ficheros ni para cambiar el kernel. Esta opción es atractiva sobre todo porque modificar la memoria flash es delicado (es cuando hay riesgo de que luego el sistema no arranque) y en algunos dispositivos implica hacer algo especial, como abrirlos y usar un cable serie. Un vendedor que quiera proporcionar un sistema tan fácilmente modificable como uno que permita arrancar de USB, simplemente tendría que comercializarlo con el firmware así modificado.
+</P
+><P
+>&#13;Hablando de dispositivos USB, una tentación es usar un pendrive en lugar de un disco USB: consumen menos, son más silenciosos y si nos vale uno de poca capacidad son baratos. Para muchos casos está bien, pero para escrituras intensivas o si hay necesidad de usarlos para swap, ya se han comentado que limitaciones tienen en número de reescrituras. Curiosamente hay una alternativa a los pendrives, basada en usar unos productos que se han quedado anticuados con el abaratamiento de las memorias flash pero que se pueden obtener baratos en EBay. Se trata de los microdrives, que con el tamaño y conectores de una tarjeta compact-flash (como las que suelen llevar las reflex) en lugar de tener en su interior memoria flash tienen un diminuto disco duro. Suena increíble, pero en las wikipedia se pueden ver fotos de cómo son por dentro y efectivamente son discos duros. Los microdrives se usaban en su día como alternativa a las caras memorias flash y en su momento lo han usado dispositivos como los primeros iPod. La ventaja para nosotros es que los microdrives al ser discos duros no tienen problema con el número de reescrituras y se pueden usar también para swap. Consumen más que un pendrive normal (por este mayor consumo muchos lectores que admiten tarjetas compact-flash no son capaces de leer microdrives, por lo que lo mejor es comprar directamente un microdrive con USB, que parecen pendrives un poco bastos) pero obviamente menos que un disco duro convencional.
+</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c50.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x79.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Atom sí, Atom no, Atom depende</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Cómo de complicado es cambiar el firmware</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

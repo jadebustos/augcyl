@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<chapter>
+<title>No todo es de color rosa</title>
+<para>
+A la hora de lanzarse ilusionado a personalizar un dispositivo basado en Linux, la primera decepci&oacute;n es que aunque siempre habr&aacute; m&aacute;s oportunidades que con un sistema cerrado, los dispositivos con Linux pueden ser tambi&eacute;n terriblemente cerrados y ser complicado o imposible modificarlos. ¿C&oacute;mo es esto posible? ¿no es GNU/Linux software libre?
+</para>
+<para>
+Lamentablemente el tema de los firmwares depende mucho del vendedor. El kernel y el sistema base puede ser libre, pero no el software que realiza la tarea propia del dispositivo. Por ejemplo en un reproductor de DVD, podemos no s&oacute;lo no tener el c&oacute;digo del reproductor, sino del sistema gr&aacute;fico que nos permite mostrar algo en pantalla, ni tener ninguna forma de recoger los eventos del mando a distancia. Es m&aacute;s, hay sistemas en los que el vendedor no permite actualizar el firmware, porque s&oacute;lo se puede por web y una utilidad comprueba que el firmware est&eacute; firmado. Lamentablemente la GPLv2 no puede hacer contra esto, mientras que la GPLv3 s&iacute;, pero no es la licencia utilizada en el kernel ni en muchas otras partes que se usan en los sistemas embebidos.
+</para>
+<para>
+La pr&aacute;ctica de no permitir firmwares mejorados tristemente tiene su raz&oacute;n de ser para muchos fabricantes, que temen que las nuevas caracter&iacute;sticas que hacen m&aacute;s atractivo un modelo nuevo o de gama m&aacute;s alta puedan simplemente incorporarse a los modelos m&aacute;s viejos o baratos mediante una actualizaci&oacute;n de firmware. Por ejemplo los televisores con decodificador TDT-HD f&aacute;cilmente podr&iacute;an reproducir pel&iacute;culas MKV con audio MP3 o AC3, porque los codecs ya los necesitan para la TDT y adem&aacute;s la mayor&iacute;a incluyen un puerto USB de servicio. Sin embargo esta posibilidad s&oacute;lo la ofrecen algunos modelos (y como muestra de que simplemente tienen que aprovechar los codecs necesarios para la TDT es que no suelen reproducir el audio DTS precisamente porque el codec tendr&iacute;an que licenciarlo y sin embargo no lo necesitan para la TDT-HD). En algunos televisores LG esta caracter&iacute;stica pod&iacute;a activarse entrando en el modo de servicio y LG desactiv&oacute; esta posibilidad al actualizar el firmware.
+</para>
+<para>
+La GPLv3 es una buena forma de promover los derechos de los usuarios frente a los fabricantes: que puedan usar como quieran el hardware que han pagado, utilizando el software libre creado por otras personas para que se pueda usar sin restricciones por cualquiera. Esto es una garant&iacute;a para el usuario tanto en dispositivos embebidos como en los smartphones en los que el fabricante es el &uacute;nico que puede aprobar qu&eacute; aplicaciones se instalan en el tel&eacute;fono. Es tambi&eacute;n una oportunidad de negocio: la GPL no hace f&aacute;cil pretender que la versi&oacute;n de Linux sea libre y en cambio la de Windows de pago y que no se pueda copiar. Pero he aqu&iacute; que fabricantes como Apple o Microsoft propician que s&iacute; sea posible cobrar por cada copia que se instale en un iPhone sin dejar de ser libre y cumpliendo escrupulosamente la GPLv3. El truco est&aacute; en que mientras que la GPLv3 da los mismos derechos de usa y copia a los usuarios de Windows que a los de Linux, no permite distribuir el software a trav&eacute;s de una plataforma que restringe que los usuarios no puedan instalarse lo que quieran. De este modo el autor del c&oacute;digo al tener el copyrigth puede publicar bajo una licencia dual, una gratis para los usuarios del mundo libre y otra de pago para los usuarios que libremente eligen ser cautivos y pagar por lo que otros tienen gratis.
+
+</para>
+<para>
+Otra fuente de frustraciones es la tendencia de los fabricantes de cambiar el hardware sin cambiar el nombre del modelo. Ni que decir tiene la mayor&iacute;a de las veces este cambio es para ahorrar con un alternativa hardware m&aacute;s barata o incluso con pr&aacute;cticas como reducir la memoria RAM o flash.
+</para>
+
+</chapter>

@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Omnima Embedded Controller/Edimax router BR6104KP (Infineon ADM5120)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Qué hardware podemos usar"
+HREF="c87.html"><LINK
+REL="PREVIOUS"
+TITLE="BifferBoard (RDC 321x)"
+HREF="x130.html"><LINK
+REL="NEXT"
+TITLE="Otras opciones"
+HREF="x149.html"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Sistemas embebidos</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x130.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 6. Qué hardware podemos usar</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x149.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="AEN137"
+>6.5. Omnima Embedded Controller/Edimax router BR6104KP (Infineon ADM5120)</A
+></H1
+><P
+>&#13;Se trata de un router con 4 bocas de red y dos puertos USB, originalmente concebido para compartir una impresora de red, pero que puede usarse también para conectar un disco USB. Este router lo ha comercializado la marca Edimax, pero hoy en día la mejor forma de hacerse con uno, con todas las facilidades para instalar Linux es acudir a una web inglesa de electrónica: http://www.omnima.co.uk/ (eso sí, los gastos de envío no son nada baratos).
+</P
+><P
+>&#13;El procesador es un MIPS32 a 175Mhz. Ver http://www.linux-mips.org/wiki/Adm5120.
+</P
+><P
+>&#13;Omnima lo vende con la opción de que venga ya modificado el firmware para montar un sistema de ficheros vía USB y el pendrive con el software ya instalado. También comercializa el cable serie necesario, el mismo que hace falta para los otros modelos pero ya con el conector adecuado para este dispositivo.<PRE
+CLASS="programlisting"
+></PRE
+>
+
+</P
+><P
+>&#13;Los sistemas basados en el SoC ADM5120 tienen dos importantes limitaciones respecto a las otras alternativas: tiene tan sólo 16 MB de RAM y el USB es 1.0. Además el controlador USB es bastante atípico y problemático, da problemas por ejemplo si se conecta a la vez un dispositivo USB 1.1 y uno USB 2.0, no permite dispositivos de audio.. La limitación de velocidad de USB no será problemática con bittorrent, pues la línea será más lenta (sobre todo en subida y se supone que se debería subir tanto como descargar) es significativa cuando se quiere transferir un fichero a otro ordenador mientras prosigue una descarga o para reproducir vía red un fichero de alta definición o un DVD (en cambio no da problemas para reproducir un fichero DivX tradicional a la vez que se descargan otros).
+</P
+><P
+>&#13;Entre lo positivo, sus posibilidades como router, con sus 5 bocas cada una de las cuales funciona como una interfaz de red independiente con su propia MAC. Es posible hacer también agrupar como switch las bocas entre sí independientemente y el switch está implementado por hardware. Puede ser una opción interesante para personas con conexión a Internet monopuesto (que sólo pueden conectar un equipo) y no quieren añadir más cacharros, al unificar el dispositivo las tareas de router, descargas y posibilidad de encender los otros equipos mediante wake-on-lan. 
+</P
+><P
+>&#13;Otra de las características por la que se compra este dispositivo pese a sus limitaciones es por los 13 leds, perfectamente controlables por software, al igual que el botón de reset. Los aficionados a la electrónica desoldan los leds y los usan como GPIO (generic I/O), dado que se puede escribir y leer.
+</P
+><P
+>&#13;El alimentador es de 12V (como el conector de mechero de los coches) y el transformador que vende Omnima es de 6W, suficiente para alimentar el dispositivo (que consume unos 4W) pero no tanto si se conecta un disco duro USB de 2.5: para ese caso se recomienda hacerse en EBay con un alimentador de 12W. Hay tiendas en Alemania que venden alimentadores solventes: cuidado con los de DealXtreeme, que ni siquiera tienen el sello CE. Una alternativa es utilizar un cable USB en Y y utilizar el extremo que es sólo para recibir corriente en un hub USB .<PRE
+CLASS="programlisting"
+></PRE
+>
+</P
+><P
+>&#13;Para la parte práctica nos vamos a centrar en este dispositivo, aunque la mayoría de lo comentado será aplicable a cualquier otro dispositivo que soporte OpenWRT.
+</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x130.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x149.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>BifferBoard (RDC 321x)</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c87.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Otras opciones</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

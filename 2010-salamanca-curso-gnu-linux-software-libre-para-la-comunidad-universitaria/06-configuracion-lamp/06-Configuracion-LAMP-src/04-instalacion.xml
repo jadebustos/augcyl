@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chapter>
+<title>Pasos de la Instalaci&oacute;n de un Entorno LAMP</title>
+<section>
+<title>Instalaci&oacute;n y configuraci&oacute;n o acceso a un Servidor DNS.
+</title>
+<para>
+Debido a que la instalaci&oacute;n y configuraci&oacute;n espec&iacute;ficas dependen del sistema operativo y la versi&oacute;n escojida, se van a enumerar 
+los pasos necesarios para su configuraci&oacute;n, que son los siguientes:
+</para>
+<itemizedlist>
+<listitem>
+<para>
+Alta de un dominio. Ejemplo: midominio.com
+</para>
+</listitem>
+<listitem>
+<para>
+Alta de las m&aacute;quinas que pertenecen al dominio. Ejemplo: servidor.midominio.com. en este paso se relaciona la direcci&oacute;n IP de la m&aacute;quina con el nombre dentro del dominio.
+</para>
+</listitem>
+<listitem>
+<para>
+Alta de los Alias necesarios: www, ftp, correo, etc. Se relacionan los nombre reales de las m&aacute;quinas con un alias o apodo de la m&aacute;quina.
+</para>
+</listitem>
+<listitem>
+<para>
+Esperar de 24 a 48h a que se replique la informaci&oacute;n entre los Servidores DNS de todo el mundo.
+</para>
+</listitem>
+<listitem>
+<para>
+Realizar una consulta de DNS para ver si ha funcionado correctamente la operaci&oacute;n para cada una de las m&aacute;quinas y alias creados.
+</para>
+</listitem>
+</itemizedlist>
+</section>
+<section>
+<title>Instalaci&oacute;n y configuraci&oacute;n de Apache.
+</title>
+<para>
+Debido a que la instalaci&oacute;n y configuraci&oacute;n espec&iacute;ficas dependen del sistema operativo y la versi&oacute;n escojida, se van a enumerar los pasos necesarios para su configuraci&oacute;n, que son los siguientes:
+</para>
+<itemizedlist>
+<listitem>
+<para>
+Configuraci&oacute;n de los par&aacute;metros b&aacute;sicos: Directorio principal de directorio, reglas de acceso por defecto, numero de hijos, memoria ram, n&uacute;mero m&aacute;ximo de peticiones, etc...
+</para>
+</listitem>
+<listitem>
+<para>
+Alta y Configuraci&oacute;n de los m&oacute;dulos b&aacute;sicos necesarios: redirecci&oacute;n, proxy, configuraci&oacute;n, etc...
+</para>
+</listitem>
+
+<listitem>
+<para>
+Prueba de funcionamiento del servidor web con un fichero HTML de ejemplo.
+</para>
+</listitem>
+<listitem>
+<para>
+Instalaci&oacute;n y Configuraci&oacute;n del m&oacute;dulo de PHP: inclusi&oacute;n del m&oacute;dulo, asociaci&oacute;n del tipo de fichero al m&oacute;dulo, configuraci&oacute;n de tama&ntilde;o m&aacute;ximo de upload, memoria por hilo php, acceso a datos, etc...
+</para>
+</listitem>
+<listitem>
+<para>
+Alta de un sitio web virtual que permita manejar el sitio principal del dominio. Ejemplo: www.midominio.com relacionado con el directorio /var/www/midominio.com/
+</para>
+</listitem>
+<listitem>
+<para>
+Configuraci&oacute;n de las reglas especiales para el sitio principal del dominio: control de acceso, etc.
+</para>
+</listitem>
+<listitem>
+<para>
+Prueba de funcionamiento de PHP con un fichero de ejemplo.
+</para>
+</listitem>
+</itemizedlist>
+</section>
+<section>
+<title>Instalaci&oacute;n y configuraci&oacute;n de un Sistema de Gesti&oacute;n de Bases de Datos: Mysql.
+</title>
+
+<para>
+Debido a que la instalaci&oacute;n y configuraci&oacute;n espec&iacute;ficas dependen del sistema operativo y la versi&oacute;n escojida, se van a enumerar los pasos necesarios para su configuraci&oacute;n, que son los siguientes:
+</para>
+<itemizedlist>
+<listitem>
+<para>
+Configuraci&oacute;n b&aacute;sica del servidor Mysql: memoria principal disponible, tipos de tabla disponibles, memoria destinada a cache, etc...
+</para>
+</listitem>
+<listitem>
+<para>
+Inserci&oacute;n de usuarios b&aacute;sicos.
+</para>
+</listitem>
+<listitem>
+<para>
+Creaci&oacute;n de una base de datos de ejemplo.
+</para>
+</listitem>
+<listitem>
+<para>
+Creaci&oacute;n de una tabla de ejemplo.
+</para>
+</listitem>
+<listitem>
+<para>
+Modificaci&oacute;n de un usuario para tener acceso a la base de datos creada.
+</para>
+</listitem>
+<listitem>
+<para>
+Prueba de funcionamiento con un cliente de Mysql.
+</para>
+</listitem>
+</itemizedlist>
+</section>
+<section>
+<title>Instalaci&oacute;n y configuraci&oacute;n de una aplicaci&oacute;n LAMP.
+</title>
+<para>
+Debido a que la instalaci&oacute;n y configuraci&oacute;n espec&iacute;ficas dependen del sistema operativo y la versi&oacute;n escojida, se van a enumerar los pasos necesarios para su configuraci&oacute;n, que son los siguientes:
+</para>
+<itemizedlist>
+<listitem>
+<para>
+Creaci&oacute;n de una base de datos en el servidor para la aplicaci&oacute;n.
+</para>
+</listitem>
+<listitem>
+<para>
+Colocaci&oacute;n de las tablas principales necesarias para el funcionamiento de la aplicaci&oacute;n LAMP.
+</para>
+</listitem>
+<listitem>
+<para>
+Instalaci&oacute;n de la aplicaci&oacute;n web en el sitio web principal.
+</para>
+</listitem>
+<listitem>
+<para>
+Configuraci&oacute;n de la aplicaci&oacute;n web.
+</para>
+</listitem>
+<listitem>
+<para>
+Prueba de la aplicaci&oacute;n web.
+</para>
+</listitem>
+</itemizedlist>
+</section>
+</chapter>
+

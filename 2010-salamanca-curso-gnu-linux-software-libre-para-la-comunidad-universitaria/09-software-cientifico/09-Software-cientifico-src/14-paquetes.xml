@@ -1,0 +1,346 @@
+<?xml version='1.0' encoding='utf-8'?>
+<appendix>
+  <title>Paquetes de software cient&iacute;fico en Ubuntu 10.4</title>
+
+<sect1>
+<title>Instalaci&oacute;n de software cient&iacute;fico</title>
+
+<para>En Ubuntu tenemos dos formas de instalar software:</para>
+
+<itemizedlist>
+<listitem><para>A trav&eacute;s del <emphasis role="bold">Centro de Software</emphasis></para></listitem>
+<listitem><para>A trav&eacute;s de <emphasis role="bold">Synaptic</emphasis></para></listitem>
+</itemizedlist>
+
+<sect2>
+<title>Instalaci&oacute;n a trav&eacute;s del Centro de Software</title>
+
+<para>Para ello en el escritorio tendremos que pinchar en <emphasis>Aplicaciones -&#062; Centro de software de Ubuntu</emphasis>:</para>
+
+    <figure>
+      <title>
+        Ejecuci&oacute;n Centro de software en Ubuntu
+      </title>
+      <graphic
+      fileref="img/apendice-A/01-centro-de-software.jpg"
+      format="JPG" width="600" scale="40"/>
+    </figure>
+
+<para>Una vez que ha arrancado podemos encontrar Software Cient&iacute;fico en los apartados <emphasis>Ciencia e Ingenier&iacute;a</emphasis> y <emphasis>Educaci&oacute;n</emphasis>:</para>
+
+    <figure>
+      <title>
+        Centro de software en Ubuntu
+      </title>
+      <graphic
+      fileref="img/apendice-A/02-centro-de-software.jpg"
+      format="JPG" width="600" scale="40"/>
+    </figure>
+
+<para>Dentro de <emphasis>Ciencia e Ingenier&iacute;n</emphasis> tenemos los paquetes clasificados en categor&iacute;as:</para>
+
+    <figure>
+      <title>
+        Centro de software en Ubuntu (Ciencia e Ingenier&iacute;a)
+      </title>
+      <graphic
+      fileref="img/apendice-A/03-ciencia-e-ingenieria.jpg"
+      format="JPG" width="600" scale="40"/>
+    </figure>
+
+<para>Mientras que en <emphasis>Educaci&oacute;n</emphasis> no tenemos categor&iacute;as:</para>
+
+    <figure>
+      <title>
+        Centro de software en Ubuntu (Educaci&oacute;n)
+      </title>
+      <graphic
+      fileref="img/apendice-A/04-educacion.jpg"
+      format="JPG" width="600" scale="40"/>
+    </figure>
+
+</sect2>
+
+<sect2>
+<title>Instalaci&oacute;n a trav&eacute;s de Synaptic</title>
+
+<para>También podemos instalar los paquetes de la forma tradicional mediante el uso del gestor de paquetes <emphasis>Synaptic</emphasis>:</para>
+
+    <figure>
+      <title>
+        Ejecuci&oacute;n de Synaptic
+      </title>
+      <graphic
+      fileref="img/apendice-A/05-synaptic.jpg"
+      format="JPG" width="600" scale="40"/>
+    </figure>
+
+<para>Dentro de <emphasis>Synaptic</emphasis> podemos encontrar Software Cient&iacute;fico en las siguientes secciones:</para>
+
+<itemizedlist>
+<listitem>
+<para><emphasis role="bold">Ciencia</emphasis></para>
+</listitem>
+<listitem>
+<para><emphasis role="bold">Ciencia (multiverse)</emphasis></para>
+</listitem>
+<listitem>
+<para><emphasis role="bold">Ciencia (universe)</emphasis></para>
+</listitem>
+<listitem>
+<para><emphasis role="bold">Electr&oacute;nica (multiverse)</emphasis></para>
+</listitem>
+<listitem>
+<para><emphasis role="bold">Electr&oacute;nica (universe)</emphasis></para>
+</listitem>
+<listitem>
+<para><emphasis role="bold">Matem&aacute;ticas</emphasis></para>
+</listitem>
+<listitem>
+<para><emphasis role="bold">Matem&aacute;ticas (multiverse)</emphasis></para>
+</listitem>
+<listitem>
+<para><emphasis role="bold">Matem&aacute;ticas (universe)</emphasis></para>
+</listitem>
+<listitem>
+<para><emphasis role="bold">TeX, autor&iacute;a</emphasis></para>
+</listitem>
+<listitem>
+<para><emphasis role="bold">TeX, autor&iacute;a (multiverse)</emphasis></para>
+</listitem>
+<listitem>
+<para><emphasis role="bold">TeX, autor&iacute;a (universe)</emphasis></para>
+</listitem>
+</itemizedlist>
+</sect2>
+
+</sect1>
+
+<sect1>
+<title>A&ntilde;adiendo repositorios</title>
+
+<para>Hay veces que para poder instalar un programa paquetizado para Ubuntu hay que a&ntilde;adir repositorios adicionales.</para>
+
+<sect2>
+<title>Geogebra</title>
+
+<para><emphasis role="bold">Geogebra</emphasis> es un programa pensado para educaci&oacute;n y esta enfocado a geometr&iacute;a.</para>
+
+<screen>
+<prompt>root@host:~#</prompt> <userinput>echo "deb http://kondr.ic.cz/deb lucid main" >> /etc/apt/sources.list</userinput>
+<prompt>root@host:~#</prompt> <userinput>wget http://kondr.ic.cz/kondr.key -O- | apt-key add -</userinput>
+<computeroutput>--2010-10-28 22:53:18--  http://kondr.ic.cz/kondr.key</computeroutput>
+<computeroutput>Resolviendo kondr.ic.cz... 88.66.103.249</computeroutput>
+<computeroutput>Conectando a kondr.ic.cz|88.66.103.249|:80... conectado.</computeroutput>
+<computeroutput>Peticion HTTP enviada, esperando respuesta... 200 OK</computeroutput>
+<computeroutput>....</computeroutput>
+<prompt>root@host:~#</prompt> <userinput>apt-get update</userinput>
+</screen>
+
+<para>A partir de este momento ya podemos proceder a instalar <emphasis>Geogebra</emphasis>.</para>
+</sect2>
+
+</sect1>
+
+<sect1>
+<title>Paquetes de software cient&iacute;fico en Ubuntu 10.4</title>
+
+<para>Algunos de los paquetes m&aacute;s &uacute;tiles incluidos en Ubuntu son lo siguientes:</para>
+
+   <table>
+    <title>Paquetes de software cient&iacute;fico en Ubuntu 10.4</title>
+
+    <tgroup cols='3'>
+      <thead>
+        <row>
+          <entry>
+            Programa
+          </entry>
+          <entry>
+            Paquete
+          </entry>
+          <entry>
+            Secci&oacute;n
+          </entry>
+        </row>
+      </thead>
+
+      <tbody>
+        <row>
+          <entry>Kile</entry>
+          <entry>kile</entry>
+          <entry>TeX, autor&iacute;a (universe)</entry>
+        </row>
+        <row>
+          <entry>GNU TeXmacs</entry>
+          <entry>TeXmacs</entry>
+          <entry>Editores (universe)</entry>
+        </row>
+        <row>
+          <entry>LyX</entry>
+          <entry>lyx</entry>
+          <entry>Editores (universe)</entry>
+        </row>
+        <row>
+          <entry>OpenOffice.org Math</entry>
+          <entry>OpenOffice_org-math</entry>
+          <entry>Editores</entry>
+        </row>
+        <row>
+          <entry>gnuplot</entry>
+          <entry>gnuplot</entry>
+          <entry>Matem&aacute;ticas (universe)</entry>
+        </row>
+        <row>
+          <entry>Epigrass</entry>
+          <entry>epigrass</entry>
+          <entry>Ciencia (universe)</entry>
+        </row>
+        <row>
+          <entry>Dia</entry>
+          <entry>dia</entry>
+          <entry>Gr&aacute;ficos (universe)</entry>
+        </row>
+        <row>
+          <entry>Xfig</entry>
+          <entry>xfig</entry>
+          <entry>Gr&aacute;ficos (universe)</entry>
+        </row>
+        <row>
+          <entry>GDIS</entry>
+          <entry>gdis</entry>
+          <entry>Ciencia (universe)</entry>
+        </row>
+        <row>
+          <entry>Chemtool</entry>
+          <entry>chemtool</entry>
+          <entry>Ciencia (universe)</entry>
+        </row>
+        <row>
+          <entry>Garlic</entry>
+          <entry>garlic</entry>
+          <entry>Ciencia (universe)</entry>
+        </row>
+        <row>
+          <entry>Sim4</entry>
+          <entry>sim4</entry>
+          <entry>Ciencia (universe)</entry>
+        </row>
+        <row>
+          <entry>Maxima</entry>
+          <entry>maxima</entry>
+          <entry>Matem&aacute;ticas (universe)</entry>
+        </row>
+        <row>
+          <entry>Mascyma</entry>
+          <entry>mascyma</entry>
+          <entry>Matem&aacute;ticas (universe)</entry>
+        </row>
+        <row>
+          <entry>wxMaxima</entry>
+          <entry>wxmaxima</entry>
+          <entry>Matem&aacute;ticas (universe)</entry>
+        </row>
+        <row>
+          <entry>Xmaxima</entry>
+          <entry>xmaxima</entry>
+          <entry>Matem&aacute;ticas (universe)</entry>
+        </row>
+        <row>
+          <entry>Yacas</entry>
+          <entry>yacas</entry>
+          <entry>Matem&aacute;ticas (universe)</entry>
+        </row>
+        <row>
+          <entry>Axiom</entry>
+          <entry>axiom</entry>
+          <entry>Matem&aacute;ticas (universe)</entry>
+        </row>
+        <row>
+          <entry>GNU Octave</entry>
+          <entry>octave2.9, octave3.0, octave3.2</entry>
+          <entry>Matem&aacute;ticas (universe)</entry>
+        </row>
+        <row>
+          <entry>QtOctave</entry>
+          <entry>qtoctave</entry>
+          <entry>Matem&aacute;ticas (universe)</entry>
+        </row>
+        <row>
+          <entry>Scilab</entry>
+          <entry>scilab</entry>
+          <entry>Matem&aacute;ticas (universe)</entry>
+        </row>
+        <row>
+          <entry>FreeMat</entry>
+          <entry>freemat</entry>
+          <entry>Matem&aacute;ticas (universe)</entry>
+        </row>
+        <row>
+          <entry>R</entry>
+          <entry>r-base</entry>
+          <entry>Matem&aacute;ticas (universe)</entry>
+        </row>
+        <row>
+          <entry>PSPP</entry>
+          <entry>pspp</entry>
+          <entry>Matem&aacute;ticas (universe)</entry>
+        </row>
+        <row>
+          <entry>QCad</entry>
+          <entry>qcad</entry>
+          <entry>Gr&aacute;ficos (universe)</entry>
+        </row>
+        <row>
+          <entry>PythonCAD</entry>
+          <entry>pythoncad</entry>
+          <entry>Gr&aacute;ficos (universe)</entry>
+        </row>
+        <row>
+          <entry>GRASS</entry>
+          <entry>grass</entry>
+          <entry>Ciencia (universe)</entry>
+        </row>
+        <row>
+          <entry>KiCad</entry>
+          <entry>kicad</entry>
+          <entry>Electr&oacute;nica (universe)</entry>
+        </row>
+        <row>
+          <entry>Kalzium</entry>
+          <entry>kalzium</entry>
+          <entry>Ciencia</entry>
+        </row>
+        <row>
+          <entry>Celestia</entry>
+          <entry>celestia</entry>
+          <entry>KDE (entorno de escritorio) (universe)</entry>
+        </row>
+        <row>
+          <entry>KStars</entry>
+          <entry>kstars</entry>
+          <entry>Ciencia</entry>
+        </row>
+        <row>
+          <entry>Stellarium</entry>
+          <entry>stellarium</entry>
+          <entry>Ciencia (universe)</entry>
+        </row>
+        <row>
+          <entry>GNU XaoS</entry>
+          <entry>xaos</entry>
+          <entry>Gr&aacute;ficos (universe)</entry>
+        </row>
+        <row>
+          <entry>Fyre</entry>
+          <entry>fyre</entry>
+          <entry>Gr&aacute;ficos (universe)</entry>
+        </row>
+      </tbody>
+    </tgroup>
+  </table>
+
+</sect1>
+
+</appendix>
+

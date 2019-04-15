@@ -1,0 +1,199 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<chapter>
+<title>Qu&eacute; hardware podemos usar</title>
+<para>
+
+Una realidad frustrante con el hardware para sistemas empotrados, es que algunos componentes son te&oacute;ricamente muy baratos y sin embargo no es nada f&aacute;cil hacerse con una unidad a buen precio. Los kits de desarrollo con excepciones suelen ser caros sobre todo cuando hay que pedirlos a EE.UU. y hay aduana por medio (aunque son bastante &uacute;tiles cuando se est&aacute; desarrollando profesionalmente) y normalmente la &uacute;nica alternativa barata es tener la suerte de encontrarse en el mercado con alg&uacute;n dispositivo basado en Linux en el que sea f&aacute;cil de modificar el firmware.
+</para>
+<para>
+A continuaci&oacute;n vamos a comentar hardware que podemos encontrar a precios no muy caros, en la mayor&iacute;a de los casos son productos que la gente ha descubierto que llevan Linux y son f&aacute;ciles de modificar, salvo en dos productos, que se vende espec&iacute;ficamente para que los compradores puedan meter Linux y el software que quieran.
+</para>
+<section><title>NSLU2 de Linksys (XScale IXP420)</title>
+<para>
+Este dispositivo originalmente lo comercializaba Linksys como un NAS econ&oacute;mico para compartir discos USB por red. Desafortunadamente est&aacute; descatalogado, aunque es probable que lo encontremos todav&iacute;a en alguna tienda o en eBay. Es m&aacute;s caro que el resto de los productos analizados, aunque tambi&eacute;n el m&aacute;s potente excluyendo el FreeAgent DockStar. As&iacute; mismo es el m&aacute;s vers&aacute;til, con mayor comunidad de desarrolladores y m&aacute;s informaci&oacute;n sobre &eacute;l en Internet, incluso con p&aacute;ginas en castellano.
+</para>
+<para>
+Tiene 32 Mbs de RAM, dos puertos USB2 y tarjeta de red. El procesador es un XScale IXP420 a 266Mhz: como curiosidad la familia de procesadores XScale aunque sea ARM es de Intel y ha seguido evolucionando, por ejemplo desde 2007 existe el Intel CE 2110 para dispositivos empotrados.
+</para>
+<para>
+De lo mejor del dispositivo es que permite elegir entre quedarse con su firmware original e instalar paquetes aparte (optware), instalar la versi&oacute;n para ARM de Debian, instalar un firmware espec&iacute;fico optimizado para el dispositivo, muy potente que permite incluso compilar los propios paquetes en el dispositivo, sin necesidad de usar un crosscompiler, o instalar OpenWrt, entre otras opciones.
+</para>
+<para>
+
+Es muy f&aacute;cil de reflasear sin necesidad de abrirlos ni utilizar cables especiales: mediante los botones se puede poner en modo de reflashseo y simplemente se ejecuta un programa en el PC que transfiere la imagen v&iacute;a USB. Como esta operaci&oacute;n la hace el cargador, est&aacute; disponible aunque la imagen del Linux instalado no funcione. 
+</para>
+<para>
+No hace falta detenerse mucho en el NLUS2, porque en la web http://www.nslu2-linux.org/ ya hay todo tipo de informaci&oacute;n.
+</para>
+
+</section>
+<section><title>FreeAgent DockStar de Seagate (Marvell 6281)</title>
+<para>
+Como el NSLU2, se comercializa como un NAS para discos USB, pero es hardware m&aacute;s potente con la interfaz de red Gigabit, procesador a 1.2 GHz, 128 MB de RAM y nada menos que 4 puertos USB2. Uno de ellos es un conector macho microsub para insertarlo directamente en los discos FreeAgent de Seagate, pero deber&iacute;a funcionar con cualquier otra carcasa 2.5 con este tipo de conector en el centro. 
+</para>
+<para>
+El DockStar lo est&aacute; liquidando Seagate en su web de EE.UU. y en Ebay est&aacute; realmente barato, por debajo de los 28 EUR, pero lamentablemente entre gastos de env&iacute;o y posibilidad de aduanas, ya no sale tan econ&oacute;mico. Si se compra directamente en Espa&ntilde;a sale con gastos de env&iacute;o por unos 60 EUR en Pixman&iacute;a y se tiene la ventaja de la garant&iacute;a y no hacer falta adaptador para la clavija al venir ya la europea.
+</para>
+<para>
+El DockStar lleva el mismo sistema (SoC Marwell Kirkwood 88F6281) que el famoso plug computer Sheeva Plug. Los plug computer son peque&ntilde;os dispositivos que se conectan directamente a un enchufe de pared con lo que casi no ocupan espacio. El Sheeva Plug es considerado como el sucesor natural del NSLU2 y ha sido llamado el NSLU2 killer, si bien no se comercializa en Espa&ntilde;a y sale algo caro con los gastos de env&iacute;o. El DockStar aunque lleve el mismo chip que el Sheeva Plug por lo dem&aacute;s incluye hardware m&aacute;s modesto: 128 MB de RAM en lugar de 512, la revisi&oacute;n m&aacute;s reciente tambi&eacute;n tiene menos flash, 256MB en lugar de 512 MB (aunque que nos toque la de 256 o 512 es cuesti&oacute;n de suerte) y no incluye lector de tarjetas SDHC. El &uacute;nico punto en contra del Sheeva Plug es que s&oacute;lo tiene un puerto USB.
+
+</para>
+<para>
+Una diferencia en contra del DockStar que le hace menos adecuado para el cacharreo es que el Sheeva Plug permite arrancar no s&oacute;lo de la memoria flash, sino tambi&eacute;n de una tarjeta SD y de cualquier dispositivo USB. En realidad no es que arranque de USB como un PC porque lo permite una BIOS, sino que siempre arranca de la memoria Flash pero el cargador UBoot tiene la extensi&oacute;n ext2load (es decir, que si se corrompiera el cargador de la memoria flash, no sirve arrancar de USB para arreglarlo). As&iacute; mismo el Sheeva Plug proporciona interfaz serie y JTAG sin necesidad de abrirlo, a trav&eacute;s del puerto USB. Sheeva Plug incluye software y documentaci&oacute;n para usarlo con Linux y viene precargado con una Ubuntu (lamentablemente esta distribuci&oacute;n se ha quedado obsoleta, al no haber sacado Ubuntu nuevas versiones para ARM compatibles). El DockStar carece de todo esto, tiene la posibilidad de usar un puerto serie pero abri&eacute;ndolo y m&aacute;s dif&iacute;cil que en otros dispositivos. En definitiva, es m&aacute;s dif&iacute;cil de modificar y entra&ntilde;a m&aacute;s riesgo. 
+</para>
+<para>
+Otra diferencia entre el DockStar y el Sheeva Plug, es que el DockStar no es un plug-computer: no tiene el alimentador dentro de la caja, sino externo, como el resto de dispositivos comentados. Esto a la larga es una ventaja, pues el procesador tiene fama de emitir calor y es m&aacute;s conveniente que el alimentador est&eacute; fuera para que ventile mejor, adem&aacute;s de ser as&iacute; mucho m&aacute;s f&aacute;cil y barato reemplazarlo si se estropea, algo que le ha pasado a m&aacute;s de un poseedor de un plug-computer.
+</para>
+<para>
+Aparte del DockStar y Sheeva Plug hay otros modelos, algunos con caracter&iacute;sticas avanzadas como conexi&oacute;n eSata para aprovechar realmente las posibilidades como NAS (la propia Seagate posiblemente est&eacute; liquidando el DockStar en favor del otro modelo, el Go-Flex Net, que permite conectar dos discos SATA). No recomendamos el GuruPlug, por tener menos facilidades de arranque y puerto serie a trav&eacute;s del puerto USB y porque en algunas versiones hay problemas graves de calentamiento. El DockStar realmente deriva del PogoPlug, que se comercializa como un servicio cloud para poder acceder a los discos desde Internet sin dejar el ordenador encendido, si bien mientras que en el PogoPlug este servicio es gratis de por vida, en el DockStar es s&oacute;lo gratis el primer a&ntilde;o.
+</para>
+<para>
+Para poder instalar un nuevo firmware en un disco duro externo, lo que se hace en el DockStar es aprovechar que inicialmente se tiene acceso como root por ssh. Entonces se reemplaza el cargador por otro que permite arrancar de USB como en el Sheeva (rezando para que no se vaya la luz mientras escribe y acabemos con un pisapapeles). Este cargador adem&aacute;s redirige lo que ser&iacute;a el flujo del puerto serie a un puerto de red, por lo que ya no har&iacute;a falta abrir el dispositivo y poner un cable en el puerto serie TTL. Esta soluci&oacute;n basada en simplemente arrancar de disco duro permite no tocar el firmware original y poder usar el servicio de acceso al disco duro por Internet si se hace un arranque normal. Lo que no existe en la actualidad es la opci&oacute;n optware, instalar nuevos paquetes pero usando el firmware original: antes exist&iacute;a, con el proyecto OpenPlug pero este dej&oacute; de mantenerse y se reemplaz&oacute; por PlugBox, una versi&oacute;n de ArchLinux para estos dispositivos. La web http://www.plugapps.com/ es el sitio de referencia para quien desea modificar su DockStar o hardware similar.
+</para>
+<para>
+Aunque la frecuencia de reloj puede impresionar, hay que tener en cuenta que es un procesador tecnol&oacute;gicamente poco avanzado, con arquitectura bastante inferior a los smartphones del a&ntilde;o 2007 o al que lleva hoy en d&iacute;a algunos lectores de libros electr&oacute;nicos. Para hacerse una idea de las distintas generaciones de los procesadores ARM, con ejemplos de dispositivos de consumo como tel&eacute;fonos que los usan, visitar http://en.wikipedia.org/wiki/ARM_architecture.
+</para>
+<para>
+
+Este chip de Marvell u otros de la misma familia se usan tambi&eacute;n en varios NAS, con la frecuencia del procesador bajada a 800Mhz:
+</para>
+<itemizedlist mark="opencircle"><listitem>
+<para>
+Synologic DS210J (175EUR, 25W con discos duros/10W sin discos), DS110J (119EUR, 19W/9W). El software es bastante completo. 128 MB RAM.
+</para>
+</listitem>
+<listitem>
+<para>
+Qnap TS-110 (220,15 EUR con disco duro de 1GB). 256 RAM, 16 MB flash. Tambi&eacute;n buen software y comunidad.
+</para>
+</listitem>
+<listitem>
+<para>
+Netgear ReadyNas Duo. 256 RAM. 
+</para>
+</listitem>
+
+</itemizedlist>
+<para>
+Estos NAS tienen sus propios proyectos para modificar el firmware sin reemplazarlo, ya que su punto fuerte es precisamente todo lo que permite hacer su firmware original con una buena interfaz: Time Machine, DLNA, descargas...
+</para>
+<para>
+Otro NAS m&aacute;s antiguo con chip Marvell es el D-LINK DNS-323, con dos bah&iacute;as SATA por unos 162 EUR. http://wiki.dns323.info/howto:chroot_debian. Hablando de D-LINK, una p&aacute;gina curiosa es http://tsd.dlink.com.tw/downloadslist.asp?SourceType=downloadOS=GPL d&oacute;nde est&aacute; disponible el c&oacute;digo fuente de todo el software GPL que usan sus productos. Este tipo de p&aacute;ginas las hay tambi&eacute;n en otros fabricantes y son interesantes tanto para ver en cuales de sus productos usan Linux como qu&eacute; otro software interesante han usado y podr&iacute;amos usar nosotros tambi&eacute;n en nuestros proyectos. Por ejemplo es recomendable la de TomTom.
+</para>
+
+</section>
+<section><title>El NAS de Dealextreme/WLX-652/ (STAR STR8131 ARMv4)</title>
+<para>
+Es la opci&oacute;n m&aacute;s econ&oacute;mica: se comercializa como un NAS para discos USB pero adem&aacute;s con la posibilidad de funcionar como cliente bittorrent. El firmware original es bastante flojo, pero es posible instalarle un nuevo firmware sin necesidad de abrirlo, desde la interfaz web. S&oacute;lo si sale algo mal (y no ha sido al sobreescribir el cargador, cosa que s&iacute; se hace la primera vez) existe la opci&oacute;n de reflasear desde el cargador de arranque, utilizando un cable serie para lo que habr&aacute; que abrir. Como otros modelos, no es un puerto RS-232 y har&aacute; falta un adaptador, adem&aacute;s de un poco de ma&ntilde;a para a&ntilde;adirle unos pines al cable, porque al abrir el dispositivo nos encontramos simplemente tres peque&ntilde;os agujeros en lugar de un conector, pero unos pines de tama&ntilde;o est&aacute;ndar ajustan perfectamente.
+</para>
+<para>
+Tiene dos puertos USB2, interfaz de red, 32 MB de RAM y 4 MB de flash, el procesador es a 250Mhz un ARMv4, una de las arquitecturas m&aacute;s b&aacute;sicas de ARM. El alimentador es de 5V (como los puertos USB) y hay que decir que el cargador original es bastante malo, pero es f&aacute;cil hacerse con otro en Internet, teniendo en cuenta eso s&iacute; que no s&oacute;lo cuenta el voltaje sino el di&aacute;metro del conector que es fino, coincide con el conector de la mayor&iacute;a de los hubs USB que admiten alimentaci&oacute;n externa.
+</para>
+
+<para>
+Quiz&aacute;s lo m&aacute;s negativo es que no es posible meterle OpenWrt ni ninguna otro software popular y por ahora la &uacute;nica opci&oacute;n es el firmware SnakeOS que est&aacute; disponible en Internet, con lo que no hay mucha flexibilidad, o cuanto menos implica complicarse m&aacute;s la vida para compilar uno mismo los programas utilizando un SDK. As&iacute; mismo esta distribuci&oacute;n funciona grab&aacute;ndose en la memoria flash, no puede estar enteramente en un disco USB como en los otros sistemas, si bien tampoco es mucho problema porque s&iacute; permite montar un disco en el directorio /opt e instalar ah&iacute; los binarios.
+</para>
+<para>
+Los dos modelos con este chips en DealExtreme son:
+</para>
+<itemizedlist mark="opencircle"><listitem>
+<para>
+http://www.dealextreme.com/details.dx/sku.26320
+</para>
+</listitem>
+<listitem>
+<para>
+http://www.dealextreme.com/details.dx/sku.20383. Un usuario asegura que los nuevos env&iacute;os de este modelo vienen con otro chip, pero no ha sido confirmado.
+</para>
+</listitem>
+</itemizedlist>
+
+<para>
+La p&aacute;gina con informaci&oacute;n para cambiar el firmware por SnakeOS es http://groups.google.es/group/dealextreme-nas-/
+</para>
+
+</section>
+<section><title>BifferBoard (RDC 321x)</title>
+<para>
+Es la soluci&oacute;n de menor tama&ntilde;o de las analizadas, tiene un conector USB 2.0, un conector de red, 2 leds (realmente controlable s&oacute;lo uno, el otro es de encendido) y un bot&oacute;n de reset. La memoria RAM es de 32 MB. El procesador es un RDC R3210 a 150Mhz, curiosamente este procesador es compatible con el 486.
+</para>
+<para>
+La memoria flash de 8 MB viene precargada con OpenWrt (obviamente con pocos paquetes), lo interesante de poder usar la BifferBoard sin disco USB es que entonces se puede usar incluso un hub USB para alimentar el dispositivo. En lo negativo, el puerto USB que incluye no es capaz de alimentar un disco duro de 2.5. El alimentador es de 5V y 6W con el mismo tipo de barrilete que el de DealExtreme.
+</para>
+<para>
+Se puede conectar un cable serie (como en otros modelos, no es RS232 sino TTL de 3.3V) para depurar o cambiar el firmware. El software necesario para usar la interfaz JTAG es de pago.
+</para>
+<para>
+
+Es posible que el mismo SoC se use por ejemplo en el Conceptronic Printer and Storage Network Adapter disponible en algunas tiendas por unos 30 EUR, dado que f&iacute;sicamente es igual. Lamentablemente, adem&aacute;s de que habr&iacute;a que confirmarlo, el dise&ntilde;o de cajas de este dispositivo hace dif&iacute;cil abrirlo sin romper nada una vez que est&aacute; cerrado. Otro problema es que mientras que la BifferBoard tiene un cargador propietario que permite reflasear el dispositivo, muchos de los dispositivos con el mismo hardware vienen con un cargador sin esa opci&oacute;n.
+</para>
+<para>
+La web d&oacute;nde se puede comprar y obtener m&aacute;s informaci&oacute;n es: http://bifferos.bizhat.com/
+</para>
+
+</section>
+<section><title>Omnima Embedded Controller/Edimax router BR6104KP (Infineon ADM5120)</title>
+<para>
+Se trata de un router con 4 bocas de red y dos puertos USB, originalmente concebido para compartir una impresora de red, pero que puede usarse tambi&eacute;n para conectar un disco USB. Este router lo ha comercializado la marca Edimax, pero hoy en d&iacute;a la mejor forma de hacerse con uno, con todas las facilidades para instalar Linux es acudir a una web inglesa de electr&oacute;nica: http://www.omnima.co.uk/ (eso s&iacute;, los gastos de env&iacute;o no son nada baratos).
+</para>
+<para>
+El procesador es un MIPS32 a 175Mhz. Ver http://www.linux-mips.org/wiki/Adm5120.
+</para>
+<para>
+Omnima lo vende con la opci&oacute;n de que venga ya modificado el firmware para montar un sistema de ficheros v&iacute;a USB y el pendrive con el software ya instalado. Tambi&eacute;n comercializa el cable serie necesario, el mismo que hace falta para los otros modelos pero ya con el conector adecuado para este dispositivo.<programlisting></programlisting>
+
+</para>
+<para>
+Los sistemas basados en el SoC ADM5120 tienen dos importantes limitaciones respecto a las otras alternativas: tiene tan s&oacute;lo 16 MB de RAM y el USB es 1.0. Adem&aacute;s el controlador USB es bastante at&iacute;pico y problem&aacute;tico, da problemas por ejemplo si se conecta a la vez un dispositivo USB 1.1 y uno USB 2.0, no permite dispositivos de audio.. La limitaci&oacute;n de velocidad de USB no ser&aacute; problem&aacute;tica con bittorrent, pues la l&iacute;nea ser&aacute; m&aacute;s lenta (sobre todo en subida y se supone que se deber&iacute;a subir tanto como descargar) es significativa cuando se quiere transferir un fichero a otro ordenador mientras prosigue una descarga o para reproducir v&iacute;a red un fichero de alta definici&oacute;n o un DVD (en cambio no da problemas para reproducir un fichero DivX tradicional a la vez que se descargan otros).
+</para>
+<para>
+Entre lo positivo, sus posibilidades como router, con sus 5 bocas cada una de las cuales funciona como una interfaz de red independiente con su propia MAC. Es posible hacer tambi&eacute;n agrupar como switch las bocas entre s&iacute; independientemente y el switch est&aacute; implementado por hardware. Puede ser una opci&oacute;n interesante para personas con conexi&oacute;n a Internet monopuesto (que s&oacute;lo pueden conectar un equipo) y no quieren a&ntilde;adir m&aacute;s cacharros, al unificar el dispositivo las tareas de router, descargas y posibilidad de encender los otros equipos mediante wake-on-lan. 
+</para>
+<para>
+Otra de las caracter&iacute;sticas por la que se compra este dispositivo pese a sus limitaciones es por los 13 leds, perfectamente controlables por software, al igual que el bot&oacute;n de reset. Los aficionados a la electr&oacute;nica desoldan los leds y los usan como GPIO (generic I/O), dado que se puede escribir y leer.
+</para>
+<para>
+El alimentador es de 12V (como el conector de mechero de los coches) y el transformador que vende Omnima es de 6W, suficiente para alimentar el dispositivo (que consume unos 4W) pero no tanto si se conecta un disco duro USB de 2.5: para ese caso se recomienda hacerse en EBay con un alimentador de 12W. Hay tiendas en Alemania que venden alimentadores solventes: cuidado con los de DealXtreeme, que ni siquiera tienen el sello CE. Una alternativa es utilizar un cable USB en Y y utilizar el extremo que es s&oacute;lo para recibir corriente en un hub USB .<programlisting></programlisting>
+</para>
+<para>
+Para la parte pr&aacute;ctica nos vamos a centrar en este dispositivo, aunque la mayor&iacute;a de lo comentado ser&aacute; aplicable a cualquier otro dispositivo que soporte OpenWRT.
+</para>
+
+</section>
+<section><title>Otras opciones</title>
+<para>
+A continuaci&oacute;n se enumeran otras opciones que a diferencia de las anteriores no ha podido probar el autor, por lo que s&oacute;lo dispone de la informaci&oacute;n presente en Internet:
+</para>
+<itemizedlist mark="opencircle"><listitem>
+<para>
+Las placas de Soeckris son un cl&aacute;sico, aunque caras para sus posibilidades actuales: http://www.soekris.com/
+</para>
+</listitem>
+<listitem>
+<para>
+BeagleBoard http://beagleboard.org/. Muy completo, con procesador de la familia que llevan los smartphones de gama alta, salida DVI... La cuesti&oacute;n es que uso se le plantea dar al no ser barato (su punto fuerte es potencia en relaci&oacute;n al consumo, muy &uacute;til con bater&iacute;a, pero no tan claro enchufado a red el&eacute;ctrica). No tiene mucho sentido para uso dom&eacute;stico, por ejemplo como ordenador de sal&oacute;n, por no ser v&aacute;lido para reproducir v&iacute;deo.
+</para>
+</listitem>
+
+<listitem>
+<para>
+PandaBoard http://pandaboard.org/ Puede considerarse la sucesora de la BeagleBoard, con CortexA9 en lugar de A8 y caracter&iacute;sticas mucho m&aacute;s prometedoras. La parte negativa es que al precio hay que sumar gastos de env&iacute;o y posiblemente IVA y aduana.
+</para>
+</listitem>
+<listitem>
+<para>
+EM2440-III: MINI2440 (Samsung ARM9 S3C2440A ARM920T a 400MHz) con 64MB RAM, 64 memoria Flash tipo NAND, 2MB tipo NOR, lector de tarjeta SD, dos puertos USB uno master y otro slave, red, 4 botones, 2 leds, sonido... Se vende con pantalla t&aacute;ctil, de 3,5 vale 106 EUR y de 7 cuesta 148 EUR. No se especifica resoluci&oacute;n pantalla. Tiene m&aacute;s cosas que otros modelos analizados, pero la cuesti&oacute;n es que se espera de este dispositivo al tener pantalla y si merece dedicarle mucho tiempo, pues las tecnolog&iacute;as emergentes para embebidos como Android o Meego no van a poder correr en este dispositivo. No es f&aacute;cil desarrollar aplicaciones gr&aacute;ficas para este modelo porque no tiene mucha RAM y el procesador tiene poco rendimiento. Como referencia el fallido tel&eacute;fono FreeRunner de OpenMoko tiene el mismo procesador pero con el doble de RAM. La tendencia en sistemas con interfaz de usuario es hacia ARMv7 (Cortex A8 y A9), que es lo &uacute;nico por ejemplo que soporta la versi&oacute;n actual de Ubuntu para ARM.
+</para>
+</listitem>
+<listitem>
+<para>
+Routers Wifi que tengan puerto USB. Hay opciones como la Fonera 2.0n, f&aacute;cil de modificar y con 64 MB. Si se valora sobre todo capacidad router y Wifi, TP-Link TP-LINK 1043WR-N es barato, interfaz Gigabit, tres antenas, aunque 32 MB de RAM. Con 1043WR problem&aacute;tico tambi&eacute;n que TP-LINK es hostil a cambios de firmware y modelo es especialmente f&aacute;cil de convertir en pisapapeles. Tampoco muy probado el uso del puerto USB.
+</para>
+</listitem>
+</itemizedlist>
+
+</section>
+
+</chapter>
+

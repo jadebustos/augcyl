@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<chapter>
+<title>Sugerencia de l&iacute;nea de proyectos innovadores</title>
+<para>
+Nos encantar&iacute;a que con esta introducci&oacute;n al mundo de los embebidos en GNU/Linux, a alguna persona le entre el gusanillo y con el tiempo de el salto a innovador. Para ir animando, una posible l&iacute;nea de ideas en las que pensar.
+</para>
+<para>
+Se trata de pensar en funcionalidades que se ejecuten normalmente en un ordenador, pero que vamos a ejecutarlo en un dispositivo, con las siguientes ventajas:
+</para>
+<itemizedlist mark="opencircle"><listitem>
+<para>
+precio
+</para>
+
+</listitem>
+<listitem>
+<para>
+facilidad de manejo: deber&iacute;a ser como un electrodom&eacute;stico
+</para>
+</listitem>
+<listitem>
+<para>
+no hace ruido, no ocupa casi espacio, apenas consume, en definitiva, puede estar muchas horas encendido
+</para>
+</listitem>
+</itemizedlist>
+<para>
+Es decir, una l&iacute;nea de ideas es pensar en cosas que a lo mejor no son nuevas y ya se podr&iacute;an hacer con un PC, pero se podr&iacute;an hacer m&aacute;s f&aacute;ciles y asequibles, sin necesidad de dejar el ordenador encendido.
+</para>
+<para>
+No todas las ideas tienen que consistir en dispositivos que se usan directamente por las personas: tambi&eacute;n pueden ser para interactuar con otros dispositivos o m&aacute;quinas (por ejemplo para acceder desde un tel&eacute;fono m&oacute;vil o desde el reproductor de un televisor). Ah&iacute; la buena y mala noticia es que muchas de esas ideas pueden implantarse tambi&eacute;n sin necesidad de dejar el ordenador encendido mediante una virtual appliance que se ejecute en el cloud en lugar de en un dispositivo: la mala es que el cloud puede competir con nuestra soluci&oacute;n hardware, la buena es que si la idea es nueva y buena eso es lo que importa y no c&oacute;mo llevarla a cabo t&eacute;cnicamente, de modo cuantas m&aacute;s posibilidades mejor. Adem&aacute;s tambi&eacute;n podemos concebir una soluci&oacute;n mixta, en que parte de la soluci&oacute;n se ejecute en la nube y parte en local por tener que interactuar con dispositivos locales en casa del usuario.
+
+</para>
+<para>
+Algunas posibilidades t&eacute;cnicas interesantes:
+</para>
+<itemizedlist mark="opencircle"><listitem>
+<para>
+hay ya varios proyectos combinando sistemas embebidos y software PBX o en general de comunicaciones de voz, con los que podemos tener todo tipo de posibilidades, como contestadores m&aacute;s avanzados tipo secretaria, posibilidad de redigirnos por VoIP si la llamada es importante...
+</para>
+</listitem>
+<listitem>
+<para>
+mediante Jabber podemos ejecutar cliente siempre conectado a servidor, con conexi&oacute;n olvid&aacute;ndose de si hay NAT y habr&iacute;a que abrir puertos, si cambia la IP etc.
+</para>
+</listitem>
+<listitem>
+<para>
+mediante wake-on-lan se puede arrancar ordenador si es necesario y mediante ssh redirigir cualquier conexi&oacute;n
+
+</para>
+</listitem>
+<listitem>
+<para>
+mediante la combinaci&oacute;n de m&oacute;dulos FUSE y SAMBA, ser&iacute;a posible ejecutar comandos y cierta navegaci&oacute;n a trav&eacute;s de men&uacute;s, en dispositivos que permitan acceder a carpetas Samba (por ejemplo cualquier reproductor multimedia con interfaz de red). As&iacute;, cabe navegar por un directorio virtual hasta un fichero de tipo JPEG que sea en realidad para tomar instant&aacute;nea con la webcam de habitaci&oacute;n del ni&ntilde;o y verlo como una foto m&aacute;s aunque en realidad se ha generado al pedir abrirla. Hay posibilidades similares con generaci&oacute;n de ficheros de audio e incluso con v&iacute;deo. Por ejemplo puede traducirse una fuente de noticias RSS generando la p&aacute;gina web como una captura de pantalla o hacer un podcast.
+</para>
+</listitem>
+</itemizedlist>
+
+</chapter>

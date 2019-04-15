@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Cómo de complicado es cambiar el firmware</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Cambiar el software del dispositivo"
+HREF="c68.html"><LINK
+REL="PREVIOUS"
+TITLE="Cambiar el software del dispositivo"
+HREF="c68.html"><LINK
+REL="NEXT"
+TITLE="Qué hardware podemos usar"
+HREF="c87.html"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Sistemas embebidos</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c68.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 5. Cambiar el software del dispositivo</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c87.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="AEN79"
+>5.2. Cómo de complicado es cambiar el firmware</A
+></H1
+><P
+>&#13;La mayoría de los dispositivos dividen el espacio de la memoria flash en tres o cuatro áreas: el cargador que arranca el kérnel, el kérnel, el sistema de ficheros con el software y en algunos casos un área de datos para guardar las preferencias del usuario, como configuración de red y contraseña, para que no se pierdan al actualizar el firmware. Muchos firmwares ofrecen una interfaz web que permite reemplazar el propio firmware por otro: en la mayoría de los casos sólo tocan el sistema de ficheros y el kernel; ojo con algunos sistemas que no nos sirven para reemplazar el firmware, porque sólo sirven para modificar una parte del software, no todo el sistema de ficheros (por ejemplo en una TDTHD con posibilidad de ver MKVs, es típico sólo poder modificar el propio programa de la TDT y películas, no el resto del sistema). Así pues, dependiendo del sistema, sin necesidad de abrir el dispositivo podremos cambiar tanto kernel como sistema de ficheros, sólo sistema de ficheros o directamente no podremos. en algunos casos habrá una segunda opción, que es conectarnos por SSH y modificar directamente el sistema de ficheros.
+</P
+><P
+>&#13;Cuando no es posible modificar el firmware vía web o simplemente si por cualquier razón se han hecho modificaciones inadecuadas en el sistema de ficheros o en el kernel y el sistema no arranca y por lo tanto no es posible recurrir a la opción web, en muchos sistemas es posible la opción de usar un cable serie. Aquí lo que se aprovecha es que la mayoría de los dispositivos incluyen un cargador avanzado como redboot o uboot, que no sólo son para arrancar el kernel sino que además permiten escribir en la memoria flash y así modificar el firmware. El cable serie es para poder interactuar con el cargador e indicarle que queremos escribir en la memoria flash, en algunos además también habrá que transferir por el cable serie el contenido a grabar, mientras que en otros se podrá indicar que se descargue de un servidor TFTP, con lo que la transferencia al ser vía red será mucho más rápida. Hay que reseñar que en los sistemas en los que hace falta un cable serie para indicar al cargador que queremos sobreescribir el firmware, es porque el fabricante no ha querido proporcionar un sistema alternativo. En sistemas como el NSLU2 de Linksys o los tablets y smartphones de Nokia N800, N810 y N900, existe la posibilidad de utilizar determinados botones (puede ser tan simple como pulsar el botón de reset mientras se enciende) para indicar al cargador que se debe poner en modo de reflaseo. En estos dispositivos no hace falta acceso al puerto serie y la imagen a grabar se pasa vía USB. Lamentablemente la mayoría de los fabricantes son más hostiles a que los usuarios puedan modificar el firmware y además suelen negar la garantía a quienes lo hagan: posiblemente la garantía legal siga amparando al usuario mientras quede claro que no es culpa de la modificación del firmware, pero como se sabe la garantía legal sólo es eficaz para el usuario los primeros 6 meses, el año y medio restante la presunción de inocencia cae del lado del fabricante y es el consumidor quien tiene que demostrar.
+</P
+><P
+>&#13;En muchos sistemas existen los tres pines necesarios para tener un conector serie: TX, RX y GND, es decir, el pin para transmitir, para recibir y el común para tierra, pero no están accesibles desde el exterior de la carcasa. En el caso de los fabricantes hostiles a que los usuarios modifiquen el hardware que venden, abrir la caja podría invalidar la garantía comercial; con la legal es menos claro, pero aparte de lo recordado de los 6 meses está el problema de que ante un fallo de un componente eléctrico interno es menos claro demostrar que no se ha tocado nada. Aunque esos tres pines componen un puerto serie, hay que tener en cuenta que no usa los voltajes que establece la norma RS232, sino que opera con voltajes muy inferiores (3.3v): se suele hablar de puerto serie TTL, en mención a que se usa voltaje de comunicaciones entre transistores (estrictamente TTL sólo sería adecuado para voltajes de 5V, siendo el término correcto para 3.3V LVTTL, pero se ha popularizado utilizar el mismo término para los dos). Afortunadamente hay muchos cables en el mercado con un chip adaptador (por ejemplo el cp210x), para conectar a un puerto USB y es más, es posible hacerse con uno muy barato por coincidir con el cable de datos de modelos antiguos de teléfonos de marcas como Nokia o Siemens: así pues basta con buscar en un sitio como Dealextreme por Nokia CA-42. Además, en el caso de tiendas online que venden directamente equipos dedicados a personas que quieren meter un Linux en ellos, lo normal es que vendan también el cable ya adaptado para que se pueda conectar al dispositivo directamente. Con otros dispositivos es posible que nos toque cortar el cable y hacer alguna pequeña soldadura. Todos los dispositivos que vamos a analizar tienen en común que el puerto serie es de este tipo, TTL de 3.3v y por lo tanto serviría para todos el mismo cable conversor de TTL serie a USB o RS232, con la peculiaridad que la conexión en el dispositivo variará.
+</P
+><P
+>&#13;Para aficionados, las opciones para reflasear un dispositivo se agotan aquí: si se sobreescribe el cargador de arranque probablemente hayamos convertido nuestro dispositivo en un pisapapeles (el temido término utilizado en los foros en inglés es bricked). Hay algunas excepciones, en kits de desarrollo que vienen con dos memorias flash y un conmutador para arrancar de una u otra: con este sistema siempre es posible arrancar de la que funciona para arreglar la otra.
+</P
+><P
+>&#13;Â¿Hay alguna solución ante un dispositivo bricked? Muchos dispositivos tienen también pines de la interfaz JTAG, que se usa para depurar y para acceder a los chips del dispositivo directamente. Mediante un adaptador JTAG en la mayoría de los casos es posible escribir en la memoria flash y esto se hace directamente, por lo que funcionaría aunque estuviera totalmente corrupta la memoria flash y no se ejecutara el cargador. En algunos casos es posible incluso reflasear el firmware con el dispositivo apagado (la picaresca para si el sistema está averiado y se quiere retornar con el firmware original). Lo malo es que la opción JTAG no está al alcance de la mayoría de los usuarios, tanto por complicada como porque necesita hardware especial (el adaptador JTAG). Desafortunadamente ni siquiera está estandarizado el conector JTAG, aunque al menos la mayoría de dispositivos ARM tienen el mismo y la mayoría de los MIPs también tienen uno común pero distinto al que suelen llevar los ARM. Así pues puede ser necesario distintos adaptadores JTAG y distinto software. La mayoría de los adaptadores JTAG pueden costar más que el dispositivo a reflasear, por encima de los 100EUR, aunque los haya sensiblemente más baratos (sobre todo por puerto paralelo) que pueden servir según el sistema y están disponibles por unos 15 EUR.
+</P
+><P
+>&#13;Con todo, hay dispositivos como el TP-LINK 1043WR-N que tienen interfaz JTAG pero no se conoce cómo usarla para escribir en la memoria flash. En esos dispositivos o en los que no tienen JTAG, la única opción (muy complicada para la inmensa mayoría de los mortales) sería desoldar los finísimos pines de la memoria flash, modificarla con un programador externo y volverla a soldar.
+</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c68.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c87.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Cambiar el software del dispositivo</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c68.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Qué hardware podemos usar</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

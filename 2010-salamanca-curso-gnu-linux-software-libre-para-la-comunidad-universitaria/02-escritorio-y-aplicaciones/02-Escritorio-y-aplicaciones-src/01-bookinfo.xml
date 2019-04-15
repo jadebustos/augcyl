@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<bookinfo>
+  <title>GNU/Linux, software libre para la comunidad universitaria</title>
+  <subtitle>Escritorio y aplicaciones de Ubuntu 10.04</subtitle>
+  <authorgroup>
+    <author>
+      <firstname>Iago</firstname>
+      <surname>Ramos</surname>
+    </author>
+  </authorgroup>
+
+  <legalnotice>
+    <para>
+      Copyright (C) 2010 Iago Ramos
+      <email>iago@laconada.net</email>
+    </para>
+    <para>
+      Permission is granted to copy, distribute and/or modify this document
+      under the terms of the GNU Free Documentation License, Version 1.2 or
+      any later version published by the Free Software Foundation; with no
+      Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A
+      copy of the license is included in the section entitled "GNU Free
+      Documentation License".
+    </para>
+  </legalnotice>
+</bookinfo>
+

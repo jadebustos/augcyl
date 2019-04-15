@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='utf-8'?>
+<appendix>
+  <title>Distribuciones orientadas a Ciencia</title>
+
+<sect1>
+<title>Scientific Linux</title>
+
+<para>En Ubuntu tenemos dos formas de instalar software:</para>
+
+<itemizedlist>
+<listitem><para>A trav&eacute;s del <emphasis role="bold">Centro de Software</emphasis></para></listitem>
+<listitem><para>A trav&eacute;s de <emphasis role="bold">Synaptic</emphasis></para></listitem>
+</itemizedlist>
+
+<sect2>
+<title>Instalaci&oacute;n a trav&eacute;s del Centro de Software</title>
+
+<para>Para ello en el escritorio tendremos que pinchar en <emphasis>Aplicaciones -&#062; Centro de software de Ubuntu</emphasis>:</para>
+
+    <figure>
+      <title>
+        Ejecuci&oacute;n Centro de software en Ubuntu
+      </title>
+      <graphic
+      fileref="img/apendice-A/01-centro-de-software.jpg"
+      format="JPG" width="600" scale="40"/>
+    </figure>
+
+<para>Una vez que ha arrancado podemos encontrar Software Cient&iacute;fico en los apartados <emphasis>Ciencia e Ingenier&iacute;a</emphasis> y <emphasis>Educaci&oacute;n</emphasis>:</para>
+
+    <figure>
+      <title>
+        Centro de software en Ubuntu
+      </title>
+      <graphic
+      fileref="img/apendice-A/02-centro-de-software.jpg"
+      format="JPG" width="600" scale="40"/>
+    </figure>
+
+<para>Dentro de <emphasis>Ciencia e Ingenier&iacute;n</emphasis> tenemos los paquetes clasificados en categor&iacute;as:</para>
+
+    <figure>
+      <title>
+        Centro de software en Ubuntu (Ciencia e Ingenier&iacute;a)
+      </title>
+      <graphic
+      fileref="img/apendice-A/03-ciencia-e-ingenieria.jpg"
+      format="JPG" width="600" scale="40"/>
+    </figure>
+
+<para>Mientras que en <emphasis>Educaci&oacute;n</emphasis> no tenemos categor&iacute;as:</para>
+
+    <figure>
+      <title>
+        Centro de software en Ubuntu (Educaci&oacute;n)
+      </title>
+      <graphic
+      fileref="img/apendice-A/04-educacion.jpg"
+      format="JPG" width="600" scale="40"/>
+    </figure>
+
+</sect2>
+
+<sect2>
+<title>Instalaci&oacute;n a trav&eacute;s de Synaptic</title>
+
+<para>También podemos instalar los paquetes de la forma tradicional mediante el uso del gestor de paquetes <emphasis>Synaptic</emphasis>:</para>
+
+    <figure>
+      <title>
+        Ejecuci&oacute;n de Synaptic
+      </title>
+      <graphic
+      fileref="img/apendice-A/05-synaptic.jpg"
+      format="JPG" width="600" scale="40"/>
+    </figure>
+
+<para>Dentro de <emphasis>Synaptic</emphasis> podemos encontrar Software Cient&iacute;fico en las siguientes secciones:</para>
+
+<itemizedlist>
+<listitem>
+<para><emphasis role="bold">Ciencia</emphasis></para>
+</listitem>
+<listitem>
+<para><emphasis role="bold">Ciencia (multiverse)</emphasis></para>
+</listitem>
+<listitem>
+<para><emphasis role="bold">Ciencia (universe)</emphasis></para>
+</listitem>
+<listitem>
+<para><emphasis role="bold">Electr&oacute;nica (multiverse)</emphasis></para>
+</listitem>
+<listitem>
+<para><emphasis role="bold">Electr&oacute;nica (universe)</emphasis></para>
+</listitem>
+<listitem>
+<para><emphasis role="bold">Matem&aacute;ticas</emphasis></para>
+</listitem>
+<listitem>
+<para><emphasis role="bold">Matem&aacute;ticas (multiverse)</emphasis></para>
+</listitem>
+<listitem>
+<para><emphasis role="bold">Matem&aacute;ticas (universe)</emphasis></para>
+</listitem>
+<listitem>
+<para><emphasis role="bold">TeX, autor&iacute;a</emphasis></para>
+</listitem>
+<listitem>
+<para><emphasis role="bold">TeX, autor&iacute;a (multiverse)</emphasis></para>
+</listitem>
+<listitem>
+<para><emphasis role="bold">TeX, autor&iacute;a (universe)</emphasis></para>
+</listitem>
+</itemizedlist>
+</sect2>
+
+</sect1>
+
+</appendix>
+

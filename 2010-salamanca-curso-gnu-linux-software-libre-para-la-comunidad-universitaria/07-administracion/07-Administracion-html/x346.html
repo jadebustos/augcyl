@@ -1,0 +1,420 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Redirecciones</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Sistemas de Ficheros"
+HREF="c304.html"><LINK
+REL="PREVIOUS"
+TITLE="Ficheros estándar"
+HREF="x318.html"><LINK
+REL="NEXT"
+TITLE="Conceptos"
+HREF="x422.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x318.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 4. Sistemas de Ficheros</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x422.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN346"
+>4.3. Redirecciones</A
+></H1
+><P
+>Aunque por defecto los ficheros estándar estan redirigidos a unos dispositivos en particular es posible cambiar esa redirección hacía otro dispositivo.</P
+><P
+>Para las redirecciones se utilizan los siguientes operadores:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>&#60;</I
+></SPAN
+> se utiliza para para indicar el fichero del que se recogeran los datos en lugar de la entrada estándar.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>&#62;</I
+></SPAN
+> se utiliza para redirigir hacía un fichero. El contenido del fichero es reemplazado.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>&#62;&#62;</I
+></SPAN
+> se utiliza para añadir a un fichero. Se mantiene el contenido del fichero.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>&#38;n</I
+></SPAN
+> donde <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>n</I
+></SPAN
+> es un descriptor. Se utiliza para redirigir un flujo hacía donde ha sido redirigido un fichero.</P
+></LI
+></UL
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN364"
+>4.3.1. Redirección de la salida estándar</A
+></H2
+><P
+>Muchas veces es necesario recoger la salida de un comando en un fichero para su posterior proceso.</P
+><P
+>Habrá que tener en cuenta si la información que vamos a recoger se va a almacenar en un fichero con datos o en uno vacío. En caso de almacenarse en uno con datos tendremos que tener claro si vamos o no a necesitar los datos ya existentes. En función de esto utilizaremos el operador <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>&#62;</I
+></SPAN
+> o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>&#62;&#62;</I
+></SPAN
+>:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>ls -lh &#62; contents.dir</KBD
+>
+</PRE
+><P
+>La cual eliminaría el contenido del fichero <TT
+CLASS="filename"
+>contents.dir</TT
+> reemplazandolo con el listado del directorio. O bien:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>ls -lh &#62;&#62; contents.dir</KBD
+>
+</PRE
+><P
+>Que añadiría el listado de directorios al contenido del fichero <TT
+CLASS="filename"
+>contents.dir</TT
+>.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN380"
+>4.3.2. Redirección de la entrada estándar</A
+></H2
+><P
+>Es posible sustituir la entrada de datos a través del teclado mediante el operador <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>&#60;</I
+></SPAN
+>.</P
+><P
+>Esto es útil cuando queremos lanzar scripts de forma automatizada sin la intervención del usuario y es necesario el suplir información como login o contraseña.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN385"
+>4.3.3. Redirección de la salida estándar de errores</A
+></H2
+><P
+>Aunque por defecto tanto la salida estándar como la de errores estan ambas redirigidas hacía el monitor en realidad apuntan a dos ficheros diferentes.</P
+><P
+>Gracias a esto es posible separar ambas salidas para procesar por separado los errores y la salida del programa.</P
+><P
+>Para referirnos a la salida estándar de errores lo haremos mediante el operador <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>2&#62;</I
+></SPAN
+>:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>ls -lh &#62;&#62; contents.dir 2&#62; errores</KBD
+>
+</PRE
+><P
+>Se añadiráa el listado de directorios al fichero <TT
+CLASS="filename"
+>contents.dir</TT
+> y los mensajes de errores que pudieran ocurrir en lugar de mostarse por la pantalla se almacenarán en el fichero <TT
+CLASS="filename"
+>errores</TT
+>.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>En realidad lo que estamos haciendo es utilizando el descriptor de la salida estándar e indicandole el tipo de redirección que queremos hacer.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN399"
+>4.3.4. El operador <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>&#38;n</I
+></SPAN
+></A
+></H2
+><P
+>Hay veces que es necesario redirigir tanto la salida como la salida estándar a un mismo fichero. Por ejemplo durante una compilación ya que es necesario conocer el orden de los mensajes, tanto de la compilación como de los errores.</P
+><P
+>Cuando queramos hacer una redirección hacía un fichero sobre el que ya se ha hecho una redirección utilizaremos el operador <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>&#38;n</I
+></SPAN
+> donde <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>n</I
+></SPAN
+> es el descriptor del fichero que ha sido redirigido previamente a ese fichero:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>make all &#62; resultados 2&#62;&#38;1</KBD
+>
+</PRE
+><P
+>En el ejemplo anterior estamos haciendo lo siguiente:</P
+><P
+></P
+><UL
+><LI
+><P
+>Redirigimos hacía el fichero <TT
+CLASS="filename"
+>resultados</TT
+> la salida estándar del comando <B
+CLASS="command"
+>make all</B
+>.</P
+></LI
+><LI
+><P
+>Mediante <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>2&#62;</I
+></SPAN
+> indicamos que queremos redirigir la salida de errores.</P
+></LI
+><LI
+><P
+>Con <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>&#38;1</I
+></SPAN
+> indicamos que la redirección de la salida de errores se hará al fichero al que se haya redirigido la salida estándar (descriptor <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>1</I
+></SPAN
+>).</P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x318.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x422.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Ficheros estándar</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c304.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Conceptos</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

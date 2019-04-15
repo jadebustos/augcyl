@@ -1,0 +1,331 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>El Sticky Bit</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Usuarios y permisos en GNU/Linux"
+HREF="c2312.html"><LINK
+REL="PREVIOUS"
+TITLE="El permiso SGID"
+HREF="x2842.html"><LINK
+REL="NEXT"
+TITLE="Auditoria y Logs"
+HREF="c2928.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x2842.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 8. Usuarios y permisos en GNU/Linux</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c2928.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN2887"
+>8.8. El <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Sticky Bit</I
+></SPAN
+></A
+></H1
+><P
+>El <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Sticky Bit</I
+></SPAN
+> es el bit menos significativo de los bits que se utilizan para los permisos especiales. Este permiso también es conocido como <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>bit pegajoso</I
+></SPAN
+> o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>bit de adhesión</I
+></SPAN
+>.</P
+><P
+>Cuando este bit está activado el programa que lo tiene activado se queda en memoria incluso después de terminar su ejecución. Esto hará que se ejecute más rápido a costa de un mayor consumo de memoria.</P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/warning.gif"
+HSPACE="5"
+ALT="Aviso"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Un mal uso de este permiso puede saturar el consumo de memoria del equipo.</P
+></TD
+></TR
+></TABLE
+></DIV
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>ls -lh html</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>drwxr-xr-t 2 pcm pcm 4,0K 2007-04-10 10:09 html</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+>
+</PRE
+><P
+>El permiso de ejecución está con "<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>t</I
+></SPAN
+>" en lugar de con "<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>x</I
+></SPAN
+>". Esto nos indica que tiene activado el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Sticky Bit</I
+></SPAN
+>.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2906"
+>8.8.1. Activación del <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Sticky Bit</I
+></SPAN
+></A
+></H2
+><P
+>Como hemos visto cuando establecemos los permisos en octal utilizamos una terna de números. Para los permisos especiales utilizaremos cuatro números. El primero de ellos hará referencia al permiso especial y los otros tres a los permisos normales.</P
+><P
+>El <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Sticky Bit</I
+></SPAN
+> es el bit menos significativo de los tres bits utilzados para los permisos especiales, con lo cual si hacemos:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>chmod 1755 miprograma</KBD
+>
+<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+>
+</PRE
+><P
+>Estaremos activando el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Sticky Bit</I
+></SPAN
+> y estableciendo los permisos <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>755</I
+></SPAN
+> al ejecutable <B
+CLASS="command"
+>miprograma</B
+>.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN2920"
+>8.8.2. El <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Sticky Bit</I
+></SPAN
+> y los directorios</A
+></H2
+><P
+>El <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Sticky Bit</I
+></SPAN
+> se utiliza sobre los directorios para tener una mayor seguridad sobre los ficheros contenidos en él.</P
+><P
+>Cuando un directorio tiene activado este permiso no importan los permisos que tengan los ficheros en el contenidos. Sólo el propietario del fichero y el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>root</I
+></SPAN
+> podrán borrar ficheros.</P
+><P
+>Este permiso permite que todos los usuarios con acceso a un directorio puedan modificar el contenido de los ficheros pero que no puedan borrarlos a menos que sean su propietario.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x2842.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c2928.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>El permiso <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SGID</I
+></SPAN
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c2312.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Auditoria y Logs</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

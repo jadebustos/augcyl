@@ -1,0 +1,341 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Introducción al uso de SAN en GNU/Linux</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Particiones lógicas (logical volumes)"
+HREF="x1633.html"><LINK
+REL="NEXT"
+TITLE="Escaneado de discos"
+HREF="x1802.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x1633.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x1802.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN1754"
+></A
+>Capítulo 6. Introducción al uso de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SAN</I
+></SPAN
+> en GNU/Linux</H1
+><P
+>Las redes <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SAN</I
+></SPAN
+> o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>S</I
+></SPAN
+>torage <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>A</I
+></SPAN
+>rea <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>N</I
+></SPAN
+>etwork están siendo cada vez más utilizadas debido a la potencia y escalabilidad que presentan.</P
+><P
+>El proposito de este capítulo es ofrecer una visión general del uso de almacenamiento externo en GNU/Linux y no el uso de software suministrado por cada fabricante para el manejo de sus dispositivos de almacenamiento.</P
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN1763"
+>6.1. Breve introducción a una <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SAN</I
+></SPAN
+></A
+></H1
+><P
+>Los discos ocupan espacio y cuando los requerimientos de disco crecen muchas veces no es posible añadir los discos a un servidor debido a problemas de espacio.</P
+><P
+>Para solucionar esto se ha recurrido al almacenmamiento externo.</P
+><P
+>Una <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SAN</I
+></SPAN
+> no es máte más que una cabina o armario de discos conectados por fibra óptica a los servidores.</P
+><P
+>Para esta conexión se utilizan unos switches especiales, de fibra, que son los que están conectados a las cabinas y a los servidores mediante tarjetas de fibra o <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>HBAs</I
+></SPAN
+>.</P
+><P
+>Las configuraciones habituales son dos <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>HBAs</I
+></SPAN
+> por máquina.</P
+><P
+>Los discos habitualmente se configuran para que se llegue por varios caminos por tarjeta. Normalmente dos caminos por tarjeta. Por este motivo cada disco se veráa por cuatro caminos. Es decir que tendremos cuatro dispositivos físicos que son el mismo.</P
+><P
+>Esto se denomina <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>multipathing</I
+></SPAN
+> y permite el balanceo de carga y la alta disponibilidad en el acceso a disco.</P
+><P
+>Hay diferentes fabricantes que ofrencen soluciones <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SAN</I
+></SPAN
+>. Los más conocidos:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>IBM</I
+></SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>EMC2</I
+></SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Hitachi</I
+></SPAN
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>HP</I
+></SPAN
+></P
+></LI
+></UL
+><P
+>Para el uso del <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>multipathing</I
+></SPAN
+> cada fabricante proporciona su propio software y será necesario utilizarlo si queremos disponer de las capacidades de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>multipathing</I
+></SPAN
+>.</P
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Utilizando <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>device mapper</I
+></SPAN
+> podemos hacer <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>multipathing</I
+></SPAN
+>. Si nos decidimos a utilizar <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>device mapper</I
+></SPAN
+> nos ahorraremos bastante dinero en concepto de licencias pero hay que tener en cuenta que no dispondremos de soporte oficial, aunque lo paguemos, por parte del fabricante de las cabinas.</P
+><P
+>El uso de software no certificado puede inducir problemas en la red <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SAN</I
+></SPAN
+> que pudieran afectar a otros equipos. Por este motivo lo recomendable es utilizar el software proporcionado por el fabricante.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x1633.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x1802.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Particiones lógicas (logical volumes)</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Escaneado de discos</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Por qué GNU/Linux triunfa en los sistemas embebidos</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Introducción"
+HREF="c18.html"><LINK
+REL="NEXT"
+TITLE="No todo es de color rosa"
+HREF="c43.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Sistemas embebidos</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c18.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c43.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN27"
+></A
+>Capítulo 2. Por qué GNU/Linux triunfa en los sistemas embebidos</H1
+><P
+>&#13;Antes de entrar en harina e ir a por los aspectos prácticos, un poco de culturilla general sobre el porqué se está apostando por usar Linux en tantos dispositivos.
+</P
+><P
+>&#13;De partida, cabe destacar que Linux triunfa pese a que hay otros sistemas que están diseñados específicamente para sistemas empotrados y que gracias a ello además de funcionar muy bien demandan menos recursos. Esto no es un detalle menor, porque si un sistema especializado necesita menos memoria que Linux y se trata de un dispositivo de bajo coste fabricado masivamente, el ahorro que supone incluir menos memoria no es en absoluto irrelevante.
+</P
+><P
+>&#13;Â¿Qué explica entonces el éxito de Linux? Â¿serán los royalties? En sistemas en que se fabrican muchas unidades puede ser un factor importante, pero posiblemente en otros proyectos pese a su favor más lo que en principio parecía un inconveniente: no es un sistema específico para empotrados, sino un sistema diseñado para todo tipo de máquinas y muy especialmente los populares PC. Esto, a la postre tiene sus ventajas:
+</P
+><P
+></P
+><UL
+><LI
+STYLE="list-style-type: opencircle"
+><P
+>&#13;Soporta todo tipo de hardware e incorpora los más modernos protocolos de red y tiene muchas bibliotecas de desarrollo. En contraste, puede haber sistemas más optimizados para dispositivos con pocos recursos, pero ser un problema para añadir soporte para nuevo hardware o añadir software. Pensemos por ejemplo en un NAS que admite discos internos y USB: muchos sistemas antiguos pueden limitar la controladora SATA y no digamos los dispositivos USB que reconocerán, así como la posibilidad de que funcione SAMBA y un cliente de bittorrent.
+</P
+></LI
+><LI
+STYLE="list-style-type: opencircle"
+><P
+>&#13;Se programa igual que cualquier otro Linux; se puede reutilizar software y lo que es también muy importante, es más fácil encontrar programadores. Linux no es el sistema más popular, pero tiene un número de desarrolladores entusiastas que desearían los otros sistemas.
+
+</P
+></LI
+><LI
+STYLE="list-style-type: opencircle"
+><P
+>&#13;Es un sistema muy robusto y eficiente, muy probado al ser el mismo código que el usado en escritorios y servidores: ningún otro kernel, incluyendo el de Windows, tiene tanta gente contratada trabajando en él.
+</P
+></LI
+><LI
+STYLE="list-style-type: opencircle"
+><P
+>&#13;La desventaja de estar en origen menos optimizado para empotrados, se ha difuminado por dos motivos; por un lado mucha gente ha aportado modificaciones para adaptarlo y optimizarlo para sistemas empotrados, curiosamente a la par que otros han progresado en la misma medida en el sector más diferente a los embebidos, el de las supercomputadoras. También ha influido la propia evolución tecnológica: ahora hay chips lo suficientemente potentes para ejecutar Linux que son tan baratos, que no merece la pena tratar de buscar otros más simples y si los hay, pues para tener opciones como USB o red no tienen sentido los diseños más simples antiguos.
+</P
+></LI
+></UL
+><P
+>&#13;Hay varios ejemplos de todo esto, como el avance de Linux frente al retroceso de Windows Mobile (también conocido como Windows CE) que aunque sea de Microsoft no tiene nada que ver con Windows y es un sistema diseñado específicamente para empotrados. De hecho el otro sistema que ha triunfado en los móviles, el iPhone, usa un sistema operativo adaptado de MacOSX, no un sistema diseñado desde el principio para móviles. También se puede comparar con la evolución de eCoS, un sistema operativo diseñado para empotrados desde el principio, que es software libre y tiene la misma licencia que Linux por lo que tampoco hay pago de royalties. ECoS fue adquirido en su momento por la empresa líder en GNU/Linux, Red Hat, pero lo ha ido abandonando en favor de Linux y ha terminado cediendo el copyright a la Free Software Foundation. Con todo, eCOS sigue desarrollándose y usándose con numerosos casos de éxito: http://www.ecoscentric.com/ecos/examples.shtml) y debe destacarse que al utilizar el API POSIX es utilizable por programadores de Linux. Como curiosidad, muchos sistemas empotrados con independencia del sistema que lleven, incluyen como cargador RebBoot, que está basado en eCoS.
+</P
+><P
+>&#13;
+Por supuesto sigue habiendo sitio para los sistemas optimizados para empotrados especialmente cuando se trata de ahorrar en hardware: es el caso de los routers de Lynksys que migraron de Linux a Vxworks escepto en versiones especiales avanzadas, porque aunque Vxworks sea de pago, ahorraron al sacar los nuevos modelos con la mitad de memoria.
+</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c18.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c43.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Introducción</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>No todo es de color rosa</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

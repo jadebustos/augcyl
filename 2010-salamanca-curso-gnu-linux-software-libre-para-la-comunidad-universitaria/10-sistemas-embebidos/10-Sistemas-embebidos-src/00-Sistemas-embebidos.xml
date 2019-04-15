@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+                      "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd"
+[
+  <!ENTITY bookinfo SYSTEM "01-bookinfo.xml">
+  <!ENTITY introduccion SYSTEM "02-introduccion.xml">
+  <!ENTITY triunfo SYSTEM "03-triunfo.xml">
+  <!ENTITY color SYSTEM "04-color-rosa.xml">
+  <!ENTITY atom SYSTEM "05-atom.xml">
+  <!ENTITY cambio SYSTEM "06-cambiar-software.xml">
+  <!ENTITY hardware SYSTEM "07-hardware.xml">
+  <!ENTITY openwrt SYSTEM "08-openwrt.xml">
+  <!ENTITY ecotorrent SYSTEM "09-ecotorrent.xml">
+  <!ENTITY innovadores SYSTEM "10-proyectos-innovadores.xml">
+  <!ENTITY informacion SYSTEM "11-informacion.xml">
+  <!ENTITY licencia SYSTEM "12-licencia.xml">
+]>
+
+<book lang="es">
+  &bookinfo;
+  &introduccion;
+  &triunfo;
+  &color;
+  &atom;
+  &cambio;
+  &hardware;
+  &openwrt;
+  &ecotorrent;
+  &innovadores;
+  &informacion;
+  &licencia;
+</book>
+

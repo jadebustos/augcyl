@@ -1,0 +1,325 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chapter>
+  <title>Aplicaciones</title>
+
+	<sect1>
+	<title>Ubuntu y aplicaciones</title>
+	<para>
+	  Ya hemos comentado que el escritorio de Ubuntu no es un escritorio
+	  creado espec&iacute;ficamente sino una modificaci&oacute;n de un entorno de
+	  escritorio com&uacute;n y p&uacute;blico, GNOME. Lo mismo suceder&aacute; con la mayor&iacute;a
+	  de las aplicaciones que encontraremos en la instalaci&oacute;n b&aacute;sica de
+	  Ubuntu. Encontraremos software muy popular en distintas plataformas
+	  como <ulink url="http://es.openoffice.org">OpenOffice.org</ulink> y
+	  <ulink url="http://firefox.com">Firefox</ulink> y software que
+	  encontraremos tambi&eacute;n en otras distribuciones de GNU/Linux. Tambi&eacute;n
+	  encontraremos aplicaciones espec&iacute;ficas de Ubuntu, sobre todo en lo
+	  que se refiere a la administraci&oacute;n del sistema, e incluso servicios
+	  ofertados por
+	  <ulink url="http://www.canonical.com">Canonical</ulink>, la empresa
+	  que hace Ubuntu, como UbuntuOne o una tienda de m&uacute;sica que
+	  gestionan en colaboraci&oacute;n con
+	  <ulink url="http://es.7digital.com">7digital</ulink>. Pero debemos
+	  tener en mente que la principal labor de las distribuciones de
+	  GNU/Linux es empaquetar y poner a disposici&oacute;n del usuario
+	  aplicaciones hechas por ellos, por otras personas o por otras
+	  empresas, son algo as&iacute; como un mediador entre el desarrollador y el
+	  usuario. Tener esto presente es importante porque siempre que
+	  queramos instalar nuevas aplicaciones o desinstalarlas lo m&aacute;s
+	  aconsejable es hacerlo a trav&eacute;s de la distribuci&oacute;n o a trav&eacute;s de
+	  alguno de los canales alternativos que esta nos ofrece.
+	</para>
+	</sect1>
+
+	<sect1>
+	<title>Aplicaciones incluidas en Ubuntu 10.04</title>
+	
+	<para>
+	  Podemos encontrar y ejecutar las aplicaciones que est&aacute;n instaladas en
+	  nuestro equipo a trav&eacute;s del men&uacute; &laquo;Aplicaciones&raquo; del panel superior.
+	  A diferencia de Windows o Mac OS X, por ejemplo, Ubuntu nos ofrece
+	  una clasificaci&oacute;n de las mismas seg&uacute;n sus funciones e intenta
+	  ofrecernos una soluci&oacute;n para todas las actividades que podamos
+	  querer desarrollar en nuestro ordenador.
+	</para>
+	<para>
+	  Pasamos a recorrer las aplicaciones que vienen instaladas por
+	  defecto:
+	</para>
+	
+	<orderedlist numeration="arabic">
+	  <listitem>
+	    <para>
+	      Accesorios:
+	    </para>
+	    <itemizedlist>
+	      <listitem>
+	        <para>
+	          Administrar trabajos de impresi&oacute;n: Gesti&oacute;n la
+	 		  cola de documentos enviados a la impresora.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Analizador de uso de disco: Informaci&oacute;n sobre el uso
+			  y estado de los discos duros.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Buscar archivos: Programa para buscar archivos en el equipo.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Calculadora: Calculadora que si bien se presenta de manera
+	 		  sencilla nos ofrece distintas interfaces que ampl&iacute;an
+	 		  sus funciones. Es una herramienta sencilla que puede ser
+	 		  suficiente para c&aacute;lculos de nivel medio.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Capturar pantalla: Herramienta para hacer capturas de pantalla
+			  con diferentes opciones.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Contrase&ntilde;as y claves de cifrado: Gesti&oacute;n de
+	 		  contrase&ntilde;as a trav&eacute;s de una clave maestra.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Creador de CD/DVD: Programa sencillo para grabar datos en
+	 		  CD/DVD. Se presenta como una ventana del gestor del ficheros
+	 		  Nautilos en la que a&ntilde;adir todos aquellos datos que
+	  		  queramos pasar a una unidad &oacute;ptica.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Editor de textos Gedit: Una aplicaci&oacute;n tan sencilla
+			  como potente. Es un editor de texto plano cuyas funciones
+			  podemos ampliar a trav&eacute;s de m&uacute;ltiples complementos
+			  para convertirlo en una completa herramienta de desarrollo.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Mapa de caracteres: Aplicaci&oacute;n que nos permite introducir
+	          caracteres que no sabemos c&oacute;mo escribir con el teclado.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Notas Tomboy: Curiosa aplicaci&oacute;n para crear notas
+			  que nos sorprender&aacute; con muchas funcionalidades que no
+			  esperaremos. Se podr&iacute;a definir como una wiki personal que
+			  gracias al servicio UbuntuOne podremos sincronizar entre
+			  distintos dispositivos.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Terminal: Emulador de l&iacute;nea de comando.
+	        </para>
+	      </listitem>
+	    </itemizedlist>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      Gr&aacute;ficos:
+	    </para>
+	    <itemizedlist>
+	      <listitem>
+	        <para>
+	          Gestor de Fotos F-Spot: Aplicaci&oacute;n para descargar la
+	 		  c&aacute;mara digital, ordenar, retocar y compartir fotos.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          OpenOffice.org Draw: Aplicaci&oacute;n de dibujo vectorial.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Simple Scan: Aplicaci&oacute;n para utilizar un scanner.
+	        </para>
+	      </listitem>
+	    </itemizedlist>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      Internet:
+	    </para>
+	    <itemizedlist>
+	      <listitem>
+	        <para>
+	          Transmission: Cliente BitTorrent.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Empathy: Aplicaci&oacute;n de mensajer&iacute;a
+	 		  instant&aacute;nea multiprotocolo que soporta videoconferencia
+			  y chats de voz.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Gwibber: Cliente de para microblogging compatible con Twitter,
+	          Identi.ca, Facebook, FriendFeed, Digg, Flickr&hellip;
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Firefox: Navegador Web muy popular y multiplataforma del
+			  que poco se puede decir que no se sepa ya.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Visor de escritorios remotos Vinagre: Cliente para el
+	 		  protocolo VNC de acceso a escritorios remotos.
+	        </para>
+	      </listitem>
+	    </itemizedlist>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      Juegos
+	    </para>
+	    <itemizedlist>
+	      <listitem>
+	        <para>
+	          Gbrainy
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Mahjongg
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Minas
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Quadrapassel
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Solitaire AisleRiot
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Sudoku
+	        </para>
+	      </listitem>
+	    </itemizedlist>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      Oficina
+	    </para>
+	    <itemizedlist>
+	      <listitem>
+	        <para>
+	          Correo y calendario Evolution: Cliente de correo
+	 		  electr&oacute;nico con agenda y calendario.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Diccionario: Una aplicaci&oacute;n para buscar palabras y
+	 		  t&eacute;rminos en una fuente de diccionarios.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          OpenOffice.org Hojas de C&aacute;lculo: Aplicaci&oacute;n tipo
+	 		  Excel para trabajar con hojas de c&aacute;lculo.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          OpenOffice.org Presentaciones: Aplicaci&oacute;n para preparar
+	          presentaciones o lo que com&uacute;nmente llamamos
+	  		  &laquo;powerpoints&raquo;.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          OpenOffice.org Procesador de Textos: Procesador de textos para
+	          trabajar con documentos de texto complejos en los que queramos
+	          aplicar estilos visualmente.
+	        </para>
+	      </listitem>
+	    </itemizedlist>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      Sonido y v&iacute;deo
+	    </para>
+	    <itemizedlist>
+	      <listitem>
+	        <para>
+	          Editor de video Pitivi: Aplicaci&oacute;n para la
+	 		  producci&oacute;n de v&iacute;deos.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Grabador de discos Brasero: Es una aplicaci&oacute;n con una
+	 		  interfaz sencilla y que nos permite trabajar de manera compleja
+	 		  con unidades &oacute;pticas.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Grabador de sonidos: Aplicaci&oacute;n para registrar sonidos
+	 		  desde dispositivos de audio.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Reproductor de m&uacute;sica Rhythmbox: Inspirado en iTunes, no
+	 		  es solo un reproductor de m&uacute;sica; tambi&eacute;n nos
+	 		  sirve para organizar nuestra fonoteca, suscribir podcasts,
+	 		  comprar m&uacute;sica, sincronizar dispositivos&hellip;
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	          Reproductor de pel&iacute;culas: Un reproductor de v&iacute;deos
+	 		  con todo lo que podemos necesitar.
+	        </para>
+	      </listitem>
+	    </itemizedlist>
+	  </listitem>
+	</orderedlist>
+	</sect1>
+	
+	
+	
+	<sect1>
+	<title>Centro de software de Ubuntu</title>	
+	<para>
+	  Ubuntu nos ofrece una selecci&oacute;n de programas consensuada por sus
+	  desarrolladores pero puede ser que prefiramos recurrir a
+	  alternativas que nos convenzan m&aacute;s. Es recomendable que siempre
+	  que busquemos una nueva aplicaci&oacute;n recurramos a al Centro de
+	  Software ya que en &eacute;l las aplicaciones est&aacute;n preparadas
+	  para instalarse f&aacute;cilmente con unos pocos clics de rat&oacute;n y
+	  normalmente encontraremos todas las aplicaciones que nos interesan.
+	</para>
+	</sect1>
+
+</chapter>

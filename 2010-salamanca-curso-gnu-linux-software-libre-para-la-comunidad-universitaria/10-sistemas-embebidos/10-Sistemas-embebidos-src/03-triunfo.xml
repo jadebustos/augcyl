@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<chapter>
+<title>Por qu&eacute; GNU/Linux triunfa en los sistemas embebidos</title>
+
+<para>
+Antes de entrar en harina e ir a por los aspectos pr&aacute;cticos, un poco de culturilla general sobre el porqu&eacute; se est&aacute; apostando por usar Linux en tantos dispositivos.
+</para>
+<para>
+De partida, cabe destacar que Linux triunfa pese a que hay otros sistemas que est&aacute;n dise&ntilde;ados espec&iacute;ficamente para sistemas empotrados y que gracias a ello adem&aacute;s de funcionar muy bien demandan menos recursos. Esto no es un detalle menor, porque si un sistema especializado necesita menos memoria que Linux y se trata de un dispositivo de bajo coste fabricado masivamente, el ahorro que supone incluir menos memoria no es en absoluto irrelevante.
+</para>
+<para>
+¿Qu&eacute; explica entonces el &eacute;xito de Linux? ¿ser&aacute;n los royalties? En sistemas en que se fabrican muchas unidades puede ser un factor importante, pero posiblemente en otros proyectos pese a su favor m&aacute;s lo que en principio parec&iacute;a un inconveniente: no es un sistema espec&iacute;fico para empotrados, sino un sistema dise&ntilde;ado para todo tipo de m&aacute;quinas y muy especialmente los populares PC. Esto, a la postre tiene sus ventajas:
+</para>
+<itemizedlist mark="opencircle"><listitem>
+<para>
+Soporta todo tipo de hardware e incorpora los m&aacute;s modernos protocolos de red y tiene muchas bibliotecas de desarrollo. En contraste, puede haber sistemas m&aacute;s optimizados para dispositivos con pocos recursos, pero ser un problema para a&ntilde;adir soporte para nuevo hardware o a&ntilde;adir software. Pensemos por ejemplo en un NAS que admite discos internos y USB: muchos sistemas antiguos pueden limitar la controladora SATA y no digamos los dispositivos USB que reconocer&aacute;n, as&iacute; como la posibilidad de que funcione SAMBA y un cliente de bittorrent.
+</para>
+</listitem>
+<listitem>
+<para>
+Se programa igual que cualquier otro Linux; se puede reutilizar software y lo que es tambi&eacute;n muy importante, es m&aacute;s f&aacute;cil encontrar programadores. Linux no es el sistema m&aacute;s popular, pero tiene un n&uacute;mero de desarrolladores entusiastas que desear&iacute;an los otros sistemas.
+
+</para>
+</listitem>
+<listitem>
+<para>
+Es un sistema muy robusto y eficiente, muy probado al ser el mismo c&oacute;digo que el usado en escritorios y servidores: ning&uacute;n otro kernel, incluyendo el de Windows, tiene tanta gente contratada trabajando en &eacute;l.
+</para>
+</listitem>
+<listitem>
+<para>
+La desventaja de estar en origen menos optimizado para empotrados, se ha difuminado por dos motivos; por un lado mucha gente ha aportado modificaciones para adaptarlo y optimizarlo para sistemas empotrados, curiosamente a la par que otros han progresado en la misma medida en el sector m&aacute;s diferente a los embebidos, el de las supercomputadoras. Tambi&eacute;n ha influido la propia evoluci&oacute;n tecnol&oacute;gica: ahora hay chips lo suficientemente potentes para ejecutar Linux que son tan baratos, que no merece la pena tratar de buscar otros m&aacute;s simples y si los hay, pues para tener opciones como USB o red no tienen sentido los dise&ntilde;os m&aacute;s simples antiguos.
+</para>
+</listitem>
+</itemizedlist>
+<para>
+Hay varios ejemplos de todo esto, como el avance de Linux frente al retroceso de Windows Mobile (tambi&eacute;n conocido como Windows CE) que aunque sea de Microsoft no tiene nada que ver con Windows y es un sistema dise&ntilde;ado espec&iacute;ficamente para empotrados. De hecho el otro sistema que ha triunfado en los m&oacute;viles, el iPhone, usa un sistema operativo adaptado de MacOSX, no un sistema dise&ntilde;ado desde el principio para m&oacute;viles. Tambi&eacute;n se puede comparar con la evoluci&oacute;n de eCoS, un sistema operativo dise&ntilde;ado para empotrados desde el principio, que es software libre y tiene la misma licencia que Linux por lo que tampoco hay pago de royalties. ECoS fue adquirido en su momento por la empresa l&iacute;der en GNU/Linux, Red Hat, pero lo ha ido abandonando en favor de Linux y ha terminado cediendo el copyright a la Free Software Foundation. Con todo, eCOS sigue desarroll&aacute;ndose y us&aacute;ndose con numerosos casos de &eacute;xito: http://www.ecoscentric.com/ecos/examples.shtml) y debe destacarse que al utilizar el API POSIX es utilizable por programadores de Linux. Como curiosidad, muchos sistemas empotrados con independencia del sistema que lleven, incluyen como cargador RebBoot, que est&aacute; basado en eCoS.
+</para>
+<para>
+
+Por supuesto sigue habiendo sitio para los sistemas optimizados para empotrados especialmente cuando se trata de ahorrar en hardware: es el caso de los routers de Lynksys que migraron de Linux a Vxworks escepto en versiones especiales avanzadas, porque aunque Vxworks sea de pago, ahorraron al sacar los nuevos modelos con la mitad de memoria.
+</para>
+
+</chapter>
+

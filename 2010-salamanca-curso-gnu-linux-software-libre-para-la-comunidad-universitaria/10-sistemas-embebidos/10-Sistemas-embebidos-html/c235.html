@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Ecotorrent</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Instalar OpenWrt en un ADM5120"
+HREF="c163.html"><LINK
+REL="NEXT"
+TITLE="Sugerencia de línea de proyectos innovadores"
+HREF="c254.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Sistemas embebidos</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c163.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c254.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN235"
+></A
+>Capítulo 8. Ecotorrent</H1
+><P
+>&#13;Ecotorrent es un proyecto que tiene por finalidad tener un dispositivo para descargar torrents que sea económico y ecológico (esto último por el bajo consumo) a la par que abierto. Consta de varios programas en C y unos pocos scripts, uno de ellos orientado a crear una imagen de partición a grabar en un disco duro o microdrive que pueda ser usado en un ADM5120 y que ya esté configurado. En el sistema de ficheros se incluyen así mismos scripts que se ejecuten durante el primer arranque para que hagan funciones como instalar paquetes con los componentes que falten. El script es interesante también para aprender como configurar distintos aspectos de OpenWrt.
+</P
+><P
+>&#13;Con sus 16MB de RAM, un ADM5120 con ecotorrent ofrece:
+
+</P
+><P
+></P
+><UL
+><LI
+STYLE="list-style-type: opencircle"
+><P
+>&#13;demonio de bittorent que admite compartir y descargar varios torrents simultáneamente
+</P
+></LI
+><LI
+STYLE="list-style-type: opencircle"
+><P
+>&#13;manejo del cliente de bittorrent de forma remota mediante comandos, jabber o web. La web es la antítesis de la 2.0 al funcionar con comandos, pero gracias a su simpleza funciona desde cualquier dispositivo, incluido cualquier smartphone. Operaciones como añadir, parar, reanudar, borrar, descarga de un fichero vía wget, posibilidad de pasar el .torrent como una URL o subiendo el fichero (esto ha sido importante para poder añadir descargas desde un Nokia 5800, al no admitir ninguno de los navegadores copiar enlaces). El uso de bittorrent para controlar la máquina permite hacerlo de forma remota sin tener que abrir puertos
+</P
+></LI
+><LI
+STYLE="list-style-type: opencircle"
+><P
+>&#13;disponibilidad de ssh para tener un proxy SOCKS y por ejemplo acceder a webs desde un ordenador del trabajo enviándose las peticiones realmente desde el adm5120 de casa. Esto es útil para privacidad o para webs de descargas directas. 
+</P
+></LI
+><LI
+STYLE="list-style-type: opencircle"
+><P
+>&#13;posibilidad mediante ssh, clave pública y extensión de Firefox flashgot, que al ir a descargar un fichero desde el navegador, en lugar de hacerlo el ordenador se encargue el adm5120 de modo que se pueda apagar el ordenador sin cortar la descarga. Lamentablemente esto no siempre funciona (implica repetir la petición, lo que no funciona en varios sitios de descargas) pero en construcción solución más genérica para proxy que se encargue ante descarga de hacerla él y devolver a navegador dirección donde estará el fichero. Esto útil para comenzar descarga desde fuera de casa pero usando de forma transparente el router, o hacerlo desde casa pero desde un teléfono móvil con conexión wifi.
+</P
+></LI
+><LI
+STYLE="list-style-type: opencircle"
+><P
+>&#13;navegador web de ficheros con operaciones básicas
+</P
+></LI
+><LI
+STYLE="list-style-type: opencircle"
+><P
+>&#13;script de buen ciudadano que para torrent cuando alcanza índice de compartición 1.
+</P
+></LI
+><LI
+STYLE="list-style-type: opencircle"
+><P
+>&#13;samba para poder acceder a los ficheros, por ejemplo desde un reproductor multimedia de red.
+
+</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c163.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c254.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Instalar OpenWrt en un ADM5120</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Sugerencia de línea de proyectos innovadores</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

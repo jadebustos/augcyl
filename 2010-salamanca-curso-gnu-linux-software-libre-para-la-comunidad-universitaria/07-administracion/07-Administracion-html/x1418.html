@@ -1,0 +1,391 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Atributos en sistemas de ficheros ext2/ext3</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Sistemas de Ficheros"
+HREF="c304.html"><LINK
+REL="PREVIOUS"
+TITLE="Cuotas en ext2/ext3"
+HREF="x1174.html"><LINK
+REL="NEXT"
+TITLE="Gestión de sistemas de ficheros mediante LVM"
+HREF="c1465.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x1174.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 4. Sistemas de Ficheros</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c1465.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN1418"
+>4.12. Atributos en sistemas de ficheros <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext2/ext3</I
+></SPAN
+></A
+></H1
+><P
+>El usuario <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>root</I
+></SPAN
+> puede acceder sin restricciones a todo el sistema y esto puede suponer un peligro ya que sin querer se puede borrar un fichero. Mediante el sistema de atributos se puede solucionar.</P
+><P
+>Ademas de permisos los ficheros también tienen atributos.</P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/warning.gif"
+HSPACE="5"
+ALT="Aviso"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Esta característica tiene que estar compilada en el núcleo.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1426"
+>4.12.1. El comando <B
+CLASS="command"
+>chattr</B
+></A
+></H2
+><P
+>Este comando se utiliza para cambiar los atributos de un fichero.</P
+><P
+>Algunos de los atributos que podemos establecer son:</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>no modificable</I
+></SPAN
+> el fichero no se puede modificar, renombrar, ni hacer enlaces a un fichero con este atributo activado. Para activarlo utilizaremos el flag <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-i</I
+></SPAN
+>.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Sólo el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>root</I
+></SPAN
+> puede establecer este atributo.</P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>añadir</I
+></SPAN
+> unicamente se puede añadir información al fichero. Para activarlo utilizaremos el flag <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-a</I
+></SPAN
+>.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>borrado seguro</I
+></SPAN
+> antés de borrar el fichero lo sobreescribe con ceros y lo guarda en disco. Para activarlo utilizaremos el flag <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>s</I
+></SPAN
+>.</P
+></LI
+></UL
+><DIV
+CLASS="tip"
+><P
+></P
+><TABLE
+CLASS="tip"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Utilizaremos "<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>=</I
+></SPAN
+>" para asignar atributos, "<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>+</I
+></SPAN
+>" para añadir atributos y "<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-</I
+></SPAN
+>" para quitarlos.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1452"
+>4.12.2. El comando <B
+CLASS="command"
+>lsattr</B
+></A
+></H2
+><P
+>Este comando se utiliza para ver los atributos que tiene establecidos un fichero.</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+><KBD
+CLASS="userinput"
+>lsattr admlinux.xml</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>----i------------- admlinux.xml</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[pcm@sal]$ </SAMP
+>
+</PRE
+><P
+>Vemos que el fichero <TT
+CLASS="filename"
+>admlinux.xml</TT
+> tiene activado el atributo de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>no modificable</I
+></SPAN
+> con lo cual no podrá ser modificado a menos que el <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>root</I
+></SPAN
+> le quite ese atributo.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x1174.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c1465.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Cuotas en <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>ext2/ext3</I
+></SPAN
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c304.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Gestión de sistemas de ficheros mediante <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>LVM</I
+></SPAN
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

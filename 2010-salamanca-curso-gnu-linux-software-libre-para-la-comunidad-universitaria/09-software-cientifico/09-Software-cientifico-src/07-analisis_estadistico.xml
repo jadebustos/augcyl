@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chapter>
+  <title>An&aacute;lisis estad&iacute;stico</title>
+
+  <sect1>
+    <title>R</title>
+
+    <para>
+      <ulink url="http://www.r-project.org/">R</ulink> es un entorno y
+      lenguaje de programaci&oacute;n para an&aacute;lisis estad&iacute;stico
+      y gr&aacute;fico.
+    </para>
+
+    <para>
+      Se trata de una implementaci&oacute;n libre del premiado lenguaje S.
+    </para>
+
+    <para>
+      Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+      Microsoft Windows y Mac OS entre otros.
+    </para>
+
+    <figure>
+      <title>
+        Gr&aacute;fico generado con R
+      </title>
+      <graphic
+      fileref="img/05-analisis_estadistico/01-r.png"
+      format="PNG" width="600" scale="60"/>
+    </figure>
+
+    <sect2>
+      <title>R-Commander</title>
+
+      <para>
+        <ulink url="http://socserv.mcmaster.ca/jfox/Misc/Rcmdr/">R-Commander
+        </ulink> es una interfaz gr&aacute;fica de usuario para R consistente en
+        una ventana con men&uacute;s, botones y campos de informaci&oacute;n.
+      </para>
+    </sect2>
+  </sect1>
+
+  <sect1>
+    <title>PSPP</title>
+
+    <para>
+      <ulink url="http://www.gnu.org/software/pspp/">PSPP</ulink> es una
+      implementaci&oacute;n libre del programa privativo SPSS.
+    </para>
+
+    <para>
+      Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+      Microsoft Windows y Mac OS entre otros.
+    </para>
+
+    <figure>
+      <title>
+        PSPP
+      </title>
+      <graphic
+      fileref="img/05-analisis_estadistico/02-pspp.png"
+      format="PNG" width="1000" scale="40"/>
+    </figure>
+  </sect1>
+</chapter>
+

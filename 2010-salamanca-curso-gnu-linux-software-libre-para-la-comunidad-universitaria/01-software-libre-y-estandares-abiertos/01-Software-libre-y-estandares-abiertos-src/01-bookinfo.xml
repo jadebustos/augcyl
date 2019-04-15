@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<bookinfo>
+  <title>GNU/Linux, software libre para la comunidad universitaria</title>
+  <subtitle>Software libre y est&aacute;ndares abiertos</subtitle>
+  <authorgroup>
+    <author>
+      <firstname>Manuel</firstname>
+      <surname>Estrada S&aacute;inz</surname>
+    </author>
+    <author>
+      <firstname>Ram&oacute;n</firstname>
+      <surname>Rey Vicente</surname>
+    </author>
+  </authorgroup>
+
+  <legalnotice>
+    <para>
+      Copyright (C) 2008 Manuel Estrada S&aacute;inz, Ram&oacute;n Rey Vicente
+      <email>ramonrey@me.com</email>.
+    </para>
+    <para>
+      Permission is granted to copy, distribute and/or modify this document
+      under the terms of the GNU Free Documentation License, Version 1.2 or
+      any later version published by the Free Software Foundation; with no
+      Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A
+      copy of the license is included in the section entitled "GNU Free
+      Documentation License".
+    </para>
+  </legalnotice>
+
+  <revhistory>
+    <revision>
+      <revnumber>1.6</revnumber>
+      <date>22-10-2010</date>
+      <authorinitials>Manuel Estrada S&aacute;inz</authorinitials>
+      <authorinitials>Ram&oacute;n Rey Vicente</authorinitials>
+    </revision>
+  </revhistory>
+</bookinfo>
+

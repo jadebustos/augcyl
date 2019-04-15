@@ -1,0 +1,389 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>GNU/Linux, software libre para la comunidad universitaria</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="NEXT"
+TITLE="Introducción a la Instalación de LAMP"
+HREF="c18.html"></HEAD
+><BODY
+CLASS="book"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="BOOK"
+><A
+NAME="AEN1"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+><A
+NAME="AEN2"
+>GNU/Linux, software libre para la comunidad universitaria</A
+></H1
+><H2
+CLASS="subtitle"
+>Configuración de plataforma LAMP - Práctica</H2
+><H3
+CLASS="author"
+><A
+NAME="AEN6"
+></A
+>David Vaquero Santiago</H3
+><DIV
+CLASS="legalnotice"
+><P
+></P
+><A
+NAME="AEN9"
+></A
+><P
+>&#13;      Copyright (C) 2008 David Vaquero Santiago
+      <CODE
+CLASS="email"
+>&#60;<A
+HREF="mailto:pepesan_mail@yahoo.es"
+>pepesan_mail@yahoo.es</A
+>&#62;</CODE
+>, Copiar Pegar Digital S.L.
+    </P
+><P
+>&#13;      Permission is granted to copy, distribute and/or modify this document
+      under the terms of the GNU Free Documentation License, Version 1.2 or
+      any later version published by the Free Software Foundation; with no
+      Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A
+      copy of the license is included in the section entitled "GNU Free
+      Documentation License".
+    </P
+><P
+></P
+></DIV
+><HR></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Tabla de contenidos</B
+></DT
+><DT
+>1. <A
+HREF="c18.html"
+>Introducción a la Instalación de LAMP</A
+></DT
+><DD
+><DL
+><DT
+>1.1. <A
+HREF="c18.html#AEN20"
+>Introducción</A
+></DT
+></DL
+></DD
+><DT
+>2. <A
+HREF="c23.html"
+>Configuración de Servicios LAMP</A
+></DT
+><DD
+><DL
+><DT
+>2.1. <A
+HREF="c23.html#AEN25"
+>Configuración de un Servidor DNS</A
+></DT
+><DT
+>2.2. <A
+HREF="x28.html"
+>Configuración de un dominio DNS</A
+></DT
+></DL
+></DD
+><DT
+>3. <A
+HREF="c36.html"
+>Instalación de LAMP</A
+></DT
+><DD
+><DL
+><DT
+>3.1. <A
+HREF="c36.html#AEN38"
+>Instalación de una LAMP en Ubuntu 10.04</A
+></DT
+><DT
+>3.2. <A
+HREF="x73.html"
+>Instalación de una LAMP en OpenSuse 10.2</A
+></DT
+><DT
+>3.3. <A
+HREF="x207.html"
+>Configuración de Mysql</A
+></DT
+><DT
+>3.4. <A
+HREF="x230.html"
+>Instalación y configuración de PhpMyadmin</A
+></DT
+></DL
+></DD
+><DT
+>A. <A
+HREF="a247.html"
+>GNU Free Documentation License</A
+></DT
+></DL
+></DIV
+><DIV
+CLASS="LOT"
+><DL
+CLASS="LOT"
+><DT
+><B
+>Lista de figuras</B
+></DT
+><DT
+>2-1. <A
+HREF="x28.html#AEN32"
+>Ejemplo de interfaz y configuración de un Servidor DNS</A
+></DT
+><DT
+>3-1. <A
+HREF="c36.html#AEN43"
+>Ventana principal de Synaptic.</A
+></DT
+><DT
+>3-2. <A
+HREF="c36.html#AEN48"
+>Ventana de confirmació de dependencias.</A
+></DT
+><DT
+>3-3. <A
+HREF="c36.html#AEN52"
+>Cuadro de resumen de aplicar cambios.</A
+></DT
+><DT
+>3-4. <A
+HREF="c36.html#AEN57"
+>Cuadro de progreso de descarga de paquetes.</A
+></DT
+><DT
+>3-5. <A
+HREF="c36.html#AEN61"
+>Cuadro de progreso de instalación de paquetes.</A
+></DT
+><DT
+>3-6. <A
+HREF="c36.html#AEN66"
+>Cuadro de configuración del servidor de Mysql.</A
+></DT
+><DT
+>3-7. <A
+HREF="x73.html#AEN79"
+>Entrada a YAST desde KickOff</A
+></DT
+><DT
+>3-8. <A
+HREF="x73.html#AEN84"
+>Cuadro de diálogo para introducir la contraseña de administrador.</A
+></DT
+><DT
+>3-9. <A
+HREF="x73.html#AEN89"
+>Acceso a herramienta de instalación y desinstalación de Software</A
+></DT
+><DT
+>3-10. <A
+HREF="x73.html#AEN94"
+>Acceso a herramienta de instalación y desinstalación de Software</A
+></DT
+><DT
+>3-11. <A
+HREF="x73.html#AEN99"
+>Acceso a herramienta de instalación y desinstalación de Software</A
+></DT
+><DT
+>3-12. <A
+HREF="x73.html#AEN103"
+>Pantalla principal de instalación y desintalación de paquetes.</A
+></DT
+><DT
+>3-13. <A
+HREF="x73.html#AEN108"
+>Acceso a herramienta de instalación y desinstalación de Software</A
+></DT
+><DT
+>3-14. <A
+HREF="x73.html#AEN114"
+>Paquetes individuales seleccionados.</A
+></DT
+><DT
+>3-15. <A
+HREF="x73.html#AEN119"
+>Paquetes individuales seleccionados.</A
+></DT
+><DT
+>3-16. <A
+HREF="x73.html#AEN123"
+>Descarga de paquetes.</A
+></DT
+><DT
+>3-17. <A
+HREF="x73.html#AEN127"
+>Configuración de paquetes y Servicios.</A
+></DT
+><DT
+>3-18. <A
+HREF="x73.html#AEN132"
+>pregunta de seguir instalando o no paquetes.</A
+></DT
+><DT
+>3-19. <A
+HREF="x73.html#AEN138"
+>Pregunta de seguir instalando o no paquetes.</A
+></DT
+><DT
+>3-20. <A
+HREF="x73.html#AEN144"
+>Acceso a la configuración de Apache y PHP</A
+></DT
+><DT
+>3-21. <A
+HREF="x73.html#AEN149"
+>Control de acceso por puerto e IP's.</A
+></DT
+><DT
+>3-22. <A
+HREF="x73.html#AEN154"
+>Control de lenguajes de scripting.</A
+></DT
+><DT
+>3-23. <A
+HREF="x73.html#AEN159"
+>Configuración de parámetros básicos.</A
+></DT
+><DT
+>3-24. <A
+HREF="x73.html#AEN164"
+>Configuración de Sitios Web Virtuales.</A
+></DT
+><DT
+>3-25. <A
+HREF="x73.html#AEN169"
+>Datos básicos de un Sitio Web Virtual.</A
+></DT
+><DT
+>3-26. <A
+HREF="x73.html#AEN174"
+>Datos de Scripting de un Sitio Web Virtual.</A
+></DT
+><DT
+>3-27. <A
+HREF="x73.html#AEN179"
+>Datos de Scripting de un Sitio Web Virtual.</A
+></DT
+><DT
+>3-28. <A
+HREF="x73.html#AEN184"
+>Configuración del arranque del servidor.</A
+></DT
+><DT
+>3-29. <A
+HREF="x73.html#AEN189"
+>Aplicación de las configuraciones del servidor web.</A
+></DT
+><DT
+>3-30. <A
+HREF="x73.html#AEN194"
+>Visualización de prueba del servidor web.</A
+></DT
+><DT
+>3-31. <A
+HREF="x73.html#AEN204"
+>Visualización de prueba del módulo PHP.</A
+></DT
+><DT
+>3-32. <A
+HREF="x207.html#AEN210"
+>Entrada al editor de niveles de ejecución.</A
+></DT
+><DT
+>3-33. <A
+HREF="x207.html#AEN217"
+>Visualización de prueba del servidor web.</A
+></DT
+><DT
+>3-34. <A
+HREF="x207.html#AEN221"
+>Pantalla del resultado del proceso (con éxito).</A
+></DT
+><DT
+>3-35. <A
+HREF="x207.html#AEN225"
+>.</A
+></DT
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c18.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Introducción a la Instalación de LAMP</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

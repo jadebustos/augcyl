@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>El NAS de Dealextreme/WLX-652/ (STAR STR8131 ARMv4)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Qué hardware podemos usar"
+HREF="c87.html"><LINK
+REL="PREVIOUS"
+TITLE="FreeAgent DockStar de Seagate (Marvell 6281)"
+HREF="x98.html"><LINK
+REL="NEXT"
+TITLE="BifferBoard (RDC 321x)"
+HREF="x130.html"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Sistemas embebidos</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x98.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 6. Qué hardware podemos usar</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x130.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="AEN118"
+>6.3. El NAS de Dealextreme/WLX-652/ (STAR STR8131 ARMv4)</A
+></H1
+><P
+>&#13;Es la opción más económica: se comercializa como un NAS para discos USB pero además con la posibilidad de funcionar como cliente bittorrent. El firmware original es bastante flojo, pero es posible instalarle un nuevo firmware sin necesidad de abrirlo, desde la interfaz web. Sólo si sale algo mal (y no ha sido al sobreescribir el cargador, cosa que sí se hace la primera vez) existe la opción de reflasear desde el cargador de arranque, utilizando un cable serie para lo que habrá que abrir. Como otros modelos, no es un puerto RS-232 y hará falta un adaptador, además de un poco de maña para añadirle unos pines al cable, porque al abrir el dispositivo nos encontramos simplemente tres pequeños agujeros en lugar de un conector, pero unos pines de tamaño estándar ajustan perfectamente.
+</P
+><P
+>&#13;Tiene dos puertos USB2, interfaz de red, 32 MB de RAM y 4 MB de flash, el procesador es a 250Mhz un ARMv4, una de las arquitecturas más básicas de ARM. El alimentador es de 5V (como los puertos USB) y hay que decir que el cargador original es bastante malo, pero es fácil hacerse con otro en Internet, teniendo en cuenta eso sí que no sólo cuenta el voltaje sino el diámetro del conector que es fino, coincide con el conector de la mayoría de los hubs USB que admiten alimentación externa.
+</P
+><P
+>&#13;Quizás lo más negativo es que no es posible meterle OpenWrt ni ninguna otro software popular y por ahora la única opción es el firmware SnakeOS que está disponible en Internet, con lo que no hay mucha flexibilidad, o cuanto menos implica complicarse más la vida para compilar uno mismo los programas utilizando un SDK. Así mismo esta distribución funciona grabándose en la memoria flash, no puede estar enteramente en un disco USB como en los otros sistemas, si bien tampoco es mucho problema porque sí permite montar un disco en el directorio /opt e instalar ahí los binarios.
+</P
+><P
+>&#13;Los dos modelos con este chips en DealExtreme son:
+</P
+><P
+></P
+><UL
+><LI
+STYLE="list-style-type: opencircle"
+><P
+>&#13;http://www.dealextreme.com/details.dx/sku.26320
+</P
+></LI
+><LI
+STYLE="list-style-type: opencircle"
+><P
+>&#13;http://www.dealextreme.com/details.dx/sku.20383. Un usuario asegura que los nuevos envíos de este modelo vienen con otro chip, pero no ha sido confirmado.
+</P
+></LI
+></UL
+><P
+>&#13;La página con información para cambiar el firmware por SnakeOS es http://groups.google.es/group/dealextreme-nas-/
+</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x98.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x130.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>FreeAgent DockStar de Seagate (Marvell 6281)</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c87.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>BifferBoard (RDC 321x)</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chapter>
+  <title>Sistemas de informaci&oacute;n geogr&aacute;fica o GIS</title>
+
+  <sect1>
+    <title>GRASS</title>
+
+    <para>
+      <ulink url="http://grass.osgeo.org/">GRASS</ulink> es un sistema de
+      informaci&oacute;n geogr&aacute;fica que forma parte de los proyectos
+      oficiales de la <ulink url="http://www.osgeo.org/">Fundaci&oacute;n para
+      el C&oacute;digo Abierto Geoespacial</ulink>.
+    </para>
+
+    <para>
+      Soporta informaci&oacute;n tanto raster como vectorial y posee
+      herramientas de procesado digital de im&aacute;genes.
+    </para>
+
+    <para>
+      Es una aplicaci&oacute;n multiplataforma disponible para GNU/Linux,
+      Microsoft Windows y Mac OS.
+    </para>
+
+    <figure>
+      <title>
+        GRASS
+      </title>
+      <graphic
+      fileref="img/07-gis/01-grass.png"
+      format="PNG" width="500" scale="40"/>
+    </figure>
+  </sect1>
+</chapter>
+

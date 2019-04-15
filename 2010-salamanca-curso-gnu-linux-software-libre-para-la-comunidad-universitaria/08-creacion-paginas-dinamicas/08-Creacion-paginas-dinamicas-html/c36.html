@@ -1,0 +1,255 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Instalación de LAMP</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Configuración de un dominio DNS"
+HREF="x28.html"><LINK
+REL="NEXT"
+TITLE="Instalación de una LAMP en OpenSuse 10.2"
+HREF="x73.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: 
+    Configuración de plataforma LAMP - Práctica
+  </TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x28.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x73.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN36"
+></A
+>Capítulo 3. Instalación de LAMP</H1
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="AEN38"
+>3.1. Instalación de una LAMP en Ubuntu 10.04</A
+></H1
+><P
+>A continuaciÃ³n se detallarÃ¡n los pasos necesarios para la instalaciÃ³n de un entorno LAMP en Ubuntu 10.04</P
+><P
+>La instalación del entorno LAMP en Ubuntu se realiza a través de cualquiera de los gestores de paquetes que dispone la distribución: apt-get, aptitude y synaptic. Todos estos gestores de paquetes necesitan permisos de administración para ser ejecutados. Por lo que será necesario ejecutarlos precedido de uno de los comandos "sudo" o "gksu".</P
+><P
+>Para ejecutar synaptic, tan sólo debemos abrir el menú Sistema/Administración/Gestor de paquetes Synaptic.Nos saldrá una pantalla similar a la siguiente:</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN43"
+></A
+><P
+><B
+>Figura 3-1. Ventana principal de Synaptic.</B
+></P
+><P
+><IMG
+SRC="img/captura-ubuntu-001-synaptic.png"></P
+></DIV
+><P
+>En el cuadro de búsqueda nos permite introducir el nombre de un paquete y se actualizará el listado de paquetes para ajustarse a la búsqueda realizada.</P
+><P
+>Una vez hayamos conseguido buscar el paquete, mediante un doble click le indicaremos que deseamos instalarlo, es posible que nos indique que dicho paquete tiene dependencias y que debemos instalarlas. Si esta pantalla apareciera, deberÃ­amos marcar dichos paquetes para instalarlos.</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN48"
+></A
+><P
+><B
+>Figura 3-2. Ventana de confirmació de dependencias.</B
+></P
+><P
+><IMG
+SRC="img/captura-ubuntu-002-dependencias.png"></P
+></DIV
+><P
+>Cuando hayamos terminado de seleccionar aquellos paquetes que queremos instalar, pulsaremos sobre el botón "Aplicar". Saldrá una pantalla de confirmaciÃ³n similar a la siguiente:</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN52"
+></A
+><P
+><B
+>Figura 3-3. Cuadro de resumen de aplicar cambios.</B
+></P
+><P
+><IMG
+SRC="img/captura-ubuntu-003-aplicar-cambios.png"></P
+></DIV
+><P
+>Como podemos observar en la figura nos indica el número de paquetes a instalar, su tamaño de desarga y una vez instalado, etc... A continuación pulsaremos sobre el botón "Aplicar".</P
+><P
+>Luego aparecerá una pantalla en la que se irán descargando los paquetes.</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN57"
+></A
+><P
+><B
+>Figura 3-4. Cuadro de progreso de descarga de paquetes.</B
+></P
+><P
+><IMG
+SRC="img/captura-ubuntu-004-descarga.png"></P
+></DIV
+><P
+>Una vez haya terminado de descargar correctamente los paquetes, se realiza su instalación, aparecerá una pantalla similar a la siguiente.</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN61"
+></A
+><P
+><B
+>Figura 3-5. Cuadro de progreso de instalación de paquetes.</B
+></P
+><P
+><IMG
+SRC="img/captura-ubuntu-005-instalando-paquetes.png"></P
+></DIV
+><P
+>Es posible que durante la instalación de los paquetes tengamos que realizar configuraciones específicas de los mismos.</P
+><P
+>Para instalar instalar un entorno completo de ejecución de aplicaciones LAMP es necesario instalar los siguientes paquetes: apache2, libapache2-mod-php5, php5-mysql y mysql-server. Para ello utilizaremos Synaptic tal como se ha explciado anteriormente. Aparecerá uns pantallade configuración similar a la siguiente.</P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN66"
+></A
+><P
+><B
+>Figura 3-6. Cuadro de configuración del servidor de Mysql.</B
+></P
+><P
+><IMG
+SRC="img/captura-ubuntu-006-config-mysql-server.png"></P
+></DIV
+><P
+>Aquí podremos configurar la contraseña del usuario administrador del servidor Mysql "root".</P
+><P
+>Cuando se hayan terminado de instalar y configurar todos los paquetes ya podremos empezar a probar la instalación realizada.</P
+><P
+>El directorio principal de Apache en Ubuntu es /var/www por lo que todas las carpetas y ficheros que se encuentren en dicha carpeta serán accesibles a través del navegador mediante la dirección http://localhost/ .</P
+><P
+>Para ello </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x28.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x73.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Configuración de un dominio DNS</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Instalación de una LAMP en OpenSuse 10.2</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

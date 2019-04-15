@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Qué hardware podemos usar</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Cómo de complicado es cambiar el firmware"
+HREF="x79.html"><LINK
+REL="NEXT"
+TITLE="FreeAgent DockStar de Seagate (Marvell 6281)"
+HREF="x98.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Sistemas embebidos</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x79.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x98.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="AEN87"
+></A
+>Capítulo 6. Qué hardware podemos usar</H1
+><P
+>&#13;
+Una realidad frustrante con el hardware para sistemas empotrados, es que algunos componentes son teóricamente muy baratos y sin embargo no es nada fácil hacerse con una unidad a buen precio. Los kits de desarrollo con excepciones suelen ser caros sobre todo cuando hay que pedirlos a EE.UU. y hay aduana por medio (aunque son bastante útiles cuando se está desarrollando profesionalmente) y normalmente la única alternativa barata es tener la suerte de encontrarse en el mercado con algún dispositivo basado en Linux en el que sea fácil de modificar el firmware.
+</P
+><P
+>&#13;A continuación vamos a comentar hardware que podemos encontrar a precios no muy caros, en la mayoría de los casos son productos que la gente ha descubierto que llevan Linux y son fáciles de modificar, salvo en dos productos, que se vende específicamente para que los compradores puedan meter Linux y el software que quieran.
+</P
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="AEN91"
+>6.1. NSLU2 de Linksys (XScale IXP420)</A
+></H1
+><P
+>&#13;Este dispositivo originalmente lo comercializaba Linksys como un NAS económico para compartir discos USB por red. Desafortunadamente está descatalogado, aunque es probable que lo encontremos todavía en alguna tienda o en eBay. Es más caro que el resto de los productos analizados, aunque también el más potente excluyendo el FreeAgent DockStar. Así mismo es el más versátil, con mayor comunidad de desarrolladores y más información sobre él en Internet, incluso con páginas en castellano.
+</P
+><P
+>&#13;Tiene 32 Mbs de RAM, dos puertos USB2 y tarjeta de red. El procesador es un XScale IXP420 a 266Mhz: como curiosidad la familia de procesadores XScale aunque sea ARM es de Intel y ha seguido evolucionando, por ejemplo desde 2007 existe el Intel CE 2110 para dispositivos empotrados.
+</P
+><P
+>&#13;De lo mejor del dispositivo es que permite elegir entre quedarse con su firmware original e instalar paquetes aparte (optware), instalar la versión para ARM de Debian, instalar un firmware específico optimizado para el dispositivo, muy potente que permite incluso compilar los propios paquetes en el dispositivo, sin necesidad de usar un crosscompiler, o instalar OpenWrt, entre otras opciones.
+</P
+><P
+>&#13;
+Es muy fácil de reflasear sin necesidad de abrirlos ni utilizar cables especiales: mediante los botones se puede poner en modo de reflashseo y simplemente se ejecuta un programa en el PC que transfiere la imagen vía USB. Como esta operación la hace el cargador, está disponible aunque la imagen del Linux instalado no funcione. 
+</P
+><P
+>&#13;No hace falta detenerse mucho en el NLUS2, porque en la web http://www.nslu2-linux.org/ ya hay todo tipo de información.
+</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x79.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x98.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Cómo de complicado es cambiar el firmware</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>FreeAgent DockStar de Seagate (Marvell 6281)</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

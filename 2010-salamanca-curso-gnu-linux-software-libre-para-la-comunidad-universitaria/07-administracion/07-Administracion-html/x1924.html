@@ -1,0 +1,449 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Multipathing utilizando LVM</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GNU/Linux, software libre para la comunidad universitaria"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Introducción al uso de SAN en GNU/Linux"
+HREF="c1754.html"><LINK
+REL="PREVIOUS"
+TITLE="Dispositivos virtuales"
+HREF="x1905.html"><LINK
+REL="NEXT"
+TITLE="Núcleo de Linux"
+HREF="c1985.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GNU/Linux, software libre para la comunidad universitaria: Administración avanzada del sistema</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x1905.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 6. Introducción al uso de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SAN</I
+></SPAN
+> en GNU/Linux</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c1985.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="AEN1924"
+>6.4. Multipathing utilizando <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>LVM</I
+></SPAN
+></A
+></H1
+><P
+>Es posible hacer multipathing utilizando <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>LVM</I
+></SPAN
+> pero sólo con unas determinadas versiones. Existen parches para las versiones <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>1.0.5</I
+></SPAN
+>, <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>1.0.6</I
+></SPAN
+>, <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>1.0.7</I
+></SPAN
+> y <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>1.0.8</I
+></SPAN
+>.</P
+><P
+>La única distribución en la que viene configurado el kernel para el uso de este multipathing es <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SLES 8</I
+></SPAN
+>.</P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1935"
+>6.4.1. Localizando los dispositivos físicos</A
+></H2
+><P
+>Una vez añadidos los dispositivos físicos al sistema tendremos tantos dispositivos como caminos por disco. Para cada disco físico utilizaremos un dispositivo especifico de todos los que lo referencian, lo llamaremos <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>dispositivo primario</I
+></SPAN
+> para ese disco. El comando <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>pvscan</I
+></SPAN
+> nos identificará estos dispositivos:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>pvscan</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>pvscan -- reading all physical volumes (this may take a while...)
+pvscan -- ACTIVE   PV "/dev/sdaw"  of VG "data_vg"     [18.62 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sdax"  of VG "data_vg"     [46.56 GB / 26.98 GB free]
+pvscan -- ACTIVE   PV "/dev/sdav"  of VG "data_vg"     [46.56 GB / 46.56 GB free]
+pvscan -- ACTIVE   PV "/dev/sdag"  of VG "data_vg"     [46.56 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sdah"  of VG "data_vg"     [9.31 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sdai"  of VG "data_vg"     [46.56 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sdaj"  of VG "data_vg"     [46.56 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sdak"  of VG "data_vg"     [19.18 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sdal1" of VG "software_vg" [5 GB / 116 MB free]
+pvscan -- ACTIVE   PV "/dev/sdal2" of VG "data_vg"     [14.18 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sdad"  of VG "data_vg"     [46.56 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sdae"  of VG "data_vg"     [18.62 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sdaf"  of VG "data_vg"     [9.31 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sda13" of VG "system_vg"   [16.77 GB / 2.96 GB free]
+pvscan -- total: 14 [390.43 GB] / in use: 14 [390.43 GB] / in no VG: 0 [0]</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Es necesario que los discos ya esten asignados a un grupo de volumen.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1947"
+>6.4.2. Configurando el multipath</A
+></H2
+><P
+>Lo haremos en tres pasos:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Tendremos que configurar el multipath sobre los dispositivos primarios mostrados por <B
+CLASS="command"
+>pvscan</B
+> suponiendo que hay cuatro caminos por dispositivo:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>pvpath -p 0 -e y -w 1 /dev/sdaw</KBD
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>pvpath -p 1 -e y -w 2 /dev/sdaw</KBD
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>pvpath -p 2 -e y -w 1 /dev/sdaw</KBD
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>pvpath -p 3 -e y -w 2 /dev/sdaw</KBD
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>pvpath -q /dev/sdaw</KBD
+>
+<SAMP
+CLASS="computeroutput"
+>Physical volume /dev/sdaw of data_vg has 4 paths:
+       Device  Weight Failed Pending State
+ #  0:   8:16       1      0       0 enabled
+ #  1:   8:32       2      0       0 enabled
+ #  2:   8:48       1      0       0 enabled
+ #  3:   8:64       2      0       0 enabled</SAMP
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+></LI
+><LI
+><P
+>Una vez configurados todos los caminos tendremos que grabar la configuración:</P
+><PRE
+CLASS="screen"
+>&#13;<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+><KBD
+CLASS="userinput"
+>pvpathsave</KBD
+>
+<SAMP
+CLASS="prompt"
+>[root@sal]# </SAMP
+>
+</PRE
+><P
+>Esta configuración se almacena en el fichero <TT
+CLASS="filename"
+>/etc/pvpath.cfg</TT
+>.</P
+></LI
+><LI
+><P
+>Tenemos que hacer que está configuración se lea antés de utilizar los dispositivos. Para ello nos aseguraremos de que el fichero <TT
+CLASS="filename"
+>/etc/init.d/boot.local</TT
+> contiene <TT
+CLASS="filename"
+>/sbin/pvpathrestore</TT
+>.</P
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>En otras distribuciones diferentes de <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SLES 8</I
+></SPAN
+> será en un fichero equivalente.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="important"
+><P
+></P
+><TABLE
+CLASS="important"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/important.gif"
+HSPACE="5"
+ALT="Importante"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Si la máquina está arrancando desde <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SAN</I
+></SPAN
+> será necesario hacer este último paso si queremos que la máquina arranque.</P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+></OL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x1905.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c1985.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Dispositivos virtuales</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c1754.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Núcleo de Linux</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

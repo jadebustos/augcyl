@@ -1,0 +1,280 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chapter>
+  <title>Escritorio</title>
+	
+	<sect1>
+	<title>&iquest;Qu&eacute; entendemos por escritorio?</title>
+	<para>
+	Cuando hablamos en el &aacute;mbito de la inform&aacute;tica del escritorio nos
+	podemos referir a dos cosas: al entorno de escritorio o al espacio
+	de la pantalla ocupado por una imagen y unos iconos. Distinguir a
+	qu&eacute; nos estamos refiriendo exactamente es una cuesti&oacute;n contextual;
+	si nos dicen que busquemos un fichero en el escritorio acudiremos a
+	los iconos que se muestran sobre el fondo de pantalla, si nos dicen
+	que la barra de men&uacute;s es un elemento del escritorio entenderemos
+	que no nos est&aacute;n hablando de un espacio concreto sino de algo m&aacute;s
+	complejo e imaginaremos que hablan de lo que hemos entorno de
+	escritorio aunque no sepamos qu&eacute; es exactamente. Para evitar
+	confusiones vamos a aclara qu&eacute; es un entorno de escritorio.
+	</para>
+	<para>
+	Se llama entorno de escritorio a un conjunto de aplicaciones que
+	trabajan en com&uacute;n para facilitar el uso de un ordenador. Se recurre
+	al t&eacute;rmino escritorio apelando a lo que se conoce como la met&aacute;fora
+	del escritorio, que es la voluntad de dise&ntilde;ar una interfaz tan
+	reconocible y accesible como lo es para cualquiera ese mueble.
+	Todos aquellos que estamos habituados a trabajar con papeles cuando
+	nos sentamos delante de un escritorio sabemos aprovechar todos sus
+	elementos; guardaremos los l&aacute;pices y las plumas en un caj&oacute;n, la
+	grapadora en otro, si tiene estantes colocaremos a mano los libros
+	de consulta y diccionarios, si es abatible lo levantaremos hasta
+	que nos resulte c&oacute;modo, si tiene tapa lo cerraremos con llave para
+	que nadie venga a revolvernos nuestras cosas&hellip; el uso de todos los
+	elementos que lo componen nos resulta evidente porque los
+	identificamos r&aacute;pidamente. La met&aacute;fora del escritorio en
+	inform&aacute;tica se plantea con el mismo objetivo, presentar al usuario
+	una interfaz con elementos reconocibles &ndash;el fondo de pantalla, los
+	iconos, las barras con men&uacute;s, los men&uacute;s contextuales, las
+	ventanas&hellip;&ndash; con los que no tengamos miedo de interactuar porque se
+	comportan tal como esperamos &ndash;los iconos reaccionan a los clics
+	del rat&oacute;n, podemos moverlos de una carpeta a otra arrastr&aacute;ndolos&hellip;&ndash;
+	aun si nos vamos a encontrar con variaciones en su comportamiento
+	seg&uacute;n la plataforma en la que trabajamos.
+	</para>
+	</sect1>
+
+	<sect1>
+	<title>El escritorio de Ubuntu 10.04</title>
+	<para>
+	  El entorno de escritorio de Ubuntu 10.04 est&aacute; basado en GNOME. Y si
+	  decimos que est&aacute; basado en GNOME es porque una de las ideas sobre
+	  la que gira el software libre es que no es necesario estar
+	  reinventando constantemente la rueda. Las principales
+	  distribuciones de GNU/Linux no fabrican desde cero todos sus
+	  componentes, partiendo de que comparten un n&uacute;cleo com&uacute;n, tambi&eacute;n
+	  comparten muchas otras partes: entornos de escritorio,
+	  controladores, aplicaciones, herramientas de gesti&oacute;n del sistema&hellip; y
+	  los esfuerzos que realizan para mejorar cada uno de ellos revierte
+	  en todos los que lo utilizan. Los esfuerzos colaborativos revierten
+	  en lo que se conoce como el software en su versi&oacute;n oficial o sabor
+	  vainilla haciendo referencia a que en los helados, la vainilla es
+	  el sabor neutro, el que casi va con todo. Pero luego, las
+	  distribuciones preparan sus propias recetas y presentan aquellas
+	  aplicaciones de distintas maneras aunque la base sea la misma. Las
+	  diferencias suelen ser de car&aacute;cter gr&aacute;fico, de selecci&oacute;n de
+	  aplicaciones, de par&aacute;metros de compilaci&oacute;n y, especialmente, en
+	  cuestiones de asistentes para gestionar los recursos del sistema ya
+	  que las mayores diferencias se producen en el &aacute;mbito de la
+	  organizaci&oacute;n del sistema, que si bien el usuario final no necesita
+	  saber c&oacute;mo funciona, las aplicaciones que se sustentan en &eacute;l deben
+	  estar perfectamente adecuadas.
+	</para>
+	<para>
+	  Es interesante que tengamos esto presente porque a la hora de
+	  buscar informaci&oacute;n, ayuda o nuevas aplicaciones debemos tener en
+	  cuenta tanto en cuenta el nombre de la distribuci&oacute;n que usamos como
+	  el entorno de escritorio. Por ejemplo, si queremos cambiar el
+	  aspecto visual de nuestro escritorio, no tenemos porque limitarnos
+	  a los temas gr&aacute;ficos de Ubuntu, podemos acudir tambi&eacute;n a los temas
+	  gr&aacute;ficos para GNOME.
+	</para>
+	<para>
+	  Para conocer m&aacute;s sobre GNOME se puede acudir a la web del proyecto:
+	  <ulink url="http://www.gnome.org/projects/">http://www.gnome.org
+	  </ulink>.
+	</para>
+	</sect1>
+
+	<sect1>
+	<title>Elementos del escritorio</title>
+	
+	<para>
+	  Como hemos comentado anteriormente, el entorno de escritorio se
+	  compone de una serie de aplicaciones. Para saber c&oacute;mo aprovecharlo
+	  es conveniente que tengamos en cuenta los distintos elementos como
+	  lo forman para no intentar guardar la grapadora en una pata del
+	  escritorio.
+	</para>
+
+	<sect2>
+	  <title>Gestor de inicio de sesi&oacute;n</title>
+		<para>
+		  El gestor de inicio de sesi&oacute;n, llamado GDM (GNOME Display Manager),
+		  se encarga de activar todo el entorno gr&aacute;fico, iniciar nuestra
+		  sesi&oacute;n de usuario y activar todas las aplicaciones que deben
+		  funcionar en segundo plano, como indexadores o servidores de datos,
+		  o las aplicaciones que queremos ver activadas nada m&aacute;s entrar en
+		  nuestro entorno de trabajo.
+		</para>
+		<para>
+		  Entre las opciones que podremos configurar a trav&eacute;s ser&aacute; com&uacute;n que
+		  queramos que no se nos pida identificarnos al inicio de sesi&oacute;n y que
+		  el proceso de arranque nos lleve directamente al escritorio o no
+		  iniciar en segundo plano aplicaciones que no usamos para ahorra
+		  memoria. Las opciones de configuraci&oacute;n de sus funciones las
+		  encontramos en:
+		</para>
+		<itemizedlist>
+		  <listitem>
+		    <para>
+		      Sistema -&#62; Preferencias -&#62; Aplicaciones al inicio
+		    </para>
+		  </listitem>
+		  <listitem>
+		    <para>
+		      Sistema -&#62; Administraci&oacute;n -&#62; Pantalla de acceso
+		    </para>
+		  </listitem>
+		</itemizedlist>
+	</sect2>
+
+	<sect2>
+	  <title>Paneles</title>
+	
+	<para>
+	  Los paneles del escritorio son dos elementos que est&aacute;n siempre
+	  visibles desde los que se gestionan acciones que podemos requerir
+	  en todo momento. Sirven para lanzar aplicaciones, para cambiar
+	  entre las distintas ventanas que tengamos activas, presentar
+	  informaci&oacute;n que nos puede interesar conocer en todo momento &ndash;como
+	  la hora&ndash; o recibir aviso a trav&eacute;s de la bandeja del sistema.
+	</para>
+	<para>
+	  Ubuntu viene configurado por defecto con dos paneles. En el
+	  superior encontramos una secci&oacute;n de men&uacute;s, dos lanzadores &ndash;Firefox
+	  y ayuda&ndash;, la bandeja del sistema, el reloj y lo que se conoce como
+	  MeMenu. En el inferior encontramos funciones relativas a las
+	  ventanas &ndash;lista de ventanas abiertas y bot&oacute;n de mostrar/ocultar
+	  ventanas&ndash; y la papelera. Revisemos las funciones de cada uno de
+	  estos elementos:
+	</para>
+	<itemizedlist>
+	  <listitem>
+	    <para>
+	      Men&uacute; &laquo;Aplicaciones, Lugares y Sistema&raquo;:
+	      <emphasis>Aplicaciones</emphasis> nos permite acceder a las
+	      aplicaciones instaladas para ejecutarlas;
+	      <emphasis>Lugares</emphasis> nos permite acceder a los directorios
+	      m&aacute;s comunes de nuestro sistema, a unidades extra&iacute;bles, a los
+	      archivos compartidos de equipos en red y a servidores de ficheros
+	      ftp, webdav o ssh; <emphasis>Sistema</emphasis> nos da acceso a las
+	      herramientas de configuraci&oacute;n de los distintos recursos y las
+	      herramientas del sistema.	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      Lanzadores: Nos permiten ejecutar el navegador web Firefox y el
+	      navegador de la ayuda de Ubuntu. Se presentan a modo de ejemplo
+	      para que conozcamos la posibilidad de arrastrar los iconos de las
+	      aplicaciones que usamos habitualmente a la barra para as&iacute; poder
+	      ejecutarlas m&aacute;s r&aacute;pidamente.
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      Bandeja del sistema: La bandeja de sistema recoge iconos relativos
+	      a aplicaciones que est&aacute;n funcionando en segundo plano o pueden
+	      hacerlo a trav&eacute;s de los que poder configurar su funcionamiento. Por
+	      ejemplo, subir y bajar el volumen a trav&eacute;s de la aplicaci&oacute;n que
+	      gestiona los dispositivos de sonido de nuestro equipo. Tambi&eacute;n se
+	      utiliza como referencia para los avisos del sistema. En ella
+	      podemos ver inicialmente representados el gestor de actualizaciones,
+	      el control de volumen, las notificaciones de correo o el gestor de
+	      contrase&amp;ntilde;as.
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      Reloj: Adem&aacute;s de servir para conocer la hora est&aacute; conectado con el
+	      servidor de datos del calendario de manera que puede ofrecernos
+	      informaci&oacute;n relativa a citas o tareas pendientes.
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      MeMenu: Es una aplicaci&oacute;n dirigida hacia el &aacute;mbito de las redes
+	      sociales y de la mensajer&iacute;a instant&aacute;nea. Nos permite gestionar
+	      nuestra informaci&oacute;n personal de contacto y nuestros estados.
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      Bot&oacute;n para mostrar/ocultar escritorio.
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      Lista de ventanas: Una lista que se va poblando conforme lancemos
+	      nuevas aplicaciones o nuevas instancias de las que ya est&aacute;n
+	      funcionando. A trav&eacute;s de ella podemos minimizar, restaurar o
+	      seleccionar las distintas ventana. Tambi&eacute;n reaccionar&aacute; ante
+	      novedades o errores de ejecuci&oacute;n del programa correspondiente.
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      Papelera: Arrastrando los iconos de ficheros hasta la papelera los
+	      har&aacute; desaparecer de nuestros directorios de trabajo y mientras no
+	      vaciemos la papelera podremos recuperarlos.
+	    </para>
+	  </listitem>
+	</itemizedlist>
+	</sect2>
+
+	<sect2>
+	  <title>Gestor de ficheros</title>	
+		<para>
+		  El gesto de ficheros es una parte principal del escritorio ya que
+		  sustituyen en el &aacute;mbito inform&aacute;tico los papeles, libretas, libros y
+		  dem&aacute;s objetos que nos son imprescindibles para trabajar. La
+		  aplicaci&oacute;n que se ocupa de su gesti&oacute;n en Ubuntu se llama Nautilus y
+		  como sucede en Windows con Windows Explorer, que no Microsoft
+		  Internet Explorer, es un programa que realmente no sabemos
+		  identificar porque lo asociamos con el manejo de ficheros y
+		  directorios. Es m&aacute;s com&uacute;n que los usuarios de Windows se refieran a
+		  &laquo;Mis documentos&raquo;, &laquo;Mi PC&raquo; o el &laquo;Escritorio&raquo; como lugares que como
+		  directorios a los que se acede con el Explorador de Windows; lo
+		  mismo pasa con Ubuntu.
+		</para>
+		<para>
+		  En el panel superior encontramos el men&uacute; &laquo;Lugares&raquo; desde el que
+		  podemos acceder a los distintos directorios en los que organizar
+		  nuestros ficheros seg&uacute;n su tipo &ndash;documentos, m&uacute;sica, im&aacute;genes,
+		  v&iacute;deos, el escritorio, otros equipos, unidades extra&iacute;bles&hellip; Tambi&eacute;n
+		  se nos ofrece la posibilidad de conectarse a un servidor al que
+		  podremos acceder como si se tratase de una unidad extra&iacute;ble y dos
+		  opciones para trabajar directamente con ficheros: buscar y una
+		  lista de los &uacute;ltimos documentos que hemos abierto. Cuando accedamos
+		  a un directorio o disco duro encontraremos reproducida esta lista
+		  de lugares en el panel lateral del Nautilos.
+		</para>
+		<para>
+		  Respecto el manejo de los ficheros, podremos interactuar con ellos
+		  a trav&eacute;s del rat&oacute;n tal como lo hacemos en otros entornos de
+		  escritorio.
+		</para>	
+	</sect2>
+
+	<sect2>
+	  <title>Gestor de ventanas</title>	
+	<para>
+	  El gestor de ventanas, es la aplicaci&oacute;n que se encarga de enmarcar
+	  las aplicaciones que tenemos en nuestro escritorio y permitirnos
+	  interactuar con sus dimensiones o su actividad. Podemos
+	  configurarlo su apariencia y su comportamiento en:
+	</para>
+	<itemizedlist>
+	  <listitem>
+	    <para>
+	      Sistema -&#62; Preferencias -&#62; Apariencia
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      Sistema -&#62; Preferencias -&#62; Ventanas
+	    </para>
+	  </listitem>
+	</itemizedlist>
+	</sect2>
+	</sect1>
+</chapter>

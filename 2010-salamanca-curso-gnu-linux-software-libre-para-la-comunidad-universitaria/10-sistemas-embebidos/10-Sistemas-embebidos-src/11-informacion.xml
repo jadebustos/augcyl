@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<chapter>
+<title>Para saber m&aacute;s</title>
+<para>
+Para estar al d&iacute;a:http://www.linuxfordevices.com
+</para>
+<para>
+Tambi&eacute;n puede ser interesante la publicidad en revistas como linuxjournal o buscar en Google por el nombre de los System on Chips; en la p&aacute;gina de OpenWrt se pueden ver las distintas plataformas que se soportan. Los foros de los proyectos existentes tambi&eacute;n suele ser sitio d&oacute;nde se comentan novedades cuando alguien descubre un nuevo dispositivo interesante que puede hackearse.
+
+</para>
+<para>
+Linaro http://www.linaro.com iniciativa liderada por Ubuntu y que pretende tambi&eacute;n lanzar tambi&eacute;n software cada 6 meses que pueda ser utilizado de base para Android, Mee-Go u otros proyectos. No ser&aacute; una distribuci&oacute;n, sino una base com&uacute;n para distribuciones. Es interesante que se centra en los dos procesadores tope de gama de ARM; es de esperar que surjan noticias de hardware de referencia y para desarrolladores.
+</para>
+</chapter>
+

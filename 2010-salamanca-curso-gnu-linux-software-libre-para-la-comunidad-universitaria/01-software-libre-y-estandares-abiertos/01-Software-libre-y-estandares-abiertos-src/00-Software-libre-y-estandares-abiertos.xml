@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+                      "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd"
+[
+  <!ENTITY bookinfo SYSTEM "01-bookinfo.xml">
+  <!ENTITY software_libre SYSTEM "02-software_libre.xml">
+  <!ENTITY gnu_linux SYSTEM "03-gnu_linux.xml">
+  <!ENTITY bibliografia SYSTEM "04-bibliografia.xml">
+  <!ENTITY licencia SYSTEM "05-licencia.xml">
+]>
+
+<book lang="es">
+  &bookinfo;
+  &software_libre;
+  &gnu_linux;
+  &bibliografia;
+  &licencia;
+</book>
+
