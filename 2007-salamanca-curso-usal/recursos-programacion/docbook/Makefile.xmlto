@@ -1,5 +1,0 @@
-html:
-	xmlto html -o html recursos.xml
-
-clean:
-	rm -Rf *html *~

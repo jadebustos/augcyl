@@ -1,5 +1,0 @@
-html:
-	xmlto html -o htmldir PHP-MySQL.xml
-
-clean:
-	rm -Rf *html *~

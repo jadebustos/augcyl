@@ -1,6 +1,0 @@
-<?php
-$server= 'localhost';
-$database='cfie';
-$user='root';
-$passwd='sta3war2';
-?>
