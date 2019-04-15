@@ -1,0 +1,684 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Operaciones sobre variables</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Herramientas en GNU/Linux para estudiantes universitarios"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Operaciones sobre los tipos de datos"
+HREF="c773.html"><LINK
+REL="PREVIOUS"
+TITLE="El operador %"
+HREF="x796.html"><LINK
+REL="NEXT"
+TITLE="Operaciones sobre escalares"
+HREF="x936.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Herramientas en GNU/Linux para estudiantes universitarios: La herramienta de cálculo científico <SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x796.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 5. Operaciones sobre los tipos de datos</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x936.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="OPERACIONES-VARIABLES"
+></A
+>5.3. Operaciones sobre variables</H1
+><P
+>Cuando queramos reutilizar una dato necesitaremos
+      guardarlo en una variable:</P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>a:=3.141516;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 3.141516;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>a;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 3.141516;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+      </PRE
+><P
+>También podemos declarar variables con la función
+      <B
+CLASS="KEYCAP"
+>Set</B
+>:</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN821"
+></A
+><P
+><B
+>Ejemplo 5-1. Uso de <B
+CLASS="KEYCAP"
+>Set</B
+></B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Set(a,3*2);</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; True;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>a;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 6;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	</PRE
+></DIV
+><P
+>Las variables por defecto son declaradas de tipo global,
+      es decir que serán visibles desde cualquier lugar. Ya veremos
+      como declarar variables de tipo local.</P
+><P
+>En el caso anterior significará que cuando hagamos
+      referencia a la variables "<B
+CLASS="KEYCAP"
+>a</B
+>" se sustituirá por su
+      valor:</P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>a:=3.141516;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 3.141516;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>a;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 3.141516;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Vector:={a,b,c};</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; {3.141516,b,c};</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+      </PRE
+><P
+>Por lo tanto necesitaremos borrar el contenido de la
+	variable "<B
+CLASS="KEYCAP"
+>a</B
+>" antes de utilizarla. Eso lo
+	haremos con la función <B
+CLASS="KEYCAP"
+>Clear</B
+>:</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN849"
+></A
+><P
+><B
+>Ejemplo 5-2. Uso de <B
+CLASS="KEYCAP"
+>Clear</B
+></B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>a:=2;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 2;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>b:=3;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 3;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Clear(a,b);</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; True;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>a;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; a;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>b;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; b;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	</PRE
+></DIV
+><P
+>Disponemos de los operadores <B
+CLASS="KEYCAP"
+>++</B
+> y
+      <B
+CLASS="KEYCAP"
+>--</B
+>. Estos operadores provienen del lenguaje
+      C:</P
+><P
+></P
+><UL
+><LI
+><P
+>El operador <B
+CLASS="KEYCAP"
+>++</B
+> recibe el nombre de
+	  operador de autoincremento y sirve para incrementar en una
+	  unidad una variable:</P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>a:=2;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 2;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>a++;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; True;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>a;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 3;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	  </PRE
+><P
+>Este operador es equivalente a:</P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>a:=2;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 2;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>a:=a+1;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 3;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	  </PRE
+><P
+>Pero existe una diferencia fundamental y es que el
+	    operador autoincremento devuelve <B
+CLASS="KEYCAP"
+>True</B
+> en
+	    lugar de devolver el resultado.</P
+><DIV
+CLASS="WARNING"
+><P
+></P
+><TABLE
+CLASS="WARNING"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/warning.gif"
+HSPACE="5"
+ALT="Aviso"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>El operador autoincremento siempre va después de la
+	    variable, no se puede colocar antes como en C.</P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+><LI
+><P
+>El operador <B
+CLASS="KEYCAP"
+>--</B
+> recibe el nombre de
+	  operador de autodecremento y sirve para incrementar en una
+	  unidad una variable:</P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>a:=2;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 2;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>a--;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; True;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>a;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 1;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	  </PRE
+><P
+>Este operador es equivalente a:</P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>a:=2;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 2;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>a:=a-1;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 1;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	  </PRE
+><P
+>Pero existe una diferencia fundamental y es que el
+	    operador autodecremento devuelve <B
+CLASS="KEYCAP"
+>True</B
+> en
+	    lugar de devolver el resultado.</P
+><DIV
+CLASS="WARNING"
+><P
+></P
+><TABLE
+CLASS="WARNING"
+WIDTH="90%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/warning.gif"
+HSPACE="5"
+ALT="Aviso"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>El operador autodecremento siempre va después de la
+	    variable, no se puede colocar antes como en C.</P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+></UL
+><P
+>Por defecto todas las variables se declaran globales, es
+	decir que pueden ser accedidaas desde cualquier parte de
+	<SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+>. Para evitar esto podemos declarar
+	variables de forma local con <B
+CLASS="KEYCAP"
+>Local</B
+>:</P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Local(a,b,c);</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; True;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+      </PRE
+><P
+>Esto será útil cuando creemos nuestras propias funciones y
+      evitar de esta manera que una función modifique variables de
+      otra función.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x796.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x936.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>El operador %</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c773.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Operaciones sobre escalares</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

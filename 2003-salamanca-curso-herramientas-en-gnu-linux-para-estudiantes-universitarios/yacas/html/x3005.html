@@ -1,0 +1,535 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Sentencias de control de flujo</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Herramientas en GNU/Linux para estudiantes universitarios"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Programación"
+HREF="c2873.html"><LINK
+REL="PREVIOUS"
+TITLE="Simplificaciones"
+HREF="x2957.html"><LINK
+REL="NEXT"
+TITLE="Creación de funciones propias"
+HREF="x3104.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Herramientas en GNU/Linux para estudiantes universitarios: La herramienta de cálculo científico <SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x2957.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 7. Programación</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x3104.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="FLUJO"
+></A
+>7.4. Sentencias de control de flujo</H1
+><P
+>Disponemos de varias sentencias para el control de
+      flujo:</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="FLUJO-IF"
+></A
+>7.4.1. Estructura condicional If</H2
+><P
+>Con este tipo de bucles se rezlizará una acción u otra
+	dependiendo de si se cumple una condición:</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN3011"
+></A
+><P
+><B
+>Ejemplo 7-7. Estructura condicional <B
+CLASS="KEYCAP"
+>If</B
+></B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>sign(x):=If (IsPositiveReal(x), 1, -1);</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; True;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>sign(3);</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 1;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>sign(2+3*I);</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; -1;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	  </PRE
+></DIV
+><P
+>Con esta estructura se emplean tres argumentos:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>El primer argumento es la condición y debe devolver
+	      <B
+CLASS="KEYCAP"
+>True</B
+> o <B
+CLASS="KEYCAP"
+>False</B
+>.</P
+></LI
+><LI
+><P
+>El segundo argumento es la acción que se realizará
+	    cuando la condición dada por el primer argumento sea cierta.</P
+></LI
+><LI
+><P
+>El tercer argumento es la acción que se realizará
+	    cuando la condición dada por el primer argumento sea
+	    falsa. Este argumento es opcional.</P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="FLUJO-FOR"
+></A
+>7.4.2. El bucle For</H2
+><P
+>Con este tipo de bucle se ejecuta un conjunto de
+	instrucciones mientras una condición es cierta:</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN3038"
+></A
+><P
+><B
+>Ejemplo 7-8. El bucle <B
+CLASS="KEYCAP"
+>For</B
+></B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>For(i:=1,i&#60;=5, i++) Echo({i,i!});</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>1 2</TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>2 2</TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>3 6</TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>4 24</TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>5 120</TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; True;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	  </PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="FLUJO-FOREACH"
+></A
+>7.4.3. El bucle ForEach</H2
+><P
+>Con este tipo de bucle podemos realizar una determinada
+	acción para los elementos de una lista:</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN3054"
+></A
+><P
+><B
+>Ejemplo 7-9. El bucle <B
+CLASS="KEYCAP"
+>ForEach</B
+></B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>ForEach(i,{1,2,3,4,5}) Echo(i^2);</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>1</TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>4</TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>9</TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>16</TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>25</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	  </PRE
+></DIV
+><P
+>Es necesario que especifiquemos la variable que se
+	utilizará dentro del bucle. Esta variable tomará todos y cada
+	uno de los datos de la lista.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="FLUJO-WHILE"
+></A
+>7.4.4. El bucle While</H2
+><P
+>Con este tipo de bucle ejecutamos una serie de instrucciones
+	mientras una condición es cierta. Tenemos que tener cuidado de
+	no entrar en un bucle infinito, para ello dentro del conjunto
+	de instrucciones a ejecutar tendremos que incluir "algo" que
+	haga que se alcance el final del bucle:</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN3070"
+></A
+><P
+><B
+>Ejemplo 7-10. El bucle <B
+CLASS="KEYCAP"
+>While</B
+></B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>i:=1;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 1;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>While(i&#60;5) [ Echo(N(Sqrt(i))); i++;]</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>1</TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>1.4142135623</TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>1.7320508075</TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>2</TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; </TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	  </PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="FLUJO-UNTIL"
+></A
+>7.4.5. El bucle Until</H2
+><P
+>Este bucle funciona igual que el bucle
+	<B
+CLASS="KEYCAP"
+>While</B
+> pero se ejecuta hasta que la condición
+	dada se hace verdadera:</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN3089"
+></A
+><P
+><B
+>Ejemplo 7-11. El bucle <B
+CLASS="KEYCAP"
+>Until</B
+></B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>i:=1;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 1;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Until(i&#62;4) [ Echo(N(Sqrt(i))); i++;]</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>1</TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>1.4142135623</TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>1.7320508075</TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>2</TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; </TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	  </PRE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x2957.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x3104.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Simplificaciones</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c2873.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Creación de funciones propias</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

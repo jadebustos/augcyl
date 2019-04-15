@@ -1,0 +1,90 @@
+<chapter id=teorema>
+ <title>Teoremas</title>
+    <para>En este capítulo aprenderemos a escribir un sencillo teorema
+    matemático, podremos ver para lo que está diseñado TeXmacs.</para>
+    <para>Aunque se dijo en la introducción que TeXmacs no soporta
+    LaTeX completamente, aquí podremos ver que podemos escribir LaTeX
+    como si lo estuviesemos haciendo en Lyx, por ejemplo.
+    La verdadera intención del diseño de TeXmacs, como se
+    dijo en la introducción,es crear un editor WYSIWYG. Que en TeXmacs
+    podamos escribir en LaTeX puede parecer que TeXmacs ya no es tan
+    WYSIWYG como se pretendía hacer creer.</para>
+    <para> Bien ¿Por qué en TeXmacs puedes escribir LaTeX?, la razón
+    es simple, para poder ayudar a antiguos usuarios de LaTeX a que se
+    adapten al nuevo TeXmacs, y que puedan ver que todo lo que se hace
+    en LaTeX se puede hacer, de una forma más sencilla y sobretodo más
+    visual, en TeXmacs.</para>
+  <sect1 id=escribeteorema>
+      <title>Escribiendo un teorema</title>
+      <para>Pondremos en práctica aquí los conocimientos que hemos
+      aprendido hasta ahora, que son, crear un texto estructurado y
+      escribir texto matemático. Seguiremos estos puntos que
+      desarrollaré justo debajo.</para>
+      <orderedlist>
+	<listitem>
+	  <para>Le daremos un nombre a nuestro documento, por ejemplo,
+	  sin ser muy originales "teorema.tm". <!-- <link linkend="name">
+	  AQUI</link> estaba la explicación.--></para>
+	</listitem>
+	<listitem>
+	  <para>Seleccionamos como estilo, "Artículo". <!-- Os remito <link
+	  linkend="estilos">AQUI.</link>--></para>
+	</listitem>
+	<listitem>
+	  <para>Crearemos un título para el artículo. Para ello
+	  hacemos clic en el icono "Introduce un título". Escribiremos
+	  "Cálculo integral". Adicionalmente podemos especificar
+	  nombre del autor del artículo, dirección de correo...</para>
+	  <graphic fileref="../images/teorema1.png" format="png"
+	  scale="20">
+	  <para></para>
+	</listitem>
+	<listitem>
+	  <para>Abriremos una sección que llamaremos
+	  "Cálculo". Hacemos clic sobre el icono de nueva sección y
+	  escribimos "Introducción al cálculo integral".</para>
+	  <graphic fileref="../images/teorema2.png" format="png"
+	  scale="20">
+	  <para></para>
+	</listitem>
+	<listitem>
+	  <para>Crearemos el "Teorema". Hacemos clic en el icono
+	  "Teorema", y escribimos el teorema de fundamental del
+	  cálculo integral (por ejemplo :) Hay que tener en cuenta
+	  cuando debemos entrar y salir del modo "matemático" de
+	  TeXmacs. Es muy sencillo.</para>
+	  <graphic fileref="../images/teorema3.png" format="png"
+	  scale="20">
+	  <para></para>
+	</listitem>
+	<listitem>
+	  <para>Una vez escrito el teorema escribiremos también un
+	  colorario. Como antes hacemos clic sobre el icono
+	  "colorario", y simplemente escribimos.</para>
+	  <graphic fileref="../images/teorema4.png" format="png"
+	  scale="20">
+	  <para></para>
+	 </listitem>
+      </orderedlist>
+</sect1>
+    <sect1 id=gnuplot>
+      <title>Integración con GNUPlot</title>
+      <para>Ahora llamaremos a un shell GNUPlot, para representar un
+      par de gráficas.</para>
+      <para>Hacemos clic en el icono "Empezar una sesión interactiva"
+      y seleccionamos "GnuPlot". Aparecerá algo como esto:</para>
+      <graphic fileref="../images/gnuplot1.png" format="png"
+      scale="20">
+      <para>Podremos ahora, por ejemplo, representar una sencilla
+      gráfica. Escribiremos en el prompt <userinput>plot
+      x**2</userinput>  Veremos algo así.</para>
+      <graphic fileref="../images/gnuplot2.png" format="png"
+      scale="20">
+      <para>Y ahora representaremos algo en 3D, si nos fijamos tenemos
+      total integración por parte de TeXmacs. Escribimos nuevamente en
+      el prompt <userinput> splot x**2 </userinput>. Tendremos algo
+      del estilo a esto:</para>
+      <graphic fileref="../images/gnuplot3.png" format="png"
+      scale="20">
+</sect1>
+</chapter>

@@ -1,0 +1,229 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Filtrado de datos y manejo de funciones</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Herramientas en GNU/LINUX para estudiantes universitarios"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="OpenOffice.org Calc"
+HREF="c363.html"><LINK
+REL="PREVIOUS"
+TITLE="Ejercicio 2. Ordenación de datos y obtención de gráficos en 3D "
+HREF="x389.html"><LINK
+REL="NEXT"
+TITLE="Cómo trabajar con varias hojas de cálculo"
+HREF="x440.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Herramientas en GNU/LINUX para estudiantes universitarios: La suitte ofimática OpenOffice.org 1.0.1</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x389.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 3. OpenOffice.org Calc</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x440.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="FILTRADO-DE-DATOS-MANEJO-DE-FUNCIONES"
+></A
+>3.3. Filtrado de datos y manejo de funciones</H1
+><P
+>En esta sección vamos a realizar el tercer ejercicio, en el que tendremos que filtar los datos de las ventas de bebidas, y realizar una serie de operaciones estadísticas sobre ellos.</P
+><P
+><IMG
+SRC="images/CalcTercerEjercicioPrimeraParte.jpg"
+ALIGN="CENTER"></P
+><P
+><IMG
+SRC="images/CalcTercerEjercicioSegundaParte.jpg"
+ALIGN="CENTER"></P
+><P
+>¿Cómo puedo filtrar los datos?. Puedo hacerlo de tres formas:</P
+><P
+></P
+><UL
+><LI
+><P
+>- Mediante un autofiltro. Es lo que también se denomina filtro automático. El resultado del filtro se va a presentar en la misma tabla de datos sobre la que estoy trabajando, y por medio de un control combinado situado en un campo, puedo seleccionar el filtro que se aplicará de forma automática. Se muestran sólo aquellos registros de datos que coincidan con el campo de datos.</P
+><P
+><IMG
+SRC="images/CalcTercerEjercicioAutofiltro.jpg"
+ALIGN="CENTER"></P
+></LI
+><LI
+><P
+>- Mediante un filtro predeterminado o estándar, en el que
+     se aplica un filtro que está definido por el usuario, y cuyo
+     resultado puede presentarse en otra zona de la hoja de
+     cálculo. Podemos introducir hasta tres condiciones con las que
+     filtrar, con dos operadores lógicos (Y) y (O). El primer operador
+     implica que necesariamente se han de cumplir las dos condiciones
+     y el segundo, que bastará con que se cumpla una de ellas. </P
+><P
+><IMG
+SRC="images/CalcTercerEjercicioFiltroPredeterminado.jpg"
+ALIGN="CENTER"></P
+></LI
+><LI
+><P
+>- Usando un filtro especial. La diferencia con el filtro
+     estándar es que trasciende el límite de las tres condiciones y
+     permite hasta ocho. Al trabajar con filtros especiales, las
+     condiciones se escriben directamente en la hoja de
+     cálculo. </P
+><P
+><IMG
+SRC="images/CalcTercerEjercicioFiltroEspecial.jpg"
+ALIGN="CENTER"></P
+></LI
+></UL
+><P
+>Para comenzar, vamos a hacer un autofiltro sobre la tabla de datos de Beneficios por Bebida. Primero seleccionamos el área de trabajo en Seleccionar Area, y después en la barra de menús, nos vamos a Datos, y seleccionamos Filtro--&#62;Autofiltro. Inmediatamente aparece, por cada columna, un cuadro combinado de selección. En cada uno de dichos cuadros podemos seleccionar distrintos criterios para el filtro, y los aplicará de forma automática.</P
+><P
+>Para seleccionar como filtrado el estándar, quitamos primero el autofiltro, seleccionando el área y después yendo a Filtro--&#62;Autofiltro. De esta forma hemos desactivado el autofiltro. Seleccionamos Filtro--&#62;Filtro Predeterminado (o Estándar), y le ponemos el criterio de filtro que deseemos en el cuadro de diálogo, sabiendo cómo funcionan los operadores lógicos (O) y (Y). Para ver las opciones, pulsamos sobre el botón Opciones. La más importante de ellas es la que nos dice que podemos presentar el resultado del filtrado en otra zona de la hoja de cálculo. Para ello, hemos de seleccionar con el botón izquierdo presionado, la zona sobre la cual queremos que se presenten dicho resultado, y pulsamos en Aceptar. </P
+><P
+>No hablaremos nada del filtro especial, ya que es prácticamente lo mismo que el estándar, solo que tenemos más opciones.</P
+><P
+>Ahora vamos a pasar a manejar algunas funciones estadísticas.</P
+><P
+>En el ejemplo se pide hallar las ventas máximas, mínimas, la moda y la mediana. Para ello, lo primero es crear los encabezados de columna, separados entre ellos por una columna, los siguientes encabezados: Beneficios Máximos, Beneficios Mínimos, Beneficios Medios y Mediana, tal y como se muestra en la segunda ilustración del presente capítulo.</P
+><P
+>Nos vamos a la columna Beneficios Máximos. En la misma
+    situaremos los beneficios máximos obtenidos en cada mes. Pulsamos,
+    dentro de la barra de función, en el botón Autopiloto de
+    funciones.</P
+><P
+><IMG
+SRC="images/CalcAutopilotoDeFunciones.jpg"
+ALIGN="CENTER"></P
+><P
+>En el cuadro de diálogo, nos aparece en el campo combinado de Categorías, un listado de las categoría de funciones que se pueden ejecutar en Calc. Dichas funciones se clasifican en estadísticas, matemáticas, Matemáticas, Bases de Datos,Finanzas, Información, Fecha y Hora, Lógicas, etc.. </P
+><P
+><IMG
+SRC="images/CalcTercerEjercicioAutopilotoFunciones.jpg"
+ALIGN="CENTER"></P
+><P
+>Para implementar la función estadística Valor Máximo, seleccionamos Estadística dentro de Categoría, y en la lista de funciones, elegimos MAX, acrónimo de Valor Máximo, y que devuelve el valor máximo de una lista de argumentos. Al presionar sobre Siguiente, nos aparece un cuadro de diálogo, en que se nos pide que introduzcamos los argumentos. En vez de introducirlos directamente a mano, podemos seleccionarlos en la hoja de cálculo, manteniendo presionado el botón izquierdo del ratón. Para el caso del mes de Enero, seleccionamos como lista de argumentos todos los datos de la columna Enero. Pulsamos en Aceptar e inmediatamente nos halla el valor máximo dentro de la lista de argumentos. Así procederemos hasta llegar al mes de Mayo.</P
+><P
+>Lo mismo para la columna Beneficios Mínimos, ponemos el encabezamiento, nos vamos al Autopiloto de Funciones, elegimos estadísticas, y como función MIN. Seleccionamos los argumentos, aceptamos y aplicamos para todos los meses. </P
+><P
+>La función que calcula los Beneficios Medios se llama MEDIA.ACOTADA. Hacemos lo mismo que en los dos casos anteriores.</P
+><P
+>Para hallar la mediana, la función se llama MEDIANA, como su nombre indica</P
+><P
+>También, y como su nombre indica, la función para calcular la moda se llama MOD. Podemos, para probar, implementar otras funciones de las que permite OpenOffice.org Calc.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x389.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x440.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Ejercicio 2. Ordenación de datos y obtención de gráficos en 3D</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c363.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Cómo trabajar con varias hojas de cálculo</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

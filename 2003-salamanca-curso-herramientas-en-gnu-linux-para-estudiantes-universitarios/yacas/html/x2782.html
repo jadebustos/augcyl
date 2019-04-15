@@ -1,0 +1,292 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Exportación de datos</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Herramientas en GNU/Linux para estudiantes universitarios"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Cálculos matemáticos"
+HREF="c2451.html"><LINK
+REL="PREVIOUS"
+TITLE="Cálculo numérico"
+HREF="x2724.html"><LINK
+REL="NEXT"
+TITLE="Ejercicios"
+HREF="x2816.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Herramientas en GNU/Linux para estudiantes universitarios: La herramienta de cálculo científico <SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x2724.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 6. Cálculos matemáticos</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x2816.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="EXPORTACION"
+></A
+>6.4. Exportación de datos</H1
+><P
+>Podemos utilizar <SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+> para realizar
+      cálculos y también es posible exportar los resultados para
+	incorporarlos a documentos <B
+CLASS="KEYCAP"
+>LaTeX</B
+> o programas
+      escritos en lenguaje<B
+CLASS="KEYCAP"
+>C</B
+>.</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="EXPORTANDO-LATEX"
+></A
+>6.4.1. Exportando a LaTeX</H2
+><P
+>Podemos exportar nuestros cálculos a
+	  <B
+CLASS="KEYCAP"
+>LaTeX</B
+> con <B
+CLASS="KEYCAP"
+>TeXForm</B
+>. Esta
+	  función devuelve una cadena con la expresión
+	  <B
+CLASS="KEYCAP"
+>LaTeX</B
+>:</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN2794"
+></A
+><P
+><B
+>Ejemplo 6-13. Exportando a LaTeX</B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>TeXForm(D(x) Tan(x));</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; "$\frac{1}{\left( \cos x\right)  ^{2}} $";</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	  </PRE
+></DIV
+><DIV
+CLASS="WARNING"
+><P
+></P
+><TABLE
+CLASS="WARNING"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/warning.gif"
+HSPACE="5"
+ALT="Aviso"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>No todas las expresiones se pueden exportar a <B
+CLASS="KEYCAP"
+>LaTeX</B
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="EXPORTANDO-C"
+></A
+>6.4.2. Exportando a C</H2
+><P
+>Podemos exportar nuestros cálculos a <B
+CLASS="KEYCAP"
+>C</B
+>
+	  con <B
+CLASS="KEYCAP"
+>CForm</B
+>. Esta función devuelve una cadena
+	con la expresión:</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN2809"
+></A
+><P
+><B
+>Ejemplo 6-14. Exportando a C</B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>CForm(D(x) Tan(x));</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; "1. / pow(cos(x), 2.)";</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	  </PRE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x2724.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x2816.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Cálculo numérico</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c2451.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Ejercicios</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

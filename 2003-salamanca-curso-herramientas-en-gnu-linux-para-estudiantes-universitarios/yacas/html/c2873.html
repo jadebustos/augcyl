@@ -1,0 +1,328 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Programación</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Herramientas en GNU/Linux para estudiantes universitarios"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Ejercicios"
+HREF="x2816.html"><LINK
+REL="NEXT"
+TITLE="Interactuando con ficheros"
+HREF="x2922.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Herramientas en GNU/Linux para estudiantes universitarios: La herramienta de cálculo científico <SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x2816.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x2922.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="PROGRAMACION"
+></A
+>Capítulo 7. Programación</H1
+><P
+>Podemos programar nuestras propias funciones y scripts
+    utilizando las funciones que trae consigo <SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+>.</P
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="INTERACTUANDO-USUARIO"
+></A
+>7.1. Interactuando con el usuario</H1
+><P
+>Podemos interactuar con el usuario para la petición de
+      datos o simplemente para mostrar resultados.</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="MOSTRANDO-INFORMACION"
+></A
+>7.1.1. Mostrando información</H2
+><P
+>Podemos mostrar información utilizando
+	<B
+CLASS="KEYCAP"
+>Echo</B
+>. Existen dos formas de utilizar esta
+	función:</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN2884"
+></A
+><P
+><B
+>Ejemplo 7-1. Mostrando información</B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Echo(N(Sqrt(2)));</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>1.4142135623</TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; True;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Echo({"El logaritmo de 2 es", N(Ln(2))});</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>El logaritmo de 2 es 0.6931471805</TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; True;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	  </PRE
+></DIV
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>En la primera forma si es una expresión la evalua e
+	    imprime su resultado. Si fuera una cadena de texto
+	    simplemente la imprimiría.</P
+></LI
+><LI
+><P
+>En la segunda forma si es una lista imprimiría todos
+	    y cada uno de los miembros de la lista separados por un
+	    espacio en blanco, evaluando todas y cada una de las
+	    expresiones que aparecieran en la lista.</P
+></LI
+></OL
+><P
+><B
+CLASS="KEYCAP"
+>Echo</B
+> siempre devuelve
+	<B
+CLASS="KEYCAP"
+>True</B
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SOLICITANDO-INFORMACION"
+></A
+>7.1.2. Solicitando información al usuario</H2
+><P
+>Podemos pedir información al usuario con
+	<B
+CLASS="KEYCAP"
+>Read</B
+>. Esta función lee una expresión desde la
+	entrada estándar, el teclado, y no la evalúa. Para indicar que
+	se termina la expresión se hace terminando la expresión con
+	  punto y coma "<B
+CLASS="KEYCAP"
+>;</B
+>":</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN2909"
+></A
+><P
+><B
+>Ejemplo 7-2. Solicitando información al usuario</B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>a:=Read();</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>2+3;Out&#62; 2+3;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>a;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 2+3;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>N(a);</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 5;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	  </PRE
+></DIV
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x2816.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x2922.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Ejercicios</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Interactuando con ficheros</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,316 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>La directiva Help</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Herramientas en GNU/Linux para estudiantes universitarios"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Personalización de YACAS"
+HREF="c216.html"><LINK
+REL="PREVIOUS"
+TITLE="La directiva DefaultDirectory"
+HREF="x275.html"><LINK
+REL="NEXT"
+TITLE="La directiva HistorySize"
+HREF="x352.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Herramientas en GNU/Linux para estudiantes universitarios: La herramienta de cálculo científico <SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x275.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 2. Personalización de <SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x352.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="HELP"
+></A
+>2.5. La directiva Help</H1
+><P
+>Podemos solicitar ayuda en <SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+> de dos formas
+      diferentes:</P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Podemos solicitar ayuda sobre un comando en
+	  particular:</P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>?Solve</B
+></TT
+>
+        </PRE
+></LI
+><LI
+><P
+>Podemos solicitar la ayuda general:</P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>??</B
+></TT
+>
+        </PRE
+></LI
+></OL
+><P
+>Al solicitar la ayuda <SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+> la mostrará y dependerá la
+      forma en la que lo estemos utilizando para mostrarla:</P
+><P
+></P
+><UL
+><LI
+><P
+>Si estamos utilizando la interface gráfica
+	  <SPAN
+CLASS="APPLICATION"
+>proteusworksheet</SPAN
+> la ayuda se mostrará en la
+	  pestaña Help y se podrá navegar por ella.</P
+></LI
+><LI
+><P
+>Si estamos utilizando <SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+> en modo consola la ayuda
+	    se mostrará utilizando <SPAN
+CLASS="APPLICATION"
+>lynx</SPAN
+> que es un
+	    navegador web que funciona en modo texto sin mostrar
+	    gráficos y podremos navegar por ella.</P
+></LI
+></UL
+><P
+>La ayuda por defecto se instalará en el directorio
+      <TT
+CLASS="FILENAME"
+>documentation</TT
+> dentro del directorio en el que
+      se instalan los scripts que utiliza <SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+>, es decir que la ayuda
+	normalmente estará en
+      <TT
+CLASS="FILENAME"
+>/usr/share/yacas/documentation/</TT
+>.</P
+><P
+>Por defecto se utiliza <SPAN
+CLASS="APPLICATION"
+>lynx</SPAN
+> como
+      navegador para visualizar la ayuda, pero es posible configurar
+      <SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+> para utilizar otro navegador para mostrar la ayuda:</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN337"
+></A
+><P
+><B
+>Ejemplo 2-3. Cambiando la visualización de la ayuda</B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Help(_f) &#60;-- SystemCall("galeon " :FindFile("documentation/ref.html"):"#":f);</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; True;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Help() := SystemCall("mozilla ":FindFile("documentation/books.html"));</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; True;</TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>In&#62;</TT
+>
+      </PRE
+></DIV
+><P
+>Con esto estamos especificando que vamos a utilizar el
+	navegador <SPAN
+CLASS="APPLICATION"
+>galeon</SPAN
+> para visualizar la ayuda de
+	comandos, <TT
+CLASS="USERINPUT"
+><B
+>?Comando</B
+></TT
+>, mientras que para
+	visualizar la ayuda en general utilizaremos
+	<SPAN
+CLASS="APPLICATION"
+>mozilla</SPAN
+>, <TT
+CLASS="USERINPUT"
+><B
+>??</B
+></TT
+>.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x275.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x352.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>La directiva DefaultDirectory</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c216.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>La directiva HistorySize</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

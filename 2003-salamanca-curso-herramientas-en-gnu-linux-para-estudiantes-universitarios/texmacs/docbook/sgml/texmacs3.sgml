@@ -1,0 +1,83 @@
+<chapter id="textosimple">
+<title>Escribiendo un texto sencillo con TeXmacs</title>
+    <para>Ya conocemos TeXmacs, en este capítulo aprenderemos a
+    escribir un texto sencillo.</para>
+   <sect1 id=starting>
+      <title>Comenzando con TeXmacs</title>
+      <para>Tenemos ya cargado TeXmacs. Antes de comenzar a escribir,
+      haremos lo siguiente:</para>
+      <itemizedlist>
+	<listitem>
+	  <para>Dar un nombre descriptivo a nuestro documento.</para>
+	</listitem>
+	<listitem>
+	  <para>Seleccionar el lenguaje de nuestro documento.</para>
+	</listitem>
+	<listitem>
+	  <para>Seleccionar el estilo del documento (artículo,
+	  carta....)</para>
+	</listitem>
+       </itemizedlist>
+      <para>En este capítulo, solo describiré el primer paso. Más
+      adelante nos adentraremos más en los estilos etc.</para>
+      <!-- <link linkend="estilos">AQUI</link> están los estilos.-->
+</sect1>
+    <sect1 id="name">
+      <title>Dando un nombre al documento</title>
+      <para>Como he dicho antes, lo mejor antes de empezar es darle un
+      nombre <keycap>descriptivo</keycap> a nuestro nuevo
+      documento.</para>
+      <para>Esto lo podemos hacer seleccionando <userinput>Guardar
+      Buffer como</userinput> en el icono representado por un
+      diskette.</para>
+      <para>También podemos pulsar <userinput>SHIFT+F3</userinput>
+      como nos sugiere TeXmacs, en el menú que nos aparece.</para>
+      <graphic fileref="../images/saveas-1.png" format="png"
+      scale="100">
+      <para>Se abrirá la siguiente ventana en la que se nos pregunta
+      que nombre le deseamos dar al documento. Escribiremos
+      "hola.tm".</para>
+      <graphic fileref="../images/saveas-3.png" format="png"
+      scale="100">
+      <para>El sufijo <userinput>.tm</userinput> sirve para
+      identificar que el texto que estamos escribiendo es de
+      TeXmacs. Una vez que hemos salvado el documento nos aparecerá
+      una ventana similar a la siguiente.</para>
+      <graphic fileref="../images/saveas-4.png" format="png"
+      scale="100">
+      <para>Si nos fijamos ha cambiado el título de la ventana, y en
+      la barra de estado nos indica que hemos salvado el fichero
+      satisfactoriamente.</para>
+      </sect1>
+    <sect1 id=simple>
+      <title>Escribiendo un texto sencillo</title>
+      <para>Una vez que le hemos dado nombre a nuestro documento,
+      simplemente escribimos lo primero que se nos venga a la
+      cabeza. Os daréis cuenta que es como escribir en un procesador
+      de textos cualquiera, solo que TeXmacs es algo más que un
+      procesador de textos.</para>
+      <graphic fileref="../images/simple-1.png" format="png" scale="100">
+      <para>Una vez que hemos escrito nuestro texto sencillo lo
+      guardaremos, bien sea como antes en <userinput>Salvar Buffer
+      </userinput>o bien sea pulsando la tecla
+      <userinput>F3</userinput> fijaros en la barra de estado.</para>
+    <graphic fileref="../images/simple-2.png" format="png"
+      scale="100">
+      <para>Por seguridad TeXmacs salva automáticamente el documento
+      cada 2 minutos, como copia de seguridad. Así si hay un corte de
+      luz, podremos recuperar lo que estábamos haciendo en aquel
+      momento. Nos lo muestra en la barra de estado.</para>
+      <graphic fileref="../images/simple-3.png" format="png"
+      scale="100">
+      <para>Pulsando <userinput>F4</userinput> podremos imprimir lo
+      que estamos escribiendo. Si pulsamos el icono de la impresora,
+      también podremos hacer una visualización previa del documento a
+      imprimir.</para>
+      <para>Si lo que queremos es cargar lo que habíamos escrito ya
+      hace algún tiempo, presionamos <userinput>F2 </userinput> o bien
+      hacemos clic sobre el icono de la carpeta. Se nos mostrará algo
+      similar a esto, podremos hacer clic en el documento a abrir y
+      luego en "vale".</para>
+      <graphic fileref="../images/load.png" format="png" scale="100">
+</sect1>
+ </chapter>

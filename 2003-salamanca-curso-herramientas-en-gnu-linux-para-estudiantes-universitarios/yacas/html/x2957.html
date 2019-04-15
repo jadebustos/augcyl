@@ -1,0 +1,341 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Simplificaciones</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Herramientas en GNU/Linux para estudiantes universitarios"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Programación"
+HREF="c2873.html"><LINK
+REL="PREVIOUS"
+TITLE="Interactuando con ficheros"
+HREF="x2922.html"><LINK
+REL="NEXT"
+TITLE="Sentencias de control de flujo"
+HREF="x3005.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Herramientas en GNU/Linux para estudiantes universitarios: La herramienta de cálculo científico <SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x2922.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 7. Programación</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x3005.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SIMPLIFICACIONES"
+></A
+>7.3. Simplificaciones</H1
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SUSTITUCIONES"
+></A
+>7.3.1. Sustitución de expresiones</H2
+><P
+>Es posible realizar sustituciones en nuestros
+	cálculos. Hay veces que necesitamos escribir expresiones muy
+	largas que han de ser tratadas. Para simplificar su escritura
+	las podemos sustuituir por otras y una vez terminados los
+	cálculos volver a ponerlas en su forma original:</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN2962"
+></A
+><P
+><B
+>Ejemplo 7-5. Sustitución de expresiones</B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Simplify((x+3*x^2)^2-(2+x^2-3*x^3);</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 9*x^4+9*x^3-2;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Subst(x, Cos(a)+Ln(b)) %;</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 9*(Cos(a)+Ln(b))^4+9*(Cos(a)+Ln(b))^3-2;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	  </PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="REGLAS-SIMPLIFICACION"
+></A
+>7.3.2. Reglas de simplificación</H2
+><P
+>Es posible indicar algunas reglas de simplificación que
+	  no se hacen por defecto, para ello disponemos de
+	  los operadores <B
+CLASS="KEYCAP"
+>/:</B
+> y
+	  <B
+CLASS="KEYCAP"
+>/::</B
+>.</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN2977"
+></A
+><P
+><B
+>Ejemplo 7-6. Especificando reglas de simplificación</B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Sin(x)*Ln(a*b);</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; Sin(x)*Ln(a*b);</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>% /: {Ln(_x*_y) &#60;- Ln(x)+Ln(y)};</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; Sin(x)*(Ln(a)+Ln(b));</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	  </PRE
+></DIV
+><P
+><B
+CLASS="KEYCAP"
+>/:</B
+> aplica las reglas de simplificación,
+	  pero puede ser necesario aplicarlas  varias veces en ese
+	  caso se utiliza <B
+CLASS="KEYCAP"
+>/::</B
+>:</P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Sin(x)*Ln(a*b);</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; Sin(x)*Ln(a*b);</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>% /: {a &#60;- 2, b &#60;- 3};</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; Sin(x)*(Ln(2*3));</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Sin(x)*Ln(a*b);</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; Sin(x)*Ln(a*b);</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>% /:: {a &#60;- 2, b &#60;- 3};</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; Sin(x)*(Ln(6));</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	  </PRE
+><P
+>Tenemos que tener cuidado a la hora de establecer las
+	reglas ya que si establecemos reglas contradictorias podriamos
+	entrar en un bucle infinito.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x2922.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x3005.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Interactuando con ficheros</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c2873.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Sentencias de control de flujo</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

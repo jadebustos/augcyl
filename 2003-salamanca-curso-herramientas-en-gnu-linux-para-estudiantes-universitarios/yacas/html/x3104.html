@@ -1,0 +1,442 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Creación de funciones propias</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Herramientas en GNU/Linux para estudiantes universitarios"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Programación"
+HREF="c2873.html"><LINK
+REL="PREVIOUS"
+TITLE="Sentencias de control de flujo"
+HREF="x3005.html"><LINK
+REL="NEXT"
+TITLE="Ejercicios"
+HREF="x3178.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Herramientas en GNU/Linux para estudiantes universitarios: La herramienta de cálculo científico <SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x3005.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 7. Programación</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x3178.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="FUNCIONES-PROPIAS"
+></A
+>7.5. Creación de funciones propias</H1
+><P
+>Veamos ahora como crear nuestras propias funciones con
+	todos los recursos que hemos visto de
+	<SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+>:</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="COMENTARIOS"
+></A
+>7.5.1. Comentarios</H2
+><P
+>Siempre que programemos, independientemente del
+	lenguaje, es conveniente la utilización de comentarios. Esto
+	nos facilitará la depuración y/o ampliación del
+	código. Especialmente si hace mucho tiempo que no lo
+	utilizamos.</P
+><P
+>Los comentarios en <SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+> son como en
+	lenguaje C, se considerará comentario todo aquello que esté
+	  entre <B
+CLASS="KEYCAP"
+>/*</B
+> y
+	<B
+CLASS="KEYCAP"
+>*/</B
+>. <SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+> también admite
+	comentarios al estilo C++, es decir será comentario todo lo
+	  que se encuentre después de <B
+CLASS="KEYCAP"
+>//</B
+> y hasta el
+	final de linea.</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN3117"
+></A
+><P
+><B
+>Ejemplo 7-12. Ejemplos de comentarios</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>/* ESTO ES UN COMENTARIO */
+/* ESTO TAMBIEN
+   LO ES */
+// Y ESTO TAMBIEN, PERO AL ESTILO C++</PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="BLOQUES"
+></A
+>7.5.2. Bloques de código</H2
+><P
+>Podemos crear bloques de código de dos formas:</P
+><P
+></P
+><UL
+><LI
+><P
+>Utilizando <B
+CLASS="KEYCAP"
+>[ ]</B
+>, cada instrucción
+	    deberá ir seguida de un punto y coma.</P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>[a:=1;b:=2;c:=3;]</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 3;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62; </TT
+>
+	    </PRE
+></LI
+><LI
+><P
+>Utilizando <B
+CLASS="KEYCAP"
+>Prog</B
+>, cada instrucción
+	    ira seguida por una coma.</P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>Prog(a:=1,b:=2,c:=3)</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; 3;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	    </PRE
+></LI
+></UL
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="LOCALIZANDO-FUNCIONES"
+></A
+>7.5.3. Localizando funciones</H2
+><P
+>Hay veces que es necesario conocer en que fichero
+	  tenemos almacenada una función, eso se hace con
+	  <B
+CLASS="KEYCAP"
+>FindFunction</B
+>:</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="AEN3144"
+></A
+><P
+><B
+>Ejemplo 7-13. Uso de FindFunction</B
+></P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>FindFunction("Sum");</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; "sums.rep/code.ys";</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	  </PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="EJEMPLO"
+></A
+>7.5.4. Ejemplo de creación de funciones</H2
+><P
+>Vamos a crear una función que dada una lista pida al
+	usuario un número y calcule la suma de todas las componentes
+	de la lista elevadas al número introducido por el
+	usuario.</P
+><P
+>La función sería:</P
+><PRE
+CLASS="PROGRAMLISTING"
+>MiFuncion(list):=[
+	  /* DECLARAMOS LOCALES LAS FUNCIONES */
+	  Local(poten, tmplist, tmpRes, i);
+	  /* PEDIMOS EL DATO */
+	  Echo("Introduce la potencia: ");
+	  poten:=Read();
+	  Echo("");
+	  /* ELEVAMOS A LA POTENCIA ESPECIFICADA */
+	  tmplist:=list^poten;
+	  tmpRes:=0;
+	  /* SUMAMOS TODOS LOS MIEMBROS DE LA LISTA */
+	  For(i:=1,i&#60;=Length(list),i++) tmpRes:=tmpRes+tmplist[i];
+	  /* MOSTRAMOS LOS RESULTADOS */
+	  Echo({"La suma es", tmpRes});
+];</PRE
+><P
+>Esta función la almacenaremos en un fichero
+	<TT
+CLASS="FILENAME"
+>mifuncion.ys</TT
+> que estará en nuestro
+	  directorio de scripts. Crearemos un fichero
+	  <TT
+CLASS="FILENAME"
+>mifuncion.ys.def</TT
+> para que
+	<SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+> sepa donde se encuentra y evitar que
+	  este cargado en memoria. El fichero
+	<TT
+CLASS="FILENAME"
+>mifuncion.ys.def</TT
+>:</P
+><PRE
+CLASS="PROGRAMLISTING"
+>MiFuncion
+}</PRE
+><P
+>A continuación tendremos que modificar el fichero
+	  <TT
+CLASS="FILENAME"
+>.yacasrc</TT
+> de la siguiente manera:</P
+><PRE
+CLASS="PROGRAMLISTING"
+>/* DIRECTORIO DE SCRIPTS */
+DefaultDirectory("/home/jose/yacascripts/");
+/* INDICA LA DEFINICION DE LA FUNCION */
+CntDefLoad("yacascripts/funcion.ys");</PRE
+><P
+>En nuestro directorio de scripts tendremos que tener los
+	  ficheros <TT
+CLASS="FILENAME"
+>mifuncion.ys</TT
+> y
+	  <TT
+CLASS="FILENAME"
+>mifuncion.ys.def</TT
+>.</P
+><P
+>Al arrancar <SPAN
+CLASS="ACRONYM"
+>YACAS</SPAN
+> ya podremos
+	utilizar la función:</P
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>In&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>MiFuncion({1,2,3,4});</B
+></TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Introduce la potencia:</TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>6;</TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>La suma es 4890</TT
+>
+<TT
+CLASS="COMPUTEROUTPUT"
+>Out&#62; True;</TT
+>
+<TT
+CLASS="PROMPT"
+>In&#62;</TT
+>
+	</PRE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x3005.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x3178.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Sentencias de control de flujo</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c2873.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Ejercicios</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

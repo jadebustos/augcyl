@@ -1,0 +1,125 @@
+<chapter id="primeros">
+    <title>Primeros pasos</title>
+
+    <sect1 id="arrancando">
+      <title>Arrancando <acronym>YACAS</acronym></title>
+
+      <para>Podemos arrancar <acronym>YACAS</acronym> en modo gráfico o en la
+      consola.</para>
+
+      <sect2 id="yacas-grafico">
+	<title>Arrancando <acronym>YACAS</acronym> en modo gráfico</title>
+
+	<para>Si existe una entrada en los menús de nuestro entorno
+	gráfico bastará con arrancarlo como cualquier otra
+	aplicación.</para>
+
+	<para>En caso de no existir podemos abrir una consola y
+	teclear en ella:</para>
+
+	<screen>
+<prompt>jose@debian:~/$ </prompt><userinput>proteusworksheet</userinput>
+        </screen>
+
+	<para>Después de pulsar return arrancaría la
+	aplicación:</para>
+
+          <graphic fileref="./images/proteus.jpg" format="jpg"
+	    scale="45" align="center">
+
+      </sect2>
+
+      <sect2 id="yacas-consola">
+	<title>Arrancando <acronym>YACAS</acronym> en la consola</title>
+
+	<para>Abrimos una consola y tecleamos en ella:</para>
+
+	<screen>
+<prompt>jose@debian:~/$ </prompt><userinput>yacas</userinput>
+        </screen>
+
+	<para>Después de pulsar return arrancaría la
+	aplicación:</para>
+
+          <graphic fileref="./images/yacas.jpg" format="jpg"
+	    scale="45" align="center">
+
+      </sect2>
+
+    </sect1>
+
+    <sect1 id="historial-de-comandos">
+      <title>Moviendonos por el historial de comandos</title>
+      <para><acronym>YACAS</acronym> recuerda las ordenes que le vamos dando, pero sólo
+      las últimas. Por defecto sólo recuerda las 50 últimas, pero esto
+	puede cambiarse con <ulink
+      url="historysize">HistorySize</ulink>.</para>
+
+      <para>Dar una orden a <acronym>YACAS</acronym> equivale a escribir la orden y
+      pulsar return. Podemos probar a darle varias ordenes cualquiera,
+      es decir escribir varias frases y pulsar return después de cada
+      una. Si no es una orden válida dará un error, no importa.</para>
+
+      <para>Después de haber tecleado varias si pulsamos los cursores,
+      teclas de arriba y abajo, nos moveremos por el historial de
+      comandos, pudiendo repetir o modificar una orden previamente
+      dada.</para>
+
+      <sect2 id="autocompletacion">
+	<title>Autocompletación (sólo en consola)</title>
+
+	<para>La shell de GNU/Linux posee una característica especial
+	  llamada <keycap>autocompletación</keycap>. Gracias a esta
+	  característica no es necesario teclear todos los comandos,
+	  basta con teclear unas pocas letras del principio y pulsar
+	  la tecla <keycap>TAB</keycap>.</para>
+
+	<para>Si en <acronym>YACAS</acronym> empezamos a escribir un
+	comando que previamente ya hemos utilizado, y esta almacenado
+	  en el historial de comandos, y pulsamos <keycap>TAB</keycap>
+	<acronym>YACAS</acronym> nos lo completará automaticamente.</para>
+
+      </sect2>
+
+      <sect2 id="linea-comandos">
+	<title>Moviendonos en la línea de comandos (sólo en consola)</title>
+
+	<para>Existen una serie de combinaciones especiales de teclas
+	que nos permiten movernos en la línea de comandos con mayor
+	facilidad:</para>
+
+	<itemizedlist>
+	  <listitem>
+	    <para><keycap>Ctrl-a</keycap>, vamos al inicio de la línea de
+	    comando.</para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	    <keycap>Ctrl-e</keycap>, vamos al final de la línea de comando.</para>
+	  </listitem>
+	</itemizedlist>
+      </sect2>
+
+    </sect1>
+
+    <sect1 id="terminando">
+      <title>Terminando la sesión</title>
+
+      <para>Para terminar la sesión en <acronym>YACAS</acronym> basta
+	con pulsar Ctrl-c o bien darle a <acronym>YACAS</acronym> la
+	orden <keycap>quit</keycap>:</para>
+      <example>
+	<title>Termiando la sesión</title>
+	<screen>
+<prompt>In> </prompt><userinput>quit</userinput>
+<computeroutput>Quitting...</computeroutput>
+<prompt>jose@debian:~$</prompt>
+	</screen>
+      </example>
+    </sect1>
+
+</chapter>
+
+<!-- Local Variables: -->
+<!-- sgml-parent-document: "Yacas.sgml" -->
+<!-- End: -->

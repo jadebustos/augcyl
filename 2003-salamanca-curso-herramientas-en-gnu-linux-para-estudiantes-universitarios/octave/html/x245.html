@@ -1,0 +1,1214 @@
+<HTML
+><HEAD
+><TITLE
+>Tipos de datos</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Herramientas en GNU/Linux para estudiantes universitarios"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Sintaxis de Octave"
+HREF="c242.html"><LINK
+REL="PREVIOUS"
+TITLE="Sintaxis de Octave"
+HREF="c242.html"><LINK
+REL="NEXT"
+TITLE="Variables"
+HREF="x446.html"><LINK
+REL="stylesheet"
+HREF="./base.css"
+TYPE="text/css"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Herramientas en GNU/Linux para estudiantes universitarios: </TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c242.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 2. Sintaxis de Octave</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x446.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN245"
+></A
+>2.1. Tipos de datos</H1
+><P
+>Octave ofrece soporte para datos predefinidos, que incluyen escalares (reales y
+      complejos), vectores, matrices, cadenas de caracteres y estructuras. También es posible la
+      definición de nuevos datos por parte el usuario, programados en algún lenguaje que produzca
+      código máquina (FORTRAN, C++, ...), aunque esta posibilidad aún no ha sido suficientemente
+      documentada. Por este motivo en esta sección nos centraremos únicamente en los datos
+      predefinidos (Built-in).</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN248"
+></A
+>2.1.1. Objetos numéricos</H2
+><P
+>Los objetos numéricos predefinidos de octave son los escalares (reales y complejos), y
+	las matrices (los vectores se consideran matrices especiales, en que una de sus dimensiones
+	es 1). Todos los datos numéricos son almacenados como números de doble precisión, lo que
+	significa que en sistemas que usan el formato en punto flotante de la IEEE se pueden
+	representar números en el rango 2.2e-308 a 1.7e+308 y la precisión aproximada de
+	2.2e-16.
+	  <DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Los valores exactos se encuentran en las variables <SPAN
+CLASS="KEYSYM"
+>realmin</SPAN
+>,
+	    <SPAN
+CLASS="KEYSYM"
+>realmax</SPAN
+> y <SPAN
+CLASS="KEYSYM"
+>eps</SPAN
+>, respectivamente.</P
+></TD
+></TR
+></TABLE
+></DIV
+>
+	</P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="AEN256"
+></A
+>2.1.1.1. Escalares</H3
+><P
+>Los números escalares se pueden especificar en formato decimal, hexadecimal
+	  (precedidos por el prefijo <SPAN
+CLASS="KEYSYM"
+>0x</SPAN
+>). Los números en formato hexadecimal sólo
+	  pueden ser enteros. Los números decimales, además permiten usar notación científica,
+	  pudiéndose utilizar los símbolos <SPAN
+CLASS="KEYSYM"
+>e</SPAN
+>, <SPAN
+CLASS="KEYSYM"
+>E</SPAN
+>,
+	  <SPAN
+CLASS="KEYSYM"
+>d</SPAN
+> o <SPAN
+CLASS="KEYSYM"
+>D</SPAN
+> seguidos por un número <SPAN
+CLASS="KEYSYM"
+>n</SPAN
+> para
+	  significar "multiplicado por 10 elevado a la potencia <SPAN
+CLASS="KEYSYM"
+>n</SPAN
+>. Algunos
+	  ejemplos:</P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+>	    <TT
+CLASS="USERINPUT"
+><B
+>105</B
+></TT
+>
+	    <TT
+CLASS="USERINPUT"
+><B
+>1.05e2</B
+></TT
+>
+	    <TT
+CLASS="USERINPUT"
+><B
+>1050E-1</B
+></TT
+>
+	    <TT
+CLASS="USERINPUT"
+><B
+>0x69</B
+></TT
+>
+	  </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Todos ellos representan el número 105. Para representar el número complejo 10+11i:</P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+>	    <TT
+CLASS="USERINPUT"
+><B
+>10 + 11i</B
+></TT
+>
+	    <TT
+CLASS="USERINPUT"
+><B
+>1.0d1 + 0xBi </B
+></TT
+>
+	    <TT
+CLASS="USERINPUT"
+><B
+>10 + 110D-1j</B
+></TT
+>
+	    <TT
+CLASS="USERINPUT"
+><B
+>0xA + 0xbj</B
+></TT
+>
+	  </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Recordar que <SPAN
+CLASS="KEYSYM"
+>i</SPAN
+> y <SPAN
+CLASS="KEYSYM"
+>j</SPAN
+> y sus correspondientes
+	  mayúsculas representan la unidad imaginaria, y que debe ser el último dígito de la
+	  cantidad imaginaria y sin espacios con el resto del número. Tanto 100je-1, j100 o 100 j
+	  son incorrectos.</P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="AEN280"
+></A
+>2.1.1.2. Rangos numéricos</H3
+><P
+>Un rango es una forma más cómoda de escribir un vector con elementos
+	  equiespaciados. Un rango se define como una base o primer valor del rango, un valor opcional de
+	  incremento entre elementos y un valor máximo que el rango no superará. Estos tres
+	  elementos se separan por el símbolo <SPAN
+CLASS="KEYSYM"
+>:</SPAN
+> (dos puntos). El incremento puede
+	  ser positivo o negativo, y en caso de omitirse se asumirá valor 1.</P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+>	    <TT
+CLASS="PROMPT"
+>octave&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>1:10</B
+></TT
+>
+	    <TT
+CLASS="COMPUTEROUTPUT"
+>ans = </TT
+>
+	    <TT
+CLASS="COMPUTEROUTPUT"
+>   1   2   3   4   5   6   7   8   9  10</TT
+>
+	    <TT
+CLASS="PROMPT"
+>octave&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>1:2:10</B
+></TT
+>
+	    <TT
+CLASS="COMPUTEROUTPUT"
+>ans =</TT
+>
+	    <TT
+CLASS="COMPUTEROUTPUT"
+>   1   3   5   7   9</TT
+>
+	  </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>	    <DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>El máximo del rango puede que no sea alcanzado en la expansión del rango. Si es
+	      necesario que forme parte del conjunto de elementos y se conoce el número de elementos
+	      que debe contener, se recomienda usar la función <SPAN
+CLASS="KEYSYM"
+>linspace()</SPAN
+> en su
+	      lugar.</P
+></TD
+></TR
+></TABLE
+></DIV
+>
+	  </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="AEN297"
+></A
+>2.1.1.3. Matrices</H3
+><P
+>Es muy simple definir matrices en Octave. La definición se hace introduciendo los
+	  elementos por filas, o bien concatenando otras matrices. Las dimensiones de la matriz son
+	  determinadas automáticamente a partir de los datos. Se produce un error si alguna de las
+	  filas o columnas de la matriz final tiene distinto número de elementos que el resto. Para
+          separar filas podemos usar <SPAN
+CLASS="KEYSYM"
+>;</SPAN
+> (punto y coma) o presionar un retorno de
+	  carro.</P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+>	    <TT
+CLASS="PROMPT"
+>octave&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>a = [ 1 2; 3, 4 ]</B
+></TT
+>
+	    <TT
+CLASS="COMPUTEROUTPUT"
+>a =</TT
+>
+	    <TT
+CLASS="COMPUTEROUTPUT"
+>  1 2</TT
+>
+	    <TT
+CLASS="COMPUTEROUTPUT"
+>  3 4</TT
+>
+	    <TT
+CLASS="PROMPT"
+>octave&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>b = [ a a ]</B
+></TT
+>
+	    <TT
+CLASS="COMPUTEROUTPUT"
+>b =</TT
+>
+	    <TT
+CLASS="COMPUTEROUTPUT"
+>  1 2 1 2</TT
+>
+	    <TT
+CLASS="COMPUTEROUTPUT"
+>  3 4 3 4</TT
+>
+	  </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Para recuperar un elemento de una matriz, simplemente tenemos que indicar el nombre
+	  de la variable seguido por unos paréntesis, y dentro el índice de fila y el de columna
+	  --en este orden-- del elemento que queramos recuperar.</P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+>	    <TT
+CLASS="PROMPT"
+>octave&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>b(2,3)</B
+></TT
+>
+	    <TT
+CLASS="COMPUTEROUTPUT"
+>ans = 3</TT
+>
+	  </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+> En el caso de un vector basta con indicar un sólo índice (el de la posición del
+	  elemento), o se puede usar la notación de dos índices, pero en este caso si el vector es
+	  un vector fila el primer índice valdrá uno y si es un vector columna será el segundo
+	  índice el que valga uno.</P
+><P
+>Para recuperar varios elementos consecutivos de una misma fila de una
+	  matriz (esto es un vector fila), usaremos un rango como segundo índice. Si en cambio
+	  queremos  recuperar un vector columna, usaremos un rango como primer índice. Y si lo que
+	  queremos es recuperar una submatriz usaremos rangos tanto para el primer como para el
+	  segundo índice.</P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+>	    <TT
+CLASS="PROMPT"
+>octave&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>b(1,2:3)</B
+></TT
+>
+	    <TT
+CLASS="COMPUTEROUTPUT"
+>ans =</TT
+>
+	    <TT
+CLASS="COMPUTEROUTPUT"
+>  2 1</TT
+>
+	    <TT
+CLASS="PROMPT"
+>octave&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>b(1:2,3)</B
+></TT
+>
+	    <TT
+CLASS="COMPUTEROUTPUT"
+>ans =</TT
+>
+	    <TT
+CLASS="COMPUTEROUTPUT"
+>  1</TT
+>
+	    <TT
+CLASS="COMPUTEROUTPUT"
+>  3</TT
+>
+	    <TT
+CLASS="PROMPT"
+>octave&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>b(:,2:3)</B
+></TT
+>
+	    <TT
+CLASS="COMPUTEROUTPUT"
+>ans =</TT
+>
+	    <TT
+CLASS="COMPUTEROUTPUT"
+>  2 1</TT
+>
+	    <TT
+CLASS="COMPUTEROUTPUT"
+>  3 4</TT
+>
+	  </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>	    <DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Si se desean todos los elementos de una fila o de una columna, basta con indicar
+		el rango sólo con los dos puntos: <TT
+CLASS="USERINPUT"
+><B
+>b(1,:)</B
+></TT
+> nos devolvería la
+		primera fila de <TT
+CLASS="USERINPUT"
+><B
+>b</B
+></TT
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+>
+	    <DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Para más información, desde el prompt de Octave teclear <TT
+CLASS="USERINPUT"
+><B
+>help -i
+	      Matrices</B
+></TT
+></P
+></TD
+></TR
+></TABLE
+></DIV
+>
+	  </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="AEN342"
+></A
+>2.1.1.4. Cadenas de caracteres o strings</H3
+><P
+>Las cadenas de caracteres o <SPAN
+CLASS="KEYSYM"
+>strings</SPAN
+>, como se les denomina en
+	  Octave, son secuencias de caracteres encerrados entre comillas simples
+	  (<SPAN
+CLASS="KEYSYM"
+>'</SPAN
+>) o dobles (<SPAN
+CLASS="KEYSYM"
+>"</SPAN
+>).
+	    <DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Como la comilla simple (<SPAN
+CLASS="KEYSYM"
+>'</SPAN
+>) es también el operador de
+		transposición, se recomienda utilizar comillas dobles (<SPAN
+CLASS="KEYSYM"
+>"</SPAN
+>).</P
+></TD
+></TR
+></TABLE
+></DIV
+>
+	  </P
+><P
+>Algunos caracteres no pueden ser incluidos de forma literal en un string, y es
+	  necesario introducir secuencias de caracteres equivalentes (secuencias de escape). La
+	  siguiente tabla muestra las secuencias de escape:</P
+><DIV
+CLASS="TABLE"
+><A
+NAME="AEN353"
+></A
+><P
+><B
+>Tabla 2-1. Secuencias de escape en strings</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><THEAD
+><TR
+><TH
+ALIGN="LEFT"
+VALIGN="TOP"
+>Secuencia</TH
+><TH
+ALIGN="LEFT"
+VALIGN="TOP"
+>Descripción</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>\\</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>Contra-barra (backslash): <SPAN
+CLASS="KEYSYM"
+>\</SPAN
+>.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>\"</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>Comillas dobles <SPAN
+CLASS="KEYSYM"
+>"</SPAN
+>. Sólo es necesario si
+		  se utilizan las comillas dobles para limitar el string.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>\'</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>Comillas simples <SPAN
+CLASS="KEYSYM"
+>'</SPAN
+>. Sólo es necesario si
+		  se utilizan las comillas simples para limitar el string.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>\a</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>Representa el carácter "alert" (normalmente suena el
+		  pitido de terminal.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>\b</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>Representa el carácter de borrado (backspace o
+		  <SPAN
+CLASS="KEYSYM"
+>control-h).</SPAN
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>\f</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>Representa el carácter "formfeed" (nueva página).</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>\n</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>Representa el carácter "nueva línea".</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>\r</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>Representa el carácter "retorno de carro".</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>\t</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>Representa el carácter tabulador. Normalmente no es
+		  necesario escaparlo, pero desde la línea de comandos de Octave el carácter
+		  tabulador invoca la función de edición completar palabra.</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>\v</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>Representa un tabulador vertical.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>Las cadenas de caracteres pueden concatenarse utilizando la notación para definir
+	  matrices. Por ejemplo:</P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+>	    <TT
+CLASS="PROMPT"
+>octave&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>[ "Bien" , "venidos", " al ", "curso" ]</B
+></TT
+>
+	    <TT
+CLASS="COMPUTEROUTPUT"
+>ans = Bienvenidos al curso</TT
+>
+	  </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>	    <DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Para más información, desde el prompt de Octave teclear <TT
+CLASS="USERINPUT"
+><B
+>help -i
+	      strings</B
+></TT
+></P
+></TD
+></TR
+></TABLE
+></DIV
+>
+	  </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN404"
+></A
+>2.1.2. Estructuras</H2
+><P
+>Octave posee soporte para organizar los datos en estructuras. La sintaxis es muy
+	  similar a la del lenguaje <SPAN
+CLASS="KEYSYM"
+>C</SPAN
+>. Los datos de una estructura pueden ser de
+	cualquier tipo. Por ejemplo:</P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+>	  <TT
+CLASS="PROMPT"
+>octave&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>x.numero = 1;</B
+></TT
+>
+	  <TT
+CLASS="PROMPT"
+>octave&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>x.matriz = [1 2; 2 1];</B
+></TT
+>
+	  <TT
+CLASS="PROMPT"
+>octave&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>x.cadena = "Hola";</B
+></TT
+>
+	  <TT
+CLASS="PROMPT"
+>octave&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>x</B
+></TT
+>
+	  <TT
+CLASS="COMPUTEROUTPUT"
+>x = </TT
+>
+	  <TT
+CLASS="COMPUTEROUTPUT"
+>{</TT
+>
+	  <TT
+CLASS="COMPUTEROUTPUT"
+>  cadena = hola</TT
+>
+	  <TT
+CLASS="COMPUTEROUTPUT"
+>  numero = 1</TT
+>
+	  <TT
+CLASS="COMPUTEROUTPUT"
+>  matriz =</TT
+>
+	  <TT
+CLASS="COMPUTEROUTPUT"
+>    1 2</TT
+>
+	  <TT
+CLASS="COMPUTEROUTPUT"
+>    2 1</TT
+>
+	  <TT
+CLASS="COMPUTEROUTPUT"
+>}</TT
+>
+	</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Las estructuras son ellas mismas objetos que pueden formar parte de otras
+	estructuras. Las estructuras se pueden copiar (operador <SPAN
+CLASS="KEYSYM"
+>=</SPAN
+>) pero no tienen
+	definida aritmética ni pueden ser elementos de una matriz. En casos en que hay anidamiento
+	de estructuras, al mostrar el valor de un objeto de tipo estructura, octave puede elegir
+	truncar la representación de algunos miembros para evitar confusión. Por ejemplo:</P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="SCREEN"
+>	  <TT
+CLASS="PROMPT"
+>octave&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>a.b.c.d=1;</B
+></TT
+>
+	  <TT
+CLASS="PROMPT"
+>octave&#62; </TT
+><TT
+CLASS="USERINPUT"
+><B
+>a</B
+></TT
+>
+	  <TT
+CLASS="COMPUTEROUTPUT"
+>a =</TT
+>
+	  <TT
+CLASS="COMPUTEROUTPUT"
+>{</TT
+>
+	  <TT
+CLASS="COMPUTEROUTPUT"
+>  b =</TT
+>
+	  <TT
+CLASS="COMPUTEROUTPUT"
+>  {</TT
+>
+	  <TT
+CLASS="COMPUTEROUTPUT"
+>    c = &#60;structure&#62;</TT
+>
+	  <TT
+CLASS="COMPUTEROUTPUT"
+>  }</TT
+>
+	  <TT
+CLASS="COMPUTEROUTPUT"
+>}</TT
+>
+	</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>	  <DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>El número de niveles de anidamiento de estructuras que se muestra se puede cambiar
+	    con la variable predefinida <SPAN
+CLASS="KEYSYM"
+>struct_levels_to_print</SPAN
+>. Su valor por
+	    omisión es de 2.</P
+></TD
+></TR
+></TABLE
+></DIV
+>
+	  <DIV
+CLASS="TIP"
+><P
+></P
+><TABLE
+CLASS="TIP"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="images/tip.gif"
+HSPACE="5"
+ALT="Sugerencia"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>Para más información, desde el prompt de Octave teclear <TT
+CLASS="USERINPUT"
+><B
+>help -i
+	    struct</B
+></TT
+></P
+></TD
+></TR
+></TABLE
+></DIV
+>
+	</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c242.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x446.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Sintaxis de Octave</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c242.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Variables</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

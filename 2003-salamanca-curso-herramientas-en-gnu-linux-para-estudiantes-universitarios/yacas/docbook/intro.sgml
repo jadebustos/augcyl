@@ -1,0 +1,381 @@
+<chapter id="introduccion">
+    <title>Introducción a <acronym>YACAS</acronym></title>
+
+    <sect1 id="organizacion">
+      <title>Organización de este documento</title>
+
+      <para>Este documento trata el uso de <acronym>YACAS</acronym> sobre el sistema
+      GNU/Linux, pudiendo cambiar algunas de las cosas aqui explicadas
+      en otros sistemas.</para>
+
+      <para>Lo aquí expuesto ha sido desarrollado sobre la versión
+      1.0.51 de <acronym>YACAS</acronym>.</para>
+
+    </sect1>
+
+    <sect1 id="historia">
+      <title>Historia de <acronym>YACAS</acronym></title>
+
+      <para><acronym>YACAS</acronym> es todavía un programa muy reciente pero que ofrece
+      unas características y una madurez no presentes en la mayoría
+      del software científico a su misma edad. <acronym>YACAS</acronym> ofrece muy buenas
+      perspectivas en un futuro no muy lejano.</para>
+
+      <para><acronym>YACAS</acronym> ha sido desarrollado en C++ pensando en la
+      portabilidad, es decir que ha sido desarrollado pensando en ser
+      ejecutado en arquitecturas diferentes.</para>
+
+    </sect1>
+
+    <sect1 id="que-es">
+      <title>¿Qué es <acronym>YACAS</acronym>?</title>
+
+      <para><acronym>YACAS</acronym> es un acrónimo de <keycap>Y</keycap>et
+	<keycap>A</keycap>nother <keycap>C</keycap>omputer
+	<keycap>A</keycap>lgebra <keycap>S</keycap>ystem.</para>
+
+      <para><acronym>YACAS</acronym> no es en sí un software científico, en realidad es
+      un lenguaje, y aunque se distribuye con un conjunto de funciones
+      matemáticas su verdadera potencia reside en su lenguaje,
+      mediante el cual se pueden escribir nuestras propias funciones
+      para la realización tanto de cálculos numéricos como
+      simbólicos.</para>
+
+      <para><acronym>YACAS</acronym> posee un mecanismo de "<keycap>plugins</keycap>" que
+      permite la carga dinámica de librerias externas a
+      <acronym>YACAS</acronym>. Mediante este mecanismo podemos ampliar las
+      funcionalidades de <acronym>YACAS</acronym>.</para>
+
+      <para>Podemos utilizar <acronym>YACAS</acronym> de varias formas:</para>
+
+      <itemizedlist>
+	<listitem>
+	  <para>De forma gráfica:</para>	  
+          <graphic fileref="./images/proteus-ejemp.jpg" format="jpg"
+	    scale="45" align="center">
+	</listitem>
+	<listitem>
+	  <para>En modo consola:</para>
+          <graphic fileref="./images/consola-ejemp.jpg" format="jpg"
+	scale="45" align="center">
+	</listitem>
+	<listitem>
+	  <para>Utilizando scripting.</para>
+	</listitem>
+      </itemizedlist>
+
+    </sect1>
+
+    <sect1 id="que-podemos-hacer">
+      <title>¿Qué podemos hacer con <acronym>YACAS</acronym>?</title>
+
+      <para><acronym>YACAS</acronym> nos permite resolver problemas matemáticos de una
+      forma, fácil y sencilla. Es bastante intuitivo y su sintaxis es
+      similar a la de otros programas de este tipo.</para>
+
+      <orderedlist>
+	<listitem>
+	  <para>Podemos realizar cálculos numéricos.</para>
+	</listitem>
+	<listitem>
+	  <para>Podemos realizar cálculos simbólicos.</para>
+	</listitem>
+	<listitem>
+	  <para>Podemos crear nuestras propias funciones, mediante el
+	  lenguaje que incorpora.</para>
+	</listitem>
+	<listitem>
+	  <para>Podemos utilizar librerias externas en YACAS mediante
+	  el uso de su mecanismo de plugins.</para>
+	</listitem>
+	<listitem>
+	  <para>Podemos interactuar con otros programas, gracias a
+	  esto podemos utilizar varios programas para resolver una
+	  tarea, utilizando de esta forma los puntos fuertes de cada programa.</para>
+	</listitem>
+	<listitem>
+	  <para>Podemos utilizarlo en una arquitectura de
+	  cliente/servidor y utilizar un ordenador más potente para
+	  realizar los cálculos viendolos en el nuestro.</para>
+	</listitem>
+      </orderedlist>
+
+    </sect1>
+
+    <sect1 id="distribucion">
+      <title>¿Como se distribuye <acronym>YACAS</acronym>?</title>
+      <para><acronym>YACAS</acronym> se puede distribuir de para uso comercial y no
+      comercial bajo unas condiciones. El copyright que podemos
+      encontrar en el paquete de <acronym>YACAS</acronym> es:</para>
+
+      <blockquote>
+	<para>Copyright (C) 1999, Ayal Pinkus (apinkus@xs4all.nl)</para>
+	<para>All rights reserved.</para>
+
+	<para>The author of this package is Ayal Pinkus (apinkus@xs4all.nl)</para>
+
+	<para>This package can be distributed free for commercial and
+non-commercial use as long as the following conditions are adhered to.
+The following conditions apply to all the components found in this
+distribution.</para>
+
+	<para>Copyright remains the author's and any Copyright notices in
+the software are not to be removed.</para>
+
+	<para>Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:</para>
+
+	<orderedlist>
+	  <listitem>
+	    <para>Redistributions of source code and documentation must retain
+   the copyright notice, this list of conditions and the following
+   disclaimer.</para>
+	  </listitem>
+	  <listitem>
+	    <para>Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the distribution.</para>
+	  </listitem>
+	</orderedlist>
+ 
+	<para>THIS PACKAGE IS PROVIDED BY THE AUTHOR ``AS IS'' AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+SUCH DAMAGE.
+</para>
+
+	<para>The license and distribution terms for any publically available version
+or derivative of this package can be changed.  i.e. this
+package can simply be copied and put under another distribution
+license [including the GNU Public License.]</para>
+
+	<para>If you wish to use this package and are unsure what
+the conditions above mean, send me email and we can sort it out.</para>
+
+	<para>Ayal Pinkus</para>
+	<para>apinkus@xs4all.nl</para>
+
+      </blockquote>
+    </sect1>
+
+    <sect1 id="descargarlo">
+      <title>¿De donde podemos descargarnoslo?</title>
+      <para>Si YACAS no viene en nuestra distribución de GNU/Linux
+      podemos descargarlo de <ulink url="http://www.xs4all.nl/~apinkus/yacas.html
+"></ulink>.</para>
+
+      <para>En la página anterior podemos encontrar toda la
+      información necesaria sobre <acronym>YACAS</acronym>, tanto sus fuentes, como sus
+      binarios para GNU/Linux o Windows (R) y documentación sobre <acronym>YACAS</acronym>.</para>
+
+      <para>También podemos descargar <acronym>YACAS</acronym> desde <ulink
+      url="http://yacas.sourceforge.net">sourceforge</ulink>.</para>
+
+    </sect1>
+
+    <sect1 id="plataformas">
+      <title>¿En qué plataformas funciona?</title>
+      <para><acronym>YACAS</acronym> funciona en todas las plataformas en las que
+      actualmente funciona GNU/Linux (hay soportadas más de 10
+      plataformas hardware distintas).</para>
+
+      <para>También existe versión de <acronym>YACAS</acronym> para el sistema operativo
+      Windows (R). Algo curioso es que dicha versión sólo ocupa 400 kb,
+      en un disquete se podría grabar tres veces. Nos podemos llevar
+      <acronym>YACAS</acronym> en un disco a cualquier sitio y podremos utilizarlo en
+      cualquier ordenador con Windows (R) unque no tenga instalado
+      <acronym>YACAS</acronym>.</para>
+     
+    </sect1>
+
+    <sect1 id="ayuda">
+      <title>¿Donde podemos encontrar ayuda sobre <acronym>YACAS</acronym>?</title>
+      <para>Podemos encontrar ayuda sobre <acronym>YACAS</acronym> en <ulink
+      url="http://www.xs4all.nl/~apinkus/yacas.html"></ulink>. En
+      esta dirección se encuentra el manual de <acronym>YACAS</acronym>, en
+      Inglés. Lamentablemente todavía no hay versión en
+      Español.</para>
+
+      <para>Si estamos utilizando GNU/Linux y tenemos instalada la
+	interface gráfica de <acronym>YACAS</acronym>, <keycap>yacas-proteus</keycap>,
+	podemos recurrir a la ayuda on-line que trae:</para>
+
+      <graphic fileref="./images/proteus-help.jpg" format="jpg"
+	scale="50" align="center"> 
+
+<!--  <figure>
+	<title></title>
+	<graphic fileref="./images/proteus-help.jpg" format="jpg"
+	scale="50" align="center">
+	<graphic fileref="./images/proteus-help.eps" format="eps"
+	scale="50" align="center">
+      </figure> -->
+
+      <para>Si tenemos instalada la ayuda de <acronym>YACAS</acronym> en el sistema o nos
+      la hemos bajado de la URL anterior la podemos consultar
+      utilizando un navegador web:</para>
+
+      <graphic fileref="./images/yacas-help.jpg" format="jpg"
+	scale="45" align="center">
+
+      <para>También existe una lista de correo electrónico a la que
+      nos podemos suscribir, para suscribirnos no tenemos más que
+	mandar un correo a:
+      <email>yacas-subscribe@yahoogroups.com</email> y a partir de ese
+      momento podremos participar en la lista preguntando y
+      respondiendo, en Inglés :-(.</para>
+
+      <sect2 id="ayuda-de-yacas">
+	<title>Pidiendo ayuda a <acronym>YACAS</acronym></title>
+
+	<para><acronym>YACAS</acronym> posee un mecanismo para suministrarnos ayuda sobre
+	  su funcionamiento, pare ello ver <xref linkend="help">.</para>
+      </sect2>
+
+    </sect1>
+
+    <sect1 id="filosofia">
+      <title>Filosofía en el desarrollo de aplicaciones</title>
+      <para>A la gente que no está familiarizada con el mundo UNIX
+      muchas veces les extraña que no se desarrolle una aplicación
+      para que se use unicamente en modo gráfico y en cierta forma les
+      molesta el que se pueda utilizar dicha aplicación en modo
+      consola.</para>
+
+      <para>Esto se da principalmente en usuarios de Windows (R),
+      llegando a veces a menospreciar una aplicación por el mero hecho
+      de que se pueda ejecutar en modo consola y en modo
+      gráfico.</para>
+
+      <para>¿Cual es la razón de que muchas aplicaciones UNIX se
+      puedan ejecutar de ambas formas? Pues es muy simple, el
+      que una aplicación se pueda ejecutar en modo consola tiene las
+      siguientes ventajas:</para>
+
+      <itemizedlist>
+	<listitem>
+	  <para>Se pueden programar scripts (parecidos a los procesos
+	  por lotes en <acronym>MS-DOS</acronym> (R)) para la realización de tareas.</para>
+	</listitem>
+	<listitem>
+	  <para>Permite la interacción de esa aplicación con otras
+	  aplicaciones mediante el uso de scripts. Por ejemplo se
+	    puede tratar una expresión simbólica con
+	    <acronym>YACAS</acronym>, luego tratarla numericamente con
+	    <acronym>OCTAVE</acronym>, hacer un estudio estadístico con
+	    <acronym>PSPP</acronym> y posteriormente crear un gráfico
+	    con <acronym>GNUPLOT</acronym>.</para>
+
+	  <para>Gracias a los scripts, se puede crear un script que
+	  haga todo esto sin tener que teclearlo nosotros cada vez que
+	  queramos proceder de la misma manera.</para>
+	</listitem>
+	<listitem>
+	  <para>Permite la ejecución remota del programa utilizando
+	    conexiones por <keycap>telnet</keycap> o
+	    <acronym>SSH</acronym>. Con una aplicación que sólo
+	    funcionase en modo gráfico necesitarimos un ancho de banda
+	    enorme en nuestra conexión para trabajar de forma fluida.</para>
+	</listitem>
+	<listitem>
+	  <para>El poder funcionar en modo consola permite la creación
+	  de multiples interfaces gráficas. El ejemplo más conocido de
+	  esto es el compilador de C GNU, <keycap>gcc</keycap>. En
+	  lugar de desarrollar varios compiladores de C, cada uno con
+	  un entorno gráfico, se creó un único compilador y luego se
+	    crearon diferentes entornos para programar,
+	    <keycap>Vim</keycap>, <keycap>Emacs</keycap>,
+	    <keycap>Anjuta</keycap>, <keycap>KDevelop</keycap>,
+	    <keycap>Xwpe</keycap>, <keycap>Code Crusader</keycap>,
+	    <keycap>Xcoral</keycap>, ...</para>
+	</listitem>
+      </itemizedlist>
+
+      <para>Un programa que sólo funcione en modo gráfico unicamente
+      posee una ventaja, la comodidad de uso, pero pierde mucha
+      potencia en el sentido de la flexibilidad con la podría interaccionar con
+      otros programas.</para>
+
+      <para>Con un programa desarrollado para poder trabajar en
+      consola siempre se podrá crear una interface gráfica que lo
+      llame con las opciones necesarias abstrayendo al usuario de la
+      "complejidad" del uso de la línea de comandos.</para>
+
+    </sect1>
+
+    <sect1 id="software-cientifico">
+      <title>Más software científico en GNU/Linux</title>
+
+      <para>En GNU/Linux existe multitud de software científico. No
+      vamos a realizar una descripción detallada de todo el software
+      que podemos encontrar, unicamente comentaremos algunos de los
+      programas que podemos encontrar:</para>
+
+      <orderedlist>
+	<listitem>
+	  <para><acronym>YACAS</acronym> por supuesto.</para>
+	</listitem>
+	<listitem>
+	  <para><acronym>OCTAVE</acronym>, herramienta que destaca por su potencia en
+	  cálculo numérico.</para>
+	</listitem>
+	<listitem>
+	  <para><acronym>GNUPLOT</acronym>, programa para la creación de
+	  gráficas 2D y 3D.</para>
+	</listitem>
+	<listitem>
+	  <para><acronym>GRACE</acronym>, programa para la
+	  representación de datos.</para>
+	</listitem>
+	<listitem>
+	  <para><acronym>SNNS</acronym>, progama para el tratamiento de
+	  redes neuronales.</para>
+	</listitem>
+	<listitem>
+	  <para><acronym>LNKNET</acronym>, programa para el
+	  tratamiento de redes neuronales.</para>
+	</listitem>
+	<listitem>
+	  <para><acronym>LaTeX</acronym>, entorno para la creación de
+	  documentos científicos.</para>
+	</listitem>
+	<listitem>
+	  <para><acronym>TEXMACS</acronym>, programa para la creación de
+	  documentos científicos.</para>
+	</listitem>
+	<listitem>
+	  <para><acronym>LyX</acronym>, programa para la creación de
+	  documentos científicos.</para>
+	</listitem>
+	<listitem>
+	  <para><acronym>XFig</acronym>, programa para la creación de
+	  gráficos vectoriales. Ideal para la inclusión de dichos
+	  gráficos en documentos LaTeX y/o manipulación de gráficas
+	  para su inclusión en documentos LaTeX.</para>
+	</listitem>
+	<listitem>
+	  <para><acronym>MAXIMA</acronym>, herramienta matemática.</para>
+	</listitem>
+	<listitem>
+	  <para><acronym>Mathematica (R)</acronym>, el cual no es software
+	  libre.</para>
+	</listitem>
+	<listitem>
+	  <para><acronym>MatLab (R)</acronym>, el cual no es software libre.</para>
+	</listitem>
+      </orderedlist>
+    </sect1>
+
+</chapter>
+
+<!-- Local Variables: -->
+<!-- sgml-parent-document: "Yacas.sgml" -->
+<!-- End: -->

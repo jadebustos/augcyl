@@ -1,0 +1,326 @@
+<HTML
+><HEAD
+><TITLE
+>Redes de funcion de base radial (RBF)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Herramientas en GNU/Linux para estudiantes universitarios"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Tipos de Redes Neuronales"
+HREF="c81.html"><LINK
+REL="PREVIOUS"
+TITLE="Redes Autoorganizadas. Redes SOFM"
+HREF="x152.html"><LINK
+REL="NEXT"
+TITLE="Ejemplo de entrenamiento de una red neuronal. Caso RBF"
+HREF="c233.html"><LINK
+REL="stylesheet"
+HREF="./base.css"
+TYPE="text/css"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Herramientas en GNU/Linux para estudiantes universitarios: </TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x152.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 3. Tipos de Redes Neuronales</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c233.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN185"
+></A
+>3.4. Redes de funcion de base radial (RBF)</H1
+><P
+>Este tipo de redes se caracteriza por tener un aprendizaje o entrenamiento híbrido. La
+arquitectura de estas redes se caracteriza por la presencia de tres capas: una de
+entrada, una única capa oculta y una capa de salida.
+       <DIV
+CLASS="FIGURE"
+><A
+NAME="AEN188"
+></A
+><P
+><B
+>Figura 3-5. Arquitectura típica de una red de tipo RBF</B
+></P
+><P
+><IMG
+SRC="rbf.jpg"
+ALIGN="CENTER"></P
+></DIV
+>
+Aunque la arquitectura pueda recordar a la de un MLP, la diferencia fundamental está en
+que las neuronas de la capa oculta en vez de de calcular una suma ponderada de las
+entradas y aplicar una sigmoide, estas neuronas calculan la distancia euclídea entre el
+vector de pesos sinápticos (que recibe el nombre en este tipo de redes de centro o
+centroide) y la entrada (de manera casi analoga a como se hacia con los mapas SOM) y
+sobre esa distancia se aplica una función de tipo radial con forma gaussiana.
+       <DIV
+CLASS="FIGURE"
+><A
+NAME="AEN191"
+></A
+><P
+><B
+>Figura 3-6. Forma funcional de una función tipo Gaussiana</B
+></P
+><P
+><IMG
+SRC="gaussiana.jpg"
+ALIGN="CENTER"></P
+></DIV
+>
+       </P
+><P
+>Para el aprendizaje de la capa oculta, hay varios métodos, siendo uno de los más
+conocidos el algoritmo denominado k-medias (k-means) que es un algoritmo no supervisado
+de clustering. k es el número de grupos que se desea encontrar, y se corresponde con el
+número de neuronas de la capa oculta, que es un parámetro que hay que decidir de
+antemano. El algoritmo se plantea como sigue:
+       </P
+><P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Inicializar los pesos (los centros) en el instante inicial. Una incializacion típica es la
+denominada k-primeras mediante la cual los k centros se hacen iguales a las k primeras
+muestras del conjunto de datos de entrenamiento
+{<B
+CLASS="KEYCAP"
+>x</B
+><SUB
+>p</SUB
+>}<SUB
+>p=1..N</SUB
+>
+      </P
+><P
+><B
+CLASS="KEYCAP"
+>c</B
+><SUB
+>1</SUB
+> = <B
+CLASS="KEYCAP"
+>x</B
+><SUB
+>1</SUB
+> , 
+<B
+CLASS="KEYCAP"
+>c</B
+><SUB
+>2</SUB
+> = <B
+CLASS="KEYCAP"
+>x</B
+><SUB
+>2</SUB
+> , 
+...
+<B
+CLASS="KEYCAP"
+>c</B
+><SUB
+>N</SUB
+> = <B
+CLASS="KEYCAP"
+>x</B
+><SUB
+>N</SUB
+> , 
+      </P
+></LI
+><LI
+><P
+>En cada iteracion, se calculan los dominios, es decir, se reparten las muestras entre los k
+centros. Esto se hace de la siguiente manera: Dada una muestra
+<B
+CLASS="KEYCAP"
+>x</B
+><SUB
+>j</SUB
+> se calcula las distancias a cada uno de los centros
+<B
+CLASS="KEYCAP"
+>c</B
+><SUB
+>k</SUB
+>. La muestra pertenecera al dominio del centro cuya
+distancia calculada sea la menor
+      </P
+></LI
+><LI
+><P
+>Se calculan los nuevos centros como los promedios de los patrones de aprendizaje pertenecientes a
+sus dominios. Viene a ser como calcular el centro de masas de la distribución de patrones, tomando
+que todos pesan igual.
+      </P
+></LI
+><LI
+><P
+>Si los valores de los centros varían respecto a la iteración anterior se vuelve al paso 2, si no, es
+que se alcanzó la convergencia y se finaliza el aprendizaje
+      </P
+></LI
+></OL
+>
+Una vez fijados los valores de los centros, sólo resta ajustar las anchuras de cada neurona. Las
+anchuras son los parametros sigma que aparecen en cada una de las funciones gaussianas y reciben
+ese nombre por su interpretación geométrica, dan una medida de cuando un muestra activa una neurona
+oculta para que de una salida significativa
+       <DIV
+CLASS="FIGURE"
+><A
+NAME="AEN225"
+></A
+><P
+><B
+>Figura 3-7. Centros en el espacio de las entradas</B
+></P
+><P
+><IMG
+SRC="nodos.jpg"
+ALIGN="CENTER"></P
+></DIV
+>
+normalmente se toma el criterio de que para cada neurona se toma como valor sigma la distancia
+al centro mas cercano.
+       </P
+><P
+>Finalmente, se entrena la capa de salida. El entrenamiento de esta capa se suele usar un algoritmo
+parecido al que se usa para la capa de salida del MLP. La actualizacion de los pesos viene dada por
+la expresión:
+ <DIV
+CLASS="EQUATION"
+><A
+NAME="AEN229"
+></A
+><P
+><B
+>Ecuación 3-5. Actualización de los pesos de la capa de salida en una red RBF</B
+></P
+><IMG
+SRC="pesosrbf.jpg"
+ALIGN="CENTER"></DIV
+>
+Con este fin se suele presentar todos los patrones de la muestra de entrenamiento varias veces.
+Cada una de estas veces recibe el nombre de epoca.
+       </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x152.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c233.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Redes Autoorganizadas. Redes SOFM</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c81.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Ejemplo de entrenamiento de una red neuronal. Caso RBF</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

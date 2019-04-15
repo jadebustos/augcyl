@@ -1,0 +1,490 @@
+<chapter id="writer">
+<title>OpenOffice.org 1.0.1 WRITER </title>
+  <sect1 id="empezando-writer">
+    <title>Empezando con Writer</title>
+     <sect2 id="definicion-writer">
+      <title>Definición de Writer</title>
+        <para>Lo podríamos considerar como el programa estrella de OpenOffice.org, dedicacdo dentro de la siutte al tratamiento de textos. Es un programa de Software Libre GNU, lo cual quiere decir que se puede usar de forma gratuita, bajo las plataformas Linux, Windows y Mac. Se considera como la versión libre de StarOffice 6.0</para>
+  <sect3 id="el-entorno-de-trabajo">
+    <title>El entorno de trabajo</title>
+    <para>El entorno de trabajo contiene los siguientes elementos:</para>
+    <graphic scale="30" fileref="images/InterfazWriter.jpg" align="center">
+    <para>     En la barra de herramientas nos vamos a encontrar distintos botones que van a contener distintas funciones, las más esenciales, relacionadas con el documento actual con el que vamos a trabajar. Dichas funciones son las más importantes que nos vamos a encontrar a la hora de trabajar con un documento de texto, que van a ser insertar, editar, revisar ortográficamente, buscar textos o palabras, realizar trabajos con bases de datos y modos de visualización del diseño.</para>
+     
+    <para> En la barra de funciones nos encontraremos con una serie de botones encargados de realizar tareas de mantenimiento, como pueden ser por ejemplo, guardar, abrir otro documento, abrir nuevo documento, impresión, deshacer/rehacer, o galería de dibujos.</para>
+
+    <para> En la barra de funciones, están aquellos botones que contienen funciones específicas para la edición del documento. Son funciones tales como aplicar estilo, nombre de la fuente, subrayado, negrita, itálica, alineación, edición de párrafo, color de texto y color de fondo de texto y de párrafo.</para>
+
+     <para>La barra de menús contiene todos aquellos menús que
+     permiten que el usuario pueda trabajar con todas la
+     funcionalidades que contiene OpenOffice.org</para>
+
+     <para>Otro elemento es la regla, con la cual podemos trabajar con las distintas posiciones del texto. Gracias a ella podemos hacer tabulaciones y sangrías, colocando los textos en las posiciones en que más nos convengan.</para>
+     
+     <para>La barra de estado es la que contien la información más relevante sobre aquel texto con el que estemos trabajando. En ella se incluye el número de página, la escala, el funcionamiento del modo insertar (ON/OFF) y del modo Hiperenlace, además de poder contener la hora y fecha del sistema.</para>
+
+     <para>El aspecto es muy similar al de cualquier procesador de textos, y esto da la ventaja de que permite un fácil manejo de la aplicación, además de un sencillo aprendizaje.</para>
+  </sect3>
+  <sect3 id="crear-documento">
+    <title>Creación de un nuevo documento</title>
+    <para>Cuando abrimos OpenOffice.org writer, sin dar ninguna opción desde la línea de comandos del Linux o desde la ventana de MS-DOS en Windows, lo primero que hace es abrirse con la zona de trabajo completamente vacía, como si fuéramos a editar un documento nuevo. En este caso podemos empezar a escribir un nuevo documento que podemos guardar si lo deseamos.</para>
+
+<para>Si estamos trabajando con un documento, y deseamos abrir uno nuevo, lo que podemos hacer es lo siguiente:</para>
+<itemizedlist>
+  <listitem>
+    <para>Ir a la barra de objetos, pulsar "nuevo", y nos abre un
+    cuadro flotante de diálogo, en el que podemos seleccionar el tipo
+    de documento nuevo que deseamos crear.</para>
+<graphic scale="50" fileref="images/WriterNuevoDocumento.jpg" align="center">
+  </listitem>
+  <listitem>
+    <para>Ir a la barra de menús, seleccionar
+    Archivo-->Nuevo-->Documento de texto</para>
+<graphic scale="30" fileref="images/WriterNuevo.jpg" align="center">
+  </listitem>
+</itemizedlist>
+<para>En ambos casos, el resultado será la apertura de un nuevo entorno de
+trabajo
+</para>
+  </sect3>
+  <sect3 id="abrir-guardar-documento">
+  <title>
+  Abrir y Guardar un Documento
+  </title>
+  <para>Se denomina al proceso de abrir un documento como el hecho de
+  llamarlo o invocarlo, estando este accesible localmente por medio de
+  nuestro disco duro, disquete o CD-ROM, o bien de forma remota en una
+  red</para>
+  <para>Podemos abrir un documento de dos formas:</para>
+  <itemizedlist>
+  <listitem>
+  <para>Bien con el uso del teclado, pulsando CTRL-O</para>
+  </listitem>
+  <listitem>
+  <para>Pulsando el botón "Abrir Archivo" de la Barra de
+		Herramientas</para>
+<graphic fileref="images/WriterBotónAbrir.jpg" align="center">
+  </listitem>
+  </itemizedlist>
+  <para>  En ambos casos, el resultado es la apertura del siguiente
+  cuadro de diálogo:</para>
+  <graphic scale="30" fileref="images/WriterAbrir.jpg" align="center">
+  <para>Para guardar un documento cualquiera, procedemos de la
+  siguiente forma:</para>
+  <itemizedlist>
+  <listitem>
+  <para>Para guardar un documento nuevo, que no se haya creado
+  previamente, se puede hacer pulsando desde el teclado
+  CTRL-S. También se puede hacer pulsando Guardar Documento en la
+  Barra de Objetos. En ambos casos el resultado es la aparición del
+  cuadro de diálogo Guardar Documento
+  </para>
+  </listitem>
+  <listitem>
+  <para>Para guardar cualquier documento que se haya creado
+  previamente, basta con pulsar sobre el botón Guardar Documento
+  situado en la Barra de Objetos. Aunque el cuadro de diálogo de
+  Guardar Documento no aparece, las modificiaciones que se hayan hecho
+  al mismo quedarán guardadas.</para>
+<graphic fileref="images/BotónGuardarDocumento.jpg" align="center">
+  </listitem>
+  </itemizedlist>
+  <para>El aspecto del cuadro de diálogo Guardar Documento es el
+  siguiente:
+  </para>
+  <graphic scale="30"
+  fileref="images/WriterGuardarDocumento.jpg" align="center">
+  <para>Para guardar el documento se ha de indicar el nombre del mismo
+  y después pulsar sobre Guardar</para>
+  <para>A la hora de guardar cualquier documento, hemos de indicar el
+  formato en que queremos hacerlo. OpenOffice soporta numerosos
+  formatos, entre los que se encuentra.doc, que permite la
+  visualización de documentos hechos en OpenOffice.org writer, en el
+  procesador de textos Word</para>
+  <para>Si queremos que un texto se pueda visualizar en el procesador
+  word, tenemos que indicarle que lo guarde en formato.doc, dentro de
+  la lista Tipos de Archivo</para>
+  <para>Cuando guardamos el documento, podemos protegerlo para que otros usuarios no lo puedan abrir.</para>
+  <graphic scale="50" fileref="images/WriterContraseña.jpg" align="center">
+  <para>Si nos fijamos en el cuadro de diálogo Abrir Documento, abajo
+	    a la izquierda hay una casilla de opción, Guardar con
+	    contraseña. Si activamos dicha casilla, cuando guardemos
+	    el documento se desplegará una ventana donde se escribirá
+	    la contraseña y se pide confirmación.</para>
+<graphic scale="50" fileref="images/WriterConfirmación.jpg"
+	    align="center"> 
+<para>Posteriormente, sólo se podrá abrir dicho documento cuando se introduzca la contraseña correcta, en la ventana en que se solicite al abrir dicho documento.</para>
+  </sect3>
+  <sect3 id="edicion-texto">
+  <title>Edición de un texto</title>
+  <para>Vamos a trabajar con la barra de objetos en el siguiente ejercicio. Recordar, que para seleccionar una palabra, situamos el
+  cursor sobre la misma y presionamos con doble click el botón
+  izquierdo del ratón. La línea de textos se selecciona con un
+  triple click cosbre la misma. Para marcar porciones de textos de
+  forma alterna, seleccionarlas pulsando CTRL, y seleccionando el
+  texto de forma alternada con el botón izquierdo del mouse.</para>
+  <para>Realizar los pasos necesarios de tal forma que queremos que el
+  texto quede de la siguiente forma:</para>
+  <graphic scale="30"
+  fileref="images/WriterPrimerTexto.jpg" align="center">
+  <para>También, cuando trabajo con un documento, puedo aplicar una
+  serie de formatos. Podemos hablar de formatos en tres niveles, a
+  nivel texto, párrafo o página. El nivel será distinto según a quie
+  quiera aplicar dicho formato</para>
+  <para>Las opciones que aparecen en los cuadros de diálogo serán
+  distintas según a quién aplique dichos formatos</para>
+  <para>
+  Ejercicio:</para>
+  <para>
+  Hacer el mismo ejercicio de antes, usando Formato-->Carácter y Formato-->Párrafo
+  </para>
+  </sect3>
+  </sect2>
+  </sect1> 
+  <sect1 id="prop-pagina" >
+  <title>Propiedades de una página</title>
+   <para>Las páginas de los documentos que nosotros realicemos pueden presentarse de las más diversas formas, dependiendo de las necesidades de cada momento. Así, por ejemplo, yo puedo tener un documento que requiera que se visualice en una hoja con orientación horizontal, porque sino no se verían bien los gráficos que contiene. O que las páginas tengan que ser mostradas en una hoja de tamaño A3 porque las necesidades así lo requieran. O que las páginas tengan que contener unos encabezamientos, pies o un número determinado de columnas</para>
+<para>Todo esto se puede controlar aplicando una serie de propiedades de página </para>
+<para>
+Si nos vamos a Formato-->Página, veremos un cuadro de diálogo con diversas fichas, en las que aparecen en cada una de ellas unos campos, cuadros de selección y listas, con los cuales podremos controlar la apariencia y formato final del documento</para>
+<graphic scale="30" fileref="images/WriterFormatoPagina.jpg" align="center">
+ <sect2 id="insercion-columnas">
+   <title>Inserción de columnas</title>
+   <para>Para insertar columnas voy a Formato-->Página-->Ficha Columnas e indico el número de columnas, el ancho y espacio de cada columna y la línea de separación entre columnas</para>
+   <para>Ejemplo:</para>
+   <para>Si quiero insertar 3 columnas, del mismo ancho cada una, y una línea de separación entre las mismas de 5,05 puntos, entonces voy a Formato-->Página-->Ficha Columnas, selecciono tres columnas, y voy a línea de separación e indico 0,05. Ya tengo las tres columnas creadas.</para>
+ </sect2> 
+ <sect2 id="encabezados">
+   <title>Los encabezados y pies de página</title>
+   <para>EL formato del encabezamiento que precede a cada página del documento, se puede obtener de la siguiente forma:</para>
+ <para>Voy a Formato-->Página-->Ficha Encabezamiento-->en el botón de selección, activar encabezamiento.</para>
+   <para>Aunque el encabezamiento se aplica a todas las páginas, ppodemos definir distintos estilos y aplicarlos a cada página. Existen estilos distintos para la primera página, para las páginas de la izquierda y para las de la derecha.</para>
+
+<!--  <graphic scale="50"
+   fileref="images/WriterEstiloPaginaEncabezamiento.jpg"> -->
+
+ <para>Esto se hace desactivando la casilla Encabezado Par/Impar Iguales, y definimos un encabezado distinto según sea la página par o impar. Jugando con los tipos de alineamiento, podemos asignar una alineación de texto derecha para los encabezados de las páginas pares e izquierda para los de las impares, y poner el título del texto en las páginas impares y el del capítulo en las pares, en caso de que estemos escribiendo alguna obra</para>
+  <para>También podemos definir un encabezado y pie de página para la
+  primera página, pero esto se hace usando el cuadro de diálogo
+  Estilista, dentro del menú formato. Se accede también a él pulsando
+  F11. No vamos a hablar del Estilista, para no salirnos del tema. Lo
+  dejo como comentario para quien quiera profundizar.</para>
+<graphic scale="50" fileref="images/WriterEstilista.jpg" align="center">
+ <para>Para el pie de página, es lo mismo. Hay que trasladarse a la ficha Pie de Página y activarlo con el botón de selección.</para>
+ <para>Con el pie de página ocurre lo mismo que con el encabezamiento. Aunque se aplica a todas las páginas, podemos definir estilos distintos para la primera página, para las impares y para las pares.</para> 
+ <para>Para ello, desactivamos la casilla Pie de Página Par/Impar Iguales, y definimos un pie distinto según sea par o impar la página. Normalmente se pone el número de página, alineándolo a la izquierda si la página es impar y a la derecha si es par.</para>
+
+<!-- <graphic scale="50" fileref="images/WriterFormatoPaginaPieDePagina.jpg"> -->
+
+  <para>Ejercicio:</para>
+  <para>Hacer un encabezado y un pie de página con las siguientes propiedades:</para>
+  <itemizedlist>
+   <listitem>
+    <para>Encabezado izquierdo: Nombre del texto alineado a la izquierda</para>
+   </listitem>
+   <listitem>
+    <para>Encabezado derecho: nombre del capítulo en que me encuentro, alineado a la derecha</para>
+   </listitem>
+   <listitem>
+    <para>Pie de página izquierdo: Número de página en que me encuentro actualmente, alineado a la izquierda. El número de página se obtiene en menú Insertar-->Campos-->Número de página </para>
+   </listitem>
+   <listitem>
+    <para>Pie de página derecho: Lo mismo pero alineado a la derecha</para>
+   </listitem>
+  </itemizedlist>
+ </sect2>
+ <sect2 id="tamanyopapel">
+ <title>Especificar el tamaño del papel</title>
+ <para>Esto es muy útil, sobre todo para aquellos documentos que por sus características especiales, no puedan imprimirse en formato de página normal A4. Suelen ser documentos que contienen gráficos, tablas, datos estadísticos, informes, etc.. </para>
+  <para>El tamaño estándar de papel que usa el computador es el A4, aunque puedo definir otro, según la necesidad que tenga</para>
+  <para>Para ello he de ir a la ficha Página y especificar el formato</para>
+  <graphic scale="30" fileref="images/WriterFormatoPagina.jpg" align="center">
+  <para>Abajo, puedo especificar la orientación del papel, que es horizontal o vertical, según convenga. Especificaré horizontal si lo que voy a escribir es un texto o cualquier trabajo con sus imágenes, o gráficos que no sean demasiado complejos. Se suele especificar horizontal, cuando el espacio para texto en el formato vertical resulta insuficiente para contener todos los objetos, gráficos o imágenes, alineándolos y posicionándolos según se desee, o si los mismos objetos no caben en los márgenes de la hoja en orientación vertical</para>
+ <para>Un margen es la distancia que se deja entre el fin de la hoja y el inicio o fin de línea de un texto. Podemos indicar unos márgenes a la izquierda, derecha, arriba o abajo según como deseemos que el texto quede posicionado</para>
+ <para>Ejemplo y ejercicio:</para>
+ <para>Escribir el siguiente texto, en un documento que tenga el siguiente formato de página abajo indicado:</para>
+ <para>Lo único que hacía su vida soportable, dijo alguién no hace mucho por la radio, era la esperanza de un mañana mejor. También dijo que todos tenemos el condenado deber de procurar por todos los medios de que nuestros hijos no vivan pero que nosotros. Pero no dijo que debamos empezar a trabajar por nuestra felicidad hoy mismo.</para>
+ <itemizedlist>
+ <listitem>
+ <para>Orientación Horizontal</para>
+ </listitem>
+ <listitem>
+ <para>Formato de Hoja:B5(ISO)</para>
+ </listitem>
+ <listitem>
+ <para>Márgenes:</para>
+ <para>Izquierdo:3,50</para>
+ <para>Derecho:3,50</para>
+ <para>Inferior:3,50</para>
+ <para>Superior:3,50</para>
+ </listitem>
+ <listitem><para>Reducir todos los márgenes hasta 2 y ver lo que pasa</para></listitem>
+ <listitem>
+ <para>Jugar con la orientación, el formato y los márgenes</para>
+ </listitem>
+ </itemizedlist>
+ </sect2>
+ </sect1>
+ <sect1 id="menu-insertar">
+ <title>El menú insertar</title>
+ <para>Resulta muy interesante insertar imágenes, gráficos, diagramas, cualquier objeto, incluso música o vídeo, dentro de un documento de texto con la finalidad de mejorar la comprensión en la lectura del mismo. Contribuye a su vez, a que el mismo sea más atractivo y la lectura más amena</para>
+ <para>Con OpenOffice.org se pueden insertar cantidad de objetos para dicho fin. Empecemos con las imágenes</para>
+ <sect2 id="insercion-imagen">
+ <title>Inserción de una imagen</title>
+ <para>Para ello primero debemos situar el cursor en el lugar donde queramos insertar la imagen, pulsando con un clic izquierdo de ratón. Una vez hecho esto, llevamos el cursor hacia el menú Insertar-->Imagen-->Desde archivo</para>
+ <para>Una vez hecho esto nos aparece el siguiente cuadro de diálogo:</para>
+ <graphic scale="30" fileref="images/WriterInsertarImagen.jpg" align="center">
+ <para>Seleccionamos la imagen, y una vez hecho esto, pulsamos en Abrir. La imagen queda insertada. Pero OpenOffice.org la inserta con alineación izquierda por defecto. Para modificar las propieades de la imagen, con el fin de que contenga las que nosotros le deseamos dar, pulsamos con el botón derecho del ratón sobre la imagen.</para>
+ <para>Al hacerlo, se deja descubrir un cuadro de diálogo flotante,
+ con las propiedades esenciales de la imagen. Son:</para>
+
+ <graphic scale="50" fileref="images/WriterPropiedadesImagen.jpg"
+ align="center">
+
+ <itemizedlist>
+ <listitem>
+ <para>Posición: determina el lugar de la imagen con respecto al resto de elementos del texto. Es decir, si se encuenta por encima o debajo de éstos, al frente o al fondo</para>
+ </listitem>
+ <listitem>
+ <para>Alineación: Determina si la imagen se alineará a la izquierda, derecha o en el medio</para>
+ </listitem>
+ <listitem>
+ <para>Anclaje: Tal y como el término indica, se trata de especificar si la imagen se va a unir a una página, un documento o a un texto</para>
+ </listitem>
+ <listitem>
+ <para>Ajuste: Se trata de ajustar la posición del texto con respecto a la imagen. Es decir, si queremos que el texto rodee a la imagen, por dónde y cómo</para>
+ </listitem>
+ </itemizedlist>
+ <graphic scale="50"
+   fileref="images/WriterDLFlotantePropiedadesImagen.jpg" align="center">
+ <para>Ejercicio:</para>
+ <para>Introducir el siguiente texto:</para>
+ <para>El verano último, como todos los años, estuve una semana de excursión por las montañas. Equipado con mochila, saco de dormir, sartén y demás, subí hasta los dos mil metros. Cada día marchaba ocho o nueve horas en solitario por parajes rocosos, para ser consciente de mí mismo en el aquí y ahora.</para>
+ <para>Insertar el escudo de la Universidad con alineación a la derecha y ajuste dinámico</para>
+ <para>Insertar la imagen en el documento con alineación a la derecha y sin ajuste. Ver la diferencia
+ </para> 
+ <para>Guardar el documento como Hiperenlace1.sxw. La razón es que después se usará para la sección Insertar Hiperenlace.</para>
+ </sect2>
+ <sect2 id="insercion-tablas-diagramas">
+ <title>Inserción de tablas y Diagramas</title>
+ <para>Se puede insertar una tabla, bien directamente desde la barra
+ de herramientas</para>
+ <graphic fileref="images/WriterBotónInsertarTabla.jpg" align="center"> 
+<para>bien pulsando CTRL-F12, o bien desde la barra de menús, en Insertar --> Tabla</para>
+ <graphic scale="30" fileref="images/WriterInsertarTabla.jpg" align="center">
+ <para>Al insertarla hemos de especificar el número de filas y columnas. Si insertamos desde la barra de menús, aparecerá el cuadro de diálogo Insertar Tabla, donde especificaremos el número de filas y el de columnas. En caso de insertar desde la barra de herramientas, el número de filas y de columnas se especifica arrastrando el mouse </para>
+ <para>Dentro de una misma tabla puedo introducir una serie de datos que luego pueden ser usados para la realización de diagramas</para>
+ <para>Un ejemplo sería el siguiente:</para>
+ <graphic scale="50" fileref="images/WriterEjemploTabla.jpg" align="center">
+ <para>El diagrama sería el siguiente</para>
+ <graphic scale="50" fileref="images/WriterEjemploDiagrama.jpg" align="center">
+ <para>Donde en el eje de las X están situadas las filas y en el de las Y las columnas</para>
+ <para>En este caso nosotros somos los que hemos insertado la tabla y hemos introducido por teclado los datos</para>
+ <para>También puedo importar tablas que se hayan creado con Calc o con Draw. De este tema hablaremos más adelante. Puedo manipular el diagrama, y al idual que la imagen, puedo modifiar las propiedades esenciasles antes comentadas</para>
+ <para>Para crear el diagrama, lo primero a hacer es ir a la barra de
+ herramientas, al botón insertar objetos.</para> 
+<graphic fileref="images/WriterInsertarObjeto.jpg" align="center"> 
+<para>Mantengo pulsado el botón izquierdo, hasta que sale una pequeña ventana con 6 botones. Recorro la ventana hasta llegar a Insertar Diagrama.</para>
+ <para>En este momento, aparece el cuadro de diálogo AutoFormato de diagrama, que es un asistente para la realización del diagrama. Llegados a este punto, hemos de seleccionar el área que queremos sea representada en el diagrama, usando como etiqueta para los datos la primera fila o la primera columna.</para>
+ <graphic scale="30" fileref="images/WriterAutoformatoDiagrama.jpg" align="center">
+ <para>Seleccionamos el área volviendo a la tabla de datos, y manteniendo pulsado el botón izquierdo del ratón, desde la segunda fila de la izquierda, si queremos tener la primera columna como etiqueta, o desde la segunda columna de arriba, si queremos tener la primera fila como etiqueta de datos.</para>
+ <para>Una vez seleccionada el área, podemos empezar a crear el diagrama. Nos vamos al asistente de creación del diagrama. Una vez aquí, pulsamos sobre el botón Siguiente. Ahora nos invita a seleccionar el tipo de gráfico que más nos guste o interese. Los hay circulares, de barra, de áreas, líneas, columnas, etc..</para>
+ <para>Lo que más llama la atención, es que OpenOffice.org permite la realización de gráficos tridimensionales, de barras, columnas, cículos, áreas y líneas. Esto le da una gran potencia, ya que se trata de gráficos que tienen gran atractivo visual y los datos son muy fáciles de visualizar.</para>
+ <graphic scale="50" fileref="images/WriterAutDiagramaGraficos.jpg" align="center">
+ <para>Una vez que tengo definido el tipo de gráfico que voy a usar, puedo seleccionar una variante. Es decir, que por ejemplo, el gráfico puede ser de columnas, pero éstas pueden estar apiladas, normales, en pilas o en profundidad. Las columnas de la gráfica pueden tener una forma piramidal, cilíndrica, cónica o rectangular. Es decir, que para tipo de gráfico existen varias variantes, y a su vez, debido a que son más versátiles, existen más variantes para los gráficos tridimensionales que para los de 2D</para>
+ <para>Para acabar de realizar el diagrama, se ha de indicar los
+ títulos de los ejes X e Y, además del nombre del diagrama, e indicar
+ si deseamos ver la leyenda.</para>
+
+<!-- <graphic scale="50" fileref="images/WriterAutDiagramaEjes.jpg"> --> 
+
+ <para>Ejercicio:</para>
+ <para>Realizar una tabla cualquiera, con el número de filas y columnas (como sugerencia, unas 4 filas y 3 columnas)  que deseemos y realizar sobre ella y realizar dos gráficos, uno en 3D y otro en círculo.</para>
+ <para>A través de las tablas, también puedo realizar etiquetas con direcciones postales, del tipo APLI, que sirven para enviar correos. Dichas etiquetas se agruparían en una tabla, que contiene 2 ó 3 columnas y 7 u 8 filas, según las dimensiones de las etiquetas marcadas por APLI.</para>
+ </sect2>
+ <sect2 id="insercion-de-campos">
+   <title>Inserción de campos</title>
+   <para>Como se comentó en la sección de Encabezados y Pies de página, podemos insertar en el texto una serie de campos con unos valores ya preestablecidos por el programa. Los campos que podemos insertar en un texto son:</para>
+ <graphic scale="50" fileref="images/WriterInsertarCampos.jpg" align="center">
+ <itemizedlist>
+   <listitem>
+     <para>Fecha. Si se coloca el puntero en una determinada posición del texto, y lo llevo a Insertar-->Campos-->Fecha, inserta directamente la fecha actual del sistema en el texto</para>
+   </listitem>
+   <listitem>
+     <para>Hora. Inserta la hora actual del sistema</para>
+   </listitem>
+   <listitem>
+     <para>Número de Páginas. Inserta en la posición del texto que le indiquemos, el número de páginas total del documento.</para>
+   </listitem>
+   <listitem>
+     <para>Contar Páginas. Lo mismo que antes.</para>
+   </listitem>
+   <listitem>
+     <para>Tema. Inserta el tema que hemos indicado en las propiedades del documento.</para>
+   </listitem>
+   <listitem>
+     <para>Título. Inserta el título del documento, que se indicó en las propiedades del mismo</para>
+   </listitem>
+   <listitem>
+     <para>Autor. Inserta el nombre del autor, indicado en las propiedades del documento.</para>
+   </listitem>
+ </itemizedlist>
+   <para>Como ejercicio, escribir el siguiente texto en una zona de trabajo vacía, insertando los campos que correspondan:</para>
+   <itemizedlist>
+     <listitem>
+       <para>Hoy estamos a (fecha actual) y hace un día precioso en Salamanca. Por cierto son las (hora actual) </para>
+     </listitem>
+     <listitem>
+       <para>¿Cuántas páginas tiene este documento? Tiene (número de páginas) páginas. Estamos en la página (página actual) del mismo</para>
+     </listitem>
+     <listitem>
+       <para>¿Quién es el autor de esta obra?. Es (autor). </para>
+     </listitem>
+     <listitem>
+       <para>¿Cuál es el título del libro?. Es (título). </para>
+     </listitem>
+     <listitem>
+       <para>¿De qué tema habla?. El tema es (tema). </para>
+     </listitem>
+   </itemizedlist>
+   <para>Para establecer las propiedades Título, Autor y Tema, vamos a Archivo-->Propiedades. Dentro del cuadro de diálogo, nos movemos a la ficha descripción y las cambiamos según nuestro gusto. Dichas propiedades sirven para identificar el documento, indicamendo el, título, descripción, tema, etc.. </para>
+ <graphic scale="30" fileref="images/WriterPropiedadesDescripción.jpg"
+   align="center">
+ <para>Puedo insertar, en realidad, tantos campos como quiera, y en los formatos en que quiera. Para ello me voy a Insertar-->Campos-->Otros. Y hasta puedo insertar campos de otras bases de datos</para>
+ <para>Si el documento ha sido descargado desde internet, podemos
+ activar la casilla Autorecargar Cada, situada en la ficha Internet, y
+ el documento es renovado cada cierto tiempo que se le indique. Es
+ decir, que nos descargaríamos de forma autómatica las modificaciones
+ del documento, sin que nosotros intervengamos. Esto es muy útil, si
+ el documento que tenemos es reeditado cada hora, o cada fracción de
+ tiempo.</para>
+<graphic scale="30" fileref="images/WriterPropiedadesInternet.jpg" align="center">
+ </sect2>
+ <sect2 id="insertar-hiperenlace">
+   <title>Cómo insertar un hiperenlace</title>
+   <para>Esta opción es una de las más interesantes, ya que puedo enlazar hacia una página web, cualquier documento externo u otra zona del mismo documento.
+ </para>
+ <para>Para hacer un hiperenlace a una dirección web, puedo escribir un texto y enlazarlo a una dirección. Si hago esto el texto aparece subrayado, adquiriendo un tono azulado, lo cual quiere decir que se interpretará como un enlace a una web.</para>
+ <para>¿Cómo hago para enlazar?. Muy sencillo, voy a seleccionar la zona de texto que deseo enlazar. La selección la hago con el mouse, manteniendo pulsado el botón izquierdo hasta llegar al final. Una vez hecho esto, dentro de la barra de funciones, voy al botón Diálogo de Hiperenlace y pulso en el recuadro Internet, que está en la esquina superior izquierda del cuadro de diálogo. En el campo Destino, escribo la URL o dirección de internet de destino.</para>
+ <graphic scale="30" fileref="images/WriterDialogoHiperenlace1.jpg" align="center">
+ <para>Para crear una dirección que apunte a un correo electrónico, escribimos como texto dicho correo y después hacemos el mismo proceso de antes: seleccionamos el texto, vamos a Hiperenlace, seleccionamos Correo y Noticias, y en el campos Destinatario volvemos a escribir la dirección.</para>
+ <graphic scale="30" fileref="images/WriterDialogoHiperenlace2.jpg" align="center">
+ <para>Pero es más sencillo escribir directamente la dirección. Si lo hacemos así, aparecerá subrayado y cambia a un tono azulado, lo que quiere decir que lo interpreta como un enlace a una dirección de Internet. Lo mismo pasa si escribimos una dirección de correo electrónico.</para>
+ <para>Como he citado antes, podemos enlazar a otra zona del documento. Pero para ello, primero hemos de insertar en la zona con la que deseemos enlazar, una marca de texto (insertar-->marca de texto) y más tarde, en el cuadro de diálogo, construiremos el hiperenlace, en el área Destino en el Documento. Pulsamos en el botón Destino, y nos encontraremos con una ficha que nos indica las zonas con las que podemos enlazar. También, puedo enlazar a una imagen, tabla, o cualquier objeto que esté dentro del documento.</para>
+ <graphic scale="30" fileref="images/WriterDialogoHiperenlace3.jpg" align="center">
+ <para>Tenemos la opción, también, de insertar un enlace a un documento que todavía no hayamos creado, pero que lo haremos en un futuro o lo vamos a editar ahora mismo. Para esto, dentro de Hiperenlace, seleccionamos Nuevo Documento. Para ello, en el cuadro Nuevo Documento, seleccionamo el tipo de documento, indicamos el nombre del archivo y buscamos pulsando en la carpeta de la derecha el directorio donde lo queremos guardar.</para>
+  <graphic scale="30" fileref="images/WriterDialogoHiperenlace4.jpg" align="center">
+ <para>Podemos crear un enlace, a su vez, a un documento ya existente. Para ello, seleccionamos el cuadro Documento e indicamos la ruta del documento con su nombre.</para>
+ <para>Ejercicios:</para>
+ <itemizedlist>
+   <listitem>
+     <para>Hacer un hiperenlace a una dirección de Internet y a un correo electrónico cualquiera, elegidos al azar</para>
+   </listitem>
+   <listitem>
+     <para>Ver lo que ocurre cuando se pulsan</para>
+   </listitem>
+   <listitem>
+     <para>Tenemos un documento llamado Hiperenlace1.sxw. Hacer un enlace a dicho documento</para>
+   </listitem>
+   <listitem>
+     <para>En el cuadro de diálogo, establecer las siguientes propiedades:</para>
+   </listitem>
+   <listitem>
+     <para>Frame:_blank; Forma: texto; Texto: mi primer hiperenlace a un documento; Nombre Hiperenlace1.sxw </para>
+   </listitem>
+   <listitem>
+     <para>Habiendo seleccionado Hiperenlace1.sxw como texto, hacer un enlace a la imagen que representa el escudo de la Universidad de Salamanca.</para>
+   </listitem>
+   <listitem>
+     <para>Para hacer un enlace a otro lugar dentro de un mismo documento, cogemos uno de los manuales de OpenOffice, que tienen formato sxw y se encuentran en el CD de material. Ir hacia cualquier parte del documento, poner una marca de texto. Después, ir hacia el cuadro de diálogo Hiperenlace, y en la ficha Documento, dentro del campo Destino en el Documento, pulsar sobre Destino, y seleccionando Marcas de Texto, saldrá el nombre de la marca a la zona del documento que deseamos enlazar</para>
+   <graphic scale="30"
+     fileref="images/WriterDialogoHiperenlaceDestino.jpg" align="center">
+   </listitem>
+</itemizedlist>
+ </sect2>
+ </sect1>
+ <sect1 id="menu-herramientas">
+   <title>El menú y la barra de Herramientas</title>
+   <sect2 id="correccion-ortografica">
+      <title>La revisión ortográfica y la lingüística del documento</title>
+      <para>En un mismo texto, cuando nosotros escribimos, podemos cometer una serie de faltas de ortografía que deben de ser corregidas, cara a que el texto quede lo más perfecto posible. OpenOffice nos brinda esta posibilidad, y mucho más. A la vez, puedo hacer que haga una revisión automática a medida que voy introduciendo el texto.</para>
+      <para>En la revisión automática, una vez que se termina de introducir una palabra, el Writer la analiza sintáctica y ortográficamente. Si la palabra está incorrectamente escrita o no la reconoce, la señalará con una línea roja de forma ondulada.</para>
+      <para>Para que el corrector nos corrija las palabras sin ningún tipo de error, es necesario indicar, la primera vez que se use, las propiedades de lingüística, o lo que es lo mismo, las opciones para la revisión ortográfica, y tener instalado el archivo que contenga la gramática del idioma del corrector.</para>
+      <para>Para empezar con la revisión ortográfica de cualquier
+      texto, podemos ir a Herramientas-->Ortografía-->Revisar. O
+      también podemos ir a la barra de herramientas y pulsar
+      directamente sobre el botón Revisión Ortográfica, situado en la
+      barra de herramientas.</para>
+ <graphic fileref="images/WriterBotonRevisionOrtografica.jpg"
+      align="center">
+      <para>Mientras hace la revisión, si encuentra cualquier palabra que desconozca o esté incorrectamente escrita, o no cuaje en el contexto en que está escrita la frase, mostrará un cuadro de diálogo en el cual se nos presentarán distintas opciones para corregir dicha palabra.</para>
+      <graphic scale="30"
+      fileref="images/WriterRevisionOrtografica.jpg" align="center">
+      <para>Podemos reemplazar la palabra por cualquiera de las que se nos ofrezcan en el cuadro de diálogo, por la que creamos más correcta. Podemos, a su vez, incluir la palabra dentro del diccionario de Español del OpenOffice.org, haciendo clic en el botón incluir. Con esto contribuiremos a incrementar el número de palabras del diccionario y a enriquecerlo.</para>
+      <para>También podemos decirle que lo ignore todo. Si pulsamos en ignorar, sigue adelante buscando palabras. Pero no nos la guarda en el diccionario. Con lo que, la próxima vez que aparezca no la reconocerá y lo entenderá como error ortográfico.</para>
+      <para>Ejercicio:</para>
+      <para>Abrir el documento Hiperenlace1.sxw, y añadir las siguientes líneas:</para>
+<para>El que epera un manana meyor, se perde lo qe el hoy tiene de bueno. La berdadera felizidad es la armonia de todas las cosas que deteminan nuesta vida cotidiana.</para>
+<para> Aplicar el corrector ortográfico. Si la palabra está correctamente escrita, entonces hay que incluirla en el diccionario. Si no lo está, y nos ofrece otras posibilidades, entonces reemplazamos la palabra por la que esté correctamente escrita, dentro del contexto.</para>
+      <para>También puede auto corregir una palabra mal escrita. 
+Es decir, que de forma automática sustituye dicha palabra por otra que entienda como más correcta, sin pasar por el corrector.</para>
+      <para>Un ejemplo es el siguiente:</para>
+      <para>abló-->la sustituye por habló</para>
+      <para>accesorois-->la sustituye por accesorios</para>
+      <para>¿Cómo hacer que esto funcione?. Nos vamos a Herramientas-->autocorrección. En la ficha Reemplazar, situamos el cursor en el campo Abreviatura. Escribimos mal la palabra, después nos vamos al campo Por, escribimos la correcta, y pulsamos en Nuevo.</para>
+      <graphic scale="30"
+      fileref="images/WriterAutocorreccionReemplazar.jpg" align="center">
+      <para>Lo que hace es añadir las dos combinaciones de caracteres, y cada vez que escribamos en el texto la palabra mal escrita, la sustituye por la correcta </para>
+      <para>Ejemplo y ejercicio:</para>
+      <para>Ir a autocorrección, y añadir una palabra mal escrita en el campo Abreviatura, poner la correcta en Por, y cada vez que escribamos en el texto dicha palabra mal escrita, la sustituye por la correcta</para>
+      <para>A su vez puedo indicar una serie de excepciones a la norma general del lenguaje, que nos dice que después de un punto, sea seguido o aparte, el primer carácter de la siguiente frase ha de introducirse en mayúsculas. Pero, como he dicho, puedo establecer unas excepciones, sobre todo cuando se trata de abreviar palabras:</para>
+      <para>D.,att.,Dña.,Mr.,Mss., etc.. </para>
+      <para>Le puedo indicar al OpenOffice, que después de introducir dichas abreviaturas, el siguiente carácter no ha de ser mayúscula. Las excepciones se marcan en Herramientas-->Autocorrección-->Excepciones</para>
+      <graphic scale="30"
+      fileref="images/WriterAutocorreccionExcepciones.jpg" align="center">
+      <para>Un error ortográfico que suele cometerse frecuentemente es la introducción de dos caracteres iniciales en mayúscula o caracteres en minúscula al comienzo de una palabra o frase. Esto, naturalmente, lo corrige el Writer de forma automática. Si los hemos introducido correctamente, debemos añadirlos en la ficha Excepciones-->Palabras que comienzan con dos mayúsculas. Es decir, hay que indicarle al Writer que ciertas palabras o abreviaturas comienzan siempre por minúscula o que comienzan con dos letras mayúsculas.</para>
+      <para>En la ficha Completar Palabra, tenemos una serie de opciones y un listado de plabras que pueden completarse cuando se empiezan a escribir. Si nos damos cuenta, cuando estamos escribiendo una palabra, el Writer la puede autocompletar. Para ello, simplemente escribimos las dos otres primeras letras de la palabra y pulsamos return: Ejemplo: probar con la palabra Escriba, Español, Configuración, etc.. Writer nos da la posibilidad de completar una palabra sin tener que escribirla entera. Esto se activa en Herramientas --> Autocorrección --> Completar Palabra, en la casilla de verificación Completar Palabras. La palabra a autocompletar ha de estar incluída dentro de la lista de palabras que aparece en la ficha.</para>
+      <graphic scale="30"
+      fileref="images/WriterAutocorreccionCompletarPalabra.jpg" align="center">
+      <para>Ejemplo:</para>
+      <para>Con el documento Hiperenlace1.sxw abierto, nos vamos a Autocorrección-->Reemplazar, y añadimos una serie de palabras en Reemplazar, como se expuso antes.</para>
+      <para>Ir a Autocorrección, y añadir nuevas abreviaturas, como att., org., lted., S.A., S.R.L., S.L., etc.. Probar lo que ocurre cuando las escribimos en texto.</para><para>Probar también con la serie de palabras introducidas. Probar que hace la autocorrección.</para> </sect2>
+     <sect2 id="plantillas">
+     <title>Trabajar con plantillas de documentos</title>
+     <para>Una plantilla se puede definir como un documento maestro en el cual se van a integrar otros documentos. Se usan normalmente cuando muchos documentos tienen partes en común, por ejemplo en cartas dirigidas a ciertas personalidades, faxes.. etc. Son documentos que tienen partes comunes a todos, y sin embargo vamos a tener que realizarlos muchas veces en una oficina. Se pueden emitir varios faxes al día, escribir varias cartas... etc.. La función principal es que se eelaboren dichos documentos con un criterio único para todos.</para>
+    <para>¿Cómo crear una plantilla?</para>
+    <para>Simplemente, haciendo el documento maestro, y guardándolo después como plantilla de documento en el cuadro de diálogo Guardar Como. En una plantilla se suelen insertar encabezados, pies de página, marcos y el texto de encabezamiento de la carta. También podemos guardarlo de la siguiente forma, que es quizás la más eficiente y sencilla: </para>
+    <para>Nos vamos a Archivo-->Plantilla-->Guardar. Nos aparece el siguiente cuadro de diálogo Guardar Plantilla: </para>
+    <graphic scale="50" fileref="images/WriterGuardarPlantilla.jpg" align="center">
+    <para>Selecciono el área en el que deseo que se guarde y le indico el nombre de la plantilla. </para>
+    <para>Una vez que se ha creado se puede usar ya como plantilla de documento. Para escribir un nuevo documento basado en un maestro, simplemente tenemos que ir a Archivo-->Nuevo-->Plantilla de documento. EN este momento es cuando aparece un cuadro de diálogo, llamado Plantillas y Documentos, en el cual selecciono la plantilla con la que deseo trabajar, que estará dentro del área en la cual la he guardado.</para>
+    <graphic scale="30" fileref="images/WriterPlantilla.jpg" align="center">
+    <para>Una vez que se ha abierto, es cuando puedo trabajar con ella, añadiendo texto, eliminándolo, según la necesidad que tenga. </para> 
+    <para>Como ejemplos se exponen las siguientes plantillas, que se muestran a continuación. Son dos plantillas que tienen como característica común, que contienen un encabezado y un pie de página, además de un marco de texto en la zona izquierda. Además en la parte izquierda de cada encabezado se ha insertado el escudo de la Universidad. En la plantilla de fax, se ha insertado además una tabla, que contiene las celdas para rellenar los datos de cabecera del fax.</para>
+   </sect2>
+ </sect1>
+</chapter>
+   
+<!-- Local Variables: -->
+<!-- sgml-parent-document: "OpenOffice.sgml" -->
+<!-- End: -->   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

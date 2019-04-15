@@ -1,0 +1,515 @@
+<chapter id="programacion">
+    <title>Programación</title>
+
+    <para>Podemos programar nuestras propias funciones y scripts
+    utilizando las funciones que trae consigo <acronym>YACAS</acronym>.</para>
+
+    <sect1 id="interactuando-usuario">
+      <title>Interactuando con el usuario</title>
+
+      <para>Podemos interactuar con el usuario para la petición de
+      datos o simplemente para mostrar resultados.</para>
+
+      <sect2 id="mostrando-informacion">
+	<title>Mostrando información</title>
+
+	<para>Podemos mostrar información utilizando
+	<keycap>Echo</keycap>. Existen dos formas de utilizar esta
+	función:</para>
+	<example>
+	  <title>Mostrando información</title>
+	  <screen>
+<prompt>In> </prompt><userinput>Echo(N(Sqrt(2)));</userinput>
+<computeroutput>1.4142135623</computeroutput>
+<computeroutput>Out> True;</computeroutput>
+<prompt>In> </prompt><userinput>Echo({"El logaritmo de 2 es", N(Ln(2))});</userinput>
+<computeroutput>El logaritmo de 2 es 0.6931471805</computeroutput>
+<computeroutput>Out> True;</computeroutput>
+<prompt>In></prompt>
+	  </screen>
+	</example>
+	<orderedlist>
+	  <listitem>
+	    <para>En la primera forma si es una expresión la evalua e
+	    imprime su resultado. Si fuera una cadena de texto
+	    simplemente la imprimiría.</para>
+	  </listitem>
+	  <listitem>
+	    <para>En la segunda forma si es una lista imprimiría todos
+	    y cada uno de los miembros de la lista separados por un
+	    espacio en blanco, evaluando todas y cada una de las
+	    expresiones que aparecieran en la lista.</para>
+	  </listitem>
+	</orderedlist>
+	<para><keycap>Echo</keycap> siempre devuelve
+	<keycap>True</keycap>.</para>
+      </sect2>
+
+      <sect2 id="solicitando-informacion">
+	<title>Solicitando información al usuario</title>
+
+	<para>Podemos pedir información al usuario con
+	<keycap>Read</keycap>. Esta función lee una expresión desde la
+	entrada estándar, el teclado, y no la evalúa. Para indicar que
+	se termina la expresión se hace terminando la expresión con
+	  punto y coma "<keycap>;</keycap>":</para>
+	<example>
+	  <title>Solicitando información al usuario</title>
+	  <screen>
+<prompt>In> </prompt><userinput>a:=Read();</userinput>
+<computeroutput>2+3;Out> 2+3;</computeroutput>
+<prompt>In> </prompt><userinput>a;</userinput>
+<computeroutput>Out> 2+3;</computeroutput>
+<prompt>In> </prompt><userinput>N(a);</userinput>
+<computeroutput>Out> 5;</computeroutput>
+<prompt>In></prompt>
+	  </screen>
+	</example>
+      </sect2>
+
+    </sect1>
+
+    <sect1 id="interactuando-ficheros">
+      <title>Interactuando con ficheros</title>
+
+      <para>Podemos leer y/o grabar datos en ficheros.</para>
+
+      <sect2 id="grabando-ficheros">
+	<title>Guardando datos en ficheros</title>
+
+	<para>Podemos guardar datos en ficheros con
+	<keycap>ToFile</keycap>:</para>
+	<example>
+	  <title>Guardando datos en ficheros</title>
+	  <screen>
+<prompt>In> </prompt><userinput>ToFile("Datos") [PrettyForm(D(x)D(y) Sin(x*y));];</userinput>
+<computeroutput>Out> True;</computeroutput>
+<prompt>In></prompt>
+           </screen>
+	</example>
+        <para>De esta forma en el fichero <filename>Datos</filename>
+        se almacenará el resultado obtenido. Hay que utilizar la
+        función <keycap>PrettyForm</keycap> para lograr que los datos
+        se almacenen en disco. Se perderán todos los datos del fichero
+        <filename>Datos</filename>.</para>
+      </sect2>
+
+      <sect2 id="leyendo-ficheros">
+	<title>Leyendo desde ficheros</title>
+
+	<para>Podemos leer datos desde ficheros con
+	  <keycap>FromFile</keycap>. Supongamos que tenemos el fichero
+	  <filename>Datos</filename> conteniendo:</para>
+<programlisting>
+Sin(x*y);
+</programlisting>
+	<example>
+	  <title>Leyendo datos de un fichero</title>
+	  <screen>
+<prompt>In> </prompt><userinput>FromFile("Datos") D(x)D(y) Read();</userinput>
+<computeroutput>Out> Cos(x*y)-x*y*Sin(x*y);</computeroutput>
+<prompt>In></prompt>
+	  </screen>
+	</example>
+	<para>Leerá el fichero <filename>Datos</filename> y derivará
+	  respecto de <keycap>y</keycap> y luego respecto de
+	  <keycap>x</keycap>.</para>
+      </sect2>
+
+    </sect1>
+
+    <sect1 id="simplificaciones">
+      <title>Simplificaciones</title>
+
+      <sect2 id="sustituciones">
+	<title>Sustitución de expresiones</title>
+
+	<para>Es posible realizar sustituciones en nuestros
+	cálculos. Hay veces que necesitamos escribir expresiones muy
+	largas que han de ser tratadas. Para simplificar su escritura
+	las podemos sustuituir por otras y una vez terminados los
+	cálculos volver a ponerlas en su forma original:</para>
+	<example>
+	  <title>Sustitución de expresiones</title>
+	  <screen>
+<prompt>In> </prompt><userinput>Simplify((x+3*x^2)^2-(2+x^2-3*x^3);</userinput>
+<computeroutput>Out> 9*x^4+9*x^3-2;</computeroutput>
+<prompt>In> </prompt><userinput>Subst(x, Cos(a)+Ln(b)) %;</userinput>
+<computeroutput>Out> 9*(Cos(a)+Ln(b))^4+9*(Cos(a)+Ln(b))^3-2;</computeroutput>
+<prompt>In></prompt>
+	  </screen>
+	</example>
+      </sect2>
+
+      <sect2 id="reglas-simplificacion">
+	<title>Reglas de simplificación</title>
+
+	<para>Es posible indicar algunas reglas de simplificación que
+	  no se hacen por defecto, para ello disponemos de
+	  los operadores <keycap>/:</keycap> y
+	  <keycap>/::</keycap>.</para>
+	<example>
+	  <title>Especificando reglas de simplificación</title>
+	  <screen>
+<prompt>In> </prompt><userinput>Sin(x)*Ln(a*b);</userinput>
+<computeroutput>Out> Sin(x)*Ln(a*b);</computeroutput>
+<prompt>In> </prompt><userinput>% /: {Ln(_x*_y) <- Ln(x)+Ln(y)};</userinput>
+<computeroutput>Out> Sin(x)*(Ln(a)+Ln(b));</computeroutput>
+<prompt>In></prompt>
+	  </screen>
+	</example>
+        <para><keycap>/:</keycap> aplica las reglas de simplificación,
+	  pero puede ser necesario aplicarlas  varias veces en ese
+	  caso se utiliza <keycap>/::</keycap>:</para>
+	  <screen>
+<prompt>In> </prompt><userinput>Sin(x)*Ln(a*b);</userinput>
+<computeroutput>Out> Sin(x)*Ln(a*b);</computeroutput>
+<prompt>In> </prompt><userinput>% /: {a <- 2, b <- 3};</userinput>
+<computeroutput>Out> Sin(x)*(Ln(2*3));</computeroutput>
+<prompt>In> </prompt><userinput>Sin(x)*Ln(a*b);</userinput>
+<computeroutput>Out> Sin(x)*Ln(a*b);</computeroutput>
+<prompt>In> </prompt><userinput>% /:: {a <- 2, b <- 3};</userinput>
+<computeroutput>Out> Sin(x)*(Ln(6));</computeroutput>
+<prompt>In></prompt>
+	  </screen>
+	<para>Tenemos que tener cuidado a la hora de establecer las
+	reglas ya que si establecemos reglas contradictorias podriamos
+	entrar en un bucle infinito.</para>
+      </sect2>
+
+    </sect1>
+
+    <sect1 id="flujo">
+      <title>Sentencias de control de flujo</title>
+
+      <para>Disponemos de varias sentencias para el control de
+      flujo:</para>
+
+      <sect2 id="flujo-if">
+	<title>Estructura condicional If</title>
+
+	<para>Con este tipo de bucles se rezlizará una acción u otra
+	dependiendo de si se cumple una condición:</para>
+	<example>
+	  <title>Estructura condicional <keycap>If</keycap></title>
+	  <screen>
+<prompt>In> </prompt><userinput>sign(x):=If (IsPositiveReal(x), 1, -1);</userinput>
+<computeroutput>Out> True;</computeroutput>
+<prompt>In> </prompt><userinput>sign(3);</userinput>
+<computeroutput>Out> 1;</computeroutput>
+<prompt>In> </prompt><userinput>sign(2+3*I);</userinput>
+<computeroutput>Out> -1;</computeroutput>
+<prompt>In></prompt>
+	  </screen>
+	</example>
+	<para>Con esta estructura se emplean tres argumentos:</para>
+	<orderedlist>
+	  <listitem>
+	    <para>El primer argumento es la condición y debe devolver
+	      <keycap>True</keycap> o <keycap>False</keycap>.</para>
+	  </listitem>
+	  <listitem>
+	    <para>El segundo argumento es la acción que se realizará
+	    cuando la condición dada por el primer argumento sea cierta.</para>
+	  </listitem>
+	  <listitem>
+	    <para>El tercer argumento es la acción que se realizará
+	    cuando la condición dada por el primer argumento sea
+	    falsa. Este argumento es opcional.</para>
+	  </listitem>
+	</orderedlist>
+
+      </sect2>
+
+      <sect2 id="flujo-for">
+	<title>El bucle For</title>
+
+	<para>Con este tipo de bucle se ejecuta un conjunto de
+	instrucciones mientras una condición es cierta:</para>
+	<example>
+	  <title>El bucle <keycap>For</keycap></title>
+	  <screen>
+<prompt>In> </prompt><userinput>For(i:=1,i<=5, i++) Echo({i,i!});</userinput>
+<computeroutput>1 2</computeroutput>
+<computeroutput>2 2</computeroutput>
+<computeroutput>3 6</computeroutput>
+<computeroutput>4 24</computeroutput>
+<computeroutput>5 120</computeroutput>
+<computeroutput>Out> True;</computeroutput>
+<prompt>In></prompt>
+	  </screen>
+	</example>
+      </sect2>
+
+      <sect2 id="flujo-foreach">
+	<title>El bucle ForEach</title>
+
+	<para>Con este tipo de bucle podemos realizar una determinada
+	acción para los elementos de una lista:</para>
+	<example>
+	  <title>El bucle <keycap>ForEach</keycap></title>
+	  <screen>
+<prompt>In> </prompt><userinput>ForEach(i,{1,2,3,4,5}) Echo(i^2);</userinput>
+<computeroutput>1</computeroutput>
+<computeroutput>4</computeroutput>
+<computeroutput>9</computeroutput>
+<computeroutput>16</computeroutput>
+<computeroutput>25</computeroutput>
+<prompt>In></prompt>
+	  </screen>
+	</example>
+	<para>Es necesario que especifiquemos la variable que se
+	utilizará dentro del bucle. Esta variable tomará todos y cada
+	uno de los datos de la lista.</para>
+      </sect2>
+
+      <sect2 id="flujo-while">
+	<title>El bucle While</title>
+
+	<para>Con este tipo de bucle ejecutamos una serie de instrucciones
+	mientras una condición es cierta. Tenemos que tener cuidado de
+	no entrar en un bucle infinito, para ello dentro del conjunto
+	de instrucciones a ejecutar tendremos que incluir "algo" que
+	haga que se alcance el final del bucle:</para>
+	<example>
+	  <title>El bucle <keycap>While</keycap></title>
+	  <screen>
+<prompt>In> </prompt><userinput>i:=1;</userinput>
+<computeroutput>Out> 1;</computeroutput>
+<prompt>In> </prompt><userinput>While(i<5) [ Echo(N(Sqrt(i))); i++;]</userinput>
+<computeroutput>1</computeroutput>
+<computeroutput>1.4142135623</computeroutput>
+<computeroutput>1.7320508075</computeroutput>
+<computeroutput>2</computeroutput>
+<computeroutput>Out> </computeroutput>
+<prompt>In></prompt>
+	  </screen>
+	</example>
+      </sect2>
+
+      <sect2 id="flujo-until">
+	<title>El bucle Until</title>
+
+	<para>Este bucle funciona igual que el bucle
+	<keycap>While</keycap> pero se ejecuta hasta que la condición
+	dada se hace verdadera:</para>
+	<example>
+	  <title>El bucle <keycap>Until</keycap></title>
+	  <screen>
+<prompt>In> </prompt><userinput>i:=1;</userinput>
+<computeroutput>Out> 1;</computeroutput>
+<prompt>In> </prompt><userinput>Until(i>4) [ Echo(N(Sqrt(i))); i++;]</userinput>
+<computeroutput>1</computeroutput>
+<computeroutput>1.4142135623</computeroutput>
+<computeroutput>1.7320508075</computeroutput>
+<computeroutput>2</computeroutput>
+<computeroutput>Out> </computeroutput>
+<prompt>In></prompt>
+	  </screen>
+	</example>
+      </sect2>
+
+    </sect1>
+
+    <sect1 id="funciones-propias">
+      <title>Creación de funciones propias</title>
+
+      <para>Veamos ahora como crear nuestras propias funciones con
+	todos los recursos que hemos visto de
+	<acronym>YACAS</acronym>:</para>
+
+      <sect2 id="comentarios">
+	<title>Comentarios</title>
+
+	<para>Siempre que programemos, independientemente del
+	lenguaje, es conveniente la utilización de comentarios. Esto
+	nos facilitará la depuración y/o ampliación del
+	código. Especialmente si hace mucho tiempo que no lo
+	utilizamos.</para>
+
+	<para>Los comentarios en <acronym>YACAS</acronym> son como en
+	lenguaje C, se considerará comentario todo aquello que esté
+	  entre <keycap>/*</keycap> y
+	<keycap>*/</keycap>. <acronym>YACAS</acronym> también admite
+	comentarios al estilo C++, es decir será comentario todo lo
+	  que se encuentre después de <keycap>//</keycap> y hasta el
+	final de linea.</para>
+	<example>
+	  <title>Ejemplos de comentarios</title>
+<programlisting>
+/* ESTO ES UN COMENTARIO */
+/* ESTO TAMBIEN
+   LO ES */
+// Y ESTO TAMBIEN, PERO AL ESTILO C++
+</programlisting>
+	</example>
+      </sect2>
+
+      <sect2 id="bloques">
+	<title>Bloques de código</title>
+
+	<para>Podemos crear bloques de código de dos formas:</para>
+
+	<itemizedlist>
+	  <listitem>
+	    <para>Utilizando <keycap>[ ]</keycap>, cada instrucción
+	    deberá ir seguida de un punto y coma.</para>
+	    <screen>
+<prompt>In> </prompt><userinput>[a:=1;b:=2;c:=3;]</userinput>
+<computeroutput>Out> 3;</computeroutput>
+<prompt>In> </prompt>
+	    </screen>
+	  </listitem>
+	  <listitem>
+	    <para>Utilizando <keycap>Prog</keycap>, cada instrucción
+	    ira seguida por una coma.</para>
+	    <screen>
+<prompt>In> </prompt><userinput>Prog(a:=1,b:=2,c:=3)</userinput>
+<computeroutput>Out> 3;</computeroutput>
+<prompt>In></prompt>
+	    </screen>
+	  </listitem>
+	</itemizedlist>
+      </sect2>
+
+      <sect2 id="localizando-funciones">
+	<title>Localizando funciones</title>
+
+	<para>Hay veces que es necesario conocer en que fichero
+	  tenemos almacenada una función, eso se hace con
+	  <keycap>FindFunction</keycap>:</para>
+	<example>
+	  <title>Uso de FindFunction</title>
+	  <screen>
+<prompt>In> </prompt><userinput>FindFunction("Sum");</userinput>
+<computeroutput>Out> "sums.rep/code.ys";</computeroutput>
+<prompt>In></prompt>
+	  </screen>
+	</example>
+      </sect2>
+
+      <sect2 id="ejemplo">
+	<title>Ejemplo de creación de funciones</title>
+
+	<para>Vamos a crear una función que dada una lista pida al
+	usuario un número y calcule la suma de todas las componentes
+	de la lista elevadas al número introducido por el
+	usuario.</para>
+
+	<para>La función sería:</para>
+<programlisting>
+MiFuncion(list):=[
+	  /* DECLARAMOS LOCALES LAS FUNCIONES */
+	  Local(poten, tmplist, tmpRes, i);
+	  /* PEDIMOS EL DATO */
+	  Echo("Introduce la potencia: ");
+	  poten:=Read();
+	  Echo("");
+	  /* ELEVAMOS A LA POTENCIA ESPECIFICADA */
+	  tmplist:=list^poten;
+	  tmpRes:=0;
+	  /* SUMAMOS TODOS LOS MIEMBROS DE LA LISTA */
+	  For(i:=1,i<=Length(list),i++) tmpRes:=tmpRes+tmplist[i];
+	  /* MOSTRAMOS LOS RESULTADOS */
+	  Echo({"La suma es", tmpRes});
+];
+</programlisting>
+
+	<para>Esta función la almacenaremos en un fichero
+	<filename>mifuncion.ys</filename> que estará en nuestro
+	  directorio de scripts. Crearemos un fichero
+	  <filename>mifuncion.ys.def</filename> para que
+	<acronym>YACAS</acronym> sepa donde se encuentra y evitar que
+	  este cargado en memoria. El fichero
+	<filename>mifuncion.ys.def</filename>:</para>
+<programlisting>
+MiFuncion
+}
+</programlisting>
+	<para>A continuación tendremos que modificar el fichero
+	  <filename>.yacasrc</filename> de la siguiente manera:</para>
+<programlisting>
+/* DIRECTORIO DE SCRIPTS */
+DefaultDirectory("/home/jose/yacascripts/");
+/* INDICA LA DEFINICION DE LA FUNCION */
+CntDefLoad("yacascripts/funcion.ys");
+</programlisting>
+	<para>En nuestro directorio de scripts tendremos que tener los
+	  ficheros <filename>mifuncion.ys</filename> y
+	  <filename>mifuncion.ys.def</filename>.</para>
+
+	<para>Al arrancar <acronym>YACAS</acronym> ya podremos
+	utilizar la función:</para>
+	<screen>
+<prompt>In> </prompt><userinput>MiFuncion({1,2,3,4});</userinput>
+<computeroutput>Introduce la potencia:</computeroutput>
+<computeroutput>6;</computeroutput>
+<computeroutput>La suma es 4890</computeroutput>
+<computeroutput>Out> True;</computeroutput>
+<prompt>In></prompt>
+	</screen>
+      </sect2>
+
+    </sect1>
+
+    <sect1 id="ejercicios-programacion">
+      <title>Ejercicios</title>
+
+      <orderedlist>
+	<listitem>
+	  <para>Hacer una función que pida un número por teclado y
+	  diga si es par o impar.</para>
+	</listitem>
+	<listitem>
+	  <para>Hacer una función que tenga un único argumento y que
+	  imprima su módulo y argumento si es un número complejo y en
+	  caso contrario que imprima su valor absoluto.</para>
+	</listitem>
+	<listitem>
+	  <para>Escribir una función que pida números por pantalla e
+	  imprima sus factoriales hasta que se introduzca un
+	    cero. Hacerlo con <keycap>While</keycap> y con
+	  <keycap>Until</keycap>.</para>
+	</listitem>
+	<listitem>
+	  <para>Hacer una función que admita un único argumento, una
+	  lista, y que compruebe cuales de los elementos de la lista
+	  son primos y cuales no. Una vez comprobados que imprima
+	  todos los primos juntos y los no primos factorizados.</para>
+	</listitem>
+	<listitem>
+	  <para>Hacer una función que pida por teclado un número e
+	  imprima todos los primos menores que él.</para>
+	</listitem>
+	<listitem>
+	  <para>Hacer una función que admita una lista donde sus
+	  elementos sean los coeficientes de un polinomio y pida por
+	  teclado un punto para calcular una solución del polinomio y
+	  también la precisión de los cálculos.</para>
+	</listitem>
+	<listitem>
+	  <para>Crear una función definida de la siguiente
+	  manera:</para>
+	  <itemizedlist>
+	    <listitem>
+	      <para>La función será la identidad para todo x menor o
+	      igual que -6.</para>
+	    </listitem>
+	    <listitem>
+	      <para>La función será elevar al cuadrado para todo x
+	      entre -6 y 6.</para>
+	    </listitem>
+	    <listitem>
+	      <para>La función será la identidad para todo x mayor o
+	      igual que 6.</para>
+	    </listitem>
+	  </itemizedlist>
+	</listitem>
+      </orderedlist>
+    </sect1>
+
+</chapter>
+
+<!-- Local Variables: -->
+<!-- sgml-parent-document: "Yacas.sgml" -->
+<!-- End: -->

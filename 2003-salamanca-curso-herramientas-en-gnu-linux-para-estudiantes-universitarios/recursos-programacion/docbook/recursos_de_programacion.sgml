@@ -1,0 +1,37 @@
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V4.2//EN"[
+<!ENTITY recursos.sgml SYSTEM "recursos.sgml">
+<!ENTITY licencia.sgml SYSTEM "licencia.sgml">
+]>
+<book lang="es">
+  <bookinfo>
+     <title>Herramientas en GNU/Linux para estudiantes universitarios</title>
+    <subtitle>Recursos de Programación en GNU/Linux</subtitle>
+    <authorgroup>
+      <author>
+	<firstname>Chema</firstname>
+	<surname>Peribáñez</surname>
+      </author>
+      <author>
+	<firstname>Mario</firstname>
+	<surname>Arias</surname>
+      </author>
+      <author>
+	<firstname>Ramón</firstname>
+	<surname>Rey Vicente</surname>
+      </author>
+    </authorgroup>
+    <date>2.003</date>
+    <legalnotice>
+      <para>Copyright (c)  2.003 Asociación de Usuarios de GNU/Linux
+      de Castilla y León (<acronym>AUGCyL</acronym>) <email>info@augcyl.org</email></para>
+      <para>Permission is granted to copy, distribute and/or modify this document
+      under the terms of the GNU Free Documentation License, Version 1.2
+      or any later version published by the Free Software Foundation;
+      with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+      A copy of the license is included in the section entitled "GNU
+      Free Documentation License".</para>
+    </legalnotice>
+  </bookinfo>
+&recursos.sgml;
+&licencia.sgml;
+</book>

@@ -1,0 +1,122 @@
+<chapter id="estructurados">
+<title>Textos estructurados con TeXmacs</title>
+    <sect1 id="porquestructurados">
+     <title>¿Por qué los textos estructurados?</title>
+      <para>Una ventaja principal de usar TeXmacs como editor de
+      textos es que nos ayuda y anima a que escribamos docmuentos
+      estructurados. Brevemente expliquemos lo que significa esto. Si
+      miramos un libro impreso, notaremos que está subdividido en los
+      capítulos, un contenido, un índice etc. El comienzo de un
+      capítulo es indicado, generalmente, por un cambio de página y en
+      una fuente claramente distinguible. Por otra parte, el título
+      del capítulo se utiliza a menudo como base para todas las
+      páginas de ese capítulo. Dentro de un capítulo, puede haber
+      otros pedazos especiales de texto, como citas,
+      definiciones... que tienen un aspecto distinto al del texto
+      principal.</para>
+      <para>Se pueden distinguir dos aspectos en un libro o en un
+      documento más corto con las características antedichas. El
+      primer aspecto sería un aspecto visual, consiste en separar
+      claramente capítulo, texto principal, notas etc. con un cambio
+      de fuentes por ejemplo. El segundo aspecto a tener en cuenta,
+      es la estructura que queremos darle a ese documento, es decir,
+      decir a TeXmacs cuando queremos comenzar un nuevo capítulo. El
+      estilo del documento es, por tanto, una manera agradable y
+      vistosa de hacer nuestro documento.</para>
+      <para>Por todas estas razones TeXmacs nos anima a hacer nuestro
+      documento de una forma estructurada.</para>
+</sect1>
+    <sect1 id="estilos">
+      <title>Seleccionando un estilo para nuestro documento</title>
+      <para>Después de darle un nombre a nuestro documento, la
+      siguiente cosa quedebemos hacer, es seleccionar un estilo de
+      documento. Bien sea en el menú <userinput>Documento ->
+      Estilo</userinput> o haciendo clic en el icono correspondiente,
+      en la barra de iconos.</para>
+      <graphic fileref="../images/style-2.png" format="png"
+      scale="100">
+      <para>Existen estos estilos estándar en TeXmacs:</para>
+      <itemizedlist>
+	<listitem>
+	  <para> <keycap> Artículo: </keycap> Para publicaciones en
+	  periódicos científicos.</para>
+	</listitem>
+	<listitem>
+	  <para><keycap> Libro: </keycap> Para escribir libros.</para>
+	</listitem>
+	 <listitem>
+	  <para><keycap> Carta: </keycap> Para escribir cartas, o para
+	 usos informales.</para>
+	 </listitem>
+	 <listitem>
+	  <para><keycap> Seminario: </keycap> Para escribir
+	  presentaciones.</para>
+	 </listitem>
+	</itemizedlist>
+      <para>Aparte de los estilos estándar de TeXmacs, también podemos
+      seleccionar paquetes de estilos personales, con diversas macros
+      que nos pueden ayudar en nuestro trabajo.</para>
+     </sect1>
+    <sect1 id=subdivision>
+      <title>Subdivisión de documentos</title>
+      <para>Dependiendo del estilo del documento, un texto suele estar
+      dividido en capítulos o en secciones. Para empezar una nueva
+      sección hacemos clic en el menú <userinput>Texto -> Sección
+      </userinput> o bien escribir directamente <userinput>\section
+      </userinput> seguido de <userinput> ENTER </userinput> en el
+      canvas. En cualquiera de los dos casos se puede ver como cambia
+      el entorno TeXmacs: </para>
+      <graphic fileref="../images/section-1.png" format="png"
+      scale="100">
+      <graphic fileref="../images/section-2.png" format="png" scale="100">
+      <para>Si nos fijamos el cursor ha cambiado a una letra tamaño 14
+      y negrita. En la barra de estado, a la derecha, podemos ver que
+      estamos escribiendo una sección.</para>
+  <graphic fileref="../images/section-3.png" format="png" scale="100">
+      <graphic fileref="../images/section-4.png" format="png"
+      scale="100">    
+  <para>Una vez escrito el título de nuestra sección, pulsamos el
+      cursor derecho y observamos que la letra vuelve a ser de 10
+      puntos y que ya no es negrita. Hemos vuelto al entorno inicial.</para>
+    <graphic fileref="../images/section-5.png" format="png"
+      scale="100">
+    <graphic fileref="../images/section-6.png" format="png" scale="100">
+      <para>Observemos que pasa si cambiamos el estilo de texto a
+      artículo. La sección se numera automáticamente.</para>
+    <!--<graphic fileref="../images/section-7.png" format="png"
+      scale="100">-->
+    </sect1>
+    <sect1 id=epecial>
+      <title>Insertando texto especial</title>
+      <para>A veces necesitamos darle un énfasis a algunas partes del
+      texto, como nombres importantes etc. Un ejemplo de esto sería
+      poner el texto en cursiva, que lo podemos hacer bien haciendo
+      clic sobre el icono "cursiva" (E) o bien en modo comando
+	escribiendo <userinput> \em </userinput>.</para>
+      <graphic fileref="../images/emphasize-1.png" format="png"
+      scale="100">
+      <graphic fileref="../images/emphasize-2.png" format="png"
+	scale="100">
+      <graphic fileref="../images/emphasize-3.png" format="png"
+	scale="100">
+      <graphic fileref="../images/emphasize-4.png" format="png"
+	scale="100">
+      <graphic fileref="../images/emphasize-5.png" format="png"
+      scale="100">
+      <para>La primera imagen indica el estado del editora antes de
+      poner un texto en cursiva. La barra de estado indica que
+      <userinput> \em </userinput> ha sido reconocido como un comando
+      LaTeX y que podemos comenzar el texto en cursiva presionando
+      <userinput> ENTER </userinput>.</para>
+      <para>La segunda imagen nos muestra que ha ocurrido, la barra de
+      estado nos muestra que estamos escribiendo en cursiva. Después
+      de escribir el texto en cursiva (Tercera imagen), tenemos que
+      presionar el cursor derecho (Cuarta imagen) para volver al
+      estado inicial (última imagen).</para>
+      <para>También podemos colorear el texto, haciendo clic en el
+      menú <userinput> Formato -> Color -> Azul </userinput>, como
+      muestra la siguiente captura: </para>
+      <graphic fileref="../images/emphasize-6.png" format="png"
+      scale="100">
+      </sect1>
+</chapter>

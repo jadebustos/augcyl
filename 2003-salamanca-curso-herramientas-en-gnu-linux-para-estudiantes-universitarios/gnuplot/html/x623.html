@@ -1,0 +1,230 @@
+<HTML
+><HEAD
+><TITLE
+>Múlitples gráficas en una sola pantalla</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Herramientas en GNU/Linux para estudiantes universitarios"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Usos avanzados. Truquillos de gurú"
+HREF="c496.html"><LINK
+REL="PREVIOUS"
+TITLE="Cambiando el estilo de las líneas"
+HREF="x608.html"><LINK
+REL="NEXT"
+TITLE="Dónde seguir."
+HREF="c656.html"><LINK
+REL="stylesheet"
+HREF="./base.css"
+TYPE="text/css"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Herramientas en GNU/Linux para estudiantes universitarios: </TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x608.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 9. Usos avanzados. Truquillos de gurú</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c656.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN623"
+></A
+>9.7. Múlitples gráficas en una sola pantalla</H1
+><P
+>En
+      este caso lo que se pretende es representar en la misma pantalla
+      varios gráficas independientes, cada una con su propio sistema
+      de referencia. Esto se puede hacer con la opción "set
+      multiplot", y dividiendo el espacio disponible en porciones con
+      "set size" y "set origin".  Por ejemplo para dibujar cuatro
+      gráficas en una cuadrícula 2x2 haríamos lo siguiente:</P
+><P
+></P
+><UL
+><LI
+><P
+>set multiplot</P
+></LI
+><LI
+><P
+>set size .5,.5</P
+></LI
+><LI
+><P
+>set origin 0,.5</P
+></LI
+><LI
+><P
+>plot x</P
+></LI
+><LI
+><P
+>set origin .5,.5</P
+></LI
+><LI
+><P
+>plot [0:1] sin(2*pi*x) with boxes</P
+></LI
+><LI
+><P
+>set origin 0,0</P
+></LI
+><LI
+><P
+>plot [-5:5] exp(-x**2/5) with steps </P
+></LI
+><LI
+><P
+>set origin .5,0</P
+></LI
+><LI
+><P
+>splot [-1:1][-1:1] x**2+y**2</P
+></LI
+><LI
+><P
+>set nomultiplot</P
+></LI
+></UL
+><P
+><IMG
+SRC="img/multiplot.png"
+ALIGN="CENTER"></P
+><P
+>Dependiendo del dispositivo de salida, las gráficas no se
+	dibujarán hasta que se pase a modo normal con "set
+	nomultiplot". En otras las gráficas irán apareciendo pero no
+	se podrá borrar la pantalla (con el comando "clear") o se
+	borrarán todas las gráficas.</P
+><P
+>Si el dispositivo de salida es el sistema X ("set term
+	x11"), es posible obtener varias gráficas a la vez, cada una
+	en su propia ventana. Para ello simplemente hay que pasar un
+	parámetro más al comando "set":</P
+><P
+></P
+><UL
+><LI
+><P
+>set term x11 n</P
+></LI
+></UL
+><P
+>Donde "n" es un entero, identificador de la ventana X en
+	la que se va a dibujar la gráfica. Si la ventana ya existe, se
+	reutilizará. Si no existe se creará de nuevo. Es posible
+	definir tantas ventanas como sea necesario.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x608.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c656.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Cambiando el estilo de las líneas</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c496.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Dónde seguir.</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
