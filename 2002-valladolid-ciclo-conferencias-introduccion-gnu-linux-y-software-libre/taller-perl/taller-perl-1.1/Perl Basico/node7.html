@@ -1,0 +1,176 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Francisco J. Palacios">
+   <meta name="GENERATOR" content="Mozilla/4.76 [es] (X11; U; Linux 2.4.2-2 i686) [Netscape]">
+   <title>Taller de Perl - Perl B&aacute;sico</title>
+</head>
+<body background="fondo.jpg">
+
+<div ALIGN=right>
+<h3>
+<img SRC="camel.gif" height=149 width=144></h3></div>
+
+<h3>
+9. Subrutinas y m&oacute;dulos (p&aacute;ginas man: <font color="#FF0000">perlsub,
+perlmod y perlmodlib</font>)</h3>
+
+<p><br>Perl permite el desarrollo de scripts estructurados mediante el
+uso de subrutinas y m&oacute;dulos. Si un programa es extenso, siempre
+conviene dividirlo en peque&ntilde;as unidades funcionales que nos permitan
+reutilizar ese c&oacute;digo (aparte de que la depuraci&oacute;n se hace
+m&aacute;s f&aacute;cil).
+<p>La primera forma de modularizar el c&oacute;digo es el uso de subrutinas.
+Las subrutinas son peque&ntilde;as porciones de c&oacute;digo que realizan
+una tarea especifica y muy concreta.
+<p>Una subrutina se puede llamar (usar) de varias formas diferentes.&nbsp;
+Aqu&iacute; est&aacute;n las m&aacute;s comunes:
+<br>&nbsp;
+<p><font color="#3333FF">NAME(LIST);</font>
+<p><font color="#3333FF">NAME LIST;</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Los par&eacute;ntesis son opcionales si est&aacute; predeclarada o importada
+<p><font color="#3333FF">&amp;NAME(LIST);</font>
+<p><font color="#3333FF">&amp;NAME;</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Se usa la variable&nbsp; <font color="#006600">@_</font>&nbsp; actual como
+lista de argumentos
+<br>&nbsp;
+<p>y para declararlas:
+<br>&nbsp;
+<p><font color="#3333FF">sub NAME;</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Una&nbsp; declaraci&oacute;n adelantada
+<p><font color="#3333FF">sub NAME(PROTO);</font>&nbsp;&nbsp;&nbsp;&nbsp;
+Una declaraci&oacute;n adelantada con prototipos
+<p><font color="#3333FF">sub NAME&nbsp;</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Definici&oacute;n sin prototipos
+<br><font color="#3333FF">{</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp; ...</font>
+<br><font color="#3333FF">}</font>
+<p><font color="#3333FF">sub NAME (PROTO)</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Definici&oacute;n con prototipos
+<br><font color="#3333FF">{</font>
+<br><font color="#3333FF">&nbsp;&nbsp;&nbsp; ...</font>
+<br><font color="#3333FF">}</font>
+<br>&nbsp;
+<p><font color="#000000">Los prototipos son siempre listas de escalares.
+Esto quiere decir que cuando pasemos arrays o hashes, &eacute;stos pierden
+su identidad (salvo que lo que pasemos sea una referencia a los mismos)
+expandiendo sus elementos.</font>
+<p><font color="#000000">Todos los argumentos que se pasan a una subrutina,
+est&aacute;n disponibles dentro del cuerpo de la misma en el array predefinido
+</font><font color="#FF0000">@_</font>
+<p><font color="#000000">El valor devuelto por una subrutina es el valor
+de la &uacute;ltima expresi&oacute;n evaluada. Se puede usar una sentencia
+</font><font color="#FF0000">return</font>
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE><font color="#000000">...</font>
+<br><font color="#006600">$n1</font><font color="#000000"> = </font><font color="#993399">2</font><font color="#000000">;</font>
+<br><font color="#006600">$n2</font><font color="#000000"> = </font><font color="#993399">3</font><font color="#000000">;</font>
+<br><font color="#006600">$suma</font><font color="#000000"> = suma(</font><font color="#006600">$n1</font><font color="#000000">,</font><font color="#006600">$n2</font><font color="#000000">);</font>
+<br><font color="#000000">...</font>
+<p><font color="#000000">sub suma</font>
+<br><font color="#000000">{</font>
+<br><font color="#000000">&nbsp;&nbsp; return (</font><font color="#006600">$_[</font><font color="#993399">0</font><font color="#006600">]</font><font color="#000000">+</font><font color="#006600">$_[</font><font color="#993399">1</font><font color="#006600">]</font><font color="#000000">);</font>
+<br><font color="#000000">}</font></td>
+</tr>
+</table>
+
+<p><font color="#000000">Cuando se pasan arrays y hashes, es usual pasar
+una referencia a los mismos (que es un escalar). Una referencia se obtiene
+anteponiendo al nombre del identificador el s&iacute;mbolo </font><b><font color="#FF0000">\</font></b>
+<br>&nbsp;
+<p><font color="#000000"><a href="ejemplo14.pl">ejemplo14.pl</a></font>
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE><font color="#993399">#!/usr/bin/perl -w</font>
+<p><font color="#3333FF"># Ejemplo de subrutinas con paso de referencias</font>
+<p><font color="#006600">@array</font> = (<font color="#993399">2</font>,
+<font color="#993399">1</font>,
+<font color="#993399">3</font>,
+<font color="#993399">4</font>,
+<font color="#993399">5</font>,
+<font color="#993399">6</font>,
+<font color="#993399">67</font>,
+<font color="#993399">3</font>,
+<font color="#993399">2</font>,
+<font color="#993399">1</font>);
+<br><font color="#006600">%hash</font> = (<font color="#FF0000">"s1"</font>=><font color="#993399">2</font>,
+<font color="#FF0000">"s2"</font>=><font color="#993399">5</font>,
+<font color="#FF0000">"s3"</font>=><font color="#993399">-3</font>);
+<br>&nbsp;
+<p><font color="#006600">$max</font> = findMax(<font color="#006600">\@array</font>);
+<br>print <font color="#FF0000">"El maximo numero en el array es</font><font color="#006600">$max</font><font color="#993399">\n</font><font color="#FF0000">"</font>;
+<br><font color="#006600">$max</font> = findMaxHash(<font color="#006600">\%hash</font>);
+<br>print <font color="#FF0000">"El maximo numero en el hash es</font><font color="#006600">$max</font><font color="#993399">\n</font><font color="#FF0000">"</font>;
+<br>&nbsp;
+<p>sub findMax
+<br><font color="#3333FF"># En $_[0] esta la referencia a @array</font>
+<br>{
+<br>&nbsp;&nbsp; <font color="#006600">$maximo</font> = <font color="#006600">$_[</font><font color="#993399">0</font><font color="#006600">][</font><font color="#993399">0</font><font color="#006600">]</font>;
+<br>&nbsp;&nbsp; foreach <font color="#006600">$n</font>(<font color="#006600">@{$_[</font><font color="#993399">0</font><font color="#006600">]}</font>)
+<br>&nbsp;&nbsp; {
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(<font color="#006600">$n</font> >
+<font color="#006600">$maximo</font>)
+{ <font color="#006600">$maximo</font> = <font color="#006600">$n</font>;
+}
+<br>&nbsp;&nbsp; }
+<br>&nbsp;&nbsp; return <font color="#006600">$maximo</font>;
+<br>}
+<p>sub findMaxHash
+<br><font color="#3333FF"># En $_[0] esta la referencia a %hash</font>
+<br>{
+<br>&nbsp;&nbsp; (<font color="#006600">$key</font>,<font color="#006600">$maximo</font>)
+= each( <font color="#006600">%{$_[</font><font color="#993399">0</font><font color="#006600">]}</font>
+);
+<br>&nbsp;&nbsp; while( (<font color="#006600">$key</font>,<font color="#006600">$n</font>)
+= each(<font color="#006600">%{$_[</font><font color="#993399">0</font><font color="#006600">]})</font>
+)
+<br>&nbsp;&nbsp; {
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(<font color="#006600">$n</font> >
+<font color="#006600">$maximo</font>)
+{ <font color="#006600">$maximo</font> = <font color="#006600">$n</font>;
+}
+<br>&nbsp;&nbsp; }
+<br>&nbsp;&nbsp; return <font color="#006600">$maximo</font>;
+<br>}</td>
+</tr>
+</table>
+
+<p>La forma de interpretar la variable <font color="#006600">$_[</font><font color="#993399">0</font><font color="#006600">][</font><font color="#993399">0</font><font color="#006600">]</font>
+es la siguiente: en <font color="#006600">@_</font> est&aacute;n los par&aacute;metros
+pasados a la subrutina. En concreto en <font color="#006600">$_[</font><font color="#993399">0</font><font color="#006600">]</font>
+est&aacute; la referencia a <font color="#006600">@array</font>, por lo
+que si ponemos la referencia entre llaves {<font color="#006600">$_[</font><font color="#993399">0</font><font color="#006600">]</font>}
+es exactamente igual que si tuviesemos el array. Eso es lo que se puede
+ver en el bucle foreach de sub findMax. El primer elemento ser&iacute;a
+<font color="#006600">${$_[</font><font color="#993399">0</font><font color="#006600">]}[</font><font color="#993399">0</font><font color="#006600">]</font>,
+pero Perl nos permite simplificar la notaci&oacute;n y escribir directamente
+<font color="#006600">$_[</font><font color="#993399">0</font><font color="#006600">][</font><font color="#993399">0</font><font color="#006600">]</font>
+<p>Lo mismo se aplica a los hashes
+<p>
+<hr WIDTH="100%">
+<center><table BORDER=0 COLS=3 WIDTH="25%" NOSAVE >
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node6.html"><img SRC="ol.gif" BORDER=0 height=44 width=65></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html"><img SRC="home02.gif" BORDER=0 height=75 width=61></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node8.html"><img SRC="or.gif" BORDER=0 height=44 width=65></a></td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node6.html">Anterior</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html">Home</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node8.html">Siguiente</a></td>
+</tr>
+</table></center>
+
+<br>&nbsp;
+<br>&nbsp;
+</body>
+</html>

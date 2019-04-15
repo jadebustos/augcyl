@@ -1,0 +1,91 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Francisco J. Palacios Burgos">
+   <title>Taller de Perl - Sockets</title>
+</head>
+<body background="fondo.jpg">
+
+<div align=right><img SRC="camel.gif" height=149 width=144></div>
+
+<h3>
+3. Un cliente sencillo</h3>
+<a href="client.pl">client.pl</a>
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE><font color="#993399">#!/usr/bin/perl -w</font>
+<p><font color="#3333FF"># Modelo de cliente</font>
+<p>use <font color="#006600">Socket</font>;
+<p><font color="#006600">$host</font> = <font color="#006600">$ARGV[</font><font color="#993399">0</font><font color="#006600">]</font>;
+<br><font color="#006600">$port</font> = <font color="#006600">$ARGV[</font><font color="#993399">1</font><font color="#006600">]</font>;
+<p><font color="#3333FF"># 1. Creamos el tipo de socket TCP. Si no nos
+sabemos el numero del TCP lo</font>
+<br><font color="#3333FF"># podemos preguntar con la siguiente funcion</font>
+<br><font color="#006600">$proto</font> = getprotobyname(<font color="#FF0000">'tcp'</font>);
+<br>socket(S,AF_INET,SOCK_STREAM,<font color="#006600">$proto</font>) ||
+die <font color="#FF0000">"socket: </font><font color="#006600">$!</font><font color="#FF0000">"</font>;
+
+<font color="#3333FF"># $!(tipo de error)</font>
+<br>print <font color="#FF0000">"Creacion del socket del lado del cliente.</font><font color="#993399">\n</font><font color="#FF0000">"</font>;
+<p><font color="#3333FF"># 2. Se empaquetan las direcciones local y remota
+en el formato que piden</font>
+<br><font color="#3333FF"># la funcion bind y la funcion connect. Si para
+el host se dio su nombre</font>
+<br><font color="#3333FF"># en vez de su IP habra que obtener su IP con
+la funcion gethostbyname</font>
+<br>(<font color="#006600">$name</font>, <font color="#006600">$aliases</font>,<font color="#006600">$type</font>,<font color="#006600">$len</font>,<font color="#006600">$local</font>)
+= gethostbyname(<font color="#FF0000">'localhost'</font>);
+<br>(<font color="#006600">$name</font>, <font color="#006600">$aliases</font>,<font color="#006600">$type</font>,<font color="#006600">$len</font>,<font color="#006600">$remote</font>)
+= gethostbyname(<font color="#006600">$host</font>);
+<p><font color="#3333FF"># 3. Se empaquetan las direcciones en el formato
+requerido</font>
+<br><font color="#006600">$sockaddr</font> = <font color="#FF0000">'S n
+a4 x8'</font>;
+<br><font color="#006600">$localaddr</font>&nbsp; = pack(<font color="#006600">$sockaddr</font>,
+AF_INET, 0, <font color="#006600">$local</font>);
+<br><font color="#006600">$remoteaddr</font> = pack($sockaddr, AF_INET,
+<font color="#006600">$port</font>,
+<font color="#006600">$remote</font>);
+<p><font color="#3333FF"># 4. Se asocia el socket y se conecta con la direccion
+dada</font>
+<br>bind(S, <font color="#006600">$localaddr</font>) || die "bind: <font color="#006600">$!</font>";
+<br>print <font color="#FF0000">"Intentando conectarme a </font><font color="#006600">$host</font><font color="#FF0000">
+por el puerto </font><font color="#006600">$port</font><font color="#993399">\n</font><font color="#FF0000">"</font>;
+<br>connect(S, <font color="#006600">$remoteaddr</font>) || die <font color="#FF0000">"connect:
+</font><font color="#006600">$!</font><font color="#FF0000">"</font>;
+<p><font color="#3333FF"># 5. Se recibe del socket y se escribe los resultados</font>
+<br>while (defined(<font color="#006600">$line</font> = &lt;S>))
+<br>{
+<br>&nbsp;&nbsp; print <font color="#006600">$line</font>;
+<br>}
+<p><font color="#3333FF"># Finalmente se cierra el socket</font>
+<br>close(S) || die <font color="#FF0000">"close: </font><font color="#006600">$!</font><font color="#FF0000">"</font>;
+<br>exit;</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<div align=right>
+<hr WIDTH="100%"></div>
+
+<center><table BORDER=0 COLS=3 WIDTH="25%" NOSAVE >
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node1.html"><img SRC="ol.gif" BORDER=0 height=44 width=65></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html"><img SRC="home02.gif" BORDER=0 height=75 width=61></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node3.html"><img SRC="or.gif" BORDER=0 height=44 width=65></a></td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node1.html">Anterior</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html">Home</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node3.html">Siguiente</a></td>
+</tr>
+</table></center>
+
+</body>
+</html>

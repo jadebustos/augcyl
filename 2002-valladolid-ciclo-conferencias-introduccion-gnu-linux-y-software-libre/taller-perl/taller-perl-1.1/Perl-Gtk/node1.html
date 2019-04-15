@@ -1,0 +1,108 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Francisco J. Palacios Burgos">
+   <title>Taller de Perl - GTK</title>
+</head>
+<body background="fondo.jpg">
+
+<div align=right><img SRC="gtk-logo-rgb.gif" height=140 width=107></div>
+
+<h3>
+1. &iquest;Qu&eacute; es GTK?</h3>
+
+<p><br>GTK es el GIMP Toolkit, un conjunto de herramientas para crear interfaces
+gr&aacute;ficas. GTK es multiplataforma, y ofrece toda una jerarqu&iacute;a
+de widgets para el desarrollo de aplicaciones gr&aacute;ficas.
+<p>Es GNU, y su licencia LGPL por lo que adem&aacute;s de poder usarse
+para el desarrollo de software propietario lo podemos usar en nuestras
+aplicaciones open source.
+<p>Inicialmente se desarrollo para el GIMP (GNU Image Manipulation Program)
+que es un programa de tratamiento de imagenes muy popular en la plataforma
+Linux.
+<p>Est&aacute; muy asociado al entorno GNOME.
+<p>Aunque inicialmente se encontraba disponible para C/C++ en la actualidad
+muchos lenguajes de programaci&oacute;n tienen m&oacute;dulos o extensiones
+para programar en GTK. Entre los lenguajes en los que podemos usar las
+librer&iacute;as GTK est&aacute;n C, C++, Perl, Python, Eiffel, ...
+<p>En Perl se usa a trav&eacute;s de un m&oacute;dulo llamado Gtk. La mayor&iacute;a
+de las distribuciones lo incluyen en alg&uacute;n paquete con un nombre
+como Gtk-Perl.rpm o alg&uacute;n otro nombre parecido.
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<h3>
+2. Antes de empezar</h3>
+
+<p><br>Lo primero de todo es asegurarnos de que el m&oacute;dulo Gtk est&aacute;
+instalado. En la mayoria de las distribuciones Linux suele venir como un
+paquete (rpm o deb) con el nombre Gtk-Perl o alguno similar.
+<p>Si no, siempre podemos ir a CPAN (<font color="#000000"><a href="http://www.cpan.org">www.cpan.org</a></font>)
+o por supuesto de la misma p&aacute;gina de GTK (<font color="#000000"><a href="http://www.gtk.org">www.gtk.org</a></font>)
+para obtenerlo. Para detalles de c&oacute;mo instalar el m&oacute;dulo
+cuando no viene en un paquete de distribuci&oacute;n (rpm o deb) ver la
+secci&oacute;n de <i>m&oacute;dulos de cpan</i> del tutorial de Perl B&aacute;sico
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<h3>
+3. Unos conceptos b&aacute;sicos</h3>
+
+<p><br>Antes&nbsp; de meternos de lleno con la programaci&oacute;n GTK,
+vamos a dar unos conceptos b&aacute;sicos sobre la programaci&oacute;n
+de interfaces de usuario:
+<p>Casi todos los lenguajes de desarrollo de interfaces graficas de usuario
+(GUI) modernos est&aacute;n orientados a objetos. La raz&oacute;n para
+ello es que todos los conceptos que aparecen en la teor&iacute;a de dise&ntilde;o
+de interfaces como botones, ventanas, barras de scroll, etc... se prestan
+muy bien a ser representados por objetos de un lenguaje de programaci&oacute;n
+y poder as&iacute; aprovechar propiedades como el encapsulamiento de atributos
+o la herencia.
+<p>A los objetos visuales se les suele denominar&nbsp; <font color="#FF0000">widgets</font><font color="#000000">,
+aunque no es una norma general ni estandarizada</font>. Un widget ser&iacute;a
+as&iacute; un boton, una barra de herramientas, un scrollbar, etc... Como
+estamos en orientaci&oacute;n a objetos, habr&aacute; con toda seguridad
+una clase Widget o con otro nombre&nbsp; de la cual desciendan todas las
+dem&aacute;s. La mayor parte de las librer&iacute;as gr&aacute;ficas tambi&eacute;n
+proveen de objetos no visuales como threads o listas enlazadas. Entonces
+es bastante problable que esos objetos no desciendan de la clase widget.
+<p>La interfaz se puede ver como un conjunto de objetos que responden a
+<font color="#FF0000">se&ntilde;ales</font>
+o <font color="#FF0000">eventos</font>. Un evento se produce por ejemplo
+cuando el usuario realiza una determinada acci&oacute;n sobre la interfaz
+(por ejemplo: hacer click en un bot&oacute;n, o mover el rat&oacute;n por
+la ventana).
+<p>Una vez que un evento se produce podemos querer que se realize alguna
+acci&oacute;n o no como respuesta a ese evento. En caso afirmativo tendremos
+que programar un <font color="#FF0000">manejador de evento</font>, que
+normalmente quiere decir que tenemos que hacer una subrutina o funci&oacute;n
+que contenga el c&oacute;digo que queremos que se ejecute cuando ocurra
+el evento.
+<p>Lo siguiente que queda es escoger el lenguaje de programaci&oacute;n
+que sea y aprenderse su jerarquia de widgets (es decir conocer que tipo
+de objetos gr&aacute;ficos tenemos y las relaciones entre ellos).
+<br>&nbsp;
+<div align=right>
+<hr WIDTH="100%"></div>
+
+<center><table BORDER=0 COLS=3 WIDTH="25%" NOSAVE >
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html"><img SRC="ol.gif" BORDER=0 height=44 width=65></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html"><img SRC="home02.gif" BORDER=0 height=75 width=61></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node2.html"><img SRC="or.gif" BORDER=0 height=44 width=65></a></td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html">Anterior</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html">Home</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node2.html">Siguiente</a></td>
+</tr>
+</table></center>
+&nbsp;
+</body>
+</html>

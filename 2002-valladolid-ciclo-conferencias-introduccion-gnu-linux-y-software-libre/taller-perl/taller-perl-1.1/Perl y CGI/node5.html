@@ -1,0 +1,153 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Francisco J. Palacios">
+   <title>Taller de Perl - CGI</title>
+</head>
+<body background="fondo.jpg">
+
+<div align=right><img SRC="cgi-perl.jpg" height=160 width=308></div>
+
+<h3>
+8. La traca final: Formularios</h3>
+
+<p><br>Una vez hecho lo anterior ya s&oacute;lo queda lo siguiente: Hacer
+que nuestro servidor mande una p&aacute;gina en la que se puedan introducir
+datos y que el cliente al rellenarla y mandarla, reciba una respuesta personalizada.
+<p>Esto es hace con los tags &lt;form> de html.
+<p>Vamos a ver un ejemplo sencillito:
+<p>Supongamos que nuestro servidor manda la siguiente p&aacute;gina html
+al usuario:
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>&lt;html>
+<br>&lt;head>&lt;title> Taller de Perl - CGI-Perl : Formulario de datos
+&lt;/title>&lt;/head>
+<br>&lt;body bgcolor=yellow>
+<br>&lt;center>&lt;h1> Formulario de envio de datos &lt;/h1>&lt;/center>
+&lt;br>&lt;br>
+<br>&lt;hr width='100%'> &lt;br>
+<br>&lt;<font color="#006600">form action="http://miservidor/cgi-bin/saluda.cgi"
+method="GET"</font>>
+<br>&lt;input <font color="#FF0000">type=radio</font> name=sexo value=M>Masculino
+&lt;br>
+<br>&lt;input <font color="#FF0000">type=radio</font> name=sexo value=F>Femenino&nbsp;
+&lt;br>&lt;br>
+<br>Escriba su nombre: &lt;input <font color="#FF0000">type=text</font>
+name="nombre" size=20>&lt;br>&lt;br>
+<br>&lt;input <font color="#FF0000">type=submit</font> value="Enviar con
+GET"> &lt;br>&lt;br>
+<br>&lt;input <font color="#FF0000">type=reset</font> value="Volver a empezar">
+&lt;br>&lt;br>
+<br>&lt;<font color="#006600">/form</font>>
+<br>&lt;hr width='100%'> &lt;br>
+<br>&lt;/body>
+<br>&lt;/html></td>
+</tr>
+</table>
+
+<p>Esta p&aacute;gina lo que hace es mostrar dos radio buttons y un entry
+donde puede introducir el cliente su nombre. Tambi&eacute;n presenta dos
+botones para mandar los datos y para borrarlos.
+<p>Como veis, en el action del form pone el script cgi que se tiene que
+ejecutar y el metodo para mandar la informacion de los input.
+<p>Ya s&oacute;lo nos quedan dos cosas:
+<p>1. Hacer un script cgi que haga este formulario din&aacute;micamente
+para sustituir miservidor por un nombre real.
+<p>2. Hacer el script saluda.cgi que genere la respuesta
+<br>&nbsp;
+<p>Vamos con la 1...
+<p><a href="cgi-bin/sendform.cgi">sendform.cgi</a>
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE><font color="#993399">#!/usr/bin/perl</font>
+<p>print <font color="#FF0000">"Content-type: text/html </font><font color="#993399">\n\n</font><font color="#FF0000">"</font>;
+<p>print <font color="#FF0000">"&lt;head>&lt;title> Taller de Perl - CGI-Perl
+: Formulario de datos &lt;/title>&lt;/head></font><font color="#993399">\n</font><font color="#FF0000">"</font>;
+<br>print <font color="#FF0000">"&lt;body bgcolor=#FFFFFFA0></font><font color="#993399">\n</font><font color="#FF0000">"</font>;
+<br>print <font color="#FF0000">"&lt;center>&lt;h1> Formulario de envio
+de datos &lt;/h1>&lt;/center> &lt;br>&lt;br></font><font color="#993399">\n</font><font color="#FF0000">"</font>;
+<br>print <font color="#FF0000">"&lt;hr width='100%'> &lt;br></font><font color="#993399">\n</font><font color="#FF0000">"</font>;
+<br><font color="#006600">$server</font> = <font color="#006600">$ENV{SERVER_NAME}</font>;
+<br>print <font color="#FF0000">"&lt;form action='http://</font><font color="#006600">$server</font><font color="#FF0000">/cgi-bin/saluda.cgi'
+method='GET'></font><font color="#993399">\n</font><font color="#FF0000">"</font>;
+<br>print <font color="#FF0000">"&lt;input type=radio name=sexo value=M>Masculino
+&lt;br></font><font color="#993399">\n</font><font color="#FF0000">"</font>;
+<br>print <font color="#FF0000">"&lt;input type=radio name=sexo value=F>Femenino&nbsp;
+&lt;br>&lt;br></font><font color="#993399">\n</font><font color="#FF0000">"</font>;
+<br>print <font color="#FF0000">"Escriba su nombre: &lt;input type=text
+name='nombre' size=20>&lt;br>&lt;br></font><font color="#993399">\n</font>";
+<br>print <font color="#FF0000">"&lt;input type=submit value='Enviar con
+GET'> &lt;br>&lt;br></font><font color="#993399">\n</font>";
+<br>print <font color="#FF0000">"&lt;input type=reset value='Volver a empezar'>
+&lt;br>&lt;br></font><font color="#993399">\n</font><font color="#FF0000">"</font>;
+<br>print <font color="#FF0000">"&lt;/form></font><font color="#993399">\n</font><font color="#FF0000">"</font>;
+<br>print <font color="#FF0000">"&lt;hr width='100%'> &lt;br></font><font color="#993399">\n</font><font color="#FF0000">"</font>;
+<br>print <font color="#FF0000">"&lt;/body></font><font color="#993399">\n</font><font color="#FF0000">"</font>;
+<br>print <font color="#FF0000">"&lt;/html></font><font color="#993399">\n</font><font color="#FF0000">"</font>;</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<p>y finalmente con la 2...
+<p><a href="cgi-bin/saluda.cgi">saluda.cgi</a>
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE><font color="#993399">#!/usr/bin/perl</font>
+<p><font color="#3333FF">#----------------------------------------------------------------------------</font>
+<br><font color="#3333FF"># Parte del tratamiento de la informacion</font>
+<br><font color="#3333FF">#----------------------------------------------------------------------------</font>
+<p><font color="#006600">$line</font> = <font color="#006600">$ENV{QUERY_STRING}</font>;
+<br><font color="#006600">@inputs</font> = split(/<font color="#FF0000">&amp;</font>/,<font color="#006600">$line</font>);
+<p><font color="#006600">$inputs[0]</font> =~ s/<font color="#FF0000">sexo=</font>//;
+<br>if(<font color="#006600">$inputs[0]</font> eq <font color="#FF0000">'M'</font>)
+<br>{
+<br>&nbsp;&nbsp; <font color="#006600">$sexo</font> = <font color="#FF0000">'Sr.'</font>;
+<br>}
+<br>else
+<br>{
+<br>&nbsp;&nbsp; <font color="#006600">$sexo</font> = <font color="#FF0000">'Srta.'</font>;
+<br>}
+<p><font color="#006600">$inputs[1]</font> =~ s/<font color="#FF0000">nombre=</font>//;
+<br><font color="#006600">$inputs[1]</font> =~ s/<b><font color="#993399">\+</font></b>/
+/;
+<br><font color="#006600">$nombre</font> = <font color="#006600">$inputs[1]</font>;
+<p><font color="#3333FF">#----------------------------------------------------------------------------</font>
+<br><font color="#3333FF"># Parte de generacion de respuesta</font>
+<br><font color="#3333FF">#----------------------------------------------------------------------------</font>
+<p>print <font color="#FF0000">"Content-type: text/html </font><font color="#993399">\n\n</font><font color="#FF0000">"</font>;
+<p><font color="#000000">print </font><font color="#FF0000">"&lt;head>&lt;title>
+Taller de Perl - CGI-Perl : Respuesta&lt;/title>&lt;/head></font><font color="#993399">\n</font><font color="#FF0000">"</font>;
+<br>print <font color="#FF0000">"&lt;body bgcolor=#FFFFFFFF></font><font color="#993399">\n</font><font color="#FF0000">"</font>;
+<br>print <font color="#FF0000">"&lt;center>&lt;h1> Respuesta personalizada&lt;/h1>&lt;/center>
+&lt;br>&lt;br></font><font color="#993399">\n</font><font color="#FF0000">"</font>;
+<br>print <font color="#FF0000">"Hola </font><font color="#006600">$sexo
+$nombre</font><font color="#FF0000">, encantado de que visite nuestra pagina
+web</font><font color="#993399">\n</font><font color="#FF0000">"</font>;
+<br>print <font color="#FF0000">"&lt;/body></font><font color="#993399">\n</font><font color="#FF0000">"</font>;
+<br>print <font color="#FF0000">"&lt;/html></font><font color="#993399">\n</font><font color="#FF0000">"</font>;</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<div align=right>
+<hr WIDTH="100%"></div>
+
+<center><table BORDER=0 COLS=2 WIDTH="20%" NOSAVE >
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node4.html"><img SRC="ol.gif" BORDER=0 height=44 width=65></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html"><img SRC="home02.gif" BORDER=0 height=75 width=61></a></td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node4.html">Anterior</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html">Home</a></td>
+</tr>
+</table></center>
+&nbsp;
+</body>
+</html>

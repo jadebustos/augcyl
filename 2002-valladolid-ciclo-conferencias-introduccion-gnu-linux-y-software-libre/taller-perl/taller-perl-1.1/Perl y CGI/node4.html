@@ -1,0 +1,118 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Francisco J. Palacios">
+   <title>Taller de Perl - CGI</title>
+</head>
+<body background="fondo.jpg">
+
+<div align=right><img SRC="cgi-perl.jpg" height=160 width=308></div>
+
+<h3>
+5. Mandando informaci&oacute;n</h3>
+
+<p><br>Todo lo anterior est&aacute; muy bien, pero hasta ahora s&oacute;lo
+hemos recibido informaci&oacute;n. La pregunta que se nos plantea ahora
+es: &iquest;C&oacute;mo mando yo informaci&oacute;n al script y c&oacute;mo
+la recibe &eacute;ste?
+<p>Hay esencialmente dos m&eacute;todos para hacerlo: el m&eacute;todo
+GET y el m&eacute;todo POST
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<h3>
+6. El m&eacute;todo GET</h3>
+
+<p><br>El m&eacute;todo GET se basa en el empleo de las variables&nbsp;
+de entorno. De hecho, si volveis a mirar las variables que nos devolv&iacute;a
+el script del apartado anterior, la primera de ellas estaba vac&iacute;a.
+Eso es as&iacute; porqu&eacute; no le mandamos ninguna informaci&oacute;n.
+<p>Para mandar informaci&oacute;n simplemente tenemos que escribir la URL
+del script de la siguiente manera:
+<p><font color="#3333FF">http://&lt;server>/&lt;CGI dir>/&lt;cgi script>?&lt;informaci&oacute;n></font>
+<p>Un ejemplo de esto podr&iacute;a ser:
+<p><font color="#3333FF">http://www.miservidor/cgi-bin/get.cgi?Hola mundo</font>
+<p>El script recibe la informaci&oacute;n en la variable <font color="#FF0000">QUERY_STRING</font><font color="#000000">
+y ah&iacute; la manipulamos como queramos. El siguiente ejemplo nos dir&iacute;a
+que informaci&oacute;n hemos metido:</font>
+<p><a href="cgi-bin/get.cgi">get.cgi</a>
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE><font color="#993399">#!/usr/bin/perl</font>
+<p>print <font color="#FF0000">"Content-type: text/html </font><font color="#993399">\n\n</font><font color="#FF0000">"</font>;
+<br>print (<font color="#FF0000">"&lt;!-- Esta pagina fue generada de manera
+dinamica --></font><font color="#993399">\n</font><font color="#FF0000">"</font>);
+<br>print (<font color="#FF0000">"&lt;html></font><font color="#993399">\n</font><font color="#FF0000">"</font>);
+<br>print (<font color="#FF0000">"&lt;head></font><font color="#993399">\n</font><font color="#FF0000">"</font>);
+<br>print (<font color="#FF0000">"&lt;title>\"Taller de Perl - CGI-Perl:
+Metodo GET\"&lt;/title></font><font color="#993399">\n</font><font color="#FF0000">"</font>);
+<br>print (<font color="#FF0000">"&lt;/head></font><font color="#993399">\n</font><font color="#FF0000">"</font>);
+<br>print (<font color="#FF0000">"&lt;body bgcolor=white></font><font color="#993399">\n</font><font color="#FF0000">"</font>);
+<br>print (<font color="#FF0000">"&lt;center>"</font>);
+<br>print (<font color="#FF0000">"&lt;h1>&lt;font color=blue>Metodo GET&lt;/font>&lt;/h1>&lt;br></font><font color="#993399">\n</font><font color="#FF0000">"</font>);
+<br>print (<font color="#FF0000">"&lt;/center>"</font>);
+<br>print(<font color="#FF0000">"&lt;hr WIDTH='100%'></font><font color="#993399">\n</font><font color="#FF0000">"</font>);
+<br>print (<font color="#FF0000">"Cliente &lt;font color=red></font><font color="#006600">$ENV{REMOTE_ADDR}</font><font color="#FF0000">&lt;/font>,
+"</font>);
+<br>print (<font color="#FF0000">"el contenido de la variable &lt;font
+color=blue>QUERY_STRING&lt;/font> "</font>);
+<br>print (<font color="#FF0000">"es: </font><font color="#006600">$ENV{QUERY_STRING}</font><font color="#993399">\n</font><font color="#FF0000">"</font>);
+<br>print (<font color="#FF0000">"&lt;/body></font><font color="#993399">\n</font><font color="#FF0000">"</font>);
+<br>print (<font color="#FF0000">"&lt;/html></font><font color="#993399">\n</font><font color="#FF0000">"</font>);</td>
+</tr>
+</table>
+
+<p><font color="#000000">Sin embargo, el resultado de tal solicitud no
+es "Hola mundo", sino s&oacute;lamente "Hola". &iquest;Qu&eacute; ha pasado?.</font>
+<p><font color="#000000">La respuesta es que el mensaje se acaba con fin
+de cadena o con espacio en blanco, lo que llegue antes. Como entre el "Hola"
+y el "mundo" hay un blanco, perdemos el mundo&nbsp; ;-)</font>
+<p><font color="#000000">Normalmente esto se suele arreglar haciendo que
+la propia p&aacute;gina web del cliente c&oacute;difique los blancos con
+alg&uacute;n car&aacute;cter especial (muy frecuentemente +) y que el script
+de Perl se encargue de descodificar (cosa que dada la facilidad de Perl
+para tratar textos no ser&aacute; muy dificil, de ah&iacute; que se use
+mucho Perl para los CGI). Otras veces el propio navegador del cliente codifica
+los datos.</font>
+<p><font color="#000000">Ej: </font><font color="#3333FF">http://www.miservidor/cgi-bin/get.cgi?Hola+mundo</font>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<h3>
+7. El m&eacute;todo POST</h3>
+
+<p><br>El otro m&eacute;todo utilizado es el m&eacute;todo POST. Este m&eacute;todo
+se caracteriza por utilizar STDIN en el script para obtener la informaci&oacute;n.
+La captura de datos de STDIN se hace con la funci&oacute;n read.
+<p>Ej:
+<p><font color="#006600">$entrada </font><font color="#000000">= read(STDIN,</font><font color="#006600">$_</font><font color="#000000">,</font><font color="#006600">$ENV{CONTENT_LENGTH}</font><font color="#000000">);</font>
+<p><font color="#000000">es decir, que leemos de STDIN en $_&nbsp; ,&nbsp;
+$ENV{CONTENT_LENGTH} caracteres.</font>
+<p><font color="#000000">Para mandar los datos, se usan formularios de
+HTML.</font>
+<br>&nbsp;
+<div align=right>
+<hr WIDTH="100%"></div>
+
+<br>&nbsp;
+<center><table BORDER=0 COLS=3 WIDTH="25%" NOSAVE >
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node3.html"><img SRC="ol.gif" BORDER=0 height=44 width=65></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html"><img SRC="home02.gif" BORDER=0 height=75 width=61></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node5.html"><img SRC="or.gif" BORDER=0 height=44 width=65></a></td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node3.html">Anterior</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html">Home</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node5.html">Siguiente</a></td>
+</tr>
+</table></center>
+
+</body>
+</html>

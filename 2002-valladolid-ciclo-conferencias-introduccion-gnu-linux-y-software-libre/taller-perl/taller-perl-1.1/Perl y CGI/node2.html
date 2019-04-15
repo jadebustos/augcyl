@@ -1,0 +1,72 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Francisco J. Palacios">
+   <title>Taller de Perl - CGI</title>
+</head>
+<body background="fondo.jpg">
+
+<div align=right><img SRC="cgi-perl.jpg" height=160 width=308></div>
+
+<h3>
+3. El hola mundo en CGI</h3>
+
+<p><br>Como es ya una tradici&oacute;n empezaremos mostrando un script
+de cgi que manda al cliente un hola mundo
+<br>&nbsp;
+<p><a href="cgi-bin/hola.cgi">hola.cgi</a>
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE><font color="#993399">#!/usr/bin/perl</font>
+<p><font color="#006600">print "Content-type: text/html \n\n";</font>
+<br>print (<font color="#FF0000">"&lt;!-- Esta pagina fue generada de manera
+din&aacute;mica --></font><font color="#993399">\n</font><font color="#FF0000">"</font>);
+<br>print (<font color="#FF0000">"&lt;html></font><font color="#993399">\n</font><font color="#FF0000">"</font>);
+<br>print (<font color="#FF0000">"&lt;head></font><font color="#993399">\n</font><font color="#FF0000">"</font>);
+<br>print (<font color="#FF0000">"&lt;title>\"Taller de Perl - CGI-Perl:
+Hola mundo\"&lt;/title></font><font color="#993399">\n</font><font color="#FF0000">"</font>);
+<br>print (<font color="#FF0000">"&lt;/head></font><font color="#993399">\n</font><font color="#FF0000">"</font>);
+<br>print (<font color="#FF0000">"&lt;body bgcolor=white></font><font color="#993399">\n</font><font color="#FF0000">"</font>);
+<br>print (<font color="#FF0000">"&lt;center>"</font>);
+<br>print (<font color="#FF0000">"&lt;h1>&lt;font color=red>Hola mundo&lt;/font>&lt;/h1>&lt;br></font><font color="#993399">\n</font><font color="#FF0000">"</font>);
+<br>print (<font color="#FF0000">"&lt;h3>&lt;font color=blue>Este es mi
+primer CGI en Perl&lt;/font>&lt;/h3></font><font color="#993399">\n</font><font color="#FF0000">"</font>);
+<br>print (<font color="#FF0000">"&lt;/center>"</font>);
+<br>print (<font color="#FF0000">"&lt;/body></font><font color="#993399">\n</font><font color="#FF0000">"</font>);
+<br>print (<font color="#FF0000">"&lt;/html></font><font color="#993399">\n</font><font color="#FF0000">"</font>);</td>
+</tr>
+</table>
+
+<p>Como vemos, el script imprime por salida est&aacute;ndar una p&aacute;gina
+html, lo que ocurre es que esta p&aacute;gina es recogida por el servidor
+y mandada al cliente.
+<p>Es importante que la l&iacute;nea en <font color="#006600">verde</font>&nbsp;
+est&eacute; en todo script. Se permiten otras l&iacute;neas si lo que se
+manda es otra cosa en vez de una p&aacute;gina html (por ejemplo una imagen,
+un archivo de sonido, ...)
+<br>&nbsp;
+<div align=right>
+<hr WIDTH="100%"></div>
+
+<br>&nbsp;
+<center><table BORDER=0 COLS=3 WIDTH="25%" NOSAVE >
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node1.html"><img SRC="ol.gif" BORDER=0 height=44 width=65></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html"><img SRC="home02.gif" BORDER=0 height=75 width=61></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node3.html"><img SRC="or.gif" BORDER=0 height=44 width=65></a></td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node1.html">Anterior</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html">Home</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node3.html">Siguiente</a></td>
+</tr>
+</table></center>
+
+</body>
+</html>

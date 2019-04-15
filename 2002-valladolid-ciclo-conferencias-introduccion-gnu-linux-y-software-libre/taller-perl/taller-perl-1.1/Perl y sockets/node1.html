@@ -1,0 +1,234 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Francisco J. Palacios Burgos">
+   <title>Taller de Perl - Sockets</title>
+</head>
+<body background="fondo.jpg">
+
+<div align=right><img SRC="camel.gif" height=149 width=144></div>
+
+<h3>
+1. &iquest;Qu&eacute; son los sockets?</h3>
+
+<p><br>Los sockets son un mecanismo sobre el que se asienta la comunicaci&oacute;n
+en un sistema UNIX.&nbsp; Se pueden definir como conexiones (locales o
+remotas) entre procesos que pueden estar en la misma o en distinta m&aacute;quina.
+<p>Como casi todo en UNIX, el sistema los trata como ficheros, por lo que
+tenemos la ventaja de que podemos usar las sentencias read y write para
+leer o escribir datos en el socket o print y &lt; > (es decir, para recibir
+o enviar datos).
+<p>Un proceso puede desempe&ntilde;ar dos papeles: cliente y/o servidor.
+<p>En Perl no tenemos ning&uacute;n problema para usar los sockets, y se
+emplean de la misma manera que en C
+<br>&nbsp;
+<br>&nbsp;
+<h3>
+2. Modo de empleo en Perl (p&aacute;gina man: <font color="#FF0000">perlipc</font>)</h3>
+
+<p><br>Lo primero que tenemos que hacer es usar el m&oacute;dulo Socket,
+asi que al principio de nuestro script deber&iacute;a aparecer una l&iacute;nea
+como la siguiente:
+<blockquote>&nbsp;
+<table BORDER=0 COLS=1 WIDTH="200" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>use <font color="#006600">Socket</font>;</td>
+</tr>
+</table>
+</blockquote>
+Para crear un socket se usa la llamada <i>socket</i>
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE><font color="#006600">socket</font> SOCKET , DOMAIN , TYPE ,
+PROTOCOL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&oacute;
+<br><font color="#006600">socket</font>(SOCKET,DOMAIN;TYPE,PROTOCOL)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+en notaci&oacute;n funcional</td>
+</tr>
+</table>
+
+<p>Los argumentos tienen el siguiente significado:
+<p><font color="#FF0000">SOCKET</font>
+<blockquote>Es el handle del socket que luego usaremos en las llamadas
+a read o a write</blockquote>
+<font color="#FF0000">DOMAIN</font>
+<blockquote>Especifica un dominio de&nbsp; comunicaciones&nbsp; dentro
+del cual tendr&aacute; lugar la comunicaci&oacute;n; esto es, selecciona
+la familia de protocolos que&nbsp; deber&aacute;&nbsp; emplearse.&nbsp;
+Los dos valores m&aacute;s comunes son <font color="#3333FF">AF_UNIX</font>
+(protocolos internos de UNIX) y <font color="#3333FF">AF_INET</font> (protocolos
+de ARPA Internet).</blockquote>
+<font color="#FF0000">TYPE</font>
+<blockquote>&nbsp;Especifica&nbsp; la sem&aacute;ntica&nbsp; de&nbsp; la&nbsp;
+comunicaci&oacute;n. Los tipos definidos en la actualidad son:
+<blockquote><font color="#3333FF">SOCK_STREAM</font>&nbsp;&nbsp;&nbsp;
+(el m&aacute;s utilizado por proporcionarnos comunicaci&oacute;n confiable)
+<br><font color="#3333FF">SOCK_DGRAM</font>
+<br><font color="#3333FF">SOCK_RAW</font>
+<br><font color="#3333FF">SOCK_SEQPACKET</font>
+<br><font color="#3333FF">SOCK_RDM</font></blockquote>
+</blockquote>
+<font color="#FF0000">PROTOCOL</font>
+<blockquote>&nbsp;Es un entero que especifica un protocolo particular&nbsp;
+para&nbsp; ser usado. Normalmente s&oacute;lo existe un protocolo que admita
+un TYPE particular dentro&nbsp; de&nbsp; una familia&nbsp; de&nbsp; protocolos&nbsp;
+dada. Sin embargo, es posible que puedan existir varios protocolos, en
+cuyo caso&nbsp; un&nbsp; protocolo&nbsp; particular&nbsp; puede&nbsp; especificarse&nbsp;
+de esta manera. El n&uacute;mero de protocolo a emplear es particular al
+"dominio de comunicaci&oacute;n"&nbsp; en el que la comunicaci&oacute;n
+va a tener lugar.
+<p>El m&aacute;s utilizado es <font color="#3333FF">TCP&nbsp;</font><font color="#000000">
+que es el n&uacute;mero 6</font>. Si se quieren ver todos los protocolos
+disponibles y su n&uacute;mero asociado listar el fichero <i>/etc/protocols</i>.
+La otra posibilidad es obtener el n&uacute;mero de protocolo mediante la
+funci&oacute;n <i>getprotobyname</i>(NOMBRE_PROTOCOLO)
+<br>&nbsp;</blockquote>
+La creaci&oacute;n del socket ser&iacute;a an&aacute;loga al establecimiento
+de una l&iacute;nea telef&oacute;nica entre dos hogares. Que est&eacute;
+el cableado no quiere decir que nos podamos poner a llamar inmediatamente.
+<br>&nbsp;
+<p>El siguiente paso l&oacute;gico, siguiendo con la analog&iacute;a anterior
+es que la compa&ntilde;&iacute;a telef&oacute;nica asigne un n&uacute;mero
+telef&oacute;nico a los dos hogares. Es decir, que tenemos que saber la
+direcci&oacute;n de adonde queremos llamar&nbsp; :-)
+<p>Esto en los sockets se consigue con la funci&oacute;n <i>bind</i>
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE><font color="#006600">bind</font> SOCKET , ADDRESS;
+<br><font color="#006600">bind</font> ( SOCKET , ADDRESS );</td>
+</tr>
+</table>
+
+<p><font color="#FF0000">SOCKET</font> es el handle de un socket que hemos
+creado previamente con la funci&oacute;n <i>socket</i>
+<p><font color="#FF0000">ADDRESS</font> es una direcci&oacute;n empaquetada
+dependiente del tipo de socket que hemos creado.
+<p>En Perl hay que realizar el empaquetamiento, por lo que para hacerlo
+ser&iacute;a una secuencia parecida a la siguiente:
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER=0 COLS=2 WIDTH="100%" NOSAVE >
+<tr NOSAVE>
+<td WIDTH="125" NOSAVE><font color="#006600">$sockaddr</font> = <font color="#FF0000">'S
+n a4 x8'</font>;&nbsp;</td>
+
+<td NOSAVE><font color="#3333FF"># Patron de empaquetamiento (formato)</font>
+<br><font color="#3333FF"># Unsigned short (16 bits)&nbsp; Unsigned Short
+in network big-endian string(4 bytes)&nbsp; null-bytes(8 bytes)</font></td>
+</tr>
+</table>
+
+<p>&nbsp;<font color="#006600">$addr</font> = pack(<font color="#006600">$sockaddr</font>,
+<font color="#993399">AF_INET</font>,
+<font color="#993399">0</font>,
+<font color="#006600">$netaddr</font>);
+<p><font color="#3333FF"># Se asocia el socket y se conecta con la direccion
+dada</font>
+<p>bind(SOCKET, <font color="#006600">$addr</font>);
+<br>&nbsp;
+<br>&nbsp;
+<h3>
+3. Modelo Cliente</h3>
+
+<p><br>En el caso de que nos encontremos con un cliente, &eacute;ste ha
+de realizar la llamada. Para esto, se usa la funci&oacute;n <i>connect</i>,
+que tiene como argumentos un socket y una direcci&oacute;n.
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE><font color="#006600">connect</font> SOCKET , ADDRESS;
+<br><font color="#006600">connect</font> ( SOCKET , ADDRESS );</td>
+</tr>
+</table>
+
+<p>La direcci&oacute;n se debe enviar empaquetada en un cierto formato
+de bits. Perl dispone de una funci&oacute;n para empaquetar variables en
+una cadena de bits con un formato determinado. Es la funci&oacute;n <i>pack</i>
+<br>&nbsp;
+<table BORDER=0 COLS=2 WIDTH="100%" NOSAVE >
+<tr NOSAVE>
+<td WIDTH="125" NOSAVE><font color="#006600">$sockaddr</font> = <font color="#FF0000">'S
+n a4 x8'</font>;&nbsp;</td>
+
+<td NOSAVE><font color="#3333FF"># Patron de empaquetamiento (formato)</font>
+<br><font color="#3333FF"># Unsigned short (16 bits)&nbsp; Unsigned Short
+in network big-endian string(4 bytes)&nbsp; null-bytes(8 bytes)</font></td>
+</tr>
+</table>
+
+<p><font color="#006600">$addr</font> = pack(<font color="#006600">$sockaddr</font>,
+<font color="#993399">AF_INET</font>,
+<font color="#006600">$port</font>,
+<font color="#006600">$netaddr</font>);
+<br>&nbsp;
+<p>Una vez empaquetada, se puede llamar a la funci&oacute;n connect:
+<p>connect(SOCKET, <font color="#006600">$addr</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<font color="#3333FF"># Se asocia el socket y se conecta con la direccion
+dada</font>
+<br>&nbsp;
+<p>A partir de aqui se podr&iacute;a enviar y recibir datos sin m&aacute;s
+que escribir o leer en el socket.
+<br>&nbsp;
+<br>&nbsp;
+<h3>
+4. Modelo Servidor</h3>
+
+<p><br>S&oacute;lo hay una peque&ntilde;a diferencia si en vez de un cliente,
+estamos programando un servidor. En vez de "llamar" hay que "descolgar",
+por lo que cambia la parte referente al connect. En vez de lo anterior
+se usa la funci&oacute;n <i>listen</i>
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE><font color="#006600">listen</font> SOCKET , TAMA&Ntilde;O_COLA;
+<br><font color="#006600">listen</font> ( SOCKET , TAMA&Ntilde;O_COLA);</td>
+</tr>
+</table>
+
+<p><font color="#FF0000">SOCKET</font> es el identificador de un socket
+<p><font color="#FF0000">TAMA&Ntilde;O_COLA</font> es un entero que representa
+el m&aacute;ximo n&uacute;mero de conexiones para ese socket.
+<p>La secuencia ser&iacute;a:
+<p><font color="#006600">socket</font>(S,AF_INET,SOCK_STREAM,<font color="#006600">$protocol</font>);
+<br><font color="#006600">$sockaddr</font> = <font color="#FF0000">'S n
+a4 x8'</font>;
+<br><font color="#006600">$addr</font> = pack(<font color="#006600">$sockaddr</font>,
+<font color="#993399">AF_INET</font>,
+<font color="#006600">$port</font>,
+<font color="#006600">$address</font>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<font color="#3333FF"># address suele ser la direccion local "\0\0\0\0"</font>
+<br><font color="#006600">bind</font>(S, <font color="#006600">$addr</font>);
+<br><font color="#006600">listen</font>(S,<font color="#993399">10</font>);
+<br>&nbsp;
+<p>Veamos un cliente y un servidor completos
+<br>&nbsp;
+<br>&nbsp;
+<div align=right>
+<hr WIDTH="100%"></div>
+
+<center><table BORDER=0 COLS=3 WIDTH="25%" NOSAVE >
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html"><img SRC="ol.gif" BORDER=0 height=44 width=65></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html"><img SRC="home02.gif" BORDER=0 height=75 width=61></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node2.html"><img SRC="or.gif" BORDER=0 height=44 width=65></a></td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html">Anterior</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html">Home</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node2.html">Siguiente</a></td>
+</tr>
+</table></center>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Francisco J. Palacios">
+   <meta name="GENERATOR" content="Mozilla/4.76 [es] (X11; U; Linux 2.4.2-2 i686) [Netscape]">
+   <title>Taller de Perl - Perl B&aacute;sico</title>
+</head>
+<body background="fondo.jpg">
+
+<div align=right><img SRC="camel.gif" height=149 width=144></div>
+
+<p><br>Los m&oacute;dulos son ficheros independientes del script principal
+que pueden contener variables y subrutinas.
+<p>Suelen tener extension .pm
+<p>En el script principal se pueden usar con la directiva <i><font color="#FF0000">use</font></i>
+<p>Para invocar a una subrutina definida en un m&oacute;dulo la notaci&oacute;n
+es:
+<blockquote><i>&lt;nombre del m&oacute;dulo>::&lt;subrutina>(parametros)</i></blockquote>
+<font color="#000000"><a href="ejemplo15.pl">ejemplo15.pl</a></font>
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE><font color="#993399">#!/usr/bin/perl -w</font>
+<p><font color="#3333FF"># Ejemplo que usa un modulo Math definido por
+nosotros (Math.pm)</font>
+<p>use <font color="#006600">Math</font>;
+<br>&nbsp;
+<p><font color="#006600">$M</font> = Math::max(<font color="#993399">1</font>,<font color="#993399">2</font>,<font color="#993399">3</font>,<font color="#993399">4</font>,<font color="#993399">53</font>,<font color="#993399">5</font>,<font color="#993399">2</font>,<font color="#993399">12</font>,<font color="#993399">12</font>,<font color="#993399">4</font>);
+<br>print "<font color="#006600">$M</font><font color="#993399">\n</font>";
+<p><font color="#006600">$m</font> = Math::min(<font color="#993399">1</font>,<font color="#993399">24</font>,<font color="#993399">5</font>,<font color="#993399">56</font>,<font color="#993399">6</font>,<font color="#993399">2</font>,<font color="#993399">20</font>,<font color="#993399">0</font>,<font color="#993399">134</font>,<font color="#993399">4</font>,<font color="#993399">4</font>);
+<br>print "<font color="#006600">$m</font><font color="#993399">\n</font>";</td>
+</tr>
+</table>
+
+<p><font color="#000000"><a href="Math.pm">Math.pm</a></font>
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE><font color="#3333FF"># Modulo de funciones matematicas no usuales</font>
+<br>&nbsp;
+<p>package <font color="#006600">Math</font>;
+<br>&nbsp;
+<p>sub max
+<br>{
+<br>&nbsp;&nbsp; <font color="#006600">$maximo</font> = <font color="#006600">$_[</font><font color="#993399">0</font><font color="#006600">]</font>;
+<br>&nbsp;&nbsp; for(<font color="#006600">$i</font>=<font color="#993399">1</font>;
+<font color="#006600">$i</font>&lt;<font color="#006600">$#_</font>;
+<font color="#006600">$i</font>++)
+<br>&nbsp;&nbsp; {
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(<font color="#006600">$_[$i]</font>
+> <font color="#006600">$maximo</font>) { <font color="#006600">$maximo</font>
+= <font color="#006600">$_[$i]</font>; }
+<br>&nbsp;&nbsp; }
+<br>&nbsp;&nbsp; return <font color="#006600">$maximo</font>
+<br>}
+<br>&nbsp;
+<p>sub min
+<br>{
+<br>&nbsp;&nbsp; <font color="#006600">$minimo</font> = <font color="#006600">$_[</font><font color="#993399">0</font><font color="#006600">]</font>;
+<br>&nbsp;&nbsp; for(<font color="#006600">$i</font>=<font color="#993399">1</font>;
+<font color="#006600">$i</font>&lt;<font color="#006600">$#_</font>;
+<font color="#006600">$i</font><font color="#000000">++</font>)
+<br>&nbsp;&nbsp; {
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(<font color="#006600">$_[$i]</font>
+&lt; <font color="#006600">$minimo</font>) { <font color="#006600">$minimo</font>
+= <font color="#006600">$_[$i]</font>; }
+<br>&nbsp;&nbsp; }
+<br>&nbsp;&nbsp; return <font color="#006600">$minimo</font>
+<br>}
+<br>&nbsp;
+<p><font color="#993399">1;</font>
+<br><font color="#3333FF">__END__</font></td>
+</tr>
+</table>
+
+<p>Como el array de los par&aacute;metros de entrada se llama @_ , la variable
+que contiene el n&uacute;mero de elementos es $#_ , que es la que se ha
+empleado en los bucles for
+<br>&nbsp;
+<div align=right>
+<hr WIDTH="100%"></div>
+
+<center><table BORDER=0 COLS=3 WIDTH="25%" NOSAVE >
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node7.html"><img SRC="ol.gif" BORDER=0 height=44 width=65></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html"><img SRC="home02.gif" BORDER=0 height=75 width=61></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node9.html"><img SRC="or.gif" BORDER=0 height=44 width=65></a></td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node7.html">Anterior</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html">Home</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node9.html">Siguiente</a></td>
+</tr>
+</table></center>
+
+</body>
+</html>

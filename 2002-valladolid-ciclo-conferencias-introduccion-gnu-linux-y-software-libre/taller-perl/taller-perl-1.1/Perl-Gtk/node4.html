@@ -1,0 +1,321 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Francisco J. Palacios Burgos">
+   <title>Taller de Perl - GTK</title>
+</head>
+<body background="fondo.jpg">
+
+<div align=right><img SRC="gtk-logo-rgb.gif" height=140 width=107></div>
+
+<h3>
+6. Menus</h3>
+
+<p><br>Una de los elementos comunes a casi todas las aplicaciones gr&aacute;ficas
+son los menus. En Perl-GTK es relativamente sencillo a&ntilde;adir menus
+a nuestras aplicaciones.
+<p>Tres son las clases con las que tendremos que trabajar para crear menus
+en nuestras aplicaciones
+<ul>
+<li>
+<font color="#3333FF">Gtk::MenuBar</font>&nbsp;&nbsp; que es la clase que
+representa las barras de menus. Es un contenedor de Menus</li>
+
+<li>
+<font color="#3333FF">Gtk::Menu</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+que es la clase que representa un menu individual de la barra de menus
+(p. ej. el menu Archivo). Es un contenedor de MenuItems. Es el &uacute;nico
+de los tres que no se muestra con la llamada show()</li>
+
+<li>
+<font color="#3333FF">Gtk::MenuItem</font> que es la clase que representa
+a cada uno de las opciones individuales de cada menu (p. ej. Archivo->Abrir)</li>
+</ul>
+Para tener un menu en nuestra aplicaci&oacute;n habr&aacute; que seguir
+en general los siguientes pasos:
+<ol>
+<li>
+Crear un objeto Gtk::MenuBar</li>
+
+<li>
+Crear uno o varios objetos Gtk::Menu</li>
+
+<li>
+Crear uno o varios objetos Gtk::MenuItem para cada objeto Gtk::Menu</li>
+
+<li>
+Insertar los objetos Gtk::MenuItem en los objetos Gtk::Menu correspondientes</li>
+
+<li>
+Insertar los objetos Gtk::Menu en el objeto Gtk::MenuBar</li>
+</ol>
+Los m&eacute;todos m&aacute;s comunes para esas tres clases son:
+<p><font color="#3333FF">Gtk::MenuBar</font>
+<table BORDER=0 COLS=2 WIDTH="100%" NOSAVE >
+<tr NOSAVE>
+<td WIDTH="200" BGCOLOR="#FFFFCC" NOSAVE>new Gtk::MenuBar()</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Crea un nuevo objeto MenuBar</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>append ( <i>child</i> )</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>A&ntilde;ade un widget <i>child</i> al final.
+Generalmente child es un Menu o un MenuItem</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>prepend ( <i>child</i> )</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>A&ntilde;ade un widget <i>child</i> al principio.
+Generalmente child es un Menu o un MenuItem</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>insert( <i>child </i>, <i>position</i> )</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Inserta un widget en la posicion indicada</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>deactivate ( )</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Borra el MenuBar de la pantalla (lo desactiva)</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>select_item( <i>child</i> )</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Selecciona un widget hijo del MenuBar</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>activate_item( <i>child</i> )&nbsp;</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Activa un hijo</td>
+</tr>
+</table>
+
+<p><font color="#3333FF">Gtk::Menu</font>
+<table BORDER=0 COLS=2 WIDTH="100%" NOSAVE >
+<tr NOSAVE>
+<td WIDTH="200" BGCOLOR="#FFFFCC" NOSAVE>new Gtk::Menu()</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Crea un nuevo objeto Menu</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>append ( <i>child</i> )</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>A&ntilde;ade un widget <i>child</i> al final.
+Generalmente child es un&nbsp; MenuItem</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>prepend ( <i>child</i> )</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>A&ntilde;ade un widget <i>child</i> al principio.
+Generalmente child es un MenuItem</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>insert( <i>child </i>, <i>position</i> )</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Inserta un widget en la posicion indicada</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>deactivate ( )</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Borra el Menu de la pantalla (lo desactiva)</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>select_item( <i>child</i> )</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Selecciona un widget hijo del Menu</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>activate_item( <i>child</i> )</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Activa un hijo</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>set_title( <i>title</i> )</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Asocia un titulo con el Menu</td>
+</tr>
+</table>
+
+<p><font color="#3333FF">Gtk::MenuItem</font>
+<table BORDER=0 COLS=2 WIDTH="100%" NOSAVE >
+<tr NOSAVE>
+<td WIDTH="200" BGCOLOR="#FFFFCC" NOSAVE>new Gtk::MenuItem()
+<br>new Gtk::MenuItem(<i> label</i> )</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Crea un nuevo objeto MenuItem. Si se especifica
+<i>label</i>
+lo crea con esa etiqueta</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>select(&nbsp; )</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Selecciona el MenuItem</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>deselect( )</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Deselecciona el MenuItem</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>activate(&nbsp; )</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Activa el MenuItem</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>deactivate ( )</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Borra el Menu de la pantalla (lo desactiva)</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>set_submenu( <i>submenu</i> )</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Convierte el MenuItem en un submenu, que mostrar&aacute;
+el menu <i>submenu</i></td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>remove_submenu( )</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Hace lo contrario de la anterior</td>
+</tr>
+
+<tr NOSAVE>
+<td BGCOLOR="#FFFFCC" NOSAVE>right_justify ( )</td>
+
+<td BGCOLOR="#CCFFFF" NOSAVE>Coloca el MenuItem justificado a la derecha
+en un menubar. Se suele usar frecuentemente para los menus de ayuda</td>
+</tr>
+</table>
+
+<p>Para ilustrar esto, vamos a hacer una aplicaci&oacute;n que conste de
+una ventana, con una barra de menus en la que hay dos menus con dos opciones
+en cada uno. Seg&uacute;n la opci&oacute;n que se presione, se emite un
+mensaje en la terminal desde la que se arranc&oacute; el script.
+<p>El aspecto que presentar&aacute; sera como el siguiente:
+<center>
+<p><img SRC="snapshot4.jpg" height=278 width=358></center>
+
+<p><br>
+<br>
+<br>
+<p><font color="#000000"><a href="gmenus.pl">gmenus.pl</a></font>
+<table BORDER COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE><font color="#CC33CC">#!/usr/bin/perl -w</font>
+<p>use Gtk;&nbsp;
+<br>init Gtk;&nbsp;
+<p>my <font color="#006600">$false</font> = <font color="#CC33CC">0</font>;
+<br>my <font color="#006600">$true</font>&nbsp; = <font color="#CC33CC">1</font>;
+<p><font color="#3333FF"># Creamos la ventana principal</font>
+<br>my <font color="#006600">$window</font> = new Gtk::Window( <font color="#FF0000">"toplevel"</font>
+);
+<br><font color="#006600">$window</font>->set_title (<font color="#FF0000">"Ejemplo
+con menus"</font>);
+<br><font color="#006600">$window</font>->set_position(<font color="#FF0000">"center"</font>);
+<br><font color="#006600">$window</font>->set_policy(<font color="#006600">$false</font>,<font color="#006600">$false</font>,<font color="#006600">$true</font>);&nbsp;
+<br><font color="#006600">$window</font>->signal_connect( <font color="#FF0000">"delete_event"</font>,
+sub { Gtk->exit(<font color="#CC33CC">0</font>); } );&nbsp;
+<p><font color="#3333FF"># Creamos la rejilla</font>
+<br>my <font color="#006600">$fixed</font> = new Gtk::Fixed();
+<br><font color="#006600">$fixed</font>->set_usize(<font color="#CC33CC">350</font>,<font color="#CC33CC">250</font>);
+<p>my <font color="#006600">$menubar</font> = new Gtk::MenuBar();
+<br><font color="#006600">$fixed</font>->put(<font color="#006600">$menubar</font>,<font color="#CC33CC">0</font>,<font color="#CC33CC">0</font>);
+<p><font color="#3333FF"># Creamos el menu 1 con dos Items colgando de
+&eacute;l</font>
+<br>my <font color="#006600">$menu1</font> = new Gtk::MenuItem(<font color="#FF0000">"Menu1"</font>);
+<br>&nbsp;&nbsp; my <font color="#006600">$mn1</font> = new Gtk::Menu();
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#006600">$mn1it1</font>
+= new Gtk::MenuItem(<font color="#FF0000">"Item1"</font>);
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#006600">$mn1it1</font>->signal_connect(
+<font color="#FF0000">'activate'</font>,
+sub { print <font color="#FF0000">"Se presiono el item 1 del menu 1</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font>;
+} );
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#006600">$mn1</font>->append(<font color="#006600">$mn1it1</font>);
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#006600">$mn1it2</font>
+= new Gtk::MenuItem(<font color="#FF0000">"Item2"</font>);
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#006600">$mn1it2</font>->signal_connect(
+<font color="#FF0000">'activate'</font>,
+sub { print <font color="#FF0000">"Se presiono el item 2 del menu 1</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font>;
+} );
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#006600">$mn1</font>->append(<font color="#006600">$mn1it2</font>);
+<br>&nbsp;&nbsp; <font color="#006600">$menu1</font>->set_submenu(<font color="#006600">$mn1</font>);
+<br><font color="#006600">$menubar</font>->append(<font color="#006600">$menu1</font>);
+<p><font color="#3333FF"># Creamos el menu 2 con dos Items colgando de
+el</font>
+<br>my <font color="#006600">$menu2</font> = new Gtk::MenuItem(<font color="#FF0000">"Menu2"</font>);
+<br>&nbsp;&nbsp; my <font color="#006600">$mn2</font> = new Gtk::Menu();
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#006600">$mn2it1</font>
+= new Gtk::MenuItem("Item1");
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#006600">$mn2it1</font>->signal_connect(
+<font color="#FF0000">'activate'</font>,
+sub { print <font color="#FF0000">"Se presiono el item 1 del menu 2</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font>;
+} );
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#006600">$mn2</font>->append(<font color="#006600">$mn2it1</font>);
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#006600">$mn2it2</font>
+= new Gtk::MenuItem(<font color="#FF0000">"Item2"</font>);
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#006600">$mn2it2</font>->signal_connect(
+<font color="#FF0000">'activate'</font>,
+sub { print <font color="#FF0000">"Se presiono el item 2 del menu 2</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font>;
+} );
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#006600">$mn2</font>->append(<font color="#006600">$mn2it2</font>);
+<br>&nbsp;&nbsp; <font color="#006600">$menu2</font>->set_submenu(<font color="#006600">$mn2</font>);
+<br><font color="#006600">$menubar</font>->append(<font color="#006600">$menu2</font>);
+<p><font color="#3333FF"># Visualizamos los menus</font>
+<br><font color="#006600">$menu1</font>->show();
+<br>&nbsp;&nbsp; <font color="#006600">$mn1it1</font>->show();
+<br>&nbsp;&nbsp; <font color="#006600">$mn1it2</font>->show();
+<br><font color="#006600">$menu2</font>->show();
+<br>&nbsp;&nbsp; <font color="#006600">$mn2it1</font>->show();
+<br>&nbsp;&nbsp; <font color="#006600">$mn2it2</font>->show();
+<br><font color="#006600">$menubar</font>->show();
+<p><font color="#3333FF"># A&ntilde;adimos la rejilla y visualizamos todo</font>
+<br><font color="#006600">$window</font>->add(<font color="#006600">$fixed</font>);
+<br><font color="#006600">$fixed</font>->show();
+<br><font color="#006600">$window</font>->show();
+<p>main Gtk;</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<p>
+<hr WIDTH="100%">
+<center><table BORDER=0 COLS=3 WIDTH="25%" NOSAVE >
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node3.html"><img SRC="ol.gif" BORDER=0 height=44 width=65></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html"><img SRC="home02.gif" BORDER=0 height=75 width=61></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node5.html"><img SRC="or.gif" BORDER=0 height=44 width=65></a></td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node3.html">Anterior</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="index.html">Home</a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE><a href="node5.html">Siguiente</a></td>
+</tr>
+</table></center>
+
+</body>
+</html>
