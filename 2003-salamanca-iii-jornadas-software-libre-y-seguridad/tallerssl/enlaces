@@ -1,0 +1,13 @@
+www.openssl.org
+  En la sección "related" hay abundante información. En la parte de
+aplicaciones podemos descargar aplicaciones que nos pueden servir como
+ejemplo.
+
+www.stunnel.org
+  Un gateway para hacer que cualquier servidor use SSL, sin que tengamos que
+saber SSL. También podría usarse para lado cliente.
+
+http://www.columbia.edu/~ariel/ssleay/ssl_index.html
+  Más documentación sobre cómo programar con OpenSSL
+
+
