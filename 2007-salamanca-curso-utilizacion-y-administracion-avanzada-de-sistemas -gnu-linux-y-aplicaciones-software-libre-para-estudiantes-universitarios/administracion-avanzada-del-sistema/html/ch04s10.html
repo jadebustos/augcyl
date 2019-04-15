@@ -1,0 +1,80 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Obtención de información sobre los sistemas de ficheros</title><meta name="generator" content="DocBook XSL Stylesheets V1.71.0"><link rel="start" href="index.html" title="Utilización y Administración avanzada de sistemas GNU/Linux y aplicaciones Software Libre para estudiantes universitarios"><link rel="up" href="ch04.html" title="Capítulo 4. Sistemas de Ficheros"><link rel="prev" href="ch04s09.html" title="Creación de sistemas de ficheros"><link rel="next" href="ch04s11.html" title="Cuotas en ext2/ext3"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Obtención de información sobre los sistemas de ficheros</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch04s09.html">Anterior</a> </td><th width="60%" align="center">Capítulo 4. Sistemas de Ficheros</th><td width="20%" align="right"> <a accesskey="n" href="ch04s11.html">Siguiente</a></td></tr></table><hr></div><div class="sect1" lang="es"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2550418"></a>Obtención de información sobre los sistemas de ficheros</h2></div></div></div><div class="sect2" lang="es"><div class="titlepage"><div><div><h3 class="title"><a name="id2550425"></a>El comando <span><strong class="command">du</strong></span></h3></div></div></div><p>Este comando trabaja a nivel de directorios. En caso de no pasarle ningún argumento nos muestra el tamaño que utiliza en disco el directorio actual y sus subdirectorios. Por defecto muestra la información en bloques y si utilizamos el flag <span class="emphasis"><em>-h</em></span> nos mostrará la información en un formato más comprensible.</p><pre class="screen">
+<code class="prompt">[pcm@sal]$ </code><strong class="userinput"><code>du</code></strong>
+<code class="computeroutput">245     ./Adm/html
+486     ./Adm
+16539   ./Doc/cluster
+18256   ./Doc
+4       ./Software-Cientifico
+16      ./Clustering/dia
+125     ./Clustering/html
+44      ./Clustering/images
+269     ./Clustering
+19014   .</code>
+<code class="prompt">[pcm@sal]$ </code>
+</pre><div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Sugerencia</h3><p>Si le pasamos como argumento un directorio nos dará la información sobre dicho directorio.</p></div><div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Sugerencia</h3><p>Si unicamente queremos conocer el espacio en disco deberemos utilizar el flag <span class="emphasis"><em>-hs</em></span>.</p></div></div><div class="sect2" lang="es"><div class="titlepage"><div><div><h3 class="title"><a name="id2550494"></a>El comando <span><strong class="command">df</strong></span></h3></div></div></div><p>Ese comando nos da información sobre los sistemas de ficheros montados en el sistema:</p><pre class="screen">
+<code class="prompt">[pcm@sal]$ </code><strong class="userinput"><code>df</code></strong>
+<code class="computeroutput">S.ficheros         Bloques de 1K   Usado    Dispon Uso% Montado en
+/dev/hdg1               459143     82646    352000  20% /
+tmpfs                  1038484         0   1038484   0% /lib/init/rw
+udev                     10240        44     10196   1% /dev
+tmpfs                  1038484         0   1038484   0% /dev/shm
+/dev/mapper/system_vg-home_lv
+                       2097084   1633876    463208  78% /home
+/dev/mapper/system_vg-opt_lv
+                        511980     32840    479140   7% /opt
+/dev/mapper/system_vg-tmp_lv
+                       1023964     32852    991112   4% /tmp
+/dev/mapper/system_vg-usr_lv
+                       5242716   2528076   2714640  49% /usr
+/dev/mapper/system_vg-var_lv
+                       2097084    575252   1521832  28% /var
+/dev/mapper/system_vg-software_lv
+                       1048540     32840   1015700   4% /mnt/software
+/dev/mapper/system_vg-ftp_lv
+                      52427196  18240412  34186784  35% /media/ftp</code>
+<code class="prompt">[pcm@sal]$ </code>
+</pre><div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Sugerencia</h3><p>Podemos ver la información relativa a un único sistema de ficheros si se lo pasamos como argumento.</p></div><p>Por defecto muestra información en bloques. Podemos hacer que salga la información en un formato más comprensible utilizando el flag <span class="emphasis"><em>-h</em></span>:</p><pre class="screen">
+<code class="prompt">[pcm@sal]$ </code><strong class="userinput"><code>df -h</code></strong>
+<code class="computeroutput">S.ficheros          Tamaño Usado  Disp Uso% Montado en
+/dev/hdg1             449M   81M  344M  20% /
+tmpfs                1015M     0 1015M   0% /lib/init/rw
+udev                   10M   44K   10M   1% /dev
+tmpfs                1015M     0 1015M   0% /dev/shm
+/dev/mapper/system_vg-home_lv
+                      2,0G  1,6G  451M  78% /home
+/dev/mapper/system_vg-opt_lv
+                      500M   33M  468M   7% /opt
+/dev/mapper/system_vg-tmp_lv
+                     1000M   33M  968M   4% /tmp
+/dev/mapper/system_vg-usr_lv
+                      5,0G  2,5G  2,6G  49% /usr
+/dev/mapper/system_vg-var_lv
+                      2,0G  562M  1,5G  28% /var
+/dev/mapper/system_vg-software_lv
+                      1,0G   33M  992M   4% /mnt/software
+/dev/mapper/system_vg-ftp_lv
+                       50G   18G   33G  35% /media/ftp</code>
+<code class="prompt">[pcm@sal]$ </code>
+</pre><p>Podemos hacer que salga la información sobre los inodos utilizando el flag <span class="emphasis"><em>-i</em></span>:</p><pre class="screen">
+<code class="prompt">[pcm@sal]$ </code><strong class="userinput"><code>df -i</code></strong>
+<code class="computeroutput">S.ficheros           Nodos-i NUsados NLibres NUso% Montado en
+/dev/hdg1             245280   11612  233668    5% /
+tmpfs                 224347       2  224345    1% /lib/init/rw
+udev                  224347    1430  222917    1% /dev
+tmpfs                 224347       1  224346    1% /dev/shm
+/dev/mapper/system_vg-home_lv
+                           0       0       0    -  /home
+/dev/mapper/system_vg-opt_lv
+                           0       0       0    -  /opt
+/dev/mapper/system_vg-tmp_lv
+                           0       0       0    -  /tmp
+/dev/mapper/system_vg-usr_lv
+                           0       0       0    -  /usr
+/dev/mapper/system_vg-var_lv
+                           0       0       0    -  /var
+/dev/mapper/system_vg-software_lv
+                           0       0       0    -  /mnt/software
+/dev/mapper/system_vg-ftp_lv
+                           0       0       0    -  /media/ftp</code>
+<code class="prompt">[pcm@sal]$ </code>
+</pre></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch04s09.html">Anterior</a> </td><td width="20%" align="center"><a accesskey="u" href="ch04.html">Subir</a></td><td width="40%" align="right"> <a accesskey="n" href="ch04s11.html">Siguiente</a></td></tr><tr><td width="40%" align="left" valign="top">Creación de sistemas de ficheros </td><td width="20%" align="center"><a accesskey="h" href="index.html">Inicio</a></td><td width="40%" align="right" valign="top"> Cuotas en <span class="emphasis"><em>ext2/ext3</em></span></td></tr></table></div></body></html>

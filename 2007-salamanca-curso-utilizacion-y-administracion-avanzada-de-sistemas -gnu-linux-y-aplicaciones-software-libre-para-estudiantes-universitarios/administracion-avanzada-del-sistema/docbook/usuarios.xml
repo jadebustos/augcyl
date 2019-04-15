@@ -1,0 +1,533 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+<!-- CAPITULO 5 -->
+  <chapter>
+    <title>Usuarios y permisos en GNU/Linux</title>
+    <para>GNU/Linux es un sistema multiusuario y multitarea. Por este motivo en el sistema tienen que convivir diferentes usuarios y compartir los recursos del sistema.</para>
+    <para>Cada usuario tiene sus archivos donde guarda sus datos, trabajo, m&uacute;sica, ... y necesita para ello mecanismos de seguridad que eviten que sus datos sean borrados, modificados o le&iacute;dos por otros usuarios.</para>
+    <sect1>
+      <title>El <emphasis>superusuario</emphasis> o <emphasis>root</emphasis></title>
+      <para>En los sistemas <emphasis>UNIX</emphasis> existe un usuario especial que es el encargado de poner orden entre el resto de usuarios. Este usuario recibe el nombre de <emphasis>root</emphasis> y tiene acceso a la totalidad del sistema.</para>
+      <important><para>El usuario <emphasis>root</emphasis> es el encargado de realizar o delegar todas las tareas de mantenimiento y/o administraci&oacute;n del sistema.</para></important>
+      <para>Los usuarios normales no tienen privilegios para cambiar las configuraciones del sistema o las aplicaciones a nivel global.</para>
+      <important><para>Hay aplicaciones que permiten configuraciones personales a los usuarios. Estas configuraciones son especificas para cada usuario y no afectan al resto.</para></important>
+      <warning><para>La cuenta de <emphasis>root</emphasis> no se suele utilizar salvo que sea absolutamente necesario. Al tener acceso ilimitado este usuario al sistema puede borrar datos o dejar al sistema inestable si se ejecuta el comando erroneo.</para></warning>
+    </sect1>
+    <sect1>
+      <title>Grupos de usuarios</title>
+      <para>Los usuarios se agrupan en grupos. Un grupo no es m&aacute;s que un conjunto de usuarios con una tarea en com&uacute;n.</para>
+      <para>El fichero <filename>/etc/group</filename> contiene los grupos del sistema. Dentro de este fichero podremos ver grupos:</para>
+      <itemizedlist>
+        <listitem>
+          <para><emphasis>apache</emphasis> grupo para usuarios o demonios que van a administrar el servidor web.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>mysql</emphasis> idem para el servidor de BBDD <emphasis>MySQL</emphasis>.</para>
+        </listitem>
+      </itemizedlist>
+      <sect2>
+        <title>El fichero <filename>/etc/group</filename></title>
+        <para>En este fichero se encuentran todos los grupos presentes en el sistema. Las entradas ser&aacute;n del tipo:</para>
+<programlisting>
+users:x:100:tux,pepito,pcm
+</programlisting>
+        <para>Este fichero est&aacute; compuesto por varias l&iacute;neas con campos separados por ":":</para>
+        <itemizedlist>
+        <listitem>
+          <para>El primer campo es el nombre del grupo.</para>
+        </listitem>          
+        <listitem>
+          <para>El segundo campo es el password para el grupo. Normalmente no se utiliza y este campo contiene una "x".</para>
+        </listitem>          
+        <listitem>
+          <para>En el tercer campo tenemos el <emphasis>GID</emphasis> del grupo. GNU/Linux utiliza el GID para manejar los grupos. El nombre unicamente se utiliza para hacerle la vida m&aacute;s comoda al usuario.</para>
+        </listitem>          
+        <listitem>
+          <para>El cuarto campo son los usuarios que pertenecen a dicho grupo separados por comas.</para>
+        </listitem>          
+        </itemizedlist>
+        <warning><para>No siempre aparecen en <filename>/etc/group</filename> los usuarios en el grupo al que pertenecen. Si no se han creado los usuarios de forma correcta no aparecer&aacute;n.</para></warning>
+        <para>Si listamos un fichero cualquiera:</para>
+<programlisting>
+-rw-r--r-- 1 jose users 1764 2007-04-08 18:38 admlinux.xml
+</programlisting>      
+        <para>Podemos ver que el fichero pertenece al usuario <emphasis>jose</emphasis> y al grupo <emphasis>users</emphasis> adem&aacute;s de otra informaci&oacute;n.</para>
+        <important><para>Es importante que el fichero <filename>/etc/group</filename> tenga permisos de lectura para todo el mundo ya que es a trav&eacute;s de este fichero que se hace la conversi&oacute;n del GID al nombre del grupo. Si se quitara el permiso de lectura tendr&iacute;amos algo como esto:</para>
+<screen>
+<prompt>[pcm@sal]$ </prompt><userinput>ls -l admlinux.xml</userinput>
+<computeroutput>-rw-r--r-- 1 jose 100 1764 2007-04-08 18:38 admlinux.xml</computeroutput>
+<prompt>[pcm@sal]$ </prompt>
+</screen>
+      <para>Vemos que en la salida ya no aparece <emphasis>users</emphasis>. En su lugar aparece <emphasis>100</emphasis> que es el GID del grupo <emphasis>users</emphasis>.</para>
+      </important>
+      </sect2>
+      <sect2>
+        <title>A&ntilde;diendo grupos al sistema</title>
+        <para>S&oacute;lo el usuario <emphasis>root</emphasis> puede a&ntilde;dir grupos al sistema. Aunque puede conceder privilegios a otros para hacerlo.</para>
+        <para>Para a&ntilde;dir grupos al sistema se utiliza el comando <command>groupadd</command>:</para>
+<screen>
+<prompt>[pcm@sal]# </prompt><userinput>groupadd alumnos</userinput>
+<prompt>[pcm@sal]# </prompt>
+</screen>
+        <para>Esto a&ntilde;adir&iacute;a el grupo <emphasis>alumnos</emphasis> al sistema.</para>
+        <tip><para>Si quisieramos crear un grupo con un GID en particular nos bastar&iacute;a el especificar el GID mediante el par&aacute;metro <emphasis>-g</emphasis>.</para></tip>
+        <tip><para>Una practica habitual de buena administraci&oacute;n es el establecer rangos para los GID de los grupos.Por ejemplo del GID 0 al 100 para grupos administradores, ...</para></tip>
+      </sect2>
+      <sect2>
+        <title>Modificando grupos del sistema</title>
+        <para>S&oacute;lo el usuario <emphasis>root</emphasis> puede modificar grupos del sistema. Aunque puede conceder privilegios a otros para hacerlo.</para>
+        <para>Para esto se utiliza el comando <command>groupmod</command>.</para>
+        <tip><para><command>man groupmod</command></para></tip>
+      </sect2>
+      <sect2>
+        <title>Borrando grupos del sistema</title>
+        <para>S&oacute;lo el usuario <emphasis>root</emphasis> puede borrar grupos del sistema. Aunque puede conceder privilegios a otros para hacerlo.</para>
+        <para>Para ello se utiliza el comando <command>groupdel</command>.</para>
+        <tip><para><command>man groupdel</command></para></tip>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Gesti&oacute;n de usuarios</title>
+      <sect2>
+        <title>Zona de disco reservada a cada usuario</title>
+        <para>Cada usuario tiene un espacio en disco para tener sus datos. Este espacio es un directorio con su nombre que se encuentra en <filename>/home/</filename>.</para>
+        <para>Es posible encontrarlo tambi&eacute;n de las siguientes formas:</para>
+<programlisting>
+/home/b/pcm
+/home/b/be/pcm
+/home/futurama/pcm
+/home/futurama/b/pcm
+/home/futurama/b/be/pcm
+...
+</programlisting>
+        <para>Este tipo de estructuraciones se utilizan para una mejor organizaci&oacute;n de los usuarios y tambi&eacute;n para evitar exceder el n&uacute;mero de entradas por directorio en aquellos sistemas con muchos usuarios.</para>
+        <para>El directorio personal suele estar almacenado en la variable de entorno <emphasis>$HOME</emphasis> y tambi&eacute;n se le conoce como "<emphasis>~</emphasis>".</para>
+        <important><para>Los administradores suelen establecer cuotas de disco en <filename>/home/</filename> para evitar que unos pocos usuarios monopolicen el uso del disco.</para></important>
+      </sect2>
+      <sect2>
+        <title>El fichero <filename>/etc/passwd</filename></title>
+        <para>Este fichero guarda la informaci&oacute;n relativa a los usuarios del sistema. Debido a problemas de seguridad ahora se utiliza tambi&eacute;n el fichero <filename>/etc/shadow</filename>.</para>
+        <para>Una entrada t&iacute;pica:</para>
+<programlisting>
+pcm:x:501:501:Bender:/home/pcm:/bin/bash
+</programlisting>
+        <para>Este fichero contiene una l&iacute;nea por cada usuario del sistema y cada l&iacute;nea son varios campos separados por ":":</para>
+        <orderedlist>
+          <listitem>
+            <para>El primer campo es el nombre del usuario.</para>
+          </listitem>
+          <listitem>
+            <para>El segundo campo conten&iacute;a el hashing de la contrase&ntilde;a del usuario. Es practica habitual el utilizar el <emphasis>shadowing</emphasis> de contrase&ntilde;s y esta informaci&oacute;n se encuentra ahora en el fichero <filename>/etc/shadow</filename> raz&oacute;n por la cual este campo suele contener una "<emphasis>x</emphasis>".</para>
+          </listitem>
+          <listitem>
+            <para>El tercer campo contiene el UID del usuario.</para>
+          </listitem>
+          <listitem>
+            <para>El cuarto campo contiene el GID del usuario.</para>
+          </listitem>
+          <listitem>
+            <para>El quinto campo o campo <emphasis>GECOS</emphasis>(General Electric Comprehensive Operating Supervisor) contiene informaci&oacute;n relativa al usuario como nombre, departamento, ...</para>
+            <tip><para>No conviene poner informaci&oacute;n sensible en este campo ya que es visible por todo el mundo que tenga acceso al sistema. Adem&aacute;s si hay activados servicios como <emphasis>finger</emphasis> es f&aacute;cil obtener esa informaci&oacute;n sin necesidad de tener cuenta en el sistema.</para></tip>
+          </listitem>
+          <listitem>
+            <para>En el sexto campo est&aacute; el directorio personal del usuario.</para>
+          </listitem>
+          <listitem>
+            <para>En el septimo campo se encuentra el comando que se ejecutar&aacute; cuando haya un inicio de sesi&oacute;n por parte del usuario. Si se prentende que el usuario trabaje en la m&aacute;quina se pone una <emphasis>shell</emphasis>.</para>
+          </listitem>
+        </orderedlist>
+        <tip><para>Podemos deshabilitar temporalmente los accesos de un usuario al sistema a&ntilde;adiendo el car&aacute;cter "<emphasis>*</emphasis>" como primer car&aacute;cter del segundo campo.</para></tip>
+      </sect2>
+      <sect2>
+        <title>A&ntilde;adiendo usuarios al sistema</title>
+        <para>S&oacute;lo el usuario <emphasis>root</emphasis> puede a&ntilde;dir usuarios al sistema. Aunque puede conceder privilegios a otros para hacerlo.</para>
+        <para>Se pueden utilizar dos comandos para ello:</para>
+        <itemizedlist>
+          <listitem>
+            <para><command>useradd</command> binario para la creaci&oacute;n de usuarios.</para>
+          </listitem>
+          <listitem>
+            <para><command>adduser</command> es un script en PERL para la creaci&oacute;n de usuarios.</para>
+          </listitem>
+        </itemizedlist>
+      <para>La forma t&iacute;pica para crear un usuario es:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>useradd -m -d /home/pcm -g pcm -G pcm,users,futurama -c "Bender" -s /bin/bash pcm</userinput>
+<prompt>[root@sal]#</prompt>
+</screen>    
+      <itemizedlist>
+          <listitem>
+            <para><emphasis>-m</emphasis> en caso de no existir el directorio del usuario lo crea.</para>
+          </listitem>
+          <listitem>
+            <para><emphasis>-d /home/pcm</emphasis> indica cual va a ser el directorio del usuario.</para>
+          </listitem>
+          <listitem>
+            <para><emphasis>-g pcm</emphasis> indica cual es el grupo principal del usuario.</para>
+          </listitem>
+          <listitem>
+            <para><emphasis>-G pcm,users,futurama</emphasis> indica los grupos a los que pertenecer&aacute;a el usuario.</para>
+          </listitem>
+          <listitem>
+            <para><emphasis>-c "Bender"</emphasis> informaci&oacute;n del campo <emphasis>GECOS</emphasis>.</para>
+          </listitem>
+          <listitem>
+            <para><emphasis>-s /bin/bash</emphasis> indica la shell que utilizar&aacute; el usuario.</para>
+          </listitem>
+          <listitem>
+            <para><emphasis>pcm</emphasis> nombre del usuario.</para>
+          </listitem>
+      </itemizedlist>
+      <important><para>Cuando creamos un usuario se copian en su directorio todos los ficheros del directorio <filename>/etc/skel/</filename>.</para></important>
+      <tip><para>Es practica habitual crear un grupo con el mismo nombre que el usuario y utilizar este grupo como grupo primario del usuario. De esta forma se garantiza que s&oacute;lo este el en ese grupo y pueda controlar mejor quien accede a sus ficheros.</para></tip>
+      <tip><para>Al igual que con los grupos se suelen reservar rangos para tipos de usuarios.</para></tip>
+      <tip><para>Podemos utilizar el flag <emphasis>-u</emphasis> para indicar el UID del usuario.</para></tip>
+      <important><para>Una vez creado el usuario ser&aacute; necesario establecerle un password utilizando el comando <command>passwd</command>:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>passwd pcm</userinput>
+<computeroutput>Enter new UNIX password: <userinput>*******</userinput>
+Retype new UNIX password: <userinput>*******</userinput>
+passwd: contraseña actualizada correctamente</computeroutput>
+<prompt>[root@sal]# </prompt>
+</screen></important>
+      </sect2>
+      <sect2>
+        <title>Eliminando usuarios del sistema</title>
+        <para>S&oacute;lo el usuario <emphasis>root</emphasis> puede eliminar usuarios del sistema. Aunque puede conceder privilegios a otros para hacerlo.</para>
+        <para>Para eliminar usuarios del sistema se utiliza el comando <command>userdel</command>:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>userdel pcm</userinput>
+<prompt>[root@sal]# </prompt>
+</screen>
+      <para>De esta forma eliminamos al usuario <emphasis>pcm</emphasis> del sistema sin borrar su directorio personal.</para>
+      <tip><para>Si quisieramos eliminar tambi&eacute;n su directorio personal tendr&iacute;mos que haber utilizado el flag <emphasis>-r</emphasis>.</para></tip>
+      <important><para>No podremos eliminar un usuario si este tiene abierta una sesi&oacute;n. En caso de necesidad podemos desabilitar sus accesos al sistema mediante el uso del car&aacute;cter "<emphasis>*</emphasis>" y despu&eacute;s matar todos sus procesos.</para></important>
+      </sect2>
+      <sect2>
+        <title>Modificando una cuenta existente en el sistema</title>
+        <tip><para><emphasis>man usermod</emphasis></para></tip>
+      </sect2>
+      <sect2>
+        <title>El comando <command>id</command></title>
+        <para>Este comando se utiliza para obtener informaci&oacute;n sobre el UID y el GID de los usuarios:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>id</userinput>
+<computeroutput>id jose
+uid=1000(jose) gid=1000(jose) grupos=1000(jose),20(dialout),24(cdrom),25(floppy),29(audio),44(video),46(plugdev),1001(ftp)</computeroutput>
+<prompt>[root@sal]# </prompt>
+</screen>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Permisos en GNU/Linux</title>
+      <para>Para evitar que otros usuarios accedan a nuestros ficheros GNU/Linux al igual que otros sistemas UNIX utiliza permisos y cada usuario puede acceder unica y exclusivamente a aquellos ficheros para los cuales tiene concedido acceso.</para>
+      <para>Dado que en los sistemas UNIX todo son ficheros es importante el conocer bien el mecanismo que otorga privilegios para el acceso a los ficheros.</para>
+
+      <para>Los permisos de los ficheros se almacenan utilizando un entero de doce bits y se dividen en ternas:</para>
+      <itemizedlist>
+        <listitem>
+          <para>La terna m&aacute;s significativa se utiliza para especificar unos permisos especiales que son los <emphasis>SUID</emphasis>, <emphasis>SGID</emphasis> y el <emphasis>Sticky Bit</emphasis>.</para>
+        </listitem>
+        <listitem>
+          <para>La siguiente terna se utiliza para especificar los permisos del propietario del fichero.</para>
+        </listitem>
+        <listitem>
+          <para>La siguiente terna se utiliza para especificar los permisos del grupo del propietario del fichero.</para>
+        </listitem>
+        <listitem>
+          <para>La terna menos significativa se utiliza para especificar los permisos del resto de usuarios, es decir de aquellos usuarios que no estan en el grupo del usuario que posee el fichero.</para>
+        </listitem>
+      </itemizedlist>
+      <para>Podemos utilizar <command>ls -l</command> para ver los permisos de un fichero:</para>
+<screen>
+<prompt>[pcm@sal]$ </prompt><userinput>ls -l admlinux.xml</userinput>
+<computeroutput>-rw-r--r-- 1 jose users 1,8K 2007-04-08 18:38 admlinux.xml</computeroutput>
+<prompt>[pcm@sal]$ </prompt>
+</screen>
+      <para>La primera columna nos da los permisos. El primer car&aacute;cter nos indica el tipo de fichero que es:</para>
+      <itemizedlist>
+        <listitem>
+          <para><emphasis>-</emphasis> indica un fichero normal.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>d</emphasis> indica un directorio.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>c</emphasis> indica un dispositivo car&aacute;cter (monitor, impresora).</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>s</emphasis> indica un socket.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>b</emphasis> indica un dispositivo de bloques (discos).</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>l</emphasis> indica un enlace.</para>
+        </listitem>
+      </itemizedlist>
+      <para>Los siguientes tres car&aacute;cteres indican los permisos que tiene el propietario del fichero.</para>
+      <para>Los siguientes tres car&aacute;cteres indican los permisos que tiene el grupo del propietario del fichero.</para>
+      <para>Los siguientes tres car&aacute;cteres indican los permisos que tienen el resto de usuarios.</para>
+      <sect2>
+        <title>Tipos de permisos</title>
+        <para>Los permisos t&iacute;picos que nos podemos encontrar son:</para>
+        <itemizedlist>
+          <listitem>
+            <para><emphasis>Lectura</emphasis> denotado como "<emphasis>r</emphasis>".</para>
+            <itemizedlist>
+              <listitem>
+                <para><emphasis>Fichero:</emphasis> Podemos leer el contenido del fichero.</para>
+              </listitem>
+              <listitem>
+                <para><emphasis>Directorio:</emphasis> Podemos leer el contenido del directorio (mediante <command>ls</command> por ejemplo).</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+          <listitem>
+            <para><emphasis>Escritura</emphasis> denotado como "<emphasis>w</emphasis>".</para>
+            <itemizedlist>
+              <listitem>
+                <para><emphasis>Fichero:</emphasis> Podemos modificar el contenido del fichero.</para>
+              </listitem>
+              <listitem>
+                <para><emphasis>Directorio:</emphasis> Podemos modificar el contenido del directorio. Podemos crear y borrar ficheros dentro del directorio.</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+          <listitem>
+            <para><emphasis>Ejecuci&oacute;n</emphasis> denotado como "<emphasis>x</emphasis>".</para>
+            <itemizedlist>
+              <listitem>
+                <para><emphasis>Fichero:</emphasis> Podemos ejecutar el fichero.</para>
+              </listitem>
+              <listitem>
+                <para><emphasis>Directorio:</emphasis> Podemos entrar al directorio (mediante <command>cd</command> por ejemplo).</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+        </itemizedlist>
+      </sect2>      
+      <sect2>
+        <title>Cambio de permisos</title>
+        <para>S&oacute;lo el <emphasis>root</emphasis> y el propietario del fichero podr&aacute;n cambiar los permisos de los ficheros.</para>
+        <para>Para hacerlo se utiliza el comando <command>chmod</command>.</para>
+        <tip><para><command>chmod</command> s&oacute;lo actua sobre ficheros. Si queremos que actue de forma recursiva sobre todos los directorios tendremos que utilizar el flag <emphasis>-R</emphasis>.</para></tip>
+        <sect3>
+          <title>Cambiar permisos de forma intuitiva</title>
+          <para>Para cambiar permisos de forma intuitiva utilizaremos "<emphasis>u</emphasis>" para hacer referencia a los permisos del usuario, "<emphasis>g</emphasis>" para hacer referencia a los permisos del grupo y "<emphasis>o</emphasis>" para hacer referencia a los permisos del resto de usuarios.</para>
+          <para>Adem&aacute;s utilizaremos "<emphasis>=</emphasis>" para establecer unos permisos en concreto, "<emphasis>+</emphasis>" para a&ntilde;adir permisos a los ya existentes y "<emphasis>-</emphasis>" para quitar permisos:</para>
+<screen>
+<prompt>[jose@sal]$ </prompt><userinput>ls -l evms.xml</userinput>
+<computeroutput>-rw-r--r-x 1 jose jose 70992 2007-04-09 00:21 evms.xml</computeroutput>
+<prompt>[jose@sal]$ </prompt><userinput>chmod u=rwx,g+w,o-x evms.xml</userinput>
+<prompt>[jose@sal]$ </prompt><userinput>ls -l evms.xml</userinput>
+<computeroutput>-rwxrw-r-- 1 jose jose 70992 2007-04-09 00:21 evms.xml</computeroutput>
+<prompt>[jose@sal]$ </prompt>
+</screen>
+        <tip><para>Si utilizamos el flag <emphasis>-v</emphasis> nos informa del resultado.</para></tip>
+        </sect3>
+        <sect3>
+          <title>Cambiar permisos en octal</title>
+          <para>El m&eacute;todo anterior es muy intuitivo, pero engorroso. Es posible utilizar notaci&oacute;n octal para establecer los permisos. Al principio cuesta acostumbrarse, pero al poco tiempo es m&aacute;s intuitivo que el m&eacute;todo anterior.</para>
+          <para>Se utiliza notaci&oacute;n octal porque con tres digitos en binario se pueden representar ocho n&uacute;meros diferentes.</para>
+          <para>Para poner los permisos en octal se pone a uno el permiso a establecer y a cero el que no se quiere conceder:</para>
+    <table>
+      <title>Permisos en octal</title>
+      <tgroup cols="4">
+	<thead>
+	  <row>
+	    <entry></entry>
+	    <entry align="center">Propietario</entry>
+	    <entry align="center">Grupo</entry>
+	    <entry align="center">Resto</entry>
+	  </row>
+	</thead>
+        <tbody>
+          <row>
+            <entry align="center">Permisos</entry>
+            <entry align="center">rwx</entry>
+	    <entry align="center">rwx</entry>
+	    <entry align="center">rwx</entry>
+          </row>
+          <row>
+            <entry align="center">Binario</entry>
+            <entry align="center">111</entry>
+	    <entry align="center">101</entry>
+	    <entry align="center">100</entry>
+          </row>
+          <row>
+            <entry align="center">Octal</entry>
+            <entry align="center">7</entry>
+	    <entry align="center">5</entry>
+	    <entry align="center">4</entry>
+         </row>
+       </tbody>
+    </tgroup>
+  </table>
+        <para>Para establecer estos permisos en octal:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>chmod 754 admlinux.xml</userinput>
+<prompt>[root@sal]# </prompt>
+</screen>
+        </sect3>
+      </sect2>
+     <sect2>
+          <title>Permisos por defecto</title>
+          <para>Cuando creamos un fichero se crea con unos permisos por defecto. Estos permisos est&aacute;n especificados por el <emphasis>umask</emphasis>:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>umask</userinput>
+<computeroutput>0022</computeroutput>
+<prompt>[root@sal]# </prompt><userinput>umask -S</userinput>
+<computeroutput>u=rwx,g=rx,o=rx</computeroutput>
+<prompt>[root@sal]# </prompt>
+</screen>
+        <para>Para determinar la m&aacute;scara a utilizar se hace al contrario que con los permisos, es decir se pone a uno los permisos que se quieren quitar:</para>
+    <table>
+      <title>M&aacute;scara en octal</title>
+      <tgroup cols="4">
+	<thead>
+	  <row>
+	    <entry></entry>
+	    <entry align="center">Propietario</entry>
+	    <entry align="center">Grupo</entry>
+	    <entry align="center">Resto</entry>
+	  </row>
+	</thead>
+        <tbody>
+          <row>
+            <entry align="center">Permisos</entry>
+            <entry align="center">rwx</entry>
+	    <entry align="center">rwx</entry>
+	    <entry align="center">rwx</entry>
+          </row>
+          <row>
+            <entry align="center">Binario</entry>
+            <entry align="center">000</entry>
+	    <entry align="center">010</entry>
+	    <entry align="center">110</entry>
+          </row>
+          <row>
+            <entry align="center">Octal</entry>
+            <entry align="center">0</entry>
+	    <entry align="center">2</entry>
+	    <entry align="center">6</entry>
+         </row>
+       </tbody>
+    </tgroup>
+  </table>
+        <para>Para establecer la m&aacute;scara:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>umask 026</userinput>
+<prompt>[root@sal]# </prompt><userinput>umask -S</userinput>
+<computeroutput>0026</computeroutput>
+<prompt>[root@sal]# </prompt>
+</screen>
+        </sect2>
+    </sect1>
+    <sect1>
+      <title>El comando <command>su</command></title>
+      <para>Este comando nos permite ejecutar una shell como otro usuario en la sesi&oacute;n activa. Es decir, nos permite asumir la identidad de otro usuario (si conocemos su password claro):</para>
+<screen>
+<prompt>[pcm@sal]$ </prompt><userinput>whoami</userinput>
+<computeroutput>pcm</computeroutput>
+<prompt>[pcm@sal]$ </prompt><userinput>su -</userinput>
+<computeroutput>Password: <userinput>********</userinput></computeroutput>
+<prompt>[root@sal]# </prompt><userinput>whoami</userinput>
+<computeroutput>root</computeroutput>
+<prompt>[root@sal]# </prompt><userinput>pwd</userinput>
+<computeroutput>/root</computeroutput>
+<prompt>[root@sal]# </prompt>
+</screen>
+    <para>Para terminar la sesi&oacute;n bastar&aacute;a con presionar <emphasis>Ctrl + D</emphasis> (fin de fichero) o tecleando <command>exit</command>.</para>
+    <important><para>En caso de no indicar ning&uacute;n usuario con el comando <command>su</command> se supone que se est&aacute; intentando asumir la identidad del <emphasis>root</emphasis>.</para></important>
+    <important><para>La diferencia entre utilizar <command>su - usuario</command> y <command>su usuario</command> es que cuando se utiliza <command>su -</command> se hace login de la misma forma que si se logear&aacute; en la consola, cargando todos los ficheros de configuraci&oacute;n de su perfil.</para></important>
+    <tip><para>Es posible ejecutar comandos como si fueramos otro usuario utilizando <command>su</command>:</para>
+<screen>
+<prompt>[pcm@sal]$ </prompt><userinput>su lila -c ''rm -Rf /home/lila''</userinput>
+<computeroutput>Password: <userinput>********</userinput></computeroutput>
+<prompt>[pcm@sal]$ </prompt>
+</screen>
+</tip>
+    </sect1>
+    <sect1>
+      <title>El permiso <emphasis>SUID</emphasis></title>
+      <para>Hay veces que es necesario que un programa se ejecute con los privilegios de su propietario en lugar de con los privilegios del usuario que lo ejecuta. <emphasis>SUID</emphasis> es un acr&oacute;nomio de <emphasis>S</emphasis>et <emphasis>U</emphasis>ser <emphasis>ID</emphasis>.</para>
+      <para>Un ejemplo es el comando <command>passwd</command>, el cual necesita tener privilegios de <emphasis>root</emphasis> ya que tiene que acceder a los ficheros <filename>/etc/passwd</filename> o <filename>/etc/shadow</filename> en modo escritura y s&oacute;lo el <emphasis>root</emphasis> puede hacerlo. Si deseamos que un usuario pueda cambiar su password es necesario que este comando se ejecute con los privilegios de su propietario.</para>
+<screen>
+<prompt>[pcm@sal]$ </prompt><userinput>ls -lh /usr/bin/passwd</userinput>
+<computeroutput>-rwsr-xr-x 1 root root 28K 2007-02-27 08:53 /usr/bin/passwd</computeroutput>
+<prompt>[pcm@sal]$ </prompt>
+</screen>
+      <para>Si observamos la salida anterior veremos algo que nos llama la atenci&oacute;n. En lugar de tener una "<emphasis>x</emphasis>" en el permiso de ejecuci&oacute;n del propietario tenemos una "<emphasis>s</emphasis>" lo cual nos indica que este programa se ejecutar&aacute; con los privilegios de su propietario en lugar de con los del usuario que lo est&aacute; ejecutando.</para>
+      <warning><para>Estos programas constituyen un peligro potencial en un sistema ya que si se hace un mal uso de ellos y el propietario tiene privilegios, <emphasis>root</emphasis>, el que lo ejecuta podr&aacute; hacer en el sistema todo lo que el propietario del programa tenga permitido.</para></warning>
+      <sect2>
+        <title>Activaci&oacute;n del permiso <emphasis>SUID</emphasis></title>
+        <para>Como hemos visto cuando establecemos los permisos en octal utilizamos una terna de n&uacute;meros. Para los permisos especiales utilizaremos cuatro n&uacute;meros. El primero de ellos har&aacute; referencia al permiso especial y los otros tres a los permisos normales.</para>
+        <para>El <emphasis>SUID</emphasis> es el bit m&aacute;s significativo de los tres bits utilzados para los permisos especiales, con lo cual si hacemos:</para>
+<screen>
+<prompt>[pcm@sal]$ </prompt><userinput>chmod 4755 miprograma</userinput>
+<prompt>[pcm@sal]$ </prompt>
+</screen>
+      <para>Estaremos activando el permiso <emphasis>SUID</emphasis> y estableciendo los permisos <emphasis>755</emphasis> al ejecutable <command>miprograma</command>.</para>
+      <important><para>Este permiso funciona s&oacute;lo con binarios y no con scripts (excepto con los de PERL).</para></important>
+      </sect2>      
+      <sect2>
+        <title>El permiso <emphasis>SUID</emphasis> y los directorios</title>
+        <para>Este permiso no tiene efecto en los directorios.</para>
+      </sect2>      
+    </sect1>
+    <sect1>
+      <title>El permiso <emphasis>SGID</emphasis></title>
+      <para>Este permiso es igual que el <emphasis>SUID</emphasis> s&oacute;lo que en lugar de ejecutar un fichero con los privilegios del propietario se har&aacute; con los privilegios del grupo al que pertenezca el fichero. <emphasis>SGID</emphasis> es el acr&oacute;nimo de <emphasis>S</emphasis>et <emphasis>G</emphasis>roup <emphasis>I</emphasis>D.</para>
+<screen>
+<prompt>[pcm@sal]$ </prompt><userinput>ls -lh /usr/bin/wall</userinput>
+<computeroutput>-rwxr-sr-x 1 root tty 11K 2007-02-21 18:48 /usr/bin/wall</computeroutput>
+<prompt>[pcm@sal]$ </prompt>
+</screen>
+      <para>En este caso vemos que el permiso de ejecuci&oacute;n para el grupo est&aacute; marcado con una "<emphasis>s</emphasis>" en lugar de con una "<emphasis>x</emphasis>". Esto nos indica que tiene activado el permiso <emphasis>SGID</emphasis>.</para>
+      <para>Podemos ver que el fichero pertenece al usuario <emphasis>root</emphasis> y al grupo <emphasis>tty</emphasis>. Cuando un usuario ejecute el comando <command>/user/bin/wall</command> lo ejecutar&aacute; con sus privilegios de usuario y con los del grupo <emphasis>tty</emphasis>.</para>
+      <sect2>
+        <title>Activaci&oacute;n del permiso <emphasis>SGID</emphasis></title>
+        <para>Como hemos visto cuando establecemos los permisos en octal utilizamos una terna de n&uacute;meros. Para los permisos especiales utilizaremos cuatro n&uacute;meros. El primero de ellos har&aacute; referencia al permiso especial y los otros tres a los permisos normales.</para>
+        <para>El <emphasis>SGID</emphasis> es el segundo bit m&aacute;s significativo de los tres bits utilzados para los permisos especiales, con lo cual si hacemos:</para>
+<screen>
+<prompt>[pcm@sal]$ </prompt><userinput>chmod 2755 miprograma</userinput>
+<prompt>[pcm@sal]$ </prompt>
+</screen>
+      <para>Estaremos activando el permiso <emphasis>SGID</emphasis> y estableciendo los permisos <emphasis>755</emphasis> al ejecutable <command>miprograma</command>.</para>
+      <important><para>Este permiso funciona s&oacute;lo con binarios y no con scripts (excepto con los de PERL).</para></important>        
+      </sect2>      
+      <sect2>
+        <title>El permiso <emphasis>SGID</emphasis> y los directorios</title>
+        <para>Cuando un directorio tiene activado este permiso todos los ficheros que se creen en el pertenecer&aacute;n al grupo del propietario sin importar cual sea el grupo del usuario que cree el directorio.</para>
+        <tip><para>Este permiso es de gran utilidad cuando se trabaja en directorios compartidos.</para></tip>
+      </sect2>      
+    </sect1>
+    <sect1>
+      <title>El <emphasis>Sticky Bit</emphasis></title>
+      <para>El <emphasis>Sticky Bit</emphasis> es el bit menos significativo de los bits que se utilizan para los permisos especiales. Este permiso tambi&eacute;n es conocido como <emphasis>bit pegajoso</emphasis> o <emphasis>bit de adhesi&oacute;n</emphasis>.</para>
+      <para>Cuando este bit est&aacute; activado el programa que lo tiene activado se queda en memoria incluso despu&eacute;s de terminar su ejecuci&oacute;n. Esto har&aacute; que se ejecute m&aacute;s r&aacute;pido a costa de un mayor consumo de memoria.</para>
+      <warning><para>Un mal uso de este permiso puede saturar el consumo de memoria del equipo.</para></warning>
+<screen>
+<prompt>[pcm@sal]$ </prompt><userinput>ls -lh html</userinput>
+<computeroutput>drwxr-xr-t 2 pcm pcm 4,0K 2007-04-10 10:09 html</computeroutput>
+<prompt>[pcm@sal]$ </prompt>
+</screen>
+      <para>El permiso de ejecuci&oacute;n est&aacute; con "<emphasis>t</emphasis>" en lugar de con "<emphasis>x</emphasis>". Esto nos indica que tiene activado el <emphasis>Sticky Bit</emphasis>.</para>
+      <sect2>
+        <title>Activaci&oacute;n del <emphasis>Sticky Bit</emphasis></title>
+        <para>Como hemos visto cuando establecemos los permisos en octal utilizamos una terna de n&uacute;meros. Para los permisos especiales utilizaremos cuatro n&uacute;meros. El primero de ellos har&aacute; referencia al permiso especial y los otros tres a los permisos normales.</para>
+        <para>El <emphasis>Sticky Bit</emphasis> es el bit menos significativo de los tres bits utilzados para los permisos especiales, con lo cual si hacemos:</para>
+<screen>
+<prompt>[pcm@sal]$ </prompt><userinput>chmod 1755 miprograma</userinput>
+<prompt>[pcm@sal]$ </prompt>
+</screen>
+      <para>Estaremos activando el <emphasis>Sticky Bit</emphasis> y estableciendo los permisos <emphasis>755</emphasis> al ejecutable <command>miprograma</command>.</para>
+      </sect2>      
+      <sect2>
+        <title>El <emphasis>Sticky Bit</emphasis> y los directorios</title>
+        <para>El <emphasis>Sticky Bit</emphasis> se utiliza sobre los directorios para tener una mayor seguridad sobre los ficheros contenidos en &eacute;l.</para>
+        <para>Cuando un directorio tiene activado este permiso no importan los permisos que tengan los ficheros en el contenidos. S&oacute;lo el propietario del fichero y el <emphasis>root</emphasis> podr&aacute;n borrar ficheros.</para>
+        <para>Este permiso permite que todos los usuarios con acceso a un directorio puedan modificar el contenido de los ficheros pero que no puedan borrarlos a menos que sean su propietario.</para>
+      </sect2>
+    </sect1>
+  </chapter>

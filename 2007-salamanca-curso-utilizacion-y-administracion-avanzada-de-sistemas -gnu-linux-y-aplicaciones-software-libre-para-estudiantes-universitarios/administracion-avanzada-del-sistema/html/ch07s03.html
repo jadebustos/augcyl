@@ -1,0 +1,102 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Configuración de parámetros del núcleo</title><meta name="generator" content="DocBook XSL Stylesheets V1.71.0"><link rel="start" href="index.html" title="Utilización y Administración avanzada de sistemas GNU/Linux y aplicaciones Software Libre para estudiantes universitarios"><link rel="up" href="ch07.html" title="Capítulo 7. Núcleo de Linux"><link rel="prev" href="ch07s02.html" title="Configurando un nuevo núcleo"><link rel="next" href="ch08.html" title="Capítulo 8. Usuarios y permisos en GNU/Linux"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Configuración de parámetros del núcleo</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch07s02.html">Anterior</a> </td><th width="60%" align="center">Capítulo 7. Núcleo de Linux</th><td width="20%" align="right"> <a accesskey="n" href="ch08.html">Siguiente</a></td></tr></table><hr></div><div class="sect1" lang="es"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2563870"></a>Configuración de parámetros del núcleo</h2></div></div></div><p>El comando <span><strong class="command">sysctl</strong></span> nos permite parametrizar parámetros del núcleo. No hace falta decir que son aquellos con los que fue compilado el núcleo.</p><p>Toda la configuración se hace a través del fichero <code class="filename">/etc/sysctl.conf</code>:</p><pre class="programlisting">
+# Kernel sysctl configuration file
+#
+# For binary values, 0 is disabled, 1 is enabled.  See sysctl(8) and
+# sysctl.conf(5) for more details.
+
+# Controls IP packet forwarding
+net.ipv4.ip_forward = 0
+
+# Controls source route verification
+net.ipv4.conf.default.rp_filter = 1
+
+# Do not accept source routing
+net.ipv4.conf.default.accept_source_route = 0
+
+# Controls the System Request debugging functionality of the kernel
+kernel.sysrq = 0
+
+# Controls whether core dumps will append the PID to the core filename.
+# Useful for debugging multi-threaded applications.
+kernel.core_uses_pid = 1
+
+net.ipv4.tcp_syncookies = 1
+net.ipv4.tcp_fin_timeout = 60
+net.ipv4.tcp_keepalive_time = 1800
+net.ipv4.conf.all.accept_redirects = 0
+net.ipv4.conf.all.send_redirects = 0
+net.ipv4.conf.all.accept_source_route = 0
+net.ipv4.conf.all.forwarding = 0
+net.ipv4.conf.all.rp_filter = 1
+net.ipv4.icmp_ignore_bogus_error_responses = 1
+</pre><p>Esta configuración se activará en el arranque de la máquina o bien podemos modificar el fichero y:</p><pre class="screen">
+<code class="prompt">[root@sal]# </code><strong class="userinput"><code>sysctl -p</code></strong>
+<code class="computeroutput">net.ipv4.ip_forward = 0
+net.ipv4.conf.default.rp_filter = 1
+net.ipv4.conf.default.accept_source_route = 0
+kernel.sysrq = 0
+kernel.core_uses_pid = 1
+net.ipv4.tcp_syncookies = 1
+net.ipv4.tcp_fin_timeout = 60
+net.ipv4.tcp_keepalive_time = 1800
+net.ipv4.conf.all.accept_redirects = 0
+net.ipv4.conf.all.send_redirects = 0
+net.ipv4.conf.all.accept_source_route = 0
+net.ipv4.conf.all.forwarding = 0
+net.ipv4.conf.all.rp_filter = 1
+net.ipv4.icmp_ignore_bogus_error_responses = 1</code>
+<code class="prompt">[root@sal]# </code>
+</pre><div class="sect2" lang="es"><div class="titlepage"><div><div><h3 class="title"><a name="id2563959"></a>Modificación de los parámetros</h3></div></div></div><p>Como ya hemos visto lo podemos hacer modificando el fichero de configuración <code class="filename">/etc/sysctl.conf</code> y ejecutando después <span><strong class="command">sysctl -p</strong></span>.</p><p>También es posible modificar estos parámetros directamente en el sistema de ficheros <code class="filename">/proc/</code>.</p><p>Todos los parámetros que podemos configurar los encontraremos en <code class="filename">/proc/sys/</code>.</p><div class="important" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Importante</h3><p>Para algunas familias de dispositivos podemos establecer configuraciones por defecto, para todos, o por dispositivo individual. Por ejemplo para los dispositivos de red lo podemos hacer en <span class="emphasis"><em>/proc/sys/net/ipv4/conf/default/</em></span>, <span class="emphasis"><em>/proc/sys/net/ipv4/conf/all/eth?/</em></span>, <span class="emphasis"><em>/proc/sys/net/ipv4/conf/lo/</em></span>, ...</p></div><p>Por ejemplo el parámetro <span class="emphasis"><em>net.ipv4.ip_forward</em></span> lo encontraremos en <code class="filename">/proc/sys/net/ipv4/ip_forward</code>. Para modificar este parámetro:</p><pre class="screen">
+<code class="prompt">[root@sal]# </code><strong class="userinput"><code>echo 0 &gt; /proc/sys/net/ipv4/ip_forward</code></strong>
+<code class="prompt">[root@sal]# </code>
+</pre><p>El inconveniente de este método es que al reiniciar la máquina esta configuración se pierde.</p><p>Por lo tanto será necesario ejecutar los <span class="emphasis"><em>echoes</em></span> y habrá que incluirlos en los ficheros de arranque.</p><p>El uso de <span class="emphasis"><em>echoes</em></span> es una mala practica de administración y debe evitarse y usarse en su lugar el fichero <code class="filename">/etc/sysctl.conf</code>.</p></div><div class="sect2" lang="es"><div class="titlepage"><div><div><h3 class="title"><a name="id2564090"></a>Parámetros configurables</h3></div></div></div><p>Los parámetros que podremos configurar son aquellos que se hayan seleccionado en la configuración del núcleo que se está usando.</p><p>Podemos comprobar los parámetros que podemos configurar:</p><pre class="screen">
+<code class="prompt">[root@sal]# </code><strong class="userinput"><code>sysctl -A</code></strong>
+<code class="computeroutput">
+sunrpc.tcp_slot_table_entries = 16
+sunrpc.udp_slot_table_entries = 16
+sunrpc.max_resvport = 1023
+sunrpc.min_resvport = 650
+sunrpc.nlm_debug = 0
+sunrpc.nfsd_debug = 0
+sunrpc.nfs_debug = 0
+sunrpc.rpc_debug = 0
+abi.vsyscall32 = 1
+dev.scsi.logging_level = 0
+dev.raid.speed_limit_max = 200000
+dev.raid.speed_limit_min = 1000
+dev.cdrom.check_media = 0
+dev.cdrom.lock = 1
+dev.cdrom.debug = 0
+dev.cdrom.autoeject = 0
+dev.cdrom.autoclose = 1
+dev.cdrom.info = CD-ROM information, Id: cdrom.c 3.20 2003/12/17
+dev.cdrom.info =
+dev.cdrom.info = drive name:            sr0
+dev.cdrom.info = drive speed:           24
+dev.cdrom.info = drive # of slots:      1
+dev.cdrom.info = Can close tray:                1
+dev.cdrom.info = Can open tray:         1
+dev.cdrom.info = Can lock tray:         1
+dev.cdrom.info = Can change speed:      1
+dev.cdrom.info = Can select disk:       0
+dev.cdrom.info = Can read multisession: 0
+dev.cdrom.info = Can read MCN:          1
+dev.cdrom.info = Reports media changed: 1
+dev.cdrom.info = Can play audio:                1
+dev.cdrom.info = Can write CD-R:                0
+dev.cdrom.info = Can write CD-RW:       0
+dev.cdrom.info = Can read DVD:          1
+dev.cdrom.info = Can write DVD-R:       0
+dev.cdrom.info = Can write DVD-RAM:     0
+dev.cdrom.info = Can read MRW:          1
+dev.cdrom.info = Can write MRW:         1
+dev.cdrom.info = Can write RAM:         1
+dev.cdrom.info =
+dev.cdrom.info =
+dev.rtc.max-user-freq = 64
+debug.exception-trace = 1
+net.ipv6.conf.default.max_addresses = 16
+net.ipv6.conf.default.max_desync_factor = 600
+net.ipv6.conf.default.regen_max_retry = 5
+...</code>
+</pre></div><div class="sect2" lang="es"><div class="titlepage"><div><div><h3 class="title"><a name="id2564155"></a>Algunos parámetros útiles</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li><p><span class="emphasis"><em>net.ipv4.tcp_syncookies = 1</em></span> proteje contra los ataques <span class="emphasis"><em>Sync packet flooding</em></span> pero no es conforme a los estándares marcados por los RFCs.</p><div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Aviso</h3><p>Puede tener impacto en el rendimiento de servidores sobrecargados.</p></div><div class="important" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Importante</h3><p><span class="emphasis"><em>Sync packet flooding</em></span> es una ataque de denegación de servicio. Cuando se va a establecer una conexión TCP un host manda un paquete <span class="emphasis"><em>SYNC</em></span> a lo que el otro host responde con un paquete <span class="emphasis"><em>ACK</em></span>. Si el host atacante empieza a mandar de forma indiscriminada paquetes <span class="emphasis"><em>SYNC</em></span> con la cabecera falseada con una IP de origen falsa el host atacado mandará sus <span class="emphasis"><em>ACK</em></span> o bien a ningún host o a un host que no es el que está intentando establecer la comunicación. Dependiendo de la implementación de la pila TCP de ese host tratará el paquete <span class="emphasis"><em>ACK</em></span> de una forma u otra.</p><p>El host atacado llegará un momento en el que no pueda atender más conexiones.</p><p>Otra forma de prevenir estos ataques es ampliando el tamaño de las colas en las que se almacena la informació referente a las peticiones de conexión: <span class="emphasis"><em>net.ipv4.tcp_max_syn_backlog</em></span>.</p></div></li><li><p><span class="emphasis"><em>net.ipv4.tcp_max_sync_backlog = XXX</em></span> por defecto suele estar a 1024 y estable el tamaño de la cola donde se guarda la información referente a las peticiones de conexión.</p></li><li><p><span class="emphasis"><em>net.ipv4.tcp_fin_timeout = 60</em></span> cierra los sockets ináctivos, no se recivió paquete <span class="emphasis"><em>FIN</em></span>, después de 60 segundos.</p></li><li><p><span class="emphasis"><em>net.ipv4.tcp_keepalive_time = 1800</em></span> segundos después de un proceso de inactividad tras los cuales se intenta verificar si el cliente sigue vivo.</p></li><li><p><span class="emphasis"><em>net.ipv4.conf.all.accept_redirects = 0</em></span> no se aceptan redirecciones ICMP para evitar ataques <span class="emphasis"><em>Man in the middle</em></span>.</p><div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Aviso</h3><p>Mediante el uso del protocolo <span class="emphasis"><em>ICMP</em></span> es posible modificar los gateways definidos estáticamente en la máquina.</p></div></li><li><p><span class="emphasis"><em>net.ipv4.conf.all.send_redirects = 0</em></span> evita que la máquina mande paquetes <span class="emphasis"><em>ICMP</em></span> con redirecciones.</p></li><li><p><span class="emphasis"><em>net.ipv4.conf.all.accept_source_route = 0</em></span> se evita que TCP tenga control para decidir sobre la determinación de la ruta de los paquetes.</p></li><li><p><span class="emphasis"><em>net.ipv4.conf.all.rp_filter = x</em></span> protección contra ataques de spoofing.</p><p><span class="emphasis"><em>x</em></span> puede tomar los valores:</p><div class="itemizedlist"><ul type="circle"><li><p><span class="emphasis"><em>0</em></span> no realiza comprobaciones.</p></li><li><p><span class="emphasis"><em>1</em></span> rechazar suplantaciones evidentes.</p></li><li><p><span class="emphasis"><em>2</em></span> comprobación exahustiva.</p></li></ul></div></li><li><p><span class="emphasis"><em>net.ipv4.ip_forward = 0</em></span> deshabilitar el reenvio de paquetes.</p><div class="important" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Importante</h3><p>Esta opción suele estar con un valor distinto de cero en máquinas que hacen enrutado entre diferentes redes.</p></div></li><li><p><span class="emphasis"><em>net.ipv4.icmp_ignore_bogus_error_responses = 1</em></span> activa la protección ante mensajes de error malformados.</p></li><li><p><span class="emphasis"><em>net.ipv4.icmp_echo_ignore_broadcast = 1</em></span> desactivar la respuestas a las peticiones de broadcast de echo ICMP.</p></li><li><p><span class="emphasis"><em>net.ipv4.icmp_echo_ignore_all = 1</em></span> desactivació de la respuesta a ping.</p></li><li><p><span class="emphasis"><em>kernel.panic = n</em></span> después de un <span class="emphasis"><em>kernel panic</em></span> espera <span class="emphasis"><em>n</em></span> segundos para reinciar el sistema.</p></li><li><p><span class="emphasis"><em>kernel.sysrq = 1</em></span> activa <span class="emphasis"><em>SYSRQ</em></span>.</p><p><span class="emphasis"><em>SYSRQ</em></span> es una característica del núcleo que permite pasarle instrucciones con fines de depuración.</p><div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Sugerencia</h3><p>Con el <span class="emphasis"><em>SYSRQ</em></span> activado si se presionan las teclas <span class="emphasis"><em>AltGr+PetSis+t</em></span>, <span class="emphasis"><em>AltGr+PetSis+m</em></span> y <span class="emphasis"><em>AltGr+PetSis+p</em></span> se escribirán en los logs el estado de los procesos, memoria y CPU.</p></div></li></ul></div><div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Sugerencia</h3><p>En la documentación del núcleo podemos encontrar toda la información sobre <span class="emphasis"><em>sysctl</em></span> en <code class="filename">Documentacion/networking/ip-sysctl.txt</code>.</p></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch07s02.html">Anterior</a> </td><td width="20%" align="center"><a accesskey="u" href="ch07.html">Subir</a></td><td width="40%" align="right"> <a accesskey="n" href="ch08.html">Siguiente</a></td></tr><tr><td width="40%" align="left" valign="top">Configurando un nuevo núcleo </td><td width="20%" align="center"><a accesskey="h" href="index.html">Inicio</a></td><td width="40%" align="right" valign="top"> Capítulo 8. Usuarios y permisos en GNU/Linux</td></tr></table></div></body></html>

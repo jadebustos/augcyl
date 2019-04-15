@@ -1,0 +1,238 @@
+  <chapter>
+    <title>Arquitectura de Clustering</title>
+    <para>El prop&oacute;sito de un cluster es:</para>
+    <itemizedlist>
+      <listitem>
+        <para>Redundancia frente a fallos (alta disponibilidad).</para>
+      </listitem>
+      <listitem>
+        <para>Aumento de potencia (escalabilidad).</para>
+      </listitem>
+    </itemizedlist>
+    <para>Estos prop&oacute;sitos no son excluyentes.</para> 
+      <important>
+      <para>A la hora de escoger que tipo de cluster se va a utilizar hay que tener en cuenta las caracter&iacute;sticas que nos ofrece cada tipo y cual es el que mas encaja en nuestro entorno.</para>
+       </important>
+    <sect1>
+      <title>Alta disponibilidad</title>
+      <para>Alta disponibilidad es la capacidad para ofrecer un servicio cuando el servidor que lo ofrece deja de funcionar.</para>
+
+      <para>La alta disponibilidad es ofrecida por todos los tipos de cluster.</para>
+
+      <para>Garantizar la alta disponibilidad requiere:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Una correcta configuraci&oacute;n del cluster.</para>
+        </listitem>
+        <listitem>
+          <para>Redundancia de hardware (red, almacenamiento, fuentes de alimentaci&oacute;n, ...).</para>
+        </listitem>
+        <listitem>
+          <para>Redundancia del sistema el&eacute;ctrico.</para>
+        </listitem>
+        <listitem>
+          <para>SAIs.</para>
+        </listitem>
+        <listitem>
+          <para>Nodos en diferentes CPDs.</para>
+        </listitem>
+      </itemizedlist>
+
+      <sect2>
+        <title>Los famosos 9s</title>
+        <para>La disponibilidad de los sistemas se clasifica con la regla de los 9s:</para>
+
+    <table>
+      <title>Disponibilidad</title>
+      <tgroup cols="2">
+	<thead>
+	  <row>
+	    <entry>Disponibilidad del servicio</entry>
+	    <entry>Tiempo de caida</entry>
+	  </row>
+	</thead>
+        <tbody>
+          <row>
+	    <entry align="center">99 %</entry>
+	    <entry align="center">3,7 d&iacute;as</entry>
+          </row>
+          <row>
+	    <entry align="center">99,9 %</entry>
+	    <entry align="center">8,8 horas</entry>
+          </row>
+          <row>
+	    <entry align="center">99,99 %</entry>
+	    <entry align="center">52,7 minutos</entry>
+         </row>
+          <row>
+	    <entry align="center">99,999 %</entry>
+	    <entry align="center">5,3 minutos</entry>
+         </row>
+          <row>
+	    <entry align="center">99,9999 %</entry>
+	    <entry align="center">31,5 segundos</entry>
+         </row>
+       </tbody>
+    </tgroup>
+  </table>
+      </sect2>
+      <sect2>
+        <title>Bonding</title>
+        <para><emphasis>Bonding</emphasis> es una t&eacute;nica utilizada en GNU/Linux para utilizar dos tarjetas de red como si fueran una.</para>
+        <important><para>Es necesario que el n&uacute;cleo est&eacute; configurado para ello.</para></important>
+        <important><para>Los dispositivos de networking tienen que soportarlo.</para></important>
+      </sect2>
+      <sect2>
+        <title>Almacenamiento</title>
+        <para>Los datos son cr&iacute;ticos ya que sin ellos no se puede ofrecer  el servicio. Existen dos t&eacute;cnicas para garantizar la alta disponibilidad en los sistemas de almacenamiento:</para>
+        <itemizedlist>
+          <listitem>
+            <para>Sistemas de almacenamiento externo.</para>
+            <para>Ventajas:</para>
+            <itemizedlist>
+              <listitem>
+                <para>Altamente escalable.</para>
+              </listitem>
+              <listitem>
+                <para>Rapidez, hasta 4 Gb/s.</para>
+              </listitem>
+            </itemizedlist>
+            <para>Inconvenientes:</para>
+            <itemizedlist>
+              <listitem>
+                <para>Precio.</para>
+              </listitem>
+              <listitem>
+                <para>Requiere personal especializado.</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+          <listitem>
+            <para>Replicaci&oacute;n de datos:</para>
+            <para>Ventajas:</para>
+            <itemizedlist>
+              <listitem>
+                <para>Barato.</para>
+              </listitem>
+            </itemizedlist>
+            <para>Inconvenientes:</para>
+            <itemizedlist>
+              <listitem>
+                <para>Poco escalable.</para>
+              </listitem>
+              <listitem>
+                <para>"Lentitud".</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+        </itemizedlist>
+        <para>La replicaci&oacute;n de datos se puede hacer utilizando <ulink url="http://slony.info/">slony</ulink>.</para>
+        <important><para><emphasis>MySQL</emphasis> utiliza <emphasis>NDB</emphasis> para la replicaci&oacute;n de datos.</para></important>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Escalabilidad</title>
+      <para>Escalabilidad es la capacidad de crecimiento que tiene un servicio frente a la demanda.</para>
+      <para>La escalabilidad s&oacute;lo es ofrecida por:</para>
+      <itemizedlist>
+	<listitem>
+          <para>High Performance Cluster.</para>
+	</listitem>
+	<listitem>
+          <para>Cluster Activo / Activo.</para>
+	</listitem>
+      </itemizedlist>
+      <para>La escalabilidad se logra incrementando el n&uacute;mero de nodos disponibles en el cluster.</para>
+      <important>
+        <para>En un cluster activo / pasivo el incrementar el n&uacute;mero de nodos disponibles en el cluster no incrementa la potencia del cluster ya que unicamente un nodo estar&aacute; ofreciendo el servicio.</para>
+
+    <mediaobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/cluster-clasico-2.pdf" format="EPS" scale="30"/>
+      </imageobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/cluster-clasico-2.jpg" format="JPG" scale="30"/>
+      </imageobject>
+	<caption>
+          <para>Escalabilidad de un cluster.</para>
+	</caption>
+    </mediaobject>
+
+      </important>
+    </sect1>
+    <sect1>
+      <title>Funcionamiento de un cluster</title>
+      <para>Un servicio de cluster consta de:</para>
+      <itemizedlist>
+	<listitem>
+          <para>Balanceador de carga.</para>
+	</listitem>
+	<listitem>
+          <para>Sistema para la detecci&oacute;n de fallos en los nodos del cluster.</para>
+	</listitem>
+	<listitem>
+          <para>Servicio a clusterizar.</para>
+	</listitem>
+	<listitem>
+          <para>Recursos del cluster.</para>
+	</listitem>
+	<listitem>
+          <para>Fencing.</para>
+	</listitem>
+      </itemizedlist>
+      <mediaobject>
+	<imageobject>
+	  <imagedata align="center" fileref="images/cluster-clasico.jpeg" format="JPG"/>
+	</imageobject>
+	<caption>
+          <para>Arquitectura b&aacute;sica de un cluster.</para>
+	</caption>
+      </mediaobject>
+      <sect2>
+	<title>Balanceador de carga</title>
+          <para>S&oacute;lo son necesarios en aquellas configuraciones que sean Activo / Activo y/o balanceo de carga.</para>
+	<para>La funci&oacute;n de los balanceadores, tambi&eacute;n conocidos como <emphasis>network dispatcher</emphasis> es redireccionar las peticiones a los servidores que las est&aacute;n atendiendo.</para>
+      </sect2>
+      <sect2>
+	<title>Sistema para la detecci&oacute;n de fallos en los nodos del cluster</title>
+          <para>Es necesario un sistema que detecte cuando existen nodos en el cluster que no est&aacute;n disponibles para ofrecer el servicio. En este caso no se enviar&aacute;n peticiones para ser atendidas si el cluster es Activo / Activo o no se balancear&aacute; el servicio sobre ellos si es Activo / Pasivo.</para>
+          <para>Para detectar esta situaci&oacute;n se utilizan dos t&eacute;cnicas:</para>
+	<orderedlist>
+	  <listitem>
+            <para>Heartbeat.</para>
+	  </listitem>
+	  <listitem>
+            <para>Disco de quorum.</para>
+	  </listitem>
+	</orderedlist>
+      </sect2>
+      <sect2>
+	<title>Servicio a clusterizar</title>
+          <para>Es el servicio que se quiere clusterizar.</para>
+      </sect2>
+      <sect2>
+	<title>Recursos del cluster</title>
+          <para>Son todos aquellos recursos necesarios para el servicio:</para>
+	<itemizedlist>
+	  <listitem>
+            <para>IP de servicio.</para>
+	  </listitem>
+	  <listitem>
+            <para>Filesystems.</para>
+	  </listitem>
+	  <listitem>
+            <para>Scripts para arrancar el servicio, ...</para>
+	  </listitem>
+	</itemizedlist>
+      </sect2>
+      <sect2>
+	<title>Fencing</title>
+          <para>Cuando un nodo falla y no es capaz de ofrecer el servicio es necesario disponer un medio para reiniciarlo y que libere los recursos que pudiera tener ocupados.</para>
+      </sect2>
+    </sect1>
+  </chapter>
+
+<!-- Local Variables: -->
+<!-- xml-parent-document: "clustering-ha.xml" -->
+<!-- End: -->

@@ -1,0 +1,281 @@
+  <chapter>
+    <title>Creaci&oacute;n de Gr&aacute;ficos</title>
+    <para></para>
+    <sect1>
+      <title>Gnuplot</title>
+      <para><emphasis>Gnuplot</emphasis> es una herramienta en l&iacute;nea de comando que funciona en varios sistemas operativos.</para>
+      <para>A pesar de su nombre <emphasis>Gnuplot</emphasis> no tiene nada que ver con el proyecto <emphasis>GNU</emphasis>. El nombre se eligi&oacute; para no tener problemas con otro software de representaciones gr&aacute;ficas llamado <emphasis>newplot</emphasis>.</para>
+      <para>En la p&aacute;gina del <ulink url='http://www.gnuplot.info'>proyecto</ulink> podemos encontrar toda la informaci&oacute;n necesaria.</para>
+      <sect2>
+        <title>Caracter&iacute;sticas</title>
+	<para><emphasis>Gnuplot</emphasis> permite realizar las siguientes tareas:</para>
+        <itemizedlist>
+          <listitem>
+            <para>Representaci&oacute;n gr&aacute;fica de funciones y datos.</para>
+          </listitem>
+          <listitem>
+            <para>Representaciones en 2D y 3D.</para>
+          </listitem>
+          <listitem>
+            <para>Representaciones en coordenadas cartesianas, param&eacute;tricas, esf&eacute;ricas y polares.</para>
+          </listitem>
+          <listitem>
+            <para>Exportaci&oacute;n de los gr&aacute;ficos a los formatos m&aacute;s populares como <emphasis>png</emphasis> , <emphasis>jpg</emphasis>, <emphasis>svg</emphasis>, <emphasis>...</emphasis></para>
+          </listitem>
+          <listitem>
+            <para>Creaci&oacute;n de scripts.</para>
+          </listitem>
+          <listitem>
+            <para>Creaci&oacute;n de animaciones.</para>
+          </listitem>
+          <listitem>
+            <para>Inclusi&oacute;n de multiples gr&aacute;ficas en un s&oacute;lo gr&aacute;fico.</para>
+          </listitem>
+          <listitem>
+            <para>Inclusi&oacute;n de multiples gr&aacute;ficas en una pantalla.</para>
+          </listitem>
+        </itemizedlist>
+      </sect2>
+      <sect2>
+        <title>Representaciones en coordenadas cartesianas, param&eacute;tricas esf&eacute;ricas y polares</title>
+<screen>
+<prompt>[jadebustos@dedalo ~]$ </prompt><userinput>gnuplot</userinput>
+<computeroutput>
+
+        G N U P L O T
+        Version 4.0 patchlevel 0
+        last modified Thu Apr 15 14:44:22 CEST 2004
+        System: Linux 2.6.17.8
+
+        Copyright (C) 1986 - 1993, 1998, 2004
+        Thomas Williams, Colin Kelley and many others
+
+        This is gnuplot version 4.0.  Please refer to the documentation
+        for command syntax changes.  The old syntax will be accepted
+        throughout the 4.0 series, but all save files use the new syntax.
+
+        Type `help` to access the on-line reference manual.
+        The gnuplot FAQ is available from
+                http://www.gnuplot.info/faq/
+
+        Send comments and requests for help to
+                &lt;gnuplot-info@lists.sourceforge.net&gt;
+        Send bugs, suggestions and mods to
+                &lt;gnuplot-bugs@lists.sourceforge.net&gt;
+
+
+Terminal type set to 'x11'
+gnuplot&gt; set dummy u,v
+gnuplot&gt; set angles degrees
+gnuplot&gt; set parametric
+
+        dummy variable is t for curves, u/v for surfaces
+gnuplot&gt; set view 70, 40, 0.8, 1.2
+gnuplot&gt; set samples 32, 32
+gnuplot&gt; set isosamples 9, 9
+gnuplot&gt; set mapping spherical
+gnuplot&gt; set yzeroaxis linetype 0 linewidth 1.000
+gnuplot&gt; set ticslevel 0
+gnuplot&gt; set title "3D version using spherical coordinate system" 
+gnuplot&gt; set urange [ -90.0000 : 90.0000 ] noreverse nowriteback
+gnuplot&gt; set vrange [ 0.00000 : 360.000 ] noreverse nowriteback
+gnuplot&gt; splot cos(u)*cos(v),cos(u)*sin(v),sin(u) with lines lt 5 ,'world.dat' with lines lt 3 
+gnuplot&gt; 
+</computeroutput>
+</screen>
+    <mediaobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/gnuplot-spherical.pdf" format="EPS" scale="80"/>
+      </imageobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/gnuplot-spherical.jpg" format="JPG"/>
+      </imageobject>
+	<caption>
+          <para>Representaci&oacute;n del globo terraqueo con <emphasis>Gnuplot</emphasis>.</para>
+	</caption>
+    </mediaobject>
+      </sect2>
+      <sect2>
+        <title>Interfaces para <emphasis>Gnuplot</emphasis></title>
+        <sect3>
+          <title><emphasis>Xgfe</emphasis></title>
+          <para><emphasis>Xgfe</emphasis> es un interface gr&aacute;fico para <emphasis>Gnuplot</emphasis>.</para>
+          <para>Su desarrollo est&aacute; parado y en la p&aacute;gina del <ulink url="http://www.uni-koeln.de/rrzk/software/grafik/visualization/xgfe/xgfe.html">proyecto</ulink> podemos encontrar todo lo necesario sobre este programa.</para>
+    <mediaobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/xgfe.pdf" format="EPS"/>
+      </imageobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/xgfe.gif" format="GIF"/>
+      </imageobject>
+	<caption>
+          <para><emphasis>Xgfe</emphasis> interface gr&aacute;fico para <emphasis>Gnuplot</emphasis>.</para>
+	</caption>
+    </mediaobject>
+        </sect3>
+        <sect3>
+          <title><emphasis>UniGNUPlot</emphasis></title>
+          <para>Interface en <emphasis>Tcl/Tk</emphasis> para <emphasis>Gnuplot</emphasis>.</para>
+          <mediaobject>
+            <imageobject>
+	      <imagedata align="center" fileref="images/unignuplot-main.pdf" format="EPS" scale="80"/>
+            </imageobject>
+            <imageobject>
+	      <imagedata align="center" fileref="images/unignuplot-main.jpg" format="JPG"/>
+            </imageobject>
+	    <caption>
+              <para><emphasis>UniGNUPlot</emphasis> interface gr&aacute;fico para <emphasis>Gnuplot</emphasis>.</para>
+            </caption>
+          </mediaobject>
+          <mediaobject>
+            <imageobject>
+	      <imagedata align="center" fileref="images/unignuplot-graph.pdf" format="EPS" scale="80"/>
+            </imageobject>
+            <imageobject>
+	      <imagedata align="center" fileref="images/unignuplot-graph.jpg" format="JPG"/>
+            </imageobject>
+	    <caption>
+              <para>Gr&aacute;fica generada con <emphasis>UniGNUPlot</emphasis>.</para>
+            </caption>
+          </mediaobject>
+        </sect3>
+        <sect3>
+          <title><emphasis>tkgnuplot</emphasis></title>
+          <para>Interface en <emphasis>Tcl/Tk</emphasis> para <emphasis>Gnuplot</emphasis>.</para>
+        </sect3>
+        <sect3>
+          <title><emphasis>Chart::Graph::Gnuplot</emphasis></title>
+          <para>Interface en <emphasis>PERL</emphasis> para realizar gr&aacute;ficos con <emphasis>Gnuplot</emphasis>.</para>
+        </sect3>
+        <sect3>
+          <title>Gnuplot.py</title>
+          <para>Interface en <emphasis>Python</emphasis> para realizar gr&aacute;ficos con <emphasis>Gnuplot</emphasis>.</para>
+        </sect3>
+        <sect3>
+          <title>de.unidu.is.gnuplot</title>
+          <para>Interface en <emphasis>Java</emphasis> para realizar g&aacute;ficos con <emphasis>Gnuplot</emphasis>.</para>
+        </sect3>
+        <sect3>
+          <title>GNUplotFortran</title>
+          <para>Interface en <emphasis>Fortran 95</emphasis> para realizar gr&aacute;ficos con <emphasis>Gnuplot</emphasis>.</para>
+        </sect3>
+        <sect3>
+          <title>gnuplot-mode.el</title>
+          <para>Modo de <emphasis>emacs</emphasis> para facilitar la edici&oacute;n de scripts de <emphasis>gnuplot</emphasis>.</para>
+        </sect3>
+      </sect2>
+      <sect2>
+        <title>Recursos para <emphasis>Gnuplot</emphasis></title>
+        <itemizedlist>
+          <listitem>
+            <para><ulink url="http://www.gnuplot.info">Gnuplot</ulink>.</para>
+          </listitem>
+          <listitem>
+            <para><ulink url="https://sourceforge.net/projects/unicalculus/">UniGNUPlot</ulink>.</para>
+          </listitem>
+          <listitem>
+            <para><ulink url="http://ftp.arnes.si/pub/packages2/tcl/sorted/packages-7.6/graphics/tkgnuplot.1.09/">tkgnuplot</ulink>.</para>
+          </listitem>
+          <listitem>
+            <para><ulink url="http://search.cpan.org/~caidaperl/Chart-Graph-3.2/">Chart::Graph:Gnuplot</ulink>.</para>
+          </listitem>
+          <listitem>
+            <para><ulink url="http://gnuplot-py.sourceforge.net/">gnuplot.py</ulink>.</para>
+          </listitem>
+          <listitem>
+            <para><ulink url="http://www.is.informatik.uni-duisburg.de/projects/java-unidu/api/de/unidu/is/gnuplot/package-summary.html">Paquete Java de.unidu.is.gnuplot</ulink>.</para>
+          </listitem>
+          <listitem>
+            <para><ulink url="http://gnuplotfortran.sourceforge.net/>">GNUplotFortran</ulink>.</para>
+          </listitem>
+          <listitem>
+            <para><ulink url="http://www-128.ibm.com/developerworks/library/l-gnuplot/">Tutorial de IBM de Gnuplot</ulink> (Ingl&eacute;s).</para>
+          </listitem>
+        </itemizedlist>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Superficie</title>
+      <para><emphasis>Superficie</emphasis> es un programa para visualizar superficies en tres dimensiones.</para>
+          <mediaobject>
+            <imageobject>
+	      <imagedata align="center" fileref="images/superficie.pdf" format="EPS" scale="80"/>
+            </imageobject>
+            <imageobject>
+	      <imagedata align="center" fileref="images/superficie.png" format="PNG"/>
+            </imageobject>
+	    <caption>
+              <para>Superficie generada con <emphasis>Superficie</emphasis>.</para>
+            </caption>
+          </mediaobject>
+      <sect2>
+        <title>Recursos para Superficie</title>
+        <itemizedlist>
+          <listitem>
+            <para><ulink url="http://superficie.sourceforge.net/">Superficie</ulink>.</para>
+          </listitem>
+        </itemizedlist>        
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Xfig</title>
+      <para><emphasis>Xfig</emphasis> es un programa para la creaci&oacute;n de gr&aacute;ficos t&eacute;cnicos como diagramas. Una de sus caracter&iacute;sticas m&aacute;s importantes es que permite meter texto en comandos <emphasis>LaTeX</emphasis> lo cual permite una perfecta integraci&oacute;n con documentos creados con dicha herramienta.</para>
+
+    <mediaobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/xfig.pdf" format="EPS" scale="40"/>
+      </imageobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/xfig.jpg" format="JPG"/>
+      </imageobject>
+	<caption>
+          <para><emphasis>Xfig</emphasis></para>
+	</caption>
+    </mediaobject>      
+      <sect2>
+          <title>Recursos para Xfig</title>
+          <itemizedlist>
+            <listitem>
+              <para><ulink url="http://www.xfig.org/">Xfig</ulink>.</para>
+            </listitem>
+          </itemizedlist>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Dia</title>
+      <para><emphasis>Dia</emphasis> es una herramienta que permite la creaci&oacute;n de diagramas. Trabaja con XML y permite exportar a los formatos m&aacute;s usados como <emphasis>JPG</emphasis>, <emphasis>PNG</emphasis>, <emphasis>EPS</emphasis>, <emphasis>SVG</emphasis>, <emphasis>WMF</emphasis>, <emphasis>XFIG</emphasis>, ...</para>
+
+      <para>Se pueden extender sus capacidades mediante <ulink url="http://www.gnome.org/projects/dia/python.html">scripting</ulink> en python.</para>
+    <mediaobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/dia.pdf" format="EPS" scale="30"/>
+      </imageobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/dia.jpg" format="JPG" scale="90"/>
+      </imageobject>
+	<caption>
+          <para><emphasis></emphasis></para>
+	</caption>
+    </mediaobject>      
+      <sect2>
+          <title></title>
+          <itemizedlist>
+            <listitem>
+              <para><ulink url="http://www.gnome.org/projects/dia">Dia</ulink>.</para>
+            </listitem>
+          </itemizedlist>
+      </sect2>
+      <sect2>
+          <title></title>
+          <itemizedlist>
+            <listitem>
+              <para><ulink url="http://www.gnome.org/projects/dia/links.html">Recursos para Dia</ulink>.</para>
+            </listitem>
+          </itemizedlist>
+      </sect2>
+    </sect1>
+  </chapter>
+
+<!-- Local Variables: -->
+<!-- xml-parent-document: "Software-Cientifico.xml" -->
+<!-- End: -->

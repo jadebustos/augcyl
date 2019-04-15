@@ -1,0 +1,168 @@
+  <chapter>
+    <title>Qu&iacute;mica</title>
+    <sect1>
+      <title>Gperiodic</title>
+      <para><emphasis>Gperiodic</emphasis> nos permite consultar la tabla peri&oacute;dica de los elementos.</para>
+    <mediaobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/gperiodic.pdf" format="EPS" scale="60"/>
+      </imageobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/gperiodic.jpg" format="JPG" scale="60"/>
+      </imageobject>
+	<caption>
+          <para><emphasis>Gperiodic</emphasis></para>
+	</caption>
+    </mediaobject>      
+      <sect2>
+          <title>Recursos para Gperiodic</title>
+          <itemizedlist>
+            <listitem>
+              <para><ulink url="http://gperiodic.seul.org">Gperiodic</ulink>.</para>
+            </listitem>
+          </itemizedlist>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Garlic</title>
+      <para><emphasis>Garlic</emphasis> programa para la visualizaci&oacute; 3D de moleculas.</para>
+    <mediaobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/garlic.pdf" format="EPS" scale="40"/>
+      </imageobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/garlic.jpg" format="JPG" scale="40"/>
+      </imageobject>
+	<caption>
+          <para><emphasis>Garlic</emphasis></para>
+	</caption>
+    </mediaobject>      
+      <sect2>
+          <title>Recursos para Garlic</title>
+          <itemizedlist>
+            <listitem>
+              <para><ulink url="http://pref.etfos.hr/garlic/">Garlic</ulink>.</para>
+            </listitem>
+          </itemizedlist>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Gchempaint</title>
+      <para><emphasis>Gchempaint</emphasis> es un editor de estructuras qu&iacute;micas en 2D.</para>
+    <mediaobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/gchempaint.pdf" format="EPS" scale="40"/>
+      </imageobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/gchempaint.jpg" format="JPG" scale="40"/>
+      </imageobject>
+	<caption>
+          <para><emphasis>Gchempaint</emphasis></para>
+	</caption>
+    </mediaobject>      
+      <sect2>
+          <title>Recursos para Gchempaint</title>
+          <itemizedlist>
+            <listitem>
+              <para><ulink url="http://www.nongnu.org/chempaint">Gchempaint</ulink>.</para>
+            </listitem>
+          </itemizedlist>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Gdis</title>
+      <para><emphasis>Gdis</emphasis> programa para tratamiento de mol&eacute;culas en 3D. Soporta renderizado OpenGL.</para>
+    <mediaobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/gdis.pdf" format="EPS" scale="40"/>
+      </imageobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/gdis.jpg" format="JPG" scale="40"/>
+      </imageobject>
+	<caption>
+          <para><emphasis>Gdis</emphasis></para>
+	</caption>
+    </mediaobject>      
+      <sect2>
+          <title>Recursos para Gdis</title>
+          <itemizedlist>
+            <listitem>
+              <para><ulink url="http://gdis.seul.org/">Gdis</ulink>.</para>
+            </listitem>
+          </itemizedlist>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Chemtool</title>
+      <para><emphasis>Chemtool</emphasis> nos permite dibujar mol&eacute;culas qu&iacute;micas.</para>
+    <mediaobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/chemtool.pdf" format="EPS" scale="40"/>
+      </imageobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/chemtool.png" format="PNG" scale="40"/>
+      </imageobject>
+	<caption>
+          <para><emphasis>chemtool</emphasis></para>
+	</caption>
+    </mediaobject>      
+      <sect2>
+          <title>Recursos para Chemtool</title>
+          <itemizedlist>
+            <listitem>
+              <para><ulink url="http://ruby.chemie.uni-freiburg.de/~martin/chemtool/">Chemtool</ulink>.</para>
+            </listitem>
+          </itemizedlist>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Easychem</title>
+      <para><emphasis>Easychem</emphasis> nos permite dibujar mol&eacute;culas qu&iacute;micas.</para>
+    <mediaobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/easychem.pdf" format="EPS" scale="60"/>
+      </imageobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/easychem.png" format="PNG" scale="60"/>
+      </imageobject>
+	<caption>
+          <para><emphasis>Easychem</emphasis></para>
+	</caption>
+    </mediaobject>      
+      <sect2>
+          <title>Recursos para Easychem</title>
+          <itemizedlist>
+            <listitem>
+              <para><ulink url="http://easychem.sourceforge.net/">Easychem</ulink>.</para>
+            </listitem>
+          </itemizedlist>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Raster3d</title>
+      <para><emphasis>Raster3d</emphasis> son un conjunto de herramientas que nos permiten la creaci&oacute;n de im&aacute;genes de mol&eacute;las y prote&iacute;nas.</para>
+    <mediaobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/raster3d.pdf" format="EPS" scale="40"/>
+      </imageobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/raster3d.jpeg" format="JPG" scale="40"/>
+      </imageobject>
+	<caption>
+          <para>Im&aacute;gen generada con <emphasis>Raster3d</emphasis>.</para>
+	</caption>
+    </mediaobject>      
+      <sect2>
+          <title>Recursos para Raster3d</title>
+          <itemizedlist>
+            <listitem>
+              <para><ulink url="http://skuld.bmsc.washington.edu/raster3d/">Raster3d</ulink>.</para>
+            </listitem>
+          </itemizedlist>
+      </sect2>
+    </sect1>
+  </chapter>
+
+<!-- Local Variables: -->
+<!-- xml-parent-document: "Software-Cientifico.xml" -->
+<!-- End: -->

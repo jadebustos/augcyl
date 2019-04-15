@@ -1,0 +1,213 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Capítulo 11. Interprete de Comandos</title><meta name="generator" content="DocBook XSL Stylesheets V1.71.0"><link rel="start" href="index.html" title="Utilización y Administración avanzada de sistemas GNU/Linux y aplicaciones Software Libre para estudiantes universitarios"><link rel="up" href="index.html" title="Utilización y Administración avanzada de sistemas GNU/Linux y aplicaciones Software Libre para estudiantes universitarios"><link rel="prev" href="ch10s04.html" title="Servicios de Base de Datos"><link rel="next" href="ch11s02.html" title="Planificación de Tareas"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Capítulo 11. Interprete de Comandos</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch10s04.html">Anterior</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ch11s02.html">Siguiente</a></td></tr></table><hr></div><div class="chapter" lang="es"><div class="titlepage"><div><div><h2 class="title"><a name="id2576350"></a>Capítulo 11. Interprete de Comandos</h2></div></div></div><div class="toc"><p><b>Tabla de contenidos</b></p><dl><dt><span class="sect1"><a href="ch11.html#id2576716">Shell Scripting</a></span></dt><dd><dl><dt><span class="sect2"><a href="ch11.html#id2576753">Algunas shells</a></span></dt><dt><span class="sect2"><a href="ch11.html#id2576830">Creando shell scripts</a></span></dt><dt><span class="sect2"><a href="ch11.html#id2577147">Ejemplo de un shell script</a></span></dt></dl></dd><dt><span class="sect1"><a href="ch11s02.html">Planificación de Tareas</a></span></dt><dd><dl><dt><span class="sect2"><a href="ch11s02.html#id2577515"><span class="application">at</span></a></span></dt><dt><span class="sect2"><a href="ch11s02.html#id2577750"><span class="application">cron</span></a></span></dt><dt><span class="sect2"><a href="ch11s02.html#id2578023"><span class="application">anacron</span></a></span></dt></dl></dd></dl></div><p>Para la relación con el sistema el administrador debe utilizar
+un interface. Evidentemente en los sistemas modernos los interfaces
+visuales son la principal forma de dar ordenes al ordenador, pero
+en Unix y en Linux el administrador debería conocer también un
+interface textual.</p><p>Cuando se utiliza en linea para introducir
+directamente comandos se denomina shell
+interactiva.</p><p>Para el administrador, el interprete de comandos (shell) y
+"guiones" del interprete de comandos (shell scripts) son muy importantes
+por varias razones:</p><div class="itemizedlist"><ul type="disc"><li><p>
+La mayor parte de herramientas y aplicaciones están preparadas para
+utilizarse
+mediante la shell y los scripts.
+</p></li><li><p>
+La configuración del sistema y de la mayoría de los servicios
+proporcionados se hacen mediante herramientas proporcionadas en forma
+de shell scripts.
+</p></li><li><p>
+La principal forma de automatizar procesos de administración es  mediante la creación de shell scripts por parte del administrador.
+</p></li></ul></div><p>También veremos algunos servicios donde se utilizan habitualmente los
+shell script.</p><div class="sect1" lang="es"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2576716"></a>Shell Scripting</h2></div></div></div><p>Los shell scripts son ficheros de texto que contienen comandos
+de sistema, comandos propios del interprete de comandos y estructuras de control necesarias para procesar el flujo del programa (tipo while, for, etc).
+Los ficheros script son directamente ejecutables por el sistema bajo el nombre que se haya dado al fichero. Para ejecutarlos, se invoca el shell junto con el nombre del fichero, o bien se dan permisos de ejecución.
+</p><p>La programación en shell es muy útil y cómoda para crear
+programas fácilmente modificables, pequeños, no complejos, que resuelvan tareas
+repetitivas, típicas de los administradores. Además, es un lenguaje
+preparado para manejar ristras y procesar y filtrar texto, por lo que es mucho más fácil programar en shell, que, por ejemplo, en C.</p><div class="sect2" lang="es"><div class="titlepage"><div><div><h3 class="title"><a name="id2576753"></a>Algunas shells</h3></div></div></div><p>Un inconveniente es que no es un lenguaje estandarizado si no
+que hay varias versiones del shell.</p><p>Algunos de los más comunes son:</p><div class="itemizedlist"><ul type="disc"><li><p>
+El shell Bourne (sh). El shell estándar
+   UNIX, y el que todos los UNIX poseen en alguna versión, en linux es
+un bash renombrada. El sh fue creado
+   por Stephen Bourne en AT&amp;T a finales de los setenta. El
+prompt por defecto suele ser un '$'  y en usario root '#'.
+</p></li><li><p>El shell Bash (bash). El shell Linux por defecto. Deriva de
+      la bourne shell pero se ha impuesto en gran medida por su
+      utilización en Linux.
+</p></li><li><p>
+El shell Korn (ksh). Es una mejora del Bourne, escrito en
+AT&amp;T por David Korn en los años
+   ochenta, intenta combinar la sencillez del Bourne
+   con la eficacia de la shell C, más algún añadido. El prompt por defecto es el $.
+</p></li><li><p>
+El shell C (csh). Fue desarrollado en la Universidad de Berkeley
+   por Bill Joy a finales de los setenta y tiene unos cuantos añadidos
+   interesantes al Bourne, como un histórico de comandos, alias,
+   aritmética desde la línea de comandos, completa nombres de ficheros y control de trabajos en segundo plano. El prompt por defecto para los usuarios es `%'. Una
+   ventaja de los scripts en C shell es que, como su nombre indica,
+   su sintaxis está basada en el lenguaje C. Como shell
+posteriores recogen las mejoras de esta, hace que no se utilice mucho,
+aunque todavía se encuentran muchos scripts desarrollados para esta shell.
+</p></li><li><p>
+Existen muchas otras que son variantes de estas, normalmente
+   versiones reducidas con
+   aplicaciones específicas.
+</p></li></ul></div></div><div class="sect2" lang="es"><div class="titlepage"><div><div><h3 class="title"><a name="id2576830"></a>Creando shell scripts</h3></div></div></div><p>Cada shell cambia un poco el lenguaje pero tienen muchas
+      características comunes. Vamos a ver un resumen de la sintaxis
+      del lenguaje:</p><div class="orderedlist"><ol type="1"><li><p>
+Los comentarios se comienzan con #. En la primera linea se debe
+escribir #! con la shell que (o incluso un interprete, como
+perl o php) con la que queremos ejecutarla, por ejemplo:</p><pre class="programlisting">#!/bin/bash</pre></li><li><p>
+Para realizar redirecciones de los programas se utilizan 
+<strong class="userinput"><code>&gt;</code></strong> para salida, <strong class="userinput"><code>&lt;</code></strong> para
+entrada, <strong class="userinput"><code>&amp;&lt;</code></strong> para salida de error y
+<strong class="userinput"><code>|</code></strong>túnel (pipe).</p><pre class="programlisting">cat laza.txt |wc -l &gt; lineas_laza.count</pre><p>La salida del comando <span><strong class="command">cat</strong></span> que es le fichero
+<code class="filename">laza.txt</code> se le pasa al comando <span><strong class="command">wc
+-l</strong></span> que cuenta las lineas y lo mete en el fichero <code class="filename">lineas_laza.count</code>.
+</p></li><li><p>
+Para definir variables se debe poner el nombre seguido de igual y su
+valor. Para referenciarlas con el símbolo dolar ($). Existen variables
+predefinidas, como $1 para el primer parámetro del shell script, $HOME
+directorio home de usuario, $? código de salida de programa recién
+ejecutado y muchas más dependiendo de la shell.</p><pre class="programlisting">FILE=/tmp/salida
+cat laza.txt | wc -l &gt;&gt; $FILE</pre><p>Crea la variable FILE poniendo un nombre de fichero y la utiliza
+para añadir la salida del resultado del contador de lineas.
+</p></li><li><p>
+Hay tres tipos de comillas, las dobles interpretan las variables que
+hay dentro, las simples no, y la comilla invertida ejecuta su
+contenido como un comando y lo mete en la variable.</p><pre class="programlisting">DATE=`date +%d-%m-%Y`;
+MSG1="La fecha es $DATE";
+MSG2='La variable donde guardo la fecha se llama $DATE con el comando
+date +%d-%m-%Y';
+echo $DATE;
+echo $MSG1;
+echo $MSG2;
+</pre><p>Para ejecutar este script:</p><pre class="screen">
+<code class="prompt">[pcm@sal]# </code><strong class="userinput"><code>sh comillas.sh</code></strong>
+<code class="computeroutput">14-04-2007
+La fecha es 14-04-2007
+La variable donde guardo la fecha se llama $DATE con el comando date
++%d-%m-%Y</code>
+<code class="prompt">[pcm@sal]# </code>
+</pre></li><li><p>
+Para las shell la condición verdadera es el 0 y el resto lo interpreta
+como 
+falso. Existen bastantes operadores para realizar las
+condiciones. Pueden hacerse condiciones sobre fichero: si es un
+fichero (-f), si es un directorio (-d), si hay permiso de lectura
+(-r). También sobre cadenas, sobre números y combinar condiciones. 
+</p><p>Por ejemplo <strong class="userinput"><code>[ -d .ssh -a \( -n $JDK_HOME -o -n $JAVA_HOME \) ]</code></strong> nos
+devolvería como verdadero si existe el directorio <code class="filename">.ssh</code> y alguna de las dos variables
+no deben ser vacías.</p></li><li><p>
+Para el control de flujo tenemos las estructuras
+<strong class="userinput"><code>if</code></strong>, <strong class="userinput"><code>case</code></strong>,
+<strong class="userinput"><code>while</code></strong>, <strong class="userinput"><code>for</code></strong>
+ y <strong class="userinput"><code>until</code></strong>.
+</p></li><li><p>
+Existen un conjunto de herramientas que son muy utilizadas en los
+shell script, como pueden ser <strong class="userinput"><code>cut</code></strong>,
+<strong class="userinput"><code>grep</code></strong>, <strong class="userinput"><code>sed</code></strong>,
+<strong class="userinput"><code>awk</code></strong>, <strong class="userinput"><code>date</code></strong>, etc...
+</p></li><li><p>
+Para hacer debug podemos chequear la sintaxis del shell script
+con:</p><pre class="screen">
+<strong class="userinput"><code>sh -n mishell.sh</code></strong></pre><p>También podemos hacer que nos muestre la ejecución de los
+comandos que hay en el shell script y los valores que van tomando las
+variables con:</p><pre class="screen">
+<strong class="userinput"><code>sh -x mishell.sh</code></strong>
+</pre></li></ol></div></div><div class="sect2" lang="es"><div class="titlepage"><div><div><h3 class="title"><a name="id2577147"></a>Ejemplo de un shell script</h3></div></div></div><p>Como ejemplo de programa shell script vamos a hacer una
+      utilidad para buscar ficheros de texto de DOS en el directorio
+      actual y preguntarnos si lo queremos convertir a fichero de texto UNIX. Los
+      ficheros de texto en la plataformas DOS/Windows para finalizar
+      cada linea llevan dos caracteres de control, el ascii 10 (LF) y el
+      ascii 13 (CR). En cambio en UNIX, y por tanto el Linux los fichero de
+      linea sólo utilizan el carácter de control ascii 10 (LF).</p><p>La mayor parte de los editores de Linux ya distinguen si es
+      un texto de DOS o Unix. Además existe un comando para realizar esta
+      conversión, <span><strong class="command">dos2unix</strong></span>. Por lo que no suele
+      hacer falta una shell para esta tarea, a no ser que no
+      dispongamos del conversor en el sistema. El programa sería:</p><pre class="programlisting">
+#!/bin/bash
+for fichero in *.txt; do
+  if grep ^M $fichero &amp;&gt;/dev/null; then
+     resp=x
+     while [ $resp != "s" -a $resp != "n" ]; do
+       echo "'$fichero' es un fichero texto DOS. convertir? (s/n) "
+       read resp
+     done
+     case $resp in
+       s)
+         sed 's/^M//' $fichero &gt; /tmp/FILE_TMP
+         mv /tmp/FILE_TMP $fichero
+         echo "El fichero '$fichero' convertido a texto UNIX";;
+       n)
+         echo "El fichero '$fichero' se deja texto DOS";;
+       *)
+         echo "ERROR";;
+     esac
+   fi
+done
+</pre><p>Primeramente ponemos el comentario para indicar que es un script
+para bash.</p><p>El <span class="emphasis"><em>for</em></span> nos va a realizar un bucle por todos
+los fichero que terminen en <code class="filename">.txt</code>.</p><p>Hacemos una condición que con el comando <span><strong class="command">grep</strong></span>
+nos mire si el fichero tiene lineas con carácter ascii 13 (CR). Para
+introducir el carácter ^M hemos pulsado Control+V y Control+M, no se
+escribe con ^ y la M. Este
+comando si no encuentra
+ninguna linea devuelve 1, y si encuentra al menos una linea devuelve
+cero, con lo cual cumplimos la condición.</p><p>A continuación vamos a pedir al usuario que nos confirme la
+conversión. Para ello ponemos por pantalla la pregunta y con el
+comando <span><strong class="command">read</strong></span> cogemos el valor introducido. Con un
+<span class="emphasis"><em>while</em></span> insistimos con la pregunta mientras la
+contestación no sea s o n.</p><p>Con <span class="emphasis"><em>case</em></span> comprobamos que ha metido. Sería
+más lógico hacerlo con un <span class="emphasis"><em>if else</em></span>, pero así vemos
+está estructura. Sí selecciono <span class="emphasis"><em>n</em></span> se imprime por
+pantalla que no se hizo nada con el fichero.</p><p>Cuando opto por convertir el fichero utilizamos la herramienta
+<span><strong class="command">sed</strong></span> que mediante expresiones regulares nos permite
+hacer sustituciones dentro de un fichero de texto. En este caso le
+estamos diciendo que sustituya los CR por nada. La salida la
+redirigimos a un fichero temporal que luego sustituye al
+original.</p><p>Para ejecutar el programa tendríamos dos posibilidades, o bien
+lo hacemos ejecutable con el comando <span><strong class="command">chmod u+w
+txtunixdir.sh</strong></span> y luego lo arrancamos como
+<span><strong class="command">./txtunixdir.sh</strong></span> o bien le pasamos a una shell como
+parámetro nuestro programa:</p><pre class="screen">
+<code class="prompt">[pcm@sal]# </code><strong class="userinput"><code>sh txtunixdir.sh</code></strong>
+<code class="computeroutput">cursos.txt' es un fichero texto DOS. convertir? (s/n)</code>
+<strong class="userinput"><code>n</code></strong>
+<code class="computeroutput">El fichero 'cursos.txt' se deja texto DOS
+'lazae11.txt' es un fichero texto DOS. convertir? (s/n)</code>
+<strong class="userinput"><code>s</code></strong>
+<code class="computeroutput">El fichero 'lazae11.txt' convertido a texto UNIX</code>
+<code class="prompt">[pcm@sal]# </code>
+</pre><p>Si al escribir el programa nos hubiésemos dejado sin poner los
+dos puntos y coma en las opciones del <span class="emphasis"><em>case</em></span>
+tendríamos un error, que antes de ejecutar nos lo advertiría.</p><pre class="programlisting">
+...
+  n)
+    echo "El fichero '$fichero' se deja texto DOS"
+...
+</pre><p> Si solo
+queremos comprobar sin ejecutar lo podríamos hacer con la opción
+-n.</p><pre class="screen">
+<code class="prompt">[pcm@sal]# </code><strong class="userinput"><code>sh -n txtunixdir.sh</code></strong>
+<code class="computeroutput">txtunixdir.sh: line 16: syntax error near unexpected token `)'
+txtunixdir.sh: line 16: `       *)'</code>
+<code class="prompt">[pcm@sal]# </code>
+</pre><p>Corregimos de nuevo, y ahora ejecutamos pero con la opción
+-x.</p><pre class="screen">
+<code class="prompt">[pcm@sal]# </code><strong class="userinput"><code>sh -x txtunixdir.sh</code></strong>
+<code class="computeroutput">+ grep $'\r' cursos.txt
++ resp=x
++ '[' x '!=' s -a x '!=' n ']'
++ echo ''\''cursos.txt'\'' es un fichero texto DOS. convertir? (s/n) '
+'cursos.txt' es un fichero texto DOS. convertir? (s/n)
++ read resp</code>
+<strong class="userinput"><code>s</code></strong>
+<code class="computeroutput">+ '[' s '!=' s -a s '!=' n ']'
++ sed $'s/\r//' cursos.txt
++ mv /tmp/FILE_TMP cursos.txt
++ echo 'El fichero '\''cursos.txt'\'' convertido a texto UNIX'
+El fichero 'cursos.txt' convertido a texto UNIX
++ grep $'\r' iptables.txt
++ grep $'\r' lazae11.txt</code>
+<code class="prompt">[pcm@sal]# </code>
+</pre></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch10s04.html">Anterior</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ch11s02.html">Siguiente</a></td></tr><tr><td width="40%" align="left" valign="top">Servicios de Base de Datos </td><td width="20%" align="center"><a accesskey="h" href="index.html">Inicio</a></td><td width="40%" align="right" valign="top"> Planificación de Tareas</td></tr></table></div></body></html>

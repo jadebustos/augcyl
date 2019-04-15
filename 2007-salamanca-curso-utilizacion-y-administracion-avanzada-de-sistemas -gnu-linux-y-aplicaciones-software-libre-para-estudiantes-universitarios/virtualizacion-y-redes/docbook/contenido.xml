@@ -1,0 +1,304 @@
+<chapter>
+<title>Virtualizaci&#xf3;n y redes</title>
+<sect1>
+<title>Virtualizaci&#xf3;n en GNU/Linux</title>
+<para>Mediante la virtualizaci&#xf3;n en una sola m&#xe1;quina es posible tener varios sistemas, como si en lugar de un PC tuvi&#xe9;ramos varios. As&#xed;, un ISP que ofrezca servidores dedicados puede ofrecer varios servidores virtuales sobre una m&#xe1;quina: cada uno funcionar&#xe1; como un servidor independiente con su propia IP, se podr&#xe1;n instalar todo tipo de servicios (DNS, mail, Jabber, web, PostgreSQL) y reiniciar y administrar independientemente.</para>
+<para/>
+<para>Al sistema sobre el que se ejecuta el virtualizador se le llama host; a veces tambi&#xe9;n se habla de domain 0, porque cada sistema que se ejecuta se le considera un dominio. A cada uno de los sistemas que se ejecutan sobre el virtualizador se les denomina guest. En algunos casos no hay sistema host porque el virtualizador se ejecuta directamente sobre el hardware.</para>
+<para/>
+<para>Hay hardware como los mainframes de IBM, que soportan virtualizaci&#xf3;n. Los Pcs no soportan virtualizaci&#xf3;n: hay instrucciones de modo protegido que impiden ejecutar dos sistemas operativos simult&#xe1;neamente, pero mediante software se pueden suplir (con bastante complejidad) las carencias de hardware. As&#xed; mismo mediante sofware se emulan componentes del hardware como discos, tarjeta gr&#xe1;fica, de red y de sonido.</para>
+<para/>
+<para>Adem&#xe1;s de la virtualizaci&#xf3;n de la CPU, est&#xe1; la del resto del hardware: tarjeta de red, discos, tarjeta gr&#xe1;fica... Para esta parte la mayor&#xed;a de los proyectos libres toman c&#xf3;digo de Qemu.</para>
+<para>Hay varios m&#xe9;todos de implementar la virtualiaci&#xf3;n del procesador:</para>
+<orderedlist>
+<listitem>
+<para>Emuladores totales: emulan totalmente el hardware, incluyendo el procesador. Es el caso de Booch. Su rendimiento es muy pobre.</para>
+</listitem>
+<listitem>
+<para>Emuladores con compilaci&#xf3;n JIT: es el caso de Qemu, cuando se ejecuta sin el m&#xf3;dulo kqemu. El c&#xf3;digo necesita "compilarse" para la m&#xe1;quina virtual, si bien como los compiladores JIT de Java se hace s&#xf3;lo la primera vez que se ejecuta el c&#xf3;digo, luego ya est&#xe1; compilado. Mucho m&#xe1;s r&#xe1;pidos que los emuladores totales, pero m&#xe1;s lentos que el resto de soluciones. Se puede ejecutar como usuario normal sin instalar nada como root. Se pueden emular procesadores distintos.</para>
+</listitem>
+<listitem>
+<para>Virtualizadores completos: es el caso de Vmware (software privativo), Qemu con el m&#xf3;dulo de aceleraci&#xf3;n Kqemu (antes privativo ahora libre) y Virtual Box (software con una versi&#xf3;n libre y otra m&#xe1;s funcional privativa). Se basan en un VMM (Virtual Machine Monitor, tambi&#xe9;n conocido como hypervisor) que mediante complicadas t&#xe9;cnicas (como traps y an&#xe1;lisis del c&#xf3;digo antes de su ejecuci&#xf3;n) detecta en tiempo de ejecuci&#xf3;n el c&#xf3;digo que no puede ejecutarse directamente porque afectar&#xed;a a todo el sistema, modificando din&#xe1;micamente las instrucciones conflictivas. El rendimiento var&#xed;a mucho seg&#xfa;n lo avanzado que sea el VMM: Vmware tiene varias patentes. Estos tres programas permiten instalar un sistema operativo sobre un virtualizador del mismo modo que sobre un PC: la ventana del virtualizador asemeja el monitor de un PC, podemos entrar en la BIOS, reiniciar el ordenador...</para>
+</listitem>
+<listitem>
+<para>Paravirtualizadores: es el caso de Xen y UML (User mode Linux). En lugar de tener que detectar un VMM los casos conflictivos en tiempo de ejecuci&#xf3;n, se modifica el c&#xf3;digo fuente de los sistemas operativos para evitar esos casos conflictivos. En lugar de el VMM tener que analizar el c&#xf3;digo, es el c&#xf3;digo quien invoca al VMM cuando sea necesario. Esta t&#xe9;cnica simplifica much&#xed;simo el VMM y ofrece muy buen rendimiento, aunque en el caso concreto de UML el rendimiento es mediocre. La pega es que haya que parchear el sistema operativo, sobre todo para poder ejecutar Windows. Xen parche&#xf3; un Windows XP en un programa de investigaci&#xf3;n que permit&#xed;a acceso al c&#xf3;digo fuente de Microsoft, pero ese tipo de licencias no permit&#xed;a distribuir el resultado. UML tambi&#xe9;n se puede considerar dentro de esta categor&#xed;a, pues es una modificaci&#xf3;n del kernel de Linux para que pueda ejecutarse dentro de otro Linux. Xen no emula una tarjeta gr&#xe1;fica SVGA "completa" como Qemu, Vmware o VirtualBox, pero utiliza VNC que para el sistema guest se ve como una tarjeta VGA.</para>
+<para/>
+<para>Vmware y VirtualBox no son paravirtualizadores, pero utilizan esta t&#xe9;cnica para virtualizar la E/S en los drivers especiales que se ejecutan en el sistema guest (por ejemplo el driver de red y el de la tarjeta gr&#xe1;fica: se comunican con el hipervisor en lugar de ser drivers normales sobre el hardware emulado). Lo mismo planea hacer KVM.</para>
+</listitem>
+<listitem>
+<para>Virtualizadores apoyados en el hardware (un tanto pretenciosamente llamados nativos): los nuevos procesadores de Intel (los Core Duo y la mayor&#xed;a, pero no todos, ver la wikipedia, de los Core Duo2 a&#xf1;aden las extensiones VT) y los m&#xe1;s recientes de AMD (a partir de stepping F; las extensiones se llaman SVM) cuentan con nuevas instrucciones que permiten la virtualizaci&#xf3;n de la CPU. De este modo ya no es necesario ni un complicado VMM ni parchear el sistema operativo, si bien sigue siendo necesario virtualizar otros dispositivos y emular discos, tarjetas gr&#xe1;ficas, de red... Ejemplos de estas soluciones son KVM (integrado en el kernel desde la versi&#xf3;n 2.6.20, utiliza qemu para la virtualizaci&#xf3;n del resto del hardware) y Virtual Iron (basado en Xen, pero ya no es paravirtualizador; en cualquier caso es una soluci&#xf3;n propietaria, con algo de c&#xf3;digo bajo GPL). Adem&#xe1;s Xen soporta tambi&#xe9;n estas instrucciones, como m&#xe9;todo para poder ejecutar Windows o simplemente sistemas sin paravirtualizar. Los virtualizadores apoyados en el hardware son m&#xe1;s lentos que los paravirtualizadores e incluso que los virtualizadores completos, al menos que los que tienen un VMM avanzado. VirtualBox no usa por defecto estas instrucciones, aunque las soporte, por este motivo. Lo mismo ocurre con Vmware, aunque s&#xed; lo utiliza para poder utilizar como host un sistema operativo de 64bits (VirtualBox actualmente no permite esta configuraci&#xf3;n). </para>
+</listitem>
+<listitem>
+<para>Virtualizaci&#xf3;n a nivel de sistema operativo (OS level Virtualization): no permite ejecutar dos sistemas operativos simult&#xe1;neamente, sino servidores privados virtuales (SVP) dentro de un &#xfa;nico servidor, es decir, es un &#xfa;nico kernel, pero que permite aislar (isolate) los servidores. Cada servidor tendr&#xe1; su propia red, espacio de disco, de memoria, se podr&#xe1; reiniciar.. as&#xed; mismo tendr&#xe1; limitaci&#xf3;n de uso de CPU con el fin de evitar que un servidor virtual esquilme recursos de los otros. Tambi&#xe9;n esta tecnolog&#xed;a se denomina como Jail, pues es extender el concepto de chroot. Tantao Linux VServer como Virtuozzo lo vienen ofreciendo proveedores de hosting desde hace a&#xf1;os. Estas son las dos soluciones libres m&#xe1;s destacadas: </para>
+<orderedlist>
+<listitem>
+<para>Linux VServer: <ulink url="http://linux-vserver.org/">http://linux-vserver.org</ulink> (no confundir con linux virtual server, que es sobre clusters). Software libre. Una limitaci&#xf3;n es que no admite usar iptables dentro de cada SVP, sino dentro del host. Tampoco admite migraci&#xf3;n de procesos. As&#xed; mismo est&#xe1; m&#xe1;s limitado en lo que se virtualiza, por ejemplo no se virtualiza nada de /proc). Por otro lado la distribuci&#xf3;n host parece menos restringida que en OpenVZ, que como host s&#xf3;lo admite Fedora, algunas versiones de CentOS y algunas de RHEL. Hay varias distribuciones que funcionan como guest directamente (las instalamos en su partici&#xf3;n y luego las usamos, con sus programas y librer&#xed;as, pero no obviamente con su kernel) aunque otras como Gentoo no. </para>
+</listitem>
+<listitem>
+<para>OpenVZ (<ulink url="http://openvz.org/">http://openvz.org</ulink>). Virtuozzo es un virtualizador bajo una licencia privativa; OpenVZ es el producto de la misma compa&#xf1;&#xed;a que es software libre y que es la base de Virtuozzo. Un hecho positivo es que OpenVZ no es un conjunto de c&#xf3;digo GPL dif&#xed;cil de integrar y sin soporte como ocurre con otros productos en los que hay versi&#xf3;n GPL y privativa: tambi&#xe9;n venden soporte para OpenVZ. Admite distintas distribuciones como host, a trav&#xe9;s de templates, que son repositorios para bajar los paquetes necesarios para esa distribuci&#xf3;n. Hosting con OpenVZ: <ulink url="http://www.vpslink.com/vps-hosting/">http://www.vpslink.com/vps-hosting/</ulink>. En alg&#xfa;n caso es m&#xe1;s caro con OpenVZ que con Virtuozzo, por ser menos maduro y requerir m&#xe1;s recursos... </para>
+</listitem>
+</orderedlist>
+</listitem>
+</orderedlist>
+<para/>
+<para>Entre las posibilidades m&#xe1;s avanzadas de algunos virtualizadores est&#xe1; el migrar en caliente con una indisponibilidad inapreciable un dominio de un servidor a otro. Dentro de los productos libres lo permiten Xen, KVM y OpenVZ. Vmware lo permite s&#xf3;lo en su servidor de pago (EXS). En Vmware Server (antiguo Vmware GSX), ahora gratis (que no libre) no es posible. Para saber m&#xe1;s sobre este tema: <ulink url="http://kvm.qumranet.com/kvmwiki/Migration">http://kvm.qumranet.com/kvmwiki/Migration</ulink>
+</para>
+<para/>
+<para>Un debate interesante es el de los virtualizadores que se ejecutan "bare metal", es decir, directamente sobre el hardware, en lugar de sobre un sistema operativo "host". Vmware EXS sigue esta f&#xf3;rmula de forma pura, de tal modo que s&#xf3;lo funciona con determinado hardware. En el caso de Xen, se ejecuta sobre un host, pero asume parte de las funciones de un sistema operativo, al tener c&#xf3;digo por ejemplo para planificar la CPU. En cambio KVM utiliza todo lo que aporta Linux, lo que para muchos desarrolladores es la opci&#xf3;n preferible pues dif&#xed;cilmente una empresa que desarrolla un producto de virtualizaci&#xf3;n tendr&#xe1; m&#xe1;s experiencia en elementos de sistemas operativos como un planificador, que el grupo de personas que llevan desarrollando estos componentes desde hace a&#xf1;os en un sistema tan extendido como el kernel Linux.</para>
+<para/>
+<para>Software interesante:</para>
+<para>http://virt-manager.et.redhat.com/ interfaz gr&#xe1;fica sobre todo para Xen, pero tambi&#xe9;n soporta </para>
+<para>KVM y Qemu. Incluye parte para gestionar redes.</para>
+<para/>
+<para>Informaci&#xf3;n muy completa (navegar por los enlaces del marco de la izquierda):</para>
+<para>
+<ulink url="http://virt.kernelnewbies.org/TechOverview">http://virt.kernelnewbies.org/TechOverview</ulink>
+</para>
+<para/>
+<para/><sect2><title>VMWare y la red</title>
+<para/>
+<para>En VMWare a la hora de crear un dispositivo de red se puede elegir entre:</para>
+<orderedlist>
+<listitem>
+<para>NAT: en el host aparecer&#xe1; como la interfaz vmnet8, pero no podremos hacer nada con esta interfaz, por ejemplo usar Iptables para restringir las Ips que se pueden alcanzar desde el sistema que se ejecuta dentro de Vmware. El motivo es que no se usa realmente el NAT del n&#xfa;cleo sino un demonio, vmnet-natd, por lo que los paquetes no pasan realmente por vmnet8. Si se quiere abrir puertos, basta con editar el fichero /etc/vmware/vmnet8/nat.conf</para>
+</listitem>
+<listitem>
+<para>Bridge: tambi&#xe9;n se implementa utilizando un demonio privativo, en este caso vmnet-bridge, en lugar de utilizar el soporte del n&#xfa;cleo, por lo que no se puede restringir la red con iptables sobre la interfaz vmnet2. Como en el caso de vmnet8, realmente el tr&#xe1;fico no pasa por esta interfaz.</para>
+</listitem>
+<listitem>
+<para>Host only: aparentemente este modo es el m&#xe1;s limitado. Pues bien, en realidad es el m&#xe1;s flexible, pues por la interfaz de red que crea, vmnet1, s&#xed; que pasan todos los paquetes. De este modo podemos utilizar esta interfaz para hacer NAT a trav&#xe9;s de iptables, o crear un bridge con brctl. Al usar iptables, podemos restringir el tr&#xe1;fico como con cualquier otra unidad de red.</para>
+</listitem>
+</orderedlist>
+<para/>
+<para>En Qemu hay dos formas de utilizar la red. Por defecto se usa -net socket, que ser&#xed;a el equivalente al modo NAT de Vmware. Mediante la opci&#xf3;n -redir se pueden abrir puertos de servidor. Una diferencia interesante sobre Vmware es que esta soluci&#xf3;n se implementa enteramente en espacio de usuario, por lo que no se crea interfaz de red ni se precisa cargar ning&#xfa;n m&#xf3;dulo del kernel, lo que es bueno porque en el caso de Vmware es un m&#xf3;dulo privativo que activa la marca "tained" del k&#xe9;rnel, con lo que perdemos toda opci&#xf3;n de soporte. Adem&#xe1;s as&#xed; no hay que tener privilegios de superusuario para instalar Qemu (Vmware no requiere privilegios para ejecutarse, pero s&#xed; hace falta para insertar el m&#xf3;dulo en el kernel).</para>
+<para/>
+<para>Las interfaces de red vmnet1, vmnet2, vment8, se crean al ejecutar vmware-config, en la parte de configuraci&#xf3;n de red. Una posibilidad interesante si vamos a ejecutar varios sistemas simult&#xe1;neamente o si queremos que un sistema tenga m&#xe1;s de una interfaz es crear m&#xe1;s de un dispositivo de red para "host only", de modo que aparte de vmnet1 haya otros. De otro modo todas las m&#xe1;quinas virtuales estar&#xe1;n conectadas a la misma red, la de vmnet1. As&#xed;, una m&#xe1;quina podr&#xe1; tener la IP 192.168.152.128, otra la 192.168.152.129 y el host la 192.168.152.1; las dos m&#xe1;quinas virtuales se ver&#xe1;n la una a la otra y podr&#xe1;n comunicarse, aunque eso s&#xed;, con un sniffer una m&#xe1;quina no ver&#xe1; el tr&#xe1;fico de los otros nodos.</para>
+<para/>
+<para>La red vmnet1 que crea Vmware es de m&#xe1;scara de red 255.255.255.0; ejecuta un servidor DHCP autom&#xe1;ticamente, cuya configuraci&#xf3;n y arrendamientos pueden verse en /etc/vmware/vmnet1. Pero nada impide que podamos cambiar esta configuraci&#xf3;n, pues se emula a una interfaz ethernet. Por ejemplo un nodo puede cambiar su IP a otra de la red o incluso crear un alias y usar una red distinta, tanto en el host como en las m&#xe1;quinas virtuales.</para>
+<para/>
+<para>Si usamos vmnet1 para hacer NAT utilizando iptables, hay que tener en cuenta que habr&#xe1; que configurar la red de la m&#xe1;quina virtual para a&#xf1;adirle una ruta por defecto y la configuraci&#xf3;n del DNS y que el firewall deber&#xe1; permitir que llegue al servidor DNS. Para pasar la configuraci&#xf3;n de DNS y ruta por defecto podemos usar el servidor DHCP de Vmware: "option routers" y "option domain-name-servers".</para>
+<para/></sect2><sect2><title>Qemu y TUN/TAP</title>
+<para/>
+<para>Un inconveniente de -net socket es que como ocurre con los modos NAT y Bridge de Vmware los paquetes no pasan por ninguna interfaz de red, por lo que no se puede utilizar iptables para restringir la red.</para>
+<para/>
+<para>La soluci&#xf3;n est&#xe1; en el uso del soporte de TUN/TAP del kernel. Consiste en que una aplicaci&#xf3;n puede abrir el fichero de dispositivo /dev/net/tun y con eso crear una nueva interfaz de red (por defecto tun0). Todo lo que la aplicaci&#xf3;n escriba en ese dispositivo se recibir&#xe1; en la interfaz de red reci&#xe9;n creada; de igual modo todo lo que llegue a esa interfaz de red (por ejemplo a trav&#xe9;s de enrutamiento) lo leer&#xe1; la aplicaci&#xf3;n del fichero de dispositivo. </para>
+<para>Los dispositivos TUN operan a nivel IP y son punto a punto. Los dispositivos TAP operan a nivel 2 y son multipunto, como las interfaces eth*. Un dispositivo tap0 y un dispositivo vmnet1 vienen a funcionar de forma muy similar y a nivel de ejemplos de configuraci&#xf3;n con iptables o brctl donde aparezca un tap0 podr&#xed;a aparecer un vmnet1 y viceversa. Por lo general se usa tun0 en lugar de tap0; para la mayor&#xed;a de los usos son equivalentes por lo que es mucho m&#xe1;s habitual utilizar tun0 que resulta m&#xe1;s sencillo y directo.</para>
+<para/>
+<para>Normalmente un dispositivo tun/tap s&#xf3;lo existe mientras el programa no cierra el fichero /dev/net/tun. Esto a veces es problem&#xe1;tico, especialmente porque para crear un dispositivo TUN/TAP hacen falta privilegios de superusuario. Afortunadamente, con root se puede abrir un dispositivo en modo persistente para un determinado usuario, de modo que luego un programa ejecutado por ese usario sin privilegios podr&#xe1; abrir ese dispositivo tun/tap creado para &#xe9;l por el root. Este se puede hacer con el programa tunctl, que forma parte del paquete uml-utilities. </para>
+<para/>
+<para>&#xbf;Por qu&#xe9; no usa Vmware TUN/TAP en lugar de vmnet1? quiz&#xe1;s por unicidad entre plataformas, o por diferencia de implementaci&#xf3;n; es posible que vmnet1 tambi&#xe9;n permita driver de red de la m&#xe1;quina virtual directamente en espacio del kernel.</para>
+<para/>
+<para>TUN/TAP es la soluci&#xf3;n utilizada tambi&#xe9;n por otros virtualizadores, como Virtual Box. Muy interesantes los documentos sobre red avanzada en la web de Virtual Box: <ulink url="http://www.virtualbox.org/wiki/User_HOWTOS">http://www.virtualbox.org/wiki/User_HOWTOS</ulink>.</para>
+<para/></sect2><sect2><title>Ejemplos</title>
+<para>Permitir acceso s&#xf3;lo a red local 192.168.10.0 y adem&#xe1;s excluir el nodo 9 de esa red.</para>
+<para/>
+<para>iptables -A FORWARD -i vmnet1 --destination 192.168.10.9 -j REJECT</para>
+<para>iptables -A FORWARD -i vmnet1 --destination 192.168.10.0/24 -j ACCEPT</para>
+<para>iptables -A FORWARD -i vmnet1 -j REJECT</para>
+<para>iptables -t nat -A POSTROUTING -j MASQUERADE -o eth0</para>
+<para>echo 1 &gt; /proc/sys/net/ipv4/conf/eth0/forwarding</para>
+<para>echo 1 &gt; /proc/sys/net/ipv4/conf/vmnet1/forwarding</para>
+<para/>
+<para>Crear un bridge, pero prohibiendo el acceso a la IP 157.88.10.20. Se puede filtrar con ebtables o con iptables.</para>
+<para/>
+<para>Ojo, muchas tarjetas wireless no soportan bridge. Un AP generalmente s&#xed;.</para>
+<para/>
+<para>ifconfig eth0 0.0.0.0</para>
+<para>ifconfig vmnet1 0.0.0.0</para>
+<para>brctl addbr puente</para>
+<para>brctl addbr puente</para>
+<para>brctl addif eth0</para>
+<para>brctl addif vmnet1</para>
+<para>ifconfig puente 192.168.10.1</para>
+<para>iptables -O FORWARD -m physdev --physdev-in vmnet1 --destination 157.88.10.20 -j REJECT</para>
+<para/></sect2><sect2><title>Instalar QEMU</title>
+<para/>
+<para>Para compilar kqemu no hace falta versi&#xf3;n vieja de compilador gcc, ni las fuentes de qemu. Es bastante r&#xe1;pido:</para>
+<para>./configure</para>
+<para>make</para>
+<para>sudo make install</para>
+<para>modprobe kqemu</para>
+<para/>
+<para>Por defecto, necesitamos permisos de root para leer /dev/kqemu</para>
+<orderedlist>
+<listitem>
+<para>creamos grupo qemu: sudo addgroup qemu</para>
+</listitem>
+<listitem>
+<para>a&#xf1;adimos nuestro usuario (jomar) al grupo: sudo gpasswd -a jomar qemu</para>
+</listitem>
+<listitem>
+<para>configuramos udev para que cree fichero de dispositivo con permisos para grupo qemu. Para ello editamos fichero /etc/udev/rules.d/60-kqemu.rules con este contenido: KERNEL=="kqemu", NAME="%k", MODE="0666", GROUP="qemu", RUN="/root/prueba.sh"</para>
+</listitem>
+<listitem>
+<para>hacemos lo propio con el fichero /dev/net/tun. A partir del kernel 2.6.18 no pasa nada por dar permiso para todo el mundo, pues nadie sin privilegios puede crear una nueva interfaz si no se ha creado antes por el root para ese usuario. Esto se puede hacer con la herramienta tunctl, que forma parte del paquete uml-utilities. Tambi&#xe9;n se puede usar el programa que adjuntamos m&#xe1;s adelante, cambiando el tipo de dispositivo de tun a tap. Para crear el dispositivo con tunctl se usa tunctl -u jomar -t tap0; para borrarlo tunctl -d tap0.</para>
+</listitem>
+</orderedlist>
+<para>Ejemplos:</para>
+<para>./qemu -net nic -net tap,script=no ~/linux-0.2.img -net nic,vlan=1 -net socket,vlan=1,listen=:8081 centos.qcow2</para>
+<para/>
+<para/>
+<para>ifconfig tap0 up</para>
+<para>ifconfig eth0</para>
+<para>brctl addif puente tap0</para>
+<para>ifconfig eth0 0.0.0.0</para>
+<para>brctl addif puente eth0</para>
+<para>ifconfig eth0 192.168.15.45</para>
+<para/>
+<para>./qemu -net nic -net tap,script=no ~/centos.qcow2 -no-kqemu</para></sect2><sect2><title>Crear una imagen con Qemu</title>
+<para>qemu-img create -f qcow2 centos.qcow2 3G</para>
+<para>Con esta orden se crea una imagen de un disco de 3GB; en realidad con GNU/Linux este fichero no ocupa 3GB; el espacio sin usar del fichero no ocupa espacio en el disco.</para>
+<para>Para arrancar del CD de instalaci&#xf3;n podemos ejecutar:</para>
+<para>qemu -kernel-kqemu -cdrom /home/jomar/centos1of6.iso -boot d -m 512 centos.qcow2</para>
+<para>La opci&#xf3;n -kernel-kqemu es para obtener la m&#xe1;xima aceleraci&#xf3;n: acelera tambi&#xe9;n el c&#xf3;digo del espacio del kernel; por defecto s&#xf3;lo se acelera la de usuario. Si se produce alg&#xfa;n problema, reintentaremos sin esta opci&#xf3;n; si sigue habiendo problemas podemos probar con -no-kqemu a quitar incluso la aceleraci&#xf3;n de espacio de usuario. Tras la instalaci&#xf3;n, podemos probar a volver a utilizar aceleraci&#xf3;n: a veces los posibles problemas s&#xf3;lo se dan durante la instalaci&#xf3;n, aunque esta situaci&#xf3;n es m&#xe1;s propia de Windows que GNU/Linux.</para>
+<para>Con la opci&#xf3;n -cdrom le indicamos que el CDROM es en realidad esa ISO; as&#xed; evitamos el tener que tostar un CD. Con la opci&#xf3;n -boot d indicamos que arranque de CD en vez de disco duro. La opci&#xf3;n -m 512 establece que la m&#xe1;quina virtual tenga 512 MB de memoria. La cantidad de memoria puede cambiarse de una ejecuci&#xf3;n a otra, pero hay que tener en cuenta que los instaladores suelen crear una partici&#xf3;n de intercambio con el doble de la memoria RAM.</para>
+<para>&#xbf;C&#xf3;mo cambiar de CD durante la instalaci&#xf3;n? Con ctrl-alt-2 (ojo 1, no F1) pasamos al monitor, en el que ejecutamos el comando:</para>
+<para>change cdrom /home/jomar/centos2of6.iso</para>
+<para>Tras escribir la orden (qemu no indica ni errores ni que la operaci&#xf3;n se ha realizado con &#xe9;xito) volvemos a la pantalla de la m&#xe1;quina virtual con ctrl-alt-1.</para>
+<para/>
+<para>Una caracter&#xed;stica interesante de Qemu es que permite crear a partir de un fichero de imagen, otra imagen que s&#xf3;lo contendr&#xe1; los cambios que se produzcan en la primera, si la primera permanece sin modificar. Esta caracter&#xed;stica es &#xfa;til por ejemplo para crear dos im&#xe1;genes muy parecidas para hacer pruebas de redes entre las dos im&#xe1;genes, sin que ocupe tanto en el disco.</para>
+<para>qemu-img create -b xubuntu.qcow2 xubuntu1.qcow2</para>
+<para>qemu-img create -b xubuntu.qcow2 xubuntu2.qcow2</para></sect2><sect2><title>Listados de ejemplos de TUN/TAP</title>
+<para>Listado para usar el dispositivo creado para este usuario (en kernels viejos lo crea si no existe): muestra primer paquete que recibe, una salida similar a la de tcpdump -x -i tun0. Para probarlo configuramos con ifconfig el dispositivo tun0, usando pointtopoint para indicar una IP supuestamente destino; podemos hacer un ping a esa direcci&#xf3;n y ver lo que recibe el programa.</para>
+<para>Listado para crear como persistente el nodo:</para>
+<programlisting><![CDATA[
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/ioctl.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <linux/if_tun.h>
+#include <linux/if.h>
+#include <string.h>
+
+int main() {
+   struct ifreq ifr;
+   int fd, err;
+   char dev[IFNAMSIZ];
+
+   fd = open("/dev/net/tun", O_RDWR) ;
+   memset(&ifr, 0, sizeof(ifr));
+
+   /* Flags: escoger entre IFF_TAP o IFF_TUN; opcionalmente
+    * añadir IFF_NO_PI
+    * IFF_TAP   - Dispositivo TAP: Nivel ethernet (Layer2),           
+    *             multipunto; útil para hacer bridge o para tráfico no IP
+    *             también para Qemu, pues usa TAP
+    * IFF_TUN   - Dispositivo TUN: nivel IP (Layer3); punto a
+    *             punto; la opción recomendada normalmente si
+    *             sólo trafico IP sin bridge
+    * IFF_NO_PI - No añadir a paquetes TUN información adicional
+    *             antes del paquete. 
+    */
+    ifr.ifr_flags = IFF_TUN|IFF_NO_PI;
+    if( *dev )
+        strncpy(ifr.ifr_name, "tun0",5);
+    err= ioctl(fd, TUNSETIFF, (void *) &ifr);
+    if (!(err<0)) {
+      // Hacer dispositivo persistente, es decir, que permanece
+      // creado aunque se cierre dispositivo; normalmente el
+      // dispositivo sólo existe mientras está abierto el
+      // descriptor de fichero a /dev/net/tun.
+      // Cambiar 1 por 0 para borrar un dispositivo persistente.
+      err= ioctl(fd, TUNSETPERSIST, 1);
+
+      // Poner como dueño del dispositivo al UID 1000; de este
+      // modo puede crear dispositivo proceso ejecutado por
+      // usuario con este UID en lugar de root, si además tiene
+      // permiso de lectura y escritura sobre /dev/net/tun
+      // antes de kernel 2.6.18 no era necesario hacer esto, pero
+      // ahora ya sí. Con Qemu otra alternativa es hacer un
+      // programa lanzador setuid que abra fichero, revoque
+      // privilegios y lance Qemu pasándole handler abierto; o que
+      // un programa con privilegio de root abra fichero y pase el
+      // handler vía un socket UNIX (ver man cmsg)
+      if (!(err<0))
+          err= ioctl(fd, TUNSETOWNER, 1000);
+    }
+
+    if( err<0) {
+        perror("falló");
+        close(fd);
+        return err;
+    }
+    strcpy(dev, ifr.ifr_name);
+    printf("%s\n",ifr.ifr_name);
+    return 0;
+}
+]]>
+</programlisting>
+<para>Programa para crear un dispositivo TUN/TAP persistente</para>
+<programlisting><![CDATA[
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/ioctl.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <linux/if_tun.h>
+#include <linux/if.h>
+#include <string.h>
+
+int main() {
+   struct ifreq ifr;
+   int fd, err;
+   char dev[IFNAMSIZ];
+
+   fd = open("/dev/net/tun", O_RDWR) ;
+   memset(&ifr, 0, sizeof(ifr));
+
+   /* Flags: escoger entre IFF_TAP o IFF_TUN; opcionalmente
+    * añadir IFF_NO_PI
+    * IFF_TAP   - Dispositivo TAP: Nivel ethernet (Layer2),           
+    *             multipunto.
+    *             útil para hacer bridge o para tráfico no IP
+    *             también para Qemu, pues usa TAP
+    * IFF_TUN   - Dispositivo TUN: nivel IP (Layer3); punto a
+    *             punto; la opción recomendada normalmente si
+    *             sólo tráfico IP sin bridge
+    * IFF_NO_PI - No añadir a paquetes TUN información adicional
+    *             antes del paquete. 
+    */
+    ifr.ifr_flags = IFF_TUN|IFF_NO_PI;
+    if( *dev )
+        strncpy(ifr.ifr_name, "tun0",5);
+    err= ioctl(fd, TUNSETIFF, (void *) &ifr);
+    if (!(err<0)) {
+      // Hacer dispositivo persistente, es decir, que permanece
+      // creado aunque se cierre dispositivo; normalmente el
+      // dispositivo sólo existe mientras está abierto el
+      // descriptor de fichero a /dev/net/tun.
+      // Cambiar 1 por 0 para borrar un dispositivo persistente.
+      err= ioctl(fd, TUNSETPERSIST, 1);
+
+      // Poner como dueño del dispositivo al UID 1000; de este
+      // modo puede crear dispositivo proceso ejecutado por
+      // usuario con este UID en lugar de root, si además tiene
+      // permiso de lectura y escritura sobre /dev/net/tun
+      // antes de kernel 2.6.18 no era necesario hacer esto, pero
+      // ahora ya sí. Con Qemu otra alternativa es hacer un
+      // programa lanzador setuid que abra fichero, revoque
+      // privilegios y lance Qemu pasándole handler abierto; o que
+      // un programa con privilegio de root abra fichero y pase el
+      // handler vía un socket UNIX (ver man cmsg)
+      if (!(err<0))
+          err= ioctl(fd, TUNSETOWNER, 1000);
+    }
+
+    if( err<0) {
+        perror("falló");
+        close(fd);
+        return err;
+    }
+    strcpy(dev, ifr.ifr_name);
+    printf("%s\n",ifr.ifr_name);
+    return 0;
+}
+]]>
+</programlisting>
+</sect2></sect1>
+</chapter>
+

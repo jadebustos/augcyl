@@ -1,0 +1,87 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>El fichero editar.php</title><meta name="generator" content="DocBook XSL Stylesheets V1.71.0"><link rel="start" href="index.html" title="Utilización y Administración avanzada de sistemas GNU/Linux y aplicaciones Software Libre para estudiantes universitarios"><link rel="up" href="ch02.html" title="Capítulo 2. Principios de la Web"><link rel="prev" href="ch02s05.html" title="El fichero ver.php del directorio"><link rel="next" href="ch02s07.html" title="El fichero borrar.php"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">El fichero editar.php</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch02s05.html">Anterior</a> </td><th width="60%" align="center">Capítulo 2. Principios de la Web</th><td width="20%" align="right"> <a accesskey="n" href="ch02s07.html">Siguiente</a></td></tr></table><hr></div><div class="section" lang="es"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2544894"></a>El fichero editar.php</h2></div></div></div><p>A continuación veremos con se estrcutura el
+      fichero editar.php:</p><div class="informalexample"><pre class="programlisting">
+          &lt;?php 
+          //incluimos el fichero config.php para coger los datos de la conexi?n
+          include_once('../config.php');
+          //cogemos las variables de las coneci?n para que se puedan utilizar en el script
+          global $server, $database, $user, $passwd;
+          //abrimos la conexi?n
+          $conexion = mysql_connect($server,$user,$passwd);
+          //elegimos la BBDD
+          mysql_select_db ($database, $conexion) OR die ("No se puede conectar");
+          //rellenamos la consulta, cambiar alumnos por el nombre de la tabla a listar
+          $sql="Select * from asignaturas WHERE id=".$_GET['id'].";";
+          //re realiza la consulta
+          $result=mysql_query($sql,$conexion);
+          //print $sql;
+          //se coge el registro del alumno
+          $row= mysql_fetch_array($result);
+          ?&gt;
+          &lt;html&gt;
+            &lt;head&gt;
+              &lt;TITLE&gt;Editar Asignatura&lt;/TITLE&gt;
+              &lt;LINK REL="stylesheet" TYPE="text/css"
+              HREF="../estilo.css" /&gt;
+            &lt;/head&gt;
+            &lt;body&gt;
+              &lt;?php
+              //se mira si se est? enviando el formulario de edici?n del alumno
+              if(!isset( $_POST['editar']))
+              {
+              //Si se est? enviando el formulario
+              //echo "&lt;p&gt;Vuelva a intentarlo&lt;/p&gt;";
+              //se abre el formulario que envia los datos de las modificaciones de ese registro
+                              echo "&lt;form method=\"post\" action=\"editar.php?id=".$_GET['id']."\" &gt;";
+              // muestra el c?digo del alumno
+                              echo "Codigo:".$row['id']."&lt;br&gt;";
+              // a partir de aqui se muestran los campos a rellenar en el formulario
+              // si se substituye echo "Nombre : &lt;input type=\"text\" name=\"nombre\" value=\"".$row['nombre']."\" maxlength =200 size=40&gt;&lt;br&gt;";
+              // por echo "Nombre : &lt;input type=\"text\" name=\"nombre_de_campo\" value=\"".$row['nombre']."\" maxlength =longitud_maxima_de_campo 
+              //size=tama?o_dte_la_caja&gt;&lt;br&gt;";
+              // se muestra la caja del nombre del alumno
+                              echo "Nombre : &lt;input type=\"text\" name=\"nombre\" value=\"".$row['nombre']."\" maxlength =100 size=40&gt;&lt;br&gt;";
+              // se pone el bot?n de guardar los datos
+                              echo "&lt;input type=\"submit\" name=\"editar\" value=\"Guardar\"&gt;&lt;/form&gt;&lt;br&gt;";
+              }else{
+              // si se env?a el formulario hay que coger los datos del formulario y meterlos en la BBDD
+              // aqui se deben a?adir tantos isset($_POST['nombre_de_campo']) &amp;&amp; como campos haya en la bbdd
+                      if(isset($_POST['nombre'])){
+              //se desactiva el contenido de la variable $sql
+                              unset($sql);
+              // se rellena la consulta que inserta los datos
+              //se ponen tantos `nombre_de_campo` = '".$_POST['nombre_de_campo']."',
+                              $sql="UPDATE `asignaturas` SET `nombre` = '".$_POST['nombre']."' WHERE `id` =".$_GET['id']." LIMIT 1 ;";
+                              //echo $sql;
+              //se envia la inserci?n de datos en la BBDD
+                              $result=mysql_query($sql,$conexion);
+              //Se informa por la p?gina web que el alumno ha sido modificado
+                              echo "&lt;p&gt;Asignatura Modificada&lt;/p&gt;";
+              //se coloca el bot?n que hace volver al listado de alumnos
+                              echo "&lt;p&gt;&lt;A HREF='index.php'&gt;Volver&lt;/A&gt;&lt;/p&gt;";
+                      }else{
+                      // se informa al usuario que no se han rellenado los campos
+                      echo "Vuelva a intentarlo.&lt;br&gt;";
+                      //se abre el formulario que envia los datos de las modificaciones de ese registro
+                              echo "&lt;form method=\"post\" action=\"editar.php?id=".$_GET['id']."\" &gt;";
+              // muestra el c?digo del alumno
+                              echo "Codigo:".$row['id']."&lt;br&gt;";
+              // a partir de aqui se muestran los campos a rellenar en el formulario
+              // si se substituye echo "Nombre : &lt;input type=\"text\" name=\"nombre\" value=\"".$row['nombre']."\" maxlength =200 size=40&gt;&lt;br&gt;";
+              // por echo "Nombre : &lt;input type=\"text\" name=\"nombre_de_campo\" value=\"".$row['nombre']."\" maxlength =longitud_maxima_de_campo 
+              // size=tama?o_dte_la_caja&gt;&lt;br&gt;";
+              // se muestra la caja del nombre del alumno
+                              echo "Nombre : &lt;input type=\"text\" name=\"nombre\" value=\"".$row['nombre']."\" maxlength =200 size=40&gt;&lt;br&gt;";
+
+              // se pone el bot?n de guardar los datos
+                              echo "&lt;input type=\"submit\" name=\"editar\" value=\"Guardar\"&gt;&lt;/form&gt;&lt;br&gt;";    
+                      }
+              }
+              ?&gt;
+            &lt;/body&gt;
+          &lt;/html&gt;
+        </pre></div><p>En la primera parte se coge el parámetro id
+      por GET y se cogen los datos de la tabla.</p><p>En la tercera parte es muy parecido al nuevo.php,
+      exceptuando por que intenta colocar los datos del registro de
+      la tabla en el formulario y hace un UPDATE en lugar de un
+      INSERT en la consulta SQL. Los datos en sí mismos
+      del formualario se cogen con POST</p></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch02s05.html">Anterior</a> </td><td width="20%" align="center"><a accesskey="u" href="ch02.html">Subir</a></td><td width="40%" align="right"> <a accesskey="n" href="ch02s07.html">Siguiente</a></td></tr><tr><td width="40%" align="left" valign="top">El fichero ver.php del directorio </td><td width="20%" align="center"><a accesskey="h" href="index.html">Inicio</a></td><td width="40%" align="right" valign="top"> El fichero borrar.php</td></tr></table></div></body></html>

@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "docbook/dtd/xml/4.2/docbookx.dtd"[
+<!ENTITY soft-libre.xml SYSTEM "soft-libre.xml">
+<!ENTITY gnu-linux.xml SYSTEM "gnu-linux.xml">
+<!ENTITY licencia.xml SYSTEM "licencia.xml">
+]>
+
+<book lang="es">
+    <bookinfo>
+      <title>Utilizaci&oacute;n y Administraci&oacute;n avanzada de sistemas GNU/Linux
+    y aplicaciones Software Libre para estudiantes universitarios</title>
+    <subtitle>Software libre: Historia y ventajas</subtitle>
+    <authorgroup>
+      <author>
+	<firstname>Manuel</firstname>
+	<surname>Estrada S&aacute;inz</surname>
+      </author>
+      <author>
+	<firstname>Ram&oacute;n</firstname>
+	<surname>Rey Vicente</surname>
+      </author>
+    </authorgroup>
+
+    <legalnotice>
+      <para>Copyright (c)  2.007 Ram&oacute;n Rey Vicente <email>rrey@ramonrey.net</email>, Manuel Estrada S&aacute;inz <email></email>.</para>
+      <para>Permission is granted to copy, distribute and/or modify this document
+  under the terms of the GNU Free Documentation License, Version 1.2
+  or any later version published by the Free Software Foundation;
+  with no Invariant Sections, no Front-Cover Texts, and no Back-Cover
+  Texts.  A copy of the license is included in the section entitled "GNU
+  Free Documentation License".</para>
+    </legalnotice>
+
+    <revhistory>
+      <revision>
+	<revnumber>1.1</revnumber>
+	<date>18-04-2007</date>
+	<authorinitials>Ram&oacute;n Rey Vicente</authorinitials>
+	<authorinitials>Manuel Estrada S&aacute;inz</authorinitials>
+      </revision>
+   </revhistory>    
+
+  </bookinfo>
+&soft-libre.xml;
+&gnu-linux.xml;
+  <bibliography>
+    <biblioentry>
+      <title>
+	<ulink url="http://es.tldp.org/Presentaciones/200102linuxcol/filosofia/filosofia/">
+	  GNU/LINUX:
+	  Filosof&iacute;a de Desarrollo
+	</ulink>
+      </title>
+    </biblioentry>
+    <biblioentry>
+    <title>
+	<ulink url="http://www.gnu.org/philosophy/free-sw.es.html">
+	  La definici&oacute;n de Software Libre
+	</ulink>
+      </title>
+    </biblioentry>
+    <biblioentry>
+      <title>
+	<ulink url="http://www.es.gnu.org/Licencias/ip.html">
+	  La Licencia de IP Filter
+	</ulink>
+      </title>
+    </biblioentry>
+    <biblioentry>
+      <title>
+	<ulink url="http://grupos-locales.hispalinux.es/material/linuxbcn/linux.html">
+	  GNU/Linux y las NTIC
+	</ulink>
+      </title>
+    </biblioentry>
+    <biblioentry>
+      <title>
+	<ulink url="">
+	</ulink>
+      </title>
+    </biblioentry>
+  </bibliography>
+&licencia.xml;
+</book>

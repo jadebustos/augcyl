@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "docbook/dtd/xml/4.2/docbookx.dtd"[
+<!ENTITY bookinfo.xml SYSTEM "bookinfo.xml">
+<!ENTITY introduccion.xml SYSTEM "introduccion.xml">
+<!ENTITY graficas.xml SYSTEM "graficas.xml">
+<!ENTITY fractales.xml SYSTEM "fractales.xml">
+<!ENTITY cas.xml SYSTEM "cas.xml">
+<!ENTITY geometria.xml SYSTEM "geometria.xml">
+<!ENTITY calculo.xml SYSTEM "calculo.xml">
+<!ENTITY estadistica.xml SYSTEM "estadistica.xml">
+<!ENTITY cad.xml SYSTEM "cad.xml">
+<!ENTITY circuitos.xml SYSTEM "circuitos.xml">
+<!ENTITY quimica.xml SYSTEM "quimica.xml">
+<!ENTITY sis.xml SYSTEM "sis.xml">
+<!ENTITY texto.xml SYSTEM "texto.xml">
+]>
+<book lang="es">
+&bookinfo.xml;
+&introduccion.xml;
+&graficas.xml;
+&cas.xml;
+&calculo.xml;
+&geometria.xml;
+&estadistica.xml;
+&texto.xml;
+&cad.xml;
+&circuitos.xml;
+&quimica.xml;
+&sis.xml;
+&fractales.xml;
+</book>

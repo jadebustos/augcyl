@@ -1,0 +1,122 @@
+  <chapter>
+    <title>Software de C&aacute;lculo</title>
+    <para>Existe multitud de software de c&aacute;culo.</para>
+    <sect1>
+      <title>Octave</title>
+      <para><emphasis>Octave</emphasis> es un programa orientado al an&aacute;lisis num&eacute;rico.</para>
+      <para><emphasis>Octave</emphasis> se puede entender como una implementaci&oacute;n libre de <emphasis>Mathlab</emphasis>, por describirlo de una forma sencilla.</para>
+      <para><emphasis>Octave</emphasis> se puede ejecutar:</para>
+      <itemizedlist>
+        <listitem>
+          <para>En l&iacute;nea de comando.</para>
+<screen>
+<prompt>[jadebustos@dedalo ~]$ </prompt><userinput>octave</userinput>
+<computeroutput>
+GNU Octave, version 2.1.73 (i486-pc-linux-gnu).
+Copyright (C) 2006 John W. Eaton.
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; not even for MERCHANTIBILITY or
+FITNESS FOR A PARTICULAR PURPOSE.  For details, type `warranty'.
+
+Additional information about Octave is available at http://www.octave.org.
+
+Please contribute if you find this software useful.
+For more information, visit http://www.octave.org/help-wanted.html
+
+Report bugs to &lt;bug@octave.org&gt; (but first, please read
+http://www.octave.org/bugs.html to learn how to write a helpful report).
+
+octave:1> 
+</computeroutput>
+<prompt>[jadebustos@dedalo ~]$ </prompt>
+</screen>
+        </listitem>
+        <listitem>
+          <para>Ejecuci&oacute;n en modo batch.</para>
+        </listitem>
+      </itemizedlist>
+      <para><emphasis>Octave</emphasis> no realiza representaciones gr&aacute;ficas. Para ello utiliza programas externos.</para>
+      <para>Normalmente se utiliza <emphasis>Gnuplot</emphasis> pero se puede configurar el programa a utilizar mediante la variable <emphasis>gnuplot_binary</emphasis>.</para>
+      <sect2>
+          <title>Recursos para Octave</title>
+          <itemizedlist>
+            <listitem><para><ulink url="http://www.octave.org">Octave</ulink>.</para></listitem>
+          </itemizedlist>
+          <itemizedlist>
+            <listitem><para><ulink url="http://www.gnu.org/software/octave/related.html">Proyectos relacionados</ulink></para></listitem>
+          </itemizedlist>
+          <itemizedlist>
+            <listitem>
+              <para><ulink url="http://octave-gtk.sourceforge.net/">Octave GTK</ulink>.</para>
+            </listitem>
+          </itemizedlist>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Scilab</title>
+      <para><emphasis>Scilab</emphasis> fue dise&ntilde;ado para an&aacute;lisis num&eacute;rico y c&aacute;lculo matricial.</para>
+    <mediaobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/scilab.pdf" format="EPS" scale="40"/>
+      </imageobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/scilab.jpg" format="JPG" scale="150"/>
+      </imageobject>
+	<caption>
+          <para><emphasis>Scilab</emphasis>.</para>
+	</caption>
+    </mediaobject>      
+      <sect2>
+          <title>Recursos para Scilab</title>
+          <itemizedlist>
+            <listitem><para><ulink url="http://www.scilab.org">Scilab</ulink>.</para></listitem>
+          </itemizedlist>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Freemat</title>
+      <para>Otra versi&oacute;n libre de <emphasis>Mathlab</emphasis>, que adem&aacute;s tiene como objetivo extender las caracter&iacute;sticas de este.</para>
+    <mediaobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/freemat.pdf" format="EPS" scale="40"/>
+      </imageobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/freemat.png" format="PNG"/>
+      </imageobject>
+	<caption>
+          <para><emphasis>Freemat</emphasis>.</para>
+	</caption>
+    </mediaobject>
+      <sect2>
+          <title>Recursos para Freemat</title>
+          <itemizedlist>
+            <listitem><para><ulink url="http://freemat.sourceforge.net">Freemat</ulink>.</para></listitem>
+          </itemizedlist>	
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>SNNS</title>
+      <para><emphasis>SNNS</emphasis> es un programa para trabajar con redes neuronales.</para>
+    <mediaobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/snns.pdf" format="EPS" scale="80"/>
+      </imageobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/snns.gif" format="GIF" scale="80"/>
+      </imageobject>
+	<caption>
+          <para><emphasis>SNNS</emphasis>.</para>
+	</caption>
+    </mediaobject>
+      <sect2>
+          <title>Recursos para SNNS</title>
+          <itemizedlist>
+            <listitem><para><ulink url="http://www-ra.informatik.uni-tuebingen.de/SNNS/">SNNS</ulink>.</para></listitem>
+          </itemizedlist>	
+      </sect2>
+    </sect1>
+  </chapter>
+
+<!-- Local Variables: -->
+<!-- xml-parent-document: "Software-Cientifico.xml" -->
+<!-- End: -->

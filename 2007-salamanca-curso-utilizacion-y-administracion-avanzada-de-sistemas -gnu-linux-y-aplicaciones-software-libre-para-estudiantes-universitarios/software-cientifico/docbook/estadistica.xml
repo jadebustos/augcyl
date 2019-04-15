@@ -1,0 +1,56 @@
+  <chapter>
+    <title>Software Estad&iacute;stico</title>
+    <para></para>
+    <sect1>
+      <title>R</title>
+      <para><emphasis>R</emphasis> es un lenguaje para c&aacute;culo estad&iacute;stico.</para>
+      <para><emphasis>R</emphasis> se inspir&oacute; en el programa <emphasis>S</emphasis> de los laboratorios <emphasis>Bell</emphasis>.</para>
+    <mediaobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/r.pdf" format="EPS" scale="40"/>
+      </imageobject>
+      <imageobject>
+	<imagedata align="center" fileref="images/r.jpg" format="JPG" scale="40"/>
+      </imageobject>
+	<caption>
+          <para><emphasis>R</emphasis></para>
+	</caption>
+    </mediaobject>      
+      <sect2>
+          <title>Recursos para R</title>
+          <itemizedlist>
+            <listitem>
+              <para><ulink url="http://www.r-project.org/">R</ulink>.</para>
+            </listitem>
+          </itemizedlist>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>PSPP</title>
+      <para><emphasis>PSPP</emphasis> trata de dar una soluci&oacute;n basada en software libre del programa comercial <emphasis>SPSS</emphasis>. Es un proyecto al que todav&iacute;a le queda mucho camino por andar.</para>
+      <sect2>
+          <title>Recursos para PSPP</title>
+          <itemizedlist>
+            <listitem>
+              <para><ulink url="http://www.gnu.org/software/pspp/">PSPP</ulink>.</para>
+            </listitem>
+          </itemizedlist>
+      </sect2>
+    </sect1>
+    <sect1>
+      <title>Macanova</title>
+      <para><emphasis>Macanova</emphasis> es un software estad&iacute;stico m&aacute;s completo que <emphasis>PSPP</emphasis> pero cuya interface de usuario dista de ser amigable.</para>
+      <sect2>
+          <title>Recursos para Macanova</title>
+          <itemizedlist>
+            <listitem>
+              <para><ulink url="http://www.stat.umn.edu/macanova/">Macanova</ulink>.</para>
+            </listitem>
+          </itemizedlist>
+      </sect2>
+    </sect1>
+  </chapter>
+
+<!-- Local Variables: -->
+<!-- xml-parent-document: "Software-Cientifico.xml" -->
+<!-- End: -->

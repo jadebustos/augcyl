@@ -1,0 +1,154 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Comandos de gestión de procesos</title><meta name="generator" content="DocBook XSL Stylesheets V1.71.0"><link rel="start" href="index.html" title="Utilización y Administración avanzada de sistemas GNU/Linux y aplicaciones Software Libre para estudiantes universitarios"><link rel="up" href="ch02.html" title="Capítulo 2. Gestión de Procesos"><link rel="prev" href="ch02s02.html" title="Atributos de los procesos"><link rel="next" href="ch03.html" title="Capítulo 3. Gestión de Memoria"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Comandos de gestión de procesos</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch02s02.html">Anterior</a> </td><th width="60%" align="center">Capítulo 2. Gestión de Procesos</th><td width="20%" align="right"> <a accesskey="n" href="ch03.html">Siguiente</a></td></tr></table><hr></div><div class="sect1" lang="es"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="id2544274"></a>Comandos de gestión de procesos</h2></div></div></div><p>Vamos ver los comandos con los que podemos ver el estado y
+      atributos de los procesos y los comandos que nos permiten
+      cambiar algunas características de los procesos.</p><div class="sect2" lang="es"><div class="titlepage"><div><div><h3 class="title"><a name="id2544288"></a>Ejecución en background y comandos
+      <span><strong class="command">jobs</strong></span>, <span><strong class="command">fg</strong></span>
+      y  <span><strong class="command">bg</strong></span></h3></div></div></div><p>Cuando ejecutamos un comando en la consola esta se queda
+      a la espera que termine el proceso que hemos ejecutado. Podemos
+      hacer que comience la ejecución e inmediatamente nos devuelva el
+      control a la consola. Para ello tenemos que utilizar el operador
+      &amp; al final del comando.</p><pre class="screen"><code class="prompt">[pcm@sal]$ </code><strong class="userinput"><code>firefox &amp;</code></strong>
+<code class="computeroutput">[1] 23710</code>
+<code class="prompt">[pcm@sal]$ </code></pre><p>Si no hubiésemos puesto &amp; hasta que no cerráramos la
+      aplicación <span class="application">firefox</span> no podríamos usar
+      la consola. Podríamos ver que estamos ejecutando en esa consola
+      en background con el comando <span><strong class="command">jobs</strong></span>.</p><pre class="screen"><code class="prompt">[pcm@sal]$ </code><strong class="userinput"><code>jobs</code></strong>
+<code class="computeroutput">[1]+  Running                 firefox &amp;</code>
+<code class="prompt">[pcm@sal]$ </code></pre><p>Incluso podemos llevar una aplicación que esta corriendo en
+background a la consola con el comando <span><strong class="command">fg</strong></span> dándole
+el número que aparece con el comando jobs o cuando ejecutamos el
+comando en background. También podemos parar un proceso que esta en la
+consola pulsando Control+Z o utilizando desde otra consola el comando
+<span><strong class="command">kill</strong></span>, y luego enviando el proceso a background con
+<span><strong class="command">bg</strong></span>.</p><pre class="screen"><code class="prompt">[pcm@sal]$</code><strong class="userinput"><code>fg 1</code></strong>
+<code class="computeroutput">firefox</code></pre><p>Si ahora queremos llevarle a background de nuevo pulsaríamos
+Control+Z.</p><pre class="screen">
+<code class="computeroutput">[1]+  Stopped                 firefox
+</code><code class="prompt">[pcm@sal]$ </code><strong class="userinput"><code>bg 1</code></strong>
+<code class="computeroutput">[1]+ firefox &amp;</code>
+<code class="prompt">[pcm@sal]$</code></pre><div class="important" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Importante</h3><p>Si un proceso en background utiliza la consola para
+interactuar con el usuario, el proceso se queda en estado parado.</p></div></div><div class="sect2" lang="es"><div class="titlepage"><div><div><h3 class="title"><a name="id2544497"></a>Comando <span><strong class="command">ps</strong></span></h3></div></div></div><p>Este comando nos permite ver los procesos que
+      actualmente existen en el sistema. Es un comando con una amplia
+      parametrización para que podamos ver cómodamente la información
+      de procesos.</p><p>Este es el comando preparado para ver todas las características
+      de los procesos. Al ser un comando estándar el todos los UNIX
+      soporta un montón de parámetros especificados en versiones
+      anteriores del <span><strong class="command">ps</strong></span>.</p><p>Para listar todos los procesos de la máquina haríamos:</p><pre class="screen">
+<code class="prompt">[root@sal]# </code><strong class="userinput"><code>ps -ef</code></strong>
+<code class="computeroutput">
+UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 Apr07 ?        00:00:01 init [2]
+root         2     1  0 Apr07 ?        00:00:02 [keventd]
+root         3     1  0 Apr07 ?        00:00:00 [ksoftirqd_CPU0]
+root         4     1  0 Apr07 ?        00:00:00 [ksoftirqd_CPU1]
+root         5     1  0 Apr07 ?        00:00:03 [kswapd]
+root         6     1  0 Apr07 ?        00:00:00 [bdflush]
+root         7     1  0 Apr07 ?        00:00:03 [kupdated]
+root       409     1  0 Apr07 ?        00:00:00 [knodemgrd_0]
+root       541     1  0 Apr07 ?        00:00:00 [khubd]
+daemon     865     1  0 Apr07 ?        00:00:00 /sbin/portmap
+root       955     1  0 Apr07 ?        00:00:03 /sbin/syslogd
+root       958     1  0 Apr07 ?        00:00:00 /sbin/klogd
+pcm20     1026     1  0 Apr07 ?        00:00:00 /usr/sbin/famd -T 0
+root      1032     1  0 Apr07 ?        00:00:00 /usr/sbin/inetd
+root      1047     1  0 Apr07 ?        00:00:00 /usr/sbin/lisa
+root      1150     1  0 Apr07 ?        00:00:01 /usr/sbin/nmbd -D
+root      1152     1  0 Apr07 ?        00:00:00 /usr/sbin/smbd -D
+root      1158  1152  0 Apr07 ?        00:00:00 /usr/sbin/smbd -D
+root      1159     1  0 Apr07 ?        00:00:00 /usr/sbin/sshd
+root      1168     1  0 Apr07 ?        00:00:00 /sbin/rpc.statd
+root      1174     1  0 Apr07 ?        00:00:01 /usr/sbin/sensord -f daemon
+daemon    1205     1  0 Apr07 ?        00:00:00 /usr/sbin/atd
+root      1208     1  0 Apr07 ?        00:00:00 /usr/sbin/cron
+root      1313     1  0 Apr07 ?        00:00:02 /usr/sbin/apache
+root      1325     1  0 Apr07 ?        00:00:00 /usr/bin/hts -F localhost:22
+root      1341     1  0 Apr07 ?        00:00:00 /usr/bin/kdm
+root      1348     1  0 Apr07 tty1     00:00:00 /sbin/getty 38400 tty1
+root      1349     1  0 Apr07 tty2     00:00:00 /sbin/getty 38400 tty2
+root      1350     1  0 Apr07 tty3     00:00:00 /sbin/getty 38400 tty3
+root      1351     1  0 Apr07 tty4     00:00:00 /sbin/getty 38400 tty4
+root      1352     1  0 Apr07 tty5     00:00:00 /sbin/getty 38400 tty5
+root      1353     1  0 Apr07 tty6     00:00:00 /sbin/getty 38400 tty6
+root      1372  1341  0 Apr07 ?        00:14:53 /usr/X11R6/bin/X -nolisten tcp -
+root      1411     1  0 Apr07 ?        00:00:02 /usr/bin/perl /usr/share/webmin/
+root      1418  1341  0 Apr07 ?        00:00:00 -:0
+</code><code class="prompt">[root@sal]# </code>
+</pre><p>Es muy recomendable ver el manual de este comando.</p></div><div class="sect2" lang="es"><div class="titlepage"><div><div><h3 class="title"><a name="id2544647"></a>Comando <span><strong class="command">top</strong></span> y <span><strong class="command">htop</strong></span></h3></div></div></div><p>Nos muestra información de los procesos que existen, y
+	de algunos parámetros del sistema como la memoria, tiempo de
+	ocupación de cpu, a intervalos, es decir, no termina una vez
+	que los muestra si no que vuelve a ejecutarse en pequeño
+	tiempo y vuelve a mostrar los nuevos datos.</p><pre class="screen">
+<code class="prompt">[root@sal]# </code><strong class="userinput"><code>top</code></strong> <code class="computeroutput">
+top - 01:47:25 up 1 day,  3:38,  1 user,  load average: 0.01, 0.04, 0.03
+Tasks: 112 total,   1 running, 111 sleeping,   0 stopped,   0 zombie
+Cpu(s):   5.6% user,   8.2% system,   0.0% nice,  86.1% idle
+Mem:    516528k total,   503012k used,    13516k free,    44320k buffers
+Swap:   337356k total,    13496k used,   323860k free,   165572k cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND
+ 2078 pcm       19   0 14772  14m  12m S 10.6  2.8  11:37.18 kdeinit
+ 1372 root      12 -10 83448  73m 9228 S  3.5 14.5  14:55.90 XFree86
+22682 root      19   0  1084 1084  844 R  3.2  0.2   0:00.30 top
+ 2086 pcm       10   0  101m  97m  23m S  1.3 19.4  21:51.38 netscape-bin
+21199 pcm       12   0 30420  29m  13m S  1.3  5.9   0:10.50 java_vm
+ 2100 pcm       12   0  101m  97m  23m S  1.0 19.4   0:09.66 netscape-bin
+ 2075 pcm       11   0 18184  17m  13m S  0.6  3.5   0:21.67 kdeinit
+ 5012 pcm       11   0 10864  10m 4072 S  0.6  2.0   3:13.78 emacs
+ 8591 mysql     10   0 13600  13m 2932 S  0.6  2.6   0:48.99 mysqld
+ 1411 root      10   0  5744 3448 2088 S  0.3  0.7   0:02.43 miniserv.pl
+ 2068 pcm        9   0 12920  12m  10m S  0.3  2.4   1:35.65 kdeinit
+ 8153 root       9   0   944  904  796 S  0.3  0.2   0:09.22 dirmngr
+ 8592 mysql     10   0 13600  13m 2932 S  0.3  2.6   0:54.86 mysqld
+21197 pcm        9   0 30420  29m  13m S  0.3  5.9   0:04.70 java_vm
+    1 root       9   0   500  500  448 S  0.0  0.1   0:01.62 init
+    2 root       9   0     0    0    0 S  0.0  0.0   0:02.30 keventd
+  </code>
+</pre><p>El mismo comando pero visualmente más bonito y más sencillo de utilizar
+es <span><strong class="command">htop</strong></span>. Aunque es probable que no lo encontremos instalado como base en muchos sistema Linux o Unix.</p><div class="informalfigure"><div class="screenshot"><div class="mediaobject"><img src="img/c3htop.png" alt="htop"></div></div></div></div><div class="sect2" lang="es"><div class="titlepage"><div><div><h3 class="title"><a name="id2544776"></a>Comando <span><strong class="command">pstree</strong></span></h3></div></div></div><p>Nos da el árbol de procesos, es decir nos hace un árbol
+	de los procesos mediante su PPID.</p></div><div class="sect2" lang="es"><div class="titlepage"><div><div><h3 class="title"><a name="id2544792"></a>Comando <span><strong class="command">nice</strong></span> y <span><strong class="command">renice</strong></span></h3></div></div></div><p>Estos comandos nos permiten lanzar un proceso con una
+	prioridad determinada el primero y el segundo cambiar la
+	prioridad de un proceso.</p></div><div class="sect2" lang="es"><div class="titlepage"><div><div><h3 class="title"><a name="id2544814"></a>Comando <span><strong class="command">kill</strong></span></h3></div></div></div><p>Nos permite enviar una señal a un proceso. Por defecto
+	envía la señal de parada al PID que pongamos, de ahí su nombre, pero realmente con
+	un parámetro podemos enviar otros tipos de señales de
+	procesos.</p><pre class="screen">
+<code class="prompt">[root@sal]# </code><strong class="userinput"><code>kill 22670</code></strong>
+<code class="prompt">[root@sal]# </code>
+</pre><p>Para ver la lista de señales soportadas por el comando podemos
+hacer:</p><pre class="screen">
+<code class="prompt">[root@sal]# </code><strong class="userinput"><code>kill -l</code></strong>
+<code class="computeroutput">
+ 1) SIGHUP       2) SIGINT       3) SIGQUIT      4) SIGILL
+ 5) SIGTRAP      6) SIGABRT      7) SIGBUS       8) SIGFPE
+ 9) SIGKILL     10) SIGUSR1     11) SIGSEGV     12) SIGUSR2
+13) SIGPIPE     14) SIGALRM     15) SIGTERM     17) SIGCHLD
+18) SIGCONT     19) SIGSTOP     20) SIGTSTP     21) SIGTTIN
+22) SIGTTOU     23) SIGURG      24) SIGXCPU     25) SIGXFSZ
+26) SIGVTALRM   27) SIGPROF     28) SIGWINCH    29) SIGIO
+30) SIGPWR      31) SIGSYS      33) SIGRTMIN    34) SIGRTMIN+1
+35) SIGRTMIN+2  36) SIGRTMIN+3  37) SIGRTMIN+4  38) SIGRTMIN+5
+39) SIGRTMIN+6  40) SIGRTMIN+7  41) SIGRTMIN+8  42) SIGRTMIN+9
+43) SIGRTMIN+10 44) SIGRTMIN+11 45) SIGRTMIN+12 46) SIGRTMIN+13
+47) SIGRTMIN+14 48) SIGRTMIN+15 49) SIGRTMAX-15 50) SIGRTMAX-14
+51) SIGRTMAX-13 52) SIGRTMAX-12 53) SIGRTMAX-11 54) SIGRTMAX-10
+55) SIGRTMAX-9  56) SIGRTMAX-8  57) SIGRTMAX-7  58) SIGRTMAX-6
+59) SIGRTMAX-5  60) SIGRTMAX-4  61) SIGRTMAX-3  62) SIGRTMAX-2
+63) SIGRTMAX-1  64) SIGRTMAX
+</code><code class="prompt">[root@sal]# </code>
+</pre><p>Las señales más utilizadas son:</p><div class="itemizedlist"><ul type="disc"><li><p>SIGKILL Termina el proceso, no puede ser ignorada. Se
+      puede enviar con <strong class="userinput"><code>kill -s SIGKILL </code></strong>
+      <span class="emphasis"><em>pid</em></span> o <strong class="userinput"><code>kill -9</code></strong>
+      <span class="emphasis"><em> pid</em></span>, que es modo estándar en
+      otros UNIX.</p></li><li><p>SIGSTOP Para el proceso, no puede ser ignorada.</p></li><li><p>SIGTERM Se ordena al proceso que termine, el cual puede
+      ser ignorar la señal. El la señal enviada por defecto.</p></li></ul></div></div><div class="sect2" lang="es"><div class="titlepage"><div><div><h3 class="title"><a name="id2544958"></a>Comando <span><strong class="command">killall</strong></span> y <span><strong class="command">pkill</strong></span></h3></div></div></div><p>Con estos comandos vamos a poder enviar señales a
+	procesos, en vez de por PID, por el nombre, con
+	<span><strong class="command">killall</strong></span> y por otras propiedades de los
+	procesos como pueden ser el usuario, el GID, el proceso padre,
+	etc, con <span><strong class="command">pkill</strong></span>. Por ejemplo:</p><pre class="screen">
+<code class="prompt">[pcm@sal]# </code><strong class="userinput"><code>ps</code></strong>
+<code class="computeroutput"> 4548 pts/2    00:00:00 bash
+ 4565 pts/2    00:00:00 gconfd-2
+22780 pts/2    00:00:34 xpdf.bin
+22824 pts/2    00:00:00 ps
+</code>
+<code class="prompt">[pcm@sal]# </code><strong class="userinput"><code>killall xpdf.bin</code></strong>
+<code class="prompt">[pcm@sal]# </code>
+</pre><p>Con esta acción terminaría el proceso 22780.</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch02s02.html">Anterior</a> </td><td width="20%" align="center"><a accesskey="u" href="ch02.html">Subir</a></td><td width="40%" align="right"> <a accesskey="n" href="ch03.html">Siguiente</a></td></tr><tr><td width="40%" align="left" valign="top">Atributos de los procesos </td><td width="20%" align="center"><a accesskey="h" href="index.html">Inicio</a></td><td width="40%" align="right" valign="top"> Capítulo 3. Gestión de Memoria</td></tr></table></div></body></html>

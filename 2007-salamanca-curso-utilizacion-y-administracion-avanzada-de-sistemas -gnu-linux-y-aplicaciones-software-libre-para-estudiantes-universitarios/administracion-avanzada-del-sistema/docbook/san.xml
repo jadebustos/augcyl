@@ -1,0 +1,406 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+<!-- CAPITULO 8 -->
+  <chapter>
+    <title>Introducci&oacute;n al uso de <emphasis>SAN</emphasis> en GNU/Linux</title>
+    <para>Las redes <emphasis>SAN</emphasis> o <emphasis>S</emphasis>torage <emphasis>A</emphasis>rea <emphasis>N</emphasis>etwork est&aacute;n siendo cada vez m&aacute;s utilizadas debido a la potencia y escalabilidad que presentan.</para>
+    <para>El proposito de este cap&iacute;tulo es ofrecer una visi&oacute;n general del uso de almacenamiento externo en GNU/Linux y no el uso de software suministrado por cada fabricante para el manejo de sus dispositivos de almacenamiento.</para>
+    <sect1>
+      <title>Breve introducci&oacute;n a una <emphasis>SAN</emphasis></title>
+      <para>Los discos ocupan espacio y cuando los requerimientos de disco crecen muchas veces no es posible a&ntilde;adir los discos a un servidor debido a problemas de espacio.</para>
+      <para>Para solucionar esto se ha recurrido al almacenmamiento externo.</para>
+      <para>Una <emphasis>SAN</emphasis> no es m&aacute;te m&aacute;s que una cabina o armario de discos conectados por fibra &oacute;ptica a los servidores.</para>
+      <para>Para esta conexi&oacute;n se utilizan unos switches especiales, de fibra, que son los que est&aacute;n conectados a las cabinas y a los servidores mediante tarjetas de fibra o <emphasis>HBAs</emphasis>.</para>
+      <para>Las configuraciones habituales son dos <emphasis>HBAs</emphasis> por m&aacute;quina.</para>
+      <para>Los discos habitualmente se configuran para que se llegue por varios caminos por tarjeta. Normalmente dos caminos por tarjeta. Por este motivo cada disco se ver&aacute;a por cuatro caminos. Es decir que tendremos cuatro dispositivos f&iacute;sicos que son el mismo.</para>
+      <para>Esto se denomina <emphasis>multipathing</emphasis> y permite el balanceo de carga y la alta disponibilidad en el acceso a disco.</para>
+      <para>Hay diferentes fabricantes que ofrencen soluciones <emphasis>SAN</emphasis>. Los m&aacute;s conocidos:</para>
+      <itemizedlist>
+        <listitem>
+          <para><emphasis>IBM</emphasis></para>
+        </listitem>
+        <listitem>
+          <para><emphasis>EMC2</emphasis></para>
+        </listitem>
+        <listitem>
+          <para><emphasis>Hitachi</emphasis></para>
+        </listitem>
+        <listitem>
+          <para><emphasis>HP</emphasis></para>
+        </listitem>
+      </itemizedlist>
+      <para>Para el uso del <emphasis>multipathing</emphasis> cada fabricante proporciona su propio software y ser&aacute; necesario utilizarlo si queremos disponer de las capacidades de <emphasis>multipathing</emphasis>.</para>
+      <tip><para>Utilizando <emphasis>device mapper</emphasis> podemos hacer <emphasis>multipathing</emphasis>. Si nos decidimos a utilizar <emphasis>device mapper</emphasis> nos ahorraremos bastante dinero en concepto de licencias pero hay que tener en cuenta que no dispondremos de soporte oficial, aunque lo paguemos, por parte del fabricante de las cabinas.</para>
+      <para>El uso de software no certificado puede inducir problemas en la red <emphasis>SAN</emphasis> que pudieran afectar a otros equipos. Por este motivo lo recomendable es utilizar el software proporcionado por el fabricante.</para></tip>
+    </sect1>
+    <sect1>
+      <title>Escaneado de discos</title>
+      <para>Cada vez que necesitemos disco es posible asignarle disco a un servidor y a&ntilde;adirselo sin reiniciarlo.</para>
+      <para>Para a&ntilde;adir los discos ser&aacute; necesario hacerlo de dos pasos:</para>
+      <orderedlist>
+        <listitem>
+          <para>Reescaneo del bus <emphasis>SCSI</emphasis>.</para>
+          <para>En el caso de tarjetas <emphasis>Qlogic 2340</emphasis>:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>echo "scsi-qlascan" > /proc/scsi/qla2300/1</userinput>
+<prompt>[root@sal]# </prompt>
+</screen>
+          <para>Tendremos que hacer esto para cada tarjeta a la que se haya asignado el disco. Las tarjetas ser&aacute;n nombradas con un n&uacute;mero dentro de <filename>/proc/scsi/qla2300/</filename>.</para>
+          <para>Una vez hecho esto el sistema SCSI ver&aacute; los discos pero ser&aacute; necesario registrarlos en el sistema para asignarles un dispositivo:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>cat /proc/scsi/qla2300/1</userinput>
+<computeroutput>QLogic PCI to Fibre Channel Host Adapter for QLA2340:
+        Firmware version:  3.02.13, Driver version 6.06.00
+Entry address = ce800060
+HBA: QLA2312 , Serial# P19322
+Request Queue = 0xe8ec000, Response Queue = 0xe8d0000
+Request Queue count= 128, Response Queue count= 512
+Total number of active commands = 0
+Total number of interrupts = 12
+Total number of IOCBs (used/max) = (0/600)
+Total number of queued commands = 0
+    Device queue depth = 0x20
+Number of free request entries = 127
+Number of mailbox timeouts = 0
+Number of ISP aborts = 0
+Number of loop resyncs = 0
+Number of retries for empty slots = 0
+Number of reqs in pending_q= 0, retry_q= 0, done_q= 0, scsi_retry_q= 0
+Host adapter:loop state= &lt;READY&gt;, flags= 0x8e0813
+Dpc flags = 0x0
+MBX flags = 0x0
+SRB Free Count = 4096
+Link down Timeout = 000
+Port down retry = 030
+Login retry count = 030
+Commands retried with dropped frame(s) = 0
+
+
+SCSI Device Information:
+scsi-qla0-adapter-node=200000e08b17da2e;
+scsi-qla0-adapter-port=210000e08b17da2e;
+scsi-qla0-target-0=5005076300c4a585;
+scsi-qla0-target-1=5005076300c3a585;
+scsi-qla0-target-2=5005076300c2a585;
+scsi-qla0-target-3=5005076300cca585;
+scsi-qla0-target-4=5005076300cba585;
+scsi-qla0-target-5=5005076300caa585;
+
+SCSI LUN Information:
+(Id:Lun)  * - indicates lun is not registered with the OS.
+( 0: 0): Total reqs 0, Pending reqs 0, flags 0x0*, 0:0:81,
+( 0: 1): Total reqs 0, Pending reqs 0, flags 0x0*, 0:0:81,
+( 0: 2): Total reqs 0, Pending reqs 0, flags 0x0*, 0:0:81,
+( 1: 0): Total reqs 0, Pending reqs 0, flags 0x0*, 0:0:82,
+( 1: 1): Total reqs 0, Pending reqs 0, flags 0x0*, 0:0:82,
+( 1: 2): Total reqs 0, Pending reqs 0, flags 0x0*, 0:0:82,
+( 2: 0): Total reqs 0, Pending reqs 0, flags 0x0*, 0:0:83,
+( 2: 1): Total reqs 0, Pending reqs 0, flags 0x0*, 0:0:83,
+( 2: 2): Total reqs 0, Pending reqs 0, flags 0x0*, 0:0:83,
+( 3: 0): Total reqs 0, Pending reqs 0, flags 0x0*, 0:0:84,
+( 3: 1): Total reqs 0, Pending reqs 0, flags 0x0*, 0:0:84,
+( 3: 2): Total reqs 0, Pending reqs 0, flags 0x0*, 0:0:84,
+( 4: 0): Total reqs 0, Pending reqs 0, flags 0x0*, 0:0:85,
+( 4: 1): Total reqs 0, Pending reqs 0, flags 0x0*, 0:0:85,
+( 4: 2): Total reqs 0, Pending reqs 0, flags 0x0*, 0:0:85,
+( 5: 0): Total reqs 0, Pending reqs 0, flags 0x0*, 0:0:86,
+( 5: 1): Total reqs 0, Pending reqs 0, flags 0x0*, 0:0:86,
+( 5: 2): Total reqs 0, Pending reqs 0, flags 0x0*, 0:0:86,</computeroutput>
+<prompt>[root@sal]# </prompt>
+</screen>
+        <para>Aquellos dispositivos en los que aparezca <emphasis>flags 0x0*</emphasis>, el asterisco nos da la clave, son los dispositivos nuevos que se han asignado y para los que necesitaremos registrar en el sistema para asignarles un dispositivo en <filename>/dev/</filename>.</para>
+
+          <para>En el caso de tarjetas <emphasis>Qlogic 2462</emphasis>:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>echo 1 > /sys/class/fc_host/host1/issue_lip</userinput>
+<prompt>[root@sal]# </prompt>
+</screen>
+          <para>Tendremos que hacer esto para cada tarjeta a la que se haya asignado el disco. Las tarjetas ser&aacute;n nombradas con host<emphasis>n</emphasis>.</para>
+          <para>Una vez hecho esto el sistema SCSI ver&aacute; los discos pero ser&aacute; necesario registrarlos en el sistema para asignarles un dispositivo:</para>          
+<screen>
+<prompt>[root@sal]# </prompt><userinput>cat /proc/scsi/qla2xxx/1</userinput>
+<computeroutput>QLogic PCI to Fibre Channel Host Adapter for QMC2462S:
+        Firmware version 4.00.18 [IP] , Driver version 8.01.04-d7
+ISP: ISP2422
+Request Queue = 0x7cc00000, Response Queue = 0x7d3c0000
+Request Queue count = 4096, Response Queue count = 512
+Total number of active commands = 28
+Total number of interrupts = 15416672
+    Device queue depth = 0x20
+Number of free request entries = 4067
+Number of mailbox timeouts = 0
+Number of ISP aborts = 0
+Number of loop resyncs = 0
+Number of retries for empty slots = 0
+Number of reqs in pending_q= 0, retry_q= 0, done_q= 0, scsi_retry_q= 0
+Host adapter:loop state = &lt;READY&gt;, flags = 0x1e03
+Dpc flags = 0x4000000
+MBX flags = 0x0
+Link down Timeout = 030
+Port down retry = 030
+Login retry count = 030
+Commands retried with dropped frame(s) = 0
+Product ID = 0000 0000 0000 0000
+
+
+SCSI Device Information:
+scsi-qla0-adapter-node=200000e08b859383;
+scsi-qla0-adapter-port=210000e08b859383;
+scsi-qla0-target-0=5006016030224a8b;
+scsi-qla0-target-1=5006016930224a8b;
+
+FC Port Information:
+scsi-qla0-port-0=50060160b0224a8b:5006016030224a8b:010000:81;
+scsi-qla0-port-1=50060160b0224a8b:5006016930224a8b:010400:82;
+
+SCSI LUN Information:
+(Id:Lun)  * - indicates lun is not registered with the OS.
+( 0: 0): Total reqs 256853, Pending reqs 0, flags 0x0, 0:0:81 00
+( 0: 1): Total reqs 8896695, Pending reqs 0, flags 0x0, 0:0:81 00
+( 0: 2): Total reqs 8524762, Pending reqs 28, flags 0x0, 0:0:81 00
+( 0: 3): Total reqs 216957, Pending reqs 0, flags 0x0, 0:0:81 00
+( 0: 4): Total reqs 0, Pending reqs 0, flags 0x0*, 0:0:81 00
+( 0: 5): Total reqs 0, Pending reqs 0, flags 0x0*, 0:0:81 00
+( 0: 6): Total reqs 0, Pending reqs 0, flags 0x0*, 0:0:81 00
+( 1: 0): Total reqs 14430, Pending reqs 0, flags 0x0, 0:0:82 00
+( 1: 1): Total reqs 14442, Pending reqs 0, flags 0x0, 0:0:82 00
+( 1: 2): Total reqs 14463, Pending reqs 0, flags 0x0, 0:0:82 00
+( 1: 3): Total reqs 14399, Pending reqs 0, flags 0x0, 0:0:82 00
+( 1: 4): Total reqs 0, Pending reqs 0, flags 0x0*, 0:0:82 00
+( 1: 5): Total reqs 0, Pending reqs 0, flags 0x0*, 0:0:82 00
+( 1: 6): Total reqs 0, Pending reqs 0, flags 0x0*, 0:0:82 00</computeroutput>
+<prompt>[root@sal]# </prompt>
+</screen>
+          <para>Aquellos dispositivos en los que aparezca <emphasis>flags 0x0*</emphasis>, el asterisco nos da la clave, son los dispositivos nuevos que se han asignado y para los que necesitaremos registrar en el sistema para asignarles un dispositivo en <filename>/dev/</filename>.</para>
+          <para>Tendremos que hacer esto para cada tarjeta a la que se haya asignado el disco. Las tarjetas ser&aacute;n nombradas como host<emphasis>n</emphasis>.</para>
+          <para>Una vez hecho esto el sistema SCSI ver&aacute; los discos pero ser&aacute; necesario registrarlos en el sistema para asignarles un dispositivo.</para>
+        </listitem>
+        <listitem>
+          <para>Registro de los discos en el sistema. Esto le asignar&aacute; a cada dispositivo un dispositivo f&iacute;sico en <filename>/dev/</filename>.</para>
+          <para>En el caso de tarjetas <emphasis>Qlogic 2340</emphasis>:</para>
+          <para>Por cada dispositivo que presente un "<emphasis>*</emphasis>" en cada tarjeta tendremos que hacer:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>echo "add-single-device  R C T L" > /proc/scsi/scsi</userinput>
+<prompt>[root@sal]# </prompt>
+</screen>
+          <para>Donde:</para>
+          <itemizedlist>
+            <listitem>
+              <para><emphasis>R</emphasis> es la tarjeta. El n&uacute;mero dentro de <filename>/proc/scsi/qla2300/</filename>.</para>
+            </listitem>
+            <listitem>
+              <para><emphasis>C</emphasis> es el canal. Normalmente es cero. Se puede verificar en <filename>/proc/scsi/scsi</filename>.</para>
+            </listitem>
+            <listitem>
+              <para><emphasis>T</emphasis> es el target y viene especificado por el campo <emphasis>Id</emphasis>.</para>
+            </listitem>
+            <listitem>
+              <para><emphasis>L</emphasis> es el lun.</para>
+            </listitem>
+          </itemizedlist>
+          <para>Una vez registrados todos los dispositivos:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>cat /proc/scsi/qla2300/1</userinput>
+<computeroutput>QLogic PCI to Fibre Channel Host Adapter for QLA2340:
+        Firmware version:  3.02.13, Driver version 6.06.00
+Entry address = ce800060
+HBA: QLA2312 , Serial# P19322
+Request Queue = 0xe8ec000, Response Queue = 0xe8d0000
+Request Queue count= 128, Response Queue count= 512
+Total number of active commands = 0
+Total number of interrupts = 12
+Total number of IOCBs (used/max) = (0/600)
+Total number of queued commands = 0
+    Device queue depth = 0x20
+Number of free request entries = 127
+Number of mailbox timeouts = 0
+Number of ISP aborts = 0
+Number of loop resyncs = 0
+Number of retries for empty slots = 0
+Number of reqs in pending_q= 0, retry_q= 0, done_q= 0, scsi_retry_q= 0
+Host adapter:loop state= &lt;READY&gt;, flags= 0x8e0813
+Dpc flags = 0x0
+MBX flags = 0x0
+SRB Free Count = 4096
+Link down Timeout = 000
+Port down retry = 030
+Login retry count = 030
+Commands retried with dropped frame(s) = 0
+
+
+SCSI Device Information:
+scsi-qla0-adapter-node=200000e08b17da2e;
+scsi-qla0-adapter-port=210000e08b17da2e;
+scsi-qla0-target-0=5005076300c4a585;
+scsi-qla0-target-1=5005076300c3a585;
+scsi-qla0-target-2=5005076300c2a585;
+scsi-qla0-target-3=5005076300cca585;
+scsi-qla0-target-4=5005076300cba585;
+scsi-qla0-target-5=5005076300caa585;
+
+SCSI LUN Information:
+(Id:Lun)  * - indicates lun is not registered with the OS.
+( 0: 0): Total reqs 0, Pending reqs 0, flags 0x0, 0:0:81,
+( 0: 1): Total reqs 0, Pending reqs 0, flags 0x0, 0:0:81,
+( 0: 2): Total reqs 0, Pending reqs 0, flags 0x0, 0:0:81,
+( 1: 0): Total reqs 0, Pending reqs 0, flags 0x0, 0:0:82,
+( 1: 1): Total reqs 0, Pending reqs 0, flags 0x0, 0:0:82,
+( 1: 2): Total reqs 0, Pending reqs 0, flags 0x0, 0:0:82,
+( 2: 0): Total reqs 0, Pending reqs 0, flags 0x0, 0:0:83,
+( 2: 1): Total reqs 0, Pending reqs 0, flags 0x0, 0:0:83,
+( 2: 2): Total reqs 0, Pending reqs 0, flags 0x0, 0:0:83,
+( 3: 0): Total reqs 0, Pending reqs 0, flags 0x0, 0:0:84,
+( 3: 1): Total reqs 0, Pending reqs 0, flags 0x0, 0:0:84,
+( 3: 2): Total reqs 0, Pending reqs 0, flags 0x0, 0:0:84,
+( 4: 0): Total reqs 0, Pending reqs 0, flags 0x0, 0:0:85,
+( 4: 1): Total reqs 0, Pending reqs 0, flags 0x0, 0:0:85,
+( 4: 2): Total reqs 0, Pending reqs 0, flags 0x0, 0:0:85,
+( 5: 0): Total reqs 0, Pending reqs 0, flags 0x0, 0:0:86,
+( 5: 1): Total reqs 0, Pending reqs 0, flags 0x0, 0:0:86,
+( 5: 2): Total reqs 0, Pending reqs 0, flags 0x0, 0:0:86,</computeroutput>
+<prompt>[root@sal]# </prompt>
+</screen>
+          <para>En el caso de tarjetas <emphasis>Qlogic 2462</emphasis>:</para>
+ <para>Por cada dispositivo que presente un "<emphasis>*</emphasis>" en cada tarjeta tendremos que hacer:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>echo "- - -" > /sys/class/scsi_host/host1/scan</userinput>
+<prompt>[root@sal]# </prompt>
+</screen>
+        <important><para>Cada una de las "<emphasis>-</emphasis>" hace referencia a <emphasis>bus</emphasis>, <emphasis>target</emphasis> y <emphasis>lun</emphasis> del dispositivo.</para></important>
+        <para>Con esto registramos todos los dispositivos f&iacute;sicos que est&aacute;n sin registrar en el sistema para la tarjeta <emphasis>host1</emphasis>:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>cat /proc/scsi/qla2xxx/1</userinput>
+<computeroutput>QLogic PCI to Fibre Channel Host Adapter for QMC2462S:
+        Firmware version 4.00.18 [IP] , Driver version 8.01.04-d7
+ISP: ISP2422
+Request Queue = 0x7cc00000, Response Queue = 0x7d3c0000
+Request Queue count = 4096, Response Queue count = 512
+Total number of active commands = 0
+Total number of interrupts = 15422987
+    Device queue depth = 0x20
+Number of free request entries = 2201
+Number of mailbox timeouts = 0
+Number of ISP aborts = 0
+Number of loop resyncs = 0
+Number of retries for empty slots = 0
+Number of reqs in pending_q= 0, retry_q= 0, done_q= 0, scsi_retry_q= 0
+Host adapter:loop state = &lt;READY&gt;, flags = 0x1e03
+Dpc flags = 0x4000000
+MBX flags = 0x0
+Link down Timeout = 030
+Port down retry = 030
+Login retry count = 030
+Commands retried with dropped frame(s) = 0
+Product ID = 0000 0000 0000 0000
+
+
+SCSI Device Information:
+scsi-qla0-adapter-node=200000e08b859383;
+scsi-qla0-adapter-port=210000e08b859383;
+scsi-qla0-target-0=5006016030224a8b;
+scsi-qla0-target-1=5006016930224a8b;
+
+FC Port Information:
+scsi-qla0-port-0=50060160b0224a8b:5006016030224a8b:010000:81;
+scsi-qla0-port-1=50060160b0224a8b:5006016930224a8b:010400:82;
+
+SCSI LUN Information:
+(Id:Lun)  * - indicates lun is not registered with the OS.
+( 0: 0): Total reqs 256859, Pending reqs 0, flags 0x0, 0:0:81 00
+( 0: 1): Total reqs 8897026, Pending reqs 0, flags 0x0, 0:0:81 00
+( 0: 2): Total reqs 8533818, Pending reqs 0, flags 0x0, 0:0:81 00
+( 0: 3): Total reqs 216979, Pending reqs 0, flags 0x0, 0:0:81 00
+( 0: 4): Total reqs 76, Pending reqs 0, flags 0x0, 0:0:81 00
+( 0: 5): Total reqs 77, Pending reqs 0, flags 0x0, 0:0:81 00
+( 0: 6): Total reqs 77, Pending reqs 0, flags 0x0, 0:0:81 00
+( 1: 0): Total reqs 14431, Pending reqs 0, flags 0x0, 0:0:82 00
+( 1: 1): Total reqs 14444, Pending reqs 0, flags 0x0, 0:0:82 00
+( 1: 2): Total reqs 14463, Pending reqs 0, flags 0x0, 0:0:82 00
+( 1: 3): Total reqs 14450, Pending reqs 0, flags 0x0, 0:0:82 00
+( 1: 4): Total reqs 15, Pending reqs 0, flags 0x0, 0:0:82 00
+( 1: 5): Total reqs 15, Pending reqs 0, flags 0x0, 0:0:82 00
+( 1: 6): Total reqs 21, Pending reqs 0, flags 0x0, 0:0:82 00</computeroutput>
+<prompt>[root@sal]# </prompt>
+</screen>
+        <important><para>Es necesario hacer esto para cada tarjeta, <emphasis>hostn</emphasis>, que tenga dispositivos sin registrar en el sistema.</para></important>
+        </listitem>
+      </orderedlist>
+    </sect1>
+    <sect1>
+      <title>Dispositivos virtuales</title>
+      <para>Para utilizar las capacidades de multipathing es necesario utilizar el dispositivo virtual que crea el software proporcionado por el fabricante:</para>
+      <itemizedlist>
+        <listitem>
+          <para>Los dispositivos virtuales utilizados por el driver multipath de <emphasis>IBM</emphasis>, <emphasis>SDD</emphasis> (<emphasis>S</emphasis>ubsystem <emphasis>D</emphasis>evice <emphasis>D</emphasis>river), son <filename>/dev/vpatha</filename>, <filename>/dev/vpathb</filename>, ...</para>
+        </listitem>
+        <listitem>
+          <para>Los dispositivos virtuales utilizados por el driver multipath de <emphasis>EMC</emphasis>, <emphasis>Powerpath</emphasis> son <filename>/dev/emcpowera</filename>, <filename>/dev/emcpowerb</filename>, ...</para>
+        </listitem>
+      </itemizedlist>
+    </sect1>
+    <sect1>
+      <title>Multipathing utilizando <emphasis>LVM</emphasis></title>
+      <para>Es posible hacer multipathing utilizando <emphasis>LVM</emphasis> pero s&oacute;lo con unas determinadas versiones. Existen parches para las versiones <emphasis>1.0.5</emphasis>, <emphasis>1.0.6</emphasis>, <emphasis>1.0.7</emphasis> y <emphasis>1.0.8</emphasis>.</para>
+      <para>La &uacute;nica distribuci&oacute;n en la que viene configurado el kernel para el uso de este multipathing es <emphasis>SLES 8</emphasis>.</para>
+      <sect2>
+        <title>Localizando los dispositivos f&iacute;sicos</title>
+        <para>Una vez a&ntilde;adidos los dispositivos f&iacute;sicos al sistema tendremos tantos dispositivos como caminos por disco. Para cada disco f&iacute;sico utilizaremos un dispositivo especifico de todos los que lo referencian, lo llamaremos <emphasis>dispositivo primario</emphasis> para ese disco. El comando <emphasis>pvscan</emphasis> nos identificar&aacute; estos dispositivos:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>pvscan</userinput>
+<computeroutput>pvscan -- reading all physical volumes (this may take a while...)
+pvscan -- ACTIVE   PV "/dev/sdaw"  of VG "data_vg"     [18.62 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sdax"  of VG "data_vg"     [46.56 GB / 26.98 GB free]
+pvscan -- ACTIVE   PV "/dev/sdav"  of VG "data_vg"     [46.56 GB / 46.56 GB free]
+pvscan -- ACTIVE   PV "/dev/sdag"  of VG "data_vg"     [46.56 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sdah"  of VG "data_vg"     [9.31 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sdai"  of VG "data_vg"     [46.56 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sdaj"  of VG "data_vg"     [46.56 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sdak"  of VG "data_vg"     [19.18 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sdal1" of VG "software_vg" [5 GB / 116 MB free]
+pvscan -- ACTIVE   PV "/dev/sdal2" of VG "data_vg"     [14.18 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sdad"  of VG "data_vg"     [46.56 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sdae"  of VG "data_vg"     [18.62 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sdaf"  of VG "data_vg"     [9.31 GB / 0 free]
+pvscan -- ACTIVE   PV "/dev/sda13" of VG "system_vg"   [16.77 GB / 2.96 GB free]
+pvscan -- total: 14 [390.43 GB] / in use: 14 [390.43 GB] / in no VG: 0 [0]</computeroutput>
+<prompt>[root@sal]# </prompt>
+</screen>
+      <important><para>Es necesario que los discos ya esten asignados a un grupo de volumen.</para></important>
+      </sect2>
+      <sect2>
+        <title>Configurando el multipath</title>
+        <para>Lo haremos en tres pasos:</para>
+        <orderedlist>
+          <listitem>
+            <para>Tendremos que configurar el multipath sobre los dispositivos primarios mostrados por <command>pvscan</command> suponiendo que hay cuatro caminos por dispositivo:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>pvpath -p 0 -e y -w 1 /dev/sdaw</userinput>
+<prompt>[root@sal]# </prompt><userinput>pvpath -p 1 -e y -w 2 /dev/sdaw</userinput>
+<prompt>[root@sal]# </prompt><userinput>pvpath -p 2 -e y -w 1 /dev/sdaw</userinput>
+<prompt>[root@sal]# </prompt><userinput>pvpath -p 3 -e y -w 2 /dev/sdaw</userinput>
+<prompt>[root@sal]# </prompt><userinput>pvpath -q /dev/sdaw</userinput>
+<computeroutput>Physical volume /dev/sdaw of data_vg has 4 paths:
+       Device  Weight Failed Pending State
+ #  0:   8:16       1      0       0 enabled
+ #  1:   8:32       2      0       0 enabled
+ #  2:   8:48       1      0       0 enabled
+ #  3:   8:64       2      0       0 enabled</computeroutput>
+<prompt>[root@sal]# </prompt>
+</screen>
+          </listitem>
+          <listitem>
+            <para>Una vez configurados todos los caminos tendremos que grabar la configuraci&oacute;n:</para>
+<screen>
+<prompt>[root@sal]# </prompt><userinput>pvpathsave</userinput>
+<prompt>[root@sal]# </prompt>
+</screen>
+          <para>Esta configuraci&oacute;n se almacena en el fichero <filename>/etc/pvpath.cfg</filename>.</para>
+          </listitem>
+          <listitem>
+            <para>Tenemos que hacer que est&aacute; configuraci&oacute;n se lea ant&eacute;s de utilizar los dispositivos. Para ello nos aseguraremos de que el fichero <filename>/etc/init.d/boot.local</filename> contiene <filename>/sbin/pvpathrestore</filename>.</para>
+            <important><para>En otras distribuciones diferentes de <emphasis>SLES 8</emphasis> ser&aacute; en un fichero equivalente.</para></important>
+            <important><para>Si la m&aacute;quina est&aacute; arrancando desde <emphasis>SAN</emphasis> ser&aacute; necesario hacer este &uacute;ltimo paso si queremos que la m&aacute;quina arranque.</para></important>
+          </listitem>
+        </orderedlist>
+      </sect2>
+    </sect1>
+  </chapter>
