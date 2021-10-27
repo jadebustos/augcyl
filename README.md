@@ -7,3 +7,5 @@ Dado que la web de AUGCyL ya no se encuentra activa he decidio recopilar toda la
 He pedido permiso a los autores de la documentación, al menos a todos aquellos a los que he podido localizar.
 
 Si algún autor de la documentación presente en este repositorio quiere que la retire del acceso público que se ponga en contacto comigo. 
+
+Iré añadiendo más documentación según la vaya revisando.
